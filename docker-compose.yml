@@ -13,12 +13,12 @@ services:
       context: gw-build
       dockerfile: Dockerfile
       args:
-        IGNITION_VERSION: ${IGNITION_VERSION:-8.1.27}
+        IGNITION_VERSION: ${IGNITION_VERSION:-8.1.35}
         SUPPLEMENTAL_MODULES: "azureiotinjector mqttengine"
         # GATEWAY_ADMIN_USERNAME: superadmin
       secrets:
         - gateway-admin-password
-    # image: myimage:mytag  # uncomment to apply a custom tag to the built image
+    image: testing_igniton:v1  # uncomment to apply a custom tag to the built image
     ports:
       - 8088:8088
     # volumes:  # this volumes section is commented out for easier testing
@@ -26,8 +26,8 @@ services:
     environment:
       # Defining these below will perform a password reset, see the build above for 
       # updating/preloading the admin username/password in the `default` user source.
-      # GATEWAY_ADMIN_USERNAME: admin
-      # GATEWAY_ADMIN_PASSWORD_FILE: /run/secrets/gateway-admin-password
+      GATEWAY_ADMIN_USERNAME: admin
+      GATEWAY_ADMIN_PASSWORD_FILE: /run/secrets/gateway-admin-password
       TZ: America/Chicago
       GATEWAY_MODULES_ENABLED: "alarm-notification,\
         allen-bradley-drivers,\
@@ -60,4 +60,4 @@ services:
 
 secrets:
   gateway-admin-password:
-    file: gw-secrets/GATEWAY_ADMIN_PASSWORD
+    file: gw-secrets/GATEWAY_PASSWORD
