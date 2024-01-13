@@ -26,7 +26,7 @@ services:
     environment:
       # Defining these below will perform a password reset, see the build above for 
       # updating/preloading the admin username/password in the `default` user source.
-      GATEWAY_ADMIN_USERNAME: admin
+      #GATEWAY_ADMIN_USERNAME: admin
       GATEWAY_ADMIN_PASSWORD: Ignition1! #/run/secrets/gateway-admin-password
       TZ: America/Chicago
       GATEWAY_MODULES_ENABLED: "alarm-notification,\
