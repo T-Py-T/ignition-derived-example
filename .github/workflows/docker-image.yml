@@ -21,4 +21,7 @@ jobs:
     
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file .github/workflows/Dockerfile
+      run: docker build . --file .github/workflows/Dockerfile --tag tnt850910/dev-build:$(date +%s)
+
+    - name: Push the Docker image to the repository
+      run: docker push tnt850910/dev-build:$(date +%s)
