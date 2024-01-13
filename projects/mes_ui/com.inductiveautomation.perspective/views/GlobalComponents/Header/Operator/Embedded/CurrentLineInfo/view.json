@@ -1,0 +1,621 @@
+{
+  "custom": {
+    "BackgroundColor": "#009900",
+    "CurrentMode": 1,
+    "Icon": "material/directions_run",
+    "LineName": "Line 1",
+    "LineStateDS": [
+      {
+        "Description": "Running",
+        "DisplayColor": "#009900",
+        "IconPath": "material/directions_run",
+        "ReasonCode": 1
+      }
+    ],
+    "LineStateRawDS": {
+      "$": [
+        "ds",
+        192,
+        1704404591755
+      ],
+      "$columns": [
+        {
+          "data": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            99001,
+            99002,
+            99999
+          ],
+          "name": "ReasonCode",
+          "type": "Integer"
+        },
+        {
+          "data": [
+            "Running",
+            "Change Over",
+            "Idle",
+            "E-Stop",
+            "Blocked",
+            "Starved",
+            "ChangeOver",
+            "Unplanned Downtime",
+            "User Defined",
+            "User Defined",
+            "Lunch",
+            "Break",
+            "Calc Error"
+          ],
+          "name": "Description",
+          "type": "String"
+        },
+        {
+          "data": [
+            "#009900",
+            "#FFFF00",
+            "#0000FF",
+            "#FF0000",
+            "#FF8C00",
+            "#00AC00",
+            "#FF8C00",
+            "#FF0000",
+            "#FF0000",
+            "#FF0000",
+            "#FF0000",
+            "#FF0000",
+            "#FF0000"
+          ],
+          "name": "DisplayColor",
+          "type": "String"
+        },
+        {
+          "data": [
+            "material/directions_run",
+            "material/stop_circle",
+            "material/stop_circle",
+            "material/stop_circle",
+            "material/stop_circle",
+            "material/stop_circle",
+            "material/stop_circle",
+            "material/stop_circle",
+            "material/stop_circle",
+            "material/stop_circle",
+            "material/free_breakfast",
+            "material/fastfood",
+            "material/stop_circle"
+          ],
+          "name": "IconPath",
+          "type": "String"
+        }
+      ]
+    },
+    "ModeDS": {
+      "$": [
+        "ds",
+        192,
+        1704404235131
+      ],
+      "$columns": [
+        {
+          "data": [
+            2,
+            0,
+            1,
+            3,
+            10,
+            11,
+            12,
+            20,
+            21,
+            30,
+            31,
+            32
+          ],
+          "name": "value",
+          "type": "Integer"
+        },
+        {
+          "data": [
+            "Change Over",
+            "Disabled",
+            "Production",
+            "Idle",
+            "Maintenance Called",
+            "Maintenace In Progress",
+            "Maintenace Left",
+            "Quality Called",
+            "Quality In Progress",
+            "Team Lead Called",
+            "Team Lead In Progress",
+            "Team Lead Left"
+          ],
+          "name": "label",
+          "type": "String"
+        }
+      ]
+    },
+    "ModeDescription": {
+      "label": "Production",
+      "value": 1
+    },
+    "StateCode": 1,
+    "StateWidth": "200px"
+  },
+  "params": {
+    "EqPath": "Fiberon/GOOBS QA/Area 1/Line 1"
+  },
+  "propConfig": {
+    "custom.BackgroundColor": {
+      "binding": {
+        "config": {
+          "path": "view.custom.LineStateDS[0].DisplayColor"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.CurrentMode": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/OEE_Events/mode"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.Icon": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/OEE_Events/stateIcon"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.LineName": {
+      "binding": {
+        "config": {
+          "path": "view.params.EqPath"
+        },
+        "transforms": [
+          {
+            "expression": "substring({value},lastIndexOf({value},\u0027/\u0027)+1)",
+            "type": "expression"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.LineState": {
+      "binding": {
+        "config": {
+          "path": "view.custom.LineStateDS[0].Description"
+        },
+        "transforms": [
+          {
+            "expression": "upper({value})",
+            "type": "expression"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.LineStateDS": {
+      "binding": {
+        "config": {
+          "path": "view.custom.LineStateRawDS"
+        },
+        "transforms": [
+          {
+            "code": "\tjson \u003d gpa.data.datasetToJson(value)\n\tarr \u003d []\n\t\n\tfor j in json:\n\t\tif j.get(\u0027ReasonCode\u0027) \u003d\u003d self.custom.StateCode:\n\t\t\tarr.append(j)\n\t\t\t\n\treturn arr",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.LineStateRawDS": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/config/stateDS"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.ModeDS": {
+      "binding": {
+        "config": {
+          "queryPath": "app/Config/getAllModes"
+        },
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "custom.ModeDescription": {
+      "binding": {
+        "config": {
+          "path": "view.custom.CurrentMode"
+        },
+        "transforms": [
+          {
+            "code": "\tinput_value \u003d value\n\tdataset \u003d self.custom.ModeDS\n\t\n\tmatched_row \u003d {}\n\n\tfor row in range(dataset.rowCount):\n\t    if dataset.getValueAt(row, \u0027value\u0027) \u003d\u003d input_value:\n\t        for col in range(dataset.columnCount):\n\t            matched_row[dataset.getColumnName(col)] \u003d dataset.getValueAt(row, col)\n\t       \n\t        break\n\t        \n\treturn matched_row",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.StateCode": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/OEE_Events/state"
+        },
+        "type": "tag"
+      },
+      "onChange": {
+        "enabled": null,
+        "script": "\tif previousValue !\u003d currentValue:\n\t\tself.refreshBinding(\"custom.LineStateDS\")"
+      },
+      "persistent": true
+    },
+    "custom.StateWidth": {
+      "binding": {
+        "config": {
+          "path": "view.custom.LineStateDS[0].Description"
+        },
+        "transforms": [
+          {
+            "code": "\tsplit \u003d value.split(\u0027 \u0027)\n\t\n\tif len(split) \u003e 1: return \u0027265px\u0027\n\telse: return \u0027200px\u0027",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 78,
+      "width": 1141
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label",
+              "tooltip": {
+                "enabled": true,
+                "text": "Line Name"
+              }
+            },
+            "position": {
+              "basis": "50px",
+              "display": false,
+              "grow": 1
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.LineName"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "overflow": "hidden"
+              },
+              "textStyle": {
+                "classes": "Text/Heading",
+                "color": "white",
+                "textAlign": "center"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Production"
+        },
+        "position": {
+          "display": false,
+          "grow": 1
+        },
+        "props": {
+          "justify": "center"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Production_0"
+            },
+            "position": {
+              "basis": "50px",
+              "display": false
+            },
+            "props": {
+              "text": "Site:",
+              "textStyle": {
+                "color": "white",
+                "fontWeight": "bold",
+                "textAlign": "center",
+                "textTransform": "none"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "SiteDropdown"
+            },
+            "position": {
+              "basis": "133px",
+              "display": false,
+              "shrink": 0
+            },
+            "props": {
+              "params": {
+                "OptionsArray": ""
+              },
+              "path": "GlobalComponents/Header/Operator/Embedded/SiteDropdown",
+              "style": {
+                "classes": "Global/MarginLeft"
+              }
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "Production_1"
+            },
+            "position": {
+              "basis": "50px"
+            },
+            "props": {
+              "text": "Line:",
+              "textStyle": {
+                "color": "white",
+                "fontWeight": "bold",
+                "textAlign": "center",
+                "textTransform": "none"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "LineDropdown"
+            },
+            "position": {
+              "basis": "135px",
+              "shrink": 0
+            },
+            "props": {
+              "params": {
+                "OptionsArray": ""
+              },
+              "path": "GlobalComponents/Header/Operator/Embedded/LineSelectionDropdown",
+              "style": {
+                "classes": "Global/MarginLeft"
+              }
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Icon"
+                },
+                "position": {
+                  "basis": "30px"
+                },
+                "propConfig": {
+                  "props.color": {
+                    "binding": {
+                      "config": {
+                        "expression": "if({parent.props.style.backgroundColor} \u003d \u0027#FAFD20\u0027, \r\n\t\u0027black\u0027, \r\n\t\u0027white\u0027\r\n)"
+                      },
+                      "type": "expr"
+                    }
+                  },
+                  "props.path": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.Icon"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "marginLeft": "5px"
+                  }
+                },
+                "type": "ia.display.icon"
+              },
+              {
+                "meta": {
+                  "name": "State"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.LineState"
+                      },
+                      "transforms": [
+                        {
+                          "expression": "upper({value})",
+                          "type": "expression"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  },
+                  "props.textStyle.color": {
+                    "binding": {
+                      "config": {
+                        "expression": "if({parent.props.style.backgroundColor} \u003d \u0027#FAFD20\u0027, \r\n\t\u0027black\u0027, \r\n\t\u0027white\u0027\r\n)"
+                      },
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "textStyle": {
+                    "fontSize": "1.5rem",
+                    "fontWeight": "bold",
+                    "textAlign": "center"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "State",
+              "tooltip": {
+                "enabled": true,
+                "text": "Line State"
+              }
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "position.basis": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.StateWidth"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.style.backgroundColor": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.BackgroundColor"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "borderBottomLeftRadius": "10px",
+                "borderBottomRightRadius": "10px",
+                "borderTopLeftRadius": "10px",
+                "borderTopRightRadius": "10px",
+                "classes": "Global/MarginRight",
+                "marginBottom": 5,
+                "marginTop": 5,
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "meta": {
+              "name": "Production"
+            },
+            "position": {
+              "basis": "228px",
+              "grow": 1
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.ModeDescription.label"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginRight"
+              },
+              "textStyle": {
+                "color": "white",
+                "fontWeight": "bold",
+                "textAlign": "center",
+                "textTransform": "uppercase"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Status"
+        },
+        "position": {
+          "basis": "200px",
+          "grow": 1
+        },
+        "props": {
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

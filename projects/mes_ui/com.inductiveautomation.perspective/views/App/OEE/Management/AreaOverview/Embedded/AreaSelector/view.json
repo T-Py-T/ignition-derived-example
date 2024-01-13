@@ -1,0 +1,216 @@
+{
+  "custom": {
+    "AllAreas": {
+      "$": [
+        "ds",
+        192,
+        1704289669479
+      ],
+      "$columns": [
+        {
+          "data": [
+            1023,
+            1021,
+            18
+          ],
+          "name": "value",
+          "type": "Integer"
+        },
+        {
+          "data": [
+            "Area 1",
+            "Cast House",
+            "PE Extrusion"
+          ],
+          "name": "label",
+          "type": "String"
+        }
+      ]
+    },
+    "Options": {
+      "$": [
+        "ds",
+        192,
+        1704289669478
+      ],
+      "$columns": [
+        {
+          "data": [
+            1021,
+            18
+          ],
+          "name": "value",
+          "type": "Integer"
+        },
+        {
+          "data": [
+            "Cast House",
+            "PE Extrusion"
+          ],
+          "name": "label",
+          "type": "String"
+        }
+      ]
+    }
+  },
+  "params": {
+    "AreaID": 18,
+    "SelectedArea": "Fiberon/GOOBS QA/Area 1"
+  },
+  "propConfig": {
+    "custom.AllAreas": {
+      "binding": {
+        "config": {
+          "queryPath": "app/Config/getAllAreas"
+        },
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "custom.Options": {
+      "binding": {
+        "config": {
+          "parameters": {
+            "siteID": "{session.custom.SelectedSite}\r "
+          },
+          "queryPath": "app/Equipment_Config/getAreaDropdown"
+        },
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "params.AreaID": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.SelectedArea": {
+      "paramDirection": "output",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 51,
+      "width": 777
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "AreaName"
+        },
+        "props": {
+          "style": {
+            "classes": "Text/Heading TextFields/TextTitle",
+            "overflow": "hidden"
+          },
+          "text": "Select a Area:"
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "children": [
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "script": "\tsiteId \u003d self.props.value\n\tareaName \u003d \"\"\n\teqPath \u003d \"\"\n\toptionsArr \u003d gpa.data.datasetToJson(self.props.options)\n\tareaOptionsArr \u003d self.custom.AreaOptions\n#\tsystem.perspective.print(eqPath)\n\t\n\tfor option in optionsArr:\n\t\tif option[\"value\"] \u003d\u003d siteId:\n\t\t\tareaName \u003d option[\"label\"]\n\t\n\tfor path in areaOptionsArr:\n\t\tif path[\"value\"] \u003d\u003d siteId:\n\t\t\teqPath \u003d path[\"eqPath\"]\n\t\n#\tpayload \u003d {\"areaId\": siteId, \"areaName\": areaName, \"eqPath\": eqPath}\t\n#\tsystem.perspective.sendMessage(\"changedAreaOverview\", payload\u003dpayload)\n\tself.view.params.SelectedArea \u003d eqPath\n\n\n\t\t\t\n\t"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Dropdown"
+            },
+            "position": {
+              "basis": "40px",
+              "grow": 1
+            },
+            "propConfig": {
+              "custom.AreaOptions": {
+                "binding": {
+                  "config": {
+                    "path": "session.custom.SelectedSite"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tsiteId \u003d value\n\tparams \u003d {\"siteID\": siteId}\n\tres \u003d system.db.runNamedQuery(\"app/Config/getAreas\", params)\n#\tres \u003d system.db.runNamedQuery(\"app/MES_Common/getAreasForSite\", params)\n\tpydata \u003d system.dataset.toPyDataSet(res)\n\toptionsArr \u003d []\n\n\tfor row in pydata:\n\t\tvalue \u003d row[\"ID\"]\n\t\tlabel \u003d row[\"Title\"]\n\t\teqPath \u003d row[\"TagPath\"]\n\t\toptionsArr.append({\"label\": label, \"value\": value, \"eqPath\": eqPath})\n\t\t\n\treturn optionsArr",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.options": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.AllAreas"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.value": {
+                "binding": {
+                  "config": {
+                    "expression": "if({view.params.AreaID} !\u003d \u0027\u0027, {view.params.AreaID}, {this.props.options[0].value})"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "placeholder": {
+                "text": ""
+              },
+              "style": {
+                "classes": "TextFields/Dropdown",
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.input.dropdown"
+          }
+        ],
+        "meta": {
+          "name": "FlexContainer"
+        },
+        "position": {
+          "basis": "207.1px"
+        },
+        "props": {
+          "direction": "column",
+          "style": {
+            "marginRight": "16px",
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "scripts": {
+      "customMethods": [],
+      "extensionFunctions": null,
+      "messageHandlers": [
+        {
+          "messageType": "navigate_tolines",
+          "pageScope": false,
+          "script": "\tsystem.perspective.print(\u0027starting script...\u0027)\n\tlogger \u003d system.util.getLogger(\u0027navigate_tolines\u0027)\n\ttry:\n\t\teqPath \u003d payload.get(\u0027EqPath\u0027)\n\t\tsystem.perspective.print(eqPath)\n\t\tlogger.warn(eqPath)\n\t\tareaName \u003d eqPath.split(\u0027/\u0027)[-1]\n\t\tsystem.perspective.print(areaName)\n\t\tareas \u003d self.session.custom.AreaDropdown\n\t\tsystem.perspective.print(areas)\n\t\tareaID \u003d -1\n\t\t\n\t\tfor area in areas:\n\t\t\tif area.get(\u0027label\u0027) \u003d\u003d areaName:\n\t\t\t\tsystem.perspective.print(area.get(\u0027label\u0027))\n\t\t\t\tareaID \u003d area.get(\u0027value\u0027)\n\t\t\t\t\n\t\tsystem.perspective.print(areaID)\n\t\tself.getChild(\"FlexContainer\").getChild(\"Dropdown\").props.value \u003d areaID\n\n\t\timport time\n\t\ttime.sleep(0.25)\n\t\tsystem.perspective.sendMessage(\u0027changedLine\u0027)\n\texcept Exception as e:\n\t\tlogger.warn(str(e))\n",
+          "sessionScope": false,
+          "viewScope": false
+        }
+      ]
+    },
+    "type": "ia.container.flex"
+  }
+}

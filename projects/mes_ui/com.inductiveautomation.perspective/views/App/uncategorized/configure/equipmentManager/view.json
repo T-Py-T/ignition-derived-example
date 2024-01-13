@@ -1,0 +1,463 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\tself.getChild(\"root\").getChild(\"content\").getChild(\"Tree\").props.items \u003d mes.config.equipment.buildProductionModel()"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {},
+  "props": {},
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Tree"
+            },
+            "position": {
+              "basis": "50px",
+              "grow": 1,
+              "shrink": 0
+            },
+            "propConfig": {
+              "custom.testingJSON": {
+                "binding": {
+                  "config": {
+                    "path": "now(0)"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\treturn mes.config.equipment.buildProductionModel()",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "expression": "!{parent.custom.editState}"
+                  },
+                  "type": "expr"
+                }
+              },
+              "props.items": {
+                "binding": {
+                  "config": {
+                    "path": "this.custom.testingJSON"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\treturn mes.config.equipment.buildProductionModel()",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "appearance": {
+                "defaultNodeIcons": {
+                  "collapsed": {
+                    "color": "#5F707E",
+                    "path": "material/folder"
+                  },
+                  "empty": {
+                    "color": "#869DB1",
+                    "path": "material/stop"
+                  },
+                  "expanded": {
+                    "color": "#5F707E",
+                    "path": "material/folder_open"
+                  }
+                },
+                "expandIcons": {
+                  "collapsed": {
+                    "color": "#869DB1",
+                    "path": "material/arrow_right"
+                  },
+                  "empty": {
+                    "color": "#869DB1"
+                  },
+                  "expanded": {
+                    "color": "#869DB1",
+                    "path": "material/arrow_drop_down"
+                  }
+                }
+              },
+              "selection": [
+                "0/0/0"
+              ],
+              "selectionData": [
+                {
+                  "itemPath": "0/0/0",
+                  "value": ""
+                }
+              ],
+              "style": {
+                "cursor": "pointer"
+              }
+            },
+            "scripts": {
+              "customMethods": [],
+              "extensionFunctions": null,
+              "messageHandlers": [
+                {
+                  "messageType": "tree-refresh",
+                  "pageScope": true,
+                  "script": "\t# implement your handler here\n\tself.props.items.refreshBinding()",
+                  "sessionScope": false,
+                  "viewScope": false
+                }
+              ]
+            },
+            "type": "ia.display.tree"
+          },
+          {
+            "meta": {
+              "name": "equipmentInfo"
+            },
+            "position": {
+              "basis": "50px",
+              "grow": 1,
+              "shrink": 0
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "expression": "!{parent.custom.editState}"
+                  },
+                  "type": "expr"
+                }
+              },
+              "props.instances[0].eqObjectType": {
+                "binding": {
+                  "config": {
+                    "path": "../Tree.props.selectionData[0].value.eqObjectType"
+                  },
+                  "overlayOptOut": true,
+                  "type": "property"
+                }
+              },
+              "props.instances[0].eqPath": {
+                "binding": {
+                  "config": {
+                    "path": "../Tree.props.selectionData[0].value.eqPath"
+                  },
+                  "overlayOptOut": true,
+                  "type": "property"
+                }
+              },
+              "props.instances[1].eqObjectType": {
+                "binding": {
+                  "config": {
+                    "path": "../Tree.props.selectionData[0].value.eqObjectType"
+                  },
+                  "overlayOptOut": true,
+                  "type": "property"
+                }
+              },
+              "props.instances[1].eqPath": {
+                "binding": {
+                  "config": {
+                    "path": "../Tree.props.selectionData[0].value.eqPath"
+                  },
+                  "overlayOptOut": true,
+                  "type": "property"
+                }
+              },
+              "props.instances[2].eqObjectType": {
+                "binding": {
+                  "config": {
+                    "path": "../Tree.props.selectionData[0].value.eqObjectType"
+                  },
+                  "overlayOptOut": true,
+                  "type": "property"
+                }
+              },
+              "props.instances[2].eqPath": {
+                "binding": {
+                  "config": {
+                    "path": "../Tree.props.selectionData[0].value.eqPath"
+                  },
+                  "overlayOptOut": true,
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "direction": "column",
+              "elementPosition": {
+                "basis": "auto",
+                "grow": 0,
+                "shrink": 0
+              },
+              "elementStyle": {
+                "marginBottom": "1rem"
+              },
+              "instances": [
+                {
+                  "eqInfoType": "state",
+                  "instancePosition": {},
+                  "instanceStyle": {
+                    "classes": ""
+                  }
+                },
+                {
+                  "eqInfoType": "mode",
+                  "instancePosition": {},
+                  "instanceStyle": {
+                    "classes": ""
+                  }
+                },
+                {
+                  "eqInfoType": "schedule",
+                  "instancePosition": {},
+                  "instanceStyle": {
+                    "classes": ""
+                  }
+                }
+              ],
+              "path": "App/uncategorized/configure/equipmentInfo",
+              "style": {
+                "classes": "Text/Screen"
+              },
+              "useDefaultViewHeight": false,
+              "useDefaultViewWidth": false
+            },
+            "type": "ia.display.flex-repeater"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "title"
+                    },
+                    "position": {
+                      "grow": 1,
+                      "shrink": 0
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "Cards/header"
+                      },
+                      "text": "Equipment States"
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "script": "\tself.parent.parent.parent.parent.getChild(\"content\").custom.editState \u003d False\n\tself.parent.parent.parent.getChild(\"equipmentStateEditor\").custom.currStateClassUUID \u003d \u0027\u0027"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "back"
+                    },
+                    "position": {
+                      "basis": "88px",
+                      "shrink": 0
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "Button/Text"
+                      },
+                      "text": "back"
+                    },
+                    "type": "ia.input.button"
+                  },
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "script": "\teqUUID \u003d self.parent.parent.parent.getChild(\"equipmentStateEditor\").custom.eqUUID\n\tcurrStateClassUUID \u003d self.parent.parent.parent.getChild(\"equipmentStateEditor\").custom.currStateClassUUID\n\tnewStateClassUUID \u003d self.parent.parent.parent.getChild(\"equipmentStateEditor\").custom.newStateClassUUID\n\t\n\teqObj \u003d system.mes.loadMESObject(eqUUID)\n\teqObj.setPropertyValue(\u0027EquipmentStateClassUUID\u0027, newStateClassUUID)\n\tsystem.mes.saveMESObject(eqObj)\n\tsystem.perspective.sendMessage(\u0027refresh\u0027, {})\n\tself.parent.parent.parent.parent.getChild(\"content\").custom.editState \u003d False\n\tself.parent.parent.parent.getChild(\"equipmentStateEditor\").custom.currStateClassUUID \u003d \u0027\u0027"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "save"
+                    },
+                    "position": {
+                      "basis": "88px",
+                      "shrink": 0
+                    },
+                    "propConfig": {
+                      "props.enabled": {
+                        "binding": {
+                          "config": {
+                            "expression": "{.../equipmentStateEditor.props.params.newStateClassUUID}!\u003d\u0027\u0027"
+                          },
+                          "type": "expr"
+                        }
+                      }
+                    },
+                    "props": {
+                      "primary": false,
+                      "style": {
+                        "classes": "Button/Add-HoverDark"
+                      },
+                      "text": "Save"
+                    },
+                    "type": "ia.input.button"
+                  }
+                ],
+                "meta": {
+                  "name": "header"
+                },
+                "position": {
+                  "basis": "40px",
+                  "shrink": 0
+                },
+                "props": {
+                  "style": {
+                    "classes": "header/header"
+                  }
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "meta": {
+                  "name": "equipmentStateEditor"
+                },
+                "position": {
+                  "basis": "320px",
+                  "grow": 1,
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "props.params.currStateClassUUID": {
+                    "binding": {
+                      "config": {
+                        "path": "parent.custom.currStateClassUUID"
+                      },
+                      "type": "property"
+                    }
+                  },
+                  "props.params.editState": {
+                    "binding": {
+                      "config": {
+                        "bidirectional": true,
+                        "path": "..../content.custom.editState"
+                      },
+                      "type": "property"
+                    }
+                  },
+                  "props.params.eqUUID": {
+                    "binding": {
+                      "config": {
+                        "path": ".../Tree.props.selectionData[0].value.eqUUID"
+                      },
+                      "overlayOptOut": true,
+                      "type": "property"
+                    }
+                  },
+                  "props.params.newStateClassUUID": {
+                    "binding": {
+                      "config": {
+                        "bidirectional": true,
+                        "path": "parent.custom.newStateClassUUID"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "path": "App/uncategorized/configure/equipmentEditor"
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "custom": {
+              "currStateClassUUID": "",
+              "newStateClassUUID": ""
+            },
+            "meta": {
+              "name": "equipmentStateEditor"
+            },
+            "position": {
+              "grow": 1,
+              "shrink": 0
+            },
+            "propConfig": {
+              "custom.eqUUID": {
+                "binding": {
+                  "config": {
+                    "path": "../Tree.props.selectionData[0].value.eqUUID"
+                  },
+                  "overlayOptOut": true,
+                  "type": "property"
+                }
+              },
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "path": "parent.custom.editState"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "direction": "column"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "custom": {
+          "editState": false,
+          "eqUUID": ""
+        },
+        "meta": {
+          "name": "content"
+        },
+        "position": {
+          "grow": 1,
+          "shrink": 0
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "scripts": {
+      "customMethods": [],
+      "extensionFunctions": null,
+      "messageHandlers": [
+        {
+          "messageType": "editStart",
+          "pageScope": true,
+          "script": "\t# implement your handler here\n\ttype \u003d payload[\u0027eqInfoType\u0027]\n\tcurrentUUID \u003d payload[\u0027UUID\u0027]\n#\teqUUID \u003d payload[\u0027eqUUID\u0027]\n\tif type \u003d\u003d \u0027state\u0027:\n\t\tself.getChild(\"content\").custom.editState \u003d True\n\t\tself.getChild(\"content\").getChild(\"equipmentStateEditor\").custom.currStateClassUUID \u003d currentUUID\n#\t\tself.getChild(\"content\").getChild(\"equipmentStateEditor\").custom.eqUUID \u003d eqUUID\n\t\tself.getChild(\"content\").getChild(\"equipmentStateEditor\").custom.newStateClassUUID \u003d \u0027\u0027 ",
+          "sessionScope": false,
+          "viewScope": false
+        }
+      ]
+    },
+    "type": "ia.container.flex"
+  }
+}

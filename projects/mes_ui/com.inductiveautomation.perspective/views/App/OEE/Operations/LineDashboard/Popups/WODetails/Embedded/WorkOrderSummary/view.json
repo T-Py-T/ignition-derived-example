@@ -1,0 +1,621 @@
+{
+  "custom": {
+    "IdealRunRate": null,
+    "Instructions": null,
+    "ParentMaterial": null,
+    "RemainingHours": null,
+    "RunData": {
+      "$": [
+        "ds",
+        192,
+        1693422631856
+      ],
+      "$columns": [
+        {
+          "data": [],
+          "name": "WOName",
+          "type": "String"
+        },
+        {
+          "data": [],
+          "name": "IdealRunRate",
+          "type": "Integer"
+        },
+        {
+          "data": [],
+          "name": "RemainingHours",
+          "type": "Double"
+        },
+        {
+          "data": [],
+          "name": "Quantity",
+          "type": "Integer"
+        },
+        {
+          "data": [],
+          "name": "ProductCodeID",
+          "type": "Integer"
+        },
+        {
+          "data": [],
+          "name": "ParentMaterial",
+          "type": "String"
+        },
+        {
+          "data": [],
+          "name": "Instructions",
+          "type": "String"
+        },
+        {
+          "data": [],
+          "name": "SetupStartDateTime",
+          "type": "Date"
+        },
+        {
+          "data": [],
+          "name": "SetupEndDateTime",
+          "type": "Date"
+        }
+      ]
+    },
+    "WOName": null,
+    "material": null,
+    "plannedOrderData": null
+  },
+  "params": {
+    "RunID": 34,
+    "SetupEndTime": null,
+    "SetupStartTime": null,
+    "plannedOrder": ""
+  },
+  "propConfig": {
+    "custom.IdealRunRate": {
+      "binding": {
+        "config": {
+          "expression": "{view.custom.RunData}[\u0027IdealRunRate\u0027]"
+        },
+        "transforms": [
+          {
+            "formatType": "numeric",
+            "formatValue": "number",
+            "type": "format"
+          }
+        ],
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.Instructions": {
+      "binding": {
+        "config": {
+          "expression": "{view.custom.RunData}[\u0027Instructions\u0027]"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.ParentMaterial": {
+      "binding": {
+        "config": {
+          "expression": "{view.custom.RunData}[\u0027ParentMaterial\u0027]"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.RemainingHours": {
+      "binding": {
+        "config": {
+          "expression": "numberFormat(floor({view.custom.RunData}[\u0027RemainingHours\u0027]/ 60),\"#0\") + \u0027h\u0027\r\n+\":\"+numberFormat(60*(({view.custom.RunData}[\u0027RemainingHours\u0027] / 60)-floor({view.custom.RunData}[\u0027RemainingHours\u0027] / 60)),\"00\") + \u0027m\u0027\r\n"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.RunData": {
+      "binding": {
+        "config": {
+          "parameters": {
+            "runID": "{view.params.RunID}"
+          },
+          "queryPath": "app/Schedule/runGetInfo"
+        },
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "custom.WOName": {
+      "binding": {
+        "config": {
+          "expression": "{view.custom.RunData}[\u0027WOName\u0027]"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.material": {
+      "binding": {
+        "config": {
+          "path": "view.custom.plannedOrderData.materialProduced[0].definitionId"
+        },
+        "transforms": [
+          {
+            "code": "\tfilter \u003d system.mes.object.filter.createFilter()\n\tfilter.setMESObjectTypeName(\u0027MaterialDef\u0027)\n\tfilter.setMESObjectNamePattern(\u0027*\u0027 + str(value))\n\t\n\tlist \u003d system.mes.searchMESObjects(filter)\n\tmatReturn \u003d {}\n\tif list.size() \u003e 0:\n\t\tmatObj \u003d list[0].getMESObject()\n\t\tprops \u003d matObj.getCustomPropertiesFull()\n\t\tmatReturn[\u0027definitionId\u0027] \u003d value\n\t\tfor prop in props:\n\t\t\tmatReturn[prop] \u003d props[prop][1]\n\treturn matReturn",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.plannedOrderData": {
+      "binding": {
+        "config": {
+          "path": "view.params.plannedOrder"
+        },
+        "transforms": [
+          {
+            "code": "\treturn mes.schedule.sap.getOrderDetails(value) ",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "params.RunID": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.SetupEndTime": {
+      "binding": {
+        "config": {
+          "expression": "{view.custom.RunData}[\u0027SetupEndDateTime\u0027]"
+        },
+        "type": "expr"
+      },
+      "paramDirection": "output",
+      "persistent": true
+    },
+    "params.SetupStartTime": {
+      "binding": {
+        "config": {
+          "expression": "{view.custom.RunData}[\u0027SetupStartDateTime\u0027]"
+        },
+        "type": "expr"
+      },
+      "paramDirection": "output",
+      "persistent": true
+    },
+    "params.plannedOrder": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 381,
+      "width": 1062
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Heading"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginRight",
+                    "textAlign": "left"
+                  },
+                  "text": "Work Order Summary:",
+                  "textStyle": {
+                    "classes": "Cards/Common/ItemText"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "WOName"
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.WOName"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "Text/CardHeaders",
+                    "textAlign": "left"
+                  },
+                  "textStyle": {
+                    "classes": "Cards/Common/CardValue"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "Col1"
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Heading"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginRight",
+                    "textAlign": "left"
+                  },
+                  "text": "Ideal Run Rate",
+                  "textStyle": {
+                    "classes": "Cards/Common/ItemText"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "IdealRunRate"
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.IdealRunRate"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "Text/CardHeaders",
+                    "textAlign": "left"
+                  },
+                  "textStyle": {
+                    "classes": "Cards/Common/CardValue"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "Col2"
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Heading"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginRight",
+                    "textAlign": "left"
+                  },
+                  "text": "Remaining Hours",
+                  "textStyle": {
+                    "classes": "Cards/Common/ItemText"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "RemainingHours"
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.RemainingHours"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "Text/CardHeaders",
+                    "textAlign": "left"
+                  },
+                  "textStyle": {
+                    "classes": "Cards/Common/CardValue"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "Col3"
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Heading"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginRight",
+                    "textAlign": "left"
+                  },
+                  "text": "Parent Material",
+                  "textStyle": {
+                    "classes": "Cards/Common/ItemText"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "ParentMaterial"
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.ParentMaterial"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "Text/CardHeaders",
+                    "textAlign": "left"
+                  },
+                  "textStyle": {
+                    "classes": "Cards/Common/CardValue"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "Col4"
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Title"
+        },
+        "position": {
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginBottom",
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "BasicInfo"
+            },
+            "position": {
+              "display": false,
+              "grow": 1
+            },
+            "propConfig": {
+              "props.params.Params.RunData": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.RunData"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "EqPath": "value",
+                "HideTitle": false,
+                "Icon": "",
+                "IconDisplay": true,
+                "Params": {
+                  "EqPath": "value",
+                  "State": "value",
+                  "TagPath": "value",
+                  "TagProvider": "value"
+                },
+                "Path": "App/OEE/Operations/LineDashboard/Popups/WODetails/Embedded/BasicInfo",
+                "Provider": "value",
+                "SizeBasis": "value",
+                "TagPath": "value",
+                "Title": "Basic Info",
+                "Type": "value",
+                "useDefaultHeight": false,
+                "useDefaultWidth": false
+              },
+              "path": "GlobalComponents/Cards/Card",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "Components"
+            },
+            "position": {
+              "basis": "55%"
+            },
+            "propConfig": {
+              "props.params.Params.RunID": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.RunID"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "EqPath": "value",
+                "HideTitle": false,
+                "Icon": "",
+                "IconDisplay": true,
+                "Params": {
+                  "EqPath": "value",
+                  "State": "value",
+                  "TagPath": "value",
+                  "TagProvider": "value"
+                },
+                "Path": "App/OEE/Operations/LineDashboard/Popups/WODetails/Embedded/Components",
+                "Provider": "value",
+                "SizeBasis": "value",
+                "TagPath": "value",
+                "Title": "Components",
+                "Type": "value",
+                "useDefaultHeight": false,
+                "useDefaultWidth": false
+              },
+              "path": "GlobalComponents/Cards/Card",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "Instructions"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "props.params.Params.Instructions": {
+                "binding": {
+                  "config": {
+                    "expression": "if(isNull({view.custom.Instructions}), \"\", {view.custom.Instructions})"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "EqPath": "value",
+                "HideTitle": false,
+                "Icon": "",
+                "IconDisplay": true,
+                "Params": {
+                  "EqPath": "value",
+                  "State": "value",
+                  "TagPath": "value",
+                  "TagProvider": "value"
+                },
+                "Path": "App/OEE/Operations/LineDashboard/Popups/WODetails/Embedded/Instructions",
+                "Provider": "value",
+                "SizeBasis": "value",
+                "TagPath": "value",
+                "Title": "Instructions",
+                "Type": "value",
+                "useDefaultHeight": false,
+                "useDefaultWidth": false
+              },
+              "path": "GlobalComponents/Cards/Card"
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "Main"
+        },
+        "position": {
+          "basis": "250px",
+          "grow": 1,
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "scripts": {
+      "customMethods": [],
+      "extensionFunctions": null,
+      "messageHandlers": [
+        {
+          "messageType": "runStartChangeover",
+          "pageScope": true,
+          "script": "\t# implement your handler here\n\tself.view.refreshBinding(\u0027custom.RunData\u0027)",
+          "sessionScope": false,
+          "viewScope": false
+        }
+      ]
+    },
+    "type": "ia.container.flex"
+  }
+}

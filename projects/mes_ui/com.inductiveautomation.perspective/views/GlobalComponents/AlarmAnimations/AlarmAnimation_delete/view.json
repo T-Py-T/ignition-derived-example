@@ -1,0 +1,147 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 50,
+      "width": 250
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "ViewCanvas"
+        },
+        "position": {
+          "basis": "50px",
+          "grow": 1
+        },
+        "propConfig": {
+          "custom.cancelNotif": {
+            "binding": {
+              "config": {
+                "fallbackDelay": 2.5,
+                "mode": "direct",
+                "tagPath": "[MI_Demo]MES/now1"
+              },
+              "transforms": [
+                {
+                  "code": "\tstartTime \u003d self.custom.notifActive\n\tif startTime !\u003d \"\":\n\t\tif system.date.secondsBetween(self.custom.notifActive, system.date.now()) \u003e 10:\n\t\t\tsystem.tag.writeBlocking([\"[MI_Demo]MES/newAlarm\"], [False])\n\t\t\treturn True\n\t\telif system.date.secondsBetween(self.custom.notifActive, system.date.now()) \u003e 8:\n\t\t\tself.props.instances[0].top \u003d -50\n\t\t\treturn False\n\t\telif system.date.secondsBetween(self.custom.notifActive, system.date.now()) \u003e 1:\n\t\t\tself.props.instances[0].top \u003d 5\n\t\t\treturn False\n\treturn False",
+                  "type": "script"
+                }
+              ],
+              "type": "tag"
+            }
+          },
+          "custom.notifActive": {
+            "binding": {
+              "config": {
+                "fallbackDelay": 2.5,
+                "mode": "direct",
+                "tagPath": "[MI_Demo]MES/newAlarm"
+              },
+              "transforms": [
+                {
+                  "fallback": "\"\"",
+                  "inputType": "scalar",
+                  "mappings": [
+                    {
+                      "input": true,
+                      "output": "{[MI_Demo]MES/newAlarm.Timestamp}"
+                    }
+                  ],
+                  "outputType": "expression",
+                  "type": "map"
+                }
+              ],
+              "type": "tag"
+            }
+          },
+          "custom.numUnackAlarms": {
+            "binding": {
+              "config": {
+                "fallbackDelay": 2.5,
+                "mode": "direct",
+                "tagPath": "[MI_Demo]MES/now1"
+              },
+              "transforms": [
+                {
+                  "code": "\talarms   \u003d system.alarm.queryStatus(state \u003d [\"ActiveUnacked\"], source \u003d [\"*MES*\"])\n\treturn alarms.getDataset().getRowCount()\n\n\t\t",
+                  "type": "script"
+                }
+              ],
+              "type": "tag"
+            },
+            "onChange": {
+              "enabled": null,
+              "script": "\tif origin \u003d\u003d \"Binding\" and previousValue:\n\t\tif currentValue.value \u003e previousValue.value:\n\t\t\tsystem.tag.writeBlocking([\"[default]Prepared Foods Line/newAlarm\"], [True])"
+            }
+          },
+          "props.instances[0].top": {
+            "binding": {
+              "config": {
+                "fallbackDelay": 2.5,
+                "mode": "direct",
+                "tagPath": "[MI_Demo]MES//newAlarm"
+              },
+              "enabled": false,
+              "transforms": [
+                {
+                  "fallback": -50,
+                  "inputType": "scalar",
+                  "mappings": [
+                    {
+                      "input": true,
+                      "output": 10
+                    }
+                  ],
+                  "outputType": "scalar",
+                  "type": "map"
+                }
+              ],
+              "type": "tag"
+            }
+          }
+        },
+        "props": {
+          "instances": [
+            {
+              "bottom": "auto",
+              "height": "auto",
+              "left": 0,
+              "position": "absolute",
+              "right": "auto",
+              "style": {
+                "classes": ""
+              },
+              "top": -50,
+              "viewParams": {},
+              "viewPath": "GlobalComponents/AlarmAnimations/AlarmNotification",
+              "width": "auto",
+              "zIndex": "auto"
+            }
+          ],
+          "style": {
+            "overflow": "visible"
+          },
+          "transitionSettings": {
+            "duration": "1s",
+            "timingFunction": "linear"
+          }
+        },
+        "type": "ia.display.viewcanvas"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "overflow": "visible"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

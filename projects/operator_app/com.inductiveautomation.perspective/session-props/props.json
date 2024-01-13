@@ -1,0 +1,266 @@
+{
+  "custom": {
+    "BrandIcon": "/system/images/GPA/6.png",
+    "CustomTheme": true,
+    "DisplayTime": "hr",
+    "DisplayUnits": "lbs",
+    "ERPIntegration": true,
+    "EnterpriseName": "Fiberon",
+    "EqPath": "Fiberon/1NL/PE Extrusion/Line 23",
+    "SelectedArea": 18,
+    "SelectedLines": [],
+    "SelectedSite": 9,
+    "SelectedSiteName": "1NL",
+    "UOM": "Lbs",
+    "section": "Site"
+  },
+  "propConfig": {
+    "custom.AreaDropdown": {
+      "binding": {
+        "config": {
+          "enableValueCache": false,
+          "parameters": {
+            "siteID": "{this.custom.SelectedSite}"
+          },
+          "queryPath": "app/Config/getAreas",
+          "returnFormat": "json"
+        },
+        "transforms": [
+          {
+            "code": "\toptionsArr \u003d []\n\t\n\toptionsArr.append({ \u0027label\u0027: \u0027All\u0027, \u0027value\u0027: \u0027all\u0027 })\n\t\n\tfor area in value:\n\t\toptionsArr.append({\u0027label\u0027: area[\u0027Title\u0027], \u0027value\u0027: area[\u0027ID\u0027]})\n\t\n\treturn optionsArr",
+            "type": "script"
+          }
+        ],
+        "type": "query"
+      }
+    },
+    "custom.AvailabilityThresholds": {
+      "binding": {
+        "config": {
+          "queryPath": "app/Config/getAllThresholds",
+          "returnFormat": "json"
+        },
+        "transforms": [
+          {
+            "code": "\tlogger \u003d system.util.getLogger(\u0027getAllThresholds\u0027)\n\t\t\n\ttry:\n\t\tthresholds \u003d value\n\t\tobj \u003d {}\n\t\n\t\tfor threshold in thresholds:\n\t\t\tif threshold.get(\u0027Name\u0027) \u003d\u003d \u0027Availability\u0027:\n\t\t\t\tfor key, value in threshold.items():\n\t\t\t\t\tobj[key] \u003d value\n\t\t\t\tbreak \n\t\t\n\t\treturn obj\n\texcept Exception as e:\n\t\tlogger.warn(\u0027There was an error: \u0027 + str(e))",
+            "type": "script"
+          }
+        ],
+        "type": "query"
+      }
+    },
+    "custom.LineDropdown": {
+      "binding": {
+        "config": {
+          "queryPath": "app/Config/getLines",
+          "returnFormat": "json"
+        },
+        "transforms": [
+          {
+            "code": "\toptionsArr \u003d []\n\t\t\n\toptionsArr.append({ \u0027label\u0027: \u0027All\u0027, \u0027value\u0027: \u0027all\u0027 })\n\t\n\tfor line in value:\n\t\toptionsArr.append({\u0027label\u0027: line[\u0027label\u0027], \u0027value\u0027: line[\u0027value\u0027]})\n\t\n\treturn optionsArr",
+            "type": "script"
+          }
+        ],
+        "type": "query"
+      }
+    },
+    "custom.LineID": {
+      "binding": {
+        "config": {
+          "path": "this.custom.EqPath"
+        },
+        "transforms": [
+          {
+            "code": "\tlines \u003d system.db.runNamedQuery(\u0027app/Config/getLines\u0027)\n\tjson \u003d gpa.data.datasetToJson(lines)\n\t\n\tsplit \u003d value.split(\u0027/\u0027)\n\tlineName \u003d split[-1]\n\t\n\tfor line in json:\n\t\tif line[\u0027label\u0027] \u003d\u003d lineName: return line[\u0027value\u0027]",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.Modes": {
+      "binding": {
+        "config": {
+          "queryPath": "app/DT/getAllDTModes",
+          "returnFormat": "json"
+        },
+        "type": "query"
+      }
+    },
+    "custom.OEEThresholds": {
+      "binding": {
+        "config": {
+          "queryPath": "app/Config/getAllThresholds",
+          "returnFormat": "json"
+        },
+        "transforms": [
+          {
+            "code": "\tlogger \u003d system.util.getLogger(\u0027getAllThresholds\u0027)\n\t\t\n\ttry:\n\t\tthresholds \u003d value\n\t\tobj \u003d {}\n\t\n\t\tfor threshold in thresholds:\n\t\t\tif threshold.get(\u0027Name\u0027) \u003d\u003d \u0027OEE\u0027:\n\t\t\t\tfor key, value in threshold.items():\n\t\t\t\t\tobj[key] \u003d value\n\t\t\t\tbreak  \n\t\t\n\t\treturn obj\n\texcept Exception as e:\n\t\tlogger.warn(\u0027There was an error: \u0027 + str(e))",
+            "type": "script"
+          }
+        ],
+        "type": "query"
+      }
+    },
+    "custom.PerformanceThresholds": {
+      "binding": {
+        "config": {
+          "queryPath": "app/Config/getAllThresholds",
+          "returnFormat": "json"
+        },
+        "transforms": [
+          {
+            "code": "\tlogger \u003d system.util.getLogger(\u0027getAllThresholds\u0027)\n\t\t\n\ttry:\n\t\tthresholds \u003d value\n\t\tobj \u003d {}\n\t\n\t\tfor threshold in thresholds:\n\t\t\tif threshold.get(\u0027Name\u0027) \u003d\u003d \u0027Performance\u0027:\n\t\t\t\tfor key, value in threshold.items():\n\t\t\t\t\tobj[key] \u003d value\n\t\t\t\tbreak \n\t\t\n\t\treturn obj\n\texcept Exception as e:\n\t\tlogger.warn(\u0027There was an error: \u0027 + str(e))",
+            "type": "script"
+          }
+        ],
+        "type": "query"
+      }
+    },
+    "custom.QualityThresholds": {
+      "binding": {
+        "config": {
+          "queryPath": "app/Config/getAllThresholds",
+          "returnFormat": "json"
+        },
+        "transforms": [
+          {
+            "code": "\tlogger \u003d system.util.getLogger(\u0027getAllThresholds\u0027)\n\t\t\n\ttry:\n\t\tthresholds \u003d value\n\t\tobj \u003d {}\n\t\n\t\tfor threshold in thresholds:\n\t\t\tif threshold.get(\u0027Name\u0027) \u003d\u003d \u0027Quality\u0027:\n\t\t\t\tfor key, value in threshold.items():\n\t\t\t\t\tobj[key] \u003d value\n\t\t\t\tbreak  \n\t\t\n\t\treturn obj\n\texcept Exception as e:\n\t\tlogger.warn(\u0027There was an error: \u0027 + str(e))",
+            "type": "script"
+          }
+        ],
+        "type": "query"
+      }
+    },
+    "custom.SelectedSitePath": {
+      "binding": {
+        "config": {
+          "path": "this.custom.SelectedSiteName"
+        },
+        "transforms": [
+          {
+            "expression": "{this.custom.EnterpriseName} + \"/\" + {value}",
+            "type": "expression"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.SiteInfo": {
+      "binding": {
+        "config": {
+          "parameters": {
+            "enterpriseID": "2"
+          },
+          "queryPath": "app/MES_Common/getSitesForEnterprise"
+        },
+        "transforms": [
+          {
+            "code": "\tpydata \u003d system.dataset.toPyDataSet(value)\n\tsiteArray \u003d []\n\tfor row in pydata:\n\t\tsiteID \u003d row[\"value\"]\n\t\tsiteName \u003d row[\"label\"]\n\t\tsiteArray.append({\"SiteID\": siteID, \"SiteName\": siteName})\n\t\t\n\treturn siteArray\n\t",
+            "type": "script"
+          }
+        ],
+        "type": "query"
+      }
+    },
+    "custom.UserName": {
+      "binding": {
+        "config": {
+          "path": "this.props.auth.user.userName"
+        },
+        "type": "property"
+      }
+    },
+    "custom.UserSettings": {
+      "binding": {
+        "config": {
+          "parameters": {
+            "userName": "{this.custom.UserName}"
+          },
+          "queryPath": "app/UserSettings/getUserSettings",
+          "returnFormat": "json"
+        },
+        "transforms": [
+          {
+            "code": "\tif len(value) \u003e 0: return value\n\telse: return [{ \u0027ID\u0027: \u0027\u0027, \u0027UserName\u0027: \u0027\u0027, \u0027UserLanguage\u0027: \u0027\u0027, \u0027Theme\u0027: \u0027\u0027 }]",
+            "type": "script"
+          }
+        ],
+        "type": "query"
+      }
+    },
+    "props.auth": {
+      "access": "PRIVATE",
+      "persistent": false
+    },
+    "props.device.accelerometer": {
+      "access": "SYSTEM",
+      "persistent": false
+    },
+    "props.device.identifier": {
+      "access": "SYSTEM",
+      "persistent": false
+    },
+    "props.device.timezone": {
+      "access": "SYSTEM",
+      "persistent": false
+    },
+    "props.device.type": {
+      "access": "SYSTEM",
+      "persistent": false
+    },
+    "props.device.userAgent": {
+      "access": "SYSTEM",
+      "persistent": false
+    },
+    "props.gateway": {
+      "access": "SYSTEM",
+      "persistent": false
+    },
+    "props.geolocation.data": {
+      "access": "SYSTEM",
+      "persistent": false
+    },
+    "props.geolocation.permissionGranted": {
+      "access": "SYSTEM",
+      "persistent": false
+    },
+    "props.host": {
+      "access": "SYSTEM",
+      "persistent": false
+    },
+    "props.id": {
+      "access": "SYSTEM",
+      "persistent": false
+    },
+    "props.lastActivity": {
+      "access": "SYSTEM",
+      "persistent": false
+    },
+    "props.locale": {
+      "binding": {
+        "config": {
+          "expression": "if({this.custom.UserSettings[0].UserLanguage} !\u003d \u0027\u0027, {this.custom.UserSettings[0].UserLanguage}, \u0027en-US\u0027)"
+        },
+        "type": "expr"
+      }
+    },
+    "props.theme": {
+      "binding": {
+        "config": {
+          "expression": "//if({this.custom.CustomTheme} \u003d true, \r\n//\t\u0027custom-light\u0027, \r\n//\t\u0027custom-dark\u0027\r\n//)\r\nif({this.custom.UserSettings[0].Theme} !\u003d \u0027\u0027, {this.custom.UserSettings[0].Theme}, \u0027custom-light\u0027)"
+        },
+        "type": "expr"
+      }
+    }
+  },
+  "props": {
+    "address": "172.16.112.1",
+    "appBar": {
+      "togglePosition": "hidden"
+    },
+    "device": {},
+    "geolocation": {},
+    "timeZoneId": "America/New_York"
+  }
+}

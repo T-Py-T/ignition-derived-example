@@ -1,0 +1,378 @@
+{
+  "custom": {
+    "Notes": "",
+    "RowData": [
+      {
+        "AssetIP": "",
+        "ID": "",
+        "IsAcknoweledged": "",
+        "LogMessage": "",
+        "LogPriority": "",
+        "LogTime": "",
+        "Ncc": "",
+        "Notes": "",
+        "Switch": ""
+      }
+    ],
+    "UserName": "bduran"
+  },
+  "params": {},
+  "propConfig": {
+    "custom.Notes": {
+      "binding": {
+        "config": {
+          "path": "/root/Row3/TextEntry/TextArea.props.text"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.RowData": {
+      "persistent": true
+    },
+    "custom.UserName": {
+      "binding": {
+        "config": {
+          "path": "session.custom.UserName"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 371,
+      "width": 658
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label"
+                },
+                "props": {
+                  "text": "Feedback type:"
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "RadioGroup"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "props": {
+                  "radios": [
+                    {
+                      "selected": true,
+                      "text": "Comments",
+                      "value": 1
+                    },
+                    {
+                      "selected": false,
+                      "text": "Suggestions",
+                      "value": 2
+                    },
+                    {
+                      "selected": false,
+                      "text": "Question",
+                      "value": 3
+                    }
+                  ],
+                  "value": 1
+                },
+                "type": "ia.input.radio-group"
+              }
+            ],
+            "meta": {
+              "name": "FeedbackType"
+            },
+            "position": {
+              "basis": "454px",
+              "display": false
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginRight"
+              },
+              "text": "Selected NCC IP:"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "IPAddress"
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.RowData[0].AssetIP"
+                  },
+                  "transforms": [
+                    {
+                      "expression": "if({value} !\u003d \"\", {value}, \"\")",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.print(self.view.custom)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Row2"
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label"
+                },
+                "position": {
+                  "basis": "32px",
+                  "display": false
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginBottom"
+                  },
+                  "text": "Enter Notes"
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onFocus": {
+                      "config": {
+                        "script": "\tsystem.perspective.sendMessage(\u0027clickedNotes\u0027)"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "TextArea"
+                },
+                "position": {
+                  "basis": "160px",
+                  "grow": 1
+                },
+                "type": "ia.input.text-area"
+              }
+            ],
+            "meta": {
+              "name": "TextEntry"
+            },
+            "position": {
+              "basis": "454px",
+              "grow": 1
+            },
+            "props": {
+              "direction": "column"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Row3"
+        },
+        "position": {
+          "basis": "70%",
+          "grow": 1
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "events": {
+                  "component": {
+                    "onActionPerformed": [
+                      {
+                        "config": {
+                          "script": "\t# Grabbing variables\n\tuserName \u003d self.view.custom.UserName\n\tfeedbackType \u003d self.view.custom.FeedbackType\n\tfeedbackMessage \u003d self.view.custom.FeedbackMessage\n\tqueryPath \u003d \"app/SwitchHealth/addComment\"\n\terrorModalTitle \u003d \"Error!\"\n\terrorModalName \u003d \"errorModal\"\n\tagreeModalName \u003d \"agreeModal\"\n\t\n\t# Making dictionary for parameters\n\tparams \u003d {\n\t\t\"userName\": userName,\n\t\t\"feedbackType\": feedbackType,\n\t\t\"feedback\": feedbackMessage\n\t}\n\tsystem.perspective.print(params)\n\t\n\t# Sending params to function\n#\ttry:\n\tsystem.db.runNamedQuery(queryPath, params)\n#\texcept:\n#\t\tsystem.perspective.print(\u0027Error adding comment\u0027)\n\t\t\n#\telse: \n#\t\tmodalParams \u003d {\"ModalName\": errorModalName, \"Message\": \"Error adding comment\"}\n#\t\tsystem.perspective.openPopup(errorModalName, \"GlobalComponents/SwitchConfig/Modals/Modal\", params\u003dmodalParams, title\u003derrorModalTitle)\n#\t\t\n#\t# Clearing form entries\n#\tself.parent.parent.parent.getChild(\"Row2/FeedbackType/RadioGroup\").props.value \u003d 1\n#\tself.parent.parent.parent.getChild(\"Row3/TextEntry/TextArea\").props.text \u003d \"\""
+                        },
+                        "enabled": false,
+                        "scope": "G",
+                        "type": "script"
+                      },
+                      {
+                        "config": {
+                          "script": "\tqueryPath \u003d \u0027app/SwitchHealth/addComment\u0027\n\tsyslogID \u003d int(self.view.custom.RowData[0].ID)\n\tsystem.perspective.print(syslogID)\n\tnotes \u003d self.view.custom.Notes\n\tuserName \u003d self.session.custom.UserName\n\t\n\tparams \u003d {\n\t\t\u0027syslogID\u0027: syslogID,\n\t\t\u0027notes\u0027: notes,\n\t\t\u0027userName\u0027: userName\n\t}\n\t\n\terrorParams \u003d {\n\t\t\"ModalName\": \"ErrorModal\",\n\t\t\"ErrorMessage\": \"Please select a row first!\"\n\t}\n\t\n\tif syslogID !\u003d \u0027\u0027:\n\t\tsystem.db.runNamedQuery(queryPath, params)\n\t\tself.parent.parent.parent.getChild(\"Row3/TextEntry/TextArea\").props.text \u003d \u0027\u0027\n\t\t\n\t\tsystem.perspective.sendMessage(\u0027refreshSwitchTable\u0027)\n\telse:\n\t\tsystem.perspective.openPopup(\"ErrorModal\", \"GlobalComponents/Modals/ErrorModal\", errorParams)"
+                        },
+                        "scope": "G",
+                        "type": "script"
+                      }
+                    ]
+                  }
+                },
+                "meta": {
+                  "name": "Save"
+                },
+                "position": {
+                  "basis": "34px",
+                  "grow": 1
+                },
+                "props": {
+                  "image": {
+                    "icon": {
+                      "path": "material/save"
+                    }
+                  },
+                  "style": {
+                    "classes": "Buttons/ButtonStyle"
+                  },
+                  "text": "Save"
+                },
+                "type": "ia.input.button"
+              }
+            ],
+            "meta": {
+              "name": "Col1"
+            },
+            "position": {
+              "basis": "85px",
+              "shrink": 0
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginRight",
+                "marginLeft": "auto"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "events": {
+                  "component": {
+                    "onActionPerformed": {
+                      "config": {
+                        "script": "\tself.parent.parent.parent.getChild(\"Row2/Col2/NCCEntry\").props.text \u003d \"\"\n\tself.parent.parent.parent.getChild(\"Row1/Col2/IPAddressEntry\").props.text \u003d \"\"\n\tself.parent.parent.parent.getChild(\"Row3/Col2/SwitchEntry\").props.value \u003d \"\"\n\tself.view.custom.Type \u003d \"\"\t"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "Cancel"
+                },
+                "position": {
+                  "basis": "34px",
+                  "grow": 1
+                },
+                "props": {
+                  "image": {
+                    "icon": {
+                      "path": "material/cancel"
+                    }
+                  },
+                  "style": {
+                    "classes": "Buttons/ButtonStyle"
+                  },
+                  "text": "Cancel"
+                },
+                "type": "ia.input.button"
+              }
+            ],
+            "meta": {
+              "name": "Col2"
+            },
+            "position": {
+              "basis": "85px"
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginRight",
+                "marginRight": "auto"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Row4"
+        },
+        "position": {
+          "basis": "42px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "scripts": {
+      "customMethods": [],
+      "extensionFunctions": null,
+      "messageHandlers": [
+        {
+          "messageType": "switchRowClicked",
+          "pageScope": true,
+          "script": "\t# implement your handler here\n\tself.view.custom.RowData \u003d payload",
+          "sessionScope": false,
+          "viewScope": false
+        }
+      ]
+    },
+    "type": "ia.container.flex"
+  }
+}

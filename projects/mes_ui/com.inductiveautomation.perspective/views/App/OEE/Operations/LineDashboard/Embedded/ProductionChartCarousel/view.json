@@ -1,0 +1,74 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 542,
+      "width": 850
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Carousel"
+        },
+        "position": {
+          "basis": "200px",
+          "grow": 1
+        },
+        "propConfig": {
+          "props.views[0].viewParams.EqPath": {
+            "binding": {
+              "config": {
+                "path": "session.custom.EqPath"
+              },
+              "type": "property"
+            }
+          },
+          "props.views[1].viewParams.EqPath": {
+            "binding": {
+              "config": {
+                "path": "session.custom.EqPath"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "zoom": 0.7
+          },
+          "views": [
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {},
+              "viewPath": "GlobalComponents/Charts/ParetoProdChart"
+            },
+            {
+              "alignItems": "flex-start",
+              "direction": "row",
+              "justify": "flex-start",
+              "viewParams": {
+                "EqPathOld": "[EqPath]/",
+                "TagPath": "/",
+                "TagProvider": "[default]"
+              },
+              "viewPath": "GlobalComponents/Charts/ProductionChart"
+            }
+          ]
+        },
+        "type": "ia.display.carousel"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

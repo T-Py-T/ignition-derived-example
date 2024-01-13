@@ -1,0 +1,954 @@
+{
+  "custom": {},
+  "params": {
+    "machine": 13,
+    "machinePercent": 0.15,
+    "machineRate": 14,
+    "oeeOutfeed": 3650,
+    "quality": 10,
+    "qualityPercent": 0.12,
+    "qualityRate": 11,
+    "scrap": 3650,
+    "scrapPercent": 0.38,
+    "scrapRate": 0,
+    "title": "Scrap Info"
+  },
+  "propConfig": {
+    "params.machine": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.machinePercent": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.machineRate": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.oeeOutfeed": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.quality": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.qualityPercent": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.qualityRate": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.scrap": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.scrapPercent": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.scrapRate": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.title": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 227,
+      "width": 457
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "title"
+        },
+        "position": {
+          "shrink": 0
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.title"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "Text/CardHeaders",
+            "textAlign": "left"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "quality"
+                    },
+                    "position": {
+                      "shrink": 0
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "Text/textColorBlack",
+                        "fontWeight": "bold",
+                        "marginTop": "5px"
+                      },
+                      "text": "Quality Scrap Rate"
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "children": [
+                      {
+                        "meta": {
+                          "name": "pieces"
+                        },
+                        "position": {
+                          "basis": "130px",
+                          "grow": 1,
+                          "shrink": 0
+                        },
+                        "propConfig": {
+                          "props.params.value": {
+                            "binding": {
+                              "config": {
+                                "path": "view.params.qualityRate"
+                              },
+                              "overlayOptOut": true,
+                              "transforms": [
+                                {
+                                  "formatType": "numeric",
+                                  "formatValue": "number",
+                                  "type": "format"
+                                }
+                              ],
+                              "type": "property"
+                            }
+                          }
+                        },
+                        "props": {
+                          "params": {
+                            "header": "Current Run",
+                            "units": "pcs/hr"
+                          },
+                          "path": "GlobalComponents/Metrics/MetricMedium"
+                        },
+                        "type": "ia.display.view"
+                      },
+                      {
+                        "meta": {
+                          "name": "percent"
+                        },
+                        "position": {
+                          "basis": "100px",
+                          "grow": 1,
+                          "shrink": 0
+                        },
+                        "propConfig": {
+                          "props.params.value": {
+                            "binding": {
+                              "config": {
+                                "path": "view.params.qualityPercent"
+                              },
+                              "overlayOptOut": true,
+                              "transforms": [
+                                {
+                                  "expression": "toint({value} * 100)",
+                                  "type": "expression"
+                                }
+                              ],
+                              "type": "property"
+                            }
+                          }
+                        },
+                        "props": {
+                          "params": {
+                            "header": "",
+                            "units": "%"
+                          },
+                          "path": "GlobalComponents/Metrics/MetricMedium"
+                        },
+                        "type": "ia.display.view"
+                      }
+                    ],
+                    "meta": {
+                      "name": "values"
+                    },
+                    "position": {
+                      "shrink": 0
+                    },
+                    "props": {
+                      "justify": "space-between",
+                      "style": {
+                        "overflow": "hidden"
+                      }
+                    },
+                    "type": "ia.container.flex"
+                  }
+                ],
+                "meta": {
+                  "name": "quality"
+                },
+                "position": {
+                  "shrink": 0
+                },
+                "props": {
+                  "direction": "column"
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "machine"
+                    },
+                    "position": {
+                      "shrink": 0
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "Text/textColorBlack",
+                        "fontWeight": "bold",
+                        "marginTop": "5px"
+                      },
+                      "text": "Machine Reject Rate"
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "children": [
+                      {
+                        "meta": {
+                          "name": "pieces"
+                        },
+                        "position": {
+                          "basis": "130px",
+                          "grow": 1,
+                          "shrink": 0
+                        },
+                        "propConfig": {
+                          "props.params.value": {
+                            "binding": {
+                              "config": {
+                                "path": "view.params.machineRate"
+                              },
+                              "overlayOptOut": true,
+                              "transforms": [
+                                {
+                                  "formatType": "numeric",
+                                  "formatValue": "number",
+                                  "type": "format"
+                                }
+                              ],
+                              "type": "property"
+                            }
+                          }
+                        },
+                        "props": {
+                          "params": {
+                            "header": "Current Run",
+                            "units": "pcs/hr"
+                          },
+                          "path": "GlobalComponents/Metrics/MetricMedium"
+                        },
+                        "type": "ia.display.view"
+                      },
+                      {
+                        "meta": {
+                          "name": "percent"
+                        },
+                        "position": {
+                          "basis": "100px",
+                          "grow": 1,
+                          "shrink": 0
+                        },
+                        "propConfig": {
+                          "props.params.value": {
+                            "binding": {
+                              "config": {
+                                "path": "view.params.machinePercent"
+                              },
+                              "overlayOptOut": true,
+                              "transforms": [
+                                {
+                                  "expression": "toint({value} * 100)",
+                                  "type": "expression"
+                                }
+                              ],
+                              "type": "property"
+                            }
+                          }
+                        },
+                        "props": {
+                          "params": {
+                            "header": "",
+                            "units": "%"
+                          },
+                          "path": "GlobalComponents/Metrics/MetricMedium"
+                        },
+                        "type": "ia.display.view"
+                      }
+                    ],
+                    "meta": {
+                      "name": "values"
+                    },
+                    "position": {
+                      "shrink": 0
+                    },
+                    "props": {
+                      "justify": "space-between",
+                      "style": {
+                        "overflow": "hidden"
+                      }
+                    },
+                    "type": "ia.container.flex"
+                  }
+                ],
+                "meta": {
+                  "name": "machine"
+                },
+                "position": {
+                  "shrink": 0
+                },
+                "props": {
+                  "direction": "column"
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "total"
+                    },
+                    "position": {
+                      "shrink": 0
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "Text/textColorBlack",
+                        "fontWeight": "bold",
+                        "marginTop": "5px"
+                      },
+                      "text": "Total Scrap Rate"
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "children": [
+                      {
+                        "meta": {
+                          "name": "pieces"
+                        },
+                        "position": {
+                          "basis": "130px",
+                          "grow": 1,
+                          "shrink": 0
+                        },
+                        "propConfig": {
+                          "props.params.value": {
+                            "binding": {
+                              "config": {
+                                "path": "view.params.scrapRate"
+                              },
+                              "overlayOptOut": true,
+                              "transforms": [
+                                {
+                                  "formatType": "numeric",
+                                  "formatValue": "number",
+                                  "type": "format"
+                                }
+                              ],
+                              "type": "property"
+                            }
+                          }
+                        },
+                        "props": {
+                          "params": {
+                            "header": "Current Run",
+                            "units": "pcs/hr"
+                          },
+                          "path": "GlobalComponents/Metrics/MetricMedium"
+                        },
+                        "type": "ia.display.view"
+                      },
+                      {
+                        "meta": {
+                          "name": "percent"
+                        },
+                        "position": {
+                          "basis": "100px",
+                          "grow": 1,
+                          "shrink": 0
+                        },
+                        "propConfig": {
+                          "props.params.value": {
+                            "binding": {
+                              "config": {
+                                "path": "view.params.scrapPercent"
+                              },
+                              "overlayOptOut": true,
+                              "transforms": [
+                                {
+                                  "expression": "toint({value} * 100)",
+                                  "type": "expression"
+                                }
+                              ],
+                              "type": "property"
+                            }
+                          }
+                        },
+                        "props": {
+                          "params": {
+                            "header": "",
+                            "units": "%"
+                          },
+                          "path": "GlobalComponents/Metrics/MetricMedium"
+                        },
+                        "type": "ia.display.view"
+                      }
+                    ],
+                    "meta": {
+                      "name": "values"
+                    },
+                    "position": {
+                      "shrink": 0
+                    },
+                    "props": {
+                      "justify": "space-between",
+                      "style": {
+                        "overflow": "hidden"
+                      }
+                    },
+                    "type": "ia.container.flex"
+                  }
+                ],
+                "meta": {
+                  "name": "total"
+                },
+                "position": {
+                  "shrink": 0
+                },
+                "props": {
+                  "direction": "column"
+                },
+                "type": "ia.container.flex"
+              }
+            ],
+            "meta": {
+              "name": "Labels"
+            },
+            "position": {
+              "basis": "100px",
+              "grow": 1,
+              "shrink": 0
+            },
+            "props": {
+              "direction": "column",
+              "justify": "space-around",
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "PieChart"
+                    },
+                    "position": {
+                      "height": 1,
+                      "width": 1
+                    },
+                    "propConfig": {
+                      "props.colors[0]": {
+                        "binding": {
+                          "config": {
+                            "path": ".../legend/good.props.params.Icon.controls.color"
+                          },
+                          "type": "property"
+                        }
+                      },
+                      "props.colors[1]": {
+                        "binding": {
+                          "config": {
+                            "path": ".../legend/machine.props.params.Icon.controls.color"
+                          },
+                          "type": "property"
+                        }
+                      },
+                      "props.colors[2]": {
+                        "binding": {
+                          "config": {
+                            "path": ".../legend/scrap.props.params.Icon.controls.color"
+                          },
+                          "type": "property"
+                        }
+                      },
+                      "props.data[0].count": {
+                        "binding": {
+                          "config": {
+                            "path": "view.params.oeeOutfeed"
+                          },
+                          "type": "property"
+                        }
+                      },
+                      "props.data[1].count": {
+                        "binding": {
+                          "config": {
+                            "path": "view.params.machine"
+                          },
+                          "type": "property"
+                        }
+                      },
+                      "props.data[2].count": {
+                        "binding": {
+                          "config": {
+                            "path": "view.params.quality"
+                          },
+                          "type": "property"
+                        }
+                      }
+                    },
+                    "props": {
+                      "colors": [
+                        null,
+                        null,
+                        null
+                      ],
+                      "cutoutRadius": 67,
+                      "data": [
+                        {
+                          "material": "Good"
+                        },
+                        {
+                          "material": "Machine Reject"
+                        },
+                        {
+                          "material": "Quality Scrap"
+                        }
+                      ],
+                      "labels": {
+                        "wrap": {
+                          "enabled": true
+                        }
+                      },
+                      "sectionOutline": {
+                        "color": "#000000",
+                        "opacity": 0.5
+                      },
+                      "showLabels": false,
+                      "showLegend": false,
+                      "style": {
+                        "fontSize": "8pt",
+                        "overflowWrap": "normal"
+                      },
+                      "valueFormat": {
+                        "showValueAsPercent": false
+                      }
+                    },
+                    "type": "ia.chart.pie"
+                  },
+                  {
+                    "meta": {
+                      "name": "Label"
+                    },
+                    "position": {
+                      "height": 0.3333,
+                      "width": 0.3926,
+                      "x": 0.3034,
+                      "y": 0.3458
+                    },
+                    "propConfig": {
+                      "props.text": {
+                        "binding": {
+                          "config": {
+                            "path": "view.params.scrapPercent"
+                          },
+                          "overlayOptOut": true,
+                          "transforms": [
+                            {
+                              "formatType": "numeric",
+                              "formatValue": "percent",
+                              "type": "format"
+                            }
+                          ],
+                          "type": "property"
+                        }
+                      }
+                    },
+                    "props": {
+                      "style": {
+                        "fontSize": "20pt",
+                        "fontWeight": "bold",
+                        "textAlign": "center"
+                      }
+                    },
+                    "type": "ia.display.label"
+                  }
+                ],
+                "meta": {
+                  "name": "CoordinateContainer"
+                },
+                "position": {
+                  "basis": "120px",
+                  "grow": 1,
+                  "shrink": 0
+                },
+                "props": {
+                  "mode": "percent",
+                  "style": {
+                    "overflow": "hidden"
+                  }
+                },
+                "type": "ia.container.coord"
+              },
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "scrap"
+                    },
+                    "position": {
+                      "basis": "20px",
+                      "shrink": 0
+                    },
+                    "propConfig": {
+                      "props.params.value.value": {
+                        "binding": {
+                          "config": {
+                            "path": "view.params.quality"
+                          },
+                          "overlayOptOut": true,
+                          "transforms": [
+                            {
+                              "formatType": "numeric",
+                              "formatValue": "number",
+                              "type": "format"
+                            }
+                          ],
+                          "type": "property"
+                        }
+                      }
+                    },
+                    "props": {
+                      "params": {
+                        "Analog": {
+                          "Visible": false,
+                          "baseFrame": {
+                            "isVisible": false,
+                            "style": {
+                              "classes": "Color/Frame/Surface1"
+                            }
+                          },
+                          "desired": {
+                            "isVisible": false,
+                            "rangeHi": 500,
+                            "rangeLo": 0,
+                            "style": {
+                              "classes": "Color/Frame/Surface3"
+                            }
+                          },
+                          "label": {
+                            "formatPattern": "##00.0",
+                            "isBottom": true,
+                            "isVisible": false,
+                            "style": {
+                              "classes": "Color/Type/LowEmphasis \nType/Body2",
+                              "textAlign": "center"
+                            }
+                          },
+                          "maxValue": 1000,
+                          "minValue": 0
+                        },
+                        "Icon": {
+                          "Visible": true,
+                          "controls": {
+                            "circle": {
+                              "Visible": true
+                            },
+                            "color": "#808080",
+                            "icon": {
+                              "IconPath": "material/play_arrow",
+                              "Visible": false
+                            },
+                            "square": {
+                              "Visible": false
+                            }
+                          }
+                        },
+                        "Label": {
+                          "Title": "Quality pcs",
+                          "Visible": true
+                        },
+                        "bottomBorder": false,
+                        "value": {
+                          "units": "parts/hr",
+                          "unitsVisible": false,
+                          "valueVisible": true
+                        }
+                      },
+                      "path": "GlobalComponents/Objects/Bars/LegendSmall",
+                      "useDefaultViewWidth": true
+                    },
+                    "type": "ia.display.view"
+                  },
+                  {
+                    "meta": {
+                      "name": "machine"
+                    },
+                    "position": {
+                      "basis": "20px",
+                      "shrink": 0
+                    },
+                    "propConfig": {
+                      "props.params.value.value": {
+                        "binding": {
+                          "config": {
+                            "path": "view.params.machine"
+                          },
+                          "overlayOptOut": true,
+                          "transforms": [
+                            {
+                              "formatType": "numeric",
+                              "formatValue": "number",
+                              "type": "format"
+                            }
+                          ],
+                          "type": "property"
+                        }
+                      }
+                    },
+                    "props": {
+                      "params": {
+                        "Analog": {
+                          "Visible": false,
+                          "baseFrame": {
+                            "isVisible": false,
+                            "style": {
+                              "classes": "Color/Frame/Surface1"
+                            }
+                          },
+                          "desired": {
+                            "isVisible": false,
+                            "rangeHi": 500,
+                            "rangeLo": 0,
+                            "style": {
+                              "classes": "Color/Frame/Surface3"
+                            }
+                          },
+                          "label": {
+                            "formatPattern": "##00.0",
+                            "isBottom": true,
+                            "isVisible": false,
+                            "style": {
+                              "classes": "Color/Type/LowEmphasis \nType/Body2",
+                              "textAlign": "center"
+                            }
+                          },
+                          "maxValue": 1000,
+                          "minValue": 0
+                        },
+                        "Icon": {
+                          "Visible": true,
+                          "controls": {
+                            "circle": {
+                              "Visible": true
+                            },
+                            "color": "#AAAAAA",
+                            "icon": {
+                              "IconPath": "material/play_arrow",
+                              "Visible": false
+                            },
+                            "square": {
+                              "Visible": false
+                            }
+                          }
+                        },
+                        "Label": {
+                          "Title": "Machine pcs",
+                          "Visible": true
+                        },
+                        "bottomBorder": false,
+                        "value": {
+                          "units": "parts/hr",
+                          "unitsVisible": false,
+                          "valueVisible": true
+                        }
+                      },
+                      "path": "GlobalComponents/Objects/Bars/LegendSmall",
+                      "useDefaultViewWidth": true
+                    },
+                    "type": "ia.display.view"
+                  },
+                  {
+                    "meta": {
+                      "name": "good"
+                    },
+                    "position": {
+                      "basis": "20px",
+                      "shrink": 0
+                    },
+                    "propConfig": {
+                      "props.params.value.value": {
+                        "binding": {
+                          "config": {
+                            "path": "view.params.oeeOutfeed"
+                          },
+                          "overlayOptOut": true,
+                          "transforms": [
+                            {
+                              "formatType": "numeric",
+                              "formatValue": "number",
+                              "type": "format"
+                            }
+                          ],
+                          "type": "property"
+                        }
+                      }
+                    },
+                    "props": {
+                      "params": {
+                        "Analog": {
+                          "Visible": false,
+                          "baseFrame": {
+                            "isVisible": false,
+                            "style": {
+                              "classes": "Color/Frame/Surface1"
+                            }
+                          },
+                          "desired": {
+                            "isVisible": false,
+                            "rangeHi": 500,
+                            "rangeLo": 0,
+                            "style": {
+                              "classes": "Color/Frame/Surface3"
+                            }
+                          },
+                          "label": {
+                            "formatPattern": "##00.0",
+                            "isBottom": true,
+                            "isVisible": false,
+                            "style": {
+                              "classes": "Color/Type/LowEmphasis \nType/Body2",
+                              "textAlign": "center"
+                            }
+                          },
+                          "maxValue": 1000,
+                          "minValue": 0
+                        },
+                        "Icon": {
+                          "Visible": true,
+                          "controls": {
+                            "circle": {
+                              "Visible": true
+                            },
+                            "color": "#D5D5D5",
+                            "icon": {
+                              "IconPath": "material/play_arrow",
+                              "Visible": false
+                            },
+                            "square": {
+                              "Visible": false
+                            }
+                          }
+                        },
+                        "Label": {
+                          "Title": "Good pcs",
+                          "Visible": true
+                        },
+                        "bottomBorder": false,
+                        "value": {
+                          "units": "parts/hr",
+                          "unitsVisible": false,
+                          "valueVisible": true
+                        }
+                      },
+                      "path": "GlobalComponents/Objects/Bars/LegendSmall",
+                      "useDefaultViewWidth": true
+                    },
+                    "type": "ia.display.view"
+                  }
+                ],
+                "meta": {
+                  "name": "legend"
+                },
+                "position": {
+                  "basis": "60px",
+                  "shrink": 0
+                },
+                "props": {
+                  "alignContent": "flex-start",
+                  "alignItems": "center",
+                  "direction": "column"
+                },
+                "type": "ia.container.flex"
+              }
+            ],
+            "meta": {
+              "name": "PieChart"
+            },
+            "position": {
+              "basis": "100px",
+              "grow": 1,
+              "shrink": 0
+            },
+            "props": {
+              "direction": "column",
+              "justify": "center",
+              "style": {
+                "overflow": "visible"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Main"
+        },
+        "position": {
+          "grow": 1
+        },
+        "props": {
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

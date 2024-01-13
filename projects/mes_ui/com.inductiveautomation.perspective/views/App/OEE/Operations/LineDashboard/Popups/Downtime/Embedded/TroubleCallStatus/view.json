@@ -1,0 +1,224 @@
+{
+  "custom": {},
+  "params": {
+    "value": "Quality In Progress"
+  },
+  "propConfig": {
+    "params.value": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 49,
+      "width": 176
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Label"
+        },
+        "position": {
+          "grow": 1,
+          "shrink": 0
+        },
+        "propConfig": {
+          "props.style.backgroundColor": {
+            "binding": {
+              "config": {
+                "path": "view.params.value"
+              },
+              "transforms": [
+                {
+                  "fallback": "#D5D5D5",
+                  "inputType": "scalar",
+                  "mappings": [
+                    {
+                      "input": "Maintenance Called",
+                      "output": "#FFCA8A"
+                    },
+                    {
+                      "input": "Maintenance In Progress",
+                      "output": "#FFE8CC"
+                    },
+                    {
+                      "input": "Process Tech Called",
+                      "output": "#FFCCFF"
+                    },
+                    {
+                      "input": "Team Lead Called",
+                      "output": "#FFFFCC"
+                    },
+                    {
+                      "input": "Material Handling Called",
+                      "output": "#CCFFCC"
+                    },
+                    {
+                      "input": "Quality Called",
+                      "output": "#CCCCFF"
+                    },
+                    {
+                      "input": "Quality In Progress",
+                      "output": "#CCCCFF8F"
+                    },
+                    {
+                      "input": "Completed",
+                      "output": "#0AD40A99"
+                    },
+                    {
+                      "input": "Removed",
+                      "output": "#CCFFCC"
+                    },
+                    {
+                      "input": "Process Tech in Progress",
+                      "output": "#FFCCFF96"
+                    },
+                    {
+                      "input": "In Progress",
+                      "output": "#CCCCFF"
+                    },
+                    {
+                      "input": "Breakdown",
+                      "output": "#FFE8CC"
+                    },
+                    {
+                      "input": "Other",
+                      "output": "#D5D5D5"
+                    },
+                    {
+                      "input": "Project",
+                      "output": "#CCFFFF"
+                    },
+                    {
+                      "input": "PM",
+                      "output": "#CCFFCC"
+                    },
+                    {
+                      "input": "Open",
+                      "output": "#CCCCFF"
+                    },
+                    {
+                      "input": "Overdue",
+                      "output": "#FFCCCC"
+                    },
+                    {
+                      "input": "Upcoming",
+                      "output": "#CCCCFF"
+                    },
+                    {
+                      "input": "Active",
+                      "output": "#D5D5D5"
+                    }
+                  ],
+                  "outputType": "color",
+                  "type": "map"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.style.borderColor": {
+            "binding": {
+              "config": {
+                "path": "view.params.value"
+              },
+              "transforms": [
+                {
+                  "fallback": "#C2C2C2",
+                  "inputType": "scalar",
+                  "mappings": [
+                    {
+                      "input": "Maintenance",
+                      "output": "#FF8F8F"
+                    },
+                    {
+                      "input": "Team Lead",
+                      "output": "#D5D5D5"
+                    },
+                    {
+                      "input": "Maintenance Sent",
+                      "output": "#FFCA8A"
+                    },
+                    {
+                      "input": "In Progress",
+                      "output": "#8585FF"
+                    },
+                    {
+                      "input": "Breakdown",
+                      "output": "#FFCA8A"
+                    },
+                    {
+                      "input": "Other",
+                      "output": "#C2C2C2"
+                    },
+                    {
+                      "input": "Project",
+                      "output": "#42FFFF"
+                    },
+                    {
+                      "input": "PM",
+                      "output": "#2EFF2E"
+                    },
+                    {
+                      "input": "Open",
+                      "output": "#8585FF"
+                    },
+                    {
+                      "input": "Overdue",
+                      "output": "#FF8F8F"
+                    },
+                    {
+                      "input": "Upcoming",
+                      "output": "#8585FF"
+                    },
+                    {
+                      "input": "Active",
+                      "output": "#C2C2C2"
+                    }
+                  ],
+                  "outputType": "color",
+                  "type": "map"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.value"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "borderBottomLeftRadius": "10px",
+            "borderBottomRightRadius": "10px",
+            "borderTopLeftRadius": "10px",
+            "borderTopRightRadius": "10px",
+            "margin": "5px",
+            "textAlign": "center"
+          },
+          "textStyle": {
+            "classes": "Cards/Common/CardValue",
+            "color": "black"
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "justify": "center"
+    },
+    "type": "ia.container.flex"
+  }
+}

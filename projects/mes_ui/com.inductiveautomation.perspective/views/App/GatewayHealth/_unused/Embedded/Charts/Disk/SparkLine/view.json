@@ -1,0 +1,79 @@
+{
+  "custom": {},
+  "params": {
+    "StartingPath": "value"
+  },
+  "propConfig": {
+    "params.StartingPath": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 169,
+      "width": 337
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Sparkline"
+            },
+            "position": {
+              "basis": "240px"
+            },
+            "propConfig": {
+              "props.points": {
+                "binding": {
+                  "config": {
+                    "fallbackDelay": 2.5,
+                    "mode": "indirect",
+                    "references": {
+                      "startingPath": "{view.params.StartingPath}"
+                    },
+                    "tagPath": "{startingPath}/_History/Disk"
+                  },
+                  "type": "tag"
+                }
+              }
+            },
+            "props": {
+              "color": "var(--error)",
+              "range": {
+                "high": 100,
+                "low": 0
+              }
+            },
+            "type": "ia.display.sparkline"
+          }
+        ],
+        "meta": {
+          "name": "FlexContainer"
+        },
+        "position": {
+          "grow": 1
+        },
+        "props": {
+          "direction": "column",
+          "justify": "center",
+          "style": {
+            "marginTop": "10px",
+            "overflow": "visible"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

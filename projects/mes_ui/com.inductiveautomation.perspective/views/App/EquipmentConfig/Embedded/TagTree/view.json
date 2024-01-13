@@ -1,0 +1,147 @@
+{
+  "custom": {
+    "SelectedUDT": {
+      "mode": "multiple",
+      "values": []
+    }
+  },
+  "params": {
+    "EqData": {
+      "EqEnabled": true,
+      "EqID": 4,
+      "EqName": "SFN4",
+      "EqPath": "",
+      "EqType": "line"
+    }
+  },
+  "propConfig": {
+    "custom.SelectedUDT": {
+      "binding": {
+        "config": {
+          "path": "/root/TagBrowseTree.props.selection"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "params.EqData": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "width": 417
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\tlogger \u003d system.util.getLogger(\u0027editUDTButton\u0027)\n\t\t\n\ttry:\n\t\tselectedUDT \u003d self.view.custom.SelectedUDT.values[0].split(\u0027/\u0027)[-1]\n\t\tselectedEqData \u003d self.view.params.EqData\n\t\tmodalName \u003d \"editUDT\"\n\t\tmodalPath \u003d \"App/EquipmentConfig/Embedded/Popups/EditUDT\"\n\t\t\n\t\tallowedEqTypes \u003d {\n\t\t\t\u0027cell\u0027: [\u0027Parameters\u0027],\n\t\t\t\u0027line\u0027: [\u0027machineInput\u0027]\n\t\t}\n\t\t\n\t\tif len(selectedUDT) \u003d\u003d 0:\n\t\t\traise ValueError(\u0027A row was not selected\u0027)\n\t\n\t\tif selectedEqData.EqType in allowedEqTypes and selectedUDT in allowedEqTypes[selectedEqData.EqType]:\n\t\t\tparams \u003d {\n\t\t\t\t\"ModalName\": modalName,\n\t\t\t\t\"EqData\": selectedEqData,\n\t\t\t\t\"SelectedUDT\": selectedUDT\n\t\t\t}\n\t\t\tsystem.perspective.print(params)\n\t\t\tsystem.perspective.openPopup(modalName, modalPath, params, title\u003d\"Edit\", modal\u003dTrue, overlayDismiss\u003dTrue)\n\t\telse:\n\t\t\traise ValueError(\u0027Only the \"Parameters in cell level, machineInput line level.\" are editable\u0027)\n\t\t\n\texcept Exception as e:\n\t\terrorParams \u003d {\n\t\t\t\"ModalName\": \"ErrorModal\",\n\t\t\t\"ErrorMessage\": \u0027There was an error: \u0027 + str(e)\n\t\t}\n\t\tsystem.perspective.openPopup(\"ErrorModal\", \"GlobalComponents/Modals/ErrorModal\", errorParams)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Edit"
+            },
+            "propConfig": {
+              "props.style.cursor": {
+                "binding": {
+                  "config": {
+                    "path": ".../TagBrowseTree.props.selection"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": "pointer",
+                      "inputType": "expression",
+                      "mappings": [
+                        {
+                          "input": "None",
+                          "output": "auto"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "path": "material/create",
+              "style": {
+                "classes": ""
+              }
+            },
+            "type": "ia.display.icon"
+          }
+        ],
+        "meta": {
+          "name": "EditIcon"
+        },
+        "position": {
+          "basis": "24px",
+          "shrink": 0
+        },
+        "props": {
+          "alignContent": "flex-end",
+          "justify": "flex-end"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "meta": {
+          "name": "TagBrowseTree"
+        },
+        "position": {
+          "basis": "400px",
+          "grow": 1
+        },
+        "propConfig": {
+          "props.root.path": {
+            "binding": {
+              "config": {
+                "path": "view.params.EqData.EqPath"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "root": {}
+        },
+        "type": "ia.display.tag-browse-tree"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "scripts": {
+      "customMethods": [],
+      "extensionFunctions": null,
+      "messageHandlers": [
+        {
+          "messageType": "refreshUDTTree",
+          "pageScope": false,
+          "script": "\t# implement your handler here\n\tself.getChild(\"TagBrowseTree\").refresh()",
+          "sessionScope": false,
+          "viewScope": false
+        }
+      ]
+    },
+    "type": "ia.container.flex"
+  }
+}

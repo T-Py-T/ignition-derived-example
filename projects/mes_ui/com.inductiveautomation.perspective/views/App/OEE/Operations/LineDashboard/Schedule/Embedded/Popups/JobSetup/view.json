@@ -1,0 +1,1004 @@
+{
+  "custom": {
+    "LineID": 1,
+    "LineSchedule": [
+      {
+        "DateCreated": 1695328809073,
+        "EnteredBy": "ncasey",
+        "ID": 71,
+        "LineID": 1,
+        "Note": "Test",
+        "ProductCode": "HighPPM",
+        "Quantity": 960000,
+        "ScheduleEndDateTime": 1695588002235,
+        "ScheduleStartDateTime": 1695328802234,
+        "WorkOrder": "Testing SFN1"
+      }
+    ],
+    "Mode": 1,
+    "RunID": 105,
+    "RunInfo": [
+      {
+        "IdealRunRate": 1250,
+        "Instructions": "This is a new test",
+        "ParentMaterial": "HighPPM",
+        "ProductCodeID": 2,
+        "Quantity": 960000,
+        "RemainingHours": 12.8,
+        "SetupEndDateTime": 1695328828090,
+        "SetupStartDateTime": 1695328826090,
+        "WOName": "Testing SFN1"
+      }
+    ],
+    "ScheduleID": null,
+    "SetupEndTime": 1695328828090,
+    "SetupStartTime": 1695328826090,
+    "eqPath": "1"
+  },
+  "params": {
+    "CanEdit": true,
+    "ModalName": "scheduleRun",
+    "RowData": []
+  },
+  "propConfig": {
+    "custom.LineID": {
+      "binding": {
+        "config": {
+          "path": "session.custom.LineID"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.LineSchedule": {
+      "binding": {
+        "config": {
+          "parameters": {
+            "lineID": "{view.custom.LineID}\r"
+          },
+          "queryPath": "app/Schedule/getLineSchedule",
+          "returnFormat": "json"
+        },
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "custom.Mode": {
+      "binding": {
+        "config": {
+          "expression": "runScript(\u0027mes.oee.mode.getMode\u0027, 0, {view.custom.eqPath})"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.RunID": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.custom.eqPath}"
+          },
+          "tagPath": "{1}/jobs/currentJob/runId"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.RunInfo": {
+      "binding": {
+        "config": {
+          "parameters": {
+            "runID": "{view.custom.RunID}"
+          },
+          "queryPath": "app/Schedule/runGetInfo",
+          "returnFormat": "json"
+        },
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "custom.ScheduleID": {
+      "binding": {
+        "config": {
+          "path": "view.params.RowData[0].ID"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.SetupEndTime": {
+      "binding": {
+        "config": {
+          "path": "view.custom.RunInfo[0].SetupEndDateTime"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.SetupStartTime": {
+      "binding": {
+        "config": {
+          "path": "view.custom.RunInfo[0].SetupStartDateTime"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.eqPath": {
+      "binding": {
+        "config": {
+          "path": "session.custom.EqPath"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "params.CanEdit": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.ModalName": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.RowData": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 585,
+      "width": 1084
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "OrderSummary"
+        },
+        "position": {
+          "grow": 1
+        },
+        "propConfig": {
+          "props.params.RunID": {
+            "binding": {
+              "config": {
+                "path": "view.custom.RunID"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.SetupEndTime": {
+            "binding": {
+              "config": {
+                "path": "view.custom.SetupEndTime"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.SetupStartTime": {
+            "binding": {
+              "config": {
+                "path": "view.custom.SetupStartTime"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "params": {
+            "plannedOrder": ""
+          },
+          "path": "App/OEE/Operations/LineDashboard/Popups/WODetails/Embedded/WorkOrderSummary",
+          "style": {
+            "classes": "Cards/Tile_White"
+          }
+        },
+        "type": "ia.display.view"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "subPlannedOrderInformation"
+            },
+            "position": {
+              "basis": "200px",
+              "grow": 1
+            },
+            "propConfig": {
+              "props.params.plannedOrder": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.nextPlannedOrder"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "SetupEndTime": null,
+                "SetupStartTime": null
+              },
+              "path": "App/OEE/Operations/LineDashboard/Popups/WODetails/Embedded/WorkOrderSummary",
+              "style": {
+                "classes": "Cards/Tile_White"
+              }
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "inputMaterial"
+            },
+            "position": {
+              "basis": "200px",
+              "display": false,
+              "grow": 1,
+              "shrink": 0
+            },
+            "props": {
+              "params": {
+                "Label": "Tooling"
+              },
+              "path": "app/operator/components/dashboards/pokaYokes/inputMaterial"
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "tooling"
+            },
+            "position": {
+              "basis": "200px",
+              "grow": 1,
+              "shrink": 0
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "expression": "{view.custom.area}\u003d\u0027Molding\u0027 || \r\n{view.custom.area}\u003d\u0027Packaging\u0027"
+                  },
+                  "type": "expr"
+                }
+              },
+              "props.params.Label": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.area"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tif value \u003d\u003d \u0027Molding\u0027:\n\t\tlabel \u003d \u0027Tooling - Mold\u0027\n\telif value \u003d\u003d \u0027Packaging\u0027:\n\t\tlabel \u003d \u0027Tooling - Packaging Tool\u0027\n\telse:\n\t\tlabel \u003d \u0027Tooling\u0027\n\treturn label",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.path": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.area"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tif value \u003d\u003d \u0027Molding\u0027:\n\t\tview \u003d \u0027app/operator/components/dashboards/pokaYokes/tooling\u0027\n\telif value \u003d\u003d \u0027Packaging\u0027:\n\t\tview \u003d \u0027app/operator/components/dashboards/pokaYokes/toolingPackaging\u0027\n\telse:\n\t\tview \u003d \u0027app/operator/components/dashboards/pokaYokes/tooling\u0027\n\treturn view",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Tile_White"
+              }
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "manualValidation"
+            },
+            "position": {
+              "basis": "400px",
+              "display": false,
+              "grow": 1,
+              "shrink": 0
+            },
+            "props": {
+              "params": {
+                "Label": "manualValidation"
+              },
+              "path": "app/operator/components/dashboards/pokaYokes/manualValidation"
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "title"
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "Text/CardHeaders",
+                        "textAlign": "left"
+                      },
+                      "text": "Printer Label"
+                    },
+                    "type": "ia.display.label"
+                  }
+                ],
+                "meta": {
+                  "name": "title"
+                },
+                "props": {
+                  "style": {
+                    "overflow": "hidden"
+                  }
+                },
+                "type": "ia.container.flex"
+              }
+            ],
+            "meta": {
+              "name": "printerLabel"
+            },
+            "position": {
+              "display": false,
+              "grow": 1,
+              "shrink": 0
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "expression": "{view.custom.area} \u003d \u0027Packaging\u0027"
+                  },
+                  "enabled": false,
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Cards/Tile_White"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "pokaYokes"
+        },
+        "position": {
+          "basis": "280px",
+          "display": false
+        },
+        "props": {
+          "style": {
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "#\teqPath \u003d self.session.custom.eqPath\n#\ttagPath \u003d app.util.eqPathToTagPath(eqPath)\n#\tmes.schedule.jobs.clearNextJob(tagPath)\n#\t\n#\tsystem.perspective.navigate(\u0027/operator/schedule\u0027)\n\n\tsystem.perspective.closePopup(self.view.params.ModalName)"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "cancelRunSetup"
+                },
+                "position": {
+                  "basis": "126px",
+                  "shrink": 0
+                },
+                "props": {
+                  "params": {
+                    "disabledPopup": {
+                      "message": "Please sign in as quarterback to proceed.",
+                      "messageType": "",
+                      "payload": {},
+                      "title": "Invalid Permissions"
+                    },
+                    "enabled": true,
+                    "hover": false,
+                    "iconPath": "material/save",
+                    "isSelectable": false,
+                    "label": "Close Run Setup",
+                    "selected": true
+                  },
+                  "path": "GlobalComponents/Buttons/OverheadButton",
+                  "style": {
+                    "marginLeft": "0.5em",
+                    "marginRight": "0.5em"
+                  }
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\t\n\tsystem.perspective.navigate(\u0027/operations/schedule\u0027)"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "goToSchedule"
+                },
+                "position": {
+                  "basis": "100px",
+                  "display": false,
+                  "shrink": 0
+                },
+                "props": {
+                  "params": {
+                    "disabledPopup": {
+                      "message": "Please sign in as quarterback to proceed.",
+                      "messageType": "",
+                      "payload": {},
+                      "title": "Invalid Permissions"
+                    },
+                    "enabled": true,
+                    "hover": false,
+                    "iconPath": "material/save",
+                    "isSelectable": false,
+                    "label": "Go To Schedule",
+                    "selected": true
+                  },
+                  "path": "GlobalComponents/Buttons/OverheadButton",
+                  "style": {
+                    "marginLeft": "0.5em",
+                    "marginRight": "0.5em"
+                  }
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "Left"
+            },
+            "position": {
+              "basis": "280px",
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "draggable": false,
+                        "id": "troubleCall",
+                        "modal": true,
+                        "overlayDismiss": true,
+                        "resizable": false,
+                        "showCloseIcon": false,
+                        "type": "toggle",
+                        "viewPath": "app/operator/main/modals/troubleCall/mainView"
+                      },
+                      "scope": "C",
+                      "type": "popup"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "troubleCall"
+                },
+                "position": {
+                  "basis": "100px",
+                  "display": false,
+                  "shrink": 0
+                },
+                "props": {
+                  "params": {
+                    "disabledPopup": {
+                      "message": "Please sign in as quarterback to proceed.",
+                      "messageType": "",
+                      "payload": {},
+                      "title": "Invalid Permissions"
+                    },
+                    "enabled": true,
+                    "hover": false,
+                    "iconPath": "material/save",
+                    "isSelectable": false,
+                    "label": "Trouble Call",
+                    "selected": true
+                  },
+                  "path": "GlobalComponents/Buttons/OverheadButton"
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "draggable": false,
+                        "id": "workOrderDetails",
+                        "modal": true,
+                        "overlayDismiss": true,
+                        "resizable": false,
+                        "showCloseIcon": false,
+                        "type": "toggle",
+                        "viewParams": {
+                          "woNumber": "{view.custom.nextPlannedOrder}"
+                        },
+                        "viewPath": "app/operator/main/modals/workOrderDetails"
+                      },
+                      "scope": "C",
+                      "type": "popup"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "orderDetails"
+                },
+                "position": {
+                  "basis": "100px",
+                  "shrink": 0
+                },
+                "props": {
+                  "params": {
+                    "disabledPopup": {
+                      "message": "Please sign in as quarterback to proceed.",
+                      "messageType": "",
+                      "payload": {},
+                      "title": "Invalid Permissions"
+                    },
+                    "enabled": true,
+                    "hover": false,
+                    "iconPath": "material/save",
+                    "isSelectable": false,
+                    "label": "Order Details",
+                    "selected": true
+                  },
+                  "path": "GlobalComponents/Buttons/OverheadButton",
+                  "style": {
+                    "marginLeft": "0.5em",
+                    "marginRight": "0.5em"
+                  }
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "draggable": false,
+                        "id": "people",
+                        "modal": true,
+                        "overlayDismiss": true,
+                        "resizable": false,
+                        "showCloseIcon": false,
+                        "type": "open",
+                        "viewPath": "app/operator/main/modals/people"
+                      },
+                      "scope": "C",
+                      "type": "popup"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "people"
+                },
+                "position": {
+                  "basis": "100px",
+                  "shrink": 0
+                },
+                "props": {
+                  "params": {
+                    "disabledPopup": {
+                      "message": "Please sign in as quarterback to proceed.",
+                      "messageType": "",
+                      "payload": {},
+                      "title": "Invalid Permissions"
+                    },
+                    "enabled": true,
+                    "hover": false,
+                    "iconPath": "material/save",
+                    "isSelectable": false,
+                    "label": "People",
+                    "selected": true
+                  },
+                  "path": "GlobalComponents/Buttons/OverheadButton",
+                  "style": {
+                    "marginLeft": "0.5em",
+                    "marginRight": "0.5em"
+                  }
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "draggable": false,
+                        "id": "instructionsViewer",
+                        "modal": true,
+                        "overlayDismiss": true,
+                        "resizable": false,
+                        "showCloseIcon": true,
+                        "type": "open",
+                        "viewParams": {
+                          "imgFilePath": "{view.custom.imgPalletStacking}"
+                        },
+                        "viewPath": "app/operator/main/modals/instructionsViewer"
+                      },
+                      "scope": "C",
+                      "type": "popup"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "palletStacking"
+                },
+                "position": {
+                  "basis": "100px",
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "position.display": {
+                    "binding": {
+                      "config": {
+                        "expression": "{view.custom.area} \u003d \u0027Packaging\u0027"
+                      },
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "disabledPopup": {
+                      "message": "Please sign in as quarterback to proceed.",
+                      "messageType": "",
+                      "payload": {},
+                      "title": "Invalid Permissions"
+                    },
+                    "enabled": true,
+                    "hover": true,
+                    "iconPath": "material/save",
+                    "isSelectable": false,
+                    "label": "Pallet Stacking",
+                    "selected": true
+                  },
+                  "path": "GlobalComponents/Buttons/OverheadButton",
+                  "style": {
+                    "marginLeft": "0.5em",
+                    "marginRight": "0.5em"
+                  }
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "draggable": false,
+                        "id": "instructionsViewer",
+                        "modal": true,
+                        "overlayDismiss": true,
+                        "resizable": false,
+                        "showCloseIcon": true,
+                        "type": "open",
+                        "viewParams": {
+                          "imgFilePath": "{view.custom.imgPackaging}"
+                        },
+                        "viewPath": "app/operator/main/modals/instructionsViewer"
+                      },
+                      "scope": "C",
+                      "type": "popup"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "productPicture"
+                },
+                "position": {
+                  "basis": "100px",
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "position.display": {
+                    "binding": {
+                      "config": {
+                        "expression": "{view.custom.area} \u003d \u0027Packaging\u0027"
+                      },
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "disabledPopup": {
+                      "message": "Please sign in as quarterback to proceed.",
+                      "messageType": "",
+                      "payload": {},
+                      "title": "Invalid Permissions"
+                    },
+                    "enabled": true,
+                    "hover": false,
+                    "iconPath": "material/save",
+                    "isSelectable": false,
+                    "label": "Product Picture",
+                    "selected": true
+                  },
+                  "path": "GlobalComponents/Buttons/OverheadButton",
+                  "style": {
+                    "marginLeft": "0.5em",
+                    "marginRight": "0.5em"
+                  }
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "Middle"
+            },
+            "position": {
+              "basis": "350px",
+              "display": false,
+              "grow": 1,
+              "shrink": 0
+            },
+            "props": {
+              "justify": "center",
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\tqueryPath \u003d \u0027app/Schedule/addRun\u0027\n\trunID \u003d self.view.custom.RunID\n\ttagPath \u003d self.session.custom.EqPath\n\tscheduleID \u003d self.view.custom.ScheduleID\n\tjobPath \u003d tagPath + \u0027/jobs/currentJob\u0027\n\tqueryPath \u003d \u0027app/Schedule/runStartChangeover\u0027\n\t\n\t\n\tparams \u003d { \u0027runID\u0027: runID }\n\t\n\ttry:\n\t\tsystem.db.runNamedQuery(queryPath, params)\n\t\tself.view.refreshBinding(\u0027custom.RunInfo\u0027)\n\t\tmes.oee.mode.setModeChangeover(tagPath)\n\t\tsystem.perspective.sendMessage(\u0027runStartChangeover\u0027, payload\u003dparams)\n\t\tself.view.refreshBinding(\u0027custom.Mode\u0027)\n\t\tself.getSibling(\"EndChangeover\").refreshBinding(\u0027position.display\u0027)\n\texcept Exception as e:\n\t\terrorMessage \u003d \"Something went wrong with your request!\" + str(e)\n\t\terrorParams \u003d {\n\t\t\t\"ModalName\": \"ErrorModal\",\n\t\t\t\"ErrorMessage\": errorMessage\n\t\t}\n\t\tsystem.perspective.openPopup(\"ErrorModal\", \"GlobalComponents/Modals/ErrorModal\", errorParams)"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "StartChangeover"
+                },
+                "position": {
+                  "basis": "175px"
+                },
+                "propConfig": {
+                  "position.display": {
+                    "binding": {
+                      "config": {
+                        "expression": "if({view.custom.SetupStartTime} \u003d null, true, false)"
+                      },
+                      "type": "expr"
+                    }
+                  },
+                  "props.params.disabledPopup.message": {
+                    "binding": {
+                      "config": {
+                        "expression": "if(!{this.custom.isManualChecksReady}, \"Manual data checks not complete.\",\r\nif(!{this.custom.isToolingReady} \u0026\u0026 {view.custom.area} \u003d\u0027Molding\u0027, \u0027Mold Selection not complete.\u0027,\r\nif(!{this.custom.isToolingReady} \u0026\u0026 {view.custom.area} \u003d\u0027Packaging\u0027, \u0027Tool Selection not complete.\u0027,\r\nif(!{this.custom.isInputMaterialReady},\u0027Input Material checks not complete.\u0027,\r\nif(!{this.custom.isPrinterLabelsReady}, \u0027Printer Labels are not ready.\u0027,\r\nif(!{this.custom.isNoJobRunning},\u0027There is already a run in progress.\u0027, \r\n\u0027Please sign in as \u0027 + {view.custom.naming.quarterback} + \u0027 to proceed.\u0027))))))"
+                      },
+                      "overlayOptOut": true,
+                      "type": "expr"
+                    }
+                  },
+                  "props.params.disabledPopup.title": {
+                    "binding": {
+                      "config": {
+                        "expression": "if(!{this.custom.isManualChecksReady}, \"Complete Checks\",\r\nif(!{this.custom.isToolingReady} \u0026\u0026 {view.custom.area} \u003d\u0027Molding\u0027, \u0027Select Mold\u0027,\r\nif(!{this.custom.isToolingReady} \u0026\u0026 {view.custom.area} \u003d\u0027Packaging\u0027, \u0027Select Tool\u0027,\r\nif(!{this.custom.isInputMaterialReady},\u0027Complete Checks\u0027,\r\nif(!{this.custom.isPrinterLabelsReady}, \u0027Print Labels\u0027,\r\nif(!{this.custom.isNoJobRunning},\u0027Run in Progress\u0027, \r\n\u0027Invalid Permissions\u0027))))))"
+                      },
+                      "overlayOptOut": true,
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "actionText": "Start Changeover",
+                    "disabledPopup": {
+                      "messageType": "",
+                      "payload": {}
+                    },
+                    "enabled": true,
+                    "failureHandler": "setJobFailure",
+                    "failurePayload": {
+                      "userId": ""
+                    },
+                    "hover": false,
+                    "isBadge": false,
+                    "label": "Start Changeover",
+                    "roles": [
+                      "Administrator",
+                      "Quarterback",
+                      "SuperUser",
+                      "Supervisor"
+                    ],
+                    "selected": false,
+                    "showLoading": "True",
+                    "successHandler": "setJobSuccess"
+                  },
+                  "path": "GlobalComponents/Buttons/OverheadButton",
+                  "style": {
+                    "classes": "Global/MarginRight"
+                  }
+                },
+                "scripts": {
+                  "customMethods": [],
+                  "extensionFunctions": null,
+                  "messageHandlers": [
+                    {
+                      "messageType": "setJobFailure",
+                      "pageScope": false,
+                      "script": "\t# implement your handler here\n#\tstyle \u003d self.parent.props.style\n#\tself.parent.props.style[\u0027backgroundColor\u0027]\u003d\u0027red\u0027\n#\timport time\n#\ttime.sleep(2)\n#\tself.parent.props.style \u003d style\n\n#\tapp.perspective.indicateFailureBorder(self)\n\tmessage \u003d \u0027Please sign in as \u0027 + self.view.custom.naming.quarterback + \u0027 to proceed.\u0027\n\tapp.perspective.notifyUser(message)\n\tapp.perspective.indicateFailureBorder(self)",
+                      "sessionScope": false,
+                      "viewScope": false
+                    },
+                    {
+                      "messageType": "setJobSuccess",
+                      "pageScope": false,
+                      "script": "\t# implement your handler here\n\t#loading popup\n\tview \t\t\t\u003d \u0027modals/message/loading\u0027\n\tid \t\t\t\t\u003d \u0027loading\u0027\n\tmodal \t\t\t\u003d True\n\tshowCloseIcon \t\u003d False\n\toverlayDismiss \t\u003d True\n\tdraggable \t\t\u003d False\n\tresizable \t\t\u003d False\n\t\n\tsystem.perspective.openPopup(\n\t\tid\u003did, \n\t\tview\u003dview, \n\t\tparams\u003d{}, \n\t\tmodal\u003dmodal, \n\t\tshowCloseIcon\u003dshowCloseIcon, \n\t\toverlayDismiss\u003doverlayDismiss, \n\t\tdraggable\u003ddraggable,\n\t\tresizable\u003dresizable\n\t)\n\t########\n\t\n\tequipmentPath \u003d self.session.custom.eqPath\n\ttagPath \u003d app.util.eqPathToTagPath(equipmentPath)\n\t\n\tmes.schedule.jobs.startJob(tagPath)\n\tpageUrl \u003d\u0027/operator/productionView\u0027\n#\tsystem.perspective.navigate(page \u003d pageUrl)\n\t\n\t\n\tstartDate \u003d app.util.getCurrentDateTime()\n\tendDate \u003d system.date.addDays(startDate,14)\n\tentries \u003d system.mes.getEquipmentScheduleEntries(equipmentPath, startDate, endDate, \u0027Active\u0027, True)\n\t\n\torders \u003d []\n\tfor entry in entries:\n\n\t\tif entry.getStateAsString() !\u003d \u0027Complete\u0027 and entry.getStateAsString() !\u003d \u0027Active\u0027:\n\t\n\t\t\twoLink \u003d entry.getWorkOrderLink()\n\t\t\twoObj \u003d woLink.getMESObject()\n\t\t\tpriority \u003d woObj.getPropertyValue(\u0027Priority\u0027)\n\t\t\t\n\t\t\torders.append({\u0027plannedOrderNumber\u0027:woLink.getName(),\u0027priority\u0027:priority})\n\t\n\t\n\torders \u003d sorted(orders, key\u003dlambda x: x[\u0027priority\u0027])\t\n\tmachine \u003d equipmentPath.split(\u0027\\\\\u0027)[-1]\n\t\n\tmes.schedule.sap.scheduleOrders(orders, machine,True)\n\t\n\t\n\tsystem.perspective.closePopup(\u0027loading\u0027)\n\tsystem.perspective.navigate(page \u003d pageUrl)",
+                      "sessionScope": false,
+                      "viewScope": false
+                    }
+                  ]
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\trunID \u003d self.view.custom.RunID\n\tqueryPath \u003d \u0027app/Schedule/runEndChangeover\u0027\n\ttagPath \u003d self.session.custom.EqPath\n\tparams \u003d { \u0027runID\u0027: runID }\n\t\n\terrorParams \u003d {\n\t\t\"ModalName\": \"ErrorModal\",\n\t\t\"ErrorMessage\": \"Something went wrong with your request!\"\n\t}\n\t\n\ttry:\n#\t\tmes.schedule.jobs.copyJob(tagPath)\n#\t\tmes.schedule.jobs.clearJob(jobPath)\n\t\tsystem.db.runNamedQuery(queryPath, params)\n\t\tmes.oee.mode.setModeProduction(tagPath)\n\t\tsystem.perspective.navigate(\u0027/operations/operator_dashboard\u0027)\n\t\tsystem.perspective.closePopup(self.view.params.ModalName)\n\texcept Exception as e:\n\t\terrorMessage \u003d \"Something went wrong with your request!\" + str(e)\n\t\terrorParams \u003d {\n\t\t\t\"ModalName\": \"ErrorModal\",\n\t\t\t\"ErrorMessage\": errorMessage\n\t\t}\n\t\tsystem.perspective.print(e)\n\t\tsystem.perspective.openPopup(\"ErrorModal\", \"GlobalComponents/Modals/ErrorModal\", errorParams)"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "EndChangeover"
+                },
+                "position": {
+                  "basis": "175px"
+                },
+                "propConfig": {
+                  "position.display": {
+                    "binding": {
+                      "config": {
+                        "expression": "if({view.custom.Mode} \u003d 2, true, false)"
+                      },
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "label": "End Changeover"
+                  },
+                  "path": "GlobalComponents/Buttons/OverheadButton"
+                },
+                "scripts": {
+                  "customMethods": [],
+                  "extensionFunctions": null,
+                  "messageHandlers": [
+                    {
+                      "messageType": "setJobFailure",
+                      "pageScope": false,
+                      "script": "\t# implement your handler here\n#\tstyle \u003d self.parent.props.style\n#\tself.parent.props.style[\u0027backgroundColor\u0027]\u003d\u0027red\u0027\n#\timport time\n#\ttime.sleep(2)\n#\tself.parent.props.style \u003d style\n\n#\tapp.perspective.indicateFailureBorder(self)\n\tmessage \u003d \u0027Please sign in as \u0027 + self.view.custom.naming.quarterback + \u0027 to proceed.\u0027\n\tapp.perspective.notifyUser(message)\n\tapp.perspective.indicateFailureBorder(self)",
+                      "sessionScope": false,
+                      "viewScope": false
+                    },
+                    {
+                      "messageType": "setJobSuccess",
+                      "pageScope": false,
+                      "script": "\t# implement your handler here\n\t#loading popup\n\tview \t\t\t\u003d \u0027modals/message/loading\u0027\n\tid \t\t\t\t\u003d \u0027loading\u0027\n\tmodal \t\t\t\u003d True\n\tshowCloseIcon \t\u003d False\n\toverlayDismiss \t\u003d True\n\tdraggable \t\t\u003d False\n\tresizable \t\t\u003d False\n\t\n\tsystem.perspective.openPopup(\n\t\tid\u003did, \n\t\tview\u003dview, \n\t\tparams\u003d{}, \n\t\tmodal\u003dmodal, \n\t\tshowCloseIcon\u003dshowCloseIcon, \n\t\toverlayDismiss\u003doverlayDismiss, \n\t\tdraggable\u003ddraggable,\n\t\tresizable\u003dresizable\n\t)\n\t########\n\t\n\tequipmentPath \u003d self.session.custom.eqPath\n\ttagPath \u003d app.util.eqPathToTagPath(equipmentPath)\n\t\n\tmes.schedule.jobs.startJob(tagPath)\n\tpageUrl \u003d\u0027/operator/productionView\u0027\n#\tsystem.perspective.navigate(page \u003d pageUrl)\n\t\n\t\n\tstartDate \u003d app.util.getCurrentDateTime()\n\tendDate \u003d system.date.addDays(startDate,14)\n\tentries \u003d system.mes.getEquipmentScheduleEntries(equipmentPath, startDate, endDate, \u0027Active\u0027, True)\n\t\n\torders \u003d []\n\tfor entry in entries:\n\n\t\tif entry.getStateAsString() !\u003d \u0027Complete\u0027 and entry.getStateAsString() !\u003d \u0027Active\u0027:\n\t\n\t\t\twoLink \u003d entry.getWorkOrderLink()\n\t\t\twoObj \u003d woLink.getMESObject()\n\t\t\tpriority \u003d woObj.getPropertyValue(\u0027Priority\u0027)\n\t\t\t\n\t\t\torders.append({\u0027plannedOrderNumber\u0027:woLink.getName(),\u0027priority\u0027:priority})\n\t\n\t\n\torders \u003d sorted(orders, key\u003dlambda x: x[\u0027priority\u0027])\t\n\tmachine \u003d equipmentPath.split(\u0027\\\\\u0027)[-1]\n\t\n\tmes.schedule.sap.scheduleOrders(orders, machine,True)\n\t\n\t\n\tsystem.perspective.closePopup(\u0027loading\u0027)\n\tsystem.perspective.navigate(page \u003d pageUrl)",
+                      "sessionScope": false,
+                      "viewScope": false
+                    }
+                  ]
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "Right"
+            },
+            "position": {
+              "basis": "280px",
+              "shrink": 0
+            },
+            "props": {
+              "justify": "flex-end",
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Buttons"
+        },
+        "position": {
+          "basis": "65px"
+        },
+        "props": {
+          "alignItems": "flex-end",
+          "justify": "space-between",
+          "style": {
+            "overflow": "hidden",
+            "padding": "1ex"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "events": {
+      "dom": {
+        "onClick": {
+          "config": {
+            "script": "\tsystem.perspective.print(self.view.params.RowData)"
+          },
+          "scope": "G",
+          "type": "script"
+        }
+      }
+    },
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "classes": "Global/MarginAll"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

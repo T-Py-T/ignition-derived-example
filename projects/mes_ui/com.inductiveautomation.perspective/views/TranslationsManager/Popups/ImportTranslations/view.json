@@ -1,0 +1,148 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 100,
+      "width": 300
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "custom": {
+          "configJson": ""
+        },
+        "events": {
+          "component": {
+            "onFileReceived": {
+              "config": {
+                "script": "\tself.custom.configJson \u003d event.file.getString()\n\tsystem.perspective.print(event.file.getString())"
+              },
+              "scope": "G",
+              "type": "script"
+            },
+            "onUploadsCleared": {
+              "config": {
+                "script": "\tself.custom.configJson \u003d \u0027\u0027"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "FileUpload"
+        },
+        "position": {
+          "basis": "55px",
+          "shrink": 0
+        },
+        "props": {
+          "fileUploadIcon": {
+            "path": "material/folder_open",
+            "style": {
+              "cursor": "pointer"
+            }
+          },
+          "maxUploads": 1,
+          "supportedFileTypes": [
+            "JSON"
+          ]
+        },
+        "type": "ia.input.fileupload"
+      },
+      {
+        "children": [
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\t#Translation import\n\tjsonFile\u003dself.parent.parent.getChild(\"FileUpload\").custom.configJson\n\tpayload \u003d {\u0027json\u0027:jsonFile}\n\tmessageType \u003d \"importTerms\"\n\tsystem.perspective.sendMessage(messageType, payload)\n\tself.parent.parent.getChild(\"FileUpload\").custom.configJson \u003d \u0027\u0027"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Import"
+            },
+            "position": {
+              "basis": "80px"
+            },
+            "propConfig": {
+              "props.enabled": {
+                "binding": {
+                  "config": {
+                    "path": ".../FileUpload.custom.configJson"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tconfigJson \u003d str(value)\n\treturn not configJson \u003d\u003d \u0027\u0027",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "text": "Import"
+            },
+            "type": "ia.input.button"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\t#close popup\n\tid \u003d \u0027ImportTranslations\u0027\n\tsystem.perspective.closePopup(id)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Cancel"
+            },
+            "position": {
+              "basis": "80px"
+            },
+            "props": {
+              "primary": false,
+              "text": "Cancel"
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "Controls"
+        },
+        "position": {
+          "basis": "200px"
+        },
+        "props": {
+          "justify": "space-around",
+          "style": {
+            "marginTop": "5px"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "margin": "5px",
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

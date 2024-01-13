@@ -1,0 +1,1 @@
+select id as 'value', Label as 'label' from parts

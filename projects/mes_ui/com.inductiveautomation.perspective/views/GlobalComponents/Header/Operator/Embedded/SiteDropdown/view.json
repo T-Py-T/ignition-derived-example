@@ -1,0 +1,206 @@
+{
+  "custom": {
+    "AreaID": 18,
+    "Areas": {
+      "$": [
+        "ds",
+        192,
+        1703106050647
+      ],
+      "$columns": [
+        {
+          "data": [
+            18,
+            1021
+          ],
+          "name": "ID",
+          "type": "Integer"
+        },
+        {
+          "data": [
+            "PE Extrusion",
+            "Cast House"
+          ],
+          "name": "Title",
+          "type": "String"
+        },
+        {
+          "data": [
+            "Fiberon/1NL/PE Extrusion",
+            "Fiberon/1NL/Cast House"
+          ],
+          "name": "TagPath",
+          "type": "String"
+        },
+        {
+          "data": [
+            true,
+            true
+          ],
+          "name": "IsEnabled",
+          "type": "Boolean"
+        }
+      ]
+    },
+    "EnterpriseID": 1,
+    "SelectedPath": "Fiberon/1NL",
+    "SelectedSiteID": 9,
+    "Sites": {
+      "$": [
+        "ds",
+        192,
+        1703106050395
+      ],
+      "$columns": [
+        {
+          "data": [
+            9,
+            1014
+          ],
+          "name": "value",
+          "type": "Integer"
+        },
+        {
+          "data": [
+            "1NL",
+            "GOOBS QA"
+          ],
+          "name": "label",
+          "type": "String"
+        }
+      ]
+    }
+  },
+  "params": {},
+  "propConfig": {
+    "custom.AreaID": {
+      "binding": {
+        "config": {
+          "expression": "{view.custom.Areas}[0, 0]"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.Areas": {
+      "binding": {
+        "config": {
+          "parameters": {
+            "siteID": "{view.custom.SelectedSiteID}"
+          },
+          "queryPath": "app/Config/getAreas"
+        },
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "custom.EnterpriseID": {
+      "persistent": true
+    },
+    "custom.SelectedPath": {
+      "binding": {
+        "config": {
+          "path": "view.custom.SelectedSiteID"
+        },
+        "transforms": [
+          {
+            "code": "\ttry:\n\t\t\n\t    json \u003d gpa.data.datasetToJson(self.getChild(\"root/Dropdown\").props.options)\n\t    sitePath \u003d \u0027\u0027\n\t    found \u003d False\n\t\n\t    for j in json:\n\t        if j.get(\u0027value\u0027) \u003d\u003d value:\n\t            sitePath \u003d self.session.custom.EnterpriseName + \u0027/\u0027 + j.get(\u0027label\u0027)\n\t            found \u003d True\n\t            break\n\t\n\t    if not found:\n\t        raise Exception(\u0027No site path found for the given value.\u0027)\n\t\n\t    return sitePath\n\t\n\texcept Exception as e:\n\t    raise str(e)\n\t\t",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.SelectedSiteID": {
+      "binding": {
+        "config": {
+          "path": "/root/Dropdown.props.value"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.Sites": {
+      "binding": {
+        "config": {
+          "parameters": {
+            "enterpriseID": "{view.custom.EnterpriseID}"
+          },
+          "queryPath": "app/OEE/getSitesForEnterprise"
+        },
+        "type": "query"
+      },
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 58,
+      "width": 255
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\timport time\n\ttime.sleep(.5)\n\ttry:\n\t\tsiteID \u003d self.view.custom.SelectedSiteID\n\t\tsiteName \u003d self.view.custom.SelectedPath.split(\u0027/\u0027)[-1]\n\t\tareaID \u003d self.view.custom.AreaID\n\n\t\tself.session.custom.SelectedSite \u003d siteID\n\t\tself.session.custom.SelectedSiteName \u003d siteName\n\t\tself.session.custom.SelectedArea \u003d areaID\n\t\t\n\t\tsystem.perspective.sendMessage(\u0027changedSite\u0027)\n\texcept Exception as e:\n\t\traise str(e)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          },
+          "system": {
+            "onStartup": {
+              "config": {
+                "script": "\tlinePath \u003d self.session.custom.LineID\n\t\n\t\n\tself.props.value \u003d linePath"
+              },
+              "enabled": false,
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Dropdown"
+        },
+        "position": {
+          "basis": "256px"
+        },
+        "propConfig": {
+          "props.options": {
+            "binding": {
+              "config": {
+                "path": "view.custom.Sites"
+              },
+              "type": "property"
+            }
+          },
+          "props.value": {
+            "persistent": true
+          }
+        },
+        "props": {
+          "dropdownOptionStyle": {
+            "classes": "TextFields/Dropdown"
+          },
+          "style": {
+            "classes": "TextFields/Dropdown"
+          },
+          "value": 9
+        },
+        "type": "ia.input.dropdown"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

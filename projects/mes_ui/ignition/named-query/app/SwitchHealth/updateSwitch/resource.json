@@ -1,0 +1,61 @@
+{
+  "scope": "DG",
+  "version": 2,
+  "restricted": false,
+  "overridable": true,
+  "files": [
+    "query.sql"
+  ],
+  "attributes": {
+    "useMaxReturnSize": false,
+    "autoBatchEnabled": false,
+    "fallbackValue": "",
+    "maxReturnSize": 100,
+    "cacheUnit": "SEC",
+    "type": "UpdateQuery",
+    "enabled": true,
+    "cacheAmount": 1,
+    "cacheEnabled": false,
+    "database": "MSSQL_Switch",
+    "fallbackEnabled": false,
+    "lastModificationSignature": "e981b18e1e2372cb1fd6bb8ce772e8491db45cf49337d6d786bfac619d57a8fe",
+    "permissions": [
+      {
+        "zone": "",
+        "role": ""
+      }
+    ],
+    "lastModification": {
+      "actor": "bduran",
+      "timestamp": "2023-07-12T14:05:25Z"
+    },
+    "syntaxProvider": "class com.adbs.syntax.PostgreSQLSyntaxProvider",
+    "parameters": [
+      {
+        "type": "Parameter",
+        "identifier": "assetID",
+        "sqlType": 7
+      },
+      {
+        "type": "Parameter",
+        "identifier": "ncc",
+        "sqlType": 7
+      },
+      {
+        "type": "Parameter",
+        "identifier": "switch",
+        "sqlType": 7
+      },
+      {
+        "type": "Parameter",
+        "identifier": "switchID",
+        "sqlType": 3
+      },
+      {
+        "type": "Parameter",
+        "identifier": "plcAddress",
+        "sqlType": 7
+      }
+    ]
+  }
+}

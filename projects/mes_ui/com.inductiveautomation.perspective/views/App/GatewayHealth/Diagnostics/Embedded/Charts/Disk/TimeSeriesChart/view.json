@@ -1,0 +1,252 @@
+{
+  "custom": {},
+  "params": {
+    "EqPath": "[GatewayHealth]Gateways/Tag1"
+  },
+  "propConfig": {
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 167,
+      "width": 346
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "custom": {
+          "key": [
+            {
+              "aggregate": "\"Average\"",
+              "alias": "",
+              "path": "[IgnitionHistorian/dev-script-gateway:gatewayhealth]gatewayhealth/cpu "
+            }
+          ]
+        },
+        "meta": {
+          "name": "TimeSeriesChart"
+        },
+        "position": {
+          "basis": "166px"
+        },
+        "propConfig": {
+          "props.plots[0].axes[0].tick.color": {
+            "binding": {
+              "config": {
+                "path": "session.props.theme"
+              },
+              "transforms": [
+                {
+                  "fallback": "black",
+                  "inputType": "scalar",
+                  "mappings": [
+                    {
+                      "input": "custom-light",
+                      "output": "black"
+                    },
+                    {
+                      "input": "custom-dark",
+                      "output": "white"
+                    }
+                  ],
+                  "outputType": "scalar",
+                  "type": "map"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.plots[0].axes[0].tick.label.font.color": {
+            "binding": {
+              "config": {
+                "path": "session.props.theme"
+              },
+              "transforms": [
+                {
+                  "fallback": "black",
+                  "inputType": "scalar",
+                  "mappings": [
+                    {
+                      "input": "custom-light",
+                      "output": "black"
+                    },
+                    {
+                      "input": "custom-dark",
+                      "output": "white"
+                    }
+                  ],
+                  "outputType": "scalar",
+                  "type": "map"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.series[0].data": {
+            "binding": {
+              "config": {
+                "fallbackDelay": 2.5,
+                "mode": "indirect",
+                "references": {
+                  "1": "{view.params.EqPath}"
+                },
+                "tagPath": "{1}/_History/Disk"
+              },
+              "type": "tag"
+            }
+          },
+          "props.timeAxis.tick.color": {
+            "binding": {
+              "config": {
+                "path": "session.props.theme"
+              },
+              "transforms": [
+                {
+                  "fallback": "black",
+                  "inputType": "scalar",
+                  "mappings": [
+                    {
+                      "input": "custom-light",
+                      "output": "black"
+                    },
+                    {
+                      "input": "custom-dark",
+                      "output": "white"
+                    }
+                  ],
+                  "outputType": "scalar",
+                  "type": "map"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.timeAxis.tick.label.font.color": {
+            "binding": {
+              "config": {
+                "path": "session.props.theme"
+              },
+              "transforms": [
+                {
+                  "fallback": "black",
+                  "inputType": "scalar",
+                  "mappings": [
+                    {
+                      "input": "custom-light",
+                      "output": "black"
+                    },
+                    {
+                      "input": "custom-dark",
+                      "output": "white"
+                    }
+                  ],
+                  "outputType": "scalar",
+                  "type": "map"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "defaultStyles": {
+            "colorScheme": "Spectral"
+          },
+          "plots": [
+            {
+              "axes": [
+                {
+                  "alignment": "left",
+                  "label": {
+                    "font": {
+                      "color": "",
+                      "size": 10
+                    },
+                    "offset": "",
+                    "style": {
+                      "classes": ""
+                    },
+                    "text": "",
+                    "visible": true
+                  },
+                  "max": 100,
+                  "min": 0,
+                  "name": "CPU Usage",
+                  "style": {
+                    "classes": ""
+                  },
+                  "tick": {
+                    "label": {
+                      "font": {
+                        "size": 10
+                      },
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "style": {
+                      "classes": ""
+                    }
+                  },
+                  "width": 30
+                }
+              ],
+              "markers": [],
+              "relativeWeight": 1,
+              "trends": [
+                {
+                  "axis": "CPU Usage",
+                  "baselines": [],
+                  "breakLine": true,
+                  "columns": [],
+                  "interpolation": "curveLinear",
+                  "radius": 2,
+                  "series": "CPU Usage",
+                  "stack": true,
+                  "type": "bar",
+                  "visible": true
+                }
+              ]
+            }
+          ],
+          "series": [
+            {
+              "name": "CPU Usage"
+            }
+          ],
+          "timeAxis": {
+            "tick": {
+              "label": {
+                "font": {}
+              }
+            }
+          },
+          "timeRange": {
+            "visible": false
+          },
+          "title": {
+            "font": {
+              "size": 12
+            },
+            "height": 45
+          }
+        },
+        "type": "ia.chart.timeseries"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

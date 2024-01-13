@@ -1,0 +1,346 @@
+{
+  "custom": {
+    "AvailableColor": "var(--newGrey)",
+    "IsAvailable": "",
+    "LastComm": -1
+  },
+  "params": {
+    "EqPath": "[App1_System]Gateway",
+    "Server": "_0:0:dev-tag-gateway-1",
+    "State": "fail"
+  },
+  "propConfig": {
+    "custom.AvailableColor": {
+      "binding": {
+        "config": {
+          "path": "view.custom.IsAvailable"
+        },
+        "transforms": [
+          {
+            "fallback": "var(--newGrey)",
+            "inputType": "scalar",
+            "mappings": [
+              {
+                "input": false,
+                "output": "--error"
+              },
+              {
+                "input": true,
+                "output": "--success"
+              }
+            ],
+            "outputType": "scalar",
+            "type": "map"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.IsAvailable": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}",
+            "2": "{view.params.Server}"
+          },
+          "tagPath": "{1}/Gateway Network/{2}/IsAvailable"
+        },
+        "overlayOptOut": true,
+        "transforms": [
+          {
+            "expression": "if(\r\n\tqualityOf({value}) \u003d \u0027Good\u0027,\r\n\t{value},\r\n\t\u0027\u0027\r\n)",
+            "type": "expression"
+          }
+        ],
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.LastComm": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}",
+            "2": "{view.params.Server}"
+          },
+          "tagPath": "{1}/Gateway Network/{2}/LastComm"
+        },
+        "overlayOptOut": true,
+        "transforms": [
+          {
+            "expression": "if(\r\n\tqualityOf({value}) \u003d \u0027Good\u0027,\r\n\t{value},\r\n\t-1\r\n)",
+            "type": "expression"
+          }
+        ],
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Server": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.State": {
+      "binding": {
+        "config": {
+          "path": "/root/IsAvailable/Value.props.text"
+        },
+        "overlayOptOut": true,
+        "transforms": [
+          {
+            "fallback": "fail",
+            "inputType": "scalar",
+            "mappings": [
+              {
+                "input": "No",
+                "output": "fail"
+              },
+              {
+                "input": "Yes",
+                "output": ""
+              }
+            ],
+            "outputType": "scalar",
+            "type": "map"
+          }
+        ],
+        "type": "property"
+      },
+      "paramDirection": "output",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 68,
+      "width": 373
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.Server"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardTitle"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Name"
+        },
+        "position": {
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "Cards/Common/CardTitleBorder",
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardText"
+              },
+              "text": "Is Available"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "basis": "30px",
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.style.backgroundColor": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.AvailableColor"
+                  },
+                  "overlayOptOut": true,
+                  "type": "property"
+                }
+              },
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.IsAvailable"
+                  },
+                  "overlayOptOut": true,
+                  "transforms": [
+                    {
+                      "fallback": "",
+                      "inputType": "scalar",
+                      "mappings": [
+                        {
+                          "input": false,
+                          "output": "No"
+                        },
+                        {
+                          "input": true,
+                          "output": "Yes"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/Boolean"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "IsAvailable"
+        },
+        "position": {
+          "basis": "20px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "marginBottom": "2px",
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardText"
+              },
+              "text": "Last Comm.",
+              "textStyle": {
+                "fontSize": ""
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.LastComm"
+                  },
+                  "overlayOptOut": true,
+                  "transforms": [
+                    {
+                      "expression": "if({value} \u003d -1, \"--\", dateFormat({value}, \"yyyy-MM-dd hh:mm:ss a\"))",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardValue"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "LastCommunication"
+        },
+        "position": {
+          "basis": "20px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "TextFields/TextFieldAlternate",
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "meta": {
+          "name": "Spacer"
+        },
+        "position": {
+          "basis": "5px",
+          "shrink": 0
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

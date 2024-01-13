@@ -1,0 +1,105 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 53,
+      "width": 267
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "component": {
+            "onItemClicked": [
+              {
+                "config": {
+                  "draggable": true,
+                  "id": "operatorMenu",
+                  "modal": false,
+                  "overlayDismiss": false,
+                  "resizable": true,
+                  "showCloseIcon": true,
+                  "type": "close",
+                  "viewPath": "GlobalComponents/Header/Operator/SubMenu",
+                  "viewportBound": false
+                },
+                "enabled": false,
+                "scope": "C",
+                "type": "popup"
+              },
+              {
+                "config": {},
+                "scope": "C",
+                "type": "logout"
+              }
+            ]
+          }
+        },
+        "meta": {
+          "name": "MenuTree"
+        },
+        "position": {
+          "basis": "300px"
+        },
+        "props": {
+          "items": [
+            {
+              "backActionText": "",
+              "enabled": true,
+              "items": [],
+              "label": {
+                "icon": {
+                  "path": "material/picture_as_pdf"
+                },
+                "text": "Instructions"
+              },
+              "navIcon": {
+                "color": "",
+                "path": ""
+              },
+              "resetOnClick": false,
+              "showHeader": true,
+              "style": {
+                "classes": ""
+              },
+              "target": "",
+              "visible": false
+            },
+            {
+              "backActionText": "",
+              "enabled": true,
+              "items": [],
+              "label": {
+                "icon": {
+                  "path": "material/close"
+                },
+                "text": "Exit Application"
+              },
+              "navIcon": {
+                "color": "",
+                "path": ""
+              },
+              "resetOnClick": false,
+              "showHeader": true,
+              "style": {
+                "classes": ""
+              },
+              "target": "",
+              "visible": true
+            }
+          ]
+        },
+        "type": "ia.navigation.menutree"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

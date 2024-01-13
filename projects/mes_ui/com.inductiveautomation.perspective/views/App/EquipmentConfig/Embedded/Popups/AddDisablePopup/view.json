@@ -1,0 +1,240 @@
+{
+  "custom": {
+    "SelectedEnabled": true
+  },
+  "params": {
+    "EqEnabled": false,
+    "EqName": "value",
+    "EqPath": "value",
+    "EqType": "value",
+    "ID": "value",
+    "ModalName": "value"
+  },
+  "propConfig": {
+    "custom.SelectedEnabled": {
+      "binding": {
+        "config": {
+          "expression": "!{view.params.EqEnabled}"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "params.EqEnabled": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.EqName": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.EqType": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.ID": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.ModalName": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 251,
+      "width": 373
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Label"
+        },
+        "position": {
+          "basis": "32px",
+          "grow": 1
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "expression": "//\u0027Are you sure you want to disable: \u0027 + {view.params.EqName}\r\nif(\r\n\t{view.params.EqEnabled} \u003d true,\r\n\t\u0027Are you sure you want to disable: \u0027 + {view.params.EqName},\r\n\t\u0027Are you sure you want to enable: \u0027 + {view.params.EqName}\r\n)"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "textStyle": {
+            "textAlign": "center"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\tlogger \u003d system.util.getLogger(\u0027disableEqConfig\u0027)\n\t\n\ttry:\n\t\teqID \u003d self.view.params.ID\n\t\teqType \u003d self.view.params.EqType\n\t\teqPath \u003d self.view.params.EqPath\n\t\teqName \u003d self.view.params.EqName\n\t\teqEnabled \u003d self.view.custom.SelectedEnabled\n\t\t\n\t\tparams \u003d {\n\t\t\t\u0027EqID\u0027: eqID,\n\t\t\t\u0027EqPath\u0027: eqPath,\n\t\t\t\u0027EqType\u0027: eqType,\n\t\t\t\u0027EqName\u0027: eqName,\n\t\t\t\u0027Enable\u0027: eqEnabled\n\t\t}\n\t\t\n\t\tres \u003d mes.config.equipment.assetDisable(params)\n\t\tif res !\u003d True: raise ValueError(\u0027Sproc call failed: \u0027 + str(res))\n\t\t\n\t\tsystem.perspective.sendMessage(\u0027refreshTree\u0027)\n\t\tsystem.perspective.closePopup(self.view.params.ModalName)\t\n\texcept Exception as e:\n\t\terrorParams \u003d {\n\t\t\t\"ModalName\": \"ErrorModal\",\n\t\t\t\"ErrorMessage\": str(e),\n\t\t}\n\t\t\n\t\tsystem.perspective.openPopup(\"ErrorModal\", \"GlobalComponents/Modals/ErrorModal\", errorParams)\n\t\tlogger.warn(\u0027There was an error: \u0027 + str(e))"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "SaveButton"
+                },
+                "position": {
+                  "basis": "129px"
+                },
+                "propConfig": {
+                  "props.params.Label": {
+                    "binding": {
+                      "config": {
+                        "expression": "if(\r\n\t{view.params.EqEnabled} \u003d true,\r\n\t\u0027Disable\u0027,\r\n\t\u0027Enable\u0027\r\n)"
+                      },
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "BackgroundColor": "value",
+                    "DisabledPopup": {
+                      "message": "Please sign in as quarterback to proceed.",
+                      "messageType": "",
+                      "payload": {},
+                      "title": "Invalid Permissions"
+                    },
+                    "Enabled": true,
+                    "Hover": true,
+                    "IconPath": "material/check",
+                    "IsSelectable": false,
+                    "Selected": true,
+                    "Size": "value",
+                    "Type": "normalsuccess"
+                  },
+                  "path": "GlobalComponents/Buttons/Button",
+                  "style": {
+                    "classes": "Global/MarginAllLeft"
+                  }
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "Save"
+            },
+            "position": {
+              "basis": "132px"
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\tsystem.perspective.closePopup(self.view.params.ModalName)"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "Close"
+                },
+                "position": {
+                  "basis": "129px"
+                },
+                "props": {
+                  "params": {
+                    "BackgroundColor": "value",
+                    "DisabledPopup": {
+                      "message": "Please sign in as quarterback to proceed.",
+                      "messageType": "",
+                      "payload": {},
+                      "title": "Invalid Permissions"
+                    },
+                    "Enabled": true,
+                    "Hover": true,
+                    "IconPath": "material/close",
+                    "IsSelectable": false,
+                    "Label": "Close",
+                    "Selected": true,
+                    "Size": "value",
+                    "Type": "normalsuccess"
+                  },
+                  "path": "GlobalComponents/Buttons/Button",
+                  "style": {
+                    "classes": "Global/MarginAllRight"
+                  }
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "ClosePopup"
+            },
+            "position": {
+              "basis": "132px"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "FlexContainer"
+        },
+        "position": {
+          "basis": "42px"
+        },
+        "props": {
+          "justify": "center",
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "events": {
+      "dom": {
+        "onClick": {
+          "config": {
+            "script": "\tsystem.perspective.print(self.view.params)"
+          },
+          "scope": "G",
+          "type": "script"
+        }
+      }
+    },
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

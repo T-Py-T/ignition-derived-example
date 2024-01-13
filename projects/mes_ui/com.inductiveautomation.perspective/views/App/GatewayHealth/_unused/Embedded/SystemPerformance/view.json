@@ -1,0 +1,588 @@
+{
+  "custom": {},
+  "params": {
+    "TagPath": "[GatewayHealth]Gateways/Script/"
+  },
+  "propConfig": {
+    "params.TagPath": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 200,
+      "width": 300
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardText"
+              },
+              "text": "CPU Usage"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "basis": "55px",
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.style.backgroundColor": {
+                "binding": {
+                  "config": {
+                    "fallbackDelay": 2.5,
+                    "mode": "indirect",
+                    "references": {
+                      "tagPath": "{view.params.TagPath}"
+                    },
+                    "tagPath": "{tagPath}/Performance/CPU Usage"
+                  },
+                  "transforms": [
+                    {
+                      "expression": "{value} * 100.0",
+                      "type": "expression"
+                    },
+                    {
+                      "fallback": "var(--newGrey)",
+                      "inputType": "range",
+                      "mappings": [
+                        {
+                          "input": {
+                            "max": 65,
+                            "min": 0
+                          },
+                          "output": "var(--success)"
+                        },
+                        {
+                          "input": {
+                            "max": 85,
+                            "min": 65
+                          },
+                          "output": "var(--warning)"
+                        },
+                        {
+                          "input": {
+                            "max": 100,
+                            "min": 85
+                          },
+                          "output": "var(--error)"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "tag"
+                }
+              },
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "fallbackDelay": 2.5,
+                    "mode": "indirect",
+                    "references": {
+                      "tagPath": "{view.params.TagPath}"
+                    },
+                    "tagPath": "{tagPath}/Performance/CPU Usage"
+                  },
+                  "transforms": [
+                    {
+                      "expression": "ceil({value} * 100) + \u0027%\u0027",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "tag"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardValue"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "CPU Usage"
+        },
+        "position": {
+          "basis": "20px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "marginBottom": "2px",
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardText"
+              },
+              "text": "Available Disk Space"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "fallbackDelay": 2.5,
+                    "mode": "indirect",
+                    "references": {
+                      "tagPath": "{view.params.TagPath}"
+                    },
+                    "tagPath": "{tagPath}/Performance/Available Disk Space (MB)"
+                  },
+                  "transforms": [
+                    {
+                      "expression": "numberFormat(\r\n\tif({value} \u003e\u003d 1024*1024, {value} / (1024*1024),\r\n\tif({value} \u003e\u003d 1024, {value} / 1024,\r\n\t{value})),\r\n\"#,##0.##\")  + \r\n\r\nif({value} \u003e\u003d 1024*1024, \"TB\",\r\nif({value} \u003e\u003d 1024, \"GB\",\r\n\"MB\")) ",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "tag"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardValue"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Disk Space"
+        },
+        "position": {
+          "basis": "20px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "TextFields/TextFieldAlternate",
+            "marginBottom": "2px",
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardText"
+              },
+              "text": "Disk Utilization"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "basis": "55px",
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.style.backgroundColor": {
+                "binding": {
+                  "config": {
+                    "fallbackDelay": 2.5,
+                    "mode": "indirect",
+                    "references": {
+                      "tagPath": "{view.params.TagPath}"
+                    },
+                    "tagPath": "{tagPath}/Performance/Disk Utilization"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": "var(--newGrey)",
+                      "inputType": "range",
+                      "mappings": [
+                        {
+                          "input": {
+                            "max": 65,
+                            "min": 0
+                          },
+                          "output": "var(--success)"
+                        },
+                        {
+                          "input": {
+                            "max": 85,
+                            "min": 65
+                          },
+                          "output": "var(--warning)"
+                        },
+                        {
+                          "input": {
+                            "max": 100,
+                            "min": 85
+                          },
+                          "output": "var(--error)"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "tag"
+                }
+              },
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "fallbackDelay": 2.5,
+                    "mode": "indirect",
+                    "references": {
+                      "tagPath": "{view.params.TagPath}"
+                    },
+                    "tagPath": "{tagPath}/Performance/Disk Utilization"
+                  },
+                  "transforms": [
+                    {
+                      "expression": "numberFormat({value}, \"#0.00\u0027%\u0027\")",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "tag"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardValue"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Disk Utilization"
+        },
+        "position": {
+          "basis": "20px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "marginBottom": "2px",
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardText"
+              },
+              "text": "Max Memory"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "fallbackDelay": 2.5,
+                    "mode": "indirect",
+                    "references": {
+                      "tagPath": "{view.params.TagPath}"
+                    },
+                    "tagPath": "{tagPath}/Performance/Max Memory"
+                  },
+                  "transforms": [
+                    {
+                      "expression": "numberFormat(\r\n\tif({value} \u003e\u003d 1024*1024*1024*1024, {value} / (1024*1024*1024*1024),\r\n\tif({value} \u003e\u003d 1024*1024*1024, {value} / (1024*1024*1024),\r\n\tif({value} \u003e\u003d 1024*1024, {value} / (1024*1024),\r\n\tif({value} \u003e\u003d 1024, {value} / 1024,\r\n\t{value})))),\r\n\"#,##0.##\")  + \r\n\r\nif({value} \u003e\u003d 1024*1024*1024*1024, \"TB\",\r\nif({value} \u003e\u003d 1024*1024*1024, \"GB\",\r\nif({value} \u003e\u003d 1024*1024, \"MB\",\r\nif({value} \u003e\u003d 1024, \"KB\",\r\n\"B\"))))",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "tag"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardValue"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Max Memory"
+        },
+        "position": {
+          "basis": "20px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "TextFields/TextFieldAlternate",
+            "marginBottom": "2px",
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardText"
+              },
+              "text": "Memory Usage"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "fallbackDelay": 2.5,
+                    "mode": "indirect",
+                    "references": {
+                      "tagPath": "{view.params.TagPath}"
+                    },
+                    "tagPath": "{tagPath}/Performance/Memory Usage"
+                  },
+                  "transforms": [
+                    {
+                      "expression": "numberFormat(\r\n\tif({value} \u003e\u003d 1024*1024*1024*1024, {value} / (1024*1024*1024*1024),\r\n\tif({value} \u003e\u003d 1024*1024*1024, {value} / (1024*1024*1024),\r\n\tif({value} \u003e\u003d 1024*1024, {value} / (1024*1024),\r\n\tif({value} \u003e\u003d 1024, {value} / 1024,\r\n\t{value})))),\r\n\"#,##0.##\")  + \r\n\r\nif({value} \u003e\u003d 1024*1024*1024*1024, \"TB\",\r\nif({value} \u003e\u003d 1024*1024*1024, \"GB\",\r\nif({value} \u003e\u003d 1024*1024, \"MB\",\r\nif({value} \u003e\u003d 1024, \"KB\",\r\n\"B\"))))",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "tag"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardValue"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Memory Usage"
+        },
+        "position": {
+          "basis": "20px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "marginBottom": "2px",
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardText"
+              },
+              "text": "Memory Utilization"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "basis": "55px",
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.style.backgroundColor": {
+                "binding": {
+                  "config": {
+                    "fallbackDelay": 2.5,
+                    "mode": "indirect",
+                    "references": {
+                      "tagPath": "{view.params.TagPath}"
+                    },
+                    "tagPath": "{tagPath}/Performance/Memory Utilization"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": "var(--newGrey)",
+                      "inputType": "range",
+                      "mappings": [
+                        {
+                          "input": {
+                            "max": 65,
+                            "min": 0
+                          },
+                          "output": "var(--success)"
+                        },
+                        {
+                          "input": {
+                            "max": 85,
+                            "min": 65
+                          },
+                          "output": "var(--warning)"
+                        },
+                        {
+                          "input": {
+                            "max": 100,
+                            "min": 85
+                          },
+                          "output": "var(--error)"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "tag"
+                }
+              },
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "fallbackDelay": 2.5,
+                    "mode": "indirect",
+                    "references": {
+                      "tagPath": "{view.params.TagPath}"
+                    },
+                    "tagPath": "{tagPath}/Performance/Memory Utilization"
+                  },
+                  "transforms": [
+                    {
+                      "expression": "numberFormat({value}, \"#0.00\u0027%\u0027\")",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "tag"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardValue"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Memory Utilization"
+        },
+        "position": {
+          "basis": "20px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "TextFields/TextFieldAlternate",
+            "marginBottom": "2px",
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

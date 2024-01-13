@@ -1,0 +1,641 @@
+{
+  "custom": {},
+  "params": {
+    "Database": "",
+    "TagPath": "value"
+  },
+  "propConfig": {
+    "params.Database": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.TagPath": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 142,
+      "width": 401
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.Database"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardTitle"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Name"
+        },
+        "position": {
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "Cards/Common/CardTitleBorder"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardText"
+              },
+              "text": "Available"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "basis": "30px",
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.style.backgroundColor": {
+                "binding": {
+                  "config": {
+                    "fallbackDelay": 2.5,
+                    "mode": "indirect",
+                    "references": {
+                      "database": "{view.params.Database}",
+                      "tagPath": "{view.params.TagPath}"
+                    },
+                    "tagPath": "{tagPath}/{database}/Available"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": "var(--newGrey)",
+                      "inputType": "scalar",
+                      "mappings": [
+                        {
+                          "input": false,
+                          "output": "var(--error)"
+                        },
+                        {
+                          "input": true,
+                          "output": "var(--success)"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "tag"
+                }
+              },
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "fallbackDelay": 2.5,
+                    "mode": "indirect",
+                    "references": {
+                      "database": "{view.params.Database}",
+                      "tagPath": "{view.params.TagPath}"
+                    },
+                    "tagPath": "{tagPath}/{database}/Available"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": "No",
+                      "inputType": "scalar",
+                      "mappings": [
+                        {
+                          "input": false,
+                          "output": "No"
+                        },
+                        {
+                          "input": true,
+                          "output": "Yes"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "tag"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/Boolean"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "IsAvailable"
+        },
+        "position": {
+          "basis": "20px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "marginBottom": "2px"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardText"
+              },
+              "text": "Available Through Failover"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "basis": "30px",
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.style.backgroundColor": {
+                "binding": {
+                  "config": {
+                    "fallbackDelay": 2.5,
+                    "mode": "indirect",
+                    "references": {
+                      "database": "{view.params.Database}",
+                      "tagPath": "{view.params.TagPath}"
+                    },
+                    "tagPath": "{tagPath}/{database}/AvailableThroughFailover"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": "var(--newGrey)",
+                      "inputType": "scalar",
+                      "mappings": [
+                        {
+                          "input": false,
+                          "output": "var(--error)"
+                        },
+                        {
+                          "input": true,
+                          "output": "var(--success)"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "tag"
+                }
+              },
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "fallbackDelay": 2.5,
+                    "mode": "indirect",
+                    "references": {
+                      "database": "{view.params.Database}",
+                      "tagPath": "{view.params.TagPath}"
+                    },
+                    "tagPath": "{tagPath}/{database}/AvailableThroughFailover"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": "No",
+                      "inputType": "scalar",
+                      "mappings": [
+                        {
+                          "input": false,
+                          "output": "No"
+                        },
+                        {
+                          "input": true,
+                          "output": "Yes"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "tag"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/Boolean"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "IsAvailableThroughFailover"
+        },
+        "position": {
+          "basis": "20px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "TextFields/TextFieldAlternate",
+            "marginBottom": "2px"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardText"
+              },
+              "text": "Active Connections"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "fallbackDelay": 2.5,
+                    "mode": "indirect",
+                    "references": {
+                      "database": "{view.params.Database}",
+                      "tagPath": "{view.params.TagPath}"
+                    },
+                    "tagPath": "{tagPath}/{database}/ActiveConnections"
+                  },
+                  "transforms": [
+                    {
+                      "expression": "if({value} \u003d null, \"--\", numberFormat({value}, \"#,##0.##\"))",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "tag"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardValue"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "ActiveConnections"
+        },
+        "position": {
+          "basis": "20px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "marginBottom": "2px"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardText"
+              },
+              "text": "Queries / Second"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "fallbackDelay": 2.5,
+                    "mode": "indirect",
+                    "references": {
+                      "database": "{view.params.Database}",
+                      "tagPath": "{view.params.TagPath}"
+                    },
+                    "tagPath": "{tagPath}/{database}/QueriesPerSecond"
+                  },
+                  "transforms": [
+                    {
+                      "expression": "if({value} \u003d null, \"--\", numberFormat({value}, \"#,##0.##\"))",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "tag"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardValue"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "QueriesPerSecond"
+        },
+        "position": {
+          "basis": "20px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "TextFields/TextFieldAlternate",
+            "marginBottom": "2px"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardText"
+              },
+              "text": "Avg Query Time"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "fallbackDelay": 2.5,
+                    "mode": "indirect",
+                    "references": {
+                      "database": "{view.params.Database}",
+                      "tagPath": "{view.params.TagPath}"
+                    },
+                    "tagPath": "{tagPath}/{database}/AvgQueryTime"
+                  },
+                  "transforms": [
+                    {
+                      "expression": "if({value} \u003d null, \"--\", numberFormat({value}, \"#,##0.##\"))",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "tag"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardValue"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "AvgQueryTime"
+        },
+        "position": {
+          "basis": "20px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "marginBottom": "2px"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardText"
+              },
+              "text": "Connection Saturation"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "basis": "20px"
+            },
+            "propConfig": {
+              "props.style.backgroundColor": {
+                "binding": {
+                  "config": {
+                    "fallbackDelay": 2.5,
+                    "mode": "indirect",
+                    "references": {
+                      "database": "{view.params.Database}",
+                      "tagPath": "{view.params.TagPath}"
+                    },
+                    "tagPath": "{tagPath}/{database}/ConnectionSaturation"
+                  },
+                  "transforms": [
+                    {
+                      "expression": "{value} * 100.0",
+                      "type": "expression"
+                    },
+                    {
+                      "fallback": "var(--newGrey)",
+                      "inputType": "range",
+                      "mappings": [
+                        {
+                          "input": {
+                            "max": 65,
+                            "min": 0
+                          },
+                          "output": "var(--success)"
+                        },
+                        {
+                          "input": {
+                            "max": 85,
+                            "min": 65
+                          },
+                          "output": "var(--warning)"
+                        },
+                        {
+                          "input": {
+                            "max": 100,
+                            "min": 85
+                          },
+                          "output": "var(--error)"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "tag"
+                }
+              },
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "fallbackDelay": 2.5,
+                    "mode": "indirect",
+                    "references": {
+                      "database": "{view.params.Database}",
+                      "tagPath": "{view.params.TagPath}"
+                    },
+                    "tagPath": "{tagPath}/{database}/ConnectionSaturation"
+                  },
+                  "transforms": [
+                    {
+                      "expression": "if({value} \u003d null, \"--\", numberFormat({value}, \"#,##0.##%\"))",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "tag"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/Boolean"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "ConnectionSaturation"
+        },
+        "position": {
+          "basis": "20px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "TextFields/TextFieldAlternate",
+            "marginBottom": "2px"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "meta": {
+          "name": "Spacer"
+        },
+        "position": {
+          "basis": "5px",
+          "shrink": 0
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

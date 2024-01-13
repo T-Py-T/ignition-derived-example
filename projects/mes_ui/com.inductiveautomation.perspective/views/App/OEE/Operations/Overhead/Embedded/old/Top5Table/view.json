@@ -1,0 +1,64 @@
+{
+  "custom": {},
+  "params": {
+    "TagPath": "Newell/Maryville",
+    "TagProvider": "[MES]"
+  },
+  "propConfig": {
+    "params.TagPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.TagProvider": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 155,
+      "width": 364
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Table"
+        },
+        "position": {
+          "grow": 1
+        },
+        "propConfig": {
+          "props.data": {
+            "binding": {
+              "config": {
+                "fallbackDelay": 2.5,
+                "mode": "indirect",
+                "references": {
+                  "2": "{view.params.TagPath}"
+                },
+                "tagPath": "[MES]{2}/Analysis/Shift/DT/Top5"
+              },
+              "type": "tag"
+            }
+          }
+        },
+        "props": {
+          "enableHeader": false,
+          "pager": {
+            "bottom": false
+          }
+        },
+        "type": "ia.display.table"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

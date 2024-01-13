@@ -1,0 +1,338 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\tnow \u003d app.util.getCurrentDateTime()\n\tstart \u003d system.date.addHours(now, -24)\n\tpayload \u003d {\u0027timeStart\u0027:start,\n\t\t\t\t\u0027timeEnd\u0027:now}\n\t\t\t\t\n\tsystem.perspective.sendMessage(\u0027quickTimeRangeSelected\u0027, payload)"
+        },
+        "enabled": false,
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "enabledQuickRange": true,
+    "timeEnd": {
+      "$": [
+        "ts",
+        201,
+        1704294735416
+      ],
+      "$ts": 1704208335416
+    },
+    "timeStart": {
+      "$": [
+        "ts",
+        201,
+        1704294735416
+      ],
+      "$ts": 1701702735416
+    }
+  },
+  "propConfig": {
+    "params.enabledQuickRange": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.timeEnd": {
+      "binding": {
+        "config": {
+          "bidirectional": true,
+          "path": "/root/startEnd/end/EndDate.props.value"
+        },
+        "type": "property"
+      },
+      "paramDirection": "inout",
+      "persistent": true
+    },
+    "params.timeStart": {
+      "binding": {
+        "config": {
+          "bidirectional": true,
+          "path": "/root/startEnd/start/StartDate.props.value"
+        },
+        "type": "property"
+      },
+      "paramDirection": "inout",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 98,
+      "width": 254
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label"
+                },
+                "position": {
+                  "basis": "50px"
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginRight"
+                  },
+                  "text": "Start:"
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "StartDate"
+                },
+                "position": {
+                  "basis": "20ch",
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "props.maxDate": {
+                    "binding": {
+                      "config": {
+                        "expression": "addMinutes(now(10000), -60)"
+                      },
+                      "type": "expr"
+                    }
+                  },
+                  "props.value": {
+                    "binding": {
+                      "config": {
+                        "expression": "addDays(now(0), -30)"
+                      },
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "formattedValue": "Dec 4, 2023 10:12 AM",
+                  "inputProps": {
+                    "style": {
+                      "classes": "TextFields/DateSelector"
+                    }
+                  },
+                  "modalStyle": {
+                    "classes": "TextFields/TextArea"
+                  },
+                  "style": {
+                    "classes": "Global/MarginBottom TextFields/TextArea"
+                  }
+                },
+                "type": "ia.input.date-time-input"
+              }
+            ],
+            "meta": {
+              "name": "start"
+            },
+            "position": {
+              "basis": "42px",
+              "grow": 1,
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label"
+                },
+                "position": {
+                  "basis": "50px",
+                  "shrink": 0
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginRight"
+                  },
+                  "text": "End:"
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "EndDate"
+                },
+                "position": {
+                  "basis": "20ch",
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "props.value": {
+                    "binding": {
+                      "config": {
+                        "expression": "addDays(now(0), -1)"
+                      },
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "formattedValue": "Jan 2, 2024 10:12 AM",
+                  "inputProps": {
+                    "style": {
+                      "classes": "TextFields/DateSelector"
+                    }
+                  },
+                  "modalStyle": {
+                    "classes": "TextFields/TextArea"
+                  },
+                  "style": {
+                    "classes": "Global/MarginBottom TextFields/TextArea Global/MarginRight"
+                  }
+                },
+                "type": "ia.input.date-time-input"
+              }
+            ],
+            "meta": {
+              "name": "end"
+            },
+            "position": {
+              "basis": "42px",
+              "grow": 1,
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "startEnd"
+        },
+        "position": {
+          "grow": 1,
+          "shrink": 0
+        },
+        "props": {
+          "direction": "column",
+          "style": {
+            "classes": "Global/MarginLeft",
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "draggable": false,
+                    "id": "quickRangeSelection",
+                    "modal": true,
+                    "overlayDismiss": true,
+                    "position": {
+                      "relativeLocation": "bottom-right"
+                    },
+                    "positionType": "relative",
+                    "resizable": false,
+                    "showCloseIcon": false,
+                    "type": "open",
+                    "viewPath": "components/objects/timeSelector/quickRangeSelection/popupHistoricalCurrentSelection"
+                  },
+                  "scope": "C",
+                  "type": "popup"
+                }
+              }
+            },
+            "meta": {
+              "name": "quickRangeButton"
+            },
+            "position": {
+              "basis": "5ch",
+              "shrink": 0
+            },
+            "propConfig": {
+              "meta.visible": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.enabledQuickRange"
+                  },
+                  "type": "property"
+                }
+              },
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.enabledQuickRange"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "Borders": {
+                  "borderBottomLeftRadius": "10px",
+                  "borderBottomRightRadius": "10px",
+                  "borderTopLeftRadius": "10px",
+                  "borderTopRightRadius": "10px"
+                },
+                "Label": "Quick Range",
+                "State": "false",
+                "enabled": true,
+                "value": "value"
+              },
+              "path": "GlobalComponents/Buttons/Button",
+              "style": {
+                "marginLeft": "1ch",
+                "marginRight": "1ch"
+              }
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "button"
+        },
+        "position": {
+          "display": false,
+          "shrink": 0
+        },
+        "props": {
+          "alignContent": "center",
+          "alignItems": "center",
+          "direction": "column",
+          "justify": "center"
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "scripts": {
+      "customMethods": [],
+      "extensionFunctions": null,
+      "messageHandlers": [
+        {
+          "messageType": "quickTimeRangeSelected",
+          "pageScope": true,
+          "script": "\t# implement your handler here\n\tself.view.params.timeStart \u003d payload.get(\u0027timeStart\u0027)\n\tself.view.params.timeEnd \u003d payload.get(\u0027timeEnd\u0027)\n\t",
+          "sessionScope": false,
+          "viewScope": false
+        }
+      ]
+    },
+    "type": "ia.container.flex"
+  }
+}

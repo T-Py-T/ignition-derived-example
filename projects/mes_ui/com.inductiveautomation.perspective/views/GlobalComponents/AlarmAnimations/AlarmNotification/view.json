@@ -1,0 +1,65 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 40,
+      "width": 130
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Icon"
+        },
+        "position": {
+          "basis": "30px"
+        },
+        "props": {
+          "path": "material/notifications_active"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "Label"
+        },
+        "position": {
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "fontSize": "16px"
+          },
+          "text": "New Alarm"
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "events": {
+      "dom": {
+        "onClick": {
+          "config": {
+            "id": "alarmBar",
+            "type": "open"
+          },
+          "scope": "C",
+          "type": "dock"
+        }
+      }
+    },
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "justify": "center",
+      "style": {
+        "classes": "MES/MainViews/Overview/AlarmNotification",
+        "cursor": "pointer",
+        "overflow": "visible"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

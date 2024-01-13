@@ -1,0 +1,131 @@
+{
+  "custom": {
+    "AreaOEE": {
+      "$": [
+        "ds",
+        192,
+        1695752545937
+      ],
+      "$columns": [
+        {
+          "data": [
+            "Assembly",
+            "Molding",
+            "Packaging"
+          ],
+          "name": "AreaName",
+          "type": "String"
+        },
+        {
+          "data": [
+            0.959234,
+            0.643258,
+            0.482381
+          ],
+          "name": "OEE",
+          "type": "Double"
+        }
+      ]
+    },
+    "EqPath": "GPA/Wilmington/Baking/Oven1"
+  },
+  "params": {
+    "EqPath": "",
+    "TagPath": "[default]"
+  },
+  "propConfig": {
+    "custom.AreaOEE": {
+      "binding": {
+        "config": {
+          "parameters": {
+            "endTime": "now()",
+            "site": "{session.custom.SelectedSite}",
+            "startTime": "tag({view.custom.EqPath}+\u0027/calculatedValues/time/runStartTime\u0027)"
+          },
+          "queryPath": "app/OEE/getReportAreaOEE_AQP"
+        },
+        "transforms": [
+          {
+            "code": "\tpyData \u003d system.dataset.toPyDataSet(value)\n\tNewData \u003d []\n\tfor row in pyData:\n\t\tdata \u003d [row[\u0027AreaName\u0027], row[\u0027OEE\u0027]]\n\t\tNewData.append(data)\n\tNewHeaders \u003d [\u0027AreaName\u0027,\u0027OEE\u0027]\n\tNewDataSet \u003d system.dataset.toDataSet(NewHeaders, NewData)\n\treturn NewDataSet\n\t\n\t\t",
+            "type": "script"
+          }
+        ],
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "custom.EqPath": {
+      "binding": {
+        "config": {
+          "path": "session.custom.EqPath"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.TagPath": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 414,
+      "width": 660
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "PieChart"
+        },
+        "position": {
+          "grow": 1
+        },
+        "propConfig": {
+          "props.data": {
+            "binding": {
+              "config": {
+                "path": "view.custom.AreaOEE"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "colors": [
+            "#0075FF",
+            "#0D57C2",
+            "#00B0B1",
+            "#7B16D0",
+            "#E600D7"
+          ],
+          "cutoutRadius": 60,
+          "labels": {
+            "color": "white"
+          },
+          "legendLabelColor": "white",
+          "showLegend": false,
+          "style": {
+            "classes": "Text/SmallText"
+          },
+          "threeDimensional": true,
+          "titleColor": "white"
+        },
+        "type": "ia.chart.pie"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

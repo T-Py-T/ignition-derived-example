@@ -1,0 +1,61 @@
+{
+  "custom": {},
+  "params": {
+    "baseColor": "#00FF00"
+  },
+  "propConfig": {
+    "params.baseColor": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 425,
+      "width": 393
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "FlexContainer"
+        },
+        "position": {
+          "basis": "200px",
+          "grow": 1
+        },
+        "props": {
+          "style": {
+            "background-image": "linear-gradient(to top, #000, rgba(0,0,0,0))"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "custom": {
+      "background": "-webkit-linear-gradient(top, hsl(0, 0%, 100%) 0%, hsla(0, 0%, 100%, 0) 50%, hsla(0, 0%, 0%, 0) 50%, hsl(0, 0%, 0%) 100%), -webkit-linear-gradient(left, hsl(0, 0%, 50%) 0%, hsla(0, 0%, 50%, 0) 100%)",
+      "key": "linear-gradient(to top, #000, rgba(0,0,0,0))"
+    },
+    "meta": {
+      "name": "root"
+    },
+    "propConfig": {
+      "props.style.backgroundColor": {
+        "binding": {
+          "config": {
+            "path": "view.params.baseColor"
+          },
+          "type": "property"
+        }
+      }
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "background-image": "linear-gradient(to right, #fff, rgba(255,255,255,0))"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

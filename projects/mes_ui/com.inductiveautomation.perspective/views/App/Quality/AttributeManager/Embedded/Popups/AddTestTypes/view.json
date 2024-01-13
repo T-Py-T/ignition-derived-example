@@ -1,0 +1,1550 @@
+{
+  "custom": {
+    "Data": {
+      "$": [
+        "ds",
+        192,
+        1702579823920
+      ],
+      "$columns": [
+        {
+          "data": [
+            7,
+            8,
+            10,
+            11,
+            12
+          ],
+          "name": "ID",
+          "type": "Integer"
+        },
+        {
+          "data": [
+            "Dimensional Check",
+            "Visual Check",
+            "QA Testing Category Edit",
+            "QA Testing Category Test",
+            "QA Testing Category Test2"
+          ],
+          "name": "Name",
+          "type": "String"
+        },
+        {
+          "data": [
+            "Dimensional Check",
+            "Visual Check",
+            "QA Testing Category Edit",
+            "QA Testing Category Test",
+            "QA Testing Category Test2"
+          ],
+          "name": "TestTypeCategory",
+          "type": "String"
+        },
+        {
+          "data": [
+            3,
+            4,
+            6,
+            7,
+            8
+          ],
+          "name": "TestCategoryID",
+          "type": "Integer"
+        },
+        {
+          "data": [
+            "",
+            "",
+            "This Test Type is for QA only2",
+            "This Test Type is for QA only",
+            "This Test Type is for QA only"
+          ],
+          "name": "Description",
+          "type": "String"
+        },
+        {
+          "data": [
+            1696529612373,
+            1696529630600,
+            1701976853697,
+            1701976947097,
+            1702047509600
+          ],
+          "name": "DateCreated",
+          "type": "Date"
+        },
+        {
+          "data": [
+            1696529612373,
+            1696529630600,
+            1702046262580,
+            1701976947097,
+            1702047509600
+          ],
+          "name": "DateModified",
+          "type": "Date"
+        }
+      ]
+    },
+    "DataEntry": true,
+    "SearchForCategory": {
+      "SearchDropdown": false
+    },
+    "SelectedTestValues": {},
+    "TestCategoryValues": {
+      "TestCategory": "QA Testing Category Test4"
+    },
+    "TestNameValues": {},
+    "TestSelected": false
+  },
+  "events": {
+    "system": {
+      "onShutdown": {
+        "config": {
+          "script": "\t\n\tsystem.perspective.sendMessage(\"refreshAttributeManager\", payload \u003d {}, scope \u003d \"session\")"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "DataEntry": true,
+    "ModalName": "value",
+    "ModalTitle": "Add Test Type"
+  },
+  "propConfig": {
+    "custom.Data": {
+      "binding": {
+        "config": {
+          "expression": "runscript(\u0027mes.quality.sp.getTestTypes\u0027, 0, {session.custom.SelectedSite})"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.DataEntry": {
+      "binding": {
+        "config": {
+          "path": "view.params.DataEntry"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.SearchForCategory": {
+      "persistent": true
+    },
+    "custom.SearchForCategory.SearchData": {
+      "binding": {
+        "config": {
+          "queryPath": "app/Quality/getTestCategories"
+        },
+        "transforms": [
+          {
+            "code": "\t#options \u003d [{ \"label\": \"All\", \"value\": \"\"  }]\n\toptions \u003d []\n\tpydata \u003d system.dataset.toPyDataSet(value)\n\t\n\tfor row in pydata:\n\t\tlabel \u003d row[\"Name\"]\n\t\t#value \u003d row[\"ID\"]\n\t\toptions.append({ \"label\": label, \"value\": label })\n\t\t\n\treturn options\n\t\t",
+            "type": "script"
+          }
+        ],
+        "type": "query"
+      }
+    },
+    "custom.SelectedTestValues": {
+      "persistent": true
+    },
+    "custom.SelectedTestValues.TestName": {
+      "binding": {
+        "config": {
+          "path": "/root/Row1/Table.props.selection.data[0].Name"
+        },
+        "type": "property"
+      }
+    },
+    "custom.SelectedTestValues.TestTypeID": {
+      "binding": {
+        "config": {
+          "path": "/root/Row1/Table.props.selection.data[0].ID"
+        },
+        "type": "property"
+      }
+    },
+    "custom.TestCategoryValues": {
+      "persistent": true
+    },
+    "custom.TestNameValues": {
+      "persistent": true
+    },
+    "custom.TestNameValues.Description": {
+      "binding": {
+        "config": {
+          "path": "/root/Row2/TestNameValues_0/TextArea.props.text"
+        },
+        "type": "property"
+      }
+    },
+    "custom.TestNameValues.IsEnabled": {
+      "binding": {
+        "config": {
+          "expression": "true"
+        },
+        "type": "expr"
+      }
+    },
+    "custom.TestNameValues.SiteID": {
+      "binding": {
+        "config": {
+          "path": "session.custom.SelectedSite"
+        },
+        "type": "property"
+      }
+    },
+    "custom.TestNameValues.TestName": {
+      "binding": {
+        "config": {
+          "path": "/root/Row2/TestNameValues/TextField.props.text"
+        },
+        "type": "property"
+      }
+    },
+    "custom.TestNameValues.TestTypeCategory": {
+      "binding": {
+        "config": {
+          "path": "view.custom.TestCategoryValues.TestCategory"
+        },
+        "type": "property"
+      }
+    },
+    "custom.TestNameValues.TestTypeCategoryID": {
+      "binding": {
+        "config": {
+          "parameters": {
+            "TestTypeCategoryName": "{view.custom.TestNameValues.TestTypeCategory}"
+          },
+          "queryPath": "app/Quality/getTestTypeCategory"
+        },
+        "type": "query"
+      }
+    },
+    "custom.TestSelected": {
+      "binding": {
+        "config": {
+          "expression": "if(len({/root/Row1/Table.props.selection.data[0]}) \u003e 1, true, false)"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "params.DataEntry": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.ModalName": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.ModalTitle": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 398,
+      "width": 598
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "basis": "50px"
+            },
+            "props": {
+              "text": "Test Types"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Table"
+            },
+            "position": {
+              "basis": "400px",
+              "grow": 1
+            },
+            "propConfig": {
+              "props.data": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.Data"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "columns": [
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "ID",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "justify": "auto",
+                  "nullFormat": {
+                    "includeNullStrings": false,
+                    "nullFormatValue": "",
+                    "strict": false
+                  },
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": false,
+                  "width": ""
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "Name",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "justify": "auto",
+                  "nullFormat": {
+                    "includeNullStrings": false,
+                    "nullFormatValue": "",
+                    "strict": false
+                  },
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": ""
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "Description",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "justify": "auto",
+                  "nullFormat": {
+                    "includeNullStrings": false,
+                    "nullFormatValue": "",
+                    "strict": true
+                  },
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": ""
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "DateCreated",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Date Created"
+                  },
+                  "justify": "auto",
+                  "nullFormat": {
+                    "includeNullStrings": false,
+                    "nullFormatValue": "",
+                    "strict": false
+                  },
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": ""
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "DateModified",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Date Modified"
+                  },
+                  "justify": "auto",
+                  "nullFormat": {
+                    "includeNullStrings": false,
+                    "nullFormatValue": "",
+                    "strict": false
+                  },
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": ""
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "SiteID",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "justify": "auto",
+                  "nullFormat": {
+                    "includeNullStrings": false,
+                    "nullFormatValue": "",
+                    "strict": false
+                  },
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": false,
+                  "width": ""
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "TestTypeCategory",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Type Category"
+                  },
+                  "justify": "auto",
+                  "nullFormat": {
+                    "includeNullStrings": false,
+                    "nullFormatValue": "",
+                    "strict": false
+                  },
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": ""
+                }
+              ]
+            },
+            "scripts": {
+              "customMethods": [],
+              "extensionFunctions": null,
+              "messageHandlers": [
+                {
+                  "messageType": "TestTypeAttributeTablePopup",
+                  "pageScope": true,
+                  "script": "\tself.view.refreshBinding(\u0027custom.Data\u0027)",
+                  "sessionScope": true,
+                  "viewScope": true
+                }
+              ]
+            },
+            "type": "ia.display.table"
+          }
+        ],
+        "meta": {
+          "name": "Row1"
+        },
+        "position": {
+          "basis": "90%",
+          "grow": 1
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "expression": "!{view.custom.DataEntry}"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "direction": "column",
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "basis": "50px"
+            },
+            "props": {
+              "text": "Test Category:"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "TextField"
+                },
+                "position": {
+                  "basis": "168px"
+                },
+                "propConfig": {
+                  "position.display": {
+                    "binding": {
+                      "config": {
+                        "expression": "!{view.custom.SearchForCategory.SearchDropdown}"
+                      },
+                      "type": "expr"
+                    }
+                  },
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "bidirectional": true,
+                        "path": "view.custom.TestCategoryValues.TestCategory"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "TextFields/TextField"
+                  }
+                },
+                "type": "ia.input.text-field"
+              },
+              {
+                "meta": {
+                  "name": "Dropdown"
+                },
+                "position": {
+                  "basis": "168px"
+                },
+                "propConfig": {
+                  "position.display": {
+                    "binding": {
+                      "config": {
+                        "expression": "{view.custom.SearchForCategory.SearchDropdown}"
+                      },
+                      "type": "expr"
+                    }
+                  },
+                  "props.options": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.SearchForCategory.SearchData"
+                      },
+                      "type": "property"
+                    }
+                  },
+                  "props.value": {
+                    "onChange": {
+                      "enabled": null,
+                      "script": "\tif currentValue \u003d\u003d None:\n\t\tpass\n\tif previousValue \u003d\u003d None:\n\t\tself.view.custom.TestCategoryValues.TestCategory \u003d currentValue\n\t\tself.view.custom.SearchForCategory.SearchDropdown \u003d False\n\t\t#self.props.value \u003d None\n\telif currentValue !\u003d \u0027\u0027 or None:\n\t\tself.view.custom.TestCategoryValues.TestCategory \u003d currentValue\n\t\tself.view.custom.SearchForCategory.SearchDropdown \u003d False\n\t\t#self.props.value \u003d None\n\telse:\n\t\tself.props.value \u003d \u0027\u0027"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "TextFields/Dropdown"
+                  }
+                },
+                "type": "ia.input.dropdown"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\tselection \u003d self.view.custom.SearchForCategory.SearchDropdown\n\tif selection \u003d\u003d True:\n\t\tself.view.custom.SearchForCategory.SearchDropdown \u003d False\n\telse:\n\t\tself.view.custom.SearchForCategory.SearchDropdown \u003d True"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "Icon"
+                },
+                "position": {
+                  "basis": "30px",
+                  "display": false
+                },
+                "propConfig": {
+                  "position.display": {
+                    "binding": {
+                      "config": {
+                        "expression": "if({../TextField.props.text} \u003d \u0027\u0027 || isNull({../TextField.props.text}), true, false)"
+                      },
+                      "enabled": false,
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "path": "material/search"
+                },
+                "type": "ia.display.icon"
+              },
+              {
+                "meta": {
+                  "name": "Label"
+                },
+                "position": {
+                  "basis": "50px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "position.display": {
+                    "binding": {
+                      "config": {
+                        "expression": "if({view.custom.TestCategoryValues.TestCategory} \u003d \u0027\u0027, false, if({view.custom.TestNameValues.TestTypeCategoryID} \u003d null, false, true))"
+                      },
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginAllLeft Text/NormalText",
+                    "fontWeight": "bold"
+                  },
+                  "text": "Warning: This category already exist in the system.",
+                  "textStyle": {
+                    "color": "red"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "TestCategoryValues"
+            },
+            "position": {
+              "basis": "42px"
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "meta": {
+              "name": "Label_0"
+            },
+            "position": {
+              "basis": "50px",
+              "display": false
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "expression": "if({view.custom.TestCategoryValues.TestCategory} \u003d \u0027\u0027 || {view.custom.TestCategoryValues.TestCategory} \u003d None, false, true)"
+                  },
+                  "enabled": false,
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "text": "Test Name:"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "TextField"
+                },
+                "position": {
+                  "basis": "168px"
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": ".../TestCategoryValues/TextField.props.text"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "TextFields/TextField"
+                  }
+                },
+                "type": "ia.input.text-field"
+              }
+            ],
+            "meta": {
+              "name": "TestNameValues"
+            },
+            "position": {
+              "basis": "42px",
+              "display": false
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "expression": "if({view.custom.TestCategoryValues.TestCategory} \u003d \u0027\u0027 || {view.custom.TestCategoryValues.TestCategory} \u003d None, false, true)"
+                  },
+                  "enabled": false,
+                  "type": "expr"
+                }
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "meta": {
+              "name": "Label_1"
+            },
+            "position": {
+              "basis": "50px"
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "expression": "if({view.custom.TestCategoryValues.TestCategory} \u003d \u0027\u0027 || {view.custom.TestCategoryValues.TestCategory} \u003d None, false, true)"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "text": "Description:"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "TextArea"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "props": {
+                  "style": {
+                    "classes": "TextFields/TextArea"
+                  },
+                  "text": "This Test Type is for QA only"
+                },
+                "type": "ia.input.text-area"
+              }
+            ],
+            "meta": {
+              "name": "TestNameValues_0"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "expression": "if({view.custom.TestCategoryValues.TestCategory} \u003d \u0027\u0027 || {view.custom.TestCategoryValues.TestCategory} \u003d None, false, true)"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Row2"
+        },
+        "position": {
+          "basis": "90%",
+          "grow": 1
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "path": "view.custom.DataEntry"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "direction": "column",
+          "style": {
+            "classes": "Global/MarginAllEmbedded"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\tself.view.custom.DataEntry \u003d True"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Add"
+            },
+            "position": {
+              "basis": "122px"
+            },
+            "props": {
+              "image": {
+                "icon": {
+                  "path": "material/add"
+                }
+              },
+              "style": {
+                "classes": "Buttons/OperatorButtons"
+              },
+              "text": "Add Test Type"
+            },
+            "type": "ia.input.button"
+          },
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "script": "\tself.view.custom.DataEntry \u003d True\n\tself.view.custom.TestCategoryValues.TestCategory \u003d self.parent.parent.getChild(\"Row1/Table\").props.selection.data[0].TestTypeCategory\n\tself.view.custom.TestNameValues.Description \u003d self.parent.parent.getChild(\"Row1/Table\").props.selection.data[0].Description\n\tself.parent.parent.getChild(\"Row2/TestNameValues_0/TextArea\").props.text \u003d self.parent.parent.getChild(\"Row1/Table\").props.selection.data[0].Description\n\tself.parent.parent.getChild(\"Row2/TestNameValues/TextField\").props.text \u003d self.parent.parent.getChild(\"Row1/Table\").props.selection.data[0].Name"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Edit"
+            },
+            "position": {
+              "basis": "122px"
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.TestSelected"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "image": {
+                "icon": {
+                  "path": "material/edit"
+                }
+              },
+              "style": {
+                "classes": "Buttons/OperatorButtons"
+              },
+              "text": "Edit Test"
+            },
+            "type": "ia.input.button"
+          },
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "script": "\tTestTypeID \u003d self.view.custom.SelectedTestValues.TestTypeID\n\tlogger \u003d system.util.getLogger(\u0027Remove Test Type\u0027)\n\t\t\n\tsystem.perspective.openPopup(\"DeleteTestTypeID\", \"App/Quality/AttributeManager/Embedded/Popups/DeleteTestTypeConfirm\", {\u0027TestTypeID\u0027:TestTypeID}, modal \u003d True)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Remove"
+            },
+            "position": {
+              "basis": "122px"
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.TestSelected"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "image": {
+                "icon": {
+                  "path": "material/delete"
+                }
+              },
+              "style": {
+                "classes": "Buttons/OperatorButtons"
+              },
+              "text": "Remove Test"
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "MainButtons"
+        },
+        "position": {
+          "basis": "10%",
+          "grow": 1
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "expression": "!{view.custom.DataEntry}"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "alignContent": "flex-start",
+          "justify": "space-between",
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\t\t#TestTypeCategory Paramaters\n\t\tTestCategoryName \u003d self.view.custom.TestCategoryValues.TestCategory\n\t\tcategoryID \u003d self.view.custom.TestNameValues.TestTypeCategoryID\n\t\t\n\t\t#TestType Paramaters\n\t\tTestName \u003d self.view.custom.TestNameValues.TestName\n\t\tTestTypeCategoryID \u003d self.view.custom.TestNameValues.TestTypeCategoryID\n\t\tDescription \u003d self.view.custom.TestNameValues.Description\n\t\tSiteID \u003d self.view.custom.TestNameValues.SiteID\n\t\tIsEnabled \u003d self.view.custom.TestNameValues.IsEnabled\n\t\t\n\t\t\n\t\t#Upsert Test Type Category\n\t\tTestTypeCategoryParams \u003d { \"TestCategoryName\": TestCategoryName, \u0027categoryID\u0027: categoryID }\n\t\tTestTypeCategoryIDNew \u003d system.db.runNamedQuery(\"app/Quality/UpsertTestTypeCategory\", TestTypeCategoryParams)\n\t\t\n\t\t\n\t\t##GetTestType Category\n\t\tsystem.perspective.print(TestTypeCategoryIDNew)\n\t\tsystem.perspective.print(TestCategoryName)\n\t\tsystem.perspective.print(\u0027NEW ID\u0027+str(TestTypeCategoryIDNew))\n\t\tsystem.perspective.print(\u0027OLD ID\u0027 +str(TestTypeCategoryID))\n\t\t\n\t\t\n\t\t#Upsert Test Type\n\t\tTestTypeParams \u003d {\"TestName\":TestName, \"TestTypeCategory\":TestTypeCategoryIDNew,\"Description\":Description,\"SiteID\":SiteID,\"IsEnabled\":IsEnabled}\n\t\tsystem.db.runNamedQuery(\"app/Quality/UpsertTestType\", TestTypeParams)\n\t\tsystem.perspective.print(\u0027TestType Upserted\u0027)\n\t\tsystem.perspective.closePopup(\u0027\u0027)\n\t\t\n\t\tMessageParams \u003d {\n\t\t    \"ModalName\": \"Sucess\",\n\t\t    \"ErrorMessage\": \u0027Successfully saved test type:\u0027+str(TestName),\n\t\t}\n\t\t\t\t\t\t\t\t\t\n\t\tsystem.perspective.openPopup(\"ErrorModal\", \"GlobalComponents/Modals/ErrorModal\", MessageParams, modal \u003d True)\n\t\t"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Save"
+            },
+            "position": {
+              "basis": "122px"
+            },
+            "propConfig": {
+              "meta.visible": {
+                "binding": {
+                  "config": {
+                    "expression": "if({.../Row2/TestCategoryValues/TextField.props.text} \u003d \u0027\u0027 ||{.../Row2/TestCategoryValues/TextField.props.text} \u003d None ||\r\n{.../Row2/TestNameValues/TextField.props.text} \u003d \u0027\u0027 ||{.../Row2/TestNameValues/TextField.props.text} \u003d None, False, True)"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "image": {
+                "icon": {
+                  "path": "material/save"
+                }
+              },
+              "style": {
+                "classes": "Buttons/OperatorButtons"
+              },
+              "text": "Save"
+            },
+            "type": "ia.input.button"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\tself.view.custom.TestCategoryValues.TestCategory \u003d \u0027\u0027\n\tself.view.custom.TestNameValues.Description \u003d \u0027\u0027\n\tself.parent.parent.getChild(\"Row2\").getChild(\"TestNameValues\").getChild(\"TextField\").props.text \u003d \u0027\u0027\n\tself.parent.parent.getChild(\"Row2\").getChild(\"TestNameValues_0\").getChild(\"TextArea\").props.text \u003d \u0027\u0027\n\tself.view.custom.DataEntry \u003d False\n\t"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Cancel"
+            },
+            "position": {
+              "basis": "122px"
+            },
+            "props": {
+              "image": {
+                "icon": {
+                  "path": "material/cancel"
+                }
+              },
+              "style": {
+                "classes": "Buttons/OperatorButtons"
+              },
+              "text": "Cancel"
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "EditSaveButtons"
+        },
+        "position": {
+          "basis": "10%",
+          "grow": 1
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "expression": "{view.custom.DataEntry}"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "alignContent": "flex-start",
+          "justify": "space-between",
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "classes": "Global/MarginAll"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

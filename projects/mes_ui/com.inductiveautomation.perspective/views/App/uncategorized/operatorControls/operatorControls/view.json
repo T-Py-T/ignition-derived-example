@@ -1,0 +1,123 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 51
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.mes.oee.endOEEProduction(self.session.custom.equipPath);\n\tsystem.perspective.navigate(\u0027partSelection\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Button"
+        },
+        "position": {
+          "basis": "142px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "Buttons/operatorButtons"
+          },
+          "text": "End Run",
+          "textStyle": {
+            "classes": "Text/ButtonText"
+          },
+          "wrap": "off"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "Button_0"
+        },
+        "position": {
+          "basis": "164px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "Buttons/operatorButtons"
+          },
+          "text": "Planned Downtime",
+          "textStyle": {
+            "classes": "Text/ButtonText"
+          }
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "meta": {
+          "name": "Button_1"
+        },
+        "position": {
+          "basis": "164px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "Buttons/operatorButtons"
+          },
+          "text": "Set Performance",
+          "textStyle": {
+            "classes": "Text/ButtonText"
+          }
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.openPopup(\u0027DowntimeTablePopup\u0027, \u0027Components/downtimeTable/mainView\u0027,params \u003d {\u0027path\u0027:\u0027Components/downtimeTable/downtimeTable_V1.0\u0027})"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Button_2"
+        },
+        "position": {
+          "basis": "164px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "Buttons/operatorButtons"
+          },
+          "text": "Show Downtime",
+          "textStyle": {
+            "classes": "Text/ButtonText"
+          }
+        },
+        "type": "ia.input.button"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "alignItems": "center",
+      "justify": "space-evenly",
+      "style": {
+        "overflow": "visible"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

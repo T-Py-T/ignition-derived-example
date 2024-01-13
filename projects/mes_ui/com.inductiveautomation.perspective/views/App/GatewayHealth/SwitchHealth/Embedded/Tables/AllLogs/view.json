@@ -1,0 +1,1302 @@
+{
+  "custom": {
+    "data": null
+  },
+  "params": {
+    "SelectedRow": []
+  },
+  "propConfig": {
+    "custom.data": {
+      "binding": {
+        "config": {
+          "queryPath": "app/SwitchHealth/getAllLogs"
+        },
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "params.SelectedRow": {
+      "binding": {
+        "config": {
+          "path": "/root/Row2/Table.props.selection.data"
+        },
+        "type": "property"
+      },
+      "paramDirection": "output",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "width": 1125
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\timport time\n\t\n\t# Refresh user table binding and rotate refresh icon.\n\tself.view.refreshBinding(\u0027custom.data\u0027)\n\tself.rotateIcon()"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Refresh",
+              "tooltip": {
+                "enabled": true,
+                "text": "Refresh"
+              }
+            },
+            "position": {
+              "basis": "26px",
+              "shrink": 0
+            },
+            "props": {
+              "color": "--neutral-100",
+              "path": "material/refresh",
+              "style": {
+                "classes": "",
+                "marginRight": 8
+              }
+            },
+            "scripts": {
+              "customMethods": [
+                {
+                  "name": "rotateIcon",
+                  "params": [],
+                  "script": "\timport time\n\t\n\t# Rotate icon 360 degrees.\n\tfor degree in range(0,361, 10):\n\t\tself.props.style.transform \u003d \u0027rotate(\u0027 + str(degree) + \u0027deg)\u0027\n\t\ttime.sleep(0.0278)"
+                }
+              ],
+              "extensionFunctions": null,
+              "messageHandlers": [
+                {
+                  "messageType": "refreshTable",
+                  "pageScope": true,
+                  "script": "\t# Refresh user table binding\n\tself.parent.parent.getChild(\"Table\").refreshBinding(\"props.data\")",
+                  "sessionScope": true,
+                  "viewScope": true
+                }
+              ]
+            },
+            "type": "ia.display.icon"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": [
+                  {
+                    "config": {
+                      "script": "\tselectedRowData \u003d self.parent.parent.parent.getChild(\"Row2/Materials\").props.selection.data\n\tmodalName \u003d \"addMaterials\"\n\tmodalPath \u003d \"App/Schedule/Materials/Embedded/Popups/Add/AddManualMaterials\"\n\t\n\tparams \u003d {\n\t\t\"ModalName\": modalName,\n\t\t\"RowData\": selectedRowData\n\t}\n\t\n\terrorParams \u003d {\n\t\t\"ModalName\": \"ErrorModal\",\n\t\t\"ErrorMessage\": \"Please select a row first!\"\n\t}\n\t\n\tif len(selectedRowData) \u003e 0:\n\t\tsystem.perspective.openPopup(modalName, modalPath, params, title\u003d\"Add\", modal\u003dTrue, overlayDismiss\u003dTrue)\n\telse:\n\t\tsystem.perspective.openPopup(\"ErrorModal\", \"GlobalComponents/Modals/ErrorModal\", errorParams)"
+                    },
+                    "enabled": false,
+                    "scope": "G",
+                    "type": "script"
+                  },
+                  {
+                    "config": {
+                      "draggable": true,
+                      "id": "leaveNotes",
+                      "modal": true,
+                      "overlayDismiss": true,
+                      "resizable": true,
+                      "showCloseIcon": true,
+                      "title": "Add Notes",
+                      "type": "toggle",
+                      "viewParams": {
+                        "ModalName": "leaveNotes",
+                        "RowData": "{/root/Row2/Table.props.selection.data}"
+                      },
+                      "viewPath": "App/GatewayHealth/SwitchHealth/Embedded/Popups/LeaveNotes",
+                      "viewportBound": false
+                    },
+                    "scope": "C",
+                    "type": "popup"
+                  }
+                ]
+              }
+            },
+            "meta": {
+              "name": "Add",
+              "tooltip": {
+                "enabled": true,
+                "text": "Add"
+              }
+            },
+            "position": {
+              "basis": "29px",
+              "shrink": 0
+            },
+            "props": {
+              "path": "material/add",
+              "style": {
+                "classes": "",
+                "marginRight": 8
+              }
+            },
+            "type": "ia.display.icon"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\tselectedRowData \u003d self.parent.parent.parent.getChild(\"Row2/Materials\").props.selection.data\n\tmodalName \u003d \"editMaterial\"\n\tmodalPath \u003d \"App/Schedule/Materials/Embedded/Popups/Edit/EditManualMaterials\"\n\t\n\tparams \u003d {\n\t\t\"ModalName\": modalName,\n\t\t\"RowData\": selectedRowData\n\t}\n\t\n\terrorParams \u003d {\n\t\t\"ModalName\": \"ErrorModal\",\n\t\t\"ErrorMessage\": \"Please select a row first!\"\n\t}\n\t\n\tif len(selectedRowData) \u003e 0:\n\t\tsystem.perspective.openPopup(modalName, modalPath, params, title\u003d\"Edit\", modal\u003dTrue, overlayDismiss\u003dTrue)\n\telse:\n\t\tsystem.perspective.openPopup(\"ErrorModal\", \"GlobalComponents/Modals/ErrorModal\", errorParams)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Edit"
+            },
+            "position": {
+              "basis": "24px",
+              "display": false,
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.style.cursor": {
+                "binding": {
+                  "config": {
+                    "path": ".../Row2/Table.props.selection.data"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": "pointer",
+                      "inputType": "expression",
+                      "mappings": [
+                        {
+                          "input": "None",
+                          "output": "auto"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "path": "material/create",
+              "style": {
+                "classes": "",
+                "marginRight": 8
+              }
+            },
+            "type": "ia.display.icon"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\t\n\t# If row is selected, open popup to confirm deletion of user.\n\tif self.parent.parent.getChild(\"Table\").props.selection.selectedRow !\u003d None:\n#\t\tsystem.perspective.openPopup(\n#\t\t\tid            \u003d \u0027UserManagement_CheckBeforeRemoval\u0027,\n#\t\t\tview          \u003d \u0027UserManagement/Views/Popups/Popup_CheckRemoval\u0027, \n#\t\t\tparams        \u003d {\u0027type\u0027:\u0027user\u0027, \u0027userSource\u0027:self.view.params.userSource, \u0027message\u0027:self.parent.parent.getChild(\"Table\").props.selection.data[0].username}, \n#\t\t\tshowCloseIcon \u003d False, \n#\t\t\tdraggable     \u003d False\n#\t\t)\n\n\t\tdeletedStatusId \u003d self.view.params.deletedStatusId\n\t\tselectedLoopId \u003d self.parent.parent.getChild(\"Table\").custom.loopId\n\t\tselectedLoopName \u003d self.parent.parent.getChild(\"Table\").custom.loopName\n\t\tstatusKeyId \u003d self.parent.parent.getChild(\"Table\").custom.loopStatusKey\n\t\tarchiveSubArea \u003d self.view.params.archiveSubArea\n\t\t\n\t\tinterlocksData \u003d ApiFunctions.checkIfInterlocked(selectedLoopId)\n\t\t\n\t\tif statusKeyId !\u003d deletedStatusId:\n\t\n\t\t\tcommentParams \u003d {\n\t\t\t\t\"loopId\":  selectedLoopId,\n\t\t\t\t\"loopName\":  selectedLoopName,\n\t\t\t\t\"statusKeyId\": deletedStatusId,\n\t\t\t\t\"deletedStatusId\": deletedStatusId,\n\t\t\t\t\"archiveSubAreaId\": archiveSubArea,\n\t\t\t\t\"interlocksWarning\": interlocksData\n\t\t\t}\n\t\t\t\n\t\t\tsystem.perspective.openPopup(\"loopCommentPopup\", \u0027ConfigTool/LoopConfigs/Subviews/Modals/Comments\u0027, params\u003dcommentParams, modal\u003dTrue)\n\t\t\t\n\t#\t\tstatusparams \u003d {\"loopid\": selectedLoopId, \"statuskeyid\": deletedStatusId}\n\t#\t\n\t#\t\tresponse \u003d ApiFunctions.updateLoopStatus(statusparams)\n\t#\t\tsystem.perspective.sendMessage(\u0027loopTableRefresh\u0027)\n\t#\t\tsystem.perspective.sendMessage(\u0027changeRow\u0027)\n\t\t\t\n\t\t\tself.parent.parent.getChild(\"Table\").props.selection.selectedRow \u003d \u0027\u0027"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Delete",
+              "tooltip": {
+                "enabled": true,
+                "text": "Delete"
+              }
+            },
+            "position": {
+              "basis": "27px",
+              "display": false,
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.style.cursor": {
+                "binding": {
+                  "config": {
+                    "path": ".../Row2/Table.props.selection.data"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": "pointer",
+                      "inputType": "expression",
+                      "mappings": [
+                        {
+                          "input": "None",
+                          "output": "auto"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "path": "material/delete",
+              "style": {
+                "classes": "",
+                "marginRight": 8
+              }
+            },
+            "type": "ia.display.icon"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\teditParams \u003d {\n\t\t\"projectId\":  self.view.params.projectId,\n\t\t\"loopTypeName\": self.parent.parent.getChild(\"Table\").custom.loopTypeName,\n\t\t\"loopTypeId\": self.parent.parent.getChild(\"Table\").custom.loopTypeId,\n\t\t\"loopId\":     self.parent.parent.getChild(\"Table\").custom.loopId,\n\t\t\"loopName\":   self.parent.parent.getChild(\"Table\").custom.loopName,\n\t\t\"functionalAreaId\": self.parent.parent.getChild(\"Table\").custom.areaId,\n\t\t\"functionalAreaName\": self.parent.parent.getChild(\"Table\").custom.areaName,\n\t\t\"subAreaId\":  self.parent.parent.getChild(\"Table\").custom.subAreaId,\n\t\t\"projectName\":  self.view.params.projectName,\n\t\t\"loopAlert\": self.parent.parent.getChild(\"Table\").custom.loopAlert,\n\t\t\"loopStatusKey\": self.parent.parent.getChild(\"Table\").custom.loopStatusKey\n\t}\n\t\n\tsystem.perspective.navigate(view\u003d\u0027ConfigTool/LoopConfigs/LoopConfig\u0027, params\u003deditParams)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Rename"
+            },
+            "position": {
+              "basis": "24px",
+              "display": false,
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.color": {
+                "binding": {
+                  "config": {
+                    "path": ".../Table.props.selection.selectedRow"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": "#5A5A5A",
+                      "inputType": "expression",
+                      "mappings": [
+                        {
+                          "input": "None",
+                          "output": "#C9C9C9"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.style.cursor": {
+                "binding": {
+                  "config": {
+                    "path": ".../Table.props.selection.selectedRow"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": "pointer",
+                      "inputType": "expression",
+                      "mappings": [
+                        {
+                          "input": "None",
+                          "output": "auto"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "path": "material/contact_mail",
+              "style": {
+                "classes": "",
+                "marginRight": 8
+              }
+            },
+            "type": "ia.display.icon"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\tparams \u003d {\n\t\t\"funcSubArea\": self.parent.parent.getChild(\"Table\").props.columns[7].visible,\n\t\t\"funcArea\": self.parent.parent.getChild(\"Table\").props.columns[9].visible,\n\t\t\"approvedUser\": self.parent.parent.getChild(\"Table\").props.columns[12].visible,\n\t\t\"statusUser\": self.parent.parent.getChild(\"Table\").props.columns[13].visible,\n\t\t\"completedUser\": self.parent.parent.getChild(\"Table\").props.columns[14].visible,\n\t\t\"statusDate\": self.parent.parent.getChild(\"Table\").props.columns[15].visible,\n\t\t\"approvedDate\": self.parent.parent.getChild(\"Table\").props.columns[16].visible,\n\t\t\"completedDate\": self.parent.parent.getChild(\"Table\").props.columns[17].visible\n\t}\n\t\n\tsystem.perspective.print(params)\n\tsystem.perspective.openPopup(\"tableColumns\", \"ConfigTool/Subviews/ColumnSelection\", params\u003dparams, modal\u003dTrue)\n\t"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Filter"
+            },
+            "position": {
+              "basis": "24px",
+              "display": false,
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.style.cursor": {
+                "binding": {
+                  "config": {
+                    "path": "..../Table/Table.props.selection.selectedRow"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": "pointer",
+                      "inputType": "expression",
+                      "mappings": [
+                        {
+                          "input": "None",
+                          "output": "auto"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "path": "material/filter_alt",
+              "style": {
+                "classes": ""
+              }
+            },
+            "type": "ia.display.icon"
+          }
+        ],
+        "meta": {
+          "name": "Icons"
+        },
+        "props": {
+          "justify": "flex-end",
+          "style": {
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "events": {
+              "component": {
+                "onEditCellCommit": {
+                  "config": {
+                    "script": "\tqueryPath \u003d \u0027app/SwitchHealth/addComment\u0027\n\tsyslogID \u003d int(self.props.selection.data[0].ID)\n\tnotes \u003d event[\u0027value\u0027]\n\tuserName \u003d self.session.custom.UserName\n\t\n\tparams \u003d {\n\t\t\u0027syslogID\u0027: syslogID,\n\t\t\u0027notes\u0027: notes,\n\t\t\u0027userName\u0027: userName\n\t}\n\tsystem.perspective.print(event)\n\t\n\tsystem.db.runNamedQuery(queryPath, params)\n\tsystem.perspective.sendMessage(\u0027refreshSwitchTable\u0027)\t"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                },
+                "onRowClick": {
+                  "config": {
+                    "script": "\tpayload \u003d self.view.params.SelectedRow\n\tsystem.perspective.sendMessage(\u0027switchRowClicked\u0027, payload)"
+                  },
+                  "enabled": false,
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Table"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "props.data": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.data"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "columns": [
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "ID",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "justify": "auto",
+                  "nullFormat": {
+                    "includeNullStrings": false,
+                    "nullFormatValue": "",
+                    "strict": false
+                  },
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": false,
+                  "width": ""
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY HH:mm:ss",
+                  "editable": false,
+                  "field": "LogTime",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Date/Time"
+                  },
+                  "justify": "auto",
+                  "nullFormat": {
+                    "includeNullStrings": false,
+                    "nullFormatValue": "",
+                    "strict": false
+                  },
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": true,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": 150
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "Ncc",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "NCC"
+                  },
+                  "justify": "auto",
+                  "nullFormat": {
+                    "includeNullStrings": false,
+                    "nullFormatValue": "",
+                    "strict": false
+                  },
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": true,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": 70
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "Switch",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "justify": "auto",
+                  "nullFormat": {
+                    "includeNullStrings": false,
+                    "nullFormatValue": "",
+                    "strict": false
+                  },
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": true,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": 70
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "AssetIP",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "IP Address"
+                  },
+                  "justify": "auto",
+                  "nullFormat": {
+                    "includeNullStrings": false,
+                    "nullFormatValue": "",
+                    "strict": false
+                  },
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": true,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": 120
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "LogPriority",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Priority"
+                  },
+                  "justify": "auto",
+                  "nullFormat": {
+                    "includeNullStrings": false,
+                    "nullFormatValue": "",
+                    "strict": false
+                  },
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": true,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": 70
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "LogMessage",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Message"
+                  },
+                  "justify": "auto",
+                  "nullFormat": {
+                    "includeNullStrings": false,
+                    "nullFormatValue": "",
+                    "strict": false
+                  },
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": ""
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "IsAcknoweledged",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Acknoweledged"
+                  },
+                  "justify": "auto",
+                  "nullFormat": {
+                    "includeNullStrings": false,
+                    "nullFormatValue": "",
+                    "strict": false
+                  },
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": true,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": false,
+                  "width": 120
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": true,
+                  "field": "Notes",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Notes"
+                  },
+                  "justify": "auto",
+                  "nullFormat": {
+                    "includeNullStrings": true,
+                    "nullFormatValue": "",
+                    "strict": false
+                  },
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": true,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": 170
+                }
+              ],
+              "filter": {
+                "enabled": true
+              }
+            },
+            "scripts": {
+              "customMethods": [],
+              "extensionFunctions": null,
+              "messageHandlers": [
+                {
+                  "messageType": "refreshSwitchTable",
+                  "pageScope": true,
+                  "script": "\t# implement your handler here\n\tself.view.refreshBinding(\u0027custom.data\u0027)",
+                  "sessionScope": false,
+                  "viewScope": false
+                }
+              ]
+            },
+            "type": "ia.display.table"
+          }
+        ],
+        "meta": {
+          "name": "Row2"
+        },
+        "position": {
+          "basis": "400px",
+          "grow": 1
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

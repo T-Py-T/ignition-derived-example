@@ -1,0 +1,322 @@
+{
+  "custom": {
+    "Changeover": null,
+    "Downtime": null,
+    "Production": null
+  },
+  "params": {
+    "BarHeight": 0.5,
+    "EqPath": "",
+    "First": {
+      "style": {
+        "backgroundColor": "#298fc2"
+      },
+      "value": 1.7,
+      "visible": true
+    },
+    "Second": {
+      "style": {
+        "backgroundColor": "#808080"
+      },
+      "value": 0.8,
+      "visible": true
+    },
+    "Third": {
+      "style": {
+        "backgroundColor": "#202020"
+      },
+      "value": 2,
+      "visible": true
+    }
+  },
+  "propConfig": {
+    "custom.Changeover": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/calculatedValues/shiftTimeChangeover"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.Downtime": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/calculatedValues/shiftTimeDowntime"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.Production": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/calculatedValues/shiftTimeProduction"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "params.BarHeight": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.First": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.First.style": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.First.style.backgroundColor": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.First.value": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.First.visible": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Second": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Second.style": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Second.value": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Second.visible": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Third": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Third.style": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Third.value": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Third.visible": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.group.key": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 40,
+      "width": 178
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "first"
+        },
+        "propConfig": {
+          "meta.visible": {
+            "binding": {
+              "config": {
+                "path": "view.params.First.visible"
+              },
+              "type": "property"
+            }
+          },
+          "position.height": {
+            "binding": {
+              "config": {
+                "path": "view.params.BarHeight"
+              },
+              "type": "property"
+            }
+          },
+          "position.width": {
+            "binding": {
+              "config": {
+                "expression": "//{view.params.First.value}\r\n///\r\n//({view.params.First.value}+{view.params.Second.value}+{view.params.Third.value})\r\n{view.custom.Production}\r\n/\r\n({view.custom.Production}+{view.custom.Downtime}+{view.custom.Changeover})"
+              },
+              "type": "expr"
+            }
+          },
+          "position.y": {
+            "binding": {
+              "config": {
+                "expression": "(1-{this.position.height})/2"
+              },
+              "type": "expr"
+            }
+          },
+          "props.style": {
+            "binding": {
+              "config": {
+                "path": "view.params.First.style"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "second"
+        },
+        "propConfig": {
+          "meta.visible": {
+            "binding": {
+              "config": {
+                "path": "view.params.Second.visible"
+              },
+              "type": "property"
+            }
+          },
+          "position.height": {
+            "binding": {
+              "config": {
+                "bidirectional": true,
+                "path": "../first.position.height"
+              },
+              "type": "property"
+            }
+          },
+          "position.width": {
+            "binding": {
+              "config": {
+                "expression": "//{view.params.Second.value}\r\n///\r\n//({view.params.First.value}+{view.params.Second.value}+{view.params.Third.value})\r\n{view.custom.Downtime}\r\n/\r\n({view.custom.Production}+{view.custom.Downtime}+{view.custom.Changeover})"
+              },
+              "type": "expr"
+            }
+          },
+          "position.x": {
+            "binding": {
+              "config": {
+                "expression": "{../first.position.width}"
+              },
+              "type": "expr"
+            }
+          },
+          "position.y": {
+            "binding": {
+              "config": {
+                "path": "../first.position.y"
+              },
+              "type": "property"
+            }
+          },
+          "props.style": {
+            "binding": {
+              "config": {
+                "path": "view.params.Second.style"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "third"
+        },
+        "propConfig": {
+          "meta.visible": {
+            "binding": {
+              "config": {
+                "path": "view.params.Third.visible"
+              },
+              "type": "property"
+            }
+          },
+          "position.height": {
+            "binding": {
+              "config": {
+                "bidirectional": true,
+                "path": "../first.position.height"
+              },
+              "type": "property"
+            }
+          },
+          "position.width": {
+            "binding": {
+              "config": {
+                "expression": "//{view.params.Third.value}\r\n///\r\n//({view.params.First.value}+{view.params.Second.value}+{view.params.Third.value})\r\n{view.custom.Changeover}\r\n/\r\n({view.custom.Production}+{view.custom.Downtime}+{view.custom.Changeover})"
+              },
+              "type": "expr"
+            }
+          },
+          "position.x": {
+            "binding": {
+              "config": {
+                "expression": "{../first.position.width}+{../second.position.width}"
+              },
+              "type": "expr"
+            }
+          },
+          "position.y": {
+            "binding": {
+              "config": {
+                "path": "../first.position.y"
+              },
+              "type": "property"
+            }
+          },
+          "props.style": {
+            "binding": {
+              "config": {
+                "path": "view.params.Third.style"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent",
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

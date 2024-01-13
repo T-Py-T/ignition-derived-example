@@ -1,0 +1,79 @@
+{
+  "custom": {},
+  "params": {
+    "EqPath": "[default]GPA/Wilmington/Mixing/mixer1",
+    "State": ""
+  },
+  "propConfig": {
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.State": {
+      "binding": {
+        "config": {
+          "path": "/root/OrderInfo.props.params.Params.State"
+        },
+        "type": "property"
+      },
+      "paramDirection": "output",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 299,
+      "width": 440
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "OrderInfo"
+        },
+        "position": {
+          "basis": "320px"
+        },
+        "propConfig": {
+          "props.params.Params.EqPath": {
+            "binding": {
+              "config": {
+                "path": "view.params.EqPath"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "params": {
+            "EqPath": "value",
+            "HideTitle": false,
+            "Icon": "",
+            "IconDisplay": true,
+            "Params": {
+              "State": ""
+            },
+            "Path": "GlobalComponents/Widgets/Embedded/OrderInformation",
+            "Provider": "value",
+            "SizeBasis": "value",
+            "TagPath": "value",
+            "Title": "Order Information",
+            "Type": "",
+            "useDefaultHeight": false,
+            "useDefaultWidth": false
+          },
+          "path": "GlobalComponents/Cards/Card"
+        },
+        "type": "ia.display.view"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

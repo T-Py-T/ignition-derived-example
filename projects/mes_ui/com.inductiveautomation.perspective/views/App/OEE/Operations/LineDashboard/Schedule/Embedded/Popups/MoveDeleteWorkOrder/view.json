@@ -1,0 +1,506 @@
+{
+  "custom": {
+    "AdjSeqTo": "",
+    "Dropdown": {
+      "$": [
+        "ds",
+        192,
+        1701093439524
+      ],
+      "$columns": [
+        {
+          "data": [
+            6765,
+            6766,
+            6767,
+            6768,
+            6769,
+            6770,
+            6771,
+            6772,
+            6773,
+            6774
+          ],
+          "name": "value",
+          "type": "Integer"
+        },
+        {
+          "data": [
+            "SKINS - Not Staged",
+            "SCHED - Accidentally moved",
+            "SCHED - Backlog",
+            "SCHED - Canceled Work Order",
+            "SCHED - Combined",
+            "SCHED - Hot/Breeze",
+            "SCHED - Not on todays schedule",
+            "SCHED - Optimize DMC C/O",
+            "SCHED - Optimize Foam C/O",
+            "SCHED - Rescheduled"
+          ],
+          "name": "label",
+          "type": "String"
+        },
+        {
+          "data": [
+            113,
+            113,
+            113,
+            113,
+            113,
+            113,
+            113,
+            113,
+            113,
+            113
+          ],
+          "name": "Reason_Type",
+          "type": "Integer"
+        }
+      ]
+    },
+    "Params": {
+      "AdjSeqFrom": 3,
+      "AdjSeqTo": "",
+      "ComputerName": "Ignition",
+      "CreatedBy": "bduran",
+      "LineID": 9,
+      "PartNumber": "10193",
+      "Reason": "",
+      "Reason_Type": "value",
+      "TabFrom": 4,
+      "TabTo": 4,
+      "WONum": 2776,
+      "WoAutoID": 2776
+    },
+    "Reason": "",
+    "ReasonType": 6770,
+    "TrackParams": {
+      "AdjSeqFrom": 3,
+      "AdjSeqTo": "",
+      "ComputerName": "Ignition",
+      "CreateDate": {
+        "$": [
+          "ts",
+          192,
+          1701093439515
+        ],
+        "$ts": 1701093439515
+      },
+      "CreatedBy": "bduran",
+      "LineID": 9,
+      "PartNumber": "10193",
+      "Reason": "",
+      "Reason_Type": 6770,
+      "TabFrom": 4,
+      "TabTo": 4,
+      "WOAutoId": 2776,
+      "WONum": 2776
+    }
+  },
+  "params": {
+    "ModalName": "MoveWO",
+    "MoveParams": "value",
+    "RowData": [
+      {
+        "AdjScheduleQueue": 3,
+        "ERPSequence": "300000111912854",
+        "ID": 2770,
+        "IsEnabled": true,
+        "LineID": 9,
+        "Note": "",
+        "PartCodeDescription": "Good Life 16 ft Grooved Beach House Deck Board",
+        "PartNumber": "10193",
+        "Priority": 4,
+        "Quantity": 4399,
+        "ScheduleDate": 1696127049000,
+        "Status": 0,
+        "WorkOrderID": 2776,
+        "WorkOrderNumber": "1NL7145",
+        "isLocked": false
+      }
+    ],
+    "Seq": "value",
+    "Type": "move"
+  },
+  "propConfig": {
+    "custom.AdjSeqTo": {
+      "binding": {
+        "config": {
+          "path": "/root/Row2/MoveSeq/NumericEntryField.props.value"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.Dropdown": {
+      "binding": {
+        "config": {
+          "queryPath": "app/Schedule/getFBTblReasonCodes"
+        },
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "custom.Reason": {
+      "binding": {
+        "config": {
+          "path": "/root/Row2/Reason/TextField.props.text"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.ReasonType": {
+      "binding": {
+        "config": {
+          "path": "/root/Row2/Dropdown/Dropdown.props.value"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.TrackParams": {
+      "binding": {
+        "config": {
+          "struct": {
+            "AdjSeqFrom": "{view.params.RowData[0].AdjScheduleQueue}",
+            "AdjSeqTo": "if({view.params.Type} \u003d \u0027move\u0027, \r\n\t{view.custom.AdjSeqTo},\r\n\t0\r\n)",
+            "ComputerName": "\"Ignition\"",
+            "CreateDate": "now(0)",
+            "CreatedBy": "{session.custom.UserName}",
+            "LineID": "{view.params.RowData[0].LineID}",
+            "PartNumber": "{view.params.RowData[0].PartNumber}",
+            "Reason": "{view.custom.Reason}",
+            "Reason_Type": "{view.custom.ReasonType}",
+            "TabFrom": 4,
+            "TabTo": 4,
+            "WOAutoId": "{view.params.RowData[0].WorkOrderID}",
+            "WONum": "{view.params.RowData[0].WorkOrderID}"
+          },
+          "waitOnAll": true
+        },
+        "type": "expr-struct"
+      },
+      "persistent": true
+    },
+    "params.ModalName": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.MoveParams": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.RowData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Seq": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Type": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 194,
+      "width": 319
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "text": "Reasons for Moving/Deleting Work Order",
+              "textStyle": {
+                "classes": "Cards/Common/CardTitle",
+                "color": "black",
+                "textAlign": "center"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Row1"
+        },
+        "position": {
+          "basis": "59px"
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "--error",
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label"
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginRight"
+                  },
+                  "text": "Enter Sequence"
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "NumericEntryField"
+                },
+                "position": {
+                  "basis": "45px"
+                },
+                "props": {
+                  "spinner": {
+                    "enabled": false
+                  },
+                  "style": {
+                    "borderBottomLeftRadius": "10px",
+                    "borderBottomRightRadius": "10px",
+                    "borderTopLeftRadius": "10px",
+                    "borderTopRightRadius": "10px"
+                  }
+                },
+                "type": "ia.input.numeric-entry-field"
+              }
+            ],
+            "meta": {
+              "name": "MoveSeq"
+            },
+            "position": {
+              "basis": "50px",
+              "display": false
+            },
+            "propConfig": {
+              "meta.visible": {
+                "binding": {
+                  "config": {
+                    "expression": "if({view.params.Type} \u003d \u0027move\u0027,\r\n\ttrue,\r\n\tfalse\r\n)"
+                  },
+                  "type": "expr"
+                }
+              },
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "expression": "if({view.params.Type} \u003d \u0027move\u0027,\r\n\ttrue,\r\n\tfalse\r\n)"
+                  },
+                  "enabled": false,
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "justify": "center"
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Dropdown"
+                },
+                "position": {
+                  "basis": "237px"
+                },
+                "propConfig": {
+                  "props.options": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.Dropdown"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "dropdownOptionStyle": {
+                    "classes": "TextFields/TextArea"
+                  },
+                  "style": {
+                    "classes": "TextFields/TextArea"
+                  },
+                  "value": 6770
+                },
+                "type": "ia.input.dropdown"
+              }
+            ],
+            "meta": {
+              "name": "Dropdown"
+            },
+            "position": {
+              "basis": "60px",
+              "grow": 1
+            },
+            "props": {
+              "justify": "center"
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "TextField"
+                },
+                "position": {
+                  "basis": "238px"
+                },
+                "props": {
+                  "style": {
+                    "classes": "TextFields/TextField"
+                  }
+                },
+                "type": "ia.input.text-field"
+              }
+            ],
+            "meta": {
+              "name": "Reason"
+            },
+            "position": {
+              "basis": "60px",
+              "grow": 1
+            },
+            "props": {
+              "justify": "center"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Row2"
+        },
+        "position": {
+          "grow": 1
+        },
+        "props": {
+          "direction": "column",
+          "justify": "space-evenly",
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\tdeleteQuery \u003d \u0027app/Schedule/deleteFBSchedule\u0027\n\ttry:\n\t    viewType \u003d self.view.params.Type\n\t    trackParams \u003d self.view.custom.TrackParams\n\t    seq \u003d -1\n\t    if viewType \u003d\u003d \u0027delete\u0027:\n\t        seq \u003d 0\n\t\n\t    params \u003d self.view.params.MoveParams\n\t    \n#\t    if viewType \u003d\u003d \u0027move\u0027:\n#\t        res \u003d mes.schedule.sp.fb_resequenceSchedule(params)\n\t        \n\t        if res !\u003d True:\n\t            raise Exception(\u0027Could not move work order\u0027)\n\t        else:\n\t            tracking \u003d mes.schedule.sp.fb_woMoveDeleteTracking(trackParams)\n\t            if tracking !\u003d True:\n\t                raise Exception(\u0027Could not insert tracking log\u0027)\n\t    else:\n\t    \tres \u003d system.db.runNamedQuery(deleteQuery, params)\n\t    \tmes.schedule.sp.fb_resequenceSchedule(params)\n\t    \tmes.schedule.sp.fb_woMoveDeleteTracking(trackParams)\n\t    \t\n\texcept Exception as e:\n\t    gpa.frontEnd.localUI.throwError(e)\n\telse:\n\t\tsystem.perspective.closePopup(self.view.params.ModalName)\n\t\tgpa.frontEnd.localUI.throwSuccess(\u0027Schedule moved or deleted\u0027)\n\tfinally: \n\t\tsystem.perspective.sendMessage(\u0027refreshCurrentSchedule\u0027)\n\t\t"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Save"
+            },
+            "position": {
+              "basis": "110px"
+            },
+            "props": {
+              "image": {
+                "icon": {
+                  "path": "material/save"
+                }
+              },
+              "style": {
+                "classes": "Buttons/OperatorButtons Global/MarginRight"
+              },
+              "text": "Save"
+            },
+            "type": "ia.input.button"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\tsystem.perspective.closePopup(self.view.params.ModalName)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Cancel"
+            },
+            "position": {
+              "basis": "110px"
+            },
+            "props": {
+              "image": {
+                "icon": {
+                  "path": "material/cancel"
+                }
+              },
+              "style": {
+                "classes": "Buttons/OperatorButtons"
+              },
+              "text": "Cancel"
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "Row3"
+        },
+        "position": {
+          "basis": "52px",
+          "grow": 1
+        },
+        "props": {
+          "alignContent": "space-around",
+          "justify": "center",
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "events": {
+      "dom": {
+        "onClick": {
+          "config": {
+            "script": "\tsystem.perspective.print(self.view.params.RowData)"
+          },
+          "scope": "G",
+          "type": "script"
+        }
+      }
+    },
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

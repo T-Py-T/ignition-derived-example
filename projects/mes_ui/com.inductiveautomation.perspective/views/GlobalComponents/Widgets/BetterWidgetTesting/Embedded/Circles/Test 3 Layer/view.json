@@ -1,0 +1,398 @@
+{
+  "custom": {
+    "A": 0.7350649,
+    "Aremain": 0.26493507623672485,
+    "EQPath": "[default]GPA/Wilmington/Mixing/Mixer1",
+    "OEE": 0.701032,
+    "OEEremain": 0.29896801710128784,
+    "P": 1,
+    "Premain": 0,
+    "Q": 0.95371157,
+    "Qremain": 0.04628843069076538
+  },
+  "params": {
+    "EQPath": "[default]GPA/Wilmington/Mixing/Mixer1"
+  },
+  "propConfig": {
+    "custom.A": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.custom.EQPath}"
+          },
+          "tagPath": "{1}/calculatedValues/oeeAvailability"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.Aremain": {
+      "binding": {
+        "config": {
+          "expression": "1-{view.custom.A}"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.EQPath": {
+      "binding": {
+        "config": {
+          "path": "view.params.EQPath"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.OEE": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.custom.EQPath}"
+          },
+          "tagPath": "{1}/calculatedValues/oee"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.OEEremain": {
+      "binding": {
+        "config": {
+          "expression": "1-{view.custom.OEE}"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.P": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.custom.EQPath}"
+          },
+          "tagPath": "{1}/calculatedValues/oeePerformance"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.Premain": {
+      "binding": {
+        "config": {
+          "expression": "1-{view.custom.P}"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.Q": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.custom.EQPath}"
+          },
+          "tagPath": "{1}/calculatedValues/oeeQuality"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.Qremain": {
+      "binding": {
+        "config": {
+          "expression": "1-{view.custom.Q}"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "params.EQPath": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 172,
+      "width": 209
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "A",
+          "tooltip": {
+            "enabled": true,
+            "text": "TEst"
+          }
+        },
+        "position": {
+          "height": "100%",
+          "width": "100%"
+        },
+        "propConfig": {
+          "props.data[0].count": {
+            "binding": {
+              "config": {
+                "path": "view.custom.A"
+              },
+              "type": "property"
+            }
+          },
+          "props.data[1].count": {
+            "binding": {
+              "config": {
+                "path": "view.custom.Aremain"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "colors": [
+            "#EBB800",
+            "#FF000000",
+            "#FF000000",
+            "#FF000000",
+            ""
+          ],
+          "cutoutRadius": 70,
+          "data": [
+            {
+              "name": "Availability"
+            },
+            {
+              "name": "Remaining"
+            }
+          ],
+          "labels": {
+            "align": false,
+            "showName": false,
+            "showValue": false
+          },
+          "showLabels": false,
+          "showLegend": false,
+          "style": {
+            "paddingBottom": "8%",
+            "paddingLeft": "8%",
+            "paddingRight": "8%",
+            "paddingTop": "8%",
+            "zoom": ""
+          },
+          "tooltipFormat": "",
+          "valueFormat": {
+            "showValueAsPercent": false
+          }
+        },
+        "type": "ia.chart.pie"
+      },
+      {
+        "meta": {
+          "name": "Q"
+        },
+        "position": {
+          "height": "100%",
+          "width": "100%"
+        },
+        "propConfig": {
+          "props.data[0].count": {
+            "binding": {
+              "config": {
+                "path": "view.custom.Q"
+              },
+              "type": "property"
+            }
+          },
+          "props.data[1].count": {
+            "binding": {
+              "config": {
+                "path": "view.custom.Qremain"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "colors": [
+            "#00EB5F",
+            "#FF000000",
+            "#FF000000",
+            "#FF000000",
+            "#FF000000"
+          ],
+          "cutoutRadius": 70,
+          "data": [
+            {
+              "name": "Quality"
+            },
+            {
+              "name": "Remaining"
+            }
+          ],
+          "labels": {
+            "align": false,
+            "showName": false,
+            "showValue": false
+          },
+          "showLabels": false,
+          "showLegend": false,
+          "style": {
+            "paddingBottom": "16%",
+            "paddingLeft": "16%",
+            "paddingRight": "16%",
+            "paddingTop": "16%",
+            "zoom": ""
+          },
+          "valueFormat": {
+            "showValueAsPercent": false
+          }
+        },
+        "type": "ia.chart.pie"
+      },
+      {
+        "meta": {
+          "name": "P"
+        },
+        "position": {
+          "height": "100%",
+          "width": "100%"
+        },
+        "propConfig": {
+          "props.data[0].count": {
+            "binding": {
+              "config": {
+                "path": "view.custom.P"
+              },
+              "type": "property"
+            }
+          },
+          "props.data[1].count": {
+            "binding": {
+              "config": {
+                "path": "view.custom.Premain"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "colors": [
+            "#00D2EB",
+            "#FF000000",
+            "#FF000000",
+            "#FF000000",
+            "#FF000000"
+          ],
+          "cutoutRadius": 70,
+          "data": [
+            {
+              "name": "Performance"
+            },
+            {
+              "name": "Remaining"
+            }
+          ],
+          "labels": {
+            "align": false,
+            "showName": false,
+            "showValue": false
+          },
+          "showLabels": false,
+          "showLegend": false,
+          "style": {
+            "zoom": 0
+          },
+          "tooltipFormat": "",
+          "valueFormat": {
+            "showValueAsPercent": false
+          }
+        },
+        "type": "ia.chart.pie"
+      },
+      {
+        "meta": {
+          "name": "OEELabel",
+          "tooltip": {
+            "delay": 100,
+            "enabled": true,
+            "location": "center",
+            "style": {
+              "backgroundImage": "repeating-linear-gradient(to top, #000000 0%, #23AAC4 100%)",
+              "borderBottomLeftRadius": 5,
+              "borderBottomRightRadius": 5,
+              "borderColor": "#00000057",
+              "borderStyle": "solid",
+              "borderTopLeftRadius": 5,
+              "borderTopRightRadius": 5,
+              "borderWidth": 2,
+              "color": "white",
+              "fontSize": "1rem",
+              "fontWeight": "bold",
+              "white-space": "pre"
+            },
+            "sustain": 0,
+            "tail": false
+          }
+        },
+        "position": {
+          "height": "100%",
+          "width": "100%"
+        },
+        "propConfig": {
+          "meta.tooltip.text": {
+            "binding": {
+              "config": {
+                "expression": "\"OEE: \" + numberFormat({view.custom.OEE}, \"#0.00\u0027%\u0027\")\r\n+\"\\nA: \" + numberFormat({view.custom.A}, \"#0.00\u0027%\u0027\")\r\n+\"\\nQ: \" + numberFormat({view.custom.Q}, \"#0.00\u0027%\u0027\")\r\n+\"\\nP: \" + numberFormat({view.custom.P}, \"#0.00\u0027%\u0027\")"
+              },
+              "type": "expr"
+            }
+          },
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.custom.OEE"
+              },
+              "transforms": [
+                {
+                  "formatType": "numeric",
+                  "formatValue": "percent",
+                  "type": "format"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "overflow": "hidden"
+          },
+          "textStyle": {
+            "fontSize": "1.5em",
+            "textAlign": "center"
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

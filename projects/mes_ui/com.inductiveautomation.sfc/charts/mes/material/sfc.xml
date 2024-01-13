@@ -1,0 +1,158 @@
+<?xml version="1.0" ?>
+<sfc zoom="1.0" canvas="20 20" execution-mode="Disabled" hot-editable="false" persist-state="true" redundant-sync="false">
+	<onstart>def onStart(chart):
+	"""
+	This will run once when the chart is started.
+
+	Arguments:
+		chart: A reference to the chart's scope.
+	"""
+</onstart>
+	<onabort>def onAbort(chart):
+	"""
+	This will run once if the chart is aborted.
+	The exception that caused the abort is
+	available via chart.abortCause
+
+	Arguments:
+		chart: A reference to the chart's scope.
+	"""
+	logger = system.util.getLogger('SFC/Material/OnAbort')
+	logger.error('chart aborted, error: %s' % (str(chart.abortCause)))
+	#EVENTUALLY SEND EMAIL</onabort>
+	<step id="ee915d4a-91fe-4b9f-896a-c3c415d59a53" location="4 1" name="__begin" factory-id="begin-step">
+<parameters>
+	<parameter><name>count</name><expression>0</expression></parameter>
+	<parameter><name>materialString</name><expression>''</expression></parameter>
+	<parameter><name>id</name><expression>0</expression></parameter>
+	<parameter><name>successCount</name><expression>0</expression></parameter>
+	<parameter><name>errorCount</name><expression>0</expression></parameter>
+</parameters>
+	</step>
+	<step id="4fc5e8c9-f6ce-4502-8bff-50f004f9a8ac" location="5 5" name="pruneCache" factory-id="action-step">
+		<start-script>def onStart(chart, step): # WARNING: This resource was generated in a newer version of Ignition. For the best editing experience, recreate it in the current version.
+	query = """DELETE FROM sap.material_cache
+				WHERE time_created &lt;  NOW() - (30 * interval '1 day')
+			"""
+	system.db.runPrepUpdate(query, [], 'application')</start-script>
+	</step>
+	<step id="b7e298a8-2e36-4eb5-87c9-e783c4f5bc05" location="5 6" name="getMaterialCache" factory-id="action-step">
+		<start-script>def onStart(chart, step): # WARNING: This resource was generated in a newer version of Ignition. For the best editing experience, recreate it in the current version.
+	materialString = ''
+	id = 0
+	query = """SELECT id, encode(material_data, 'escape') 
+				from sap.material_cache 
+				where time_processed is null 
+				order by time_created asc 
+				LIMIT 1"""
+	res = system.db.runPrepQuery(query, [],'application')
+	if len(res) &gt; 0:
+		materialString = res.getValueAt(0,1)
+		id = res.getValueAt(0,0)
+	
+	chart.id = id
+	chart.materialString = materialString
+	
+</start-script>
+	</step>
+	<step id="fe351bd2-bf3c-4aa9-b461-a2d038e529b8" location="6 9" name="updateMaterials" factory-id="action-step">
+		<start-script>def onStart(chart, step):
+	"""
+	This will run when the step starts, before any
+	other action.
+
+	Arguments:
+		chart: A reference to the chart's scope.
+		step: A reference to this step's scope.
+	"""
+	logger = system.util.getLogger('sfc/mes/material')
+	materialString = chart.materialString
+	returnedParams = mes.material.sap.updateMaterials(materialString)
+	chart.errorCount = returnedParams['errorCount']
+	chart.successCount = returnedParams['successCount']
+	
+	logger.info(str(chart.successCount))
+	materialErrors = returnedParams['errors']
+	rows = []
+	headers = ['materialID','errorMessage']
+	if len(materialErrors) &gt; 0:
+		for material in materialErrors:
+			
+			row = [material,'']
+			rows.append(row)
+		retData = system.dataset.toDataSet(headers,rows)
+		system.tag.writeBlocking(['[default]Pipeline/SAP/materials'],[retData])</start-script>
+	</step>
+	<step id="42ce581c-71c3-4e53-9bb3-b3f8c922657d" location="6 10" name="updateSuccess" factory-id="action-step">
+		<start-script>def onStart(chart, step): # WARNING: This resource was generated in a newer version of Ignition. For the best editing experience, recreate it in the current version.
+	#when should this happen?
+	#modify transition
+	
+	query = """UPDATE sap.material_cache
+				SET time_processed = NOW()
+				WHERE id = ?
+				"""
+	id = chart.id
+	args = [id]
+	
+	system.db.runPrepUpdate(query, args, 'application')
+	</start-script>
+	</step>
+	<step id="5c32c9c6-1a90-4c6b-993c-06acf2437035" location="7 14" name="updateError" factory-id="action-step">
+		<start-script>def onStart(chart, step):
+	"""
+	This will run when the step starts, before any
+	other action.
+
+	Arguments:
+		chart: A reference to the chart's scope.
+		step: A reference to this step's scope.
+	"""
+	logger = system.util.getLogger('SFC/MES/Material')
+	id = chart.id
+	logger.error("There was an error processing materialData with id: %d" % (id))
+	
+	system.tag.writeBlocking(["[default]Pipeline/SAP/materialAlarmed"],[id])</start-script>
+	</step>
+	<step id="2c5884be-fcc7-4f96-aee2-7f956152c497" location="6 16" name="resetChart" factory-id="action-step">
+		<start-script>def onStart(chart, step):
+	"""
+	This will run when the step starts, before any
+	other action.
+
+	Arguments:
+		chart: A reference to the chart's scope.
+		step: A reference to this step's scope.
+	"""
+	chart.id = 0
+	chart.errorCount = 0
+	chart.successCount = 0</start-script>
+	</step>
+	<transition id="69a7e331-496d-4e3f-acef-e6906b13e976" location="5 3" timeout-enabled="true" timeout-delay="300000" timeout-flag="watchdog">{watchdog} = true</transition>
+	<transition id="104d1cea-3685-4116-8ee3-79887dba685e" location="4 8">{materialString} = ''</transition>
+	<transition id="27f9dbf1-d7a9-4abe-a855-da769c69d2bc" location="6 8">{materialString} != ''</transition>
+	<transition id="9466e004-5653-469d-bf0c-32b840fe1426" location="5 13">{successCount} </transition>
+	<transition id="2f149eed-7653-4e91-9bd2-9e3573913a5f" location="7 13">{errorCount}&gt;0
+|| 
+{successCount} = 0</transition>
+	<jump id="d054f905-9b94-4f20-a54f-9ef32a18dab8" location="4 9">A</jump>
+	<jump id="0d958e5d-674b-41bc-8d73-eb62f377ab0d" location="6 18">A</jump>
+	<anchor id="8838d004-2fd8-4ec8-9373-3f65f942bab5" location="5 1">A</anchor>
+	<link id="be812693-b37a-4601-b77f-6fff5ceacc52" location="4 2"><up/><left/><right/></link>
+	<link id="baf0a0be-cbcb-4d83-bfeb-73d021ca442b" location="5 2"><up/><left/><down/><right/></link>
+	<link id="15baa500-2384-482a-bc62-f0be60806ce4" location="5 4"><up/><down/></link>
+	<link id="1f628580-ede2-4860-8861-2f88a1f8265c" location="4 7"><up/><down/><right/></link>
+	<link id="defa6a42-7fc8-4bbb-87c0-50e75df97869" location="5 7"><up/><left/><right/></link>
+	<link id="475a9404-9131-4b98-bbd2-eaf81695e5cf" location="6 7"><left/><down/><right/></link>
+	<link id="5a322e7b-44a5-42e5-9926-054da1bdb087" location="5 11"><left/><down/><right/></link>
+	<link id="95c1793d-0795-4f89-81ba-4430f6f38601" location="6 11"><up/><left/><down/><right/></link>
+	<link id="baa20c21-adfd-43e9-8468-3b20c8f3ef46" location="5 12"><up/><down/></link>
+	<link id="88b7df6f-0022-43cd-a584-10edae06dac8" location="7 11"><left/><down/><right/></link>
+	<link id="45df32e5-1fdd-4c4f-b4fb-3103bacd34df" location="7 12"><up/><down/></link>
+	<link id="d2197847-9d8b-4295-a5b7-e973c17840e7" location="5 14"><up/><down/></link>
+	<link id="4fc94599-ddf2-448c-8741-f78b8fad4a47" location="5 15"><up/><down/><right/></link>
+	<link id="d6573ccf-f35a-44fd-a40c-e3902753285a" location="6 15"><left/><down/><right/></link>
+	<link id="2c8e9035-347c-4ac2-9b12-c112d741730a" location="7 15"><up/><left/><down/></link>
+	<link id="192ff580-6464-452f-96b5-9e0abb7a3d80" location="6 17"><up/><down/></link>
+
+</sfc>

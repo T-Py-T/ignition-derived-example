@@ -1,0 +1,55 @@
+{
+  "scope": "DG",
+  "version": 2,
+  "restricted": false,
+  "overridable": true,
+  "files": [
+    "query.sql"
+  ],
+  "attributes": {
+    "useMaxReturnSize": true,
+    "autoBatchEnabled": false,
+    "fallbackValue": "",
+    "maxReturnSize": 100,
+    "cacheUnit": "SEC",
+    "type": "Query",
+    "enabled": true,
+    "cacheAmount": 1,
+    "cacheEnabled": false,
+    "database": "MSSQL_MES",
+    "fallbackEnabled": false,
+    "lastModificationSignature": "ea8c25dd6d0532e9bd59e74c86fa7d6d3799d8da157511dd557545dee9645dc2",
+    "permissions": [
+      {
+        "zone": "",
+        "role": ""
+      }
+    ],
+    "lastModification": {
+      "actor": "bduran",
+      "timestamp": "2023-06-04T01:19:41Z"
+    },
+    "parameters": [
+      {
+        "type": "Parameter",
+        "identifier": "timeStart",
+        "sqlType": 8
+      },
+      {
+        "type": "Parameter",
+        "identifier": "timeEnd",
+        "sqlType": 8
+      },
+      {
+        "type": "Parameter",
+        "identifier": "lineID",
+        "sqlType": 3
+      },
+      {
+        "type": "Parameter",
+        "identifier": "groupID",
+        "sqlType": 3
+      }
+    ]
+  }
+}

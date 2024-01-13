@@ -1,0 +1,797 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": [
+        {
+          "config": {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "display": "visible",
+            "handle": "hide",
+            "handleIcon": "",
+            "id": "Header",
+            "modal": false,
+            "resizable": false,
+            "size": 50,
+            "view": "GlobalComponents/Navigation/Header",
+            "viewParams": {
+              "Title": "Gateway Status",
+              "showEmbedded": true,
+              "viewPath": "App/GatewayHealth/Diagnostics/Embedded/SystemSelector"
+            }
+          },
+          "scope": "C",
+          "type": "alter-dock"
+        },
+        {
+          "config": {
+            "script": "\tlogger \u003d system.util.getLogger(\"topHeader\")\n\t\n\tlogger.debug(\"self\")"
+          },
+          "scope": "G",
+          "type": "script"
+        }
+      ]
+    }
+  },
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 900,
+      "width": 1384
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "EmbeddedView"
+            },
+            "position": {
+              "basis": "320px",
+              "grow": 1
+            },
+            "props": {
+              "path": "App/GatewayHealth/Diagnostics/Embedded/SystemSelector"
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "Dropdown"
+        },
+        "position": {
+          "grow": 1,
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "custom": {
+                  "TagPath": "[GatewayHealth]Gateways/Script"
+                },
+                "meta": {
+                  "name": "CPU"
+                },
+                "position": {
+                  "basis": "320px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.params.Params.TagPath": {
+                    "binding": {
+                      "config": {
+                        "path": "this.custom.TagPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "Icon": "",
+                    "IconDisplay": true,
+                    "Params": {
+                      "State": "",
+                      "TagProvider": ""
+                    },
+                    "Path": "App/GatewayHealth/Diagnostics/Embedded/CPUUsage",
+                    "Provider": "value",
+                    "SizeBasis": "value",
+                    "TagPath": "value",
+                    "Title": "CPU Utilization",
+                    "Type": "",
+                    "useDefaultHeight": false,
+                    "useDefaultWidth": false
+                  },
+                  "path": "GlobalComponents/Cards/Card"
+                },
+                "scripts": {
+                  "customMethods": [],
+                  "extensionFunctions": null,
+                  "messageHandlers": [
+                    {
+                      "messageType": "changedGateway",
+                      "pageScope": true,
+                      "script": "\tnewVal \u003d payload[\u0027value\u0027]\n\tself.custom.TagPath \u003d newVal",
+                      "sessionScope": false,
+                      "viewScope": false
+                    }
+                  ]
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "CPUPerformance"
+            },
+            "position": {
+              "basis": "300px",
+              "grow": 1,
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "custom": {
+                  "TagPath": "[GatewayHealth]Gateways/Script"
+                },
+                "meta": {
+                  "name": "Memory"
+                },
+                "position": {
+                  "basis": "320px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.params.Params.TagPath": {
+                    "binding": {
+                      "config": {
+                        "path": "this.custom.TagPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "HideTitle": false,
+                    "Icon": "",
+                    "IconDisplay": true,
+                    "Params": {
+                      "State": "",
+                      "TagProvider": ""
+                    },
+                    "Path": "App/GatewayHealth/Diagnostics/Embedded/MemoryUsage",
+                    "Provider": "value",
+                    "SizeBasis": "value",
+                    "TagPath": "value",
+                    "Title": "Memory Utilization",
+                    "Type": "",
+                    "useDefaultHeight": false,
+                    "useDefaultWidth": false
+                  },
+                  "path": "GlobalComponents/Cards/Card"
+                },
+                "scripts": {
+                  "customMethods": [],
+                  "extensionFunctions": null,
+                  "messageHandlers": [
+                    {
+                      "messageType": "changedGateway",
+                      "pageScope": true,
+                      "script": "\tnewVal \u003d payload[\u0027value\u0027]\n\tself.custom.TagPath \u003d newVal",
+                      "sessionScope": false,
+                      "viewScope": false
+                    }
+                  ]
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "MemoryPerformance"
+            },
+            "position": {
+              "basis": "300px",
+              "grow": 1,
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "custom": {
+                  "TagPath": "[GatewayHealth]Gateways/Script"
+                },
+                "meta": {
+                  "name": "Disk"
+                },
+                "position": {
+                  "basis": "320px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.params.Params.TagPath": {
+                    "binding": {
+                      "config": {
+                        "path": "this.custom.TagPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "Icon": "",
+                    "IconDisplay": true,
+                    "Params": {
+                      "State": "",
+                      "TagProvider": ""
+                    },
+                    "Path": "App/GatewayHealth/Diagnostics/Embedded/DiskUsage",
+                    "Provider": "value",
+                    "SizeBasis": "value",
+                    "TagPath": "value",
+                    "Title": "Disk Utilization",
+                    "Type": "",
+                    "useDefaultHeight": false,
+                    "useDefaultWidth": false
+                  },
+                  "path": "GlobalComponents/Cards/Card"
+                },
+                "scripts": {
+                  "customMethods": [],
+                  "extensionFunctions": null,
+                  "messageHandlers": [
+                    {
+                      "messageType": "changedGateway",
+                      "pageScope": true,
+                      "script": "\tnewVal \u003d payload[\u0027value\u0027]\n\tself.custom.TagPath \u003d newVal",
+                      "sessionScope": false,
+                      "viewScope": false
+                    }
+                  ]
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "DiskPerformance"
+            },
+            "position": {
+              "basis": "300px",
+              "grow": 1,
+              "shrink": 0
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "SystemPerformance"
+        },
+        "position": {
+          "grow": 1
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "custom": {
+                  "TagPath": "[GatewayHealth]Gateways/Script"
+                },
+                "meta": {
+                  "name": "Gateway"
+                },
+                "propConfig": {
+                  "props.params.Params.TagPath": {
+                    "binding": {
+                      "config": {
+                        "path": "this.custom.TagPath"
+                      },
+                      "transforms": [
+                        {
+                          "expression": "{value} + \"/Gateway Network\"",
+                          "type": "expression"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "Icon": "",
+                    "IconDisplay": true,
+                    "Params": {
+                      "State": "",
+                      "TagProvider": ""
+                    },
+                    "Path": "App/GatewayHealth/Diagnostics/Embedded/GatewayNetworkConnections",
+                    "Provider": "value",
+                    "SizeBasis": "value",
+                    "TagPath": "value",
+                    "Title": "Gateway Network",
+                    "Type": "",
+                    "useDefaultHeight": false,
+                    "useDefaultWidth": false
+                  },
+                  "path": "GlobalComponents/Cards/Card"
+                },
+                "scripts": {
+                  "customMethods": [],
+                  "extensionFunctions": null,
+                  "messageHandlers": [
+                    {
+                      "messageType": "changedGateway",
+                      "pageScope": true,
+                      "script": "\t# implement your handler here\n\tnewVal \u003d payload[\u0027value\u0027]\n\tself.custom.TagPath \u003d newVal",
+                      "sessionScope": false,
+                      "viewScope": false
+                    }
+                  ]
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "GatewayNetwork"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "custom": {
+                  "TagPath": "[GatewayHealth]Gateways/Script"
+                },
+                "meta": {
+                  "name": "SystemInfo"
+                },
+                "propConfig": {
+                  "props.params.Params.TagPath": {
+                    "binding": {
+                      "config": {
+                        "path": "this.custom.TagPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "Icon": "",
+                    "IconDisplay": true,
+                    "Params": {
+                      "State": "",
+                      "TagProvider": ""
+                    },
+                    "Path": "App/GatewayHealth/Diagnostics/Embedded/System",
+                    "Provider": "value",
+                    "SizeBasis": "value",
+                    "TagPath": "value",
+                    "Title": "System",
+                    "Type": "",
+                    "useDefaultHeight": false,
+                    "useDefaultWidth": false
+                  },
+                  "path": "GlobalComponents/Cards/Card",
+                  "style": {
+                    "classes": "Global/MarginBottom"
+                  }
+                },
+                "scripts": {
+                  "customMethods": [],
+                  "extensionFunctions": null,
+                  "messageHandlers": [
+                    {
+                      "messageType": "changedGateway",
+                      "pageScope": true,
+                      "script": "\t# implement your handler here\n\tnewVal \u003d payload[\u0027value\u0027]\n\tself.custom.TagPath \u003d newVal",
+                      "sessionScope": false,
+                      "viewScope": false
+                    }
+                  ]
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "custom": {
+                  "TagPath": "[GatewayHealth]Gateways/Script"
+                },
+                "meta": {
+                  "name": "SystemPerformance"
+                },
+                "propConfig": {
+                  "props.params.Params.TagPath": {
+                    "binding": {
+                      "config": {
+                        "path": "this.custom.TagPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "Icon": "",
+                    "IconDisplay": true,
+                    "Params": {
+                      "State": "",
+                      "TagProvider": ""
+                    },
+                    "Path": "App/GatewayHealth/Diagnostics/Embedded/SystemPerformance",
+                    "Provider": "value",
+                    "SizeBasis": "value",
+                    "TagPath": "value",
+                    "Title": "System Performance",
+                    "Type": "",
+                    "useDefaultHeight": false,
+                    "useDefaultWidth": false
+                  },
+                  "path": "GlobalComponents/Cards/Card"
+                },
+                "scripts": {
+                  "customMethods": [],
+                  "extensionFunctions": null,
+                  "messageHandlers": [
+                    {
+                      "messageType": "changedGateway",
+                      "pageScope": true,
+                      "script": "\t# implement your handler here\n\tnewVal \u003d payload[\u0027value\u0027]\n\tself.custom.TagPath \u003d newVal",
+                      "sessionScope": false,
+                      "viewScope": false
+                    }
+                  ]
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "System"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "custom": {
+                  "TagPath": "[GatewayHealth]Gateways/Script"
+                },
+                "meta": {
+                  "name": "Database"
+                },
+                "propConfig": {
+                  "props.params.Params.TagPath": {
+                    "binding": {
+                      "config": {
+                        "path": "this.custom.TagPath"
+                      },
+                      "transforms": [
+                        {
+                          "expression": "{value} + \"/Database\"",
+                          "type": "expression"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "Icon": "",
+                    "IconDisplay": true,
+                    "Params": {
+                      "State": "",
+                      "TagProvider": ""
+                    },
+                    "Path": "App/GatewayHealth/Diagnostics/Embedded/Databases",
+                    "Provider": "value",
+                    "SizeBasis": "value",
+                    "TagPath": "value",
+                    "Title": "Databases",
+                    "Type": "",
+                    "useDefaultHeight": false,
+                    "useDefaultWidth": false
+                  },
+                  "path": "GlobalComponents/Cards/Card"
+                },
+                "scripts": {
+                  "customMethods": [],
+                  "extensionFunctions": null,
+                  "messageHandlers": [
+                    {
+                      "messageType": "changedGateway",
+                      "pageScope": true,
+                      "script": "\t# implement your handler here\n\tnewVal \u003d payload[\u0027value\u0027]\n\tself.custom.TagPath \u003d newVal",
+                      "sessionScope": false,
+                      "viewScope": false
+                    }
+                  ]
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "Databases"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "path": "./Database.props.params.Params.State"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": true,
+                      "inputType": "scalar",
+                      "mappings": [
+                        {
+                          "input": "Empty",
+                          "output": false
+                        },
+                        {
+                          "input": "",
+                          "output": true
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "custom": {
+                  "TagPath": "[GatewayHealth]Gateways/Script"
+                },
+                "meta": {
+                  "name": "OPCServers"
+                },
+                "position": {
+                  "grow": 1,
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "props.params.Params.TagPath": {
+                    "binding": {
+                      "config": {
+                        "path": "this.custom.TagPath"
+                      },
+                      "transforms": [
+                        {
+                          "expression": "{value} + \"/OPC/Connections\"",
+                          "type": "expression"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "Icon": "",
+                    "IconDisplay": true,
+                    "Params": {
+                      "State": "",
+                      "TagProvider": ""
+                    },
+                    "Path": "App/GatewayHealth/Diagnostics/Embedded/OPCServers",
+                    "Provider": "value",
+                    "SizeBasis": "value",
+                    "TagPath": "value",
+                    "Title": "OPC Servers",
+                    "Type": "",
+                    "useDefaultHeight": false,
+                    "useDefaultWidth": false
+                  },
+                  "path": "GlobalComponents/Cards/Card",
+                  "style": {
+                    "classes": "Global/MarginBottom"
+                  }
+                },
+                "scripts": {
+                  "customMethods": [],
+                  "extensionFunctions": null,
+                  "messageHandlers": [
+                    {
+                      "messageType": "changedGateway",
+                      "pageScope": true,
+                      "script": "\t# implement your handler here\n\tnewVal \u003d payload[\u0027value\u0027]\n\tself.custom.TagPath \u003d newVal",
+                      "sessionScope": false,
+                      "viewScope": false
+                    }
+                  ]
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "custom": {
+                  "TagPath": "[GatewayHealth]Gateways/Script"
+                },
+                "meta": {
+                  "name": "OPCDevices"
+                },
+                "position": {
+                  "grow": 1,
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "position.display": {
+                    "binding": {
+                      "config": {
+                        "path": "this.props.params.Params.State"
+                      },
+                      "enabled": false,
+                      "transforms": [
+                        {
+                          "fallback": true,
+                          "inputType": "scalar",
+                          "mappings": [
+                            {
+                              "input": "Empty",
+                              "output": false
+                            },
+                            {
+                              "input": "",
+                              "output": true
+                            }
+                          ],
+                          "outputType": "scalar",
+                          "type": "map"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  },
+                  "props.params.Params.TagPath": {
+                    "binding": {
+                      "config": {
+                        "path": "this.custom.TagPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "HideTitle": false,
+                    "Icon": "",
+                    "IconDisplay": true,
+                    "Params": {
+                      "State": "",
+                      "TagProvider": ""
+                    },
+                    "Path": "App/GatewayHealth/Diagnostics/Embedded/OPCDevices",
+                    "Provider": "value",
+                    "SizeBasis": "value",
+                    "TagPath": "value",
+                    "Title": "OPC Devices",
+                    "Type": "",
+                    "useDefaultHeight": false,
+                    "useDefaultWidth": false
+                  },
+                  "path": "GlobalComponents/Cards/Card"
+                },
+                "scripts": {
+                  "customMethods": [],
+                  "extensionFunctions": null,
+                  "messageHandlers": [
+                    {
+                      "messageType": "changedGateway",
+                      "pageScope": true,
+                      "script": "\t# implement your handler here\n\tnewVal \u003d payload[\u0027value\u0027]\n\tself.custom.TagPath \u003d newVal",
+                      "sessionScope": false,
+                      "viewScope": false
+                    }
+                  ]
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "OPC"
+            },
+            "position": {
+              "grow": 1,
+              "shrink": 0
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginRight",
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "SystemCards"
+        },
+        "position": {
+          "basis": "75%",
+          "grow": 1
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "classes": "Global/MarginAll",
+        "overflow": "visible"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

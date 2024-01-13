@@ -1,0 +1,102 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 420,
+      "width": 397
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "LineInfoView"
+            },
+            "position": {
+              "basis": "320px",
+              "grow": 1
+            },
+            "props": {
+              "path": "App/OEE/Operations/LineDashboard/OverviewScreen/Embedded/CurrentLineInfo"
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "CurrentLine"
+        },
+        "position": {
+          "basis": "20%"
+        },
+        "props": {
+          "style": {
+            "classes": "Cards/Common/CardTitleBorder"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "LineStatusView"
+            },
+            "position": {
+              "basis": "320px",
+              "grow": 1
+            },
+            "props": {
+              "path": "App/OEE/Operations/LineDashboard/OverviewScreen/Embedded/LineStatus",
+              "style": {
+                "classes": "Cards/Common/CardTitleBorder"
+              }
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "LineStatus"
+        },
+        "position": {
+          "basis": "20%"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "OrderInfoView"
+            },
+            "position": {
+              "basis": "320px",
+              "grow": 1
+            },
+            "props": {
+              "path": "App/OEE/Operations/LineDashboard/OverviewScreen/Embedded/OrderInformation"
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "OrderInformation"
+        },
+        "position": {
+          "basis": "200px",
+          "grow": 1
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

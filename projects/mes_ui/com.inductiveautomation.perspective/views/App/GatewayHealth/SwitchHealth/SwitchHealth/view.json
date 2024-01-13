@@ -1,0 +1,219 @@
+{
+  "custom": {
+    "data": null
+  },
+  "params": {},
+  "permissions": {
+    "securityLevels": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [],
+                "name": "Administrator"
+              }
+            ],
+            "name": "Roles"
+          }
+        ],
+        "name": "Authenticated"
+      }
+    ],
+    "type": "AllOf"
+  },
+  "propConfig": {
+    "custom.data": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "direct",
+          "tagPath": "[SwitchStructure]AllLogs"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 771,
+      "width": 1269
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "PieChart"
+            },
+            "position": {
+              "basis": "75%",
+              "grow": 1
+            },
+            "props": {
+              "params": {
+                "EqPath": "value",
+                "HideTitle": false,
+                "Icon": "",
+                "IconDisplay": true,
+                "Params": {
+                  "State": null,
+                  "TagPath": "",
+                  "TagProvider": ""
+                },
+                "Path": "App/GatewayHealth/SwitchHealth/Embedded/Charts/RecentEvents",
+                "Provider": "value",
+                "SizeBasis": "value",
+                "TagPath": "value",
+                "Title": "Top Events",
+                "Type": null,
+                "useDefaultHeight": false,
+                "useDefaultWidth": false
+              },
+              "path": "GlobalComponents/Cards/Card",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "Information"
+            },
+            "position": {
+              "basis": "50%",
+              "grow": 1
+            },
+            "props": {
+              "params": {
+                "HideTitle": false,
+                "Icon": "",
+                "IconDisplay": true,
+                "Params": {
+                  "State": "",
+                  "TagPath": "",
+                  "TagProvider": ""
+                },
+                "Path": "App/GatewayHealth/SwitchHealth/Embedded/Information",
+                "Provider": "value",
+                "SizeBasis": "value",
+                "TagPath": "value",
+                "Title": "Notes",
+                "Type": "",
+                "useDefaultHeight": false,
+                "useDefaultWidth": false
+              },
+              "path": "GlobalComponents/Cards/Card",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "Row1"
+        },
+        "position": {
+          "basis": "100px",
+          "grow": 1
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Alarms"
+            },
+            "position": {
+              "basis": "320px",
+              "display": false,
+              "grow": 1
+            },
+            "props": {
+              "params": {
+                "HideTitle": false,
+                "Icon": "",
+                "IconDisplay": true,
+                "Params": {
+                  "State": "",
+                  "TagPath": "",
+                  "TagProvider": ""
+                },
+                "Path": "App/GatewayHealth/SwitchHealth/Embedded/Alarms/AlarmJournal",
+                "Provider": "value",
+                "SizeBasis": "value",
+                "TagPath": "value",
+                "Title": "Alarms",
+                "Type": "",
+                "useDefaultHeight": false,
+                "useDefaultWidth": false
+              },
+              "path": "GlobalComponents/Cards/Card"
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "Table"
+            },
+            "position": {
+              "basis": "320px",
+              "grow": 1
+            },
+            "props": {
+              "params": {
+                "HideTitle": false,
+                "Icon": "",
+                "IconDisplay": true,
+                "Params": {
+                  "State": "",
+                  "TagPath": "",
+                  "TagProvider": ""
+                },
+                "Path": "App/GatewayHealth/SwitchHealth/Embedded/Tables/CombinedView",
+                "Provider": "value",
+                "SizeBasis": "value",
+                "TagPath": "value",
+                "Title": "Log Information",
+                "Type": "",
+                "useDefaultHeight": false,
+                "useDefaultWidth": false
+              },
+              "path": "GlobalComponents/Cards/Card"
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "Row2"
+        },
+        "position": {
+          "basis": "200px",
+          "grow": 1
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "classes": "Global/MarginAll"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

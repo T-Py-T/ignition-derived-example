@@ -1,0 +1,236 @@
+{
+  "custom": {
+    "GoodParts": 0,
+    "ScrapCount": 506,
+    "TargetParts": -290378
+  },
+  "params": {
+    "EqPath": "Fiberon/1NL/PE Extrusion/Line 11"
+  },
+  "propConfig": {
+    "custom.GoodParts": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/jobs/currentJob/RunCounts/runGoodParts"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.ScrapCount": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/jobs/currentJob/RunCounts/runRawScrap"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.TargetParts": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/calculatedValues/shiftGoodPartsTarget"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 122,
+      "width": 111
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "GoodParts",
+          "tooltip": {
+            "enabled": true,
+            "text": "TEst"
+          }
+        },
+        "position": {
+          "height": 144,
+          "width": 131,
+          "x": -10,
+          "y": -18.5
+        },
+        "propConfig": {
+          "props.data[0].value": {
+            "binding": {
+              "config": {
+                "path": "view.custom.GoodParts"
+              },
+              "type": "property"
+            }
+          },
+          "props.data[1].value": {
+            "binding": {
+              "config": {
+                "path": "view.custom.TargetParts"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "colors": [
+            "#ff6600",
+            "grey",
+            "#FF000000",
+            "#FF000000",
+            ""
+          ],
+          "cutoutRadius": 70,
+          "data": [
+            {
+              "label": "GoodParts"
+            },
+            {
+              "label": "Target"
+            }
+          ],
+          "labels": {
+            "align": false,
+            "showName": false,
+            "showValue": false
+          },
+          "showLabels": false,
+          "showLegend": false,
+          "style": {
+            "paddingBottom": "8%",
+            "paddingLeft": "8%",
+            "paddingRight": "8%",
+            "paddingTop": "8%",
+            "zoom": ""
+          },
+          "tooltipFormat": "",
+          "valueFormat": {
+            "showValueAsPercent": false
+          }
+        },
+        "type": "ia.chart.pie"
+      },
+      {
+        "meta": {
+          "name": "Label"
+        },
+        "position": {
+          "height": "100%",
+          "rotate": {
+            "anchor": "75% 37%"
+          },
+          "width": "100%",
+          "y": -6
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.custom.GoodParts"
+              },
+              "transforms": [
+                {
+                  "expression": "numberformat({value}, \u0027#,###.##\u0027) + \u0027\\n parts\u0027",
+                  "type": "expression"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "whiteSpace": "pre"
+          },
+          "textStyle": {
+            "textAlign": "center"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Scrap"
+        },
+        "position": {
+          "height": "100%",
+          "width": "100%",
+          "x": 26,
+          "y": 46
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "expression": "\u0027Scrap\\n\u0027 + {view.custom.ScrapCount}"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root",
+      "tooltip": {
+        "enabled": true,
+        "style": {
+          "backgroundImage": "var(--cardBg)",
+          "borderBottomLeftRadius": 5,
+          "borderBottomRightRadius": 5,
+          "borderColor": "#00000057",
+          "borderStyle": "solid",
+          "borderTopLeftRadius": 5,
+          "borderTopRightRadius": 5,
+          "borderWidth": 2,
+          "color": "var(--neutral-100)",
+          "fontSize": "1rem",
+          "fontWeight": "bold",
+          "white-space": "pre"
+        }
+      }
+    },
+    "propConfig": {
+      "meta.tooltip.text": {
+        "binding": {
+          "config": {
+            "expression": "\u0027Good Parts: \u0027 + numberformat({view.custom.GoodParts}, \u0027#,###.##\u0027) \r\n+\u0027\\nShift Target: \u0027 + numberformat({view.custom.TargetParts}, \u0027#,###.##\u0027) \r\n+\u0027\\nParts behind/ahead: \u0027 + numberformat(({view.custom.GoodParts} - {view.custom.TargetParts}), \u0027#,###.##\u0027)"
+          },
+          "type": "expr"
+        }
+      }
+    },
+    "props": {
+      "style": {
+        "overflow": "hidden",
+        "overflowX": "hidden",
+        "overflowY": "hidden"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

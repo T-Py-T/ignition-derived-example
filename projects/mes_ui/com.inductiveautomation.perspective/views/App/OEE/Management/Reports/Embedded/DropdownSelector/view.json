@@ -1,0 +1,114 @@
+{
+  "custom": {},
+  "params": {
+    "Options": [],
+    "Type": "area",
+    "allowClear": true
+  },
+  "propConfig": {
+    "params.Options": {
+      "onChange": {
+        "enabled": null,
+        "script": "\tif currentValue.value \u003d\u003d None or len(currentValue.value) \u003d\u003d 0:\n\t\tself.getChild(\"root\").getChild(\"Dropdown\").props.value \u003d \u0027\u0027 "
+      },
+      "paramDirection": "inout",
+      "persistent": true
+    },
+    "params.Type": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.allowClear": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 50,
+      "width": 150
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\t\n\tarea \u003d self.props.value\n\tif area is not None:\n\t\tfilter \u003d system.mes.object.filter.createFilter()\n\t\tfilter.setPrimaryClassFilter(area)\n\t\tfilter.setMESObjectTypeName(\u0027Line\u0027)\n\t\tfilter.setShowEquipmentPath(True)\n\t\tlist \u003d system.mes.searchMESObjects(filter)\n\telse:\n\t\tlist \u003d None\n\tself.view.params.lines \u003d list"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Dropdown"
+        },
+        "position": {
+          "grow": 1,
+          "shrink": 0
+        },
+        "propConfig": {
+          "props.options": {
+            "binding": {
+              "config": {
+                "path": "view.params.Options"
+              },
+              "type": "property"
+            }
+          },
+          "props.placeholder.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.Type"
+              },
+              "transforms": [
+                {
+                  "fallback": "Select...",
+                  "inputType": "scalar",
+                  "mappings": [
+                    {
+                      "input": "area",
+                      "output": "Select Area..."
+                    },
+                    {
+                      "input": "line",
+                      "output": "Select Line..."
+                    }
+                  ],
+                  "outputType": "scalar",
+                  "type": "map"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.showClearIcon": {
+            "binding": {
+              "config": {
+                "path": "view.params.allowClear"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "dropdownOptionStyle": {
+            "classes": "TextFields/TextArea"
+          },
+          "placeholder": {},
+          "style": {
+            "classes": "TextFields/TextArea"
+          }
+        },
+        "type": "ia.input.dropdown"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.flex"
+  }
+}

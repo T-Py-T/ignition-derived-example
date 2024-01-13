@@ -1,0 +1,820 @@
+{
+  "custom": {
+    "Dataset": [
+      {
+        "COLOR": "#FF0000",
+        "Duration": 479,
+        "EndDateTime": {
+          "$": [
+            "ts",
+            192,
+            1682686671378
+          ],
+          "$ts": 1681845471467
+        },
+        "StartDateTime": {
+          "$": [
+            "ts",
+            192,
+            1682686671378
+          ],
+          "$ts": 1681844992323
+        },
+        "Status": "Head Blocked"
+      },
+      {
+        "COLOR": "#FF0000",
+        "Duration": 719,
+        "EndDateTime": {
+          "$": [
+            "ts",
+            192,
+            1682686671378
+          ],
+          "$ts": 1681853332067
+        },
+        "StartDateTime": {
+          "$": [
+            "ts",
+            192,
+            1682686671378
+          ],
+          "$ts": 1681852613117
+        },
+        "Status": "Cutter Jam"
+      },
+      {
+        "COLOR": "#FF0000",
+        "Duration": 118,
+        "EndDateTime": {
+          "$": [
+            "ts",
+            192,
+            1682686671378
+          ],
+          "$ts": 1681858251997
+        },
+        "StartDateTime": {
+          "$": [
+            "ts",
+            192,
+            1682686671378
+          ],
+          "$ts": 1681858133483
+        },
+        "Status": "Machine Jam"
+      },
+      {
+        "COLOR": "#FF0000",
+        "Duration": 358,
+        "EndDateTime": {
+          "$": [
+            "ts",
+            192,
+            1682686671378
+          ],
+          "$ts": 1681861731987
+        },
+        "StartDateTime": {
+          "$": [
+            "ts",
+            192,
+            1682686671378
+          ],
+          "$ts": 1681861373650
+        },
+        "Status": "Conv Trip "
+      },
+      {
+        "COLOR": "#FF0000",
+        "Duration": 960,
+        "EndDateTime": {
+          "$": [
+            "ts",
+            192,
+            1682686671378
+          ],
+          "$ts": 1681866592497
+        },
+        "StartDateTime": {
+          "$": [
+            "ts",
+            192,
+            1682686671378
+          ],
+          "$ts": 1681865632067
+        },
+        "Status": "Under Temp"
+      }
+    ]
+  },
+  "params": {
+    "EqPath": "",
+    "LineID": 17
+  },
+  "propConfig": {
+    "custom.Dataset": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/calculatedValues/shiftDowntimeEvents"
+        },
+        "transforms": [
+          {
+            "code": "\treturn gpa.data.datasetToJson(value)\n\t#return value",
+            "type": "script"
+          }
+        ],
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.LineID": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 162,
+      "width": 1197
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tstateID \u003d self.props.selection.data[0].StateID\n\tstart \u003d self.props.selection.data[0].START\n\tend \u003d self.props.selection.data[0].END\n\tduration \u003d (end - start)/1000\n\t\n\tif duration \u003e\u003d self.session.custom.MESConfig.DTReasonSec and stateID not in self.session.custom.MESConfig.RunningStates:\n\t\tparms \u003d {\n\t\t\t\t  \u0027EventID\u0027:self.props.selection.data[0].EventID,\n\t\t\t\t  \u0027EventStart\u0027:system.date.format(system.date.fromMillis(start),\u0027yyyy-MM-dd HH:mm:ss\u0027),\n\t\t\t\t  \u0027EventEnd\u0027:system.date.format(system.date.fromMillis(end),\u0027yyyy-MM-dd HH:mm:ss\u0027),\n\t\t\t\t  \u0027LineID\u0027:self.props.selection.data[0].LineID,\n\t\t\t\t  \u0027LineName\u0027:self.props.selection.data[0].LINE,\n\t\t\t\t  \u0027StateID\u0027:stateID,\n\t\t\t\t  \u0027StateName\u0027:self.props.selection.data[0].STATUS\n\t\t\t\t }\n\t\t\t\t \n\t\t \n\t\tview \u003d \u0027app/DT/Popups/AssignDowntimeReasons\u0027\n\t\ttitle \u003d \u0027Downtime Reason Assignment\u0027\n\t\tsystem.perspective.openPopup(\u0027DTReasons\u0027, view, parms, title, modal\u003dTrue)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "XYChartProgress"
+        },
+        "position": {
+          "basis": "65%"
+        },
+        "propConfig": {
+          "props.dataSources.Level1Data": {
+            "binding": {
+              "config": {
+                "path": "view.custom.Dataset"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "cursor": {
+            "series": "STATUS"
+          },
+          "dataSources": {},
+          "legend": {
+            "enabled": false
+          },
+          "scrollBars": {
+            "horizontal": {
+              "enabled": false,
+              "series": "STATUS"
+            },
+            "vertical": {
+              "enabled": false
+            }
+          },
+          "selection": {
+            "enabled": true
+          },
+          "series": [
+            {
+              "candlestick": {
+                "appearance": {
+                  "deriveFieldsFromData": {
+                    "fill": {
+                      "color": "COLOR",
+                      "opacity": ""
+                    },
+                    "stroke": {
+                      "color": "",
+                      "opacity": "",
+                      "width": ""
+                    }
+                  },
+                  "fill": {
+                    "color": "",
+                    "opacity": 1
+                  },
+                  "heatRules": {
+                    "dataField": "",
+                    "enabled": false,
+                    "max": "",
+                    "min": ""
+                  },
+                  "stacked": false,
+                  "stroke": {
+                    "color": "",
+                    "opacity": 1,
+                    "width": 1
+                  }
+                },
+                "high": {
+                  "x": "",
+                  "y": ""
+                },
+                "low": {
+                  "x": "",
+                  "y": ""
+                },
+                "open": {
+                  "x": "END",
+                  "y": ""
+                }
+              },
+              "column": {
+                "appearance": {
+                  "deriveFieldsFromData": {
+                    "fill": {
+                      "color": "COLOR",
+                      "opacity": ""
+                    },
+                    "stroke": {
+                      "color": "",
+                      "opacity": "",
+                      "width": ""
+                    }
+                  },
+                  "fill": {
+                    "color": "",
+                    "opacity": 1
+                  },
+                  "heatRules": {
+                    "dataField": "",
+                    "enabled": false,
+                    "max": "",
+                    "min": ""
+                  },
+                  "height": null,
+                  "stacked": false,
+                  "stroke": {
+                    "color": "",
+                    "opacity": 1,
+                    "width": 1
+                  },
+                  "width": null
+                },
+                "open": {
+                  "x": "START",
+                  "y": ""
+                }
+              },
+              "data": {
+                "source": "Level1Data",
+                "x": "END",
+                "y": "LINE"
+              },
+              "defaultState": {
+                "visible": true
+              },
+              "hiddenInLegend": false,
+              "label": {
+                "text": ""
+              },
+              "line": {
+                "appearance": {
+                  "bullets": [
+                    {
+                      "deriveFieldsFromData": {
+                        "fill": {
+                          "color": "",
+                          "opacity": ""
+                        },
+                        "rotation": "",
+                        "stroke": {
+                          "color": "",
+                          "opacity": "",
+                          "width": ""
+                        }
+                      },
+                      "enabled": false,
+                      "fill": {
+                        "color": "",
+                        "opacity": 1
+                      },
+                      "heatRules": {
+                        "dataField": "",
+                        "enabled": false,
+                        "max": 100,
+                        "min": 2
+                      },
+                      "height": 10,
+                      "label": {
+                        "position": {
+                          "dx": 0,
+                          "dy": 0
+                        },
+                        "text": "{value}"
+                      },
+                      "render": "circle",
+                      "rotation": 0,
+                      "stroke": {
+                        "color": "",
+                        "opacity": 1,
+                        "width": 1
+                      },
+                      "tooltip": {
+                        "background": {
+                          "color": "",
+                          "opacity": 1
+                        },
+                        "cornerRadius": 3,
+                        "enabled": true,
+                        "pointerLength": 4,
+                        "text": "{name}: [bold]{valueY}[/]"
+                      },
+                      "width": 10
+                    }
+                  ],
+                  "connect": true,
+                  "fill": {
+                    "color": "",
+                    "opacity": 0
+                  },
+                  "minDistance": 0.5,
+                  "stroke": {
+                    "color": "",
+                    "dashArray": "",
+                    "opacity": 1,
+                    "width": 3
+                  },
+                  "tensionX": 1,
+                  "tensionY": 1
+                },
+                "open": {
+                  "x": "",
+                  "y": ""
+                }
+              },
+              "name": "STATUS",
+              "render": "column",
+              "stepLine": {
+                "appearance": {
+                  "bullets": [
+                    {
+                      "deriveFieldsFromData": {
+                        "fill": {
+                          "color": "",
+                          "opacity": ""
+                        },
+                        "rotation": "",
+                        "stroke": {
+                          "color": "",
+                          "opacity": "",
+                          "width": ""
+                        }
+                      },
+                      "enabled": true,
+                      "fill": {
+                        "color": "",
+                        "opacity": 1
+                      },
+                      "heatRules": {
+                        "dataField": "",
+                        "enabled": false,
+                        "max": 100,
+                        "min": 2
+                      },
+                      "height": 10,
+                      "label": {
+                        "position": {
+                          "dx": 0,
+                          "dy": 0
+                        },
+                        "text": "{value}"
+                      },
+                      "render": "circle",
+                      "rotation": 0,
+                      "stroke": {
+                        "color": "",
+                        "opacity": 1,
+                        "width": 1
+                      },
+                      "tooltip": {
+                        "background": {
+                          "color": "",
+                          "opacity": 1
+                        },
+                        "cornerRadius": 3,
+                        "enabled": true,
+                        "pointerLength": 4,
+                        "text": "{name}: [bold]{valueY}[/]"
+                      },
+                      "width": 10
+                    }
+                  ],
+                  "connect": true,
+                  "fill": {
+                    "color": "",
+                    "opacity": 0
+                  },
+                  "minDistance": 0.5,
+                  "stroke": {
+                    "color": "",
+                    "dashArray": "",
+                    "opacity": 1,
+                    "width": 3
+                  },
+                  "tensionX": 1,
+                  "tensionY": 1
+                },
+                "open": {
+                  "x": "",
+                  "y": ""
+                }
+              },
+              "tooltip": {
+                "background": {
+                  "color": "",
+                  "opacity": 1
+                },
+                "cornerRadius": 3,
+                "enabled": true,
+                "pointerLength": 4,
+                "text": "[bold]{STATUS}:[/] [light]{START.formatDate(\u0027yyyy-MM-dd HH:mm:ss\u0027)}[/] [bold]to[/] [light]{END.formatDate(\u0027yyyy-MM-dd HH:mm:ss\u0027)}[/]"
+              },
+              "visible": true,
+              "xAxis": "time",
+              "yAxis": "STATUS",
+              "zIndex": 0
+            }
+          ],
+          "xAxes": [
+            {
+              "appearance": {
+                "font": {
+                  "size": "",
+                  "weight": 500
+                },
+                "grid": {
+                  "color": "",
+                  "dashArray": "",
+                  "minDistance": null,
+                  "opacity": 1,
+                  "position": 0.5
+                },
+                "inside": false,
+                "labels": {
+                  "color": "",
+                  "horizontalCenter": "middle",
+                  "opacity": 1,
+                  "rotation": 0,
+                  "verticalCenter": "middle"
+                },
+                "opposite": false
+              },
+              "category": {
+                "break": {
+                  "enabled": false,
+                  "endCategory": "",
+                  "size": 0.05,
+                  "startCategory": ""
+                }
+              },
+              "date": {
+                "baseInterval": {
+                  "count": 1,
+                  "enabled": true,
+                  "skipEmptyPeriods": false,
+                  "timeUnit": "minute"
+                },
+                "break": {
+                  "enabled": false,
+                  "endDate": "",
+                  "size": 0.05,
+                  "startDate": ""
+                },
+                "format": "HH:mm:ss a",
+                "inputFormat": "HH:mm:ss a",
+                "range": {
+                  "max": "",
+                  "min": "",
+                  "useStrict": false
+                }
+              },
+              "inversed": false,
+              "label": {
+                "color": "",
+                "enabled": false,
+                "text": "Time"
+              },
+              "name": "time",
+              "render": "date",
+              "tooltip": {
+                "background": {
+                  "color": "",
+                  "opacity": 1
+                },
+                "cornerRadius": 3,
+                "enabled": false,
+                "pointerLength": 4,
+                "text": ""
+              },
+              "value": {
+                "break": {
+                  "enabled": false,
+                  "endValue": 100,
+                  "size": 0.05,
+                  "startValue": 0
+                },
+                "format": "#,###.##",
+                "logarithmic": false,
+                "range": {
+                  "max": "",
+                  "min": "",
+                  "useStrict": false
+                }
+              },
+              "visible": true
+            }
+          ],
+          "yAxes": [
+            {
+              "appearance": {
+                "font": {
+                  "size": "",
+                  "weight": 500
+                },
+                "grid": {
+                  "color": "",
+                  "dashArray": "",
+                  "minDistance": null,
+                  "opacity": 1,
+                  "position": 0
+                },
+                "inside": false,
+                "labels": {
+                  "color": "",
+                  "horizontalCenter": "middle",
+                  "opacity": 1,
+                  "rotation": 0,
+                  "verticalCenter": "middle"
+                },
+                "opposite": false
+              },
+              "category": {
+                "break": {
+                  "enabled": false,
+                  "endCategory": "",
+                  "size": 0.05,
+                  "startCategory": ""
+                }
+              },
+              "date": {
+                "baseInterval": {
+                  "count": 1,
+                  "enabled": false,
+                  "skipEmptyPeriods": false,
+                  "timeUnit": "hour"
+                },
+                "break": {
+                  "enabled": false,
+                  "endDate": "",
+                  "size": 0.05,
+                  "startDate": ""
+                },
+                "format": "M/d/yyyy HH:mm:ss",
+                "inputFormat": "yyyy-MM-dd kk:mm:ss",
+                "range": {
+                  "max": "",
+                  "min": "",
+                  "useStrict": false
+                }
+              },
+              "inversed": false,
+              "label": {
+                "color": "",
+                "enabled": false,
+                "text": "Progress"
+              },
+              "name": "STATUS",
+              "render": "category",
+              "tooltip": {
+                "background": {
+                  "color": "",
+                  "opacity": 1
+                },
+                "cornerRadius": 3,
+                "enabled": false,
+                "pointerLength": 4,
+                "text": ""
+              },
+              "value": {
+                "break": {
+                  "enabled": false,
+                  "endValue": 100,
+                  "size": 0.05,
+                  "startValue": 0
+                },
+                "format": "#,###.##",
+                "logarithmic": false,
+                "range": {
+                  "max": "",
+                  "min": "",
+                  "useStrict": false
+                }
+              },
+              "visible": true
+            }
+          ]
+        },
+        "type": "ia.chart.xy"
+      },
+      {
+        "meta": {
+          "name": "FlexRepeater"
+        },
+        "position": {
+          "basis": "30px",
+          "grow": 1
+        },
+        "props": {
+          "elementStyle": {
+            "margin": "0.5em"
+          },
+          "instances": [
+            {
+              "State": "Blocked",
+              "TableData": [
+                {
+                  "Minutes": 69,
+                  "Shift": "Shift 1"
+                },
+                {
+                  "Minutes": 75,
+                  "Shift": "Shift 2"
+                },
+                {
+                  "Minutes": 58,
+                  "Shift": "Shift 3"
+                }
+              ],
+              "instanceStyle": {
+                "classes": ""
+              }
+            },
+            {
+              "State": "ChangeOver",
+              "TableData": [
+                {
+                  "Minutes": 66,
+                  "Shift": "Shift 1"
+                },
+                {
+                  "Minutes": 77,
+                  "Shift": "Shift 2"
+                },
+                {
+                  "Minutes": 76,
+                  "Shift": "Shift 3"
+                }
+              ],
+              "instanceStyle": {
+                "classes": ""
+              }
+            },
+            {
+              "State": "E-Stop",
+              "TableData": [
+                {
+                  "Minutes": 66,
+                  "Shift": "Shift 1"
+                },
+                {
+                  "Minutes": 60,
+                  "Shift": "Shift 2"
+                },
+                {
+                  "Minutes": 70,
+                  "Shift": "Shift 3"
+                }
+              ],
+              "instanceStyle": {
+                "classes": ""
+              }
+            },
+            {
+              "State": "Starved",
+              "TableData": [
+                {
+                  "Minutes": 66,
+                  "Shift": "Shift 1"
+                },
+                {
+                  "Minutes": 62,
+                  "Shift": "Shift 2"
+                },
+                {
+                  "Minutes": 64,
+                  "Shift": "Shift 3"
+                }
+              ],
+              "instanceStyle": {
+                "classes": ""
+              }
+            },
+            {
+              "State": "Stopped",
+              "TableData": [
+                {
+                  "Minutes": 20,
+                  "Shift": "Shift 1"
+                },
+                {
+                  "Minutes": 15,
+                  "Shift": "Shift 2"
+                },
+                {
+                  "Minutes": 20,
+                  "Shift": "Shift 3"
+                }
+              ],
+              "instanceStyle": {
+                "classes": ""
+              }
+            }
+          ],
+          "path": "app/DT/Components/LineData",
+          "useDefaultViewHeight": false,
+          "useDefaultViewWidth": false
+        },
+        "type": "ia.display.flex-repeater"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "propConfig": {
+      "custom.ProgressData": {
+        "binding": {
+          "config": {
+            "parameters": {
+              "interval": "30",
+              "lineID": "{view.params.LineID}",
+              "timeEnd": "{session.custom.MESSelections.Dates.End}",
+              "timeStart": "{session.custom.MESSelections.Dates.Start}"
+            },
+            "queryPath": "app/DT/getLineProgress",
+            "returnFormat": "json"
+          },
+          "transforms": [
+            {
+              "code": "\tself.getChild(\"XYChartProgress\").props.dataSources.Level1Data \u003d value\n\treturn value",
+              "type": "script"
+            }
+          ],
+          "type": "query"
+        }
+      },
+      "custom.ShiftData": {
+        "binding": {
+          "config": {
+            "parameters": {
+              "lineID": "{view.params.LineID}",
+              "siteID": "{session.custom.MESSelections.Site.ID}",
+              "timeEnd": "{session.custom.MESSelections.Dates.End}",
+              "timeStart": "{session.custom.MESSelections.Dates.Start}"
+            },
+            "queryPath": "app/DT/getLineStateByShift",
+            "returnFormat": "dataset"
+          },
+          "transforms": [
+            {
+              "code": "\tinstances \u003d []\n\toldState \u003d value.getValueAt(0, \u0027State\u0027)\n\ttableData \u003d []\n\tfor row in range(value.getRowCount()):\n\t\tnewState \u003d value.getValueAt(row,\u0027State\u0027)\n\t\tif newState !\u003d oldState:\n\t\t\tinst \u003d {\n\t\t\t\t\t  \"instanceStyle\": {\n\t\t\t\t\t    \"classes\": \"\"\n\t\t\t\t\t  },\n\t\t\t\t\t  \"State\":oldState,\n\t\t\t\t\t  \"TableData\": tableData\n\t\t\t\t\t}\t\t\t\n\t\t\tinstances.append(inst)\n\t\t\ttableData \u003d []\n\t\ttableRow \u003d  {\n\t\t\t\t      \"Minutes\": value.getValueAt(row,\u0027Minutes\u0027),\n\t\t\t\t      \"Shift\": value.getValueAt(row,\u0027Shift\u0027)\n\t\t\t\t    }\t\t\n\t\ttableData.append(tableRow)\t\t\n\t\toldState \u003d value.getValueAt(row,\u0027State\u0027)\n\t\n\tinst \u003d {\n\t\t\t  \"instanceStyle\": {\n\t\t\t    \"classes\": \"\"\n\t\t\t  },\n\t\t\t  \"State\":oldState,\n\t\t\t  \"TableData\": tableData\n\t\t\t}\t\t\t\t\n\tinstances.append(inst)\t\n\tself.getChild(\"FlexRepeater\").props.instances \u003d instances\n\t\t\t\n\treturn value",
+              "type": "script"
+            }
+          ],
+          "type": "query"
+        }
+      }
+    },
+    "props": {
+      "justify": "space-between",
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\tpagePath \u003d self.page.props.path\n\toperatorPath \u003d \u0027/operations/operator_dashboard\u0027\n\tsystem.perspective.print(pagePath)\n\t\n\tif pagePath is operatorPath: self.params.Path \u003d \u0027GlobalComponents/SideBar/OperatorSideBar\u0027\n\telse: self.params.Path \u003d \u0027GlobalComponents/SideBar/SideBar\u0027"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "Path": "GlobalComponents/SideBar/SideBar"
+  },
+  "propConfig": {
+    "params.Path": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "width": 71
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "SideBar"
+        },
+        "position": {
+          "basis": "320px",
+          "grow": 1
+        },
+        "propConfig": {
+          "props.path": {
+            "binding": {
+              "config": {
+                "path": "view.params.Path"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "type": "ia.display.view"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

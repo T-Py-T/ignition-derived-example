@@ -1,0 +1,61 @@
+{
+  "custom": {},
+  "params": {
+    "TagPath": "[GatewayHealth]Gateways/Script/Gateway Network"
+  },
+  "propConfig": {
+    "params.TagPath": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "width": 265
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "FlexRepeater"
+        },
+        "propConfig": {
+          "props.instances": {
+            "binding": {
+              "config": {
+                "expression": "{view.params.TagPath}"
+              },
+              "transforms": [
+                {
+                  "code": "\tinstances \u003d []\n\tstartPath \u003d self.view.params.TagPath\n\tres \u003d system.tag.browse(path\u003dstartPath)\n\tfor result in res.getResults():\n\t\tinstances.append({\"Server\":result[\"name\"], \"TagPath\": self.view.params.TagPath})\n\n\treturn instances",
+                  "type": "script"
+                }
+              ],
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "direction": "column",
+          "elementPosition": {
+            "basis": "auto",
+            "grow": 0,
+            "shrink": 0
+          },
+          "path": "App/GatewayHealth/Diagnostics/Embedded/GatewayNetworkConnection",
+          "useDefaultViewHeight": false,
+          "useDefaultViewWidth": false
+        },
+        "type": "ia.display.flex-repeater"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

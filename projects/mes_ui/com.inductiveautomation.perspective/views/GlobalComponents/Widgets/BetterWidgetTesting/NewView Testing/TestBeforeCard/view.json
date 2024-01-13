@@ -1,0 +1,135 @@
+{
+  "custom": {
+    "EQPath": "GPA/Wilmington/Sorting/Sorter1",
+    "LineID": 2621
+  },
+  "params": {
+    "EQPath": "GPA/Wilmington/Sorting/Sorter1",
+    "LineID": 2621
+  },
+  "propConfig": {
+    "custom.EQPath": {
+      "binding": {
+        "config": {
+          "path": "view.params.EQPath"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.LineID": {
+      "binding": {
+        "config": {
+          "path": "view.params.LineID"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "params.EQPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.LineID": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 490,
+      "width": 347
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Label"
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "expression": "(toint(dateDiff(toDate(tag({view.params.EQPath}+\u0027/jobs/currentJob/time/runStartTime\u0027)), toDate(now()), \"minute\")))"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "Text/Heading",
+            "fontSize": "1em",
+            "white-space": "pre"
+          },
+          "textStyle": {
+            "fontSize": "1em",
+            "textAlign": "center"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "EmbeddedView"
+        },
+        "position": {
+          "grow": 1
+        },
+        "propConfig": {
+          "props.params.EQPath": {
+            "binding": {
+              "config": {
+                "path": "view.custom.EQPath"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "path": "GlobalComponents/Widgets/BetterWidgetTesting/Embedded/Circles/Test 3 Layer",
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.display.view"
+      },
+      {
+        "meta": {
+          "name": "EmbeddedView_0"
+        },
+        "position": {
+          "grow": 1
+        },
+        "propConfig": {
+          "props.params.EQPath": {
+            "binding": {
+              "config": {
+                "path": "view.custom.EQPath"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "path": "GlobalComponents/Widgets/BetterWidgetTesting/NewView Testing/ParetoProdChart",
+          "style": {
+            "zoom": 0.5
+          }
+        },
+        "type": "ia.display.view"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

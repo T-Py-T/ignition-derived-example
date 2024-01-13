@@ -1,0 +1,373 @@
+{
+  "custom": {
+    "configuredLines": {
+      "line1": "SGP1",
+      "line2": ""
+    },
+    "configuredUrl": "/overhead/SGP1/",
+    "lines": 0
+  },
+  "params": {},
+  "propConfig": {
+    "custom.configuredLines": {
+      "persistent": true
+    },
+    "custom.configuredUrl": {
+      "binding": {
+        "config": {
+          "expression": "\u0027/overhead/\u0027 + {view.custom.configuredLines.line1} + \u0027/\u0027 + {view.custom.configuredLines.line2}"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.lines": {
+      "binding": {
+        "config": {
+          "path": ""
+        },
+        "enabled": false,
+        "transforms": [
+          {
+            "code": "\tfilter \u003d system.mes.object.filter.createFilter()\n\t\t\t\n\tfilter.setMESObjectTypeName(\u0027Line\u0027)\n\tlist \u003d system.mes.loadMESObjects(filter)\n\tdata \u003d []\n\tfor item in list:\n\t\trow \u003d {}\n\t\trow[\u0027value\u0027] \u003d item.getEquipmentPath().split(\u0027\\\\\u0027)[-1]\n\t\trow[\u0027label\u0027] \u003d item.getEquipmentPath().split(\u0027\\\\\u0027)[-1]\n\t\t\n\t\tdata.append(row)\n\tdata.sort(key\u003dlambda x: x[\u0027label\u0027])\n\treturn data",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 600
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Dropdown"
+                },
+                "position": {
+                  "basis": "200px",
+                  "grow": 1,
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "props.options": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.lines"
+                      },
+                      "enabled": false,
+                      "type": "property"
+                    }
+                  },
+                  "props.value": {
+                    "onChange": {
+                      "enabled": null,
+                      "script": "\tif currentValue.value !\u003d self.view.custom.configuredLines.line1:\n\t\tdeviceIdentifier \u003d self.session.props.device.identifier\n\t\tequipmentPath \u003d self.getSibling(\"Dropdown\").props.value\n\t\tif equipmentPath !\u003d \u0027\u0027:\n\t\t\tappName \u003d\"overhead\"\n\t#\t\turlPath \u003d \"/overhead/\"\n\t\t\tsortOrder \u003d 0\n\t\t\tif equipmentPath is not None:\n\t\t\t\tlineName \u003d equipmentPath\n\t\t\t\t\n\t\t\telse:\n\t\t\t\tlineName \u003d \u0027\u0027\n\t\t\t\tself.view.custom.configuredLines.line2 \u003d \u0027\u0027\n\t\t\t\tself.parent.parent.getChild(\"right\").getChild(\"Dropdown\").props.value \u003d None \n\t\t\tself.view.custom.configuredLines.line1 \u003d lineName\n\t\t\tline2 \u003d self.view.custom.configuredLines.line2\n\t\t\turlPath \u003d \u0027/overhead/\u0027 + str(lineName) + \u0027/\u0027 + str(line2)\n\t\t\t#gpa.util.clientDevice.addClientDevicePath(deviceIdentifier, \u0027\u0027, appName, urlPath, sortOrder)"
+                    }
+                  }
+                },
+                "props": {
+                  "dropdownOptionStyle": {
+                    "classes": "Text/LabelTextSmall Text/textColorGray"
+                  },
+                  "options": 0,
+                  "showClearIcon": true,
+                  "style": {
+                    "classes": "Text/LabelTextMedium Text/textColorGray"
+                  },
+                  "value": "SGP1"
+                },
+                "type": "ia.input.dropdown"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\tdeviceIdentifier \u003d self.session.props.device.identifier\n\tequipmentPath \u003d self.getSibling(\"Dropdown\").props.value\n\tif equipmentPath !\u003d \u0027\u0027:\n\t\tappName \u003d\"overhead\"\n#\t\turlPath \u003d \"/overhead/\"\n\t\tsortOrder \u003d 0\n\t\tif equipmentPath is not None:\n\t\t\tlineName \u003d equipmentPath\n\t\t\t\n\t\telse:\n\t\t\tlineName \u003d \u0027\u0027\n\t\t\tself.view.custom.configuredLines.line2 \u003d \u0027\u0027\n\t\t\tself.parent.parent.getChild(\"right\").getChild(\"Dropdown\").props.value \u003d None \n\t\tself.view.custom.configuredLines.line1 \u003d lineName\n\t\t\n\t\turlPath \u003d \u0027/overhead/\u0027 + str(lineName)\n\t\t#gpa.util.clientDevice.addClientDevicePath(deviceIdentifier, \u0027\u0027, appName, urlPath, sortOrder)\n\t\t\n\t\t\n\t\t\n \t\n \t"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "addButton"
+                },
+                "position": {
+                  "display": false,
+                  "shrink": 0
+                },
+                "props": {
+                  "params": {
+                    "Borders": {
+                      "borderBottomLeftRadius": "10px",
+                      "borderBottomRightRadius": "10px",
+                      "borderTopLeftRadius": "10px",
+                      "borderTopRightRadius": "10px"
+                    },
+                    "Label": "Save Line",
+                    "State": "false",
+                    "enabled": true
+                  },
+                  "path": "components/buttons/processButton",
+                  "style": {
+                    "paddingLeft": "1ch"
+                  }
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "left"
+            },
+            "position": {
+              "basis": "300px",
+              "grow": 1,
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Tile_White"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Dropdown"
+                },
+                "position": {
+                  "basis": "200px",
+                  "grow": 1,
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "props.enabled": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.configuredLines.line1"
+                      },
+                      "transforms": [
+                        {
+                          "expression": "{value} !\u003d \u0027\u0027",
+                          "type": "expression"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  },
+                  "props.options": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.lines"
+                      },
+                      "transforms": [
+                        {
+                          "code": "\tobj \u003d {\u0027label\u0027:\u0027None\u0027, \u0027value\u0027:None}\n\tarr \u003d [obj]\n\tfor val in value:\n\t\tarr.append(val)\n#\tarr.append(value)\n\treturn arr",
+                          "type": "script"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  },
+                  "props.value": {
+                    "onChange": {
+                      "enabled": null,
+                      "script": "\tif currentValue.value !\u003d self.view.custom.configuredLines.line2:\n\t\tdeviceIdentifier \u003d self.session.props.device.identifier\n\t\tequipmentPath \u003d self.getSibling(\"Dropdown\").props.value\n\t\tif equipmentPath !\u003d \u0027\u0027:\n\t\t\tappName \u003d\"overhead\"\n\t#\t\turlPath \u003d \"/overhead/\"\n\t\t\tsortOrder \u003d 0\n\t\t\tif equipmentPath is not None:\n\t\t\t\tlineName \u003d equipmentPath\n\t\t\telse:\n\t\t\t\tlineName \u003d \u0027\u0027 \n\t\t\tself.view.custom.configuredLines.line2 \u003d lineName\n\t\t\tlineName1 \u003d self.view.custom.configuredLines.line1\n\t\t\turlPath \u003d \u0027/overhead/\u0027 +str(lineName1) + \u0027/\u0027 + str(lineName)\n\t\t\t#gpa.util.clientDevice.addClientDevicePath(deviceIdentifier, \u0027\u0027, appName, urlPath, sortOrder)\n\t\t\n\t\t\n\t\t\n \t\n \t"
+                    }
+                  }
+                },
+                "props": {
+                  "dropdownOptionStyle": {
+                    "classes": "Text/LabelTextSmall Text/textColorGray"
+                  },
+                  "showClearIcon": true,
+                  "style": {
+                    "classes": "Text/LabelTextMedium Text/textColorGray"
+                  }
+                },
+                "type": "ia.input.dropdown"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\tif self.props.params.enabled:\n\t\tdeviceIdentifier \u003d self.session.props.device.identifier\n\t\tequipmentPath \u003d self.getSibling(\"Dropdown\").props.value\n\t\tif equipmentPath !\u003d \u0027\u0027:\n\t\t\tappName \u003d\"overhead\"\n\t#\t\turlPath \u003d \"/overhead/\"\n\t\t\tsortOrder \u003d 0\n\t\t\tif equipmentPath is not None:\n\t\t\t\tlineName \u003d equipmentPath\n\t\t\telse:\n\t\t\t\tlineName \u003d \u0027\u0027 \n\t\t\tself.view.custom.configuredLines.line2 \u003d lineName\n\t\t\tlineName1 \u003d self.view.custom.configuredLines.line1\n\t\t\turlPath \u003d \u0027/overhead/\u0027 +str(lineName1) + \u0027/\u0027 + str(lineName)\n\t\t\t#gpa.util.clientDevice.addClientDevicePath(deviceIdentifier, \u0027\u0027, appName, urlPath, sortOrder)\n\t\t\n\t\t\n\t\t\n \t\n \t"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "addButton"
+                },
+                "position": {
+                  "display": false,
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "props.params.enabled": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.configuredLines.line1"
+                      },
+                      "transforms": [
+                        {
+                          "expression": "{value} !\u003d \u0027\u0027",
+                          "type": "expression"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "Borders": {
+                      "borderBottomLeftRadius": "10px",
+                      "borderBottomRightRadius": "10px",
+                      "borderTopLeftRadius": "10px",
+                      "borderTopRightRadius": "10px"
+                    },
+                    "Label": "Save Line",
+                    "State": "false"
+                  },
+                  "path": "components/buttons/processButton",
+                  "style": {
+                    "paddingLeft": "1ch"
+                  }
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "right"
+            },
+            "position": {
+              "basis": "300px",
+              "display": false,
+              "grow": 1,
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Tile_White"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "CurrentLines"
+        },
+        "position": {
+          "basis": "300px",
+          "grow": 1,
+          "shrink": 0
+        },
+        "props": {
+          "justify": "center",
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\turl \u003d self.view.custom.configuredUrl\n\tprint(\u0027self.view.custom.configuredLines.line2\u0027)\n\tif url !\u003d \u0027/overhead//\u0027:\n\t\tif self.view.custom.configuredLines.line2 !\u003d \u0027null\u0027 and self.view.custom.configuredLines.line2 !\u003d \u0027None\u0027  and self.view.custom.configuredLines.line2 !\u003d \u0027\u0027:\n\t\t\tsystem.perspective.navigate(\u0027/overhead/overhead2/\u0027+str(self.view.custom.configuredLines.line1)+\u0027/\u0027+str(self.view.custom.configuredLines.line2))\n\t\t\t#system.perspecitve.print(\u0027/overhead/overhead2/\u0027+str(self.view.custom.configuredLines.line1)+\u0027/\u0027+str(self.view.custom.configuredLines.line2))\n\t\telse:\n\t\t\tsystem.perspective.navigate(\u0027/overhead/overhead1/\u0027+str(self.view.custom.configuredLines.line1))\n\t\t\t#system.perspective.print(\u0027/overhead/overhead1/\u0027+str(self.view.custom.configuredLines.line1))"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "compelete"
+            },
+            "position": {
+              "basis": "4ch"
+            },
+            "propConfig": {
+              "props.params.enabled": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.configuredUrl"
+                  },
+                  "transforms": [
+                    {
+                      "expression": "{value} !\u003d \u0027/overhead//\u0027",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "BackgroundColor": "value",
+                "DisabledPopup": {
+                  "message": "Please sign in as quarterback to proceed.",
+                  "messageType": "",
+                  "payload": {},
+                  "title": "Invalid Permissions"
+                },
+                "Enabled": true,
+                "Hover": true,
+                "IconPath": "material/arrow_back",
+                "IsSelectable": false,
+                "Label": "Return to Overhead",
+                "Selected": true,
+                "Size": "value",
+                "Type": "value"
+              },
+              "path": "GlobalComponents/Buttons/Button"
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "buttons"
+        },
+        "position": {
+          "basis": "100%",
+          "shrink": 0
+        },
+        "props": {
+          "alignItems": "center",
+          "direction": "column",
+          "justify": "flex-end"
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "alignContent": "space-around",
+      "alignItems": "center",
+      "justify": "center",
+      "wrap": "wrap"
+    },
+    "type": "ia.container.flex"
+  }
+}

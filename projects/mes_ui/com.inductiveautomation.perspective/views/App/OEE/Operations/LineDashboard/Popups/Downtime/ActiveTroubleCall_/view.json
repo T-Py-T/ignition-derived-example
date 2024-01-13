@@ -1,0 +1,328 @@
+{
+  "custom": {
+    "troubleCallStatusDuration": ""
+  },
+  "params": {
+    "activeTroubleCall": [
+      {
+        "logId": 327,
+        "note": null,
+        "reasonName": "Reason 1",
+        "statusLogId": 65,
+        "statusName": "Maintenance Left",
+        "statusTypeName": "Left",
+        "subReasonName": "Sub-Reason A",
+        "timeCreated": "09/20/2022 15:13:32",
+        "typeName": "Maintenance"
+      }
+    ],
+    "eqPath": "\\\\Assembly\\ACCT6",
+    "isPush": false
+  },
+  "propConfig": {
+    "custom.troubleCallStatusDuration": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "0": "{view.params.eqPath}"
+          },
+          "tagPath": "[default]{0}/scadaControlled/troubleCallStatusDuration"
+        },
+        "overlayOptOut": true,
+        "transforms": [
+          {
+            "expression": "if(isNull({value}),\"\",\"(\" + toStr(toInt({value}/3600)) + \" hr \" + toStr(toInt(({value}%3600)/60)) + \" min\" + \")\")",
+            "type": "expression"
+          }
+        ],
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "params.activeTroubleCall": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.eqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.isPush": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 617,
+      "width": 839
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "title"
+                },
+                "props": {
+                  "style": {
+                    "classes": "Text/CardHeaders",
+                    "textAlign": "left"
+                  },
+                  "text": "Active Trouble Call"
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "duration"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.troubleCallStatusDuration"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "Text/LabelTextMedium",
+                    "marginLeft": "1rem",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "header"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "meta": {
+              "name": "troubleCalls"
+            },
+            "position": {
+              "basis": "80%",
+              "grow": 1
+            },
+            "propConfig": {
+              "props.instances": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.activeTroubleCall"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tinstances \u003d value\n\t\n\tfor i in range(len(instances)):\n\t\tinstances[i] \u003d dict(instances[i])\n\t\tinstances[i][\u0027eqPath\u0027] \u003d self.view.params.eqPath\n\t\n\treturn instances",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "direction": "column",
+              "elementPosition": {
+                "basis": "auto",
+                "grow": 0,
+                "shrink": 0
+              },
+              "elementStyle": {
+                "paddingBottom": "1ch"
+              },
+              "path": "App/OEE/Operations/LineDashboard/Popups/Downtime/Embedded/TroubleCall",
+              "style": {
+                "overflow": "hidden",
+                "overflowY": "auto",
+                "paddingTop": "1ch"
+              },
+              "useDefaultViewHeight": false,
+              "useDefaultViewWidth": false
+            },
+            "type": "ia.display.flex-repeater"
+          }
+        ],
+        "meta": {
+          "name": "active"
+        },
+        "position": {
+          "basis": "146px",
+          "shrink": 0
+        },
+        "props": {
+          "direction": "column"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "meta": {
+          "name": "EmbeddedView"
+        },
+        "position": {
+          "basis": "365px"
+        },
+        "propConfig": {
+          "props.params.eqPath": {
+            "binding": {
+              "config": {
+                "path": "view.params.eqPath"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.logId": {
+            "binding": {
+              "config": {
+                "path": "view.params.activeTroubleCall[0].logId"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.statusName": {
+            "binding": {
+              "config": {
+                "path": "view.params.activeTroubleCall[0].statusName"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "path": "app/operator/components/removeTroubleCall",
+          "style": {
+            "classes": "Color/Border/Gray300"
+          }
+        },
+        "type": "ia.display.view"
+      },
+      {
+        "children": [
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\tsystem.perspective.closePopup(\u0027troubleCall\u0027)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "close"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "props": {
+              "params": {
+                "Borders": {
+                  "borderBottomLeftRadius": "10px",
+                  "borderBottomRightRadius": "10px",
+                  "borderTopLeftRadius": "10px",
+                  "borderTopRightRadius": "10px"
+                },
+                "Label": "Close",
+                "State": "false",
+                "enabled": true
+              },
+              "path": "components/buttons/processButton"
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\tif len(self.view.params.activeTroubleCall) \u003e 0:\n\t\tparams \u003d {\u0027displayHeader\u0027: \u0027Invalid\u0027, \u0027displayMessage\u0027: \u0027Trouble calls cannot be made while another call is still active\u0027}\n\t\tsystem.perspective.openPopup(\u0027notification\u0027, \u0027modals/message/notification\u0027, params, showCloseIcon\u003dFalse, draggable\u003dFalse, resizable\u003dFalse, modal\u003dTrue, overlayDismiss\u003dFalse)\n\telse:\n\t\tsystem.perspective.sendMessage(\u0027toggleTroubleCallSelection\u0027, payload \u003d {})"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "newTroubleCall"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "props": {
+              "params": {
+                "Borders": {
+                  "borderBottomLeftRadius": "10px",
+                  "borderBottomRightRadius": "10px",
+                  "borderTopLeftRadius": "10px",
+                  "borderTopRightRadius": "10px"
+                },
+                "Label": "New Trouble Call",
+                "State": "false",
+                "enabled": true
+              },
+              "path": "components/buttons/processButton"
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "buttons"
+        },
+        "position": {
+          "basis": "40px",
+          "shrink": 0
+        },
+        "props": {
+          "justify": "space-between",
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "justify": "space-between",
+      "style": {
+        "classes": "Global/MarginAll"
+      }
+    },
+    "scripts": {
+      "customMethods": [],
+      "extensionFunctions": null,
+      "messageHandlers": [
+        {
+          "messageType": "toggleRemovalDetails",
+          "pageScope": true,
+          "script": "\tself.getChild(\"EmbeddedView\").position.display \u003d not self.getChild(\"EmbeddedView\").position.display",
+          "sessionScope": false,
+          "viewScope": false
+        }
+      ]
+    },
+    "type": "ia.container.flex"
+  }
+}

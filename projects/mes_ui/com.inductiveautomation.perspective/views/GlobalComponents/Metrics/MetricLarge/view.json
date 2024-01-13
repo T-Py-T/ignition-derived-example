@@ -1,0 +1,199 @@
+{
+  "custom": {
+    "Target": null,
+    "Value": null
+  },
+  "params": {
+    "State": "value",
+    "TagPath": "",
+    "TagProvider": "",
+    "Type": "GoodParts"
+  },
+  "propConfig": {
+    "custom.Target": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.TagProvider}",
+            "2": "{view.params.TagPath}",
+            "3": "{view.params.Type}"
+          },
+          "tagPath": "{1}{2}/calculatedValues/shift{3}Target"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.Value": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.TagProvider}",
+            "2": "{view.params.TagPath}",
+            "3": "{view.params.Type}"
+          },
+          "tagPath": "{1}{2}/calculatedValues/shift{3}"
+        },
+        "transforms": [
+          {
+            "formatType": "numeric",
+            "formatValue": "number",
+            "type": "format"
+          }
+        ],
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "params.State": {
+      "paramDirection": "output",
+      "persistent": true
+    },
+    "params.TagPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.TagProvider": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Type": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 172,
+      "width": 318
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "basis": "324px"
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.Value"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "OverheadScreens/Values"
+              },
+              "textStyle": {
+                "fontSize": "3rem",
+                "textAlign": "center"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "ValueRow"
+        },
+        "position": {
+          "basis": "104px"
+        },
+        "props": {
+          "style": {
+            "classes": "Cards/Common/CardTitleBorder"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "basis": "105px"
+            },
+            "props": {
+              "style": {
+                "classes": "OverheadScreens/Text"
+              },
+              "text": "Target:",
+              "textStyle": {
+                "textAlign": "center"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Label_0"
+            },
+            "position": {
+              "basis": "166px"
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.Target"
+                  },
+                  "transforms": [
+                    {
+                      "formatType": "numeric",
+                      "formatValue": "number",
+                      "type": "format"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "OverheadScreens/Values",
+                "overflow": "hidden"
+              },
+              "textStyle": {
+                "fontSize": "2.8rem"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "TargetRow"
+        },
+        "position": {
+          "basis": "39.5%"
+        },
+        "props": {
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

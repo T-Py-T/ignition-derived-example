@@ -1,0 +1,178 @@
+{
+  "custom": {
+    "hover": false,
+    "iconColor": "value",
+    "iconColorSelected": "",
+    "selected": true
+  },
+  "params": {
+    "disabledPopup": {
+      "message": "Please sign in as quarterback to proceed.",
+      "messageType": "",
+      "payload": {},
+      "title": "Invalid Permissions"
+    },
+    "enabled": true,
+    "hover": false,
+    "iconPath": "material/save",
+    "isSelectable": false,
+    "label": "Button",
+    "selected": true
+  },
+  "propConfig": {
+    "custom.hover": {
+      "binding": {
+        "config": {
+          "bidirectional": true,
+          "path": "view.params.hover"
+        },
+        "overlayOptOut": true,
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.iconColor": {
+      "persistent": true
+    },
+    "custom.iconColorSelected": {
+      "persistent": true
+    },
+    "custom.selected": {
+      "binding": {
+        "config": {
+          "bidirectional": true,
+          "path": "view.params.selected"
+        },
+        "overlayOptOut": true,
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "params.disabledPopup": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.disabledPopup.message": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.disabledPopup.messageType": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.disabledPopup.payload": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.disabledPopup.title": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.enabled": {
+      "paramDirection": "inout",
+      "persistent": true
+    },
+    "params.hover": {
+      "paramDirection": "output",
+      "persistent": true
+    },
+    "params.iconPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.isSelectable": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.label": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.selected": {
+      "paramDirection": "output",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 45,
+      "width": 122
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tpageId \u003d self.page.props.pageId\n\t\n\tif self.view.params.enabled:\n\t\tif self.view.params.isSelectable:\n\t\t\tself.view.custom.selected \u003d not self.view.custom.selected\n\t\telse:\n\t\t\tself.view.custom.selected \u003d False\n\telse:\n\t\tpageId\t\t\t\u003d self.page.props.pageId\n\t\tmessage\t\t\t\u003d self.view.params.disabledPopup.message\n\t\theader\t\t\t\u003d self.view.params.disabledPopup.title\n\t\tmessageType\t\t\u003d self.view.params.disabledPopup.messageType\n\t\tpayload \t\t\u003d self.view.params.disabledPopup.payload\n\t\t\n\t\tapp.perspective.notifyUser(displayMessage\u003dmessage, displayHeader\u003dheader, messageHandler\u003dmessageType, messagePayload\u003dpayload, pageId\u003dpageId)\n\t\t\t\n\n\t\t\n\n\t\n\t\n\t"
+              },
+              "scope": "G",
+              "type": "script"
+            },
+            "onMouseEnter": {
+              "config": {
+                "script": "\tif self.view.params.enabled:\n\t\tself.view.custom.hover \u003d True\n\telse:\n\t\tself.view.custom.hover \u003d False"
+              },
+              "scope": "G",
+              "type": "script"
+            },
+            "onMouseLeave": {
+              "config": {
+                "script": "\tif self.view.params.enabled:\n\t\tself.view.custom.hover \u003d False\n\telse:\n\t\tself.view.custom.hover \u003d False"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Button"
+        },
+        "position": {
+          "basis": "44px",
+          "grow": 1
+        },
+        "propConfig": {
+          "props.style.classes": {
+            "binding": {
+              "config": {
+                "expression": "if({view.params.enabled}, \"Buttons/OperatorButtons\", \"Buttons/OperatorButtonsDisabled\")"
+              },
+              "type": "expr"
+            }
+          },
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.label"
+              },
+              "overlayOptOut": true,
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "image": {
+            "style": {
+              "classes": "Button/operatorButtons"
+            }
+          },
+          "style": {}
+        },
+        "type": "ia.input.button"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

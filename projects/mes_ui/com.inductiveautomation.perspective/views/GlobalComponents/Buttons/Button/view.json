@@ -1,0 +1,239 @@
+{
+  "custom": {
+    "Hover": true,
+    "IconColor": "value",
+    "IconColorSelected": "",
+    "Selected": true
+  },
+  "params": {
+    "BackgroundColor": "value",
+    "Enabled": true,
+    "Hover": true,
+    "IconPath": "material/save",
+    "IsSelectable": false,
+    "Label": "Button",
+    "Selected": true,
+    "Size": "value",
+    "Type": "value"
+  },
+  "propConfig": {
+    "custom.Hover": {
+      "binding": {
+        "config": {
+          "bidirectional": true,
+          "path": "view.params.Hover"
+        },
+        "overlayOptOut": true,
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.IconColor": {
+      "persistent": true
+    },
+    "custom.IconColorSelected": {
+      "persistent": true
+    },
+    "custom.Selected": {
+      "binding": {
+        "config": {
+          "bidirectional": true,
+          "path": "view.params.Selected"
+        },
+        "overlayOptOut": true,
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "params.BackgroundColor": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Enabled": {
+      "paramDirection": "inout",
+      "persistent": true
+    },
+    "params.Hover": {
+      "paramDirection": "output",
+      "persistent": true
+    },
+    "params.IconPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.IsSelectable": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Label": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Selected": {
+      "paramDirection": "output",
+      "persistent": true
+    },
+    "params.Size": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Type": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 42,
+      "width": 140
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tpageId \u003d self.page.props.pageId\n\t\n\tif self.view.params.enabled:\n\t\tif self.view.params.isSelectable:\n\t\t\tself.view.custom.selected \u003d not self.view.custom.selected\n\t\telse:\n\t\t\tself.view.custom.selected \u003d False\n\telse:\n\t\tpageId\t\t\t\u003d self.page.props.pageId\n\t\tmessage\t\t\t\u003d self.view.params.disabledPopup.message\n\t\theader\t\t\t\u003d self.view.params.disabledPopup.title\n\t\tmessageType\t\t\u003d self.view.params.disabledPopup.messageType\n\t\tpayload \t\t\u003d self.view.params.disabledPopup.payload\n\t\t\n\t\tapp.perspective.notifyUser(displayMessage\u003dmessage, displayHeader\u003dheader, messageHandler\u003dmessageType, messagePayload\u003dpayload, pageId\u003dpageId)\n\t\t\t\n\n\t\t\n\n\t\n\t\n\t"
+              },
+              "enabled": false,
+              "scope": "G",
+              "type": "script"
+            },
+            "onMouseEnter": {
+              "config": {
+                "script": "\tif self.view.params.enabled:\n\t\tself.view.custom.hover \u003d True\n\telse:\n\t\tself.view.custom.hover \u003d False"
+              },
+              "enabled": false,
+              "scope": "G",
+              "type": "script"
+            },
+            "onMouseLeave": {
+              "config": {
+                "script": "\tif self.view.params.enabled:\n\t\tself.view.custom.hover \u003d False\n\telse:\n\t\tself.view.custom.hover \u003d False"
+              },
+              "enabled": false,
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Button"
+        },
+        "position": {
+          "basis": "44px",
+          "grow": 1
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "view.params.Enabled"
+              },
+              "type": "property"
+            }
+          },
+          "props.image.icon.path": {
+            "binding": {
+              "config": {
+                "path": "view.params.IconPath"
+              },
+              "type": "property"
+            }
+          },
+          "props.style.backgroundColor": {
+            "binding": {
+              "config": {
+                "path": "view.params.BackgroundColor"
+              },
+              "type": "property"
+            }
+          },
+          "props.style.classes": {
+            "binding": {
+              "config": {
+                "path": "view.params.Type"
+              },
+              "enabled": false,
+              "transforms": [
+                {
+                  "fallback": "Buttons/NormalButton",
+                  "inputType": "scalar",
+                  "mappings": [
+                    {
+                      "input": "outline",
+                      "output": "Buttons/OutlineButton"
+                    },
+                    {
+                      "input": "normalsuccess",
+                      "output": "Buttons/NormalSuccess"
+                    },
+                    {
+                      "input": "normalwarning",
+                      "output": "Buttons/NormalWarning"
+                    },
+                    {
+                      "input": "normalfail",
+                      "output": "Buttons/NormalFail"
+                    },
+                    {
+                      "input": "outlinesuccess",
+                      "output": "Buttons/OutlineSuccess"
+                    },
+                    {
+                      "input": "outlinewarning",
+                      "output": "Buttons/OutlineWarning"
+                    },
+                    {
+                      "input": "outlinefail",
+                      "output": "Buttons/OutlineFail"
+                    }
+                  ],
+                  "outputType": "scalar",
+                  "type": "map"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.Label"
+              },
+              "overlayOptOut": true,
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "image": {
+            "icon": {},
+            "style": {
+              "classes": "Button/operatorButtons"
+            }
+          },
+          "style": {
+            "classes": "Buttons/OperatorButtons"
+          },
+          "textStyle": {
+            "textAlign": "center"
+          }
+        },
+        "type": "ia.input.button"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

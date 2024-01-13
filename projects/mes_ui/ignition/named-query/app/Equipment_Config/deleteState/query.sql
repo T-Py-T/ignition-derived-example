@@ -1,0 +1,1 @@
+DELETE FROM dbo.states WHERE ID = :stateID

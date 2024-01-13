@@ -1,0 +1,598 @@
+{
+  "custom": {
+    "color": {},
+    "rbgToTry": "value",
+    "rgbColor": "#21FF00",
+    "rgbColorOnlyHue": "#20ff00"
+  },
+  "params": {
+    "canvasSize": {
+      "height": 150,
+      "width": 150
+    },
+    "initialRGB": "#FF0000",
+    "outputRGB": "#21FF00"
+  },
+  "propConfig": {
+    "custom.color": {
+      "persistent": true
+    },
+    "custom.color.h": {
+      "binding": {
+        "config": {
+          "bidirectional": true,
+          "path": "/root/PickerContainer/HueContainer/HueSlider.props.value"
+        },
+        "type": "property"
+      }
+    },
+    "custom.color.s": {
+      "binding": {
+        "config": {
+          "path": "/root/PickerContainer/SatValContainer/SatValCanvas.custom.colorProps.saturation"
+        },
+        "type": "property"
+      }
+    },
+    "custom.color.v": {
+      "binding": {
+        "config": {
+          "path": "/root/PickerContainer/SatValContainer/SatValCanvas.custom.colorProps.value"
+        },
+        "type": "property"
+      }
+    },
+    "custom.rbgToTry": {
+      "persistent": true
+    },
+    "custom.rgbColor": {
+      "binding": {
+        "config": {
+          "path": "view.custom.color"
+        },
+        "transforms": [
+          {
+            "code": "\timport colorsys, math\n\th \u003d value[\u0027h\u0027]/100.0\n\ts \u003d value[\u0027s\u0027]/100.0\n\tv \u003d value[\u0027v\u0027]/100.0\n\tr,g,b \u003d colorsys.hsv_to_rgb(h,s,v)\n\t\n\t\n\trgb \u003d \u0027#%02x%02x%02x\u0027 % (round(r*255), round(g*255), round(b*255))\n\treturn rgb.upper()",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.rgbColorOnlyHue": {
+      "binding": {
+        "config": {
+          "path": "view.custom.color"
+        },
+        "transforms": [
+          {
+            "code": "\timport colorsys\n\th \u003d value[\u0027h\u0027]/100.0\n\ts \u003d 1.0\n\tv \u003d 1.0\n\tr,g,b \u003d colorsys.hsv_to_rgb(h,s,v)\n\t\n\t\n\t\n\treturn \u0027#%02x%02x%02x\u0027 % (int(r*255), int(g*255), int(b*255))",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "params.canvasSize": {
+      "onChange": {
+        "enabled": null,
+        "script": "\t# get picker circle component\n\tpickerCircle \u003d self.getChild(\"root\").getChild(\"PickerContainer\").getChild(\"SatValContainer\").getChild(\"SatValCanvas\").props.instances[1]\n\t\n\t#set top and left value\n\tpickerCircle.top \u003d str(currentValue.value[\u0027height\u0027].value/2) + \u0027px\u0027\n\tpickerCircle.left \u003d str(currentValue.value[\u0027width\u0027].value/2) + \u0027px\u0027"
+      },
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.initialRGB": {
+      "onChange": {
+        "enabled": null,
+        "script": "\t\n\tself.getChild(\"root\").setRgbOnView(currentValue.value)\n\t\n\t\n\t"
+      },
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.outputRGB": {
+      "binding": {
+        "config": {
+          "path": "view.custom.rgbColor"
+        },
+        "type": "property"
+      },
+      "paramDirection": "output",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 212,
+      "width": 303
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "RGBLabel_0"
+                },
+                "position": {
+                  "basis": "20px"
+                },
+                "propConfig": {
+                  "props.style.color": {
+                    "binding": {
+                      "config": {
+                        "expression": "if({view.custom.color.v}\u003c60.0, \u0027#FFFFFF\u0027,\u0027#000000\u0027 )"
+                      },
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "textAlign": "center"
+                  },
+                  "text": "RGB:"
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "custom": {
+                  "rgbError": false
+                },
+                "events": {
+                  "dom": {
+                    "onCompositionEnd": {
+                      "config": {
+                        "script": "\ttext \u003d self.props.text\n\tsystem.perspective.print(text)\n\tif len(text)!\u003d7:\n\t\treturn\n\tif text[0]!\u003d\u0027#\u0027:\n\t\treturn\n\ttry:\n\t\trgb \u003d int(text[1:7])\n\t\tself.view.getChild(\"root\").setRgbOnView(text)\n\texcept ValueError:\n\t\treturn"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "TextField",
+                  "tooltip": {
+                    "delay": 0,
+                    "location": "bottom",
+                    "style": {
+                      "backgroundColor": "#FF6262",
+                      "borderColor": "#000000",
+                      "borderStyle": "solid",
+                      "borderWidth": "1px"
+                    },
+                    "text": "Invalid RGB"
+                  }
+                },
+                "position": {
+                  "basis": "31px"
+                },
+                "propConfig": {
+                  "custom.rgbError": {
+                    "onChange": {
+                      "enabled": null,
+                      "script": "\tif currentValue.value:\n\t\tself.requestTooltip()\n\telse:\n\t\tself.removeTooltip()"
+                    }
+                  },
+                  "meta.tooltip.enabled": {
+                    "binding": {
+                      "config": {
+                        "path": "this.custom.rgbError"
+                      },
+                      "type": "property"
+                    }
+                  },
+                  "meta.tooltip.style.opacity": {
+                    "binding": {
+                      "config": {
+                        "expression": "if({this.custom.rgbError},100,0)"
+                      },
+                      "type": "expr"
+                    }
+                  },
+                  "props.style.backgroundColor": {
+                    "binding": {
+                      "config": {
+                        "expression": "if({view.custom.color.v}\u003c60.0, \u0027#FFFFFF30\u0027,\u0027#00000030\u0027 )"
+                      },
+                      "type": "expr"
+                    }
+                  },
+                  "props.style.color": {
+                    "binding": {
+                      "config": {
+                        "expression": "if({view.custom.color.v}\u003c60.0, \u0027#FFFFFF\u0027,\u0027#000000\u0027 )"
+                      },
+                      "type": "expr"
+                    }
+                  },
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.rgbColor"
+                      },
+                      "type": "property"
+                    },
+                    "onChange": {
+                      "enabled": null,
+                      "script": "\t#only accept user inputs\n\tif origin \u003d\u003d \u0027Browser\u0027:\n\t\ttext \u003d currentValue.value\n\t\t\n\t\t# check length and hashmark\n\t\tlengthCheck \u003d len(text)\u003d\u003d7\n\t\thashCheck \u003d text[0]\u003d\u003d\u0027#\u0027\n\t\t\n\t\t# check can convert string to hex integer\n\t\ttry:\n\t\t\trgb \u003d int(text[1:7], base\u003d16)\n\t\t\tintCheck \u003d True\n\t\t\t\n\t\texcept ValueError:\n\t\t\tintCheck\u003dFalse\n\t\t\n\t\tif lengthCheck and hashCheck and intCheck:\n\t\t\tself.custom.rgbError \u003d False\n\t\t\tself.view.getChild(\"root\").setRgbOnView(text)\n\t\telse:\n\t\t\tself.custom.rgbError \u003d True # displays error tooltip\n\t\t\n\telse:\n\t\tself.custom.rgbError \u003d False\t\t\n\t"
+                    }
+                  }
+                },
+                "props": {
+                  "deferUpdates": false,
+                  "rejectUpdatesWhileFocused": false,
+                  "style": {
+                    "borderStyle": "none",
+                    "cursor": "text",
+                    "fontFamily": "roboto",
+                    "fontSize": 16,
+                    "marginLeft": 3,
+                    "marginRight": 3,
+                    "textAlign": "center"
+                  }
+                },
+                "type": "ia.input.text-field"
+              }
+            ],
+            "meta": {
+              "name": "ColorBackgroundContainer"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "position.basis": {
+                "binding": {
+                  "config": {
+                    "expression": "{view.params.canvasSize.height}+43+\u0027px\u0027"
+                  },
+                  "type": "expr"
+                }
+              },
+              "props.style.backgroundColor": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.rgbColor"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "direction": "column",
+              "justify": "center",
+              "style": {
+                "borderColor": "#CCCCCC",
+                "borderStyle": "solid",
+                "borderWidth": "1px",
+                "classes": "ColorPicker/BackgroundAndBorder/rounded",
+                "marginTop": 5
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "ColorContainer"
+        },
+        "position": {
+          "basis": "148px",
+          "grow": 1
+        },
+        "props": {
+          "direction": "column"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "custom": {
+                  "circlePos": {},
+                  "colorProps": {},
+                  "mouseDown": {
+                    "initCircleLeft": "140px",
+                    "initCircleTop": "0px",
+                    "initClientX": 288,
+                    "initClientY": 38,
+                    "on": false
+                  }
+                },
+                "events": {
+                  "component": {
+                    "onInstanceClicked": {
+                      "config": {
+                        "script": "\tif event.index\u003d\u003d0:\n\t\tsystem.perspective.print(event.size)"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  },
+                  "dom": {
+                    "onMouseLeave": {
+                      "config": {
+                        "script": "\tself.custom.mouseDown.on\u003dFalse"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    },
+                    "onMouseMove": {
+                      "config": {
+                        "script": "\n\tif self.custom.mouseDown.on:\n\t\tdef castPxToInt(val):\n\t\t\treturn int(val.replace(\u0027px\u0027,\u0027\u0027))\n\t\tdef clampOnCanvas(x, y):\n\t\t\tnewX \u003d x\n\t\t\tnewY \u003d y\n\t\t\t\n\t\t\tleftBorder \u003d castPxToInt(self.props.instances[0].left)- (castPxToInt(self.props.instances[1].width)/2.0)\n\t\t\trightBorder  \u003d leftBorder + castPxToInt(self.props.instances[0].width)\n\t\t\tif x \u003c leftBorder:\n\t\t\t\tnewX \u003d leftBorder\n\t\t\tif x \u003e rightBorder:\n\t\t\t\tnewX \u003d rightBorder\n\t\t\ttopBorder \u003d castPxToInt(self.props.instances[0].top) - (castPxToInt(self.props.instances[1].height)/2.0)\n\t\t\tbottomBorder \u003d topBorder + castPxToInt(self.props.instances[0].height)\n\t\t\tif y \u003c topBorder:\n\t\t\t\tnewY \u003d topBorder\n\t\t\tif y \u003e bottomBorder:\n\t\t\t\tnewY \u003d bottomBorder\n\t\t\t\n\t\t\treturn newX, newY\n\t\tdeltaX \u003d event.clientX - self.custom.mouseDown.initClientX\n\t\tdeltaY \u003d event.clientY - self.custom.mouseDown.initClientY\n\t\t\n\t\tinitLeft \u003d int(float(self.custom.mouseDown.initCircleLeft.replace(\u0027px\u0027,\u0027\u0027)))\n\t\tinitTop \u003d int(float(self.custom.mouseDown.initCircleTop.replace(\u0027px\u0027,\u0027\u0027)))\n\t\t\n\t\tdesiredX \u003d initLeft + deltaX\n\t\tdesiredY \u003d initTop + deltaY\n\t\t\n\t\tclampedX, clampedY \u003d clampOnCanvas(desiredX, desiredY)\n\t\tself.props.instances[1].left \u003d str(clampedX) + \u0027px\u0027\n\t\tself.props.instances[1].top \u003d str(clampedY) + \u0027px\u0027"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    },
+                    "onMouseUp": {
+                      "config": {
+                        "script": "\tself.custom.mouseDown.on\u003dFalse"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "SatValCanvas"
+                },
+                "position": {
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "custom.circlePos.x": {
+                    "binding": {
+                      "config": {
+                        "expression": "(\r\ntofloat(replace({this.props.instances[1].left},\u0027px\u0027,\u0027\u0027))+tofloat(replace({this.props.instances[1].width},\u0027px\u0027,\u0027\u0027)/2)//center of circle\r\n-tofloat(replace({this.props.instances[0].left},\u0027px\u0027,\u0027\u0027)) // Subtract canvas backgrounds left\r\n)\r\n/tofloat(replace({this.props.instances[0].width},\u0027px\u0027,\u0027\u0027))*100 // divide by width of the background gradient and scale to 100.0"
+                      },
+                      "type": "expr"
+                    }
+                  },
+                  "custom.circlePos.y": {
+                    "binding": {
+                      "config": {
+                        "expression": "(\r\ntofloat(replace({this.props.instances[1].top},\u0027px\u0027,\u0027\u0027))+tofloat(replace({this.props.instances[1].height},\u0027px\u0027,\u0027\u0027)/2)//center of circle\r\n-tofloat(replace({this.props.instances[0].top},\u0027px\u0027,\u0027\u0027)) // Subtract canvas backgrounds top\r\n)\r\n/tofloat(replace({this.props.instances[0].height},\u0027px\u0027,\u0027\u0027))*100 // divide by height of the background gradient and scale to 100.0"
+                      },
+                      "type": "expr"
+                    }
+                  },
+                  "custom.colorProps.saturation": {
+                    "binding": {
+                      "config": {
+                        "expression": "{this.custom.circlePos.x}"
+                      },
+                      "type": "expr"
+                    }
+                  },
+                  "custom.colorProps.value": {
+                    "binding": {
+                      "config": {
+                        "expression": "100.0-{this.custom.circlePos.y}"
+                      },
+                      "type": "expr"
+                    }
+                  },
+                  "custom.key": {
+                    "binding": {
+                      "config": {
+                        "path": "this.custom.colorProps"
+                      },
+                      "transforms": [
+                        {
+                          "code": "\timport colorsys\n\t#return colorsys.hsv_to_rgb(0.5, 0.5, 0.4)\n\treturn colorsys.hsv_to_rgb(0.0, value[\u0027saturation\u0027]/100.0, value[\u0027value\u0027]/100.0)",
+                          "type": "script"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  },
+                  "position.basis": {
+                    "binding": {
+                      "config": {
+                        "expression": "({view.params.canvasSize.width}+20)+\u0027px\u0027"
+                      },
+                      "type": "expr"
+                    }
+                  },
+                  "props.instances[0].height": {
+                    "binding": {
+                      "config": {
+                        "expression": "{view.params.canvasSize.height}+\u0027px\u0027"
+                      },
+                      "type": "expr"
+                    }
+                  },
+                  "props.instances[0].viewParams.baseColor": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.rgbColorOnlyHue"
+                      },
+                      "type": "property"
+                    }
+                  },
+                  "props.instances[0].width": {
+                    "binding": {
+                      "config": {
+                        "expression": "{view.params.canvasSize.width}+\u0027px\u0027"
+                      },
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "enableTransitions": false,
+                  "instances": [
+                    {
+                      "bottom": "auto",
+                      "left": "10px",
+                      "position": "absolute",
+                      "right": "auto",
+                      "style": {
+                        "classes": ""
+                      },
+                      "top": "10px",
+                      "viewParams": {},
+                      "viewPath": "GlobalComponents/ColorPicker/HelperViews/PickerBackground",
+                      "zIndex": "auto"
+                    },
+                    {
+                      "bottom": "auto",
+                      "height": "20px",
+                      "left": "150.0px",
+                      "position": "absolute",
+                      "right": "auto",
+                      "style": {
+                        "classes": ""
+                      },
+                      "top": "0.0px",
+                      "viewParams": {
+                        "color": "#FFFFFF"
+                      },
+                      "viewPath": "GlobalComponents/ColorPicker/HelperViews/ColorCircle",
+                      "width": "20px",
+                      "zIndex": "auto"
+                    }
+                  ],
+                  "style": {
+                    "classes": "ColorPicker/BackgroundAndBorder/darkGrey ColorPicker/BackgroundAndBorder/rounded",
+                    "overflow": "hidden"
+                  },
+                  "transitionSettings": {
+                    "duration": "1s",
+                    "timingFunction": "linear"
+                  },
+                  "useDefaultViewHeight": false,
+                  "useDefaultViewWidth": false
+                },
+                "scripts": {
+                  "customMethods": [],
+                  "extensionFunctions": null,
+                  "messageHandlers": [
+                    {
+                      "messageType": "ColorCircleDown",
+                      "pageScope": true,
+                      "script": "\tself.custom.mouseDown.on\u003dTrue\n\tself.custom.mouseDown.initClientX \u003d payload[\u0027x\u0027]\n\tself.custom.mouseDown.initClientY \u003d payload[\u0027y\u0027]\n\t\n\tself.custom.mouseDown.initCircleTop \u003d self.props.instances[1].top\n\tself.custom.mouseDown.initCircleLeft \u003d self.props.instances[1].left",
+                      "sessionScope": false,
+                      "viewScope": false
+                    }
+                  ]
+                },
+                "type": "ia.display.viewcanvas"
+              }
+            ],
+            "meta": {
+              "name": "SatValContainer"
+            },
+            "propConfig": {
+              "position.basis": {
+                "binding": {
+                  "config": {
+                    "expression": "{view.params.canvasSize.height}+20+\u0027px\u0027"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "marginBottom": 10
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "HueSlider"
+                },
+                "position": {
+                  "basis": "220px",
+                  "grow": 1
+                },
+                "props": {
+                  "handleColor": "grey",
+                  "railColor": "#C0C0C000",
+                  "step": 0.1,
+                  "style": {
+                    "background": "-webkit-linear-gradient(left, #F00 0%, #FF0 16.66%, #0F0 33.33%, #0FF 50%, \t\t\t\t#00F 66.66%, #F0F 83.33%, #F00 100%)",
+                    "classes": "ColorPicker/BackgroundAndBorder/rounded"
+                  },
+                  "text": "RGB: #770CE2",
+                  "trackColor": "#C0C0C000",
+                  "value": 31.2
+                },
+                "type": "ia.input.slider"
+              }
+            ],
+            "meta": {
+              "name": "HueContainer"
+            },
+            "position": {
+              "basis": "12px"
+            },
+            "props": {
+              "style": {
+                "overflow": "visible"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "PickerContainer"
+        },
+        "position": {
+          "shrink": 0
+        },
+        "propConfig": {
+          "position.basis": {
+            "binding": {
+              "config": {
+                "expression": "{view.params.canvasSize.width}+30+\u0027px\u0027"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "direction": "column",
+          "style": {
+            "classes": "ColorPicker/ContainerPadding",
+            "marginLeft": "10px",
+            "overflow": "visible"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "style": {
+        "classes": "ColorPicker/ContainerPadding"
+      }
+    },
+    "scripts": {
+      "customMethods": [
+        {
+          "name": "setRgbOnView",
+          "params": [
+            "rgbString"
+          ],
+          "script": "\timport colorsys\n\t# convert to hex string\n\tr \u003d \u00270x\u0027+rgbString[1:3]\n\tg \u003d \u00270x\u0027+rgbString[3:5]\n\tb \u003d \u00270x\u0027+rgbString[5:7]\n\t\n\t#scale for colorsys library\n\tr1 \u003d int(r,base\u003d16)/255.0\n\tg1 \u003d int(g,base\u003d16)/255.0\n\tb1 \u003d int(b,base\u003d16)/255.0\n\t\n\t#convert rgb to hsv\n\th,s,v\u003dcolorsys.rgb_to_hsv(r1,g1,b1)\n\t\n\t#set hue\n\thueSelector\u003dself.getChild(\"PickerContainer\").getChild(\"HueContainer\").getChild(\"HueSlider\")\n\thueSelector.props.value \u003d h*100.0\n\t\n\t# set saturation and value coords for color picker circle\n\tcirclePicker \u003d self.getChild(\"PickerContainer\").getChild(\"SatValContainer\").getChild(\"SatValCanvas\").props.instances[1]\n\tcirclePicker.top \u003d str((1.0-v)*self.view.params.canvasSize.height) + \u0027px\u0027\n\tcirclePicker.left \u003d str(s*self.view.params.canvasSize.width)+ \u0027px\u0027"
+        }
+      ],
+      "extensionFunctions": null,
+      "messageHandlers": []
+    },
+    "type": "ia.container.flex"
+  }
+}

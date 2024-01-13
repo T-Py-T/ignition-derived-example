@@ -1,0 +1,130 @@
+{
+  "custom": {},
+  "params": {
+    "BreakValue": false,
+    "EqPath": "Fiberon/1NL/PE Extrusion/Line 23",
+    "LunchValue": false
+  },
+  "propConfig": {
+    "params.BreakValue": {
+      "binding": {
+        "config": {
+          "bidirectional": true,
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/OEE_Events/onBreak"
+        },
+        "type": "tag"
+      },
+      "paramDirection": "inout",
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.LunchValue": {
+      "binding": {
+        "config": {
+          "bidirectional": true,
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/OEE_Events/onLunch"
+        },
+        "type": "tag"
+      },
+      "paramDirection": "inout",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 121,
+      "width": 297
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tself.view.params.BreakValue \u003d not self.view.params.BreakValue"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Break"
+        },
+        "position": {
+          "basis": "34px",
+          "grow": 1
+        },
+        "props": {
+          "image": {
+            "icon": {
+              "path": "material/free_breakfast"
+            }
+          },
+          "style": {
+            "classes": "Buttons/OperatorButtons Global/MarginBottom"
+          },
+          "text": "Break"
+        },
+        "type": "ia.input.button"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tself.view.params.LunchValue \u003d not self.view.params.LunchValue"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Lunch"
+        },
+        "position": {
+          "basis": "34px",
+          "grow": 1
+        },
+        "props": {
+          "image": {
+            "icon": {
+              "path": "material/fastfood"
+            }
+          },
+          "style": {
+            "classes": "Buttons/OperatorButtons"
+          },
+          "text": "Lunch"
+        },
+        "type": "ia.input.button"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "classes": "Global/MarginAllTop"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

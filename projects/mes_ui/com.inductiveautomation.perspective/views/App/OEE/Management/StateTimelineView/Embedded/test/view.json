@@ -1,0 +1,281 @@
+{
+  "custom": {
+    "Availability": "99%",
+    "LineName": "Line 22",
+    "OEE": "81%",
+    "Performance": "86%",
+    "Quality": "96%",
+    "RollUps": [
+      {
+        "color": "#FF0000",
+        "duration": 4050,
+        "status": "Down"
+      },
+      {
+        "color": "#FF0000",
+        "duration": 210,
+        "status": "Unplanned Downtime"
+      },
+      {
+        "color": "#0000FF",
+        "duration": 210,
+        "status": "Idle"
+      },
+      {
+        "color": "#009900",
+        "duration": 31729,
+        "status": "Running"
+      },
+      {
+        "color": "#FF0000",
+        "duration": 61,
+        "status": "Disabled"
+      }
+    ],
+    "RollUpsInstances": [
+      {
+        "FontColor": "#009900",
+        "Header": "Running",
+        "Metric": "08h 48m 49s",
+        "Units": "",
+        "instancePosition": {},
+        "instanceStyle": {
+          "classes": ""
+        }
+      },
+      {
+        "FontColor": "#FF0000",
+        "Header": "Down",
+        "Metric": "01h 07m 30s",
+        "Units": "",
+        "instancePosition": {},
+        "instanceStyle": {
+          "classes": ""
+        }
+      },
+      {
+        "FontColor": "#FF0000",
+        "Header": "Unplanned Downtime",
+        "Metric": "00h 03m 30s",
+        "Units": "",
+        "instancePosition": {},
+        "instanceStyle": {
+          "classes": ""
+        }
+      },
+      {
+        "FontColor": "#0000FF",
+        "Header": "Idle",
+        "Metric": "00h 03m 30s",
+        "Units": "",
+        "instancePosition": {},
+        "instanceStyle": {
+          "classes": ""
+        }
+      },
+      {
+        "FontColor": "#FF0000",
+        "Header": "Disabled",
+        "Metric": "00h 01m 01s",
+        "Units": "",
+        "instancePosition": {},
+        "instanceStyle": {
+          "classes": ""
+        }
+      }
+    ]
+  },
+  "params": {
+    "EqPath": "[default]Fiberon/1NL/PE Extrusion/Line 22"
+  },
+  "propConfig": {
+    "custom.Availability": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/calculatedValues/oeeAvailability"
+        },
+        "transforms": [
+          {
+            "formatType": "numeric",
+            "formatValue": "percent",
+            "type": "format"
+          }
+        ],
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.LineName": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/config/name"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.OEE": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/calculatedValues/oee"
+        },
+        "transforms": [
+          {
+            "formatType": "numeric",
+            "formatValue": "percent",
+            "type": "format"
+          }
+        ],
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.Performance": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/calculatedValues/oeePerformance"
+        },
+        "transforms": [
+          {
+            "formatType": "numeric",
+            "formatValue": "percent",
+            "type": "format"
+          }
+        ],
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.Quality": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/calculatedValues/oeeQuality"
+        },
+        "transforms": [
+          {
+            "formatType": "numeric",
+            "formatValue": "percent",
+            "type": "format"
+          }
+        ],
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.RollUps": {
+      "binding": {
+        "config": {
+          "path": "/root/Col2/CoordinateContainer/StateTimeline.props.params.RollUps"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.RollUpsInstances": {
+      "binding": {
+        "config": {
+          "path": "view.custom.RollUps"
+        },
+        "transforms": [
+          {
+            "code": "\tlogger \u003d system.util.getLogger(\u0027rollUpsInstances\u0027)\n\t\n\t# Assuming value is the new list of dictionaries you provided\n\trollUp \u003d value  \n\t\n\ttemp_list \u003d []\n\t\n\ttry:\n\t    for entry in rollUp:\n\t        status \u003d entry[\u0027status\u0027]\n\t        duration \u003d entry[\u0027duration\u0027]\n\t        color \u003d entry[\u0027color\u0027]\n\t        formatted_time \u003d gpa.timeRanges.secondsToDateString(duration)\n\t        temp_list.append((status, duration, formatted_time, color))\n\t\n\t    # Sort temp_list by the duration in descending order\n\t    sorted_list \u003d sorted(temp_list, key\u003dlambda x: x[1], reverse\u003dTrue)\n\t\n\t    # Build arr from the sorted_list\n\t    arr \u003d []\n\t    for item in sorted_list:\n\t        arr.append(\n\t            {\n\t                \"instanceStyle\": {\n\t                    \"classes\": \"\"          \n\t                },\n\t                \"instancePosition\": {},\n\t                \"Header\": item[0],\n\t                \"Units\": \"\",\n\t                \"Metric\": item[2],\n\t                \"FontColor\": item[3]\n\t            }\n\t        )\n\t\n\t    return arr\n\t\n\texcept Exception as e:\n\t    logger.warn(str(e))",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 86,
+      "width": 1192
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "EmbeddedView"
+        },
+        "position": {
+          "basis": "320px",
+          "grow": 1
+        },
+        "propConfig": {
+          "props.params.Params.EqPath": {
+            "binding": {
+              "config": {
+                "path": "view.params.EqPath"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "params": {
+            "EqPath": "value",
+            "HideTitle": true,
+            "Icon": "",
+            "IconDisplay": true,
+            "Params": {
+              "State": "value",
+              "TagPath": "value",
+              "TagProvider": "value"
+            },
+            "Path": "App/OEE/Management/StateTimelineView/Embedded/StateTimelineCard",
+            "Provider": "value",
+            "SizeBasis": "value",
+            "TagPath": "value",
+            "Title": "",
+            "Type": "value",
+            "index": "value",
+            "useDefaultHeight": false,
+            "useDefaultWidth": false
+          },
+          "path": "GlobalComponents/Cards/Card"
+        },
+        "type": "ia.display.view"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "style": {
+        "classes": "Global/MarginTop"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

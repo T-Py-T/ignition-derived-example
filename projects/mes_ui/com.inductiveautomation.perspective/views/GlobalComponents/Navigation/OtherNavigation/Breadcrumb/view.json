@@ -1,0 +1,60 @@
+{
+  "custom": {
+    "views": "value"
+  },
+  "params": {
+    "items": []
+  },
+  "propConfig": {
+    "custom.views": {
+      "persistent": true
+    },
+    "params.items": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 32
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "HorizontalMenu"
+        },
+        "position": {
+          "basis": "30px"
+        },
+        "propConfig": {
+          "props.items": {
+            "binding": {
+              "config": {
+                "path": "view.params.items"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "itemStyle": {
+            "padding": 0
+          },
+          "style": {
+            "classes": "Navigation/Breadcrumb"
+          }
+        },
+        "type": "ia.navigation.horizontalmenu"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

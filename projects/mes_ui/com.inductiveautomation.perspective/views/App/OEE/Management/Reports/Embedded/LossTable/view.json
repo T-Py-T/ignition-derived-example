@@ -1,0 +1,297 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 547,
+      "width": 1323
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Table"
+        },
+        "position": {
+          "basis": "200px",
+          "grow": 1,
+          "shrink": 0
+        },
+        "propConfig": {
+          "props.data": {
+            "binding": {
+              "config": {
+                "path": "view.custom.filteredData"
+              },
+              "overlayOptOut": true,
+              "transforms": [
+                {
+                  "code": "\texample \u003d []\n\tvalue \u003d self.view.custom.filteredData\n\tagg \u003d {}\n\tfor row in value:\n\t\tif row[\u0027reason\u0027] in agg.keys():\n\t\t\tagg[row[\u0027reason\u0027]][\u0027dt\u0027] \u003d agg[row[\u0027reason\u0027]][\u0027dt\u0027] + row[\u0027timeLost\u0027]\n\t\t\tagg[row[\u0027reason\u0027]][\u0027cost\u0027] \u003d agg[row[\u0027reason\u0027]][\u0027cost\u0027] + row[\u0027cost\u0027]\n\t\t\t\n\t\telse:\n\t\t\tagg[row[\u0027reason\u0027]] \u003d {\u0027dt\u0027:row[\u0027timeLost\u0027], \u0027type\u0027:row[\u0027type\u0027], \u0027cost\u0027:row[\u0027cost\u0027]}\n\t\t\t\n\tfor key in agg.keys():\n\t\tcolor \u003d \u0027blue\u0027\n\t\tif agg[key][\u0027type\u0027] \u003d\u003d \u0027Availability\u0027:\n\t\t\tcolor \u003d \u0027blue\u0027\n\t\telif agg[key][\u0027type\u0027] \u003d\u003d \u0027Quality\u0027:\n\t\t\t color \u003d \u0027teal\u0027\n\t\telif agg[key][\u0027type\u0027] \u003d\u003d \u0027Performance\u0027:\n\t\t\tcolor \u003d \u0027magenta\u0027\n\t\t\n\t\tnewRow \u003d {\u0027downtimeMinutes\u0027:agg[key][\u0027dt\u0027], \u0027downtimeType\u0027:agg[key][\u0027type\u0027], \u0027reason\u0027: key, \u0027downtimeCost\u0027: agg[key][\u0027cost\u0027]}\n\t\texample.append(newRow)\n\t\t\n\tret \u003d sorted(example, key\u003dlambda x: x[\u0027downtimeMinutes\u0027],reverse\u003dTrue)\n#\tfor row in ret:\n#\n#\t\trow[\u0027downtimeMinutes\u0027] \u003d app.util.prettyTimeMinutes(row[\u0027downtimeMinutes\u0027]) \n\n\treturn ret",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "columns": [
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "downtimeType",
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Type"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "#62A3F6",
+                  "linecap": "round",
+                  "width": 5
+                },
+                "max": 100,
+                "track": {
+                  "color": "#DADADA",
+                  "linecap": "round",
+                  "width": 2
+                },
+                "value": {
+                  "color": "#7D7D7D",
+                  "show": true
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "#2196F3",
+                  "unselected": "#FFFFFF"
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "reason",
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Reason"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "0.##%",
+              "progressBar": {
+                "bar": {
+                  "color": "#62A3F6",
+                  "linecap": "round",
+                  "width": 5
+                },
+                "max": 100,
+                "track": {
+                  "color": "#DADADA",
+                  "linecap": "round",
+                  "width": 2
+                },
+                "value": {
+                  "color": "#7D7D7D",
+                  "show": true
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "#2196F3",
+                  "unselected": "#FFFFFF"
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "h:mm:ss a",
+              "editable": false,
+              "field": "downtimeMinutes",
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Loss Time"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "00:00:00",
+              "progressBar": {
+                "bar": {
+                  "color": "#62A3F6",
+                  "linecap": "round",
+                  "width": 5
+                },
+                "max": 100,
+                "track": {
+                  "color": "#DADADA",
+                  "linecap": "round",
+                  "width": 2
+                },
+                "value": {
+                  "color": "#7D7D7D",
+                  "show": true
+                }
+              },
+              "render": "number",
+              "resizable": true,
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "#2196F3",
+                  "unselected": "#FFFFFF"
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "downtimeCost",
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Cost"
+              },
+              "justify": "auto",
+              "number": "value",
+              "numberFormat": "$0,0.00",
+              "progressBar": {
+                "bar": {
+                  "color": "#62A3F6",
+                  "linecap": "round",
+                  "width": 5
+                },
+                "max": 100,
+                "track": {
+                  "color": "#DADADA",
+                  "linecap": "round",
+                  "width": 2
+                },
+                "value": {
+                  "color": "#7D7D7D",
+                  "show": true
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "#2196F3",
+                  "unselected": "#FFFFFF"
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": ""
+            }
+          ],
+          "pager": {
+            "bottom": false
+          }
+        },
+        "type": "ia.display.table"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

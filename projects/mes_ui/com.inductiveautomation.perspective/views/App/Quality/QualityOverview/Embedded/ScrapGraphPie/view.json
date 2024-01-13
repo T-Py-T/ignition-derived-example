@@ -1,0 +1,113 @@
+{
+  "custom": {
+    "PieData": null,
+    "TextColor": "white"
+  },
+  "params": {
+    "Data": {}
+  },
+  "propConfig": {
+    "custom.PieData": {
+      "binding": {
+        "config": {
+          "path": "view.params.Data"
+        },
+        "transforms": [
+          {
+            "code": "\tlogger \u003d system.util.getLogger(\u0027pieChartScrap\u0027)\n\taccumulated \u003d {}\n\tjson \u003d gpa.data.datasetToJson(value)\n\t\n\ttry:\n\t    for j in json:\n\t        reason_name \u003d j.get(\u0027reason_name\u0027)\n\t        quantity \u003d j.get(\u0027quantity\u0027)\n\t        \n\t    \n\t        if reason_name not in accumulated:\n\t            accumulated[reason_name] \u003d 0\n\t        \n\t        accumulated[reason_name] +\u003d quantity\n\t\n\t   \n\t    arr \u003d [{\u0027name\u0027: reason, \u0027quantity\u0027: quant} for reason, quant in accumulated.items()]\n\t    \n\t    return arr\n\texcept Exception as e:\n\t    logger.error(str(e))",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.TextColor": {
+      "binding": {
+        "config": {
+          "expression": "if({session.props.theme} \u003d \u0027custom-dark\u0027, \u0027white\u0027, \u0027black\u0027)"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "params.Data": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "width": 1316
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "PieChart"
+        },
+        "position": {
+          "basis": "375px",
+          "grow": 1
+        },
+        "propConfig": {
+          "props.data": {
+            "binding": {
+              "config": {
+                "path": "view.custom.PieData"
+              },
+              "type": "property"
+            }
+          },
+          "props.legendLabelColor": {
+            "binding": {
+              "config": {
+                "expression": "if({session.props.theme} \u003d \u0027custom-light\u0027, \u0027black\u0027, \u0027white\u0027)"
+              },
+              "type": "expr"
+            }
+          },
+          "props.titleColor": {
+            "binding": {
+              "config": {
+                "expression": "if({session.props.theme} \u003d \u0027custom-light\u0027, \u0027black\u0027, \u0027white\u0027)"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "colors": [
+            "#3366CC",
+            "#EC4B3D",
+            "#4FC86C",
+            "#00A9C6",
+            "#E69300"
+          ],
+          "style": {
+            "overflow": "hidden",
+            "overflowX": "hidden",
+            "overflowY": "hidden"
+          },
+          "threeDimensional": true,
+          "title": "Scrap Count By Category",
+          "valueFormat": {
+            "showValueAsPercent": false
+          }
+        },
+        "type": "ia.chart.pie"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

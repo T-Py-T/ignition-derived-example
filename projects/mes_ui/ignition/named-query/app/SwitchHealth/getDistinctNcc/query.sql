@@ -1,0 +1,1 @@
+exec [dbo].[stp_getDistinctNcc]

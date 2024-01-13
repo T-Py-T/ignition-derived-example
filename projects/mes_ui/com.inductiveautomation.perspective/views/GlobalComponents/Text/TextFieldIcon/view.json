@@ -1,0 +1,171 @@
+{
+  "custom": {
+    "Icon": "material/check"
+  },
+  "params": {
+    "IconLeft": "165px",
+    "Text": "",
+    "Type": "success"
+  },
+  "propConfig": {
+    "custom.Icon": {
+      "binding": {
+        "config": {
+          "path": "view.params.Type"
+        },
+        "transforms": [
+          {
+            "fallback": "",
+            "inputType": "scalar",
+            "mappings": [
+              {
+                "input": "warning",
+                "output": "material/warning"
+              },
+              {
+                "input": "fail",
+                "output": "material/error"
+              },
+              {
+                "input": "success",
+                "output": "material/check"
+              }
+            ],
+            "outputType": "scalar",
+            "type": "map"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "params.IconLeft": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Text": {
+      "binding": {
+        "config": {
+          "path": "/root/ViewCanvas.props.instances[0].viewParams.Text"
+        },
+        "type": "property"
+      },
+      "paramDirection": "output",
+      "persistent": true
+    },
+    "params.Type": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 51,
+      "width": 215
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "ViewCanvas"
+        },
+        "position": {
+          "basis": "320px",
+          "grow": 1
+        },
+        "propConfig": {
+          "props.instances[0].viewParams.Type": {
+            "binding": {
+              "config": {
+                "path": "view.params.Type"
+              },
+              "type": "property"
+            }
+          },
+          "props.instances[1].left": {
+            "binding": {
+              "config": {
+                "path": "view.params.IconLeft"
+              },
+              "type": "property"
+            }
+          },
+          "props.instances[1].viewParams.Icon": {
+            "binding": {
+              "config": {
+                "path": "view.custom.Icon"
+              },
+              "type": "property"
+            }
+          },
+          "props.instances[1].viewParams.Type": {
+            "binding": {
+              "config": {
+                "path": "view.params.Type"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "instances": [
+            {
+              "bottom": "auto",
+              "height": "auto",
+              "left": "0px",
+              "position": "absolute",
+              "right": "auto",
+              "style": {
+                "classes": ""
+              },
+              "top": "0px",
+              "viewParams": {
+                "DeferUpdates": false,
+                "Filter": "value",
+                "Placeholder": "...",
+                "Size": "value",
+                "Text": ""
+              },
+              "viewPath": "GlobalComponents/Text/TextField",
+              "width": "auto",
+              "zIndex": "auto"
+            },
+            {
+              "bottom": "auto",
+              "height": "auto",
+              "position": "relative",
+              "right": "auto",
+              "style": {
+                "classes": ""
+              },
+              "top": "5px",
+              "viewParams": {},
+              "viewPath": "GlobalComponents/Icons/IconMain",
+              "width": "auto",
+              "zIndex": "auto"
+            }
+          ],
+          "style": {
+            "overflow": "hidden"
+          },
+          "transitionSettings": {
+            "duration": "1s",
+            "timingFunction": "linear"
+          }
+        },
+        "type": "ia.display.viewcanvas"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

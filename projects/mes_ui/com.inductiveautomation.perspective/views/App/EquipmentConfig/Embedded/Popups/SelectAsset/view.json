@@ -1,0 +1,291 @@
+{
+  "custom": {
+    "Params": {}
+  },
+  "params": {
+    "ID": "value",
+    "ModalName": "selectAsset",
+    "Name": "value",
+    "Type": "edit"
+  },
+  "propConfig": {
+    "custom.Params": {
+      "persistent": true
+    },
+    "custom.Params.ID": {
+      "binding": {
+        "config": {
+          "path": "view.params.ID"
+        },
+        "type": "property"
+      }
+    },
+    "custom.Params.Type": {
+      "binding": {
+        "config": {
+          "path": "view.params.Type"
+        },
+        "type": "property"
+      }
+    },
+    "params.ID": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.ModalName": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Name": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Type": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 256,
+      "width": 460
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "basis": "32px",
+              "grow": 1
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.Data.Description"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginBottom Text/Heading"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Row1"
+        },
+        "position": {
+          "display": false
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "basis": "32px",
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginBottom "
+              },
+              "text": "Please select an asset first.",
+              "textStyle": {
+                "fontSize": "1.5rem",
+                "textAlign": "center"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Row2"
+        },
+        "position": {
+          "grow": 1
+        },
+        "props": {
+          "alignContent": "center",
+          "alignItems": "center",
+          "direction": "column",
+          "justify": "center"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\tlogger \u003d system.util.getLogger(\u0027deleteAsset_popup\u0027)\n\t\n\ttry:\n\t\tparams \u003d self.view.custom.Params\t\t\n\t\t\n\t\tres \u003d mes.config.sp.deleteAsset(params)\n\t\tif res is not True: raise ValueError(\u0027Sproc call failed. \u0027 + str(res))\n\t\tsystem.perspective.sendMessage(\u0027refreshTree\u0027)\n\t\tsystem.perspective.closePopup(self.view.params.ModalName)\n\texcept Exception as e:\n\t\terrorParams \u003d {\n\t\t\t\"ModalName\": \"ErrorModal\",\n\t\t\t\"ErrorMessage\": str(e),\n\t\t}\n\t\t\n\t\tsystem.perspective.openPopup(\"ErrorModal\", \"GlobalComponents/Modals/ErrorModal\", errorParams)\n\t\tlogger.warn(\u0027There was an error: \u0027 + str(e))"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "SaveButton"
+                },
+                "position": {
+                  "basis": "129px"
+                },
+                "props": {
+                  "params": {
+                    "BackgroundColor": "--error",
+                    "DisabledPopup": {
+                      "message": "Please sign in as quarterback to proceed.",
+                      "messageType": "",
+                      "payload": {},
+                      "title": "Invalid Permissions"
+                    },
+                    "Enabled": true,
+                    "Hover": true,
+                    "IconPath": "material/check",
+                    "IsSelectable": false,
+                    "Label": "Ok",
+                    "Selected": true,
+                    "Size": "value",
+                    "Type": ""
+                  },
+                  "path": "GlobalComponents/Buttons/Button",
+                  "style": {
+                    "marginLeft": "auto",
+                    "marginRight": "auto"
+                  }
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "Save"
+            },
+            "position": {
+              "basis": "132px",
+              "display": false
+            },
+            "props": {
+              "style": {
+                "marginLeft": "auto",
+                "marginRight": "auto"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\tsystem.perspective.closePopup(self.view.params.ModalName)"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "Close"
+                },
+                "position": {
+                  "basis": "129px"
+                },
+                "props": {
+                  "params": {
+                    "BackgroundColor": "value",
+                    "DisabledPopup": {
+                      "message": "Please sign in as quarterback to proceed.",
+                      "messageType": "",
+                      "payload": {},
+                      "title": "Invalid Permissions"
+                    },
+                    "Enabled": true,
+                    "Hover": true,
+                    "IconPath": "material/close",
+                    "IsSelectable": false,
+                    "Label": "Close",
+                    "Selected": true,
+                    "Size": "value",
+                    "Type": "normalsuccess"
+                  },
+                  "path": "GlobalComponents/Buttons/Button",
+                  "style": {
+                    "marginLeft": "auto",
+                    "marginRight": "auto"
+                  }
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "ClosePopup"
+            },
+            "position": {
+              "basis": "132px"
+            },
+            "props": {
+              "style": {
+                "marginLeft": "auto",
+                "marginRight": "auto"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Row3"
+        },
+        "position": {
+          "basis": "42px"
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginBottom Global/MarginLeft Global/MarginRight"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "events": {
+      "dom": {
+        "onClick": {
+          "config": {
+            "script": "\tsystem.perspective.print(self.view.params.ID)"
+          },
+          "scope": "G",
+          "type": "script"
+        }
+      }
+    },
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "classes": "Global/MarginAllTop"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

@@ -1,0 +1,521 @@
+{
+  "custom": {
+    "activeAlarm": 2,
+    "activeAlarms": 1,
+    "alarmsActive": 2
+  },
+  "params": {
+    "SecondaryView": "",
+    "alarmBar": false,
+    "navBar": false
+  },
+  "propConfig": {
+    "custom.activeAlarms": {
+      "binding": {
+        "config": {
+          "expression": "now(6000)"
+        },
+        "transforms": [
+          {
+            "code": "\talarms \u003d system.alarm.  queryStatus(state \u003d [\"ActiveUnacked\",\"ActiveAcked\"])\n\treturn alarms.getDataset().getRowCount()",
+            "type": "script"
+          }
+        ],
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "params.SecondaryView": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.alarmBar": {
+      "paramDirection": "inout",
+      "persistent": true
+    },
+    "params.navBar": {
+      "paramDirection": "inout",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 65
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "dom": {
+            "onClick": [
+              {
+                "config": {
+                  "script": "\tself.view.params.navBar \u003d not self.view.params.navBar"
+                },
+                "enabled": false,
+                "scope": "G",
+                "type": "script"
+              },
+              {
+                "config": {
+                  "id": "navBar",
+                  "type": "toggle"
+                },
+                "scope": "C",
+                "type": "dock"
+              }
+            ]
+          }
+        },
+        "meta": {
+          "name": "Icon"
+        },
+        "position": {
+          "basis": "30px",
+          "shrink": 0
+        },
+        "props": {
+          "color": "--callToAction",
+          "path": "material/menu",
+          "style": {
+            "classes": "MES/DockedViews/Header/Icons"
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {},
+              "scope": "C",
+              "type": "login"
+            }
+          }
+        },
+        "meta": {
+          "name": "Login"
+        },
+        "position": {
+          "basis": "30px",
+          "shrink": 0
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "expression": "!{session.props.auth.authenticated}"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "color": "--div-11",
+          "path": "material/person",
+          "style": {
+            "classes": "MES/DockedViews/Header/Icons"
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "spacing"
+        },
+        "position": {
+          "basis": "20px"
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Alarm Animation"
+        },
+        "position": {
+          "basis": "150px",
+          "display": false,
+          "shrink": 0
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "expression": "now(6000)"
+              },
+              "enabled": false,
+              "transforms": [
+                {
+                  "code": "\talarms \u003d system.alarm.queryStatus(state \u003d [\"ActiveUnacked\"])\n\tif alarms.getDataset().getRowCount()\u003e0: return True\n\telse: return False\n",
+                  "type": "script"
+                }
+              ],
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "path": "GlobalComponents/Alarm Animations/Alarm Animation",
+          "style": {
+            "overflow": "visible"
+          }
+        },
+        "type": "ia.display.view"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "EmbeddedView"
+            },
+            "position": {
+              "basis": "320px",
+              "display": false,
+              "grow": 1
+            },
+            "propConfig": {
+              "props.path": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.SecondaryView"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "SecondaryView"
+        },
+        "position": {
+          "basis": "20px",
+          "grow": 1
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {},
+              "scope": "C",
+              "type": "logout"
+            }
+          }
+        },
+        "meta": {
+          "name": "Logout"
+        },
+        "position": {
+          "basis": "30px",
+          "shrink": 0
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "path": "session.props.auth.authenticated"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "color": "--callToAction",
+          "path": "material/person_outline",
+          "style": {
+            "classes": "MES/DockedViews/Header/Icons"
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "children": [
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "draggable": false,
+                    "id": "themes",
+                    "modal": false,
+                    "overlayDismiss": true,
+                    "position": {
+                      "height": 272,
+                      "right": 10,
+                      "top": 50,
+                      "width": 175
+                    },
+                    "positionType": "exact",
+                    "resizable": false,
+                    "showCloseIcon": false,
+                    "type": "toggle",
+                    "viewPath": "Apps/MES/Docked Views/Header/Popups/Themes",
+                    "viewportBound": false
+                  },
+                  "scope": "C",
+                  "type": "popup"
+                }
+              }
+            },
+            "meta": {
+              "name": "Themes"
+            },
+            "position": {
+              "basis": "30px",
+              "display": false,
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.path": {
+                "binding": {
+                  "config": {
+                    "path": "session.props.theme"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": "material/wb_sunny",
+                      "inputType": "scalar",
+                      "mappings": [
+                        {
+                          "input": "light",
+                          "output": "material/wb_sunny"
+                        },
+                        {
+                          "input": "light-cool",
+                          "output": "material/wb_sunny"
+                        },
+                        {
+                          "input": "light-warm",
+                          "output": "material/wb_sunny"
+                        },
+                        {
+                          "input": "dark",
+                          "output": "material/nights_stay"
+                        },
+                        {
+                          "input": "dark-cool",
+                          "output": "material/nights_stay"
+                        },
+                        {
+                          "input": "dark-warm",
+                          "output": "material/nights_stay"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "color": "--div-11",
+              "style": {
+                "marginRight": "10px"
+              }
+            },
+            "type": "ia.display.icon"
+          },
+          {
+            "meta": {
+              "name": "Sub Theme"
+            },
+            "position": {
+              "basis": "20px",
+              "display": false,
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.path": {
+                "binding": {
+                  "config": {
+                    "path": "session.props.theme"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": "",
+                      "inputType": "scalar",
+                      "mappings": [
+                        {
+                          "input": "light-cool",
+                          "output": "material/ac_unit"
+                        },
+                        {
+                          "input": "dark-cool",
+                          "output": "material/ac_unit"
+                        },
+                        {
+                          "input": "light-warm",
+                          "output": "material/whatshot"
+                        },
+                        {
+                          "input": "dark-warm",
+                          "output": "material/whatshot"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "color": "--div-11",
+              "style": {
+                "height": "20px",
+                "position": "absolute",
+                "transform": "translate(18px, 5px)",
+                "width": "20px"
+              }
+            },
+            "type": "ia.display.icon"
+          }
+        ],
+        "meta": {
+          "name": "Themes"
+        },
+        "position": {
+          "basis": "30px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "MES/DockedViews/Header/Icons",
+            "overflow": "visible"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "custom": {
+          "key": "value"
+        },
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "#\tself.view.params.alarmBar \u003d not self.view.params.alarmBar\n\tsystem.perspective.toggleDock(\"alarmBar\")"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Alarms"
+        },
+        "position": {
+          "basis": "30px",
+          "shrink": 0
+        },
+        "propConfig": {
+          "props.color": {
+            "binding": {
+              "config": {
+                "path": "view.custom.activeAlarms"
+              },
+              "transforms": [
+                {
+                  "fallback": "--neutral-100",
+                  "inputType": "range",
+                  "mappings": [
+                    {
+                      "input": {
+                        "min": 0
+                      },
+                      "output": "--error"
+                    },
+                    {
+                      "input": {
+                        "max": 0
+                      },
+                      "output": "--neutral-100"
+                    }
+                  ],
+                  "outputType": "scalar",
+                  "type": "map"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.path": {
+            "binding": {
+              "config": {
+                "path": "view.custom.activeAlarms"
+              },
+              "transforms": [
+                {
+                  "fallback": "material/notifications",
+                  "inputType": "range",
+                  "mappings": [
+                    {
+                      "input": {
+                        "min": 0
+                      },
+                      "output": "material/notifications_active"
+                    },
+                    {
+                      "input": {
+                        "max": 0
+                      },
+                      "output": "material/notifications"
+                    }
+                  ],
+                  "outputType": "scalar",
+                  "type": "map"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.style.classes": {
+            "binding": {
+              "config": {
+                "path": "this.props.path"
+              },
+              "transforms": [
+                {
+                  "fallback": "MES/DockedViews/Header/Icons, MES/DockedViews/Header/Alarms_Active",
+                  "inputType": "scalar",
+                  "mappings": [
+                    {
+                      "input": "material/notifications",
+                      "output": "MES/DockedViews/Header/Icons"
+                    }
+                  ],
+                  "outputType": "scalar",
+                  "type": "map"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "marginRight": 2
+          }
+        },
+        "type": "ia.display.icon"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "style": {
+        "classes": "MES/DockedViews/Header/Body",
+        "overflow": "visible"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

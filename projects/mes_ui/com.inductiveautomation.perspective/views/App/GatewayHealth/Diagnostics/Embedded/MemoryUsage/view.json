@@ -1,0 +1,131 @@
+{
+  "custom": {},
+  "params": {
+    "EqPath": "[GatewayHealth]Gateways/Script",
+    "State": ""
+  },
+  "propConfig": {
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.State": {
+      "binding": {
+        "config": {
+          "path": "/root/UsageGauge/Gauge.props.params.State"
+        },
+        "type": "property"
+      },
+      "paramDirection": "output",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 278,
+      "width": 478
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Gauge"
+            },
+            "position": {
+              "basis": "320px"
+            },
+            "propConfig": {
+              "props.params.EqPath": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.EqPath"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "State": ""
+              },
+              "path": "App/GatewayHealth/Diagnostics/Embedded/Charts/Memory/UsageGauge",
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "UsageGauge"
+        },
+        "position": {
+          "basis": "50%",
+          "grow": 1
+        },
+        "props": {
+          "direction": "column",
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "TimeChart"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "props.params.EqPath": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.EqPath"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "path": "App/GatewayHealth/Diagnostics/Embedded/Charts/Memory/TimeSeriesChart",
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "TimeChart"
+        },
+        "position": {
+          "basis": "50%",
+          "grow": 1
+        },
+        "props": {
+          "alignItems": "center",
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

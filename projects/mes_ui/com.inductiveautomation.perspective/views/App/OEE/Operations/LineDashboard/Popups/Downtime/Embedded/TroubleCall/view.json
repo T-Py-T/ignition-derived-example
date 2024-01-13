@@ -1,0 +1,671 @@
+{
+  "custom": {
+    "actionDisplay": false,
+    "actionLabel": "Push to Responder",
+    "leavingDisplay": false,
+    "noteVisible": true,
+    "pushDisplay": true,
+    "removeEnabled": true,
+    "roles": [
+      "Administrator",
+      "Management",
+      "Supervisor",
+      "SuperUser",
+      "Team Lead",
+      "Mechanic"
+    ]
+  },
+  "params": {
+    "eqPath": "\\\\Printing\\EXPP4",
+    "logId": 237,
+    "note": "Note",
+    "reasonName": "Reason 2",
+    "statusLogId": 115,
+    "statusName": "Team Lead",
+    "statusTypeName": "In Progress",
+    "subReasonName": "Sub-Reason A",
+    "timeCreated": "09/22/2022 09:42:35",
+    "typeName": "Maintenance"
+  },
+  "propConfig": {
+    "custom.actionDisplay": {
+      "binding": {
+        "config": {
+          "expression": "!{view.custom.leavingDisplay} \u0026\u0026 {view.params.statusTypeName} !\u003d \"Left\" \u0026\u0026 {view.params.statusName} !\u003d \"Team Lead\""
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.leavingDisplay": {
+      "binding": {
+        "config": {
+          "expression": "{view.params.statusTypeName} \u003d \"In Progress\" \u0026\u0026 {view.params.statusName} !\u003d \"Team Lead\""
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.noteVisible": {
+      "persistent": true
+    },
+    "custom.pushDisplay": {
+      "binding": {
+        "config": {
+          "expression": "!{view.custom.leavingDisplay} \u0026\u0026 {view.params.statusTypeName} !\u003d \"Left\""
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.removeEnabled": {
+      "binding": {
+        "config": {
+          "expression": "{view.params.statusTypeName} !\u003d \"Left\""
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.roles": {
+      "binding": {
+        "config": {
+          "path": "view.params.typeName"
+        },
+        "transforms": [
+          {
+            "code": "\troles \u003d []\n\troles.append(\"Administrator\")\n\troles.append(\"Management\")\n\troles.append(\"Supervisor\")\n\troles.append(\"SuperUser\")\n\troles.append(\"Team Lead\")\n\t\n\ttypeName \u003d value\n\tif typeName in [\"Process Tech\", \"Maintenance\"]:\n\t\troles.append(\"Mechanic\")\n\telif typeName \u003d\u003d \"Quality\":\n\t\troles.append(\"Quality Assurance\")\n\t\troles.append(\"Quality Control\")\n\telif typeName \u003d\u003d \"Engineering\":\n\t\troles.append(\"Engineer\")\n\t\t\t\n\treturn roles\t",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "params.eqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.logId": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.note": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.reasonName": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.statusLogId": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.statusName": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.statusTypeName": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.subReasonName": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.timeCreated": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.typeName": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 114
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "status"
+                    },
+                    "position": {
+                      "display": false
+                    },
+                    "propConfig": {
+                      "props.text": {
+                        "binding": {
+                          "config": {
+                            "path": "view.params.statusName"
+                          },
+                          "type": "property"
+                        }
+                      }
+                    },
+                    "props": {
+                      "style": {
+                        "backgroundColor": "#FFCCFF",
+                        "borderColor": "#FF8AFF",
+                        "borderStyle": "solid",
+                        "borderWidth": 2,
+                        "classes": "Radius/px4/All Text/LabelTextMedium",
+                        "padding": "0.25em",
+                        "paddingLeft": "0.75em",
+                        "paddingRight": "0.75em"
+                      }
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "meta": {
+                      "name": "EmbeddedView"
+                    },
+                    "position": {
+                      "basis": "43px"
+                    },
+                    "propConfig": {
+                      "props.params.value": {
+                        "binding": {
+                          "config": {
+                            "path": "view.params.statusName"
+                          },
+                          "type": "property"
+                        }
+                      }
+                    },
+                    "props": {
+                      "path": "App/OEE/Operations/LineDashboard/Popups/Downtime/Embedded/TroubleCallStatus"
+                    },
+                    "type": "ia.display.view"
+                  }
+                ],
+                "meta": {
+                  "name": "status"
+                },
+                "props": {
+                  "direction": "column",
+                  "justify": "center",
+                  "style": {
+                    "paddingLeft": "1.5ch",
+                    "paddingRight": "1ch"
+                  }
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "meta": {
+                  "name": "TroubleCallReason"
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "expression": "if(isNull({view.params.subReasonName}),{view.params.reasonName},{view.params.subReasonName})"
+                      },
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "Cards/Common/CardTitle"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "time"
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.timeCreated"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "Cards/Common/CardTitle"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\t#\tif self.view.params.controls.troubleCallComments.Visible \u003d\u003d 1:\n#\t\tself.view.params.controls.troubleCallComments.Visible \u003d 0,\n#\telse:\t\n#\t\tself.view.params.controls.troubleCallComments.Visible \u003d 1\n\n\tsystem.perspective.sendMessage(\"hideDisplayNote\", payload \u003d {\u0027statusLogId\u0027:self.view.params.statusLogId})"
+                  },
+                  "enabled": false,
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Main"
+            },
+            "position": {
+              "grow": 1,
+              "shrink": 0
+            },
+            "props": {
+              "justify": "space-between",
+              "style": {
+                "paddingLeft": 1
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "leaving"
+                },
+                "position": {
+                  "basis": "3.5ch"
+                },
+                "propConfig": {
+                  "position.display": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.leavingDisplay"
+                      },
+                      "type": "property"
+                    }
+                  },
+                  "props.params.roles": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.roles"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "actionText": "Trouble Call Work Finished",
+                    "disabledPopup": {
+                      "message": "Please sign in as quarterback to proceed.",
+                      "messageType": "",
+                      "payload": {},
+                      "title": "Invalid Permissions"
+                    },
+                    "enabled": true,
+                    "failureHandler": "troubleCallFinishedFailed",
+                    "failurePayload": {
+                      "userId": ""
+                    },
+                    "fontSize": "8pt",
+                    "isBadge": true,
+                    "label": "Leaving",
+                    "showLoading": false,
+                    "styleClass": "",
+                    "successHandler": "troubleCallFinished",
+                    "successPayload": {
+                      "userId": ""
+                    }
+                  },
+                  "path": "components/buttons/authButton"
+                },
+                "scripts": {
+                  "customMethods": [],
+                  "extensionFunctions": null,
+                  "messageHandlers": [
+                    {
+                      "messageType": "troubleCallFinished",
+                      "pageScope": true,
+                      "script": "\tlogger \u003d system.util.getLogger(\"responderLeaving\")\n\t\n\t# Get parameters for insert query\n\tlogId \u003d self.view.params.logId\n\ttypeName \u003d self.view.params.typeName\n\t\n\t# Get acting user first, last name\n\tactingUserId \u003d payload[\u0027userId\u0027]\n\tquery \u003d \"SELECT firstname, lastname FROM auth.person WHERE personkey \u003d ?\"\n\targs \u003d [actingUserId]\n\tresult \u003d system.db.runPrepQuery(query, args, database \u003d \u0027application\u0027)\n\tactingUserFirstName \u003d result[0][\"firstname\"]\n\tactingUserLastName \u003d result[0][\"lastname\"]\n\t\n\t# Insert status into status log\n\tquery \u003d \"INSERT INTO cmms.trouble_call_status_log (\"\n\tquery +\u003d \"acting_user_first_name,\"\n\tquery +\u003d \"acting_user_last_name,\"\n\tquery +\u003d \"trouble_call_log_id,\"\n\tquery +\u003d \"trouble_call_status_id) \"\n\tquery +\u003d \"VALUES (?,?,?,(\"\n\tquery +\u003d \"SELECT id FROM cmms.trouble_call_status WHERE trouble_call_type_id \u003d (\"\n\tquery +\u003d \"SELECT id FROM cmms.trouble_call_type WHERE trouble_call_type_name \u003d ?) \"\n\tquery +\u003d \"AND status_type_id \u003d (\"\n\tquery +\u003d \"SELECT id FROM cmms.status_type WHERE status_type_name \u003d ?)))\"\n\t\n\t# Get line state\n\ttagPath \u003d app.util.eqPathToTagPath(self.view.params.eqPath)\n\tstate \u003d system.tag.readBlocking([tagPath + \"/output/state\"])[0].value\n\t\n\tlogger.info(\"State: \" + str(state))\n\t\n\t# If line already running, log status as \"Completed\". Otherwise, \"\u003ctypeName\u003e Left\"\n\tif state \u003d\u003d 1:\n\t\targs \u003d [actingUserFirstName, actingUserLastName, logId, \"Team Lead\", \"Completed\"]\n\telse:\n\t\targs \u003d [actingUserFirstName, actingUserLastName, logId, typeName, \"Left\"]\n\t\t# Set \"maintenanceLeft tag to True\n\t\tsystem.tag.writeBlocking([tagPath + \"/scadaControlled/maintenanceLeft\"], [True])\n\t\n\tdb \u003d \u0027operation\u0027\n\t\n\tstatusLogId \u003d system.db.runPrepUpdate(query,args,db,getKey \u003d 1)\n\t\n\t# if line already running, change mode to \"Production\". Otherwise, set mode per status table\n\tif state \u003d\u003d 1:\n\t\tmode \u003d 1\n\telse:\n\t\tquery \u003d \"SELECT sepasoft_module_value \"\n\t\tquery +\u003d \"FROM cmms.trouble_call_status s \"\n\t\tquery +\u003d \"JOIN cmms.trouble_call_status_log sl ON sl.trouble_call_status_id \u003d s.id \"\n\t\tquery +\u003d \"WHERE sl.id \u003d ?\"\n\t\targs \u003d [statusLogId]\n\t\tmode \u003d system.db.runScalarPrepQuery(query, args, db)\n\t\n\tmes.oee.mode.setMode(tagPath, mode)\n\t\n\tparams \u003d {\u0027displayHeader\u0027: \u0027Responder Left\u0027, \u0027displayMessage\u0027: \u0027The trouble call has been responded to and responder has left\u0027}\n\tsystem.perspective.openPopup(\u0027info\u0027, \u0027modals/message/info\u0027, params, showCloseIcon\u003dFalse, draggable\u003dFalse, resizable\u003dFalse, modal\u003dTrue, overlayDismiss\u003dFalse)\n\tsystem.perspective.sendMessage(\"refreshTroubleCall\",{})\n\t",
+                      "sessionScope": false,
+                      "viewScope": false
+                    }
+                  ]
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\tsystem.perspective.sendMessage(\u0027updateIsPush\u0027, payload \u003d {\"isPush\":False})\n\tsystem.perspective.sendMessage(\u0027toggleTroubleCallSelection\u0027, payload \u003d {})\n\t\n\t#\tlogger \u003d system.util.getLogger(\"pushToMaintButtonEventScript\")\n\t#\tlogger.info(\"payload \u003d \" + str(self.view.custom.payload))\n\t\n#\tif self.view.params.typeName !\u003d \"Team Lead\" and self.view.params.statusTypeName \u003d\u003d \"In Progress\":\n#\t\tactingUserFirstName \u003d self.view.custom.actingUser.firstName\n#\t\tactingUserLastName \u003d self.view.custom.actingUser.lastName\n#\t\tlogId \u003d self.view.params.logId\n#\t\ttypeName \u003d self.view.params.typeName\n#\t\t\n#\t\tdb \u003d \u0027operation\u0027\n#\t\t\n#\t\tquery \u003d \"INSERT INTO cmms.trouble_call_status_log (\"\n#\t\tquery +\u003d \"acting_user_first_name,\"\n#\t\tquery +\u003d \"acting_user_last_name,\"\n#\t\tquery +\u003d \"trouble_call_log_id,\"\n#\t\tquery +\u003d \"trouble_call_status_id) \"\n#\t\tquery +\u003d \"VALUES (?,?,?,(\"\n#\t\tquery +\u003d \"SELECT id FROM cmms.trouble_call_status WHERE trouble_call_type_id \u003d (\"\n#\t\tquery +\u003d \"SELECT id FROM cmms.trouble_call_type WHERE trouble_call_type_name \u003d ?)\"\n#\t\tquery +\u003d \"AND status_type_id \u003d (\"\n#\t\tquery +\u003d \"SELECT id FROM cmms.status_type WHERE status_type_name \u003d ?)))\"\n#\t\targs \u003d [actingUserFirstName, actingUserLastName, logId, typeName, \"Completed\"]\n#\t\tresult \u003d system.db.runPrepUpdate(query,args,db)\n#\t\t\n#\t\tparams \u003d {\u0027displayHeader\u0027: \u0027Call Completed\u0027, \u0027displayMessage\u0027: \u0027The Trouble Call has been completed\u0027}\n#\t\tsystem.perspective.openPopup(\u0027info\u0027, \u0027modals/message/info\u0027, params, showCloseIcon\u003dFalse, draggable\u003dFalse, resizable\u003dFalse, modal\u003dTrue, overlayDismiss\u003dFalse)\n##\t\tsystem.perspective.closePopup(\u0027troubleCall\u0027)\n#\t\t\t\t\t\n#\t\tif result \u003e 0:\n#\t\t\tsystem.perspective.sendMessage(\"refreshTroubleCalls\",{})\n#\telse:\n#\t\tsystem.perspective.sendMessage(\u0027toggleTroubleCallSelection\u0027, payload \u003d {})"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "arrived"
+                },
+                "position": {
+                  "basis": "3.5ch"
+                },
+                "propConfig": {
+                  "position.display": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.actionDisplay"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "Borders": {
+                      "borderBottomLeftRadius": "10px",
+                      "borderBottomRightRadius": "10px",
+                      "borderTopLeftRadius": "10px",
+                      "borderTopRightRadius": "10px"
+                    },
+                    "Label": "Arrived",
+                    "State": "false",
+                    "display": true,
+                    "enabled": true,
+                    "fontSize": "8pt",
+                    "textAlign": "left",
+                    "value": "value"
+                  },
+                  "path": "components/buttons/processButton"
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\tsystem.perspective.sendMessage(\u0027updateIsPush\u0027, payload \u003d {\"isPush\":True})\n\tsystem.perspective.sendMessage(\u0027toggleTroubleCallSelection\u0027, payload \u003d {})\n\t\n\t#\tlogger \u003d system.util.getLogger(\"pushToMaintButtonEventScript\")\n\t#\tlogger.info(\"payload \u003d \" + str(self.view.custom.payload))\n\t\n#\tif self.view.params.typeName !\u003d \"Team Lead\" and self.view.params.statusTypeName \u003d\u003d \"In Progress\":\n#\t\tactingUserFirstName \u003d self.view.custom.actingUser.firstName\n#\t\tactingUserLastName \u003d self.view.custom.actingUser.lastName\n#\t\tlogId \u003d self.view.params.logId\n#\t\ttypeName \u003d self.view.params.typeName\n#\t\t\n#\t\tdb \u003d \u0027operation\u0027\n#\t\t\n#\t\tquery \u003d \"INSERT INTO cmms.trouble_call_status_log (\"\n#\t\tquery +\u003d \"acting_user_first_name,\"\n#\t\tquery +\u003d \"acting_user_last_name,\"\n#\t\tquery +\u003d \"trouble_call_log_id,\"\n#\t\tquery +\u003d \"trouble_call_status_id) \"\n#\t\tquery +\u003d \"VALUES (?,?,?,(\"\n#\t\tquery +\u003d \"SELECT id FROM cmms.trouble_call_status WHERE trouble_call_type_id \u003d (\"\n#\t\tquery +\u003d \"SELECT id FROM cmms.trouble_call_type WHERE trouble_call_type_name \u003d ?)\"\n#\t\tquery +\u003d \"AND status_type_id \u003d (\"\n#\t\tquery +\u003d \"SELECT id FROM cmms.status_type WHERE status_type_name \u003d ?)))\"\n#\t\targs \u003d [actingUserFirstName, actingUserLastName, logId, typeName, \"Completed\"]\n#\t\tresult \u003d system.db.runPrepUpdate(query,args,db)\n#\t\t\n#\t\tparams \u003d {\u0027displayHeader\u0027: \u0027Call Completed\u0027, \u0027displayMessage\u0027: \u0027The Trouble Call has been completed\u0027}\n#\t\tsystem.perspective.openPopup(\u0027info\u0027, \u0027modals/message/info\u0027, params, showCloseIcon\u003dFalse, draggable\u003dFalse, resizable\u003dFalse, modal\u003dTrue, overlayDismiss\u003dFalse)\n##\t\tsystem.perspective.closePopup(\u0027troubleCall\u0027)\n#\t\t\t\t\t\n#\t\tif result \u003e 0:\n#\t\t\tsystem.perspective.sendMessage(\"refreshTroubleCalls\",{})\n#\telse:\n#\t\tsystem.perspective.sendMessage(\u0027toggleTroubleCallSelection\u0027, payload \u003d {})"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "push"
+                },
+                "position": {
+                  "basis": "3.5ch"
+                },
+                "propConfig": {
+                  "position.display": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.pushDisplay"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "Borders": {
+                      "borderBottomLeftRadius": "10px",
+                      "borderBottomRightRadius": "10px",
+                      "borderTopLeftRadius": "10px",
+                      "borderTopRightRadius": "10px"
+                    },
+                    "Label": "Push",
+                    "State": "false",
+                    "display": true,
+                    "enabled": true,
+                    "fontSize": "8pt",
+                    "textAlign": "left",
+                    "value": "value"
+                  },
+                  "path": "GlobalComponents/Buttons/Button"
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\tsystem.perspective.sendMessage(\u0027toggleRemovalDetails\u0027)"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "remove"
+                },
+                "position": {
+                  "basis": "3.5ch",
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "position.display": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.statusTypeName"
+                      },
+                      "transforms": [
+                        {
+                          "code": "\treturn value not in (\"Removed\", \"Completed\")",
+                          "type": "script"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  },
+                  "props.params.enabled": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.removeEnabled"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "Borders": {
+                      "borderBottomLeftRadius": "10px",
+                      "borderBottomRightRadius": "10px",
+                      "borderTopLeftRadius": "10px",
+                      "borderTopRightRadius": "10px"
+                    },
+                    "Label": "Remove",
+                    "State": "false",
+                    "display": true,
+                    "fontSize": "8pt",
+                    "textAlign": "left",
+                    "value": "value"
+                  },
+                  "path": "GlobalComponents/Buttons/Button"
+                },
+                "scripts": {
+                  "customMethods": [],
+                  "extensionFunctions": null,
+                  "messageHandlers": [
+                    {
+                      "messageType": "removeTroubleCallOLD",
+                      "pageScope": true,
+                      "script": "\t# implement your handler here\n\tlogger \u003d system.util.getLogger(\"removeTroubleCall\")\n\t\n\t# Get parameters for insert query\n\tlogId \u003d self.view.params.logId\n\t\n\t# Get acting user first, last name\n\tactingUserId \u003d payload[\u0027userId\u0027]\n\tquery \u003d \"SELECT firstname, lastname FROM auth.person WHERE personkey \u003d ?\"\n\targs \u003d [actingUserId]\n\tresult \u003d system.db.runPrepQuery(query, args, database \u003d \u0027application\u0027)\n\tactingUserFirstName \u003d result[0][\"firstname\"]\n\tactingUserLastName \u003d result[0][\"lastname\"]\n\t\n\t# Insert into status log\n\tquery \u003d \"INSERT INTO cmms.trouble_call_status_log (\"\n\tquery +\u003d \"\tacting_user_first_name,\"\n\tquery +\u003d \"\tacting_user_last_name,\"\n\tquery +\u003d \"\ttrouble_call_log_id,\"\n\tquery +\u003d \"\ttrouble_call_status_id)\"\n\tquery +\u003d \"VALUES (\"\n\tquery +\u003d \"\t?,\"\n\tquery +\u003d \"\t?,\"\n\tquery +\u003d \"\t?,\"\n\tquery +\u003d \"\t(SELECT id FROM cmms.trouble_call_status WHERE trouble_call_status_name \u003d ?))\"\n\targs \u003d [actingUserFirstName, actingUserLastName, logId, \"Removed\"]\n\tdb \u003d \u0027operation\u0027\n\tstatusLogId \u003d system.db.runPrepUpdate(query,args,db,getKey \u003d 1)\n\t\n\tif statusLogId not in [None, \"\"]:\n\t\t\n\t\t# Get line state\n\t\ttagPath \u003d app.util.eqPathToTagPath(self.view.params.eqPath)\n\t\tstate \u003d system.tag.readBlocking([tagPath + \"/output/state\"])[0].value\n\t\t\n\t\t# if line already running, change mode to \"Production\". Otherwise, set mode per status table\n\t\tif state \u003d\u003d 1:\n\t\t\tmode \u003d 1\n\t\telse:\n\t\t\tquery \u003d \"SELECT sepasoft_module_value \"\n\t\t\tquery +\u003d \"FROM cmms.trouble_call_status s \"\n\t\t\tquery +\u003d \"JOIN cmms.trouble_call_status_log sl ON sl.trouble_call_status_id \u003d s.id \"\n\t\t\tquery +\u003d \"WHERE sl.id \u003d ?\"\n\t\t\targs \u003d [statusLogId]\n\t\t\tmode \u003d system.db.runScalarPrepQuery(query, args, db)\n\t\t\tsystem.tag.writeBlocking([tagPath + \"/scadaControlled/troubleCallRemoved\"], [True])\n\t\t\t\n\t\tmes.oee.mode.setMode(tagPath, mode)\n\t\t\n\t\tsystem.perspective.sendMessage(\"refreshTroubleCall\",{})\n\t\tlogger.info(\"Trouble call \" + str(self.view.params.statusName) + \" removed\")\n\t\tparams \u003d {\u0027displayHeader\u0027: \u0027Call Removed\u0027, \u0027displayMessage\u0027: \u0027The trouble call has been removed\u0027}\n\t\tsystem.perspective.openPopup(\u0027info\u0027, \u0027modals/message/info\u0027, params, showCloseIcon\u003dFalse, draggable\u003dFalse, resizable\u003dFalse, modal\u003dTrue, overlayDismiss\u003dFalse)\n\t\t\n\telse:\n\t\tlogger.info(\"Failed to remove trouble call \" + str(self.view.params.statusName))",
+                      "sessionScope": false,
+                      "viewScope": false
+                    }
+                  ]
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "Buttons"
+            },
+            "position": {
+              "basis": "25ch",
+              "grow": 1
+            },
+            "props": {
+              "alignContent": "space-around",
+              "alignItems": "center",
+              "direction": "column",
+              "justify": "center",
+              "style": {
+                "paddingRight": "1ch"
+              },
+              "wrap": "wrap"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Header"
+        },
+        "position": {
+          "basis": "60px",
+          "shrink": 0
+        },
+        "props": {
+          "justify": "space-between",
+          "style": {
+            "backgroundColor": "#FFFFFF",
+            "borderBottomLeftRadius": "1ch",
+            "borderBottomRightRadius": "1ch",
+            "borderColor": "#808080",
+            "borderStyle": "solid",
+            "borderTopLeftRadius": "1ch",
+            "borderTopRightRadius": "1ch",
+            "borderWidth": ".1ch",
+            "cursor": "pointer"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "spacer"
+            },
+            "position": {
+              "basis": "5ch",
+              "grow": 1
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "basis": "85%",
+              "grow": 1
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "expression": "{view.params.reasonName} + \u0027 | \u0027 + {view.params.note}"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "#FFFFFF",
+                "borderBottomColor": "#808080",
+                "borderBottomLeftRadius": "1ch",
+                "borderBottomRightRadius": "1ch",
+                "borderBottomStyle": "solid",
+                "borderBottomWidth": "0.1ch",
+                "borderLeftColor": "#808080",
+                "borderLeftStyle": "solid",
+                "borderLeftWidth": "0.1ch",
+                "borderRightColor": "#808080",
+                "borderRightStyle": "solid",
+                "borderRightWidth": "0.1ch",
+                "borderTopColor": "#808080",
+                "borderTopStyle": "none",
+                "borderTopWidth": "0.1ch",
+                "classes": "Text/LabelTextMedium Text/textColorBlack",
+                "paddingBottom": "0.5ch",
+                "paddingLeft": "1ch",
+                "paddingRight": "1ch",
+                "paddingTop": ".5ch",
+                "wordWrap": "normal"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "spacer_0"
+            },
+            "position": {
+              "basis": "5ch",
+              "grow": 1,
+              "shrink": 0
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "TroubleCallComment"
+        },
+        "position": {
+          "basis": "44px"
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "path": "view.custom.noteVisible"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "scripts": {
+      "customMethods": [],
+      "extensionFunctions": null,
+      "messageHandlers": [
+        {
+          "messageType": "hideDisplayNote",
+          "pageScope": true,
+          "script": "\t# implement your handler here\n\tstatusLogId \u003d payload[\u0027statusLogId\u0027]\n\t\n\tif self.view.params.statusLogId \u003d\u003d statusLogId:\n\t\tself.view.custom.noteVisible \u003d not self.view.custom.noteVisible\n\telse:\n\t\tif self.view.custom.noteVisible \u003d\u003d True:\n\t\t\tself.view.custom.noteVisible \u003d False",
+          "sessionScope": false,
+          "viewScope": false
+        }
+      ]
+    },
+    "type": "ia.container.flex"
+  }
+}

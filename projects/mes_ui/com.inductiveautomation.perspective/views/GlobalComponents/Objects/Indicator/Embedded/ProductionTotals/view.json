@@ -1,0 +1,482 @@
+{
+  "custom": {
+    "key": "value"
+  },
+  "params": {
+    "currentRun": {
+      "desiredVisible": true,
+      "maxValue": 270,
+      "minValue": 0,
+      "rangeHi": 270,
+      "title": "Current Run",
+      "units": "pcs",
+      "value": 80
+    },
+    "currentShift": {
+      "desiredVisible": true,
+      "maxValue": 6000,
+      "minValue": 0,
+      "rangeHi": 6000,
+      "title": "Current Shift",
+      "units": "pcs",
+      "value": 4589
+    },
+    "shiftStartTime": "5/3/19 7:00 am",
+    "startTime": "5/3/19 8:06 am",
+    "width": 250
+  },
+  "propConfig": {
+    "custom.key": {
+      "persistent": true
+    },
+    "params.currentRun": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.currentRun.desiredVisible": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.currentRun.maxValue": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.currentRun.minValue": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.currentRun.rangeHi": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.currentRun.title": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.currentRun.units": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.currentRun.value": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.currentShift": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.currentShift.desiredVisible": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.currentShift.maxValue": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.currentShift.minValue": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.currentShift.title": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.shiftStartTime": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.startTime": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.width": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 200,
+      "width": 250
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "title"
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.currentRun.title"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "alignVertical": "bottom",
+                  "style": {
+                    "classes": "Text/CardHeaders",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "Label"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "props": {
+                  "alignVertical": "bottom",
+                  "style": {
+                    "classes": "Text/LabelTextSmall\nText/textFamily",
+                    "paddingRight": "0.5vw",
+                    "textAlign": "right"
+                  },
+                  "text": "Start:"
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "Label_0"
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.startTime"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "alignVertical": "bottom",
+                  "style": {
+                    "classes": "Text/LabelTextSmall\nText/textFamily",
+                    "textAlign": "right"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "header"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "props": {
+              "alignItems": "baseline",
+              "justify": "flex-end",
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "EmbeddedView"
+                },
+                "position": {
+                  "basis": "100%",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.params.desiredVisible": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.currentRun.desiredVisible"
+                      },
+                      "type": "property"
+                    }
+                  },
+                  "props.params.maxValue": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.currentRun.maxValue"
+                      },
+                      "type": "property"
+                    }
+                  },
+                  "props.params.minValue": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.currentRun.minValue"
+                      },
+                      "type": "property"
+                    }
+                  },
+                  "props.params.rangeHi": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.currentRun.rangeHi"
+                      },
+                      "type": "property"
+                    }
+                  },
+                  "props.params.units": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.currentRun.units"
+                      },
+                      "type": "property"
+                    }
+                  },
+                  "props.params.value": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.currentRun.value"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "rangeLo": 0
+                  },
+                  "path": "GlobalComponents/Objects/Indicator/Embedded/IndicatorValueAnalog"
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "main"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "currentRun"
+        },
+        "position": {
+          "basis": "100%",
+          "grow": 1
+        },
+        "props": {
+          "direction": "column",
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "title"
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.currentShift.title"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "alignVertical": "bottom",
+                  "style": {
+                    "classes": "Text/CardHeaders",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "Label"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "props": {
+                  "alignVertical": "bottom",
+                  "style": {
+                    "classes": "Text/LabelTextSmall\nText/textFamily",
+                    "paddingRight": "0.5vw",
+                    "textAlign": "right"
+                  },
+                  "text": "Start:"
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "Label_0"
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.shiftStartTime"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "alignVertical": "bottom",
+                  "style": {
+                    "classes": "Text/LabelTextSmall\nText/textFamily",
+                    "textAlign": "right"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "header"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "props": {
+              "alignItems": "baseline",
+              "justify": "flex-end",
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "EmbeddedView"
+                },
+                "position": {
+                  "basis": "100%",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.params.desiredVisible": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.currentShift.desiredVisible"
+                      },
+                      "type": "property"
+                    }
+                  },
+                  "props.params.maxValue": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.currentShift.maxValue"
+                      },
+                      "type": "property"
+                    }
+                  },
+                  "props.params.minValue": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.currentShift.minValue"
+                      },
+                      "type": "property"
+                    }
+                  },
+                  "props.params.rangeHi": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.currentShift.rangeHi"
+                      },
+                      "type": "property"
+                    }
+                  },
+                  "props.params.units": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.currentShift.units"
+                      },
+                      "type": "property"
+                    }
+                  },
+                  "props.params.value": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.currentShift.value"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "rangeLo": 0
+                  },
+                  "path": "GlobalComponents/Objects/Indicator/Embedded/IndicatorValueAnalog"
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "main"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "currentShift"
+        },
+        "position": {
+          "basis": "100%",
+          "grow": 1
+        },
+        "props": {
+          "direction": "column",
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "classes": "Text/CardLabelText Text/textFamily",
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

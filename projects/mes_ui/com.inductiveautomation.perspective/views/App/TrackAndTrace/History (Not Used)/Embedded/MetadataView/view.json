@@ -1,0 +1,61 @@
+{
+  "custom": {},
+  "params": {
+    "Key": "value",
+    "Value": "value"
+  },
+  "propConfig": {
+    "params.Key": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Value": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 70,
+      "width": 161
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Key"
+        },
+        "position": {
+          "basis": "156px"
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.Key"
+              },
+              "transforms": [
+                {
+                  "expression": "{value}+\": \"+{view.params.Value}",
+                  "type": "expression"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "textStyle": {
+            "textAlign": "center"
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.flex"
+  }
+}

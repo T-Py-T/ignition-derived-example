@@ -1,0 +1,338 @@
+{
+  "custom": {
+    "SelectedInventory": 1,
+    "siteID": 9
+  },
+  "params": {
+    "SelectedSite": "value"
+  },
+  "propConfig": {
+    "custom.SelectedInventory": {
+      "binding": {
+        "config": {
+          "path": "/root/InventoriesSelection/Tree.props.selectionData[0].value"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.siteID": {
+      "binding": {
+        "config": {
+          "path": "session.custom.SelectedSite"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "params.SelectedSite": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "width": 229
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "borderBottomStyle": "solid",
+                "borderBottomWidth": "1px",
+                "borderLeftStyle": "none",
+                "borderRightStyle": "none",
+                "borderTopStyle": "none"
+              },
+              "text": "Select Accumulator",
+              "textStyle": {
+                "textAlign": "center"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "draggable": true,
+                    "id": "addAccumulator",
+                    "modal": true,
+                    "overlayDismiss": true,
+                    "resizable": true,
+                    "showCloseIcon": true,
+                    "title": "Add Accumulator",
+                    "type": "toggle",
+                    "viewParams": {
+                      "ModalName": "addAccumulator"
+                    },
+                    "viewPath": "App/TrackAndTrace/Accumulators/Embedded/AddAccumulator",
+                    "viewportBound": false
+                  },
+                  "scope": "C",
+                  "type": "popup"
+                }
+              }
+            },
+            "meta": {
+              "name": "Add",
+              "tooltip": {
+                "enabled": true,
+                "text": "Add"
+              }
+            },
+            "position": {
+              "basis": "29px",
+              "shrink": 0
+            },
+            "props": {
+              "path": "material/add",
+              "style": {
+                "classes": "",
+                "marginRight": 8
+              }
+            },
+            "type": "ia.display.icon"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": [
+                  {
+                    "config": {
+                      "draggable": true,
+                      "id": "RemoveInventory",
+                      "modal": true,
+                      "overlayDismiss": true,
+                      "resizable": true,
+                      "showCloseIcon": true,
+                      "title": "Remove Accumulator",
+                      "type": "open",
+                      "viewParams": {
+                        "InventoryID": "{view.custom.selectedInventory}",
+                        "ModalName": "RemoveInventory"
+                      },
+                      "viewPath": "App/TrackAndTrace/Inventory/Embedded/RemoveInventory",
+                      "viewportBound": false
+                    },
+                    "enabled": false,
+                    "scope": "C",
+                    "type": "popup"
+                  },
+                  {
+                    "config": {
+                      "script": "\tinventoryID \u003d self.view.custom.SelectedInventory\n\terrorParams \u003d {\"ModalName\": \"ErrorModal\",\"ErrorMessage\": \u0027You must select an Accumulator before deleting items.\u0027,}\n\tif inventoryID \u003d\u003d \u00270\u0027 or inventoryID \u003c\u003d 0:\n\t\tsystem.perspective.openPopup(\"ErrorModal\", \"GlobalComponents/Modals/ErrorModal\", errorParams)\n\n\telse:\n\t\tsystem.perspective.openPopup(\n\t\t\t\"RemoveAccumulator\",\n\t\t\t\u0027App/TrackAndTrace/Accumulators/Embedded/RemoveAccumulator\u0027, \n\t\t\tparams \u003d { \u0027ModalName\u0027:\u0027RemoveAccumulator\u0027,\u0027InventoryID\u0027:inventoryID }, \n\t\t\ttitle\u003d\"Remove Accumulator\",\n\t\t\tshowCloseIcon\u003dTrue, \n\t\t\tresizable\u003dTrue,\n\t\t\tmodal\u003dTrue)"
+                    },
+                    "scope": "G",
+                    "type": "script"
+                  }
+                ]
+              }
+            },
+            "meta": {
+              "name": "Delete",
+              "tooltip": {
+                "enabled": true,
+                "text": "Remove"
+              }
+            },
+            "position": {
+              "basis": "27px",
+              "shrink": 0
+            },
+            "propConfig": {
+              "meta.visible": {
+                "binding": {
+                  "config": {
+                    "path": "session.custom.accessLevel"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tif value \u003d\u003d \u0027Readonly\u0027:\n\t\treturn False\n\telse:\n\t\treturn True",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.style.cursor": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.SelectedInventory"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": "pointer",
+                      "inputType": "expression",
+                      "mappings": [
+                        {
+                          "input": "None",
+                          "output": "auto"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "path": "material/delete",
+              "style": {
+                "classes": "",
+                "marginRight": 8
+              }
+            },
+            "type": "ia.display.icon"
+          }
+        ],
+        "meta": {
+          "name": "Heading"
+        },
+        "position": {
+          "basis": "32px"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "events": {
+              "component": {
+                "onItemClicked": {
+                  "config": {
+                    "script": "\tmessage \u003d {\"label\": event[\"label\"], \"id\": event[\"data\"]}\n\t\n\tsystem.perspective.sendMessage(\"changedInventory\", payload\u003dmessage)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Tree"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "custom.test": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.SiteId"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tsiteId \u003d 1\n\tres \u003d mes.trace.sp.getAccumulators(siteId)\n\treturn res",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.items": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.siteID"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\titems \u003d [{ \"label\": \"All Accumulators\", \"expanded\": False, \"data\": \"0\" }]\n\tsiteId \u003d 0\n\t\n#\t for dev purposes in prod table should not load anything on start.\n\tif value \u003d\u003d \"value\" or value is None:\n\t\tsiteId \u003d 1\n\telse:\n\t\tsiteId \u003d value\n\t\t\n\tres \u003d mes.trace.sp.getAccumulators(siteId)\n\tpydata \u003d system.dataset.toPyDataSet(res)\n\tsystem.perspective.print(pydata.getColumnNames())\n\t\n\tfor row in pydata:\n\t\titems.append({\n\t\t\t\"label\": row[\"Name\"]+\u0027 - \u0027+str(row[\"NoOfParts\"])+\u0027 Parts\u0027,\n\t\t\t\"expanded\": False,\n\t\t\t\"data\": row[\"ID\"], \n#\t\t\t\"items\": [{\"label\": \"test\", \"expanded\": False, \"data\": \"testing\", \"items\": []}]\n\t\t})\n\t\t\n\treturn items",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "appearance": {
+                "defaultNodeIcons": {
+                  "collapsed": {
+                    "path": "material/folder"
+                  },
+                  "empty": {
+                    "path": "material/stop"
+                  },
+                  "expanded": {
+                    "path": "material/folder_open"
+                  }
+                },
+                "expandIcons": {
+                  "collapsed": {
+                    "path": "material/arrow_right"
+                  },
+                  "expanded": {
+                    "path": "material/arrow_drop_down"
+                  }
+                }
+              },
+              "selection": [
+                "1"
+              ],
+              "selectionData": [
+                {
+                  "itemPath": "1",
+                  "value": 1
+                }
+              ],
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "scripts": {
+              "customMethods": [],
+              "extensionFunctions": null,
+              "messageHandlers": [
+                {
+                  "messageType": "refreshTable",
+                  "pageScope": true,
+                  "script": "\tself.refreshBinding(\"props.items\")",
+                  "sessionScope": true,
+                  "viewScope": true
+                }
+              ]
+            },
+            "type": "ia.display.tree"
+          }
+        ],
+        "meta": {
+          "name": "InventoriesSelection"
+        },
+        "position": {
+          "basis": "32px",
+          "grow": 1
+        },
+        "props": {
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "backgroundColor": "var(--neutral-20)",
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

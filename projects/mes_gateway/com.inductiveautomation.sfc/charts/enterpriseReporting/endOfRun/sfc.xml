@@ -1,0 +1,89 @@
+<?xml version="1.0" ?>
+<sfc zoom="1.0" canvas="20 20" execution-mode="Disabled" hot-editable="false" persist-state="true" redundant-sync="false">
+	<step id="7bd0ad6c-2e9b-444d-aeba-fbb68b99b330" location="4 1" name="__begin" factory-id="begin-step">
+<parameters>
+	<parameter><name>lines</name><expression>0</expression></parameter>
+	<parameter><name>linesRemaining</name><expression>1</expression></parameter>
+	<parameter><name>line</name><expression>"Newell\\Maryville\\Molding\\201"</expression></parameter>
+</parameters>
+	</step>
+	<step id="9fd44ae4-669d-4e69-903f-63dd9b5ed859" location="4 3" name="S1" factory-id="action-step">
+		<start-script>def onStart(chart, step): # WARNING: This resource was generated in a newer version of Ignition. For the best editing experience, recreate it in the current version.
+	
+#	filter = system.mes.object.filter.createFilter()
+#	filter.setMESObjectTypeName('Line')
+#	filter.setShowEquipmentPath(True)
+#	
+#	lines = system.mes.searchMESObjects(filter) 
+
+	newList = []
+	newList.append(chart.line)
+	chart.lines = newList</start-script>
+	</step>
+	<step id="fd9359b4-8482-4de5-b905-369a0b9a92f6" location="6 7" name="S3" factory-id="action-step">
+		<start-script>def onStart(chart, step): # WARNING: This resource was generated in a newer version of Ignition. For the best editing experience, recreate it in the current version.
+	
+	
+	#This only works if being run after run ends, which is when this chart is called.
+	date = system.date.now()
+	equipmentPath = chart.line
+#	runEnd = system.mes.getTagCollectorPastTimeStamp(equipmentPath, 'Equipment Operation UUID','',1,date)
+#	
+#	runStart= system.mes.getTagCollectorPastTimeStamp(equipmentPath, 'Equipment Operation UUID','',2,date)
+
+	
+	searchDate = system.mes.getTagCollectorPastTimeStamp(equipmentPath, 'Equipment Operation UUID','',1,date)
+	operationuuid = system.mes.getTagCollectorPreviousValue(equipmentPath, 'Equipment Operation UUID','',searchDate)
+	if operationuuid == '' :
+		searchDate = system.mes.getTagCollectorPastTimeStamp(equipmentPath, 'Equipment Operation UUID','',2,date)
+		operationuuid = system.mes.getTagCollectorPreviousValue(equipmentPath, 'Equipment Operation UUID','',searchDate)
+		
+	if operationuuid is not None:
+		opsObj = system.mes.loadMESObject(operationuuid)
+		runStart = opsObj.getPropertyValue('BeginDateTime')
+		runEnd = opsObj.getPropertyValue('EndDateTime')
+		chart.lineData = mes.analysis.reporting.getRunData(equipmentPath, runStart, runEnd)
+	else:
+		logger = system.util.getLogger('enterpriseReporting\endOfRun')
+		logger.info('Could not find last operation uuid for %s' % (equipmentPath))</start-script>
+	</step>
+	<step id="a44e30d2-8119-494b-92a8-a7bba2bb0f89" location="4 11" name="S4" factory-id="action-step">
+		<start-script>def onStart(chart, step): # WARNING: This resource was generated in a newer version of Ignition. For the best editing experience, recreate it in the current version.
+	mes.analysis.reporting.insertIntervalStreamData(
+		EquipmentPath = chart.line,
+		TimePeriod    = 'this shift',
+		Type          = 'SFC'
+	)
+		
+	chart.linesRemaining -= 1</start-script>
+	</step>
+	<step id="63caed9e-2a0f-4878-8bb2-008b9b638bb2" location="5 14" name="__end1" factory-id="end-step">	</step>
+	<transition id="59f69a75-4075-4866-8cfa-24b9a4d5b1f4" location="4 5">//len({lines}) &gt; 0
+{linesRemaining}&gt;0</transition>
+	<transition id="de8536f9-4acc-49c1-a287-9261bf8bc85d" location="3 13">//len({lines}) &gt; 0
+{linesRemaining}&gt;0</transition>
+	<transition id="e459c312-221f-4b6c-984f-0ef09ab9d639" location="5 13">//len({lines}) = 0
+{linesRemaining}=0</transition>
+	<link id="95c8ebe4-776c-45f5-b50d-ce957f8b7ce5" location="4 2"><up/><down/></link>
+	<link id="b934f000-9a01-4ea9-a5b4-501b66773c04" location="4 4"><up/><down/></link>
+	<link id="8dea3337-2d1b-4b8c-a826-2607d9e4565d" location="2 6"><up/><down/><right/></link>
+	<link id="633710bf-11f6-4ba4-b2fd-9b66014c4140" location="3 6"><left/><right/></link>
+	<link id="38b73d07-38cc-4452-9abf-c7b85c6834bf" location="4 6"><up/><left/><down/></link>
+	<link id="96826c39-7440-4b11-b1ea-f55714fec0f3" location="2 7"><up/><down/></link>
+	<link id="0c62344c-b24b-45f5-b244-04a7f6b38bc4" location="4 7"><up/><down/></link>
+	<link id="311a7b23-31f1-4bd7-84a8-635d2461b3a5" location="2 8"><up/><down/></link>
+	<link id="6f5b05b4-ca14-4827-92e5-7b63e8429120" location="4 8"><up/><down/></link>
+	<link id="beef43f7-9c52-4ee5-93cc-b2babe3b65a7" location="2 9"><up/><down/></link>
+	<link id="f882ad1e-be54-4e38-891c-bf24cea01787" location="4 9"><up/><down/></link>
+	<link id="240b7612-45b4-4573-a00f-c79aebb9778a" location="2 10"><up/><down/></link>
+	<link id="c35bcf1f-1473-4f16-a71d-194876bc6721" location="4 10"><up/><down/></link>
+	<link id="a226f9b3-9eee-4231-82d1-868a5ee255fe" location="2 11"><up/><down/></link>
+	<link id="e2fb8309-85a0-458d-8559-ab8fffcc2192" location="2 12"><up/><down/></link>
+	<link id="d91979d0-191a-492a-b6c3-167151e6509d" location="3 12"><left/><down/><right/></link>
+	<link id="f6f75dbe-8aac-461f-bfb4-265ea7555fa6" location="4 12"><up/><left/><down/><right/></link>
+	<link id="b27a00d4-8acc-415d-b576-100abbdc95a1" location="5 12"><left/><down/><right/></link>
+	<link id="267414fa-747a-4741-9063-56a3a69c2adc" location="2 13"><up/><down/></link>
+	<link id="4084cfb6-cbcd-4c03-bc8b-c56832a42094" location="2 14"><up/><left/><right/></link>
+	<link id="72269aa3-9377-4bd5-ac5e-1b492ad7cae0" location="3 14"><up/><left/><down/></link>
+
+</sfc>

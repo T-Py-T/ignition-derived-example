@@ -1,0 +1,909 @@
+{
+  "custom": {
+    "ActiveAlarms": 4,
+    "FirstName": "Ben",
+    "Instances": [],
+    "LastName": "Duran",
+    "LogoMargin": 0,
+    "Operator": false,
+    "OptionsArray": []
+  },
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\tself.session.custom.DisplayUnits \u003d \u0027lbs\u0027\n\tself.session.custom.DisplayTime \u003d \u0027hr\u0027"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "IsOperator": true
+  },
+  "propConfig": {
+    "custom.ActiveAlarms": {
+      "binding": {
+        "config": {
+          "expression": "now(6000)"
+        },
+        "transforms": [
+          {
+            "code": "\talarms \u003d system.alarm.  queryStatus(state \u003d [\"ActiveUnacked\"])\n\treturn alarms.getDataset().getRowCount()",
+            "type": "script"
+          }
+        ],
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.FirstName": {
+      "binding": {
+        "config": {
+          "path": "session.props.auth.user.firstName"
+        },
+        "transforms": [
+          {
+            "expression": "upper(substring({value},0, 1))  + substring({value}, 1, lastIndexOf({value}, \"\"))",
+            "type": "expression"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.Instances": {
+      "binding": {
+        "config": {
+          "path": "session.custom.SelectedLines"
+        },
+        "transforms": [
+          {
+            "code": "\tif value is not None:\n\t\teqPaths \u003d [{\u0027EqPath\u0027:eqPath} for eqPath in value]\n\telse:\n\t\teqPaths \u003d []\n\treturn eqPaths",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.LastName": {
+      "binding": {
+        "config": {
+          "path": "session.props.auth.user.lastName"
+        },
+        "transforms": [
+          {
+            "expression": "upper(substring({value},0, 1))  + substring({value}, 1, lastIndexOf({value}, \"\"))",
+            "type": "expression"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.LogoMargin": {
+      "binding": {
+        "config": {
+          "expression": "if(\r\n\t{view.params.IsOperator},\r\n\t0,\r\n\t8\r\n)"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.Operator": {
+      "binding": {
+        "config": {
+          "path": "session.props.auth.user.roles"
+        },
+        "transforms": [
+          {
+            "code": "\troles \u003d len(value)\n\tif roles \u003d\u003d 1:\n\t\tif value[0] \u003d\u003d \u0027Operator\u0027:\n\t\t\treturn True\n\t\telse:\n\t\t\treturn False\n\telse:\n\t\treturn False",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.OptionsArray": {
+      "binding": {
+        "config": {
+          "path": "session.custom.SelectedLines"
+        },
+        "transforms": [
+          {
+            "code": "\toptionsArr \u003d []\n\t\n\tfor line in value:\n\t\toptionsArr.append({\"value\": line, \"label\": gpa.frontEnd.localUI.splitPath(line)})\n\t\t\n\treturn optionsArr",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "params.IsOperator": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 65,
+      "width": 1900
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "events": {
+              "dom": {
+                "onClick": [
+                  {
+                    "config": {
+                      "script": "\toperatorPath \u003d \u0027/operations/operator_dashboard\u0027\n\tnavBarView \u003d \u0027GlobalComponents/Navigation/NavComponent\u0027\n\toperatorMenuView \u003d \u0027GlobalComponents/Header/Operator/SubMenu\u0027\n\toverheadScreenPath \u003d \u0027/operations/overhead\u0027\n\t\n\tif self.page.props.path !\u003d operatorPath:\n\t\tsystem.perspective.openPopup(\n\t\t\t\u0027operatorHeader\u0027, \n\t\t\tnavBarView, \n\t\t\tposition \u003d { \u0027left\u0027:8,\u0027top\u0027:50 },\n\t\t\tshowCloseIcon \u003d False,\n\t\t\tdraggable \u003d False,\n\t\t\tmodal \u003d True,\n\t\t\toverlayDismiss \u003d True,\n\t\t\ttype \u003d True,\t\n\t\t)\n\telse:\n\t\tsystem.perspective.openPopup(\n\t\t\t\u0027topHeader\u0027, \n\t\t\toperatorMenuView, \n\t\t\tposition \u003d { \u0027left\u0027:8,\u0027top\u0027:50 },\n\t\t\tshowCloseIcon \u003d False,\n\t\t\tdraggable \u003d False,\n\t\t\tmodal \u003d True,\n\t\t\toverlayDismiss \u003d True,\n\t\t\ttype \u003d True,\t\n\t\t)"
+                    },
+                    "scope": "G",
+                    "type": "script"
+                  },
+                  {
+                    "config": {
+                      "id": "navBar",
+                      "type": "close"
+                    },
+                    "scope": "C",
+                    "type": "dock"
+                  },
+                  {
+                    "config": {
+                      "draggable": false,
+                      "id": "operatorMenu",
+                      "modal": true,
+                      "overlayDismiss": true,
+                      "position": {
+                        "height": 150,
+                        "left": 8,
+                        "top": 50
+                      },
+                      "positionType": "exact",
+                      "resizable": false,
+                      "showCloseIcon": false,
+                      "type": "toggle",
+                      "viewPath": "GlobalComponents/Header/Operator/SubMenu",
+                      "viewportBound": false
+                    },
+                    "enabled": false,
+                    "scope": "C",
+                    "type": "popup"
+                  }
+                ]
+              }
+            },
+            "meta": {
+              "name": "Icon"
+            },
+            "position": {
+              "basis": "30px",
+              "shrink": 0
+            },
+            "propConfig": {
+              "meta.visible": {
+                "binding": {
+                  "config": {
+                    "expression": "!{view.params.IsOperator}"
+                  },
+                  "enabled": false,
+                  "type": "expr"
+                }
+              },
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "expression": "!{view.params.IsOperator}"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "color": "white",
+              "path": "material/menu",
+              "style": {
+                "classes": "Global/MarginAllLeft",
+                "marginTop": 5
+              }
+            },
+            "type": "ia.display.icon"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": [
+                  {
+                    "config": {
+                      "page": "/area_overview"
+                    },
+                    "enabled": false,
+                    "scope": "C",
+                    "type": "nav"
+                  },
+                  {
+                    "config": {
+                      "script": "\t#userRole \u003d self.session.props.auth.user.roles\n\tisOperator \u003d self.view.custom.Operator\n\t\n\t#for role in userRole:\n\t#\tif role \u003d\u003d \u0027Operator\u0027: isOperator \u003d True\n\t\n\tif isOperator is False: system.perspective.navigate(\u0027/\u0027)"
+                    },
+                    "permissions": {
+                      "securityLevels": [
+                        {
+                          "children": [
+                            {
+                              "children": [],
+                              "name": "Roles"
+                            }
+                          ],
+                          "name": "Authenticated"
+                        }
+                      ],
+                      "type": "AllOf"
+                    },
+                    "scope": "G",
+                    "type": "script"
+                  }
+                ]
+              }
+            },
+            "meta": {
+              "name": "Logo"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "props.source": {
+                "binding": {
+                  "config": {
+                    "path": "session.custom.BrandIcon"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.style.marginLeft": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.LogoMargin"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "altText": "Logo",
+              "fit": {
+                "mode": "contain"
+              },
+              "style": {
+                "marginBottom": 5
+              },
+              "tint": {
+                "color": ""
+              }
+            },
+            "type": "ia.display.image"
+          }
+        ],
+        "meta": {
+          "name": "Col1"
+        },
+        "position": {
+          "basis": "196px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "LineInfo"
+            },
+            "propConfig": {
+              "props.params.EqPath": {
+                "binding": {
+                  "config": {
+                    "path": "session.custom.EqPath"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "path": "GlobalComponents/Header/Operator/Embedded/CurrentLineInfo"
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "Col2"
+        },
+        "position": {
+          "basis": "700px",
+          "grow": 1
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "path": "view.params.IsOperator"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "direction": "column",
+          "style": {
+            "classes": "Global/MarginRight",
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "LineSelection"
+            },
+            "position": {
+              "basis": "320px",
+              "display": false
+            },
+            "propConfig": {
+              "props.instances": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.Instances"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "elementPosition": {
+                "grow": 0
+              },
+              "elementStyle": {
+                "classes": "Global/MarginRight"
+              },
+              "path": "GlobalComponents/Header/Operator/Embedded/LineSelection",
+              "useDefaultViewHeight": false
+            },
+            "type": "ia.display.flex-repeater"
+          },
+          {
+            "meta": {
+              "name": "EmbeddedView",
+              "tooltip": {
+                "enabled": true,
+                "text": "Line Selection"
+              }
+            },
+            "position": {
+              "basis": "100px",
+              "display": false
+            },
+            "propConfig": {
+              "props.params.OptionsArray": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.OptionsArray"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "EqPath": "",
+                "isSelected": false
+              },
+              "path": "GlobalComponents/Header/Operator/Embedded/LineSelectionDropdown"
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "Col3"
+        },
+        "position": {
+          "basis": "155px",
+          "display": false,
+          "shrink": 0
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "path": "view.params.IsOperator"
+              },
+              "enabled": false,
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "direction": "column"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "PlannedOrder"
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.IsOperator"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.params.EqPath": {
+                "binding": {
+                  "config": {
+                    "path": "session.custom.EqPath"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "path": "GlobalComponents/Header/Operator/PlannedOrder"
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "Col6"
+        },
+        "position": {
+          "grow": 1,
+          "shrink": 0
+        },
+        "props": {
+          "alignContent": "flex-start",
+          "justify": "flex-end"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "custom": {
+              "key": "value"
+            },
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "#\tself.view.params.alarmBar \u003d not self.view.params.alarmBar\n\tsystem.perspective.toggleDock(\"alarmBar\")"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Alarms",
+              "tooltip": {
+                "enabled": true,
+                "text": "Alarm Notification"
+              }
+            },
+            "position": {
+              "basis": "30px"
+            },
+            "propConfig": {
+              "props.color": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.ActiveAlarms"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": "white",
+                      "inputType": "range",
+                      "mappings": [
+                        {
+                          "input": {
+                            "min": 0
+                          },
+                          "output": "--error"
+                        },
+                        {
+                          "input": {
+                            "max": 0
+                          },
+                          "output": "white"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.path": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.ActiveAlarms"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": "material/notifications",
+                      "inputType": "range",
+                      "mappings": [
+                        {
+                          "input": {
+                            "min": 0
+                          },
+                          "output": "material/notifications_active"
+                        },
+                        {
+                          "input": {
+                            "max": 0
+                          },
+                          "output": "material/notifications"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.style.classes": {
+                "binding": {
+                  "config": {
+                    "path": "this.props.path"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": "MES/DockedViews/Header/Icons, MES/DockedViews/Header/Alarms_Active",
+                      "inputType": "scalar",
+                      "mappings": [
+                        {
+                          "input": "material/notifications",
+                          "output": "MES/DockedViews/Header/Icons"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "marginRight": "8px"
+              }
+            },
+            "type": "ia.display.icon"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {},
+                  "scope": "C",
+                  "type": "logout"
+                }
+              }
+            },
+            "meta": {
+              "name": "User",
+              "tooltip": {
+                "enabled": true,
+                "text": "Logout"
+              }
+            },
+            "position": {
+              "basis": "30px",
+              "display": false
+            },
+            "props": {
+              "color": "white",
+              "path": "material/person",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.display.icon"
+          },
+          {
+            "custom": {
+              "key": "value"
+            },
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "#\tself.view.params.alarmBar \u003d not self.view.params.alarmBar\n\tsystem.perspective.toggleDock(\"cellDock\")"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Cells",
+              "tooltip": {
+                "enabled": true,
+                "text": "Cells View"
+              }
+            },
+            "position": {
+              "basis": "30px"
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "expression": "if(\r\n\t{page.props.path} \u003d \u0027/operations/operator_dashboard\u0027 || {page.props.path} \u003d \u0027/trackandtrace/history\u0027,\r\n\ttrue,\r\n\tfalse\r\n)\t"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "color": "white",
+              "path": "material/account_tree",
+              "style": {
+                "classes": "MES/DockedViews/Header/Icons, MES/DockedViews/Header/Alarms_Active",
+                "marginRight": "8px"
+              }
+            },
+            "type": "ia.display.icon"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\tsystem.perspective.sendMessage(\u0027refreshDashboardEqPath\u0027)\n\tself.rotateIcon()\n"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Refresh",
+              "tooltip": {
+                "enabled": true,
+                "text": "Refresh Dashboard"
+              }
+            },
+            "position": {
+              "basis": "30px"
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.IsOperator"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "color": "white",
+              "path": "material/refresh",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "scripts": {
+              "customMethods": [
+                {
+                  "name": "rotateIcon",
+                  "params": [],
+                  "script": "\timport time\n\t\t\n\t# Rotate icon 360 degrees.\n\tfor degree in range(0,361, 10):\n\t\tself.props.style.transform \u003d \u0027rotate(\u0027 + str(degree) + \u0027deg)\u0027\n\t\ttime.sleep(0.0278)"
+                }
+              ],
+              "extensionFunctions": null,
+              "messageHandlers": []
+            },
+            "type": "ia.display.icon"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\tsystem.perspective.sendMessage(\"saveDashboard\")\n\t\n\t\n\tmodalPath \u003d \u0027GlobalComponents/Modals/Modal\u0027\n\tparams \u003d {\n\t\t\u0027Message\u0027: \u0027Saved dashboard succesfully\u0027,\n\t\t\u0027ModalName\u0027: \u0027savedDashboard\u0027,\n\t\t\u0027Title\u0027: \u0027Saved Dashboard!\u0027\n\t}\n\t\n\tsystem.perspective.openPopup(\u0027savedDashboard\u0027, modalPath, params\u003dparams, showCloseIcon \u003d False, modal \u003d True, draggable\u003dFalse)\t"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "SaveConfig",
+              "tooltip": {
+                "enabled": true,
+                "text": "Save Dashboard"
+              }
+            },
+            "position": {
+              "basis": "30px"
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.IsOperator"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "color": "white",
+              "path": "material/save",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.display.icon"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\tviewPath \u003d \u0027GlobalComponents/Configuration/Configuration\u0027\n\ttitle \u003d \u0027Configuration\u0027\n\t\n\tsystem.perspective.openPopup(\u0027userConfig\u0027, viewPath, title\u003dtitle, overlayDismiss\u003dTrue, modal\u003dTrue)\n\t\n\t"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Configuration",
+              "tooltip": {
+                "enabled": true,
+                "text": "Configuration"
+              }
+            },
+            "position": {
+              "basis": "30px"
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.IsOperator"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "color": "white",
+              "path": "material/settings",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.display.icon"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {},
+                  "scope": "C",
+                  "type": "logout"
+                }
+              }
+            },
+            "meta": {
+              "name": "Logout",
+              "tooltip": {
+                "enabled": true,
+                "text": "Logout"
+              }
+            },
+            "position": {
+              "basis": "30px"
+            },
+            "props": {
+              "color": "white",
+              "path": "fontawesomeicons/right-from-bracket",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.display.icon"
+          },
+          {
+            "meta": {
+              "name": "OperatorName"
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "expression": "{view.custom.FirstName} + \" \" + {view.custom.LastName}"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginAllRight"
+              },
+              "textStyle": {
+                "color": "white",
+                "fontWeight": "bold"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Col5"
+        },
+        "position": {
+          "grow": 1
+        },
+        "props": {
+          "alignItems": "center",
+          "justify": "flex-end"
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "events": {
+      "system": {
+        "onStartup": {
+          "config": {
+            "script": "\tisAuth \u003d system.perspective.isAuthorized(False, [\u0027Authenticated\u0027])\n\n\tif not isAuth:\n\t\tsystem.perspective.login()"
+          },
+          "scope": "G",
+          "type": "script"
+        }
+      }
+    },
+    "meta": {
+      "name": "root"
+    },
+    "propConfig": {
+      "props.style.backgroundColor": {
+        "binding": {
+          "config": {
+            "expression": "if({session.props.theme}\u003d\u0027dark-cool\u0027,\r\n\u0027--neutral-20\u0027,\u0027var(--menuBg)\u0027)"
+          },
+          "type": "expr"
+        }
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

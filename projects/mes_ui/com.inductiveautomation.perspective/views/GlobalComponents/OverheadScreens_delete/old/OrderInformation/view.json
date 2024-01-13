@@ -1,0 +1,268 @@
+{
+  "custom": {
+    "NextOrder": "",
+    "Order": "PR2-20230302003"
+  },
+  "params": {
+    "TagPath": "Newell/Maryville/Assembly/SFN1",
+    "TagProvider": "[default]"
+  },
+  "propConfig": {
+    "custom.NextOrder": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.TagProvider}",
+            "2": "{view.params.TagPath}"
+          },
+          "tagPath": "{1}{2}/jobs/nextJob/workOrder"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.Order": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.TagProvider}",
+            "2": "{view.params.TagPath}"
+          },
+          "tagPath": "{1}{2}/jobs/currentJob/workOrder"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "params.TagPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.TagProvider": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 236,
+      "width": 517
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Title"
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginRight OverheadScreens/Text"
+              },
+              "text": "Planned Order:"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "OrderNumber"
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.Order"
+                  },
+                  "transforms": [
+                    {
+                      "expression": "if({value} !\u003d \"\", {value}, \"No order found\")",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "OverheadScreens/Values"
+              },
+              "textStyle": {
+                "color": ""
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "CurrentPlannedOrder"
+        },
+        "position": {
+          "basis": "25%"
+        },
+        "props": {
+          "style": {
+            "classes": "Cards/Common/CardTitleBorder"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Title"
+            },
+            "props": {
+              "alignVertical": "top",
+              "style": {
+                "classes": "Global/MarginRight OverheadScreens/Text"
+              },
+              "text": "Current Run:"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "RunInfoView"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.params.TagPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.TagPath"
+                      },
+                      "type": "property"
+                    }
+                  },
+                  "props.params.TagProvider": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.TagProvider"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "path": "GlobalComponents/OverheadScreens/RunInformation",
+                  "useDefaultViewHeight": true
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "RunInformation"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.Order"
+                  },
+                  "enabled": false,
+                  "transforms": [
+                    {
+                      "expression": "if({value} !\u003d \"\", true, false) ",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "alignContent": "space-around",
+              "alignItems": "center"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "CurrentRun"
+        },
+        "position": {
+          "basis": "50%"
+        },
+        "props": {
+          "direction": "column",
+          "style": {
+            "classes": "Cards/Common/CardTitleBorder"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Title"
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginRight OverheadScreens/Text"
+              },
+              "text": "Next Planned Order:"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "OrderNumber"
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.NextOrder"
+                  },
+                  "transforms": [
+                    {
+                      "expression": "if({value} !\u003d \"\", {value}, \"No order found\")",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "OverheadScreens/Values"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "NextOrder"
+        },
+        "position": {
+          "basis": "25%"
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

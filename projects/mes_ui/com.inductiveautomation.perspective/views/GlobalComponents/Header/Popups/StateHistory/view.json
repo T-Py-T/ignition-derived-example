@@ -1,0 +1,184 @@
+{
+  "custom": {
+    "HistoryFullPath": "[IgnitionHistorian/dev-script-gateway:default]",
+    "HistoryProvider": "[IgnitionHistorian/dev-script-gateway:default]"
+  },
+  "params": {
+    "EqPath": ""
+  },
+  "propConfig": {
+    "custom.HistoryFullPath": {
+      "binding": {
+        "config": {
+          "expression": "{view.custom.HistoryProvider}+{view.params.EqPath}"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.HistoryProvider": {
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {},
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "TimeSeriesChart"
+        },
+        "position": {
+          "basis": "400px"
+        },
+        "propConfig": {
+          "custom.calcStateHistoryPath": {
+            "binding": {
+              "config": {
+                "expression": "{view.custom.HistoryFullPath}+\u0027/OEE_Events/state\u0027"
+              },
+              "type": "expr"
+            }
+          },
+          "custom.historyPaths": {
+            "binding": {
+              "config": {
+                "path": "this.custom.rawStateHistoryPath"
+              },
+              "transforms": [
+                {
+                  "code": "\tlistOfPaths \u003d[]\n\tlistOfPaths.append(self.custom.rawStateHistoryPath)\n\tlistOfPaths.append(self.custom.calcStateHistoryPath)\n\treturn listOfPaths",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "custom.rawStateHistoryPath": {
+            "binding": {
+              "config": {
+                "expression": "{view.custom.HistoryFullPath}+\u0027/machineInput/state\u0027"
+              },
+              "type": "expr"
+            }
+          },
+          "custom.sparklines": {
+            "binding": {
+              "config": {
+                "path": "this.custom.rawStateHistoryPath"
+              },
+              "transforms": [
+                {
+                  "code": "\tendTime \u003d system.date.now()\n\tstartTime \u003d self.custom.StartTime\n\tdataSet \u003d system.tag.queryTagHistory(paths\u003d[value],columnNames\u003d[\u0027state\u0027], startDate\u003dstartTime, endDate\u003dendTime, aggregationMode\u003d\"LastValue\", returnFormat\u003d\u0027Wide\u0027) #,returnSize\u003d1)\n\treturn dataSet ",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "custom.test": {
+            "binding": {
+              "config": {
+                "aggregate": "MinMax",
+                "avoidScanClassValidation": true,
+                "dateRange": {
+                  "mostRecent": "1",
+                  "mostRecentUnits": "HOUR"
+                },
+                "enableValueCache": true,
+                "ignoreBadQuality": false,
+                "polling": {
+                  "enabled": false,
+                  "rate": "30"
+                },
+                "preventInterpolation": false,
+                "returnFormat": "Wide",
+                "returnSize": {
+                  "numRows": "100",
+                  "type": "FIXED"
+                },
+                "tags": [
+                  {
+                    "path": "[IgnitionHistorian/dev-script-gateway:default]GPA/Wilmington/Baking/Oven1/machineInput/state"
+                  }
+                ],
+                "valueFormat": "DATASET"
+              },
+              "type": "tag-history"
+            }
+          }
+        },
+        "props": {
+          "series": [
+            {
+              "data": [
+                {
+                  "Pressure": 12,
+                  "Temperature": 52,
+                  "time": 1560469431423
+                },
+                {
+                  "Pressure": 42,
+                  "Temperature": 18,
+                  "time": 1560469432423
+                },
+                {
+                  "Pressure": 81,
+                  "Temperature": 26,
+                  "time": 1560469433423
+                },
+                {
+                  "Pressure": 11,
+                  "Temperature": 63,
+                  "time": 1560469434423
+                },
+                {
+                  "Pressure": 23,
+                  "Temperature": 65,
+                  "time": 1560469435423
+                },
+                {
+                  "Pressure": 43,
+                  "Temperature": 12,
+                  "time": 1560469436423
+                },
+                {
+                  "Pressure": 71,
+                  "Temperature": 61,
+                  "time": 1560469437423
+                },
+                {
+                  "Pressure": 89,
+                  "Temperature": 60,
+                  "time": 1560469438423
+                },
+                {
+                  "Pressure": 66,
+                  "Temperature": 58,
+                  "time": 1560469439423
+                },
+                {
+                  "Pressure": 33,
+                  "Temperature": 1,
+                  "time": 1560469440423
+                }
+              ],
+              "name": "Boiler"
+            }
+          ]
+        },
+        "type": "ia.chart.timeseries"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

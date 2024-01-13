@@ -1,0 +1,147 @@
+{
+  "custom": {},
+  "params": {
+    "LocalName": {
+      "af": "Affrikaans"
+    },
+    "value": {
+      "af": "Plots",
+      "en": "Plots_Eng",
+      "key": "Plots",
+      "nl": "Plots",
+      "pl": "Plots"
+    }
+  },
+  "propConfig": {
+    "params.LocalName": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.value": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "props.defaultSize.height": {
+      "binding": {
+        "config": {
+          "path": "view.params.value"
+        },
+        "transforms": [
+          {
+            "code": "\ttotalHeight \u003d 40\n\tfor instance in value:\n\t\ttotalHeight \u003d totalHeight + 100\n\treturn totalHeight",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "width": 500
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Key"
+        },
+        "position": {
+          "shrink": 0
+        },
+        "propConfig": {
+          "props.params.Term": {
+            "binding": {
+              "config": {
+                "path": "view.params.value.key"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "params": {
+            "enable": false,
+            "locale": "Key",
+            "name": "Key"
+          },
+          "path": "TranslationsManager/SubViews/Term"
+        },
+        "type": "ia.display.view"
+      },
+      {
+        "meta": {
+          "name": "Terms"
+        },
+        "propConfig": {
+          "props.instances": {
+            "binding": {
+              "config": {
+                "path": "view.params.value"
+              },
+              "transforms": [
+                {
+                  "code": "\t\n\tinstances \u003d[]\n\tlocals \u003d sorted(value)\n\tnames \u003d self.view.params.LocalName\n\tfor local in locals:\n\t\tif local !\u003d \u0027key\u0027:\n\t\t\tinstance \u003d {\n\t\t\t  \"Term\": value[local],\n\t\t\t  \"enable\": True,\n\t\t\t  \"locale\": local,\n\t\t\t  \"name\": names.get(local,local)\n\t\t\t}\n\t\t\tinstances.append(instance)\n\treturn instances",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "direction": "column",
+          "elementPosition": {
+            "basis": "auto",
+            "grow": 0,
+            "shrink": 0
+          },
+          "path": "TranslationsManager/SubViews/Term",
+          "useDefaultViewHeight": false,
+          "useDefaultViewWidth": false
+        },
+        "type": "ia.display.flex-repeater"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tinstances \u003d self.getSibling(\"Terms\").props.instances\n\tvalue \u003d self.view.params.value\n\tfor instance in instances:\n\t\tterm \u003d self.view.params.value.key\n\t\tnewTranslation \u003d instance[\u0027Term\u0027]\n\t\tlocale \u003d instance[\u0027locale\u0027]\n\t\tactualTranslation \u003d value[locale]\n\t\t# check is translation is modified\n\t\tif newTranslation \u003c\u003e actualTranslation:\n\t\t\t#Check if string is empty or contains oly whitespace\n\t\t\tif newTranslation \u003d\u003d \"\" or newTranslation.isspace():\n\t\t\t\t#Send a del translation\n\t\t\t\tmessageType \u003d \"delTranslation\"\n\t\t\t\tpayload\u003d{\u0027local\u0027:locale,\u0027term\u0027:term}\n\t\t\t\tsystem.perspective.sendMessage(messageType, payload)\n\t\t\telse:\n\t\t\t\t#Send a add translation\n\t\t\t\tmessageType \u003d \"addTranslation\"\n\t\t\t\tpayload\u003d{\u0027local\u0027:locale,\u0027term\u0027:term,\u0027translation\u0027:newTranslation}\n\t\t\t\tsystem.perspective.sendMessage(messageType, payload)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Save"
+        },
+        "position": {
+          "basis": "34px"
+        },
+        "props": {
+          "image": {
+            "icon": {
+              "path": "material/save"
+            }
+          },
+          "primary": false,
+          "style": {
+            "margin": "5px"
+          },
+          "text": "Save"
+        },
+        "type": "ia.input.button"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

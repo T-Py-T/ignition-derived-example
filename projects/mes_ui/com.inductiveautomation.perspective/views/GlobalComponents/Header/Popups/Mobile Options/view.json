@@ -1,0 +1,255 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 166,
+      "width": 120
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Themes"
+            },
+            "position": {
+              "basis": "30px",
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.path": {
+                "binding": {
+                  "config": {
+                    "path": "session.props.theme"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": "material/wb_sunny",
+                      "inputType": "scalar",
+                      "mappings": [
+                        {
+                          "input": "light",
+                          "output": "material/wb_sunny"
+                        },
+                        {
+                          "input": "light-cool",
+                          "output": "material/wb_sunny"
+                        },
+                        {
+                          "input": "light-warm",
+                          "output": "material/wb_sunny"
+                        },
+                        {
+                          "input": "dark",
+                          "output": "material/nights_stay"
+                        },
+                        {
+                          "input": "dark-cool",
+                          "output": "material/nights_stay"
+                        },
+                        {
+                          "input": "dark-warm",
+                          "output": "material/nights_stay"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "color": "--div-11"
+            },
+            "type": "ia.display.icon"
+          },
+          {
+            "meta": {
+              "name": "Sub Theme"
+            },
+            "position": {
+              "basis": "20px",
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.path": {
+                "binding": {
+                  "config": {
+                    "path": "session.props.theme"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": "",
+                      "inputType": "scalar",
+                      "mappings": [
+                        {
+                          "input": "light-cool",
+                          "output": "material/ac_unit"
+                        },
+                        {
+                          "input": "dark-cool",
+                          "output": "material/ac_unit"
+                        },
+                        {
+                          "input": "light-warm",
+                          "output": "material/whatshot"
+                        },
+                        {
+                          "input": "dark-warm",
+                          "output": "material/whatshot"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "color": "--div-11",
+              "style": {
+                "height": "20px",
+                "position": "absolute",
+                "transform": "translate(18px, 5px)",
+                "width": "20px"
+              }
+            },
+            "type": "ia.display.icon"
+          }
+        ],
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "draggable": false,
+                "id": "themes",
+                "modal": true,
+                "overlayDismiss": true,
+                "position": {
+                  "height": 272,
+                  "right": 80,
+                  "top": 50,
+                  "width": 175
+                },
+                "positionType": "exact",
+                "resizable": false,
+                "showCloseIcon": false,
+                "type": "open",
+                "viewPath": "Apps/MES/Docked Views/Header/Popups/Themes",
+                "viewportBound": true
+              },
+              "scope": "C",
+              "type": "popup"
+            }
+          }
+        },
+        "meta": {
+          "name": "Themes"
+        },
+        "position": {
+          "basis": "30px",
+          "shrink": 0
+        },
+        "props": {
+          "direction": "column",
+          "justify": "center",
+          "style": {
+            "classes": "MES/DockedViews/Header/Icons",
+            "overflow": "visible"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {},
+              "scope": "C",
+              "type": "login"
+            }
+          }
+        },
+        "meta": {
+          "name": "Login"
+        },
+        "position": {
+          "basis": "30px",
+          "shrink": 0
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "expression": "!{session.props.auth.authenticated}"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "color": "--div-11",
+          "path": "material/person",
+          "style": {
+            "classes": "MES/DockedViews/Header/Icons"
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {},
+              "scope": "C",
+              "type": "logout"
+            }
+          }
+        },
+        "meta": {
+          "name": "Login_0"
+        },
+        "position": {
+          "basis": "30px",
+          "shrink": 0
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "path": "session.props.auth.authenticated"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "color": "--div-11",
+          "path": "material/person_outline",
+          "style": {
+            "classes": "MES/DockedViews/Header/Icons"
+          }
+        },
+        "type": "ia.display.icon"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "justify": "space-evenly",
+      "style": {
+        "classes": "MES/DockedViews/Header/Popups/ThemeSelections"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

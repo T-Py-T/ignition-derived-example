@@ -1,0 +1,646 @@
+{
+  "custom": {
+    "CurrentSpeed": 112,
+    "Percent": "value",
+    "Target": 70,
+    "Time": "hr",
+    "TimeRemaining": 664,
+    "Units": "lbs",
+    "Value": "112"
+  },
+  "params": {
+    "EqPath": "GPA/Wilmington/Mixing/Mixer1",
+    "State": "",
+    "Type": "Rate",
+    "UoM": "pcs"
+  },
+  "propConfig": {
+    "custom.CurrentSpeed": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/calculatedValues/shiftRate"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.Percent": {
+      "persistent": true
+    },
+    "custom.Target": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}",
+            "2": "{view.params.Type}"
+          },
+          "tagPath": "{1}/calculatedValues/shift{2}Target"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.Time": {
+      "persistent": true
+    },
+    "custom.TimeRemaining": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/jobs/currentJob/minutesRemaining"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.Units": {
+      "persistent": true
+    },
+    "custom.Value": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}",
+            "2": "{view.params.Type}"
+          },
+          "tagPath": "{1}/calculatedValues/shift{2}"
+        },
+        "transforms": [
+          {
+            "formatType": "numeric",
+            "formatValue": "number",
+            "type": "format"
+          }
+        ],
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.State": {
+      "binding": {
+        "config": {
+          "path": "view.custom.Percent"
+        },
+        "enabled": false,
+        "transforms": [
+          {
+            "expression": "runScript(\u0027gpa.frontEnd.localUI.getRateStatus\u0027, 0, {value})\r\n",
+            "type": "expression"
+          }
+        ],
+        "type": "property"
+      },
+      "paramDirection": "output",
+      "persistent": true
+    },
+    "params.Type": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.UoM": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 68,
+      "width": 352
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.Name"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardTitle"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Name"
+        },
+        "position": {
+          "basis": "20px",
+          "display": false,
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "Cards/Common/CardTitleBorder",
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardText"
+              },
+              "text": "Current"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "basis": "75px",
+              "grow": 1,
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.style.backgroundColor": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.State"
+                  },
+                  "enabled": false,
+                  "transforms": [
+                    {
+                      "fallback": "",
+                      "inputType": "scalar",
+                      "mappings": [
+                        {
+                          "input": "fail",
+                          "output": "--error"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.CurrentSpeed"
+                  },
+                  "transforms": [
+                    {
+                      "expression": "//The following would return \"Running\".\r\ncase(\r\n    {session.custom.DisplayTime},              // value to inspect\r\n    \"min\",round({value}),   \t   // we calculate minutes (no change)\r\n    \"sec\",round({value}/60.0),   // mulptiply by 60 (to get Seconds)\r\n    \"hr\" ,round({value}*60.0),   // Divide by 60 (to get Hours)\r\n    0 // default return\r\n)",
+                      "type": "expression"
+                    },
+                    {
+                      "expression": "if( {session.custom.DisplayUnits}\u003d\u0027\u0027,\r\n\t{value} + \u0027 \u0027 + {view.params.UoM} + \u0027/\u0027 + {view.params.Time}, //(use passed in defaults)\r\n\t{value} + \u0027 \u0027 + {session.custom.DisplayUnits} + \u0027/\u0027 + {session.custom.DisplayTime} //Use sesson props (Saved)\r\n\t)",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "",
+                "classes": "Cards/Common/CardValue"
+              },
+              "textStyle": {
+                "fontWeight": "bold",
+                "textAlign": "right"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Current"
+        },
+        "position": {
+          "basis": "20px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "marginBottom": "2px",
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardText"
+              },
+              "text": "Target"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "grow": 1,
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.Target"
+                  },
+                  "transforms": [
+                    {
+                      "expression": "//The following would return \"Running\".\r\ncase(\r\n    {session.custom.DisplayTime},              // value to inspect\r\n    \"min\",round({value}),   \t   // we calculate minutes (no change)\r\n    \"sec\",round({value}/60.0),   // mulptiply by 60 (to get Seconds)\r\n    \"hr\" ,round({value}*60.0),   // Divide by 60 (to get Hours)\r\n    0 // default return\r\n)",
+                      "type": "expression"
+                    },
+                    {
+                      "expression": "if( {session.custom.DisplayUnits}\u003d\u0027\u0027,\r\n\t{value} + \u0027 \u0027 + {view.params.UoM} + \u0027/\u0027 + {view.params.Time}, //(use passed in defaults)\r\n\t{value} + \u0027 \u0027 + {session.custom.DisplayUnits} + \u0027/\u0027 + {session.custom.DisplayTime} //Use sesson props (Saved)\r\n\t)",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/Boolean"
+              },
+              "textStyle": {
+                "fontWeight": "bold",
+                "textAlign": "right"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Target"
+        },
+        "position": {
+          "basis": "20px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "TextFields/TextFieldAlternate",
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardText"
+              },
+              "text": "Time Remaining"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "expression": "if({view.custom.TimeRemaining} \u003d null, false, true)"
+                  },
+                  "type": "expr"
+                }
+              },
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.TimeRemaining"
+                  },
+                  "transforms": [
+                    {
+                      "expression": "numberFormat(floor({value}/ 60),\"#0\") + \u0027h\u0027\r\n+\":\"+numberFormat(60*(({value} / 60)-floor({value} / 60)),\"00\") + \u0027m\u0027\r\n",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardValue"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "TimeRemaining"
+        },
+        "position": {
+          "basis": "20px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardText"
+              },
+              "text": "Rejects"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.Rejects"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardValue Global/MarginRight"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Rejects"
+        },
+        "position": {
+          "basis": "20px",
+          "display": false,
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "TextFields/TextFieldAlternate",
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardText"
+              },
+              "text": "Rework"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.StateCode"
+                  },
+                  "enabled": false,
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardValue Global/MarginRight"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Rework"
+        },
+        "position": {
+          "basis": "20px",
+          "display": false,
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardText"
+              },
+              "text": "Current Speed"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "basis": "75px",
+              "grow": 1,
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.style.backgroundColor": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.State"
+                  },
+                  "enabled": false,
+                  "transforms": [
+                    {
+                      "fallback": "",
+                      "inputType": "scalar",
+                      "mappings": [
+                        {
+                          "input": "fail",
+                          "output": "--error"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.CurrentSpeed"
+                  },
+                  "transforms": [
+                    {
+                      "formatType": "numeric",
+                      "formatValue": "number",
+                      "type": "format"
+                    },
+                    {
+                      "expression": "{value} + \u0027 \u0027 + {view.params.UoM}",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "",
+                "classes": "Cards/Common/CardValue"
+              },
+              "textStyle": {
+                "fontWeight": "bold",
+                "textAlign": "right"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Speed"
+        },
+        "position": {
+          "basis": "20px",
+          "display": false,
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "marginBottom": "2px",
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

@@ -1,0 +1,470 @@
+{
+  "custom": {
+    "Type": "value"
+  },
+  "params": {},
+  "propConfig": {
+    "custom.Type": {
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "width": 943
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label"
+                },
+                "position": {
+                  "basis": "50px",
+                  "grow": 1
+                },
+                "props": {
+                  "style": {
+                    "classes": "Text/Heading"
+                  },
+                  "text": "Text Fields Validation"
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "Title"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Normal"
+                },
+                "position": {
+                  "basis": "209px",
+                  "grow": 1
+                },
+                "props": {
+                  "params": {
+                    "Icon": "",
+                    "Text": "",
+                    "Type": ""
+                  },
+                  "path": "GlobalComponents/Text/TextFieldIcon",
+                  "useDefaultViewHeight": true
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "meta": {
+                  "name": "Success"
+                },
+                "position": {
+                  "basis": "209px",
+                  "grow": 1
+                },
+                "props": {
+                  "params": {
+                    "Icon": "",
+                    "IconLeft": "165px",
+                    "Text": "",
+                    "Type": "success"
+                  },
+                  "path": "GlobalComponents/Text/TextFieldIcon",
+                  "useDefaultViewHeight": true
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "meta": {
+                  "name": "Warning"
+                },
+                "position": {
+                  "basis": "209px"
+                },
+                "props": {
+                  "params": {
+                    "Icon": "",
+                    "IconLeft": "165px",
+                    "Text": "",
+                    "Type": "warning"
+                  },
+                  "path": "GlobalComponents/Text/TextFieldIcon",
+                  "useDefaultViewHeight": true
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "meta": {
+                  "name": "Error"
+                },
+                "position": {
+                  "basis": "209px"
+                },
+                "props": {
+                  "params": {
+                    "Icon": "",
+                    "IconLeft": "165px",
+                    "Text": "",
+                    "Type": "fail"
+                  },
+                  "path": "GlobalComponents/Text/TextFieldIcon",
+                  "useDefaultViewHeight": true
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "TextFields"
+            },
+            "position": {
+              "basis": "163px",
+              "grow": 1,
+              "shrink": 0
+            },
+            "props": {
+              "alignItems": "flex-start",
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Texts"
+        },
+        "position": {
+          "basis": "192px",
+          "display": false,
+          "shrink": 0
+        },
+        "props": {
+          "direction": "column"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "script": "\tsystem.perspective.print(self.parent.parent.getChild(\"Texts\").getChild(\"TextFields\").getChild(\"Normal\").props.params.Text)\t"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Button"
+            },
+            "position": {
+              "basis": "104px"
+            },
+            "props": {
+              "image": {
+                "icon": {
+                  "path": "material/save"
+                }
+              },
+              "style": {
+                "classes": "Buttons/ButtonStyle"
+              }
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "Buttons"
+        },
+        "position": {
+          "basis": "42px"
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "CardsView"
+            },
+            "position": {
+              "basis": "397px",
+              "grow": 1
+            },
+            "props": {
+              "elementStyle": {
+                "classes": "Global/MarginBottom Global/MarginRight"
+              },
+              "instances": [
+                {
+                  "EqPath": "value",
+                  "HideTitle": false,
+                  "Icon": "",
+                  "IconDisplay": true,
+                  "Params": {
+                    "State": "",
+                    "TagPath": "value",
+                    "TagProvider": "value"
+                  },
+                  "Path": "",
+                  "Provider": "value",
+                  "SizeBasis": "value",
+                  "TagPath": "value",
+                  "Title": "Normal",
+                  "Type": "",
+                  "instancePosition": {},
+                  "instanceStyle": {
+                    "classes": ""
+                  },
+                  "useDefaultHeight": false,
+                  "useDefaultWidth": true
+                },
+                {
+                  "HideTitle": false,
+                  "Icon": "material/check",
+                  "IconDisplay": true,
+                  "Params": {
+                    "State": "success",
+                    "TagPath": "value",
+                    "TagProvider": "value"
+                  },
+                  "Path": "",
+                  "Provider": "value",
+                  "SizeBasis": "value",
+                  "TagPath": "value",
+                  "Title": "Success",
+                  "Type": "success",
+                  "instancePosition": {},
+                  "instanceStyle": {
+                    "classes": ""
+                  },
+                  "useDefaultHeight": false,
+                  "useDefaultWidth": false
+                },
+                {
+                  "HideTitle": false,
+                  "Icon": "material/warning",
+                  "IconDisplay": true,
+                  "Params": {
+                    "State": "warning",
+                    "TagPath": "value",
+                    "TagProvider": "value"
+                  },
+                  "Path": "",
+                  "Provider": "value",
+                  "SizeBasis": "value",
+                  "TagPath": "value",
+                  "Title": "Warning",
+                  "Type": "warning",
+                  "instancePosition": {},
+                  "instanceStyle": {
+                    "classes": ""
+                  },
+                  "useDefaultHeight": false,
+                  "useDefaultWidth": false
+                },
+                {
+                  "HideTitle": false,
+                  "Icon": "material/error",
+                  "IconDisplay": true,
+                  "Params": {
+                    "State": "fail",
+                    "TagPath": "value",
+                    "TagProvider": "value"
+                  },
+                  "Path": "",
+                  "Provider": "value",
+                  "SizeBasis": "value",
+                  "TagPath": "value",
+                  "Title": "Error",
+                  "Type": "fail",
+                  "instancePosition": {},
+                  "instanceStyle": {
+                    "classes": ""
+                  },
+                  "useDefaultHeight": false,
+                  "useDefaultWidth": false
+                }
+              ],
+              "path": "GlobalComponents/Cards/Card",
+              "useDefaultViewHeight": false,
+              "useDefaultViewWidth": false
+            },
+            "type": "ia.display.flex-repeater"
+          }
+        ],
+        "meta": {
+          "name": "Cards"
+        },
+        "position": {
+          "basis": "405px"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "EmbeddedView"
+            },
+            "position": {
+              "basis": "242px"
+            },
+            "props": {
+              "path": "GlobalComponents/Selections/Checkbox"
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "EmbeddedView_0"
+            },
+            "position": {
+              "basis": "295px"
+            },
+            "props": {
+              "params": {
+                "datePicked": ""
+              },
+              "path": "GlobalComponents/Selections/DatePicker"
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "EmbeddedView_1"
+            },
+            "position": {
+              "basis": "295px"
+            },
+            "props": {
+              "params": {
+                "max": 100,
+                "min": 0,
+                "value": 50
+              },
+              "path": "GlobalComponents/Selections/Slider"
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "EmbeddedView_2"
+            },
+            "position": {
+              "basis": "295px"
+            },
+            "props": {
+              "path": "GlobalComponents/Selections/ToggleSwitch"
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "SelectionsView"
+        },
+        "position": {
+          "basis": "65px"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "FlexRepeater"
+            },
+            "position": {
+              "basis": "309px",
+              "grow": 1
+            },
+            "props": {
+              "elementStyle": {
+                "marginRight": "5px"
+              },
+              "instances": [
+                {
+                  "instancePosition": {},
+                  "instanceStyle": {
+                    "classes": "",
+                    "fontFamily": "FiraSans"
+                  },
+                  "placeholder": "value",
+                  "text": "THIS IS A CUSTOM FONT FIRA_SANS",
+                  "type": "value"
+                },
+                {
+                  "instancePosition": {},
+                  "instanceStyle": {
+                    "classes": ""
+                  },
+                  "placeholder": "value",
+                  "text": "This is a paragraph with NotoSans",
+                  "type": "success"
+                },
+                {
+                  "instancePosition": {},
+                  "instanceStyle": {
+                    "classes": ""
+                  },
+                  "placeholder": "value",
+                  "text": "value",
+                  "type": "warning"
+                },
+                {
+                  "instancePosition": {},
+                  "instanceStyle": {
+                    "classes": ""
+                  },
+                  "placeholder": "value",
+                  "text": "value",
+                  "type": "fail"
+                }
+              ],
+              "path": "GlobalComponents/Text/TextArea",
+              "useDefaultViewHeight": false,
+              "useDefaultViewWidth": false
+            },
+            "type": "ia.display.flex-repeater"
+          }
+        ],
+        "meta": {
+          "name": "TextAreas"
+        },
+        "position": {
+          "basis": "192.3px"
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "classes": "Global/MarginAll"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

@@ -1,0 +1,163 @@
+{
+  "custom": {
+    "stringFolderPath": "\"[GatewayHealth]Gateways/Tag1/\""
+  },
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "anchor": "fixed",
+          "autoBreakpoint": 480,
+          "content": "push",
+          "display": "visible",
+          "handle": "hide",
+          "handleIcon": "",
+          "id": "Header",
+          "modal": false,
+          "resizable": false,
+          "size": 50,
+          "view": "GlobalComponents/Navigation/Header",
+          "viewParams": {
+            "Title": "Quality",
+            "showEmbedded": false,
+            "viewPath": "app/GatewayHealth/Diagnostics/Embedded/SystemSelector"
+          }
+        },
+        "scope": "C",
+        "type": "alter-dock"
+      }
+    }
+  },
+  "params": {
+    "Label": ""
+  },
+  "permissions": {
+    "securityLevels": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [],
+                "name": "Administrator"
+              },
+              {
+                "children": [],
+                "name": "Manager"
+              }
+            ],
+            "name": "Roles"
+          }
+        ],
+        "name": "Authenticated"
+      }
+    ],
+    "type": "AnyOf"
+  },
+  "propConfig": {
+    "custom.stringFolderPath": {
+      "persistent": true
+    },
+    "params.Label": {
+      "paramDirection": "inout",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 1038,
+      "width": 1592
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "custom": {
+                  "filterParams": {}
+                },
+                "meta": {
+                  "name": "TableView"
+                },
+                "position": {
+                  "basis": "500px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.params.Params.Label": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.Label"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "EqPath": "value",
+                    "HideTitle": false,
+                    "Icon": "",
+                    "IconDisplay": true,
+                    "Params": {
+                      "EqPath": "value",
+                      "State": "",
+                      "TagPath": "value",
+                      "TagProvider": "value"
+                    },
+                    "Path": "App/Quality/NewTestDevelopment/Embedded/Quality",
+                    "Provider": "value",
+                    "SizeBasis": "auto",
+                    "TagPath": "value",
+                    "Title": "Quality",
+                    "Type": "",
+                    "useDefaultHeight": false,
+                    "useDefaultWidth": false
+                  },
+                  "path": "GlobalComponents/Cards/Card"
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "Quality"
+            },
+            "position": {
+              "basis": "1000px",
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Quality"
+        },
+        "props": {
+          "direction": "column",
+          "style": {
+            "overflow": "visible"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "classes": "Global/MarginAll"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

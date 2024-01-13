@@ -1,0 +1,296 @@
+{
+  "custom": {
+    "Areas": [
+      {
+        "TagPath": "Fiberon/1NL/Cast House",
+        "label": "Cast House",
+        "value": 1021
+      },
+      {
+        "TagPath": "Fiberon/1NL/PE Extrusion",
+        "label": "PE Extrusion",
+        "value": 18
+      }
+    ],
+    "EnterpriseID": 1,
+    "SelectedArea": 18,
+    "SelectedSite": 9,
+    "Sites": [
+      {
+        "TagPath": "Fiberon/1NL",
+        "label": "1NL",
+        "value": 9
+      },
+      {
+        "TagPath": "Fiberon/GOOBS QA",
+        "label": "GOOBS QA",
+        "value": 1014
+      }
+    ]
+  },
+  "params": {
+    "SelectedAreaID": 18,
+    "SelectedAreaPath": "Fiberon/1NL/PE Extrusion",
+    "SelectedSiteID": 9,
+    "SelectedSitePath": "Fiberon/1NL",
+    "SiteOnly": false
+  },
+  "propConfig": {
+    "custom.Areas": {
+      "binding": {
+        "config": {
+          "parameters": {
+            "siteID": "{view.custom.SelectedSite}"
+          },
+          "queryPath": "app/Config/getAreasForSite",
+          "returnFormat": "json"
+        },
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "custom.EnterpriseID": {
+      "binding": {
+        "config": {
+          "path": "session.custom.EnterpriseID"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.SelectedArea": {
+      "binding": {
+        "config": {
+          "path": "/root/AreaDropdown/Dropdown.props.value"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.SelectedSite": {
+      "binding": {
+        "config": {
+          "path": "/root/SiteDropdown/Dropdown.props.value"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.Sites": {
+      "binding": {
+        "config": {
+          "parameters": {
+            "enterpriseID": "{view.custom.EnterpriseID} || 1"
+          },
+          "queryPath": "app/Config/getAllSites",
+          "returnFormat": "json"
+        },
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "params.SelectedAreaID": {
+      "binding": {
+        "config": {
+          "path": "view.custom.SelectedArea"
+        },
+        "type": "property"
+      },
+      "paramDirection": "output",
+      "persistent": true
+    },
+    "params.SelectedAreaPath": {
+      "binding": {
+        "config": {
+          "path": "view.custom.SelectedArea"
+        },
+        "transforms": [
+          {
+            "code": "\ttry:\n\t\tareas \u003d self.getChild(\"root\").getChild(\"AreaDropdown\").getChild(\"Dropdown\").props.options\n\t\t\n\t\tfor area in areas:\n\t\t\tif area[\u0027value\u0027] \u003d\u003d value:\n\t\t\t\treturn area[\u0027TagPath\u0027]\n\texcept Exception as e:\n\t\tsystem.perspective.print(str(e))",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "paramDirection": "output",
+      "persistent": true
+    },
+    "params.SelectedSiteID": {
+      "binding": {
+        "config": {
+          "path": "view.custom.SelectedSite"
+        },
+        "type": "property"
+      },
+      "paramDirection": "output",
+      "persistent": true
+    },
+    "params.SelectedSitePath": {
+      "binding": {
+        "config": {
+          "path": "view.custom.SelectedSite"
+        },
+        "transforms": [
+          {
+            "code": "\ttry:\n\t\tsites \u003d self.getChild(\"root/SiteDropdown/Dropdown\").props.options\n\t\t\n\t\tfor site in sites:\n\t\t\tif site.get(\u0027value\u0027) \u003d\u003d value:\n\t\t\t\treturn site.get(\u0027TagPath\u0027)\n\texcept Exception as e:\n\t\tsystem.perspective.print(str(e))",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "paramDirection": "output",
+      "persistent": true
+    },
+    "params.SiteOnly": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 51,
+      "width": 695
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Site"
+        },
+        "position": {
+          "display": false
+        },
+        "props": {
+          "style": {
+            "classes": "Text/Heading TextFields/TextTitle",
+            "overflow": "hidden"
+          },
+          "text": "Select Site:"
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Dropdown"
+            },
+            "position": {
+              "basis": "40px",
+              "grow": 1
+            },
+            "propConfig": {
+              "props.options": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.Sites"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "placeholder": {
+                "text": ""
+              },
+              "style": {
+                "classes": "TextFields/Dropdown",
+                "overflow": "hidden"
+              },
+              "value": 9
+            },
+            "type": "ia.input.dropdown"
+          }
+        ],
+        "meta": {
+          "name": "SiteDropdown"
+        },
+        "position": {
+          "basis": "207.1px",
+          "display": false
+        },
+        "props": {
+          "direction": "column",
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Area"
+            },
+            "props": {
+              "style": {
+                "classes": "Text/Heading TextFields/TextTitle",
+                "overflow": "hidden"
+              },
+              "text": "Select Area:"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Dropdown"
+            },
+            "position": {
+              "basis": "40px",
+              "grow": 1
+            },
+            "propConfig": {
+              "props.options": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.Areas"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "placeholder": {
+                "text": ""
+              },
+              "style": {
+                "classes": "TextFields/Dropdown",
+                "overflow": "hidden"
+              },
+              "value": 18
+            },
+            "type": "ia.input.dropdown"
+          }
+        ],
+        "meta": {
+          "name": "AreaDropdown"
+        },
+        "position": {
+          "basis": "365.3px"
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "expression": "!{view.params.SiteOnly}"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.flex"
+  }
+}

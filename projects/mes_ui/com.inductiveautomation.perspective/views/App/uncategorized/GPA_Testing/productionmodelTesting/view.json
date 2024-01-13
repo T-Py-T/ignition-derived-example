@@ -1,0 +1,126 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {},
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Tree"
+        },
+        "position": {
+          "height": 200,
+          "width": 200,
+          "x": 42,
+          "y": 109
+        },
+        "props": {
+          "appearance": {
+            "defaultNodeIcons": {
+              "collapsed": {
+                "path": "material/folder"
+              },
+              "empty": {
+                "path": "material/stop"
+              },
+              "expanded": {
+                "path": "material/folder_open"
+              }
+            },
+            "expandIcons": {
+              "collapsed": {
+                "path": "material/arrow_right"
+              },
+              "expanded": {
+                "path": "material/arrow_drop_down"
+              }
+            }
+          },
+          "items": [
+            {
+              "data": "I am string data for Item 1",
+              "expanded": true,
+              "items": [
+                {
+                  "data": {
+                    "someKey": "Information here."
+                  },
+                  "expanded": true,
+                  "items": [
+                    {
+                      "data": {
+                        "things": [
+                          "one potato",
+                          "two potato",
+                          "three potato",
+                          "four",
+                          "boilem, mash em, put em in a stew"
+                        ]
+                      },
+                      "expanded": false,
+                      "icon": {
+                        "color": "#869DB1",
+                        "path": "material/arrow_right",
+                        "style": {}
+                      },
+                      "items": [],
+                      "label": "Grandchild 1"
+                    },
+                    {
+                      "data": 3.14159265359,
+                      "expanded": false,
+                      "items": [],
+                      "label": "Grandchild 2"
+                    }
+                  ],
+                  "label": "Child 1"
+                }
+              ],
+              "label": "Item 1"
+            },
+            {
+              "data": [
+                1,
+                2,
+                77,
+                89,
+                123
+              ],
+              "expanded": true,
+              "items": [
+                {
+                  "expanded": true,
+                  "items": [
+                    {
+                      "expanded": false,
+                      "items": [],
+                      "label": "Different Grandchild 1"
+                    }
+                  ],
+                  "label": "Child of Item 2"
+                }
+              ],
+              "label": "Item 2"
+            }
+          ],
+          "selection": [
+            "0/0"
+          ],
+          "selectionData": [
+            {
+              "itemPath": "0/0",
+              "value": {
+                "someKey": "Information here."
+              }
+            }
+          ]
+        },
+        "type": "ia.display.tree"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.coord"
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "custom": {
+    "EqPath": ""
+  },
+  "params": {},
+  "propConfig": {
+    "custom.EqPath": {
+      "binding": {
+        "config": {
+          "path": "session.custom.EqPath"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    }
+  },
+  "props": {},
+  "root": {
+    "children": [
+      {
+        "custom": {
+          "key": "value"
+        },
+        "meta": {
+          "name": "Dashboard"
+        },
+        "position": {
+          "basis": "400px",
+          "grow": 1
+        },
+        "propConfig": {
+          "props.availableWidgets[0].viewParams.Title": {
+            "binding": {
+              "config": {
+                "path": "this.props.availableWidgets[0].viewParams.EqPath"
+              },
+              "transforms": [
+                {
+                  "expression": "substring({value},lastIndexOf({value},\u0027/\u0027)+1) + \" OEE\"",
+                  "type": "expression"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "availableWidgets": [
+            {
+              "body": {
+                "style": {
+                  "borderBottomLeftRadius": "20px",
+                  "borderBottomRightRadius": "20px",
+                  "borderTopLeftRadius": "20px",
+                  "borderTopRightRadius": "20px",
+                  "borderWidth": "3px",
+                  "classes": ""
+                }
+              },
+              "header": {
+                "enabled": false,
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "isConfigurable": false,
+              "minSize": {
+                "columnSpan": 1,
+                "rowSpan": 1
+              },
+              "name": "OEE",
+              "position": {
+                "columnEnd": 2,
+                "columnStart": 1,
+                "rowEnd": 2,
+                "rowStart": 1
+              },
+              "style": {
+                "classes": ""
+              },
+              "viewParams": {
+                "EqPath": ""
+              },
+              "viewPath": "StyleGuide/OEEWidget"
+            },
+            {
+              "body": {
+                "style": {
+                  "classes": ""
+                }
+              },
+              "category": "",
+              "defaultSize": {
+                "columnSpan": 2,
+                "rowSpan": 2
+              },
+              "header": {
+                "enabled": false,
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "isConfigurable": false,
+              "minSize": {
+                "columnSpan": 1,
+                "rowSpan": 1
+              },
+              "name": "Down Time",
+              "style": {
+                "classes": ""
+              },
+              "viewParams": {
+                "EqPath": "",
+                "State": "value",
+                "TagProvider": "[default]",
+                "Type": "Micro"
+              },
+              "viewPath": "GlobalComponents/Objects/Table/DownTimeTable"
+            }
+          ],
+          "isEditing": true
+        },
+        "type": "ia.display.dashboard"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "classes": "Global/MarginAll"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

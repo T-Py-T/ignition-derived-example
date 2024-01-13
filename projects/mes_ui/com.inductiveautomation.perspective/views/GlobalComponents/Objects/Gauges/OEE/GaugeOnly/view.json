@@ -1,0 +1,274 @@
+{
+  "custom": {
+    "OEE": null,
+    "OEEState": "fail"
+  },
+  "params": {
+    "FontSize": 20,
+    "State": "fail",
+    "TagPath": "[default]Fiberon/1NL/PE Extrusion/Line 23",
+    "TagProvider": "",
+    "Thickness": 25
+  },
+  "propConfig": {
+    "custom.OEE": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.TagPath}"
+          },
+          "tagPath": "{1}/calculatedValues/oee"
+        },
+        "transforms": [
+          {
+            "expression": "toInt({value} * 100)\r\n",
+            "type": "expression"
+          }
+        ],
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.OEEState": {
+      "binding": {
+        "config": {
+          "path": "view.custom.OEE"
+        },
+        "transforms": [
+          {
+            "code": "\tif value \u003c self.session.custom.OEEThresholds.Bad:\n\t\treturn gpa.frontEnd.localUI.Constants.ERROR\n\telif value \u003c self.session.custom.OEEThresholds.Warning:\n\t\treturn gpa.frontEnd.localUI.Constants.WARNING\n\telse:\n\t\treturn \"\"",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "params.FontSize": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.State": {
+      "binding": {
+        "config": {
+          "path": "view.custom.OEEState"
+        },
+        "type": "property"
+      },
+      "paramDirection": "output",
+      "persistent": true
+    },
+    "params.TagPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.TagProvider": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Thickness": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 247,
+      "width": 298
+    },
+    "loading": {
+      "mode": "blocking"
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "SimpleGauge"
+            },
+            "position": {
+              "basis": "40%",
+              "grow": 1,
+              "shrink": 0
+            },
+            "propConfig": {
+              "custom.Height": {
+                "binding": {
+                  "config": {
+                    "expression": "toInt({view.props.defaultSize.height} / 12)"
+                  },
+                  "type": "expr"
+                }
+              },
+              "custom.Width": {
+                "binding": {
+                  "config": {
+                    "expression": "toInt({view.props.defaultSize.width} / 7)"
+                  },
+                  "type": "expr"
+                }
+              },
+              "props.arc.color": {
+                "binding": {
+                  "config": {
+                    "path": "this.props.value"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tbad \u003d self.session.custom.OEEThresholds.Bad\n\twarning \u003d self.session.custom.OEEThresholds.Warning\n\t\n\tif value \u003c bad:\n\t\treturn gpa.frontEnd.localUI.Constants.ERROR_COLOR\n\telif value \u003c warning:\n\t\treturn gpa.frontEnd.localUI.Constants.WARNING_COLOR\n\telse:\n\t\treturn gpa.frontEnd.localUI.Constants.LBLUE_COLOR",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.arc.width": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.Thickness"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.arcBackground.color": {
+                "binding": {
+                  "config": {
+                    "path": "this.props.value"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tbad \u003d self.session.custom.OEEThresholds.Bad\n\twarning \u003d self.session.custom.OEEThresholds.Warning\n\t\n\tif value \u003c bad:\n\t\treturn gpa.frontEnd.localUI.Constants.ERROR_COLOR\n\telif value \u003c warning:\n\t\treturn gpa.frontEnd.localUI.Constants.WARNING_COLOR\n\telse:\n\t\treturn gpa.frontEnd.localUI.Constants.LBLUE_COLOR",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.label.color": {
+                "binding": {
+                  "config": {
+                    "path": "session.props.theme"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": "black",
+                      "inputType": "scalar",
+                      "mappings": [
+                        {
+                          "input": "custom-light",
+                          "output": "black"
+                        },
+                        {
+                          "input": "custom-dark",
+                          "output": "white"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.label.offsetY": {
+                "binding": {
+                  "config": {
+                    "expression": "toInt({this.props.label.size}*.9)"
+                  },
+                  "type": "expr"
+                }
+              },
+              "props.label.size": {
+                "binding": {
+                  "config": {
+                    "expression": "//toInt({view.props.defaultSize.width} / 9.0)\r\n{view.params.FontSize}"
+                  },
+                  "type": "expr"
+                }
+              },
+              "props.value": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.OEE"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "arc": {},
+              "arcBackground": {},
+              "endAngle": 405,
+              "label": {
+                "units": "%"
+              },
+              "startAngle": 135,
+              "style": {
+                "classes": []
+              }
+            },
+            "type": "ia.chart.simple-gauge"
+          },
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "basis": "50px",
+              "display": false
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.OEE"
+                  },
+                  "enabled": false,
+                  "transforms": [
+                    {
+                      "expression": "\u0027OEE:\u0027 + \u0027 \u0027 + {value} + \u0027%\u0027",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "text": "OEE",
+              "textStyle": {
+                "fontWeight": "bold",
+                "textAlign": "center"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "OEE"
+        },
+        "position": {
+          "basis": "246px"
+        },
+        "props": {
+          "direction": "column",
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

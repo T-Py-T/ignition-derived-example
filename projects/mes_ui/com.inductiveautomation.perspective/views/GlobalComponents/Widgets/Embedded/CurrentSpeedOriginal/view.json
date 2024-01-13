@@ -1,0 +1,243 @@
+{
+  "custom": {
+    "Speed": 22,
+    "Value": "15054.0 pcs"
+  },
+  "params": {
+    "EqPath": "[default]Fiberon/1NL/PE Extrusion/Line 11",
+    "State": "fail",
+    "Time": "hr",
+    "Type": "Rate",
+    "UoM": "lbs"
+  },
+  "propConfig": {
+    "custom.Speed": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/calculatedValues/shiftRate"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.Value": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/jobs/currentJob/productionCounts/output"
+        },
+        "transforms": [
+          {
+            "expression": "{value} + \" pcs\"",
+            "type": "expression"
+          }
+        ],
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.State": {
+      "binding": {
+        "config": {
+          "path": "view.custom.Speed"
+        },
+        "transforms": [
+          {
+            "expression": "if({value} \u003c 60, \u0027fail\u0027, \u0027\u0027)",
+            "type": "expression"
+          }
+        ],
+        "type": "property"
+      },
+      "paramDirection": "output",
+      "persistent": true
+    },
+    "params.Time": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Type": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.UoM": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 53,
+      "width": 352
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.Name"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardTitle"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Name"
+        },
+        "position": {
+          "basis": "20px",
+          "display": false,
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "Cards/Common/CardTitleBorder",
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "text": "Total",
+              "textStyle": {
+                "fontSize": "18px"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "basis": "75px",
+              "grow": 1,
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.style.backgroundColor": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.State"
+                  },
+                  "enabled": false,
+                  "transforms": [
+                    {
+                      "fallback": "",
+                      "inputType": "scalar",
+                      "mappings": [
+                        {
+                          "input": "fail",
+                          "output": "--error"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.Speed"
+                  },
+                  "transforms": [
+                    {
+                      "expression": "//The following would return \"Running\".\r\ncase(\r\n    {view.params.Time},              // value to inspect\r\n    \"min\",round({value},2),   \t   // we calculate minutes (no change)\r\n    \"sec\",round({value}/60.0,2),   // mulptiply by 60 (to get Seconds)\r\n    \"hr\" ,round({value}*60.0,2),   // Divide by 60 (to get Hours)\r\n    0 // default return\r\n)",
+                      "type": "expression"
+                    },
+                    {
+                      "expression": "if( {session.custom.DisplayUnits}\u003d\u0027\u0027,\r\n\t{value} + \u0027 \u0027 + {view.params.UoM} + \u0027/\u0027 + {view.params.Time}, //(use passed in defaults)\r\n\t{value} + \u0027 \u0027 + {session.custom.DisplayUnits} + \u0027/\u0027 + {session.custom.DisplayTime} //Use sesson props (Saved)\r\n\t)",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "",
+                "classes": "Text/Heading"
+              },
+              "textStyle": {
+                "fontSize": "18px",
+                "textAlign": "end"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Current"
+        },
+        "position": {
+          "basis": "51px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "marginBottom": "2px",
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "custom": {},
+  "params": {
+    "EqData": {
+      "EqEnabled": true,
+      "EqID": 1,
+      "EqName": "SFN4",
+      "EqPath": "",
+      "EqType": "line"
+    },
+    "ModalName": "value",
+    "SelectedUDT": "machineInput"
+  },
+  "propConfig": {
+    "params.EqData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.ModalName": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.SelectedUDT": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 282
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "EditView"
+        },
+        "position": {
+          "basis": "320px",
+          "grow": 1
+        },
+        "propConfig": {
+          "props.params.EqData": {
+            "binding": {
+              "config": {
+                "path": "view.params.EqData"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.ModalName": {
+            "binding": {
+              "config": {
+                "path": "view.params.ModalName"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.SelectedUDT": {
+            "binding": {
+              "config": {
+                "path": "view.params.SelectedUDT"
+              },
+              "type": "property"
+            }
+          },
+          "props.path": {
+            "binding": {
+              "config": {
+                "struct": {
+                  "obj": {
+                    "machineInput": "\"App/EquipmentConfig/Embedded/Popups/EditMachineInput\"",
+                    "machineOutput": "\"App/EquipmentConfig/Embedded/Popups/EditMachineOutput\"",
+                    "parameters": "\"App/EquipmentConfig/Embedded/Popups/EditCellParams\""
+                  }
+                },
+                "waitOnAll": true
+              },
+              "transforms": [
+                {
+                  "code": "\tlogger \u003d system.util.getLogger(\u0027editUDT_view\u0027)\n\tselectedUDT \u003d self.view.params.SelectedUDT\n\ttry:\n\t\tif selectedUDT \u003d\u003d \u0027Parameters\u0027: return value.obj.parameters\n\t\telif selectedUDT \u003d\u003d \u0027machineInput\u0027: return value.obj.machineInput\n\t\telse: return value.obj.machineOutput\n\texcept Exception as e:\n\t\tmsg \u003d \u0027There was an error: \u0027 + str(e)\n\t\tlogger.warn(msg)",
+                  "type": "script"
+                }
+              ],
+              "type": "expr-struct"
+            }
+          }
+        },
+        "type": "ia.display.view"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

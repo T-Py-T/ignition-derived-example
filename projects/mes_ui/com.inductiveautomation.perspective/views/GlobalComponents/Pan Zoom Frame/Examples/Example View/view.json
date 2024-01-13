@@ -1,0 +1,125 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 600
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Label"
+        },
+        "position": {
+          "basis": "32px"
+        },
+        "props": {
+          "style": {
+            "fontSize": "30px",
+            "marginBottom": 16,
+            "textAlign": "center"
+          },
+          "text": "Example View"
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "PieChart"
+        },
+        "position": {
+          "basis": "375px",
+          "grow": 1
+        },
+        "props": {
+          "colors": [
+            "#3366CC",
+            "#EC4B3D",
+            "#4FC86C",
+            "#00A9C6",
+            "#E69300"
+          ],
+          "data": [
+            {
+              "count": 36,
+              "flavor": "Pumpkin"
+            },
+            {
+              "count": 17,
+              "flavor": "Pecan"
+            },
+            {
+              "count": 14,
+              "flavor": "Apple"
+            },
+            {
+              "count": 10,
+              "flavor": "Sweet Potato"
+            },
+            {
+              "count": 9,
+              "flavor": "Chocolate"
+            }
+          ],
+          "title": "Favorite Pie Flavors"
+        },
+        "type": "ia.chart.pie"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\timport random\n\tfor row in self.getSibling(\"PieChart\").props.data:\n\t\trow[\u0027value\u0027] \u003d random.randint(1,99)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Button"
+        },
+        "position": {
+          "basis": "64px",
+          "shrink": 0
+        },
+        "props": {
+          "image": {
+            "icon": {
+              "path": "material/touch_app"
+            },
+            "position": "right"
+          },
+          "primary": false,
+          "style": {
+            "marginLeft": "30%",
+            "marginRight": "30%",
+            "marginTop": "16px"
+          },
+          "text": "Refresh, enable clicking to use"
+        },
+        "type": "ia.input.button"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "borderBottomLeftRadius": 20,
+        "borderBottomRightRadius": 20,
+        "borderStyle": "solid",
+        "borderTopLeftRadius": 20,
+        "borderTopRightRadius": 20,
+        "borderWidth": 1,
+        "margin": 32,
+        "padding": 16
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

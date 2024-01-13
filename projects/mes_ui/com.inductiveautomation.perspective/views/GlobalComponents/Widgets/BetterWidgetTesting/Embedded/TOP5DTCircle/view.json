@@ -1,0 +1,89 @@
+{
+  "custom": {
+    "EqPath": "GPA/Wilmington/Baking/Oven1"
+  },
+  "params": {
+    "EqPath": "GPA/Wilmington/Baking/Oven1SFN2",
+    "TagPath": "[default]"
+  },
+  "propConfig": {
+    "custom.EqPath": {
+      "binding": {
+        "config": {
+          "path": "session.custom.EqPath"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.TagPath": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 414,
+      "width": 660
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "PieChart"
+        },
+        "position": {
+          "grow": 1
+        },
+        "propConfig": {
+          "props.data": {
+            "binding": {
+              "config": {
+                "fallbackDelay": 2.5,
+                "mode": "indirect",
+                "references": {
+                  "1": "{view.params.TagPath}",
+                  "2": "{view.custom.EqPath}"
+                },
+                "tagPath": "{1}{2}/calculatedValues/shiftTop5Downtime"
+              },
+              "type": "tag"
+            }
+          }
+        },
+        "props": {
+          "colors": [
+            "#FF781E",
+            "#FDEA63",
+            "#A30304",
+            "#CC004C",
+            "#CE0096"
+          ],
+          "cutoutRadius": 55,
+          "labels": {
+            "color": "white",
+            "showValue": false
+          },
+          "legendLabelColor": "white",
+          "showLegend": false,
+          "threeDimensional": true,
+          "titleColor": "white",
+          "tooltipFormat": "{category} : {value.formatDuration(\u0027hh\u0027)}[bold]h"
+        },
+        "type": "ia.chart.pie"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

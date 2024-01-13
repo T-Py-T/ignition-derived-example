@@ -1,0 +1,963 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 1227,
+      "width": 431
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "page": "/apps/mes/directory"
+                  },
+                  "scope": "C",
+                  "type": "nav"
+                }
+              }
+            },
+            "meta": {
+              "name": "Back Arrow"
+            },
+            "position": {
+              "basis": "30px",
+              "shrink": 0
+            },
+            "props": {
+              "color": "--neutral-90",
+              "path": "material/chevron_left",
+              "style": {
+                "cursor": "pointer"
+              }
+            },
+            "type": "ia.display.icon"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "page": "/apps/mes/directory"
+                  },
+                  "scope": "C",
+                  "type": "nav"
+                }
+              }
+            },
+            "meta": {
+              "name": "Icon"
+            },
+            "position": {
+              "basis": "20px"
+            },
+            "props": {
+              "path": "material/apps",
+              "style": {
+                "marginLeft": "-5px"
+              }
+            },
+            "type": "ia.display.icon"
+          },
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "basis": "50px",
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "fontSize": "16px"
+              },
+              "text": "Gateway Diagnostics"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Spacing"
+            },
+            "position": {
+              "basis": "45px",
+              "shrink": 0
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Header"
+        },
+        "position": {
+          "basis": "32px",
+          "display": false,
+          "shrink": 0
+        },
+        "props": {
+          "justify": "center",
+          "style": {
+            "classes": "MES/MainViews/TopHeader"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label"
+                },
+                "position": {
+                  "basis": "25px",
+                  "shrink": 0
+                },
+                "props": {
+                  "style": {
+                    "classes": "MES/MainViews/Diagnostics/SystemPerfHeader",
+                    "fontSize": "16px"
+                  },
+                  "text": "System Performance:"
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "meta": {
+                          "name": "Label"
+                        },
+                        "position": {
+                          "shrink": 0
+                        },
+                        "props": {
+                          "style": {
+                            "classes": "MES/MainViews/Diagnostics/SystemPerfSmallHeader",
+                            "fontSize": "14px"
+                          },
+                          "text": "Memory Utilization"
+                        },
+                        "type": "ia.display.label"
+                      },
+                      {
+                        "children": [
+                          {
+                            "meta": {
+                              "name": "Gauge"
+                            },
+                            "position": {
+                              "basis": "240px"
+                            },
+                            "propConfig": {
+                              "props.value": {
+                                "binding": {
+                                  "config": {
+                                    "fallbackDelay": 2.5,
+                                    "mode": "direct",
+                                    "tagPath": "[GatewayHealth]GatewayHealth/Memory Utilization"
+                                  },
+                                  "type": "tag"
+                                }
+                              }
+                            },
+                            "props": {
+                              "backgroundColor": "",
+                              "innerAxis": {
+                                "data": "secondaryValue",
+                                "needle": {
+                                  "origin": 115
+                                },
+                                "percentRadius": 70,
+                                "ranges": [
+                                  {
+                                    "color": "green",
+                                    "end": 70,
+                                    "start": 0,
+                                    "width": 8
+                                  },
+                                  {
+                                    "color": "yellow",
+                                    "end": 85,
+                                    "start": 65,
+                                    "width": 12
+                                  },
+                                  {
+                                    "color": "red",
+                                    "end": 100,
+                                    "start": 85,
+                                    "width": 14
+                                  }
+                                ],
+                                "show": false,
+                                "width": 1
+                              },
+                              "outerAxis": {
+                                "data": "value",
+                                "needle": {
+                                  "reach": 90
+                                },
+                                "percentRadius": 90,
+                                "ranges": [
+                                  {
+                                    "color": "green",
+                                    "end": 70,
+                                    "start": 0,
+                                    "width": 8
+                                  },
+                                  {
+                                    "color": "yellow",
+                                    "end": 85,
+                                    "start": 65,
+                                    "width": 12
+                                  },
+                                  {
+                                    "color": "red",
+                                    "end": 100,
+                                    "start": 85,
+                                    "width": 14
+                                  }
+                                ],
+                                "show": true,
+                                "width": 1
+                              },
+                              "secondaryValue": 23.054814338684082,
+                              "style": {
+                                "classes": [],
+                                "fontSize": "11px",
+                                "minHeight": "80px"
+                              }
+                            },
+                            "type": "ia.chart.gauge"
+                          },
+                          {
+                            "meta": {
+                              "name": "Sparkline"
+                            },
+                            "position": {
+                              "basis": "240px"
+                            },
+                            "propConfig": {
+                              "props.points": {
+                                "binding": {
+                                  "config": {
+                                    "aggregate": "MinMax",
+                                    "avoidScanClassValidation": true,
+                                    "dateRange": {
+                                      "mostRecent": "30",
+                                      "mostRecentUnits": "MIN"
+                                    },
+                                    "enableValueCache": true,
+                                    "ignoreBadQuality": false,
+                                    "polling": {
+                                      "enabled": true,
+                                      "rate": "10"
+                                    },
+                                    "preventInterpolation": false,
+                                    "returnFormat": "Wide",
+                                    "returnSize": {
+                                      "numRows": "50",
+                                      "type": "FIXED"
+                                    },
+                                    "tags": [
+                                      {
+                                        "path": "[IgnitionHistorian/dev-script-gateway:gatewayhealth]gatewayhealth/memory utilization"
+                                      }
+                                    ],
+                                    "valueFormat": "DATASET"
+                                  },
+                                  "type": "tag-history"
+                                }
+                              }
+                            },
+                            "props": {
+                              "color": "#D23E3E",
+                              "range": {
+                                "high": 100,
+                                "low": 0
+                              }
+                            },
+                            "type": "ia.display.sparkline"
+                          }
+                        ],
+                        "meta": {
+                          "name": "FlexContainer"
+                        },
+                        "props": {
+                          "direction": "column",
+                          "justify": "center",
+                          "style": {
+                            "marginTop": "10px"
+                          }
+                        },
+                        "type": "ia.container.flex"
+                      }
+                    ],
+                    "meta": {
+                      "name": "Memory Utilization"
+                    },
+                    "position": {
+                      "basis": "180px",
+                      "shrink": 0
+                    },
+                    "props": {
+                      "direction": "column",
+                      "style": {
+                        "overflow": "visible"
+                      }
+                    },
+                    "type": "ia.container.flex"
+                  },
+                  {
+                    "children": [
+                      {
+                        "meta": {
+                          "name": "Label"
+                        },
+                        "position": {
+                          "shrink": 0
+                        },
+                        "props": {
+                          "style": {
+                            "classes": "MES/MainViews/Diagnostics/SystemPerfSmallHeader",
+                            "fontSize": "14px"
+                          },
+                          "text": "CPU Usage"
+                        },
+                        "type": "ia.display.label"
+                      },
+                      {
+                        "children": [
+                          {
+                            "meta": {
+                              "name": "Gauge"
+                            },
+                            "position": {
+                              "basis": "240px"
+                            },
+                            "propConfig": {
+                              "props.value": {
+                                "binding": {
+                                  "config": {
+                                    "fallbackDelay": 2.5,
+                                    "mode": "direct",
+                                    "tagPath": "[GatewayHealth]GatewayHealth/CPU Usage"
+                                  },
+                                  "type": "tag"
+                                }
+                              }
+                            },
+                            "props": {
+                              "backgroundColor": "",
+                              "innerAxis": {
+                                "data": "secondaryValue",
+                                "needle": {
+                                  "origin": 115
+                                },
+                                "percentRadius": 70,
+                                "ranges": [
+                                  {
+                                    "color": "green",
+                                    "end": 70,
+                                    "start": 0,
+                                    "width": 8
+                                  },
+                                  {
+                                    "color": "yellow",
+                                    "end": 85,
+                                    "start": 65,
+                                    "width": 12
+                                  },
+                                  {
+                                    "color": "red",
+                                    "end": 100,
+                                    "start": 85,
+                                    "width": 14
+                                  }
+                                ],
+                                "show": false,
+                                "width": 1
+                              },
+                              "outerAxis": {
+                                "data": "value",
+                                "needle": {
+                                  "reach": 90
+                                },
+                                "percentRadius": 90,
+                                "ranges": [
+                                  {
+                                    "color": "green",
+                                    "end": 70,
+                                    "start": 0,
+                                    "width": 8
+                                  },
+                                  {
+                                    "color": "yellow",
+                                    "end": 85,
+                                    "start": 65,
+                                    "width": 12
+                                  },
+                                  {
+                                    "color": "red",
+                                    "end": 100,
+                                    "start": 85,
+                                    "width": 14
+                                  }
+                                ],
+                                "show": true,
+                                "width": 1
+                              },
+                              "secondaryValue": 23.054814338684082,
+                              "style": {
+                                "classes": [],
+                                "fontSize": "11px",
+                                "minHeight": "80px"
+                              }
+                            },
+                            "type": "ia.chart.gauge"
+                          },
+                          {
+                            "meta": {
+                              "name": "Sparkline"
+                            },
+                            "position": {
+                              "basis": "240px"
+                            },
+                            "propConfig": {
+                              "props.points": {
+                                "binding": {
+                                  "config": {
+                                    "aggregate": "MinMax",
+                                    "avoidScanClassValidation": true,
+                                    "dateRange": {
+                                      "mostRecent": "30",
+                                      "mostRecentUnits": "MIN"
+                                    },
+                                    "enableValueCache": true,
+                                    "ignoreBadQuality": false,
+                                    "polling": {
+                                      "enabled": true,
+                                      "rate": "10"
+                                    },
+                                    "preventInterpolation": false,
+                                    "returnFormat": "Wide",
+                                    "returnSize": {
+                                      "numRows": "50",
+                                      "type": "FIXED"
+                                    },
+                                    "tags": [
+                                      {
+                                        "path": "[IgnitionHistorian/dev-script-gateway:gatewayhealth]gatewayhealth/cpu usage"
+                                      }
+                                    ],
+                                    "valueFormat": "DATASET"
+                                  },
+                                  "type": "tag-history"
+                                }
+                              }
+                            },
+                            "props": {
+                              "color": "#D23E3E",
+                              "range": {
+                                "high": 100,
+                                "low": 0
+                              }
+                            },
+                            "type": "ia.display.sparkline"
+                          }
+                        ],
+                        "meta": {
+                          "name": "FlexContainer"
+                        },
+                        "position": {
+                          "grow": 1
+                        },
+                        "props": {
+                          "direction": "column",
+                          "justify": "center",
+                          "style": {
+                            "marginTop": "10px",
+                            "overflow": "visible"
+                          }
+                        },
+                        "type": "ia.container.flex"
+                      }
+                    ],
+                    "meta": {
+                      "name": "CPU Usage"
+                    },
+                    "position": {
+                      "basis": "180px",
+                      "shrink": 0
+                    },
+                    "props": {
+                      "direction": "column",
+                      "justify": "center",
+                      "style": {
+                        "marginTop": "5px",
+                        "overflow": "visible"
+                      }
+                    },
+                    "type": "ia.container.flex"
+                  },
+                  {
+                    "children": [
+                      {
+                        "meta": {
+                          "name": "Label"
+                        },
+                        "position": {
+                          "shrink": 0
+                        },
+                        "props": {
+                          "style": {
+                            "classes": "MES/MainViews/Diagnostics/SystemPerfSmallHeader",
+                            "fontSize": "14px"
+                          },
+                          "text": "Disk Utilization"
+                        },
+                        "type": "ia.display.label"
+                      },
+                      {
+                        "children": [
+                          {
+                            "meta": {
+                              "name": "Gauge"
+                            },
+                            "position": {
+                              "basis": "69px"
+                            },
+                            "propConfig": {
+                              "props.value": {
+                                "binding": {
+                                  "config": {
+                                    "fallbackDelay": 2.5,
+                                    "mode": "direct",
+                                    "tagPath": "[GatewayHealth]GatewayHealth/Disk Utilization"
+                                  },
+                                  "type": "tag"
+                                }
+                              }
+                            },
+                            "props": {
+                              "backgroundColor": "",
+                              "innerAxis": {
+                                "data": "secondaryValue",
+                                "needle": {
+                                  "origin": 115
+                                },
+                                "percentRadius": 70,
+                                "ranges": [
+                                  {
+                                    "color": "green",
+                                    "end": 70,
+                                    "start": 0,
+                                    "width": 8
+                                  },
+                                  {
+                                    "color": "yellow",
+                                    "end": 85,
+                                    "start": 65,
+                                    "width": 12
+                                  },
+                                  {
+                                    "color": "red",
+                                    "end": 100,
+                                    "start": 85,
+                                    "width": 14
+                                  }
+                                ],
+                                "show": false,
+                                "width": 1
+                              },
+                              "outerAxis": {
+                                "data": "value",
+                                "needle": {
+                                  "reach": 90
+                                },
+                                "percentRadius": 90,
+                                "ranges": [
+                                  {
+                                    "color": "green",
+                                    "end": 70,
+                                    "start": 0,
+                                    "width": 8
+                                  },
+                                  {
+                                    "color": "yellow",
+                                    "end": 85,
+                                    "start": 65,
+                                    "width": 12
+                                  },
+                                  {
+                                    "color": "red",
+                                    "end": 100,
+                                    "start": 85,
+                                    "width": 14
+                                  }
+                                ],
+                                "show": true,
+                                "width": 1
+                              },
+                              "secondaryValue": 23.054814338684082,
+                              "style": {
+                                "classes": [],
+                                "fontSize": "11px",
+                                "minHeight": "80px"
+                              }
+                            },
+                            "type": "ia.chart.gauge"
+                          },
+                          {
+                            "meta": {
+                              "name": "Sparkline"
+                            },
+                            "position": {
+                              "basis": "240px"
+                            },
+                            "propConfig": {
+                              "props.points": {
+                                "binding": {
+                                  "config": {
+                                    "aggregate": "MinMax",
+                                    "avoidScanClassValidation": true,
+                                    "dateRange": {
+                                      "mostRecent": "30",
+                                      "mostRecentUnits": "MIN"
+                                    },
+                                    "enableValueCache": true,
+                                    "ignoreBadQuality": false,
+                                    "polling": {
+                                      "enabled": true,
+                                      "rate": "10"
+                                    },
+                                    "preventInterpolation": false,
+                                    "returnFormat": "Wide",
+                                    "returnSize": {
+                                      "numRows": "50",
+                                      "type": "FIXED"
+                                    },
+                                    "tags": [
+                                      {
+                                        "path": "[IgnitionHistorian/dev-script-gateway:gatewayhealth]gatewayhealth/memory utilization"
+                                      }
+                                    ],
+                                    "valueFormat": "DATASET"
+                                  },
+                                  "type": "tag-history"
+                                }
+                              }
+                            },
+                            "props": {
+                              "range": {
+                                "high": 100,
+                                "low": 0
+                              }
+                            },
+                            "type": "ia.display.sparkline"
+                          }
+                        ],
+                        "meta": {
+                          "name": "FlexContainer"
+                        },
+                        "position": {
+                          "grow": 1
+                        },
+                        "props": {
+                          "direction": "column",
+                          "justify": "center",
+                          "style": {
+                            "marginTop": "10px",
+                            "overflow": "visible"
+                          }
+                        },
+                        "type": "ia.container.flex"
+                      }
+                    ],
+                    "meta": {
+                      "name": "Disk Utilization"
+                    },
+                    "position": {
+                      "basis": "180px",
+                      "shrink": 0
+                    },
+                    "props": {
+                      "direction": "column",
+                      "style": {
+                        "marginTop": "5px",
+                        "overflow": "visible"
+                      }
+                    },
+                    "type": "ia.container.flex"
+                  }
+                ],
+                "meta": {
+                  "name": "FlexContainer"
+                },
+                "position": {
+                  "shrink": 0
+                },
+                "props": {
+                  "direction": "column",
+                  "style": {
+                    "marginLeft": "15px",
+                    "marginRight": "15px",
+                    "overflow": "visible"
+                  }
+                },
+                "type": "ia.container.flex"
+              }
+            ],
+            "meta": {
+              "name": "System Performance"
+            },
+            "position": {
+              "grow": 1,
+              "shrink": 0
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "marginBottom": "15px",
+                "overflow": "visible"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Gateway Network"
+                },
+                "position": {
+                  "basis": "250px",
+                  "display": false,
+                  "shrink": 0
+                },
+                "props": {
+                  "params": {
+                    "path": "Main Views/Diagnostics/Embedded/Gateway Network Connections",
+                    "title": "Gateway Network"
+                  },
+                  "path": "Main Views/Diagnostics/Framework/Card/Card",
+                  "style": {
+                    "height": "200px"
+                  }
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "SystemPerformance"
+                    },
+                    "position": {
+                      "shrink": 0
+                    },
+                    "props": {
+                      "params": {
+                        "icon": "",
+                        "params": {},
+                        "path": "app/GatewayHealth/Diagnostics/Embedded/SystemPerformance",
+                        "sizeBasis": 100,
+                        "title": "System Performance",
+                        "type": "value",
+                        "useDefaultHeight": false,
+                        "useDefaultWidth": false
+                      },
+                      "path": "StyleGuide/Cards/Card",
+                      "style": {
+                        "marginBottom": "5px"
+                      }
+                    },
+                    "type": "ia.display.view"
+                  },
+                  {
+                    "meta": {
+                      "name": "System"
+                    },
+                    "position": {
+                      "shrink": 0
+                    },
+                    "props": {
+                      "params": {
+                        "path": "app/GatewayHealth/Diagnostics/Embedded/System",
+                        "title": "System"
+                      },
+                      "path": "StyleGuide/Cards/Card",
+                      "style": {
+                        "marginBottom": "5px"
+                      }
+                    },
+                    "type": "ia.display.view"
+                  },
+                  {
+                    "meta": {
+                      "name": "OPCServers"
+                    },
+                    "position": {
+                      "shrink": 0
+                    },
+                    "props": {
+                      "params": {
+                        "path": "app/GatewayHealth/Diagnostics/Embedded/OPCServers",
+                        "title": "OPC Servers"
+                      },
+                      "path": "StyleGuide/Cards/Card",
+                      "style": {
+                        "marginBottom": "5px"
+                      }
+                    },
+                    "type": "ia.display.view"
+                  },
+                  {
+                    "meta": {
+                      "name": "Device"
+                    },
+                    "position": {
+                      "shrink": 0
+                    },
+                    "props": {
+                      "params": {
+                        "icon": "",
+                        "params": {},
+                        "path": "app/GatewayHealth/Diagnostics/Embedded/Device",
+                        "sizeBasis": 500,
+                        "title": "Device",
+                        "type": "value",
+                        "useDefaultHeight": false,
+                        "useDefaultWidth": false
+                      },
+                      "path": "StyleGuide/Cards/Card",
+                      "style": {
+                        "marginBottom": "5px"
+                      }
+                    },
+                    "type": "ia.display.view"
+                  },
+                  {
+                    "meta": {
+                      "name": "Databases"
+                    },
+                    "position": {
+                      "shrink": 0
+                    },
+                    "props": {
+                      "params": {
+                        "path": "app/GatewayHealth/Diagnostics/Embedded/Databases",
+                        "title": "Databases"
+                      },
+                      "path": "StyleGuide/Cards/Card",
+                      "style": {
+                        "marginBottom": "5px"
+                      }
+                    },
+                    "type": "ia.display.view"
+                  },
+                  {
+                    "meta": {
+                      "name": "Session"
+                    },
+                    "position": {
+                      "shrink": 0
+                    },
+                    "props": {
+                      "params": {
+                        "path": "app/GatewayHealth/Diagnostics/Embedded/Session",
+                        "title": "Session"
+                      },
+                      "path": "StyleGuide/Cards/Card",
+                      "style": {
+                        "marginBottom": "5px"
+                      }
+                    },
+                    "type": "ia.display.view"
+                  },
+                  {
+                    "meta": {
+                      "name": "OPC Devices"
+                    },
+                    "position": {
+                      "display": false,
+                      "shrink": 0
+                    },
+                    "props": {
+                      "params": {
+                        "path": "app/GatewayHealth/Diagnostics/Embedded/OPCDevices",
+                        "title": "OPC Devices"
+                      },
+                      "path": "StyleGuide/Cards/Card"
+                    },
+                    "type": "ia.display.view"
+                  }
+                ],
+                "meta": {
+                  "name": "FlexContainer"
+                },
+                "position": {
+                  "basis": "300px"
+                },
+                "props": {
+                  "direction": "column",
+                  "style": {
+                    "minWidth": "270px"
+                  },
+                  "wrap": "wrap"
+                },
+                "type": "ia.container.flex"
+              }
+            ],
+            "meta": {
+              "name": "Body"
+            },
+            "position": {
+              "basis": "600px",
+              "grow": 1
+            },
+            "props": {
+              "alignItems": "flex-end",
+              "justify": "space-evenly",
+              "style": {
+                "overflow": "visible"
+              },
+              "wrap": "wrap"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Body"
+        },
+        "position": {
+          "basis": "200px",
+          "grow": 1
+        },
+        "props": {
+          "direction": "column",
+          "style": {
+            "padding": "5px"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

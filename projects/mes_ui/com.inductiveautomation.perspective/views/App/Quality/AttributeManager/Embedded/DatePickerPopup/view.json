@@ -1,0 +1,131 @@
+{
+  "custom": {},
+  "params": {
+    "DateName": "value",
+    "DateSelected": 1687147200000,
+    "OriginalDate": "value"
+  },
+  "propConfig": {
+    "params.DateName": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.DateSelected": {
+      "binding": {
+        "config": {
+          "path": "/root/DateTimePicker.props.value"
+        },
+        "transforms": [
+          {
+            "expression": "toMillis({value})",
+            "type": "expression"
+          }
+        ],
+        "type": "property"
+      },
+      "paramDirection": "output",
+      "persistent": true
+    },
+    "params.OriginalDate": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 333,
+      "width": 246
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "DateTimePicker"
+        },
+        "position": {
+          "basis": "280px"
+        },
+        "props": {
+          "formattedValue": "Jun 19, 2023 12:00 AM",
+          "pickerType": "date",
+          "value": {
+            "$": [
+              "ts",
+              0,
+              1685770156823
+            ],
+            "$ts": 1687147200000
+          }
+        },
+        "type": "ia.input.date-time-picker"
+      },
+      {
+        "children": [
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "script": "\tmessageType \u003d \u0027dateSelected\u0027\n\tpayload \u003d {\"dateSelected\":self.view.params.DateSelected}\n\tsystem.perspective.print(\"Selected Date \u003d \" + str(self.parent.parent.getChild(\"DateTimePicker\").props.value) \n\t\t+ str(messageType) + str(payload))\n\tsystem.perspective.sendMessage(messageType, payload, view \u003d \u0027session\u0027)\n\t\n\t\n\tmessageType \u003d \u0027refreshAttributeTable\u0027\n\tpayload \u003d {}\n\tsystem.perspective.sendMessage(messageType, payload, view \u003d \u0027session\u0027)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "OK"
+            },
+            "position": {
+              "basis": "50%"
+            },
+            "props": {
+              "primary": false,
+              "text": "OK"
+            },
+            "type": "ia.input.button"
+          },
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "script": "\tsystem.perspective.closePopup(\"\")"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Cancel"
+            },
+            "position": {
+              "basis": "50%"
+            },
+            "props": {
+              "primary": false,
+              "text": "Cancel"
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "FlexContainer"
+        },
+        "position": {
+          "basis": "50px"
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

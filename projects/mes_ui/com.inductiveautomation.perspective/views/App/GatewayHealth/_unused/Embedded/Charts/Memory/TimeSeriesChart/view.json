@@ -1,0 +1,141 @@
+{
+  "custom": {},
+  "params": {
+    "TagPath": ""
+  },
+  "propConfig": {
+    "params.TagPath": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 166,
+      "width": 346
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "custom": {
+          "key": [
+            {
+              "aggregate": "\"Average\"",
+              "alias": "",
+              "path": "[IgnitionHistorian/dev-script-gateway:gatewayhealth]gatewayhealth/cpu "
+            }
+          ]
+        },
+        "meta": {
+          "name": "TimeSeriesChart"
+        },
+        "position": {
+          "basis": "166px"
+        },
+        "propConfig": {
+          "props.series[0].data": {
+            "binding": {
+              "config": {
+                "fallbackDelay": 2.5,
+                "mode": "indirect",
+                "references": {
+                  "tagPath": "{view.params.TagPath}"
+                },
+                "tagPath": "{tagPath}/_History/Memory"
+              },
+              "type": "tag"
+            }
+          }
+        },
+        "props": {
+          "defaultStyles": {
+            "colorScheme": "Spectral"
+          },
+          "plots": [
+            {
+              "axes": [
+                {
+                  "alignment": "left",
+                  "label": {
+                    "font": {
+                      "color": "",
+                      "size": 10
+                    },
+                    "offset": "",
+                    "style": {
+                      "classes": ""
+                    },
+                    "text": "",
+                    "visible": true
+                  },
+                  "max": 100,
+                  "min": 0,
+                  "name": "CPU Usage",
+                  "style": {
+                    "classes": ""
+                  },
+                  "tick": {
+                    "color": "",
+                    "label": {
+                      "font": {
+                        "color": "",
+                        "size": 10
+                      },
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "style": {
+                      "classes": ""
+                    }
+                  },
+                  "width": 30
+                }
+              ],
+              "markers": [],
+              "relativeWeight": 1,
+              "trends": [
+                {
+                  "axis": "CPU Usage",
+                  "baselines": [],
+                  "breakLine": true,
+                  "columns": [],
+                  "interpolation": "curveLinear",
+                  "radius": 2,
+                  "series": "CPU Usage",
+                  "stack": true,
+                  "type": "bar",
+                  "visible": true
+                }
+              ]
+            }
+          ],
+          "series": [
+            {
+              "name": "CPU Usage"
+            }
+          ],
+          "timeAxis": {
+            "tick": {
+              "label": {
+                "angled": true
+              }
+            }
+          },
+          "timeRange": {
+            "visible": false
+          }
+        },
+        "type": "ia.chart.timeseries"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

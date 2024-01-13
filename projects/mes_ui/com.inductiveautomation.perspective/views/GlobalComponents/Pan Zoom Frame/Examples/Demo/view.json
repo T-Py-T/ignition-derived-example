@@ -1,0 +1,106 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {},
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Example Image"
+        },
+        "props": {
+          "path": "Exchange/Pan Zoom Frame/Examples/Example Image"
+        },
+        "type": "ia.display.view"
+      },
+      {
+        "meta": {
+          "name": "Pan Zoom View SVG"
+        },
+        "position": {
+          "tabIndex": 1
+        },
+        "props": {
+          "params": {
+            "controls": {
+              "click": false,
+              "in": true,
+              "out": true,
+              "pan": false,
+              "reset": true,
+              "zoom": true
+            },
+            "panning": true,
+            "viewPath": "Exchange/Pan Zoom Frame/Examples/Example SVG"
+          },
+          "path": "Exchange/Pan Zoom Frame/Pan Zoom View"
+        },
+        "type": "ia.display.view"
+      },
+      {
+        "meta": {
+          "name": "Pan Zoom View"
+        },
+        "position": {
+          "tabIndex": 2
+        },
+        "props": {
+          "params": {
+            "controls": {
+              "click": true,
+              "in": true,
+              "out": true,
+              "pan": true,
+              "reset": true,
+              "zoom": true
+            },
+            "panning": true,
+            "viewPath": "Exchange/Pan Zoom Frame/Examples/Example View"
+          },
+          "path": "Exchange/Pan Zoom Frame/Pan Zoom View"
+        },
+        "type": "ia.display.view"
+      },
+      {
+        "meta": {
+          "name": "Pan Zoom Aware"
+        },
+        "position": {
+          "tabIndex": 3
+        },
+        "props": {
+          "params": {
+            "controls": {
+              "click": true,
+              "in": true,
+              "out": true,
+              "pan": true,
+              "reset": true,
+              "zoom": true
+            },
+            "panning": true,
+            "viewParams": {
+              "text": "Dynamic Text Size"
+            },
+            "viewPath": "Exchange/Pan Zoom Frame/Examples/Example Zoom Aware"
+          },
+          "path": "Exchange/Pan Zoom Frame/Pan Zoom View"
+        },
+        "type": "ia.display.view"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "currentTabIndex": 1,
+      "tabs": [
+        "Image",
+        "SVG",
+        "View",
+        "Zoom Aware"
+      ]
+    },
+    "type": "ia.container.tab"
+  }
+}

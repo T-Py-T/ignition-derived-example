@@ -1,0 +1,585 @@
+{
+  "custom": {},
+  "params": {
+    "Type": "value"
+  },
+  "propConfig": {
+    "params.Type": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 100,
+      "width": 300
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "custom": {
+          "configCSV": "#NAMES,,,,,,,,,,,,\r\nID,LineID,Description,AltCode,IconPath,DisplayColor,ReasonCode,RecordDowntime,PlannedDowntime,OperatorSelectable,SubReasonOf,StateTypeID,DowntimeCategoryCode\r\n#TYPES,,,,,,,,,,,,\r\nI,I,str,str,str,str,I,B,B,B,I,I,I\r\n#ROWS,25,,,,,,,,,,,\r\n4,20,E-stop,,material/stop_circle,#FF0000,4,TRUE,FALSE,,-1,1,1\r\n5,20,Blocked,,material/stop_circle,#FAFD20,5,TRUE,FALSE,,-1,1,1\r\n6,20,Starved,,material/stop_circle,#FAFD20,6,TRUE,FALSE,,-1,1,1\r\n7,20,Planned Downtime,,material/stop_circle,#DFE11D,7,TRUE,TRUE,,-1,5,1\r\n8,20,Unplanned Downtime,,material/stop_circle,#DFE11D,8,TRUE,FALSE,,-1,1,1\r\n101,20,Belt Broken,,material/stop_circle,#FF0000,101,TRUE,FALSE,,-1,,1\r\n102,20,Conv Trip ,,material/stop_circle,#FF0000,102,TRUE,FALSE,,-1,,1\r\n103,20,Over Temp,,material/stop_circle,#FF0000,103,TRUE,FALSE,,-1,,1\r\n104,20,Under Temp,,material/stop_circle,#FF0000,104,TRUE,FALSE,,-1,,1\r\n105,20,Low Oil Alarm,,material/stop_circle,#FF0000,105,TRUE,FALSE,,-1,,1\r\n106,20,Low Air Pressure,,material/stop_circle,#FF0000,106,TRUE,FALSE,,-1,,1\r\n107,20,HIGH Air Pressure,,material/stop_circle,#FF0000,107,TRUE,FALSE,,-1,,1\r\n108,20,Cutter Jam,,material/stop_circle,#FF0000,108,TRUE,FALSE,,-1,,1\r\n109,20,Low Ink,,material/stop_circle,#FF0000,109,TRUE,FALSE,,-1,,3\r\n110,20,Reload Cartons Required,,material/stop_circle,#FF0000,110,TRUE,FALSE,,-1,,3\r\n111,20,High amps,,material/stop_circle,#FF0000,111,TRUE,FALSE,,-1,,3\r\n112,20,Drive Tripped,,material/stop_circle,#FF0000,112,TRUE,FALSE,,-1,,1\r\n113,20,Low Voltage,,material/stop_circle,#FF0000,113,TRUE,FALSE,,-1,,1\r\n114,20,Machine Jam,,material/stop_circle,#FF0000,114,TRUE,FALSE,,-1,,1\r\n115,20,Load Wrapper,,material/stop_circle,#FF0000,115,TRUE,FALSE,,-1,,3\r\n116,20,Alignment Error,,material/stop_circle,#FF0000,116,TRUE,FALSE,,-1,,1\r\n117,20,Machine is tired,,material/stop_circle,#FF0000,117,TRUE,FALSE,,-1,,3\r\n118,20,Head Blocked,,material/stop_circle,#FF0000,118,TRUE,FALSE,,-1,,1\r\n119,20,Replace Knife,,material/stop_circle,#FF0000,119,TRUE,FALSE,,-1,,1\r\n120,20,Replace Mold,,material/stop_circle,#FF0000,120,TRUE,FALSE,,-1,,1\r\n",
+          "csvDict": {
+            "$": [
+              "ds",
+              192,
+              1692284097986
+            ],
+            "$columns": [
+              {
+                "data": [
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  101,
+                  102,
+                  103,
+                  104,
+                  105,
+                  106,
+                  107,
+                  108,
+                  109,
+                  110,
+                  111,
+                  112,
+                  113,
+                  114,
+                  115,
+                  116,
+                  117,
+                  118,
+                  119,
+                  120
+                ],
+                "name": "ID",
+                "type": "Integer"
+              },
+              {
+                "data": [
+                  20,
+                  20,
+                  20,
+                  20,
+                  20,
+                  20,
+                  20,
+                  20,
+                  20,
+                  20,
+                  20,
+                  20,
+                  20,
+                  20,
+                  20,
+                  20,
+                  20,
+                  20,
+                  20,
+                  20,
+                  20,
+                  20,
+                  20,
+                  20,
+                  20
+                ],
+                "name": "LineID",
+                "type": "Integer"
+              },
+              {
+                "data": [
+                  "E-stop",
+                  "Blocked",
+                  "Starved",
+                  "Planned Downtime",
+                  "Unplanned Downtime",
+                  "Belt Broken",
+                  "Conv Trip ",
+                  "Over Temp",
+                  "Under Temp",
+                  "Low Oil Alarm",
+                  "Low Air Pressure",
+                  "HIGH Air Pressure",
+                  "Cutter Jam",
+                  "Low Ink",
+                  "Reload Cartons Required",
+                  "High amps",
+                  "Drive Tripped",
+                  "Low Voltage",
+                  "Machine Jam",
+                  "Load Wrapper",
+                  "Alignment Error",
+                  "Machine is tired",
+                  "Head Blocked",
+                  "Replace Knife",
+                  "Replace Mold"
+                ],
+                "name": "Description",
+                "type": "String"
+              },
+              {
+                "data": [
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  "",
+                  ""
+                ],
+                "name": "AltCode",
+                "type": "String"
+              },
+              {
+                "data": [
+                  "material/stop_circle",
+                  "material/stop_circle",
+                  "material/stop_circle",
+                  "material/stop_circle",
+                  "material/stop_circle",
+                  "material/stop_circle",
+                  "material/stop_circle",
+                  "material/stop_circle",
+                  "material/stop_circle",
+                  "material/stop_circle",
+                  "material/stop_circle",
+                  "material/stop_circle",
+                  "material/stop_circle",
+                  "material/stop_circle",
+                  "material/stop_circle",
+                  "material/stop_circle",
+                  "material/stop_circle",
+                  "material/stop_circle",
+                  "material/stop_circle",
+                  "material/stop_circle",
+                  "material/stop_circle",
+                  "material/stop_circle",
+                  "material/stop_circle",
+                  "material/stop_circle",
+                  "material/stop_circle"
+                ],
+                "name": "IconPath",
+                "type": "String"
+              },
+              {
+                "data": [
+                  "#FF0000",
+                  "#FAFD20",
+                  "#FAFD20",
+                  "#DFE11D",
+                  "#DFE11D",
+                  "#FF0000",
+                  "#FF0000",
+                  "#FF0000",
+                  "#FF0000",
+                  "#FF0000",
+                  "#FF0000",
+                  "#FF0000",
+                  "#FF0000",
+                  "#FF0000",
+                  "#FF0000",
+                  "#FF0000",
+                  "#FF0000",
+                  "#FF0000",
+                  "#FF0000",
+                  "#FF0000",
+                  "#FF0000",
+                  "#FF0000",
+                  "#FF0000",
+                  "#FF0000",
+                  "#FF0000"
+                ],
+                "name": "DisplayColor",
+                "type": "String"
+              },
+              {
+                "data": [
+                  4,
+                  5,
+                  6,
+                  7,
+                  8,
+                  101,
+                  102,
+                  103,
+                  104,
+                  105,
+                  106,
+                  107,
+                  108,
+                  109,
+                  110,
+                  111,
+                  112,
+                  113,
+                  114,
+                  115,
+                  116,
+                  117,
+                  118,
+                  119,
+                  120
+                ],
+                "name": "ReasonCode",
+                "type": "Integer"
+              },
+              {
+                "data": [
+                  true,
+                  true,
+                  true,
+                  true,
+                  true,
+                  true,
+                  true,
+                  true,
+                  true,
+                  true,
+                  true,
+                  true,
+                  true,
+                  true,
+                  true,
+                  true,
+                  true,
+                  true,
+                  true,
+                  true,
+                  true,
+                  true,
+                  true,
+                  true,
+                  true
+                ],
+                "name": "RecordDowntime",
+                "type": "Boolean"
+              },
+              {
+                "data": [
+                  false,
+                  false,
+                  false,
+                  true,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false,
+                  false
+                ],
+                "name": "PlannedDowntime",
+                "type": "Boolean"
+              },
+              {
+                "data": [
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                "name": "OperatorSelectable",
+                "type": "Boolean"
+              },
+              {
+                "data": [
+                  -1,
+                  -1,
+                  -1,
+                  -1,
+                  -1,
+                  -1,
+                  -1,
+                  -1,
+                  -1,
+                  -1,
+                  -1,
+                  -1,
+                  -1,
+                  -1,
+                  -1,
+                  -1,
+                  -1,
+                  -1,
+                  -1,
+                  -1,
+                  -1,
+                  -1,
+                  -1,
+                  -1,
+                  -1
+                ],
+                "name": "SubReasonOf",
+                "type": "Integer"
+              },
+              {
+                "data": [
+                  1,
+                  1,
+                  1,
+                  5,
+                  1,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null,
+                  null
+                ],
+                "name": "StateTypeID",
+                "type": "Integer"
+              },
+              {
+                "data": [
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  1,
+                  3,
+                  3,
+                  3,
+                  1,
+                  1,
+                  1,
+                  3,
+                  1,
+                  3,
+                  1,
+                  1,
+                  1
+                ],
+                "name": "DowntimeCategoryCode",
+                "type": "Integer"
+              }
+            ]
+          }
+        },
+        "events": {
+          "component": {
+            "onFileReceived": {
+              "config": {
+                "script": "\tself.custom.configCSV \u003d event.file.getString()\n\tself.custom.csvDict \u003d system.dataset.fromCSV(event.file.getString())"
+              },
+              "scope": "G",
+              "type": "script"
+            },
+            "onUploadsCleared": {
+              "config": {
+                "script": "\tself.custom.configCSV \u003d \u0027\u0027"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "FileUpload"
+        },
+        "position": {
+          "basis": "55px",
+          "shrink": 0
+        },
+        "propConfig": {
+          "custom.csvDict": {
+            "binding": {
+              "config": {
+                "path": "this.custom.configCSV"
+              },
+              "enabled": false,
+              "transforms": [
+                {
+                  "code": "\treturn system.dataset.fromCSV(value)",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "fileUploadIcon": {
+            "path": "material/folder_open",
+            "style": {
+              "cursor": "pointer"
+            }
+          },
+          "maxUploads": 1,
+          "supportedFileTypes": [
+            "CSV"
+          ]
+        },
+        "type": "ia.input.fileupload"
+      },
+      {
+        "children": [
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\t#Translation import\n\tcsvFile \u003d self.parent.parent.getChild(\"FileUpload\").custom.configCSV\n\tcsvDS \u003d self.parent.parent.getChild(\"FileUpload\").custom.csvDict\n\tpayload \u003d { \u0027csvString\u0027: csvFile, \u0027csvDS\u0027: csvDS }\n\t\n\tif self.view.params.Type \u003d\u003d \u0027states\u0027:\n\t\tmessageType \u003d \"importStates\"\n\t\tsystem.perspective.sendMessage(messageType, payload)\n\telif self.view.params.Type \u003d\u003d \u0027modes\u0027:\n\t\tmessageType \u003d \"importModes\"\n\t\tsystem.perspective.sendMessage(messageType, payload)\n\t\t\n\tself.parent.parent.getChild(\"FileUpload\").custom.configCSV \u003d \u0027\u0027\n\tsystem.dataset.clearDataset(self.parent.parent.getChild(\"FileUpload\").custom.csvDict)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Import"
+            },
+            "position": {
+              "basis": "80px"
+            },
+            "propConfig": {
+              "props.enabled": {
+                "binding": {
+                  "config": {
+                    "path": ".../FileUpload.custom.configJson"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tconfigJson \u003d str(value)\n\treturn not configJson \u003d\u003d \u0027\u0027",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "text": "Import"
+            },
+            "type": "ia.input.button"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\t#close popup\n\tid \u003d \u0027ImportFile\u0027\n\tsystem.perspective.closePopup(id)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Cancel"
+            },
+            "position": {
+              "basis": "80px"
+            },
+            "props": {
+              "primary": false,
+              "text": "Cancel"
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "Controls"
+        },
+        "position": {
+          "basis": "200px"
+        },
+        "props": {
+          "justify": "space-around",
+          "style": {
+            "marginTop": "5px"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "margin": "5px",
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

@@ -1,0 +1,1 @@
+UPDATE auth.roles set rolename = :newrolename where rolename = :rolename

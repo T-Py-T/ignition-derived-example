@@ -1,0 +1,122 @@
+{
+  "custom": {
+    "LineName": "SFN1",
+    "visible": true
+  },
+  "params": {
+    "EqPath": "[default]"
+  },
+  "propConfig": {
+    "custom.LineName": {
+      "binding": {
+        "config": {
+          "path": "view.params.EqPath"
+        },
+        "transforms": [
+          {
+            "expression": "substring({value},lastIndexOf({value},\u0027/\u0027)+1)",
+            "type": "expression"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.visible": {
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 40,
+      "width": 300
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LineName"
+        },
+        "position": {
+          "basis": "25ch"
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.custom.LineName"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "alignVertical": "bottom",
+          "style": {
+            "borderBottomColor": "#808080",
+            "borderBottomStyle": "solid",
+            "borderBottomWidth": ".1ch",
+            "classes": "Text/LabelTextMedium Text/textColorGray"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "#\tdeviceIdentifier \u003d self.session.props.device.identifier\n#\tequipmentPath \u003d self.view.params.eqPath\n#\tappName \u003d \"operator\"\n#\t\n#\tvertech.util.clientDevice.removeClientDevicePath(deviceIdentifier, equipmentPath, appName)\n#\t\n#\teqPaths \u003d vertech.util.clientDevice.getClientDevicePaths(deviceIdentifier,appName)\n# \tself.session.custom.configuredLines \u003d eqPaths\n\teqPath \u003d self.view.params.EqPath\n\tlines \u003d self.session.custom.SelectedLines\n\t\n#\tfor line, idx in range(len(lines)):\n#\t\tif line \u003d\u003d eqPath: \n#\t\t\tlines.pop(idx)\n\tfor i in range(len(lines)):\n\t\tif lines[i] \u003d\u003d eqPath:\n\t\t\tlines.pop(i)\n\t\t\n\tself.session.custom.SelectedLines \u003d lines\n"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "RemoveButton"
+        },
+        "props": {
+          "params": {
+            "BackgroundColor": "",
+            "DisabledPopup": {
+              "message": "Please sign in as quarterback to proceed.",
+              "messageType": "",
+              "payload": {},
+              "title": "Invalid Permissions"
+            },
+            "Enabled": true,
+            "Hover": true,
+            "IconPath": "material/delete",
+            "IsSelectable": false,
+            "Label": "Remove",
+            "Selected": true,
+            "Size": "value",
+            "Type": "value"
+          },
+          "path": "GlobalComponents/Buttons/Button",
+          "style": {
+            "borderBottomColor": "#808080",
+            "borderBottomStyle": "solid",
+            "borderBottomWidth": ".1ch",
+            "borderLeftStyle": "none",
+            "borderRightStyle": "none",
+            "borderTopStyle": "none",
+            "paddingBottom": ".25ch",
+            "paddingTop": ".25ch"
+          }
+        },
+        "type": "ia.display.view"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.flex"
+  }
+}

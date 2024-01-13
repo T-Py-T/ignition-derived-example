@@ -1,0 +1,352 @@
+{
+  "custom": {},
+  "params": {
+    "buttonIcon": "material/save",
+    "buttonText": "value",
+    "buttonType": "value",
+    "modalId": "value",
+    "modalName": "value",
+    "params": {},
+    "path": "value",
+    "showFooter": false,
+    "showHeader": "value",
+    "size": "value",
+    "title": "value"
+  },
+  "propConfig": {
+    "custom.functionalSubAreas": {
+      "persistent": true
+    },
+    "custom.projectName": {
+      "persistent": true
+    },
+    "custom.projectSiteId": {
+      "persistent": true
+    },
+    "params.ErrorMessage": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.FunctionalAreaId": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.buttonIcon": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.buttonText": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.buttonType": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.modalId": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.modalName": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.params": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.path": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.projectSiteId": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.projectname": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.showFooter": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.showHeader": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.size": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.subareaid": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.title": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 371,
+      "width": 286
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Header"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.title"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Title"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Spacing"
+            },
+            "position": {
+              "basis": "20px",
+              "grow": 1,
+              "shrink": 0
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Header"
+        },
+        "position": {
+          "basis": "40px",
+          "shrink": 0
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "path": "view.params.showHeader"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "Modals/DefaultModal",
+            "overflow": "visible"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "EmbeddedView"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "custom.modalId": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.modalId"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.path": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.path"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginAll"
+              }
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "ColumnData"
+        },
+        "position": {
+          "basis": "298px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "UserManagement/InputFont",
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\tmodalName \u003d self.view.params.modalName\n\n\tsystem.perspective.closePopup(modalName)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "OK"
+            },
+            "position": {
+              "basis": "147px",
+              "display": false
+            },
+            "props": {
+              "image": {
+                "icon": {
+                  "path": "material/save"
+                }
+              },
+              "primary": false,
+              "style": {
+                "classes": "Buttons/NormalButton"
+              },
+              "text": "OK",
+              "textStyle": {
+                "color": "#ffffff"
+              }
+            },
+            "type": "ia.input.button"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\tmodalId \u003d self.view.params.modalId\n\tsystem.perspective.closePopup(modalId)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Button"
+            },
+            "position": {
+              "basis": "142px"
+            },
+            "propConfig": {
+              "props.params.iconPath": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.buttonIcon"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.params.label": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.buttonText"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.params.type": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.buttonType"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "backgroundColor": "value",
+                "disabledPopup": {
+                  "message": "Please sign in as quarterback to proceed.",
+                  "messageType": "",
+                  "payload": {},
+                  "title": "Invalid Permissions"
+                },
+                "enabled": true,
+                "hover": true,
+                "isSelectable": false,
+                "selected": true,
+                "size": "value"
+              },
+              "path": "StyleGuide/Components/Buttons/Button"
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "Footer"
+        },
+        "position": {
+          "basis": "40px"
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "path": "view.params.showFooter"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "justify": "center",
+          "style": {
+            "marginBottom": "16px",
+            "overflow": "visible"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "backgroundImage": "",
+        "classes": "Modals/ModalBody"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 33,
+      "width": 83
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Up",
+              "tooltip": {
+                "enabled": true,
+                "text": "Move Up"
+              }
+            },
+            "props": {
+              "color": "--success",
+              "path": "material/arrow_upward",
+              "style": {
+                "classes": "Icons/Transition"
+              }
+            },
+            "type": "ia.display.icon"
+          },
+          {
+            "meta": {
+              "name": "NumericEntryField"
+            },
+            "position": {
+              "basis": "60px",
+              "grow": 1
+            },
+            "props": {
+              "spinner": {
+                "enabled": false
+              }
+            },
+            "type": "ia.input.numeric-entry-field"
+          },
+          {
+            "meta": {
+              "name": "Down",
+              "tooltip": {
+                "enabled": true,
+                "text": "Move Down"
+              }
+            },
+            "props": {
+              "color": "--error",
+              "path": "material/arrow_downward",
+              "style": {
+                "classes": "Icons/Transition"
+              }
+            },
+            "type": "ia.display.icon"
+          }
+        ],
+        "meta": {
+          "name": "FlexContainer"
+        },
+        "position": {
+          "basis": "120px"
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "basis": 33
+    },
+    "type": "ia.container.flex"
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "custom": {
+    "EnterpriseID": 1,
+    "SelectedSiteID": "",
+    "SelectedSitePath": "Fiberon/GOOBS QA",
+    "Sites": {
+      "$": [
+        "ds",
+        192,
+        1703087112835
+      ],
+      "$columns": [
+        {
+          "data": [
+            9,
+            1014
+          ],
+          "name": "value",
+          "type": "Integer"
+        },
+        {
+          "data": [
+            "1NL",
+            "GOOBS QA"
+          ],
+          "name": "label",
+          "type": "String"
+        }
+      ]
+    }
+  },
+  "params": {
+    "OptionsArray": ""
+  },
+  "propConfig": {
+    "custom.EnterpriseID": {
+      "binding": {
+        "config": {
+          "path": "session.custom.EnterpriseID"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.SelectedSiteID": {
+      "binding": {
+        "config": {
+          "path": "/root/Dropdown.props.value"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.SelectedSitePath": {
+      "binding": {
+        "config": {
+          "path": "view.custom.SelectedSiteID"
+        },
+        "enabled": false,
+        "transforms": [
+          {
+            "code": "\ttry:\n\t\t\n\t    json \u003d gpa.data.datasetToJson(self.getChild(\"root/Dropdown\").props.options)\n\t    sitePath \u003d \u0027\u0027\n\t    found \u003d False\n\t\n\t    for j in json:\n\t        if j.get(\u0027value\u0027) \u003d\u003d value:\n\t            sitePath \u003d self.session.custom.EnterpriseName + \u0027/\u0027 + j.get(\u0027label\u0027)\n\t            found \u003d True\n\t            break\n\t\n\t    if not found:\n\t        raise Exception(\u0027No site path found for the given value.\u0027)\n\t\n\t    return sitePath\n\t\n\texcept Exception as e:\n\t    gpa.frontEnd.localUI.throwError(str(e))\n\t\t",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.Sites": {
+      "binding": {
+        "config": {
+          "parameters": {
+            "enterpriseID": "{view.custom.EnterpriseID}"
+          },
+          "queryPath": "app/OEE/getSitesForEnterprise"
+        },
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "params.OptionsArray": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 58,
+      "width": 259
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": [
+              {
+                "config": {
+                  "script": "\tif self.session.custom.EqPath !\u003d self.view.custom.SelectedPath:\n\t\n\t\tself.session.custom.EqPath \u003d self.view.custom.SelectedPath\n\t\tEqPath \u003d self.view.custom.SelectedPath\n\t\t\n\t\tcurrentWo \u003d system.tag.read(EqPath +\u0027/jobs/currentJob/workOrder\u0027).value\n\t\t\n\t\tcurrentLineID \u003d system.tag.read(EqPath + \u0027/OEE_Events/lineID\u0027).value\n\t\tself.session.custom.LineID \u003d currentLineID\n\n#\t\tif currentWo is not None and currentWo !\u003d \u0027\u0027:\n\t\t\t#running a wo\n\t\tsystem.perspective.navigate(\u0027/operations/operator_dashboard\u0027)\n\t\tsystem.perspective.closeDock(\"sideBar\")\n\t\tsystem.perspective.sendMessage(\u0027changedLine\u0027)\n\t\t\t\n#\t\telse:\n#\t\t\tsystem.perspective.navigate(\u0027/operations/schedule\u0027)\t\n#\t\t\tsystem.perspective.sendMessage(\u0027changedLine\u0027)"
+                },
+                "enabled": false,
+                "scope": "G",
+                "type": "script"
+              },
+              {
+                "config": {
+                  "script": "\tprevPath \u003d self.view.custom.SelectedPath\n\tprevLine \u003d self.view.custom.SelectedLine\n\n\tsystem.perspective.sendMessage(\u0027changedLine\u0027)\n\timport time\n\ttime.sleep(0.015)\n\t\n\tself.session.custom.EqPath \u003d self.view.custom.SelectedPath\n\tself.session.custom.LineID \u003d self.view.custom.SelectedLine\n\t\n\t\n#\tsystem.perspective.print(\u0027Message sent hasnt hit while loop\u0027)\n#\tsystem.perspective.print(prevPath)\n#\tsystem.perspective.print(prevLine)\n#\tsystem.perspective.print(self.session.custom.EqPath)\t\n#\tsystem.perspective.print(self.session.custom.LineID)\n#\t\n#\twhile self.session.custom.EqPath !\u003d prevPath or self.session.custom.LineID !\u003d prevLine:\n#\t\tself.session.custom.EqPath \u003d self.view.custom.SelectedPath\n#\t\tself.session.custom.LineID \u003d self.view.custom.SelectedLine\n#\t\t\n#\t\tsystem.perspective.print(\u0027WE MADE IT\u0027)\n#\t\tif self.session.custom.EqPath \u003d\u003d self.view.custom.SelectedPath and self.session.custom.LineID \u003d\u003d self.view.custom.SelectedLine:\n#\t\t\tsystem.perspective.print(\"Breaking Free\")\n#\t\t\tbreak\n#\t\n#showSpinner()\n#hideSpinner()"
+                },
+                "enabled": false,
+                "scope": "G",
+                "type": "script"
+              }
+            ]
+          },
+          "system": {
+            "onStartup": {
+              "config": {
+                "script": "\tlinePath \u003d self.session.custom.LineID\n\t\n\t\n\tself.props.value \u003d linePath"
+              },
+              "enabled": false,
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Dropdown"
+        },
+        "position": {
+          "basis": "256px"
+        },
+        "propConfig": {
+          "props.options": {
+            "binding": {
+              "config": {
+                "path": "view.custom.Sites"
+              },
+              "type": "property"
+            }
+          },
+          "props.value": {
+            "persistent": true
+          }
+        },
+        "props": {
+          "dropdownOptionStyle": {
+            "classes": "TextFields/Dropdown"
+          },
+          "style": {
+            "classes": "TextFields/Dropdown"
+          }
+        },
+        "type": "ia.input.dropdown"
+      }
+    ],
+    "events": {
+      "dom": {
+        "onClick": {
+          "config": {
+            "script": "\tsystem.perspective.print(self.getChild(\"Dropdown\").props.value)"
+          },
+          "scope": "G",
+          "type": "script"
+        }
+      }
+    },
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

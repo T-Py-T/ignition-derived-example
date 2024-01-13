@@ -1,0 +1,63 @@
+{
+  "custom": {},
+  "params": {},
+  "permissions": {
+    "securityLevels": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [],
+                "name": "Administrator"
+              },
+              {
+                "children": [],
+                "name": "Manager"
+              }
+            ],
+            "name": "Roles"
+          }
+        ],
+        "name": "Authenticated"
+      }
+    ],
+    "type": "AnyOf"
+  },
+  "props": {},
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "FullView"
+        },
+        "position": {
+          "size": "large"
+        },
+        "props": {
+          "path": "app/TrackAndTrace/History/FullView",
+          "style": {
+            "overflow": "auto"
+          }
+        },
+        "type": "ia.display.view"
+      },
+      {
+        "meta": {
+          "name": "MobileView"
+        },
+        "props": {
+          "path": "app/TrackAndTrace/History/Embedded/HistoryMobile"
+        },
+        "type": "ia.display.view"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "breakpoint": 1198
+    },
+    "type": "ia.container.breakpt"
+  }
+}

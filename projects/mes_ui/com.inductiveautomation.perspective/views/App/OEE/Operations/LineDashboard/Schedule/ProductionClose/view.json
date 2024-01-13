@@ -1,0 +1,499 @@
+{
+  "custom": {
+    "eqPath": null,
+    "isBadge": "true",
+    "naming": {},
+    "plannedOrder": null,
+    "quarterbackUserId": ""
+  },
+  "params": {},
+  "propConfig": {
+    "custom.eqPath": {
+      "binding": {
+        "config": {
+          "path": "session.custom.eqPath"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.isBadge": {
+      "binding": {
+        "config": {
+          "parameters": {
+            "equipmentPath": "{view.custom.eqPath}"
+          },
+          "queryPath": "equipment/isBadge"
+        },
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "custom.naming": {
+      "persistent": true
+    },
+    "custom.naming.quarterback": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "0": "{view.custom.eqPath}"
+          },
+          "tagPath": "[default]{0}/config/area"
+        },
+        "transforms": [
+          {
+            "fallback": "Quarterback",
+            "inputType": "scalar",
+            "mappings": [
+              {
+                "input": "Packaging",
+                "output": "Quarterback"
+              },
+              {
+                "input": "Assembly",
+                "output": "Cell Lead / Operator / Auto-Pack Operator"
+              },
+              {
+                "input": "Printing",
+                "output": "Operator"
+              },
+              {
+                "input": "Molding",
+                "output": "Utility Technician"
+              }
+            ],
+            "outputType": "scalar",
+            "type": "map"
+          }
+        ],
+        "type": "tag"
+      }
+    },
+    "custom.plannedOrder": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "0": "{view.custom.eqPath}"
+          },
+          "tagPath": "[default]{0}/jobs/currentJob/workOrder"
+        },
+        "overlayOptOut": true,
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.quarterbackUserId": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "0": "{session.custom.eqPath}"
+          },
+          "tagPath": "[default]{0}/scadaControlled/operators"
+        },
+        "overlayOptOut": true,
+        "transforms": [
+          {
+            "code": "\tdata \u003d system.dataset.toPyDataSet(value)\n\thasQuarterback \u003d False\n\tquarterbackUserId \u003d \u0027\u0027\n\tfor row in data:\n\t\tif row[\u0027operatorType\u0027] \u003d\u003d \u0027Quarterback\u0027:\n\t\t\tquarterbackUserId \u003d row[\u0027userId\u0027]\n\t\t\thasQuarterback \u003d True\n\treturn quarterbackUserId",
+            "type": "script"
+          }
+        ],
+        "type": "tag"
+      },
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 720,
+      "width": 1000
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "EmbeddedView"
+            },
+            "position": {
+              "basis": "320px"
+            },
+            "propConfig": {
+              "props.params.plannedOrder": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.plannedOrder"
+                  },
+                  "enabled": false,
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "SetupEndTime": null,
+                "SetupStartTime": null,
+                "plannedOrder": null
+              },
+              "path": "App/OEE/Operations/LineDashboard/Popups/WODetails/Embedded/WorkOrderSummary"
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "jobSummaryInfo"
+        },
+        "position": {
+          "basis": "40%",
+          "grow": 1
+        },
+        "props": {
+          "direction": "column",
+          "style": {
+            "classes": "Cards/Tile_White"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "EmbeddedView"
+                    },
+                    "position": {
+                      "basis": "100%",
+                      "grow": 1
+                    },
+                    "props": {
+                      "path": "Cards/miscManualWorkOrder"
+                    },
+                    "type": "ia.display.view"
+                  }
+                ],
+                "meta": {
+                  "name": "miscManualOrder"
+                },
+                "position": {
+                  "basis": "40%",
+                  "display": false,
+                  "grow": 1
+                },
+                "props": {
+                  "style": {
+                    "classes": "Cards/Tile_White",
+                    "overflow": "hidden"
+                  }
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "meta": {
+                  "name": "EmbeddedView"
+                },
+                "position": {
+                  "basis": "30%",
+                  "grow": 1
+                },
+                "props": {
+                  "params": {
+                    "eqPath": null
+                  },
+                  "path": "App/OEE/Operations/LineDashboard/Popups/RecordScrap/Embedded/ScrapInfo",
+                  "style": {
+                    "classes": "Cards/Tile_White"
+                  }
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "meta": {
+                  "name": "openCloseWO"
+                },
+                "position": {
+                  "basis": "30%",
+                  "grow": 1
+                },
+                "props": {
+                  "params": {
+                    "labelState1": "Complete",
+                    "labelState2": "Incomplete",
+                    "stateSelected": 0
+                  },
+                  "path": "App/OEE/Operations/LineDashboard/Popups/WODetails/Embedded/WorkOrderOpenClose",
+                  "style": {
+                    "classes": "Cards/Tile_White"
+                  }
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "pages"
+            },
+            "position": {
+              "basis": "85%",
+              "grow": 1,
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "main"
+        },
+        "position": {
+          "basis": "50%",
+          "grow": 1
+        },
+        "props": {
+          "direction": "column"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\t\n\tpageUrl \u003d \u0027/operations/operator_dashboard\u0027\n\tsystem.perspective.navigate(page \u003d pageUrl)"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "returnToProduction"
+                },
+                "position": {
+                  "basis": "125px",
+                  "shrink": 0
+                },
+                "props": {
+                  "params": {
+                    "disabledPopup": {
+                      "message": "Please start a run before assigning scrap.",
+                      "messageType": "",
+                      "payload": {},
+                      "title": "No Current Job"
+                    },
+                    "enabled": true,
+                    "hover": false,
+                    "iconPath": "material/save",
+                    "isSelectable": false,
+                    "label": "Return to Production",
+                    "selected": true
+                  },
+                  "path": "GlobalComponents/Buttons/OverheadButton",
+                  "style": {
+                    "marginLeft": "0.5em",
+                    "marginRight": "0.5em"
+                  }
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "left"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "meta": {
+              "name": "middle"
+            },
+            "position": {
+              "basis": "50%",
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "overflow": "hidden",
+                "paddingLeft": "1vw",
+                "paddingRight": "1vw"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "closeRun"
+                },
+                "position": {
+                  "basis": "100px"
+                },
+                "propConfig": {
+                  "props.params.disabledPopup.message": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.quarterbackUserId"
+                      },
+                      "transforms": [
+                        {
+                          "expression": "if({value} \u003d \u0027\u0027,\u0027Please sign in as \u0027 + {view.custom.naming.quarterback},\r\nif({..../main/pages/openCloseWO.props.params.stateSelected} \u003d 0,\u0027Please Select if Planned Order is Complete or Incomplete\u0027,\u0027\u0027))",
+                          "type": "expression"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  },
+                  "props.params.disabledPopup.title": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.quarterbackUserId"
+                      },
+                      "transforms": [
+                        {
+                          "expression": "if({value} \u003d \u0027\u0027,\u0027Invalid Permissions\u0027,\r\nif({..../main/pages/openCloseWO.props.params.stateSelected} \u003d 0,\u0027Make Selection\u0027,\u0027\u0027))",
+                          "type": "expression"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  },
+                  "props.params.enabled": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.quarterbackUserId"
+                      },
+                      "transforms": [
+                        {
+                          "expression": "{value} !\u003d \u0027\u0027 \u0026\u0026 {..../main/pages/openCloseWO.props.params.stateSelected} !\u003d 0",
+                          "type": "expression"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  },
+                  "props.params.successPayload.userId": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.quarterbackUserId"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "actionText": "Close Run",
+                    "disabledPopup": {
+                      "messageType": "",
+                      "payload": {}
+                    },
+                    "failureHandler": "closeJobFailure",
+                    "failurePayload": {
+                      "userId": ""
+                    },
+                    "isBadge": false,
+                    "label": "Close Run",
+                    "roles": [
+                      "Quarterback",
+                      "Administrator",
+                      "SuperUser",
+                      "Supervisor"
+                    ],
+                    "showLoading": "True",
+                    "successHandler": "closeJobSuccess",
+                    "successPayload": {}
+                  },
+                  "path": "GlobalComponents/Buttons/OverheadButton"
+                },
+                "scripts": {
+                  "customMethods": [],
+                  "extensionFunctions": null,
+                  "messageHandlers": [
+                    {
+                      "messageType": "closeJobSuccess",
+                      "pageScope": true,
+                      "script": "\t# implement your handler here\n\t\t#loading popup\n\tview \t\t\t\u003d \u0027modals/message/loading\u0027\n\tid \t\t\t\t\u003d \u0027loading\u0027\n\tmodal \t\t\t\u003d True\n\tshowCloseIcon \t\u003d False\n\toverlayDismiss \t\u003d True\n\tdraggable \t\t\u003d False\n\tresizable \t\t\u003d False\n\t\n\tsystem.perspective.openPopup(\n\t\tid\u003did, \n\t\tview\u003dview, \n\t\tparams\u003d{}, \n\t\tmodal\u003dmodal, \n\t\tshowCloseIcon\u003dshowCloseIcon, \n\t\toverlayDismiss\u003doverlayDismiss, \n\t\tdraggable\u003ddraggable,\n\t\tresizable\u003dresizable\n\t)\n\t########\n\t\n\tequipmentPath \u003d self.session.custom.eqPath\n\ttagPath \u003d app.util.eqPathToTagPath(equipmentPath)\n\t\n\tisWorkOrderComplete \u003d False\n\ttry:\n\t\tselected \u003d self.parent.parent.parent.getChild(\"main\").getChild(\"pages\").getChild(\"openCloseWO\").props.params.stateSelected\n\t\tif selected \u003d\u003d 1:\n\t\t\tisWorkOrderComplete \u003d True\n\texcept:\n\t\tpass\n\t\n\tmes.schedule.jobs.endJob(tagPath, isWorkOrderComplete)\n\t\n\tsystem.perspective.closePopup(\u0027loading\u0027)\n\t\n\tpageUrl \u003d \u0027/operator/schedule\u0027\n\tsystem.perspective.navigate(page \u003d pageUrl)\n\t",
+                      "sessionScope": false,
+                      "viewScope": false
+                    },
+                    {
+                      "messageType": "closeJobFailure",
+                      "pageScope": true,
+                      "script": "\t# implement your handler here\n\tmessage \u003d \u0027Please sign in as \u0027 + self.view.custom.naming.quarterback + \u0027 to proceed.\u0027\n\tapp.perspective.notifyUser(message)\n\tapp.perspective.indicateFailureBorder(self)\n\t",
+                      "sessionScope": false,
+                      "viewScope": false
+                    }
+                  ]
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "right"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "buttons"
+        },
+        "position": {
+          "basis": "75px",
+          "shrink": 0
+        },
+        "props": {
+          "justify": "space-between",
+          "style": {
+            "overflow": "hidden",
+            "padding": "1ex"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "classes": "Text/Screen",
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

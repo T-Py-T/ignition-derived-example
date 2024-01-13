@@ -1,0 +1,126 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 56,
+      "width": 349
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "SystemName"
+            },
+            "props": {
+              "style": {
+                "marginRight": "8px",
+                "overflow": "hidden"
+              },
+              "text": "Select Product Code",
+              "textStyle": {
+                "textAlign": ""
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "children": [
+              {
+                "custom": {
+                  "selectedCode": "Select..."
+                },
+                "meta": {
+                  "name": "Dropdown"
+                },
+                "position": {
+                  "basis": "75px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.options": {
+                    "binding": {
+                      "config": {
+                        "expression": "runScript(\"mes.config.sp.getProductCodes\", 0)"
+                      },
+                      "transforms": [
+                        {
+                          "code": "\toptions \u003d [{ \"label\": \"All\", \"value\": \"All\"  }]\n#\toptions \u003d []\n\tpydata \u003d system.dataset.toPyDataSet(value)\n\t\n\tfor row in pydata:\n\t\tlabel \u003d row[\"label\"]\n\t\tvalue \u003d row[\"value\"]\n\t\toptions.append({ \"label\": label, \"value\": value })\n\t\t\n\treturn options\n\t\t",
+                          "type": "script"
+                        }
+                      ],
+                      "type": "expr"
+                    }
+                  },
+                  "props.value": {
+                    "onChange": {
+                      "enabled": null,
+                      "script": "#\tmessage \u003d currentValue\n#\tsystem.perspective.sendMessage(\"changedProductCode\", payload\u003dmessage)\n\tself.custom.selectedCode \u003d currentValue.getValue()\n\toptions \u003d self.props.options\n\t\n\tfor option in options:\n\t\tif option[\"value\"] \u003d\u003d currentValue.getValue():\n\t\t\tsystem.perspective.sendMessage(\"changedProductCode\", payload\u003doption[\"label\"])"
+                    }
+                  }
+                },
+                "props": {
+                  "placeholder": {
+                    "icon": {
+                      "path": "material/search"
+                    },
+                    "text": ""
+                  },
+                  "style": {
+                    "classes": "TextFields/Dropdown",
+                    "marginBottom": "10px",
+                    "marginTop": "10px",
+                    "overflow": "hidden"
+                  },
+                  "value": "Select..."
+                },
+                "type": "ia.input.dropdown"
+              }
+            ],
+            "meta": {
+              "name": "FlexContainer"
+            },
+            "position": {
+              "basis": "162px"
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Title"
+        },
+        "position": {
+          "basis": "50px",
+          "grow": 1,
+          "shrink": 0
+        },
+        "props": {
+          "alignContent": "flex-end",
+          "style": {
+            "backgroundColor": ""
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

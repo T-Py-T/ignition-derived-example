@@ -1,0 +1,64 @@
+{
+  "custom": {},
+  "params": {
+    "TagPath": "value"
+  },
+  "propConfig": {
+    "params.TagPath": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "width": 265
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "FlexRepeater"
+        },
+        "position": {
+          "shrink": 0
+        },
+        "propConfig": {
+          "props.instances": {
+            "binding": {
+              "config": {
+                "expression": "{view.params.TagPath}"
+              },
+              "transforms": [
+                {
+                  "code": "#\tinstances \u003d []\n#\tres \u003d system.dataset.toPyDataSet(system.device.listDevices())\n#\n#\tfor result in res:\n#\t\tinstances.append({\"name\":result[\"Name\"], \"enabled\":result[\"Enabled\"], \"state\":result[\"State\"], \"driver\":result[\"Driver\"]})\n#\treturn instances\n\tinstances \u003d []\n\tstartPath \u003d value\n\tres \u003d system.tag.browse(path\u003dstartPath)\n\n\n\tfor result in res.getResults():\n\t\tinstances.append({\"Name\":result[\"name\"], \"TagPath\": self.view.params.TagPath})\n\treturn instances",
+                  "type": "script"
+                }
+              ],
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "direction": "column",
+          "elementPosition": {
+            "basis": "auto",
+            "grow": 0,
+            "shrink": 0
+          },
+          "path": "App/GatewayHealth/Diagnostics/Embedded/OPCDevice",
+          "useDefaultViewHeight": false,
+          "useDefaultViewWidth": false
+        },
+        "type": "ia.display.flex-repeater"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

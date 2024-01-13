@@ -1,0 +1,229 @@
+{
+  "custom": {
+    "id": "9aea599e-fb57-4774-98e8-86ca1c96351f"
+  },
+  "params": {
+    "value": ""
+  },
+  "propConfig": {
+    "custom.id": {
+      "binding": {
+        "config": {
+          "expression": "now(0)"
+        },
+        "transforms": [
+          {
+            "code": "\tfrom java.util import UUID\n\treturn UUID.randomUUID().toString()",
+            "type": "script"
+          }
+        ],
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "params.value": {
+      "paramDirection": "inout",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 38,
+      "width": 382
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Sample"
+            },
+            "position": {
+              "basis": "24px",
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.path": {
+                "binding": {
+                  "config": {
+                    "expression": "\"material/\" + {../Field.props.text}"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "cursor": "pointer",
+                "margin": "6px"
+              }
+            },
+            "type": "ia.display.icon"
+          },
+          {
+            "meta": {
+              "name": "Field"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "bidirectional": true,
+                    "path": "view.params.value"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "placeholder": "Select icon...",
+              "style": {
+                "classes": "TextFields/TextField"
+              }
+            },
+            "scripts": {
+              "customMethods": [],
+              "extensionFunctions": null,
+              "messageHandlers": [
+                {
+                  "messageType": "icon-selection",
+                  "pageScope": true,
+                  "script": "\tid \u003d self.view.custom.id\n\tif id \u003d\u003d payload[\"id\"]:\n\t\ticon \u003d payload[\"icon\"]\n\t\tself.props.text \u003d icon",
+                  "sessionScope": false,
+                  "viewScope": false
+                }
+              ]
+            },
+            "type": "ia.input.text-field"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\tself.getSibling(\"Field\").props.text \u003d \"\""
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Clear"
+            },
+            "position": {
+              "basis": "24px",
+              "shrink": 0
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "expression": "len({../Field.props.text}) \u003e 0"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "path": "material/clear",
+              "style": {
+                "classes": "Forms/Page/Icon_Action",
+                "marginLeft": "5px"
+              }
+            },
+            "type": "ia.display.icon"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "draggable": false,
+                    "id": "icon-picker",
+                    "modal": true,
+                    "overlayDismiss": true,
+                    "resizable": true,
+                    "showCloseIcon": true,
+                    "title": "Choose Icon",
+                    "type": "open",
+                    "viewParams": {
+                      "icon": "{/root/FlexContainer/Field.props.text}",
+                      "id": "{view.custom.id}"
+                    },
+                    "viewPath": "GlobalComponents/IconPicker/IconPopup",
+                    "viewportBound": false
+                  },
+                  "scope": "C",
+                  "type": "popup"
+                }
+              }
+            },
+            "meta": {
+              "name": "Search"
+            },
+            "position": {
+              "basis": "24px",
+              "shrink": 0
+            },
+            "props": {
+              "path": "material/search",
+              "style": {
+                "classes": "Forms/Page/Icon_Action",
+                "marginLeft": "5px"
+              }
+            },
+            "type": "ia.display.icon"
+          },
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "script": "\ticon \u003d self.view.params.value\n\ticonPath \u003d \u0027material/\u0027 + icon\n\t\n\tpayload \u003d { \u0027iconPath\u0027: iconPath }\n\t\n\tsystem.perspective.sendMessage(\u0027iconPicked\u0027, payload)\n\tsystem.perspective.closePopup(\u0027iconPicker\u0027)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Button"
+            },
+            "position": {
+              "basis": "80px"
+            },
+            "props": {
+              "style": {
+                "classes": "Buttons/OperatorButtons"
+              },
+              "text": "Save"
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "FlexContainer"
+        },
+        "position": {
+          "basis": "32px",
+          "grow": 1,
+          "shrink": 0
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

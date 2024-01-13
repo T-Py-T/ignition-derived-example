@@ -1,0 +1,3216 @@
+{
+  "custom": {
+    "Date": {
+      "Enabled": true
+    },
+    "Label": "",
+    "PartId": "",
+    "PartSelection": false,
+    "ProductCode": "",
+    "Workorder": ""
+  },
+  "params": {
+    "EndTime": {
+      "$": [
+        "ts",
+        192,
+        1676562475904
+      ],
+      "$ts": 1676562360000
+    },
+    "Label": "",
+    "PartId": "",
+    "ProductCode": "",
+    "StartTime": {
+      "$": [
+        "ts",
+        192,
+        1676562471215
+      ],
+      "$ts": 1676475960000
+    },
+    "Workorder": "value"
+  },
+  "propConfig": {
+    "custom.Date": {
+      "persistent": true
+    },
+    "custom.Date.EndTime": {
+      "persistent": false
+    },
+    "custom.Date.StartTime": {
+      "persistent": false
+    },
+    "custom.Label": {
+      "binding": {
+        "config": {
+          "path": "view.params.Label"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.PartId": {
+      "persistent": true
+    },
+    "custom.PartSelection": {
+      "persistent": true
+    },
+    "custom.ProductCode": {
+      "persistent": true
+    },
+    "custom.Workorder": {
+      "persistent": true
+    },
+    "params.EndTime": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Label": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.PartId": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.ProductCode": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.StartTime": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Workorder": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 1015,
+      "width": 1397
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "events": {
+                  "component": {
+                    "onActionPerformed": {
+                      "config": {
+                        "script": "\tstate \u003d self.props.selected\n\tif state:\n\t\tself.getSibling(\"StartDate\").props.enabled \u003d False\n\t\tself.getSibling(\"EndDate\").props.enabled \u003d False\n\t\tself.view.custom.Date.Enabled \u003d False\n\telse:\n\t\tself.getSibling(\"StartDate\").props.enabled \u003d True\n\t\tself.getSibling(\"EndDate\").props.enabled \u003d True\n\t\tself.view.custom.Date.Enabled \u003d True"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "DateCheckbox"
+                },
+                "position": {
+                  "basis": "119px",
+                  "display": false
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginBottom Global/MarginLeft "
+                  },
+                  "text": "Disable Date Filter"
+                },
+                "type": "ia.input.checkbox"
+              },
+              {
+                "meta": {
+                  "name": "Selected Case"
+                },
+                "props": {
+                  "alignVertical": "top",
+                  "style": {
+                    "classes": "Text/Heading"
+                  },
+                  "text": "Part Selection:",
+                  "textStyle": {
+                    "color": "--callToAction",
+                    "textAlign": "center"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "PartID"
+                },
+                "position": {
+                  "display": false,
+                  "grow": 1
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                  },
+                  "text": "SKU/Part Number",
+                  "textStyle": {
+                    "fontWeight": "bold",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "PartIDEntrySelection"
+                    },
+                    "position": {
+                      "basis": "42px",
+                      "grow": 1
+                    },
+                    "propConfig": {
+                      "custom.Data": {
+                        "binding": {
+                          "config": {
+                            "expression": "runScript(\"mes.trace.sp.getParts\", 0, \r\n\tif({view.custom.Date.StartTime} \u003d \"\", None, {view.custom.Date.StartTime}),\r\n\tif({view.custom.Date.EndTime} \u003d \"\", None, {view.custom.Date.EndTime}),\r\n\tif({view.custom.Label} \u003d \"\" || {view.custom.Label} \u003d \"None\", None, {view.custom.Label}),\r\n\tFalse,\r\n\tNone,\r\n\tNone,\r\n\tNone,\r\n\tFalse,\r\n\tFalse)\r\n\r\n///getParts(StartTime \u003d None, EndTime \u003d None, Label \u003d None, LabelExactMatch \u003d False, ProductCodeID \u003d None, InventoryID \u003d None, AccumulatorID \u003d None, GetCompletedOnly \u003d False, GetWIPOnly \u003d False):\r\n"
+                          },
+                          "type": "expr"
+                        }
+                      },
+                      "position.display": {
+                        "binding": {
+                          "config": {
+                            "path": "view.custom.PartSelection"
+                          },
+                          "type": "property"
+                        }
+                      },
+                      "props.options": {
+                        "binding": {
+                          "config": {
+                            "expression": "runScript(\"mes.trace.sp.getParts\", 0, \r\n\tif({view.custom.Date.StartTime} \u003d \"\", None, {view.custom.Date.StartTime}), // Start Date\r\n\tif({view.custom.Date.EndTime} \u003d \"\", None, {view.custom.Date.EndTime}), // End Date\r\n\tif({view.custom.Label} \u003d \"\" || {view.custom.Label} \u003d \"None\", None, {view.custom.Label}), // Label\r\n\tFalse, //Label Exact Match\r\n\tif({view.custom.ProductCode} \u003d \"\" || {view.custom.ProductCode} \u003d \"None\", None, {view.custom.ProductCode}),//Product Code ID\r\n\tif({view.custom.Workorder} \u003d \"\" || {view.custom.Workorder} \u003d \"None\", None, {view.custom.Workorder}), //Workorder\r\n\tNone, // InventoryID\r\n\tNone, /// Accumulator ID\r\n\tFalse, //Get Completed Only\r\n\tFalse) /// Get WIP Only\r\n\r\n///getParts(StartTime \u003d None, EndTime \u003d None, Label \u003d None, LabelExactMatch \u003d False, ProductCodeID \u003d None, Workorder \u003d None, InventoryID \u003d None, AccumulatorID \u003d None, GetCompletedOnly \u003d False, GetWIPOnly \u003d False):\r\n\t"
+                          },
+                          "transforms": [
+                            {
+                              "code": "\t#options \u003d [{ \"label\": \"All\", \"value\": \"\"  }]\n\toptions \u003d []\n\tpydata \u003d system.dataset.toPyDataSet(value)\n\t\n\tfor row in pydata:\n\t\tlabel \u003d row[\"Label\"]\n\t\tvalue \u003d row[\"Label\"]\n\t\toptions.append({ \"label\": label, \"value\": label })\n\t\t\n\treturn options\n\t\t",
+                              "type": "script"
+                            }
+                          ],
+                          "type": "expr"
+                        }
+                      },
+                      "props.value": {
+                        "binding": {
+                          "config": {
+                            "expression": "null"
+                          },
+                          "enabled": false,
+                          "type": "expr"
+                        },
+                        "onChange": {
+                          "enabled": null,
+                          "script": "\tif currentValue \u003d\u003d None:\n\t\tpass\n\telif currentValue !\u003d \u0027\u0027:\n\t\tself.view.custom.Label \u003d previousValue\n\t\tself.view.custom.PartSelection \u003d False\n\t\tself.parent.parent.parent.getChild(\"Main\").getChild(\"Table\").refreshBinding(\u0027props.data\u0027)\n\t\tself.props.value \u003d None\n\telse:\n\t\tself.props.value \u003d \u0027\u0027\n\t\tself.parent.parent.parent.getChild(\"Main\").getChild(\"Table\").refreshBinding(\u0027props.data\u0027)"
+                        }
+                      }
+                    },
+                    "props": {
+                      "placeholder": {
+                        "text": "Select Part"
+                      },
+                      "showClearIcon": true,
+                      "style": {
+                        "classes": "TextFields/Dropdown"
+                      },
+                      "value": null
+                    },
+                    "type": "ia.input.dropdown"
+                  },
+                  {
+                    "meta": {
+                      "name": "PartIDEntry"
+                    },
+                    "position": {
+                      "grow": 1
+                    },
+                    "propConfig": {
+                      "position.display": {
+                        "binding": {
+                          "config": {
+                            "path": "view.custom.PartSelection"
+                          },
+                          "transforms": [
+                            {
+                              "expression": "!{value}",
+                              "type": "expression"
+                            }
+                          ],
+                          "type": "property"
+                        }
+                      },
+                      "props.text": {
+                        "binding": {
+                          "config": {
+                            "bidirectional": true,
+                            "path": "view.custom.Label"
+                          },
+                          "type": "property"
+                        }
+                      }
+                    },
+                    "props": {
+                      "placeholder": "Please Enter Part Number",
+                      "style": {
+                        "classes": "TextFields/TextField"
+                      }
+                    },
+                    "type": "ia.input.text-field"
+                  },
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "script": "\tselection \u003d self.view.custom.PartSelection\n\tif selection \u003d\u003d True:\n\t\tself.view.custom.PartSelection \u003d False\n\telse:\n\t\tself.view.custom.PartSelection \u003d True"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "Icon",
+                      "tooltip": {
+                        "enabled": true,
+                        "text": "Search for Part Numbers."
+                      }
+                    },
+                    "position": {
+                      "basis": "30px"
+                    },
+                    "propConfig": {
+                      "position.display": {
+                        "binding": {
+                          "config": {
+                            "expression": "if({../PartIDEntry.props.text} \u003d \u0027\u0027 || isNull({../PartIDEntry.props.text}), true, false)"
+                          },
+                          "type": "expr"
+                        }
+                      }
+                    },
+                    "props": {
+                      "path": "material/search"
+                    },
+                    "type": "ia.display.icon"
+                  }
+                ],
+                "meta": {
+                  "name": "FlexContainer"
+                },
+                "position": {
+                  "basis": "42px",
+                  "display": false,
+                  "grow": 1
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "meta": {
+                  "name": "OrderNumber"
+                },
+                "position": {
+                  "display": false,
+                  "grow": 1
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                  },
+                  "text": "Order Number",
+                  "textStyle": {
+                    "classes": "TextFields/TextTitle",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "OrderEntry"
+                },
+                "position": {
+                  "basis": "42px",
+                  "display": false,
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.enabled": {
+                    "binding": {
+                      "config": {
+                        "expression": "if({parent.custom.edit} \u003d 1, true, false)"
+                      },
+                      "type": "expr"
+                    }
+                  },
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "expression": "If(isnull({..../Table/Table.props.selection.data[0][\u0027Case Serial\u0027]}), \u0027Please Select Case\u0027, {..../Table/Table.props.selection.data[0][\u0027Case Serial\u0027]})"
+                      },
+                      "enabled": false,
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "placeholder": "...",
+                  "style": {
+                    "classes": "TextFields/TextField"
+                  }
+                },
+                "type": "ia.input.text-field"
+              },
+              {
+                "meta": {
+                  "name": "OrderNumber_0"
+                },
+                "position": {
+                  "display": false,
+                  "grow": 1
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                  },
+                  "text": "Product Code",
+                  "textStyle": {
+                    "classes": "TextFields/TextTitle",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "custom": {
+                  "selectedCode": "Select..."
+                },
+                "meta": {
+                  "name": "Dropdown"
+                },
+                "position": {
+                  "basis": "42px",
+                  "display": false,
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.options": {
+                    "binding": {
+                      "config": {
+                        "expression": "runScript(\"mes.config.sp.getProductCodes\", 0)"
+                      },
+                      "transforms": [
+                        {
+                          "code": "\toptions \u003d [{ \"label\": \"All\", \"value\": \"\"  }]\n#\toptions \u003d []\n\tpydata \u003d system.dataset.toPyDataSet(value)\n\t\n\tfor row in pydata:\n\t\tlabel \u003d row[\"ProductCode\"]\n\t\tvalue \u003d row[\"ID\"]\n\t\toptions.append({ \"label\": label, \"value\": value })\n\t\t\n\treturn options\n\t\t",
+                          "type": "script"
+                        }
+                      ],
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "placeholder": {
+                    "icon": {
+                      "path": "material/search"
+                    },
+                    "text": ""
+                  },
+                  "style": {
+                    "classes": "TextFields/Dropdown",
+                    "marginBottom": "10px",
+                    "marginTop": "10px",
+                    "overflow": "hidden"
+                  }
+                },
+                "type": "ia.input.dropdown"
+              },
+              {
+                "meta": {
+                  "name": "StartDateLabel"
+                },
+                "position": {
+                  "display": false,
+                  "grow": 1
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                  },
+                  "text": "Start Date",
+                  "textStyle": {
+                    "classes": "TextFields/TextTitle",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "events": {
+                  "component": {
+                    "onActionPerformed": {
+                      "config": {
+                        "script": "\tstartTime \u003d self.props.value\n\t\t\n#\tself.view.params.StartTime \u003d startTime\n#\tself.view.custom.Date.StartTime \u003d startTime"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "StartDate"
+                },
+                "position": {
+                  "basis": "42px",
+                  "display": false,
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.value": {
+                    "binding": {
+                      "config": {
+                        "expression": "addDays(now(100000), -1)"
+                      },
+                      "enabled": false,
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "formattedValue": null,
+                  "inputProps": {
+                    "style": {
+                      "classes": "TextFields/DateSelector"
+                    }
+                  },
+                  "modalStyle": {
+                    "classes": "TextFields/TextArea"
+                  },
+                  "style": {
+                    "classes": "Global/MarginBottom TextFields/TextArea",
+                    "marginLeft": "5px",
+                    "marginRight": "5px"
+                  }
+                },
+                "type": "ia.input.date-time-input"
+              },
+              {
+                "meta": {
+                  "name": "EndDateLabel"
+                },
+                "position": {
+                  "display": false,
+                  "grow": 1
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                  },
+                  "text": "End Date",
+                  "textStyle": {
+                    "classes": "TextFields/TextTitle",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "events": {
+                  "component": {
+                    "onActionPerformed": {
+                      "config": {
+                        "script": "\tendTime \u003d self.props.value\n\t\n#\tself.view.params.EndTime \u003d endTime\n\tself.view.custom.Date.EndTime \u003d endTime"
+                      },
+                      "enabled": false,
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "EndDate"
+                },
+                "position": {
+                  "basis": "42px",
+                  "display": false,
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.value": {
+                    "binding": {
+                      "config": {
+                        "expression": "now(100000)"
+                      },
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "formattedValue": "Jun 8, 2023 10:32 AM",
+                  "inputProps": {
+                    "style": {
+                      "classes": "TextFields/DateSelector"
+                    }
+                  },
+                  "modalStyle": {
+                    "classes": "TextFields/TextArea"
+                  },
+                  "style": {
+                    "classes": "Global/MarginBottom TextFields/TextArea",
+                    "marginLeft": "5px",
+                    "marginRight": "5px"
+                  }
+                },
+                "type": "ia.input.date-time-input"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": " \tstartDate \u003d self.getSibling(\"StartDate\").props.value\n\tendDate \u003d self.getSibling(\"EndDate\").props.value\n\tpartID \u003d self.parent.getChild(\"FlexContainer\").getChild(\"PartIDEntry\").props.text\n\torderNumber \u003d self.getSibling(\"OrderEntry\").props.text\n\tproductcode \u003d self.getSibling(\"Dropdown\").props.value\n\t\n\tself.view.custom.Date.StartTime \u003d startDate\n\tself.view.custom.Date.EndTime \u003d endDate\n\tself.view.custom.Label \u003d partID\n\tself.view.custom.Workorder \u003d orderNumber\n\tself.view.custom.ProductCode \u003d productcode\n\t\n\t\n\t\t\t\n\n#\tif partID is \"\":\n#\t\tpartID \u003d None\n#\t\t\n#\tif label is \"\":\n#\t\tlabel \u003d None\n\t\n#\tif partID !\u003d \"\" or label !\u003d \"\":\n#\t\tself.view.params.startTime \u003d startDate\n#\t\tself.view.params.endTime \u003d endDate\n#\t\tself.view.params.partId \u003d partID\n#\t\tself.view.params.label \u003d label\t\n#\t\t"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "RunReportBtn"
+                },
+                "position": {
+                  "basis": "42px",
+                  "display": false,
+                  "grow": 1
+                },
+                "props": {
+                  "params": {
+                    "BackgroundColor": "value",
+                    "DisabledPopup": {
+                      "message": "Please sign in as quarterback to proceed.",
+                      "messageType": "",
+                      "payload": {},
+                      "title": "Invalid Permissions"
+                    },
+                    "Enabled": true,
+                    "Hover": true,
+                    "IconPath": "material/article",
+                    "IsSelectable": false,
+                    "Label": "Run Report",
+                    "Selected": true,
+                    "Size": "value",
+                    "Type": ""
+                  },
+                  "path": "GlobalComponents/Buttons/Button",
+                  "style": {
+                    "classes": "Global/MarginAllTop Global/MarginBottom Global/MarginLeft Global/MarginRight"
+                  }
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\tdata \u003d self.parent.parent.getChild(\"Main\").getChild(\"Table\").props.data\n\tcsv \u003d system.dataset.toCSV(data, True)\n\t\n\tif data.getRowCount() !\u003d 0:\n\t\tsystem.perspective.download(\u0027track_trace_history.csv\u0027, csv)\n\telse:\n\t\tsystem.perspective.openPopup(\u0027ErrorModal\u0027, \u0027GlobalComponents/Modals/ErrorModal\u0027, params\u003d{\u0027ErrorMessage\u0027: \u0027Please select data to generate file\u0027, \u0027ModalName\u0027: \u0027ErrorModal\u0027})\n\t"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "ExportBtn",
+                  "visible": false
+                },
+                "position": {
+                  "basis": "42px",
+                  "display": false,
+                  "grow": 1
+                },
+                "props": {
+                  "params": {
+                    "BackgroundColor": "",
+                    "DisabledPopup": {
+                      "message": "Please sign in as quarterback to proceed.",
+                      "messageType": "",
+                      "payload": {},
+                      "title": "Invalid Permissions"
+                    },
+                    "Enabled": true,
+                    "Hover": true,
+                    "IconPath": "material/import_export",
+                    "IsSelectable": false,
+                    "Label": "Export CSV",
+                    "Selected": true,
+                    "Size": "value",
+                    "Type": ""
+                  },
+                  "path": "GlobalComponents/Buttons/Button",
+                  "style": {
+                    "classes": "Global/MarginBottom Global/MarginLeft Global/MarginRight"
+                  }
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "draggable": true,
+                        "id": "VzGFUqXq",
+                        "modal": false,
+                        "overlayDismiss": false,
+                        "resizable": true,
+                        "showCloseIcon": true,
+                        "type": "open",
+                        "viewPath": "App/TrackAndTrace/History (Test)/Embedded/FilterPopup",
+                        "viewportBound": false
+                      },
+                      "scope": "C",
+                      "type": "popup"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "SelectPart"
+                },
+                "position": {
+                  "basis": "42px"
+                },
+                "props": {
+                  "params": {
+                    "BackgroundColor": "value",
+                    "DisabledPopup": {
+                      "message": "Please sign in as quarterback to proceed.",
+                      "messageType": "",
+                      "payload": {},
+                      "title": "Invalid Permissions"
+                    },
+                    "Enabled": true,
+                    "Hover": true,
+                    "IconPath": "material/check_box",
+                    "IsSelectable": false,
+                    "Label": "Select Part",
+                    "Selected": true,
+                    "Size": "value",
+                    "Type": ""
+                  },
+                  "path": "GlobalComponents/Buttons/Button",
+                  "style": {
+                    "classes": "Global/MarginAllTop Global/MarginBottom Global/MarginLeft Global/MarginRight"
+                  }
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "custom": {
+              "edit": 1
+            },
+            "meta": {
+              "name": "SelectedItems"
+            },
+            "position": {
+              "display": false
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginAll"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "events": {
+                          "component": {
+                            "onActionPerformed": {
+                              "config": {
+                                "script": "\tstate \u003d self.props.selected\n\tif state:\n\t\tself.getSibling(\"StartDate\").props.enabled \u003d False\n\t\tself.getSibling(\"EndDate\").props.enabled \u003d False\n\t\tself.view.custom.Date.Enabled \u003d False\n\telse:\n\t\tself.getSibling(\"StartDate\").props.enabled \u003d True\n\t\tself.getSibling(\"EndDate\").props.enabled \u003d True\n\t\tself.view.custom.Date.Enabled \u003d True"
+                              },
+                              "scope": "G",
+                              "type": "script"
+                            }
+                          }
+                        },
+                        "meta": {
+                          "name": "DateCheckbox"
+                        },
+                        "position": {
+                          "basis": "119px",
+                          "display": false
+                        },
+                        "props": {
+                          "style": {
+                            "classes": "Global/MarginBottom Global/MarginLeft "
+                          },
+                          "text": "Disable Date Filter"
+                        },
+                        "type": "ia.input.checkbox"
+                      },
+                      {
+                        "meta": {
+                          "name": "Selected Case"
+                        },
+                        "props": {
+                          "alignVertical": "top",
+                          "style": {
+                            "classes": "Text/Heading"
+                          },
+                          "text": "Part Selection:",
+                          "textStyle": {
+                            "color": "--callToAction",
+                            "textAlign": "center"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      },
+                      {
+                        "meta": {
+                          "name": "PartID"
+                        },
+                        "position": {
+                          "display": false,
+                          "grow": 1
+                        },
+                        "props": {
+                          "style": {
+                            "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                          },
+                          "text": "SKU/Part Number",
+                          "textStyle": {
+                            "fontWeight": "bold",
+                            "textAlign": "left"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      },
+                      {
+                        "children": [
+                          {
+                            "meta": {
+                              "name": "PartIDEntrySelection"
+                            },
+                            "position": {
+                              "basis": "42px",
+                              "grow": 1
+                            },
+                            "propConfig": {
+                              "custom.Data": {
+                                "binding": {
+                                  "config": {
+                                    "expression": "runScript(\"mes.trace.sp.getParts\", 0, \r\n\tif({view.custom.Date.StartTime} \u003d \"\", None, {view.custom.Date.StartTime}),\r\n\tif({view.custom.Date.EndTime} \u003d \"\", None, {view.custom.Date.EndTime}),\r\n\tif({view.custom.Label} \u003d \"\" || {view.custom.Label} \u003d \"None\", None, {view.custom.Label}),\r\n\tFalse,\r\n\tNone,\r\n\tNone,\r\n\tNone,\r\n\tFalse,\r\n\tFalse)\r\n\r\n///getParts(StartTime \u003d None, EndTime \u003d None, Label \u003d None, LabelExactMatch \u003d False, ProductCodeID \u003d None, InventoryID \u003d None, AccumulatorID \u003d None, GetCompletedOnly \u003d False, GetWIPOnly \u003d False):\r\n"
+                                  },
+                                  "type": "expr"
+                                }
+                              },
+                              "position.display": {
+                                "binding": {
+                                  "config": {
+                                    "path": "view.custom.PartSelection"
+                                  },
+                                  "type": "property"
+                                }
+                              },
+                              "props.options": {
+                                "binding": {
+                                  "config": {
+                                    "expression": "runScript(\"mes.trace.sp.getParts\", 0, \r\n\tif({view.custom.Date.StartTime} \u003d \"\", None, {view.custom.Date.StartTime}), // Start Date\r\n\tif({view.custom.Date.EndTime} \u003d \"\", None, {view.custom.Date.EndTime}), // End Date\r\n\tif({view.custom.Label} \u003d \"\" || {view.custom.Label} \u003d \"None\", None, {view.custom.Label}), // Label\r\n\tFalse, //Label Exact Match\r\n\tif({view.custom.ProductCode} \u003d \"\" || {view.custom.ProductCode} \u003d \"None\", None, {view.custom.ProductCode}),//Product Code ID\r\n\tif({view.custom.Workorder} \u003d \"\" || {view.custom.Workorder} \u003d \"None\", None, {view.custom.Workorder}), //Workorder\r\n\tNone, // InventoryID\r\n\tNone, /// Accumulator ID\r\n\tFalse, //Get Completed Only\r\n\tFalse) /// Get WIP Only\r\n\r\n///getParts(StartTime \u003d None, EndTime \u003d None, Label \u003d None, LabelExactMatch \u003d False, ProductCodeID \u003d None, Workorder \u003d None, InventoryID \u003d None, AccumulatorID \u003d None, GetCompletedOnly \u003d False, GetWIPOnly \u003d False):\r\n\t"
+                                  },
+                                  "transforms": [
+                                    {
+                                      "code": "\t#options \u003d [{ \"label\": \"All\", \"value\": \"\"  }]\n\toptions \u003d []\n\tpydata \u003d system.dataset.toPyDataSet(value)\n\t\n\tfor row in pydata:\n\t\tlabel \u003d row[\"Label\"]\n\t\tvalue \u003d row[\"Label\"]\n\t\toptions.append({ \"label\": label, \"value\": label })\n\t\t\n\treturn options\n\t\t",
+                                      "type": "script"
+                                    }
+                                  ],
+                                  "type": "expr"
+                                }
+                              },
+                              "props.value": {
+                                "binding": {
+                                  "config": {
+                                    "expression": "null"
+                                  },
+                                  "enabled": false,
+                                  "type": "expr"
+                                },
+                                "onChange": {
+                                  "enabled": null,
+                                  "script": "\tif currentValue \u003d\u003d None:\n\t\tpass\n\telif currentValue !\u003d \u0027\u0027:\n\t\tself.view.custom.Label \u003d previousValue\n\t\tself.view.custom.PartSelection \u003d False\n\t\tself.parent.parent.parent.getChild(\"Main\").getChild(\"Table\").refreshBinding(\u0027props.data\u0027)\n\t\tself.props.value \u003d None\n\telse:\n\t\tself.props.value \u003d \u0027\u0027\n\t\tself.parent.parent.parent.getChild(\"Main\").getChild(\"Table\").refreshBinding(\u0027props.data\u0027)"
+                                }
+                              }
+                            },
+                            "props": {
+                              "placeholder": {
+                                "text": "Select Part"
+                              },
+                              "showClearIcon": true,
+                              "style": {
+                                "classes": "TextFields/Dropdown"
+                              },
+                              "value": null
+                            },
+                            "type": "ia.input.dropdown"
+                          },
+                          {
+                            "meta": {
+                              "name": "PartIDEntry"
+                            },
+                            "position": {
+                              "grow": 1
+                            },
+                            "propConfig": {
+                              "position.display": {
+                                "binding": {
+                                  "config": {
+                                    "path": "view.custom.PartSelection"
+                                  },
+                                  "transforms": [
+                                    {
+                                      "expression": "!{value}",
+                                      "type": "expression"
+                                    }
+                                  ],
+                                  "type": "property"
+                                }
+                              },
+                              "props.text": {
+                                "binding": {
+                                  "config": {
+                                    "bidirectional": true,
+                                    "path": "view.custom.Label"
+                                  },
+                                  "type": "property"
+                                }
+                              }
+                            },
+                            "props": {
+                              "placeholder": "Please Enter Part Number",
+                              "style": {
+                                "classes": "TextFields/TextField"
+                              }
+                            },
+                            "type": "ia.input.text-field"
+                          },
+                          {
+                            "events": {
+                              "dom": {
+                                "onClick": {
+                                  "config": {
+                                    "script": "\tselection \u003d self.view.custom.PartSelection\n\tif selection \u003d\u003d True:\n\t\tself.view.custom.PartSelection \u003d False\n\telse:\n\t\tself.view.custom.PartSelection \u003d True"
+                                  },
+                                  "scope": "G",
+                                  "type": "script"
+                                }
+                              }
+                            },
+                            "meta": {
+                              "name": "Icon",
+                              "tooltip": {
+                                "enabled": true,
+                                "text": "Search for Part Numbers."
+                              }
+                            },
+                            "position": {
+                              "basis": "30px"
+                            },
+                            "propConfig": {
+                              "position.display": {
+                                "binding": {
+                                  "config": {
+                                    "expression": "if({../PartIDEntry.props.text} \u003d \u0027\u0027 || isNull({../PartIDEntry.props.text}), true, false)"
+                                  },
+                                  "type": "expr"
+                                }
+                              }
+                            },
+                            "props": {
+                              "path": "material/search"
+                            },
+                            "type": "ia.display.icon"
+                          }
+                        ],
+                        "meta": {
+                          "name": "FlexContainer"
+                        },
+                        "position": {
+                          "basis": "42px",
+                          "display": false,
+                          "grow": 1
+                        },
+                        "type": "ia.container.flex"
+                      },
+                      {
+                        "meta": {
+                          "name": "OrderNumber"
+                        },
+                        "position": {
+                          "display": false,
+                          "grow": 1
+                        },
+                        "props": {
+                          "style": {
+                            "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                          },
+                          "text": "Order Number",
+                          "textStyle": {
+                            "classes": "TextFields/TextTitle",
+                            "textAlign": "left"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      },
+                      {
+                        "meta": {
+                          "name": "OrderEntry"
+                        },
+                        "position": {
+                          "basis": "42px",
+                          "display": false,
+                          "grow": 1
+                        },
+                        "propConfig": {
+                          "props.enabled": {
+                            "binding": {
+                              "config": {
+                                "expression": "if({parent.custom.edit} \u003d 1, true, false)"
+                              },
+                              "type": "expr"
+                            }
+                          },
+                          "props.text": {
+                            "binding": {
+                              "config": {
+                                "expression": "If(isnull({..../Table/Table.props.selection.data[0][\u0027Case Serial\u0027]}), \u0027Please Select Case\u0027, {..../Table/Table.props.selection.data[0][\u0027Case Serial\u0027]})"
+                              },
+                              "enabled": false,
+                              "type": "expr"
+                            }
+                          }
+                        },
+                        "props": {
+                          "placeholder": "...",
+                          "style": {
+                            "classes": "TextFields/TextField"
+                          }
+                        },
+                        "type": "ia.input.text-field"
+                      },
+                      {
+                        "meta": {
+                          "name": "OrderNumber_0"
+                        },
+                        "position": {
+                          "display": false,
+                          "grow": 1
+                        },
+                        "props": {
+                          "style": {
+                            "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                          },
+                          "text": "Product Code",
+                          "textStyle": {
+                            "classes": "TextFields/TextTitle",
+                            "textAlign": "left"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      },
+                      {
+                        "custom": {
+                          "selectedCode": "Select..."
+                        },
+                        "meta": {
+                          "name": "Dropdown"
+                        },
+                        "position": {
+                          "basis": "42px",
+                          "display": false,
+                          "grow": 1
+                        },
+                        "propConfig": {
+                          "props.options": {
+                            "binding": {
+                              "config": {
+                                "expression": "runScript(\"mes.config.sp.getProductCodes\", 0)"
+                              },
+                              "transforms": [
+                                {
+                                  "code": "\toptions \u003d [{ \"label\": \"All\", \"value\": \"\"  }]\n#\toptions \u003d []\n\tpydata \u003d system.dataset.toPyDataSet(value)\n\t\n\tfor row in pydata:\n\t\tlabel \u003d row[\"ProductCode\"]\n\t\tvalue \u003d row[\"ID\"]\n\t\toptions.append({ \"label\": label, \"value\": value })\n\t\t\n\treturn options\n\t\t",
+                                  "type": "script"
+                                }
+                              ],
+                              "type": "expr"
+                            }
+                          }
+                        },
+                        "props": {
+                          "placeholder": {
+                            "icon": {
+                              "path": "material/search"
+                            },
+                            "text": ""
+                          },
+                          "style": {
+                            "classes": "TextFields/Dropdown",
+                            "marginBottom": "10px",
+                            "marginTop": "10px",
+                            "overflow": "hidden"
+                          }
+                        },
+                        "type": "ia.input.dropdown"
+                      },
+                      {
+                        "meta": {
+                          "name": "StartDateLabel"
+                        },
+                        "position": {
+                          "display": false,
+                          "grow": 1
+                        },
+                        "props": {
+                          "style": {
+                            "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                          },
+                          "text": "Start Date",
+                          "textStyle": {
+                            "classes": "TextFields/TextTitle",
+                            "textAlign": "left"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      },
+                      {
+                        "events": {
+                          "component": {
+                            "onActionPerformed": {
+                              "config": {
+                                "script": "\tstartTime \u003d self.props.value\n\t\t\n#\tself.view.params.StartTime \u003d startTime\n#\tself.view.custom.Date.StartTime \u003d startTime"
+                              },
+                              "scope": "G",
+                              "type": "script"
+                            }
+                          }
+                        },
+                        "meta": {
+                          "name": "StartDate"
+                        },
+                        "position": {
+                          "basis": "42px",
+                          "display": false,
+                          "grow": 1
+                        },
+                        "propConfig": {
+                          "props.value": {
+                            "binding": {
+                              "config": {
+                                "expression": "addDays(now(100000), -1)"
+                              },
+                              "enabled": false,
+                              "type": "expr"
+                            }
+                          }
+                        },
+                        "props": {
+                          "formattedValue": null,
+                          "inputProps": {
+                            "style": {
+                              "classes": "TextFields/DateSelector"
+                            }
+                          },
+                          "modalStyle": {
+                            "classes": "TextFields/TextArea"
+                          },
+                          "style": {
+                            "classes": "Global/MarginBottom TextFields/TextArea",
+                            "marginLeft": "5px",
+                            "marginRight": "5px"
+                          }
+                        },
+                        "type": "ia.input.date-time-input"
+                      },
+                      {
+                        "meta": {
+                          "name": "EndDateLabel"
+                        },
+                        "position": {
+                          "display": false,
+                          "grow": 1
+                        },
+                        "props": {
+                          "style": {
+                            "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                          },
+                          "text": "End Date",
+                          "textStyle": {
+                            "classes": "TextFields/TextTitle",
+                            "textAlign": "left"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      },
+                      {
+                        "events": {
+                          "component": {
+                            "onActionPerformed": {
+                              "config": {
+                                "script": "\tendTime \u003d self.props.value\n\t\n#\tself.view.params.EndTime \u003d endTime\n\tself.view.custom.Date.EndTime \u003d endTime"
+                              },
+                              "enabled": false,
+                              "scope": "G",
+                              "type": "script"
+                            }
+                          }
+                        },
+                        "meta": {
+                          "name": "EndDate"
+                        },
+                        "position": {
+                          "basis": "42px",
+                          "display": false,
+                          "grow": 1
+                        },
+                        "propConfig": {
+                          "props.value": {
+                            "binding": {
+                              "config": {
+                                "expression": "now(100000)"
+                              },
+                              "type": "expr"
+                            }
+                          }
+                        },
+                        "props": {
+                          "formattedValue": "Jun 8, 2023 10:32 AM",
+                          "inputProps": {
+                            "style": {
+                              "classes": "TextFields/DateSelector"
+                            }
+                          },
+                          "modalStyle": {
+                            "classes": "TextFields/TextArea"
+                          },
+                          "style": {
+                            "classes": "Global/MarginBottom TextFields/TextArea",
+                            "marginLeft": "5px",
+                            "marginRight": "5px"
+                          }
+                        },
+                        "type": "ia.input.date-time-input"
+                      },
+                      {
+                        "events": {
+                          "dom": {
+                            "onClick": {
+                              "config": {
+                                "script": " \tstartDate \u003d self.getSibling(\"StartDate\").props.value\n\tendDate \u003d self.getSibling(\"EndDate\").props.value\n\tpartID \u003d self.parent.getChild(\"FlexContainer\").getChild(\"PartIDEntry\").props.text\n\torderNumber \u003d self.getSibling(\"OrderEntry\").props.text\n\tproductcode \u003d self.getSibling(\"Dropdown\").props.value\n\t\n\tself.view.custom.Date.StartTime \u003d startDate\n\tself.view.custom.Date.EndTime \u003d endDate\n\tself.view.custom.Label \u003d partID\n\tself.view.custom.Workorder \u003d orderNumber\n\tself.view.custom.ProductCode \u003d productcode\n\t\n\t\n\t\t\t\n\n#\tif partID is \"\":\n#\t\tpartID \u003d None\n#\t\t\n#\tif label is \"\":\n#\t\tlabel \u003d None\n\t\n#\tif partID !\u003d \"\" or label !\u003d \"\":\n#\t\tself.view.params.startTime \u003d startDate\n#\t\tself.view.params.endTime \u003d endDate\n#\t\tself.view.params.partId \u003d partID\n#\t\tself.view.params.label \u003d label\t\n#\t\t"
+                              },
+                              "scope": "G",
+                              "type": "script"
+                            }
+                          }
+                        },
+                        "meta": {
+                          "name": "RunReportBtn"
+                        },
+                        "position": {
+                          "basis": "42px",
+                          "display": false,
+                          "grow": 1
+                        },
+                        "props": {
+                          "params": {
+                            "BackgroundColor": "value",
+                            "DisabledPopup": {
+                              "message": "Please sign in as quarterback to proceed.",
+                              "messageType": "",
+                              "payload": {},
+                              "title": "Invalid Permissions"
+                            },
+                            "Enabled": true,
+                            "Hover": true,
+                            "IconPath": "material/article",
+                            "IsSelectable": false,
+                            "Label": "Run Report",
+                            "Selected": true,
+                            "Size": "value",
+                            "Type": ""
+                          },
+                          "path": "GlobalComponents/Buttons/Button",
+                          "style": {
+                            "classes": "Global/MarginAllTop Global/MarginBottom Global/MarginLeft Global/MarginRight"
+                          }
+                        },
+                        "type": "ia.display.view"
+                      },
+                      {
+                        "events": {
+                          "dom": {
+                            "onClick": {
+                              "config": {
+                                "script": "\tdata \u003d self.parent.parent.getChild(\"Main\").getChild(\"Table\").props.data\n\tcsv \u003d system.dataset.toCSV(data, True)\n\t\n\tif data.getRowCount() !\u003d 0:\n\t\tsystem.perspective.download(\u0027track_trace_history.csv\u0027, csv)\n\telse:\n\t\tsystem.perspective.openPopup(\u0027ErrorModal\u0027, \u0027GlobalComponents/Modals/ErrorModal\u0027, params\u003d{\u0027ErrorMessage\u0027: \u0027Please select data to generate file\u0027, \u0027ModalName\u0027: \u0027ErrorModal\u0027})\n\t"
+                              },
+                              "scope": "G",
+                              "type": "script"
+                            }
+                          }
+                        },
+                        "meta": {
+                          "name": "ExportBtn",
+                          "visible": false
+                        },
+                        "position": {
+                          "basis": "42px",
+                          "display": false,
+                          "grow": 1
+                        },
+                        "props": {
+                          "params": {
+                            "BackgroundColor": "",
+                            "DisabledPopup": {
+                              "message": "Please sign in as quarterback to proceed.",
+                              "messageType": "",
+                              "payload": {},
+                              "title": "Invalid Permissions"
+                            },
+                            "Enabled": true,
+                            "Hover": true,
+                            "IconPath": "material/import_export",
+                            "IsSelectable": false,
+                            "Label": "Export CSV",
+                            "Selected": true,
+                            "Size": "value",
+                            "Type": ""
+                          },
+                          "path": "GlobalComponents/Buttons/Button",
+                          "style": {
+                            "classes": "Global/MarginBottom Global/MarginLeft Global/MarginRight"
+                          }
+                        },
+                        "type": "ia.display.view"
+                      },
+                      {
+                        "events": {
+                          "dom": {
+                            "onClick": {
+                              "config": {
+                                "draggable": true,
+                                "id": "VzGFUqXq",
+                                "modal": false,
+                                "overlayDismiss": false,
+                                "resizable": true,
+                                "showCloseIcon": true,
+                                "type": "open",
+                                "viewPath": "App/TrackAndTrace/History (Test)/Embedded/FilterPopup",
+                                "viewportBound": false
+                              },
+                              "scope": "C",
+                              "type": "popup"
+                            }
+                          }
+                        },
+                        "meta": {
+                          "name": "SelectPart"
+                        },
+                        "position": {
+                          "basis": "42px"
+                        },
+                        "props": {
+                          "params": {
+                            "BackgroundColor": "value",
+                            "DisabledPopup": {
+                              "message": "Please sign in as quarterback to proceed.",
+                              "messageType": "",
+                              "payload": {},
+                              "title": "Invalid Permissions"
+                            },
+                            "Enabled": true,
+                            "Hover": true,
+                            "IconPath": "material/check_box",
+                            "IsSelectable": false,
+                            "Label": "Select Part",
+                            "Selected": true,
+                            "Size": "value",
+                            "Type": ""
+                          },
+                          "path": "GlobalComponents/Buttons/Button",
+                          "style": {
+                            "classes": "Global/MarginAllTop Global/MarginBottom Global/MarginLeft Global/MarginRight"
+                          }
+                        },
+                        "type": "ia.display.view"
+                      }
+                    ],
+                    "custom": {
+                      "edit": 1
+                    },
+                    "meta": {
+                      "name": "SelectedItems"
+                    },
+                    "position": {
+                      "grow": 1
+                    },
+                    "props": {
+                      "direction": "column",
+                      "style": {
+                        "classes": "Global/MarginAll"
+                      }
+                    },
+                    "type": "ia.container.flex"
+                  },
+                  {
+                    "children": [
+                      {
+                        "meta": {
+                          "name": "Title"
+                        },
+                        "propConfig": {
+                          "meta.visible": {
+                            "binding": {
+                              "config": {
+                                "expression": "if({...../SelectedItems/FlexContainer/PartIDEntry.props.text} \u003d \u0027\u0027 || {...../SelectedItems/FlexContainer/PartIDEntry.props.text} \u003d None || isNull({../Item Detail 1/OrderNumber.props.text}), false, true)"
+                              },
+                              "type": "expr"
+                            }
+                          }
+                        },
+                        "props": {
+                          "alignVertical": "top",
+                          "style": {
+                            "classes": "Text/Heading"
+                          },
+                          "text": "Product Details:",
+                          "textStyle": {
+                            "color": "--callToAction",
+                            "textAlign": "center"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      },
+                      {
+                        "children": [
+                          {
+                            "meta": {
+                              "name": "PartID"
+                            },
+                            "position": {
+                              "basis": "30%",
+                              "grow": 1
+                            },
+                            "props": {
+                              "style": {
+                                "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                              },
+                              "text": "Label",
+                              "textStyle": {
+                                "fontWeight": "bold",
+                                "textAlign": "left"
+                              }
+                            },
+                            "type": "ia.display.label"
+                          },
+                          {
+                            "meta": {
+                              "name": "OrderNumber"
+                            },
+                            "position": {
+                              "basis": "70%",
+                              "grow": 1
+                            },
+                            "propConfig": {
+                              "props.text": {
+                                "binding": {
+                                  "config": {
+                                    "expression": "{..../Item1.custom.Item}"
+                                  },
+                                  "transforms": [
+                                    {
+                                      "code": "\tdata \u003d value\n\tvalue \u003d data.getValueAt(0,1)\n\treturn value",
+                                      "type": "script"
+                                    }
+                                  ],
+                                  "type": "expr"
+                                }
+                              }
+                            },
+                            "props": {
+                              "style": {
+                                "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                              },
+                              "textStyle": {
+                                "classes": "TextFields/TextTitle",
+                                "textAlign": "left"
+                              }
+                            },
+                            "type": "ia.display.label"
+                          }
+                        ],
+                        "meta": {
+                          "name": "Item Detail 1"
+                        },
+                        "propConfig": {
+                          "position.display": {
+                            "binding": {
+                              "config": {
+                                "expression": "if({...../SelectedItems/FlexContainer/PartIDEntry.props.text} \u003d \u0027\u0027 || isNull({...../SelectedItems/FlexContainer/PartIDEntry.props.text})|| isNull({./OrderNumber.props.text}), false, true)"
+                              },
+                              "type": "expr"
+                            }
+                          }
+                        },
+                        "props": {
+                          "style": {
+                            "classes": "Global/MarginTop"
+                          }
+                        },
+                        "type": "ia.container.flex"
+                      },
+                      {
+                        "children": [
+                          {
+                            "meta": {
+                              "name": "PartID"
+                            },
+                            "position": {
+                              "basis": "30%",
+                              "grow": 1
+                            },
+                            "props": {
+                              "style": {
+                                "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                              },
+                              "text": "Product Code",
+                              "textStyle": {
+                                "fontWeight": "bold",
+                                "textAlign": "left"
+                              }
+                            },
+                            "type": "ia.display.label"
+                          },
+                          {
+                            "meta": {
+                              "name": "OrderNumber"
+                            },
+                            "position": {
+                              "basis": "70%",
+                              "grow": 1
+                            },
+                            "propConfig": {
+                              "props.text": {
+                                "binding": {
+                                  "config": {
+                                    "expression": "{..../Item1.custom.Item}"
+                                  },
+                                  "transforms": [
+                                    {
+                                      "code": "\tdata \u003d value\n\tvalue \u003d data.getValueAt(0,3)\n\treturn value",
+                                      "type": "script"
+                                    }
+                                  ],
+                                  "type": "expr"
+                                }
+                              }
+                            },
+                            "props": {
+                              "style": {
+                                "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                              },
+                              "textStyle": {
+                                "classes": "TextFields/TextTitle",
+                                "textAlign": "left"
+                              }
+                            },
+                            "type": "ia.display.label"
+                          }
+                        ],
+                        "meta": {
+                          "name": "Item Detail 2"
+                        },
+                        "propConfig": {
+                          "position.display": {
+                            "binding": {
+                              "config": {
+                                "expression": "if({...../SelectedItems/FlexContainer/PartIDEntry.props.text} \u003d \u0027\u0027 || isNull({...../SelectedItems/FlexContainer/PartIDEntry.props.text})|| isNull({./OrderNumber.props.text}), false, true)"
+                              },
+                              "type": "expr"
+                            }
+                          }
+                        },
+                        "type": "ia.container.flex"
+                      },
+                      {
+                        "children": [
+                          {
+                            "meta": {
+                              "name": "PartID"
+                            },
+                            "position": {
+                              "basis": "30%",
+                              "grow": 1
+                            },
+                            "props": {
+                              "style": {
+                                "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                              },
+                              "text": "Date Created",
+                              "textStyle": {
+                                "fontWeight": "bold",
+                                "textAlign": "left"
+                              }
+                            },
+                            "type": "ia.display.label"
+                          },
+                          {
+                            "meta": {
+                              "name": "OrderNumber"
+                            },
+                            "position": {
+                              "basis": "70%",
+                              "grow": 1
+                            },
+                            "propConfig": {
+                              "props.text": {
+                                "binding": {
+                                  "config": {
+                                    "expression": "{..../Item1.custom.Item}"
+                                  },
+                                  "transforms": [
+                                    {
+                                      "code": "\tdata \u003d value\n\tvalue \u003d data.getValueAt(0,6)\n\tdatevalue \u003d system.date.format(value, \u0027MM/dd/YY h:mm:ss a\u0027)\n\treturn datevalue",
+                                      "type": "script"
+                                    }
+                                  ],
+                                  "type": "expr"
+                                }
+                              }
+                            },
+                            "props": {
+                              "style": {
+                                "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                              },
+                              "textStyle": {
+                                "classes": "TextFields/TextTitle",
+                                "textAlign": "left"
+                              }
+                            },
+                            "type": "ia.display.label"
+                          }
+                        ],
+                        "meta": {
+                          "name": "Item Detail 3"
+                        },
+                        "position": {
+                          "grow": 1
+                        },
+                        "propConfig": {
+                          "position.display": {
+                            "binding": {
+                              "config": {
+                                "expression": "if({...../SelectedItems/FlexContainer/PartIDEntry.props.text} \u003d \u0027\u0027 || isNull({...../SelectedItems/FlexContainer/PartIDEntry.props.text})|| isNull({./OrderNumber.props.text}), false, true)"
+                              },
+                              "type": "expr"
+                            }
+                          }
+                        },
+                        "type": "ia.container.flex"
+                      },
+                      {
+                        "children": [
+                          {
+                            "meta": {
+                              "name": "PartID"
+                            },
+                            "position": {
+                              "basis": "30%",
+                              "grow": 1
+                            },
+                            "props": {
+                              "style": {
+                                "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                              },
+                              "text": "Work Order",
+                              "textStyle": {
+                                "fontWeight": "bold",
+                                "textAlign": "left"
+                              }
+                            },
+                            "type": "ia.display.label"
+                          },
+                          {
+                            "meta": {
+                              "name": "OrderNumber"
+                            },
+                            "position": {
+                              "basis": "70%",
+                              "grow": 1
+                            },
+                            "propConfig": {
+                              "props.text": {
+                                "binding": {
+                                  "config": {
+                                    "expression": "{..../Item1.custom.Item}"
+                                  },
+                                  "transforms": [
+                                    {
+                                      "code": "\tdata \u003d value\n\tvalue \u003d data.getValueAt(0,9)\n\treturn value",
+                                      "type": "script"
+                                    }
+                                  ],
+                                  "type": "expr"
+                                }
+                              }
+                            },
+                            "props": {
+                              "style": {
+                                "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                              },
+                              "textStyle": {
+                                "classes": "TextFields/TextTitle",
+                                "textAlign": "left"
+                              }
+                            },
+                            "type": "ia.display.label"
+                          }
+                        ],
+                        "meta": {
+                          "name": "Item Detail 4"
+                        },
+                        "propConfig": {
+                          "position.display": {
+                            "binding": {
+                              "config": {
+                                "expression": "if({...../SelectedItems/FlexContainer/PartIDEntry.props.text} \u003d \u0027\u0027 || isNull({...../SelectedItems/FlexContainer/PartIDEntry.props.text})|| isNull({./OrderNumber.props.text}), false, true)"
+                              },
+                              "type": "expr"
+                            }
+                          }
+                        },
+                        "type": "ia.container.flex"
+                      },
+                      {
+                        "children": [
+                          {
+                            "meta": {
+                              "name": "PartID"
+                            },
+                            "position": {
+                              "basis": "30%",
+                              "grow": 1
+                            },
+                            "props": {
+                              "style": {
+                                "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                              },
+                              "text": "Accumulator",
+                              "textStyle": {
+                                "fontWeight": "bold",
+                                "textAlign": "left"
+                              }
+                            },
+                            "type": "ia.display.label"
+                          },
+                          {
+                            "meta": {
+                              "name": "OrderNumber"
+                            },
+                            "position": {
+                              "basis": "70%",
+                              "grow": 1
+                            },
+                            "propConfig": {
+                              "props.text": {
+                                "binding": {
+                                  "config": {
+                                    "expression": "{..../Item1.custom.Item}"
+                                  },
+                                  "transforms": [
+                                    {
+                                      "code": "\tdata \u003d value\n\tvalue \u003d data.getValueAt(0,8)\n\treturn value",
+                                      "type": "script"
+                                    }
+                                  ],
+                                  "type": "expr"
+                                }
+                              }
+                            },
+                            "props": {
+                              "style": {
+                                "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                              },
+                              "textStyle": {
+                                "classes": "TextFields/TextTitle",
+                                "textAlign": "left"
+                              }
+                            },
+                            "type": "ia.display.label"
+                          }
+                        ],
+                        "meta": {
+                          "name": "Item Detail 6"
+                        },
+                        "propConfig": {
+                          "position.display": {
+                            "binding": {
+                              "config": {
+                                "expression": "if({...../SelectedItems/FlexContainer/PartIDEntry.props.text} \u003d \u0027\u0027 || isNull({...../SelectedItems/FlexContainer/PartIDEntry.props.text})|| isNull({./OrderNumber.props.text}), false, true)"
+                              },
+                              "type": "expr"
+                            }
+                          }
+                        },
+                        "type": "ia.container.flex"
+                      },
+                      {
+                        "children": [
+                          {
+                            "meta": {
+                              "name": "PartID"
+                            },
+                            "position": {
+                              "basis": "30%",
+                              "grow": 1
+                            },
+                            "props": {
+                              "style": {
+                                "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                              },
+                              "text": "Inventory",
+                              "textStyle": {
+                                "fontWeight": "bold",
+                                "textAlign": "left"
+                              }
+                            },
+                            "type": "ia.display.label"
+                          },
+                          {
+                            "meta": {
+                              "name": "OrderNumber"
+                            },
+                            "position": {
+                              "basis": "70%",
+                              "grow": 1
+                            },
+                            "propConfig": {
+                              "props.text": {
+                                "binding": {
+                                  "config": {
+                                    "expression": "{..../Item1.custom.Item}"
+                                  },
+                                  "transforms": [
+                                    {
+                                      "code": "\tdata \u003d value\n\tvalue \u003d data.getValueAt(0,5)\n\treturn value",
+                                      "type": "script"
+                                    }
+                                  ],
+                                  "type": "expr"
+                                }
+                              }
+                            },
+                            "props": {
+                              "style": {
+                                "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                              },
+                              "textStyle": {
+                                "classes": "TextFields/TextTitle",
+                                "textAlign": "left"
+                              }
+                            },
+                            "type": "ia.display.label"
+                          }
+                        ],
+                        "meta": {
+                          "name": "Item Detail 7"
+                        },
+                        "propConfig": {
+                          "position.display": {
+                            "binding": {
+                              "config": {
+                                "expression": "if({...../SelectedItems/FlexContainer/PartIDEntry.props.text} \u003d \u0027\u0027 || isNull({...../SelectedItems/FlexContainer/PartIDEntry.props.text})|| isNull({./OrderNumber.props.text}), false, true)"
+                              },
+                              "type": "expr"
+                            }
+                          }
+                        },
+                        "type": "ia.container.flex"
+                      },
+                      {
+                        "children": [
+                          {
+                            "meta": {
+                              "name": "PartID"
+                            },
+                            "position": {
+                              "basis": "30%",
+                              "grow": 1
+                            },
+                            "props": {
+                              "style": {
+                                "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                              },
+                              "text": "Location",
+                              "textStyle": {
+                                "fontWeight": "bold",
+                                "textAlign": "left"
+                              }
+                            },
+                            "type": "ia.display.label"
+                          },
+                          {
+                            "meta": {
+                              "name": "OrderNumber"
+                            },
+                            "position": {
+                              "basis": "70%",
+                              "grow": 1
+                            },
+                            "propConfig": {
+                              "props.text": {
+                                "binding": {
+                                  "config": {
+                                    "expression": "{..../Item1.custom.Item}"
+                                  },
+                                  "transforms": [
+                                    {
+                                      "code": "\tdata \u003d value\n\tvalue \u003d data.getValueAt(0,6)\n\treturn value",
+                                      "type": "script"
+                                    }
+                                  ],
+                                  "type": "expr"
+                                }
+                              }
+                            },
+                            "props": {
+                              "style": {
+                                "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                              },
+                              "textStyle": {
+                                "classes": "TextFields/TextTitle",
+                                "textAlign": "left"
+                              }
+                            },
+                            "type": "ia.display.label"
+                          }
+                        ],
+                        "meta": {
+                          "name": "Item Detail 8"
+                        },
+                        "propConfig": {
+                          "position.display": {
+                            "binding": {
+                              "config": {
+                                "expression": "if({...../SelectedItems/FlexContainer/PartIDEntry.props.text} \u003d \u0027\u0027 || isNull({...../SelectedItems/FlexContainer/PartIDEntry.props.text})|| isNull({./OrderNumber.props.text}), false, true)"
+                              },
+                              "type": "expr"
+                            }
+                          }
+                        },
+                        "type": "ia.container.flex"
+                      }
+                    ],
+                    "meta": {
+                      "name": "Item1"
+                    },
+                    "position": {
+                      "grow": 1
+                    },
+                    "propConfig": {
+                      "custom.Item": {
+                        "binding": {
+                          "config": {
+                            "expression": "runScript(\"mes.trace.sp.getParts\", 0, None, None, {view.custom.Label}, True, None, None, None, None, False, False)\r\n///(StartTime \u003d None, EndTime \u003d None, Label \u003d None, LabelExactMatch \u003d False, ProductCodeID \u003d None, Workorder \u003d None, InventoryID \u003d None, AccumulatorID \u003d None, GetCompletedOnly \u003d False, GetWIPOnly \u003d False):\r\n"
+                          },
+                          "type": "expr"
+                        }
+                      }
+                    },
+                    "props": {
+                      "direction": "column"
+                    },
+                    "type": "ia.container.flex"
+                  }
+                ],
+                "meta": {
+                  "name": "Left"
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginAll"
+                  }
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "meta": {
+                  "name": "Table"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "propConfig": {
+                  "custom.TestData": {
+                    "binding": {
+                      "config": {
+                        "path": "this.props.data"
+                      },
+                      "transforms": [
+                        {
+                          "code": "\toutput_json \u003d []\n\t\n\tfor row in range(value.getRowCount()):\n\t    row_object \u003d {}\n\t    \n\t    row_value \u003d {}\n\t    for col in range(value.getColumnCount()):    \n\t        row_value[value.getColumnName(col)] \u003d value.getValueAt(row, col)\n\t    \n\t    row_object[\u0027value\u0027] \u003d row_value\n\t    \n\t    metadata_value \u003d value.getValueAt(row, value.getColumnIndex(\"Metadata\"))\n\t    if metadata_value is not None:\n\t        enabled_value \u003d True\n\t    else:\n\t        enabled_value \u003d False\n\t        \n\t    row_object[\u0027subview\u0027] \u003d {\n\t        \"enabled\": enabled_value,\n\t        \"viewpath\": \"App/TrackAndTrace/History/Embedded/MetadataFlex\"\n\t    }\n\t    \n\t    output_json.append(row_object)\n\t    \n\treturn output_json",
+                          "type": "script"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  },
+                  "meta.visible": {
+                    "binding": {
+                      "config": {
+                        "expression": "If(isnull({.../SelectedItems/FlexContainer/PartIDEntry.props.text}) || {.../SelectedItems/FlexContainer/PartIDEntry.props.text} \u003d \u0027\u0027, false, true)"
+                      },
+                      "type": "expr"
+                    }
+                  },
+                  "props.data": {
+                    "binding": {
+                      "config": {
+                        "expression": "runScript(\"mes.trace.sp.getFullPartHistory\", 0, \r\n\tNone,\r\n\tif({view.custom.Label} \u003d \"\" || {view.custom.Label} \u003d \"None\", None, {view.custom.Label}),\r\n\tNone,\r\n\tNone,\r\n\tNone,\r\n\tNone\r\n)\r\n"
+                      },
+                      "transforms": [
+                        {
+                          "code": "\toutput_json \u003d []\n\t\t\n\tfor row in range(value.getRowCount()):\n\t    row_object \u003d {}\n\t    \n\t    row_value \u003d {}\n\t    for col in range(value.getColumnCount()):    \n\t        row_value[value.getColumnName(col)] \u003d value.getValueAt(row, col)\n\t    \n\t    row_object[\u0027value\u0027] \u003d row_value\n\t    \n\t    metadata_value \u003d value.getValueAt(row, value.getColumnIndex(\"Metadata\"))\n\t    if metadata_value is not None:\n\t        enabled_value \u003d True\n\t    else:\n\t        enabled_value \u003d False\n\t        \n\t    row_object[\u0027subview\u0027] \u003d {\n\t        \"enabled\": enabled_value,\n\t        \"viewPath\": \"App/TrackAndTrace/History (Test)/Embedded/MetadataFlex\",\n\t        \"viewParams\": {\n\t        \t        \"value\": {\"Metadata\": value.getValueAt(row, value.getColumnIndex(\"Metadata\"))}\n\t        \t      }\n\t    }\n\t    \n\t    \n\t    output_json.append(row_object)\n\t    \n\t#return output_json\n\treturn value\n\t\n\t",
+                          "type": "script"
+                        }
+                      ],
+                      "type": "expr"
+                    }
+                  },
+                  "props.emptyMessage.noData.text": {
+                    "binding": {
+                      "config": {
+                        "expression": "\u0027No Data found for \u0027+{view.custom.Label}+\u0027 please try another Part Number.\u0027"
+                      },
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "cells": {
+                    "style": {
+                      "marginLeft": "8px",
+                      "marginRight": "8px"
+                    }
+                  },
+                  "columns": [
+                    {
+                      "align": "center",
+                      "boolean": "checkbox",
+                      "dateFormat": "MM/DD/YYYY",
+                      "editable": false,
+                      "field": "ID",
+                      "filter": {
+                        "boolean": {
+                          "condition": ""
+                        },
+                        "date": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "enabled": false,
+                        "number": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "string": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "visible": "on-hover"
+                      },
+                      "footer": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": ""
+                      },
+                      "header": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": "ID"
+                      },
+                      "justify": "auto",
+                      "number": "value",
+                      "numberFormat": "0,0.##",
+                      "progressBar": {
+                        "bar": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "max": 100,
+                        "min": 0,
+                        "track": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "value": {
+                          "enabled": true,
+                          "format": "0,0.##",
+                          "justify": "center",
+                          "style": {
+                            "classes": ""
+                          }
+                        }
+                      },
+                      "render": "auto",
+                      "resizable": true,
+                      "sort": "none",
+                      "sortable": true,
+                      "strictWidth": false,
+                      "style": {
+                        "classes": ""
+                      },
+                      "toggleSwitch": {
+                        "color": {
+                          "selected": "",
+                          "unselected": ""
+                        }
+                      },
+                      "viewParams": {},
+                      "viewPath": "",
+                      "visible": false,
+                      "width": ""
+                    },
+                    {
+                      "align": "center",
+                      "boolean": "checkbox",
+                      "dateFormat": "MM/DD/YYYY",
+                      "editable": false,
+                      "field": "CompositePartID",
+                      "filter": {
+                        "boolean": {
+                          "condition": ""
+                        },
+                        "date": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "enabled": false,
+                        "number": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "string": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "visible": "on-hover"
+                      },
+                      "footer": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": ""
+                      },
+                      "header": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": "Composite Part ID"
+                      },
+                      "justify": "auto",
+                      "number": "value",
+                      "numberFormat": "0,0.##",
+                      "progressBar": {
+                        "bar": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "max": 100,
+                        "min": 0,
+                        "track": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "value": {
+                          "enabled": true,
+                          "format": "0,0.##",
+                          "justify": "center",
+                          "style": {
+                            "classes": ""
+                          }
+                        }
+                      },
+                      "render": "auto",
+                      "resizable": true,
+                      "sort": "none",
+                      "sortable": true,
+                      "strictWidth": false,
+                      "style": {
+                        "classes": ""
+                      },
+                      "toggleSwitch": {
+                        "color": {
+                          "selected": "",
+                          "unselected": ""
+                        }
+                      },
+                      "viewParams": {},
+                      "viewPath": "",
+                      "visible": false,
+                      "width": ""
+                    },
+                    {
+                      "align": "center",
+                      "boolean": "checkbox",
+                      "dateFormat": "MM/DD/YYYY HH:mm:ss",
+                      "editable": false,
+                      "field": "TimeScanned",
+                      "filter": {
+                        "boolean": {
+                          "condition": ""
+                        },
+                        "date": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "enabled": false,
+                        "number": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "string": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "visible": "on-hover"
+                      },
+                      "footer": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": ""
+                      },
+                      "header": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": "Date"
+                      },
+                      "justify": "auto",
+                      "number": "value",
+                      "numberFormat": "0,0.##",
+                      "progressBar": {
+                        "bar": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "max": 100,
+                        "min": 0,
+                        "track": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "value": {
+                          "enabled": true,
+                          "format": "0,0.##",
+                          "justify": "center",
+                          "style": {
+                            "classes": ""
+                          }
+                        }
+                      },
+                      "render": "date",
+                      "resizable": true,
+                      "sort": "none",
+                      "sortable": true,
+                      "strictWidth": false,
+                      "style": {
+                        "classes": ""
+                      },
+                      "toggleSwitch": {
+                        "color": {
+                          "selected": "",
+                          "unselected": ""
+                        }
+                      },
+                      "viewParams": {},
+                      "viewPath": "",
+                      "visible": true,
+                      "width": ""
+                    },
+                    {
+                      "align": "center",
+                      "boolean": "checkbox",
+                      "dateFormat": "MM/DD/YYYY",
+                      "editable": false,
+                      "field": "Label",
+                      "filter": {
+                        "boolean": {
+                          "condition": ""
+                        },
+                        "date": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "enabled": false,
+                        "number": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "string": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "visible": "on-hover"
+                      },
+                      "footer": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": ""
+                      },
+                      "header": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": "Label"
+                      },
+                      "justify": "auto",
+                      "number": "value",
+                      "numberFormat": "0,0.##",
+                      "progressBar": {
+                        "bar": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "max": 100,
+                        "min": 0,
+                        "track": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "value": {
+                          "enabled": true,
+                          "format": "0,0.##",
+                          "justify": "center",
+                          "style": {
+                            "classes": ""
+                          }
+                        }
+                      },
+                      "render": "auto",
+                      "resizable": true,
+                      "sort": "none",
+                      "sortable": true,
+                      "strictWidth": false,
+                      "style": {
+                        "classes": ""
+                      },
+                      "toggleSwitch": {
+                        "color": {
+                          "selected": "",
+                          "unselected": ""
+                        }
+                      },
+                      "viewParams": {},
+                      "viewPath": "",
+                      "visible": true,
+                      "width": ""
+                    },
+                    {
+                      "align": "center",
+                      "boolean": "checkbox",
+                      "dateFormat": "MM/DD/YYYY",
+                      "editable": false,
+                      "field": "WorkOrder",
+                      "filter": {
+                        "boolean": {
+                          "condition": ""
+                        },
+                        "date": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "enabled": false,
+                        "number": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "string": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "visible": "on-hover"
+                      },
+                      "footer": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": ""
+                      },
+                      "header": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": "Order Number"
+                      },
+                      "justify": "auto",
+                      "number": "value",
+                      "numberFormat": "0,0.##",
+                      "progressBar": {
+                        "bar": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "max": 100,
+                        "min": 0,
+                        "track": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "value": {
+                          "enabled": true,
+                          "format": "0,0.##",
+                          "justify": "center",
+                          "style": {
+                            "classes": ""
+                          }
+                        }
+                      },
+                      "render": "auto",
+                      "resizable": true,
+                      "sort": "none",
+                      "sortable": true,
+                      "strictWidth": false,
+                      "style": {
+                        "classes": ""
+                      },
+                      "toggleSwitch": {
+                        "color": {
+                          "selected": "",
+                          "unselected": ""
+                        }
+                      },
+                      "viewParams": {},
+                      "viewPath": "",
+                      "visible": true,
+                      "width": ""
+                    },
+                    {
+                      "align": "center",
+                      "boolean": "checkbox",
+                      "dateFormat": "MM/DD/YYYY",
+                      "editable": false,
+                      "field": "ProductCode",
+                      "filter": {
+                        "boolean": {
+                          "condition": ""
+                        },
+                        "date": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "enabled": false,
+                        "number": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "string": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "visible": "on-hover"
+                      },
+                      "footer": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": ""
+                      },
+                      "header": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": "Product Code"
+                      },
+                      "justify": "auto",
+                      "number": "value",
+                      "numberFormat": "0,0.##",
+                      "progressBar": {
+                        "bar": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "max": 100,
+                        "min": 0,
+                        "track": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "value": {
+                          "enabled": true,
+                          "format": "0,0.##",
+                          "justify": "center",
+                          "style": {
+                            "classes": ""
+                          }
+                        }
+                      },
+                      "render": "auto",
+                      "resizable": true,
+                      "sort": "none",
+                      "sortable": true,
+                      "strictWidth": false,
+                      "style": {
+                        "classes": ""
+                      },
+                      "toggleSwitch": {
+                        "color": {
+                          "selected": "",
+                          "unselected": ""
+                        }
+                      },
+                      "viewParams": {},
+                      "viewPath": "",
+                      "visible": true,
+                      "width": ""
+                    },
+                    {
+                      "align": "center",
+                      "boolean": "checkbox",
+                      "dateFormat": "MM/DD/YYYY",
+                      "editable": false,
+                      "field": "Pallet",
+                      "filter": {
+                        "boolean": {
+                          "condition": ""
+                        },
+                        "date": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "enabled": false,
+                        "number": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "string": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "visible": "on-hover"
+                      },
+                      "footer": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": ""
+                      },
+                      "header": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": "Pallet"
+                      },
+                      "justify": "auto",
+                      "number": "value",
+                      "numberFormat": "0,0.##",
+                      "progressBar": {
+                        "bar": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "max": 100,
+                        "min": 0,
+                        "track": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "value": {
+                          "enabled": true,
+                          "format": "0,0.##",
+                          "justify": "center",
+                          "style": {
+                            "classes": ""
+                          }
+                        }
+                      },
+                      "render": "auto",
+                      "resizable": true,
+                      "sort": "none",
+                      "sortable": true,
+                      "strictWidth": false,
+                      "style": {
+                        "classes": ""
+                      },
+                      "toggleSwitch": {
+                        "color": {
+                          "selected": "",
+                          "unselected": ""
+                        }
+                      },
+                      "viewParams": {},
+                      "viewPath": "",
+                      "visible": true,
+                      "width": ""
+                    },
+                    {
+                      "align": "center",
+                      "boolean": "checkbox",
+                      "dateFormat": "MM/DD/YYYY",
+                      "editable": false,
+                      "field": "QTY",
+                      "filter": {
+                        "boolean": {
+                          "condition": ""
+                        },
+                        "date": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "enabled": false,
+                        "number": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "string": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "visible": "on-hover"
+                      },
+                      "footer": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": ""
+                      },
+                      "header": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": "Quantity"
+                      },
+                      "justify": "auto",
+                      "number": "value",
+                      "numberFormat": "0,0.##",
+                      "progressBar": {
+                        "bar": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "max": 100,
+                        "min": 0,
+                        "track": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "value": {
+                          "enabled": true,
+                          "format": "0,0.##",
+                          "justify": "center",
+                          "style": {
+                            "classes": ""
+                          }
+                        }
+                      },
+                      "render": "auto",
+                      "resizable": true,
+                      "sort": "none",
+                      "sortable": true,
+                      "strictWidth": false,
+                      "style": {
+                        "classes": ""
+                      },
+                      "toggleSwitch": {
+                        "color": {
+                          "selected": "",
+                          "unselected": ""
+                        }
+                      },
+                      "viewParams": {},
+                      "viewPath": "",
+                      "visible": true,
+                      "width": ""
+                    },
+                    {
+                      "align": "center",
+                      "boolean": "checkbox",
+                      "dateFormat": "MM/DD/YYYY HH:mm:ss",
+                      "editable": false,
+                      "field": "Line",
+                      "filter": {
+                        "boolean": {
+                          "condition": ""
+                        },
+                        "date": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "enabled": false,
+                        "number": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "string": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "visible": "on-hover"
+                      },
+                      "footer": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": ""
+                      },
+                      "header": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": "Line"
+                      },
+                      "justify": "auto",
+                      "number": "value",
+                      "numberFormat": "0,0.##",
+                      "progressBar": {
+                        "bar": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "max": 100,
+                        "min": 0,
+                        "track": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "value": {
+                          "enabled": true,
+                          "format": "0,0.##",
+                          "justify": "center",
+                          "style": {
+                            "classes": ""
+                          }
+                        }
+                      },
+                      "render": "date",
+                      "resizable": true,
+                      "sort": "none",
+                      "sortable": true,
+                      "strictWidth": false,
+                      "style": {
+                        "classes": ""
+                      },
+                      "toggleSwitch": {
+                        "color": {
+                          "selected": "",
+                          "unselected": ""
+                        }
+                      },
+                      "viewParams": {},
+                      "viewPath": "",
+                      "visible": true,
+                      "width": ""
+                    },
+                    {
+                      "align": "center",
+                      "boolean": "checkbox",
+                      "dateFormat": "MM/DD/YYYY",
+                      "editable": false,
+                      "field": "Operator",
+                      "filter": {
+                        "boolean": {
+                          "condition": ""
+                        },
+                        "date": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "enabled": false,
+                        "number": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "string": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "visible": "on-hover"
+                      },
+                      "footer": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": ""
+                      },
+                      "header": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": "Operator"
+                      },
+                      "justify": "auto",
+                      "number": "value",
+                      "numberFormat": "0,0.##",
+                      "progressBar": {
+                        "bar": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "max": 100,
+                        "min": 0,
+                        "track": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "value": {
+                          "enabled": true,
+                          "format": "0,0.##",
+                          "justify": "center",
+                          "style": {
+                            "classes": ""
+                          }
+                        }
+                      },
+                      "render": "auto",
+                      "resizable": true,
+                      "sort": "none",
+                      "sortable": true,
+                      "strictWidth": false,
+                      "style": {
+                        "classes": ""
+                      },
+                      "toggleSwitch": {
+                        "color": {
+                          "selected": "",
+                          "unselected": ""
+                        }
+                      },
+                      "viewParams": {},
+                      "viewPath": "",
+                      "visible": true,
+                      "width": ""
+                    },
+                    {
+                      "align": "center",
+                      "boolean": "checkbox",
+                      "dateFormat": "MM/DD/YYYY",
+                      "editable": false,
+                      "field": "Event",
+                      "filter": {
+                        "boolean": {
+                          "condition": ""
+                        },
+                        "date": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "enabled": false,
+                        "number": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "string": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "visible": "on-hover"
+                      },
+                      "footer": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": ""
+                      },
+                      "header": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": "Event"
+                      },
+                      "justify": "auto",
+                      "number": "value",
+                      "numberFormat": "0,0.##",
+                      "progressBar": {
+                        "bar": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "max": 100,
+                        "min": 0,
+                        "track": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "value": {
+                          "enabled": true,
+                          "format": "0,0.##",
+                          "justify": "center",
+                          "style": {
+                            "classes": ""
+                          }
+                        }
+                      },
+                      "render": "auto",
+                      "resizable": true,
+                      "sort": "none",
+                      "sortable": true,
+                      "strictWidth": false,
+                      "style": {
+                        "classes": ""
+                      },
+                      "toggleSwitch": {
+                        "color": {
+                          "selected": "",
+                          "unselected": ""
+                        }
+                      },
+                      "viewParams": {},
+                      "viewPath": "",
+                      "visible": true,
+                      "width": ""
+                    },
+                    {
+                      "align": "center",
+                      "boolean": "checkbox",
+                      "dateFormat": "MM/DD/YYYY",
+                      "editable": false,
+                      "field": "Notes",
+                      "filter": {
+                        "boolean": {
+                          "condition": ""
+                        },
+                        "date": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "enabled": false,
+                        "number": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "string": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "visible": "on-hover"
+                      },
+                      "footer": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": ""
+                      },
+                      "header": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": "Notes"
+                      },
+                      "justify": "auto",
+                      "number": "value",
+                      "numberFormat": "0,0.##",
+                      "progressBar": {
+                        "bar": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "max": 100,
+                        "min": 0,
+                        "track": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "value": {
+                          "enabled": true,
+                          "format": "0,0.##",
+                          "justify": "center",
+                          "style": {
+                            "classes": ""
+                          }
+                        }
+                      },
+                      "render": "auto",
+                      "resizable": true,
+                      "sort": "none",
+                      "sortable": true,
+                      "strictWidth": false,
+                      "style": {
+                        "classes": ""
+                      },
+                      "toggleSwitch": {
+                        "color": {
+                          "selected": "",
+                          "unselected": ""
+                        }
+                      },
+                      "viewParams": {},
+                      "viewPath": "",
+                      "visible": true,
+                      "width": ""
+                    },
+                    {
+                      "align": "center",
+                      "boolean": "checkbox",
+                      "dateFormat": "MM/DD/YYYY",
+                      "editable": false,
+                      "field": "Metadata",
+                      "filter": {
+                        "boolean": {
+                          "condition": ""
+                        },
+                        "date": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "enabled": false,
+                        "number": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "string": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "visible": "on-hover"
+                      },
+                      "footer": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": ""
+                      },
+                      "header": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": ""
+                      },
+                      "justify": "auto",
+                      "number": "value",
+                      "numberFormat": "0,0.##",
+                      "progressBar": {
+                        "bar": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "max": 100,
+                        "min": 0,
+                        "track": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "value": {
+                          "enabled": true,
+                          "format": "0,0.##",
+                          "justify": "center",
+                          "style": {
+                            "classes": ""
+                          }
+                        }
+                      },
+                      "render": "string",
+                      "resizable": true,
+                      "sort": "none",
+                      "sortable": true,
+                      "strictWidth": false,
+                      "style": {
+                        "classes": ""
+                      },
+                      "toggleSwitch": {
+                        "color": {
+                          "selected": "",
+                          "unselected": ""
+                        }
+                      },
+                      "viewParams": {},
+                      "viewPath": "",
+                      "visible": true,
+                      "width": ""
+                    }
+                  ],
+                  "emptyMessage": {
+                    "noData": {}
+                  },
+                  "nullFormat": {
+                    "includeNullStrings": true
+                  },
+                  "rows": {
+                    "subview": {
+                      "enabled": true,
+                      "viewParams": {
+                        "value": {
+                          "Metadata": "Metadata"
+                        }
+                      },
+                      "viewPath": "App/TrackAndTrace/History (Test)/Embedded/MetadataFlex"
+                    },
+                    "subviewExpansionMode": "single"
+                  },
+                  "style": {
+                    "classes": "Global/MarginAll"
+                  }
+                },
+                "type": "ia.display.table"
+              }
+            ],
+            "meta": {
+              "name": "Main"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "direction": "column"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Table"
+        },
+        "position": {
+          "grow": 1
+        },
+        "props": {
+          "direction": "column"
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

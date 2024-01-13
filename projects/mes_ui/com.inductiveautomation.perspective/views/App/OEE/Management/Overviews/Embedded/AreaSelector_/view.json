@@ -1,0 +1,185 @@
+{
+  "custom": {
+    "Options": {
+      "$": [
+        "ds",
+        192,
+        1702994610196
+      ],
+      "$columns": [
+        {
+          "data": [
+            1021,
+            18
+          ],
+          "name": "value",
+          "type": "Integer"
+        },
+        {
+          "data": [
+            "Cast House",
+            "PE Extrusion"
+          ],
+          "name": "label",
+          "type": "String"
+        }
+      ]
+    }
+  },
+  "params": {
+    "AreaID": 18,
+    "IsHome": true,
+    "SelectedArea": "Fiberon/1NL/Cast House",
+    "SiteID": 9
+  },
+  "propConfig": {
+    "custom.Options": {
+      "binding": {
+        "config": {
+          "parameters": {
+            "siteID": "try(\r \tif(\r \t\t{view.params.IsHome},\r \t\t{view.params.SiteID},\r \t\t{session.custom.SelectedSite}),\r \t\t-1\r )"
+          },
+          "queryPath": "app/Equipment_Config/getAreaDropdown"
+        },
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "params.AreaID": {
+      "binding": {
+        "config": {
+          "path": "/root/FlexContainer/Dropdown.props.value"
+        },
+        "type": "property"
+      },
+      "paramDirection": "output",
+      "persistent": true
+    },
+    "params.IsHome": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.SelectedArea": {
+      "paramDirection": "output",
+      "persistent": true
+    },
+    "params.SiteID": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 51,
+      "width": 395
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "AreaName"
+        },
+        "props": {
+          "style": {
+            "classes": "Text/Heading TextFields/TextTitle",
+            "overflow": "hidden"
+          },
+          "text": "Select a Area:"
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "children": [
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "script": "\tsiteId \u003d self.props.value\n\tareaName \u003d \"\"\n\teqPath \u003d \"\"\n\toptionsArr \u003d self.props.options\n\tareaOptionsArr \u003d self.custom.AreaOptions\n#\tsystem.perspective.print(eqPath)\n\t\n\tfor option in optionsArr:\n\t\tif option[\"value\"] \u003d\u003d siteId:\n\t\t\tareaName \u003d option[\"label\"]\n\t\n\tfor path in areaOptionsArr:\n\t\tif path[\"value\"] \u003d\u003d siteId:\n\t\t\teqPath \u003d path[\"eqPath\"]\n\t\n#\tpayload \u003d {\"areaId\": siteId, \"areaName\": areaName, \"eqPath\": eqPath}\t\n#\tsystem.perspective.sendMessage(\"changedAreaOverview\", payload\u003dpayload)\n\tself.view.params.SelectedArea \u003d eqPath\n\n\n\t\t\t\n\t"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Dropdown"
+            },
+            "position": {
+              "basis": "40px",
+              "grow": 1
+            },
+            "propConfig": {
+              "custom.AreaOptions": {
+                "binding": {
+                  "config": {
+                    "path": "session.custom.SelectedSite"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tsiteId \u003d value\n\tparams \u003d {\"siteID\": siteId}\n\tres \u003d system.db.runNamedQuery(\"app/Config/getAreas\", params)\n#\tres \u003d system.db.runNamedQuery(\"app/MES_Common/getAreasForSite\", params)\n\tpydata \u003d system.dataset.toPyDataSet(res)\n\toptionsArr \u003d []\n\n\tfor row in pydata:\n\t\tvalue \u003d row[\"ID\"]\n\t\tlabel \u003d row[\"Title\"]\n\t\teqPath \u003d row[\"TagPath\"]\n\t\toptionsArr.append({\"label\": label, \"value\": value, \"eqPath\": eqPath})\n\t\t\n\treturn optionsArr",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.options": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.Options"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.value": {
+                "binding": {
+                  "config": {
+                    "expression": "if({view.params.AreaID} !\u003d \u0027\u0027, {view.params.AreaID}, {this.props.options[0].value})"
+                  },
+                  "enabled": false,
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "placeholder": {
+                "text": ""
+              },
+              "style": {
+                "classes": "TextFields/Dropdown",
+                "overflow": "hidden"
+              },
+              "value": 18
+            },
+            "type": "ia.input.dropdown"
+          }
+        ],
+        "meta": {
+          "name": "FlexContainer"
+        },
+        "position": {
+          "basis": "207.1px"
+        },
+        "props": {
+          "direction": "column",
+          "style": {
+            "marginRight": "16px",
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

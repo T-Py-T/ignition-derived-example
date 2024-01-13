@@ -1,0 +1,1 @@
+INSERT INTO "feedbackTypes" (name) VALUES ("comment")

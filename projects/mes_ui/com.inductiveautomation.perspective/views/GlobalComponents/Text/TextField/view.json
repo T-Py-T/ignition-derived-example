@@ -1,0 +1,131 @@
+{
+  "custom": {},
+  "params": {
+    "DeferUpdates": true,
+    "Filter": "value",
+    "Placeholder": "...",
+    "Size": "value",
+    "Text": "",
+    "Type": ""
+  },
+  "propConfig": {
+    "params.DeferUpdates": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Filter": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Placeholder": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Size": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Text": {
+      "binding": {
+        "config": {
+          "path": "/root/TextField.props.text"
+        },
+        "type": "property"
+      },
+      "paramDirection": "output",
+      "persistent": true
+    },
+    "params.Type": {
+      "paramDirection": "inout",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 42,
+      "width": 202
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "TextField"
+        },
+        "position": {
+          "grow": 1
+        },
+        "propConfig": {
+          "position.basis": {
+            "binding": {
+              "config": {
+                "path": "view.params.Size"
+              },
+              "type": "property"
+            }
+          },
+          "props.deferUpdates": {
+            "binding": {
+              "config": {
+                "path": "view.params.DeferUpdates"
+              },
+              "type": "property"
+            }
+          },
+          "props.placeholder": {
+            "binding": {
+              "config": {
+                "path": "view.params.Placeholder"
+              },
+              "type": "property"
+            }
+          },
+          "props.style.classes": {
+            "binding": {
+              "config": {
+                "path": "view.params.Type"
+              },
+              "transforms": [
+                {
+                  "fallback": "TextFields/TextField",
+                  "inputType": "scalar",
+                  "mappings": [
+                    {
+                      "input": "success",
+                      "output": "TextFields/TextSuccess"
+                    },
+                    {
+                      "input": "warning",
+                      "output": "TextFields/TextWarning"
+                    },
+                    {
+                      "input": "fail",
+                      "output": "TextFields/TextFailure"
+                    }
+                  ],
+                  "outputType": "scalar",
+                  "type": "map"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "rejectUpdatesWhileFocused": false,
+          "style": {}
+        },
+        "type": "ia.input.text-field"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "style": {
+        "classes": "TextFields/Root"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

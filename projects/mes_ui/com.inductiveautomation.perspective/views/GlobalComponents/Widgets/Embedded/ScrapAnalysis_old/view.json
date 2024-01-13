@@ -1,0 +1,293 @@
+{
+  "custom": {
+    "MaxAllowed": null,
+    "RawScrap": null,
+    "ScrapPercent": null
+  },
+  "params": {
+    "EqPath": ""
+  },
+  "propConfig": {
+    "custom.MaxAllowed": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/calculatedValues/shiftScrapPartsPercentTarget"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.RawScrap": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/calculatedValues/shiftRawScrap"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.ScrapPercent": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/calculatedValues/shiftScrapPartsPercent"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 74,
+      "width": 239
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Count"
+            },
+            "position": {
+              "basis": "418px"
+            },
+            "props": {
+              "text": "Count",
+              "textStyle": {
+                "classes": "Cards/Common/CardText",
+                "textAlign": "left"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "MaxAllowed"
+            },
+            "position": {
+              "basis": "418px"
+            },
+            "props": {
+              "text": "Max Allowed",
+              "textStyle": {
+                "classes": "Cards/Common/CardText",
+                "textAlign": "right"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Row1"
+        },
+        "position": {
+          "height": 0.3167,
+          "width": 1
+        },
+        "props": {
+          "justify": "center",
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "CountValue"
+            },
+            "position": {
+              "basis": "324px"
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.RawScrap"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "textStyle": {
+                "classes": "Cards/Common/CardTitle",
+                "textAlign": "left"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "MaxAllowedValue"
+            },
+            "position": {
+              "basis": "324px"
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.MaxAllowed"
+                  },
+                  "transforms": [
+                    {
+                      "expression": "{value} + \u0027%\u0027",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "textStyle": {
+                "classes": "Cards/Common/CardTitle",
+                "textAlign": "right"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Row2"
+        },
+        "position": {
+          "height": 0.3667,
+          "width": 0.9958,
+          "y": 0.2505
+        },
+        "propConfig": {
+          "position.basis": {
+            "binding": {
+              "config": {
+                "path": "page.props.path"
+              },
+              "enabled": false,
+              "transforms": [
+                {
+                  "code": "\tsplit \u003d gpa.frontEnd.localUI.splitPath(value)\n\t\n\tif split \u003d\u003d \"overhead\":\n\t\treturn \"85px\"\n\telse:\n\t\treturn \"86px\"",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "Cards/Common/CardTitleBorder",
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "basis": "418px"
+            },
+            "props": {
+              "text": "Running Percent Scrap",
+              "textStyle": {
+                "classes": "Cards/Common/CardText",
+                "textAlign": "left"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Label_0"
+            },
+            "position": {
+              "basis": "166px"
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.ScrapPercent"
+                  },
+                  "transforms": [
+                    {
+                      "expression": "{value} + \u0027%\u0027",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "alignVertical": "top",
+              "style": {
+                "overflow": "hidden"
+              },
+              "textStyle": {
+                "classes": "Cards/Common/CardTitle",
+                "textAlign": "end"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Row3"
+        },
+        "position": {
+          "height": 0.55,
+          "width": 0.9958,
+          "y": 0.3674
+        },
+        "props": {
+          "alignContent": "center",
+          "alignItems": "center",
+          "justify": "flex-end",
+          "style": {
+            "classes": "Global/MarginTop",
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent",
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

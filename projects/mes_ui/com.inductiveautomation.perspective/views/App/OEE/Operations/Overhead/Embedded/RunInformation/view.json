@@ -1,0 +1,336 @@
+{
+  "custom": {
+    "Percent": 0.53378,
+    "Pieces": "26689.0 pcs",
+    "RunValue": 26689,
+    "WOTotal": 50000
+  },
+  "params": {
+    "EqPath": "[default]",
+    "TagProvider": "[default]"
+  },
+  "propConfig": {
+    "custom.Percent": {
+      "binding": {
+        "config": {
+          "path": "view.custom.RunValue"
+        },
+        "transforms": [
+          {
+            "expression": "{value} / {view.custom.WOTotal}",
+            "type": "expression"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.Pieces": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/jobs/currentJob/productionCounts/input"
+        },
+        "transforms": [
+          {
+            "expression": "{value} + \" pcs\"",
+            "type": "expression"
+          }
+        ],
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.RunValue": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/jobs/currentJob/productionCounts/input"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.WOTotal": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/jobs/currentJob/workOrderQuantity"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.TagProvider": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 75,
+      "width": 390
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label"
+                },
+                "position": {
+                  "basis": "50px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "expression": "now()"
+                      },
+                      "transforms": [
+                        {
+                          "formatType": "datetime",
+                          "formatValue": {
+                            "date": "medium",
+                            "time": "medium"
+                          },
+                          "type": "format"
+                        }
+                      ],
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "textStyle": {
+                    "fontSize": "1rem",
+                    "fontWeight": "bold",
+                    "textAlign": "end"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "Date"
+            },
+            "position": {
+              "display": false
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginBottom"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Value"
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.Percent"
+                      },
+                      "transforms": [
+                        {
+                          "expression": "toStr(round({value} * 100)) + \"%\"",
+                          "type": "expression"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginRight OverheadScreens/Values"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "Progress"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.value": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.Percent"
+                      },
+                      "transforms": [
+                        {
+                          "expression": "{value} * 100",
+                          "type": "expression"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "paddingTop": "10px"
+                  }
+                },
+                "type": "ia.display.progress"
+              }
+            ],
+            "meta": {
+              "name": "Progress"
+            },
+            "position": {
+              "basis": "43px"
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginBottom"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "CurrentQuantity"
+                },
+                "position": {
+                  "grow": 1,
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.Pieces"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "alignVertical": "top",
+                  "textStyle": {
+                    "fontSize": "1.2rem",
+                    "fontWeight": "bold",
+                    "textAlign": "right"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "Slash"
+                },
+                "position": {
+                  "shrink": 0
+                },
+                "props": {
+                  "alignVertical": "top",
+                  "style": {
+                    "classes": "Global/MarginLeft Global/MarginRight"
+                  },
+                  "text": "/",
+                  "textStyle": {
+                    "fontSize": "1.2rem",
+                    "fontWeight": "bold",
+                    "textAlign": "center"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "WorkOrderQuantity"
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.WOTotal"
+                      },
+                      "transforms": [
+                        {
+                          "expression": "{value} + \" pcs\"",
+                          "type": "expression"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "alignVertical": "top",
+                  "textStyle": {
+                    "fontSize": "1.2rem",
+                    "fontWeight": "bold",
+                    "textAlign": "right"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "Metrics"
+            },
+            "position": {
+              "basis": "34px"
+            },
+            "props": {
+              "alignContent": "flex-end",
+              "justify": "flex-end"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Body"
+        },
+        "position": {
+          "basis": "168px"
+        },
+        "props": {
+          "direction": "column"
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

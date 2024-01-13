@@ -1,0 +1,69 @@
+{
+  "custom": {},
+  "params": {},
+  "permissions": {
+    "securityLevels": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [],
+                "name": "Administrator"
+              }
+            ],
+            "name": "Roles"
+          }
+        ],
+        "name": "Authenticated"
+      }
+    ],
+    "type": "AllOf"
+  },
+  "props": {},
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Table"
+        },
+        "position": {
+          "basis": "320px",
+          "grow": 1
+        },
+        "props": {
+          "params": {
+            "HideTitle": false,
+            "Icon": "",
+            "IconDisplay": true,
+            "Params": {
+              "State": "",
+              "TagPath": "",
+              "TagProvider": ""
+            },
+            "Path": "App/GatewayHealth/SwitchHealth/Embedded/Charts/SystemLogs",
+            "Provider": "value",
+            "SizeBasis": "value",
+            "TagPath": "value",
+            "Title": "All System Logs",
+            "Type": "",
+            "useDefaultHeight": false,
+            "useDefaultWidth": false
+          },
+          "path": "GlobalComponents/Cards/Card"
+        },
+        "type": "ia.display.view"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "classes": "Global/MarginAll"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

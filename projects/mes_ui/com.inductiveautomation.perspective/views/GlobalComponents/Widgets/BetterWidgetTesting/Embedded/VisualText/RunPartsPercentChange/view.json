@@ -1,0 +1,354 @@
+{
+  "custom": {
+    "Max": 256563,
+    "Min": 249769,
+    "PercentChange": "3%",
+    "TagHistoryPath": [
+      {
+        "aggregate": "MinMax",
+        "alias": "Values"
+      }
+    ],
+    "Values": {
+      "$": [
+        "ds",
+        192,
+        1695995395667
+      ],
+      "$columns": [
+        {
+          "data": [
+            1695991795151,
+            1695991855151,
+            1695991915151,
+            1695991975151,
+            1695992035151,
+            1695992095151,
+            1695992155151,
+            1695992215151,
+            1695992275151,
+            1695992335151,
+            1695992395151,
+            1695992455151,
+            1695992515151,
+            1695992575151,
+            1695992635151,
+            1695992695151,
+            1695992755151,
+            1695992815151,
+            1695992875151,
+            1695992935151,
+            1695992995151,
+            1695993055151,
+            1695993115151,
+            1695993175151,
+            1695993235151,
+            1695993295151,
+            1695993355151,
+            1695993415151,
+            1695993475151,
+            1695993535151,
+            1695993595151,
+            1695993655151,
+            1695993715151,
+            1695993775151,
+            1695993835151,
+            1695993895151,
+            1695993955151,
+            1695994015151,
+            1695994075151,
+            1695994135151,
+            1695994195151,
+            1695994255151,
+            1695994315151,
+            1695994375151,
+            1695994435151,
+            1695994495151,
+            1695994555151,
+            1695994615151,
+            1695994675151,
+            1695994735151,
+            1695994795151,
+            1695994855151,
+            1695994915151,
+            1695994975151,
+            1695995035151,
+            1695995095151,
+            1695995155151,
+            1695995215151,
+            1695995275151,
+            1695995335151
+          ],
+          "name": "t_stamp",
+          "type": "Date"
+        },
+        {
+          "data": [
+            249769,
+            249884,
+            249999,
+            250115,
+            250230,
+            250347,
+            250460,
+            250576,
+            250691,
+            250806,
+            250920,
+            251034,
+            251150,
+            251265,
+            251378,
+            251495,
+            251611,
+            251725,
+            251841,
+            251956,
+            252071,
+            252187,
+            252300,
+            252415,
+            252532,
+            252648,
+            252762,
+            252878,
+            252993,
+            253106,
+            253221,
+            253337,
+            253453,
+            253569,
+            253684,
+            253799,
+            253913,
+            254028,
+            254143,
+            254258,
+            254374,
+            254488,
+            254604,
+            254721,
+            254834,
+            254949,
+            255065,
+            255180,
+            255295,
+            255411,
+            255525,
+            255641,
+            255756,
+            255872,
+            255986,
+            256102,
+            256217,
+            256332,
+            256447,
+            256563
+          ],
+          "name": "Values",
+          "type": "Long"
+        }
+      ]
+    }
+  },
+  "params": {},
+  "propConfig": {
+    "custom.Max": {
+      "binding": {
+        "config": {
+          "expression": "max({view.custom.Values}, \u0027Values\u0027)"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.Min": {
+      "binding": {
+        "config": {
+          "expression": "min({view.custom.Values}, \u0027Values\u0027)"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.PercentChange": {
+      "binding": {
+        "config": {
+          "expression": "({view.custom.Max}-{view.custom.Min})/{view.custom.Min}"
+        },
+        "transforms": [
+          {
+            "formatType": "numeric",
+            "formatValue": "percent",
+            "type": "format"
+          }
+        ],
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.TagHistoryPath": {
+      "persistent": true
+    },
+    "custom.TagHistoryPath[0].path": {
+      "binding": {
+        "config": {
+          "expression": "{session.custom.EqPath}+\u0027/jobs/currentJob/RunCounts/runGoodParts\u0027"
+        },
+        "type": "expr"
+      }
+    },
+    "custom.Values": {
+      "binding": {
+        "config": {
+          "aggregate": "MinMax",
+          "avoidScanClassValidation": true,
+          "dateRange": {
+            "mostRecent": "60",
+            "mostRecentUnits": "MIN"
+          },
+          "enableValueCache": true,
+          "ignoreBadQuality": false,
+          "polling": {
+            "enabled": true,
+            "rate": "10"
+          },
+          "preventInterpolation": false,
+          "returnFormat": "Wide",
+          "returnSize": {
+            "numRows": "60",
+            "type": "FIXED"
+          },
+          "tags": "{view.custom.TagHistoryPath}",
+          "valueFormat": "DATASET"
+        },
+        "type": "tag-history"
+      },
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 80,
+      "width": 230
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.Max"
+                  },
+                  "transforms": [
+                    {
+                      "formatType": "numeric",
+                      "formatValue": "#,### PCS",
+                      "type": "format"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Text/Heading",
+                "textAlign": "end"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Icon"
+            },
+            "position": {
+              "basis": "60px"
+            },
+            "propConfig": {
+              "props.color": {
+                "binding": {
+                  "config": {
+                    "expression": "if({view.custom.PercentChange} \u003e 0, \u0027lightgreen\u0027, \u0027red\u0027)"
+                  },
+                  "type": "expr"
+                }
+              },
+              "props.path": {
+                "binding": {
+                  "config": {
+                    "expression": "if({view.custom.PercentChange} \u003e 0, \u0027material/arrow_drop_up\u0027, \u0027material/arrow_drop_down\u0027)"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "type": "ia.display.icon"
+          },
+          {
+            "meta": {
+              "name": "Label_0"
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.PercentChange"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Text/SmallText",
+                "paddingRight": 8,
+                "textAlign": "start"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "FlexContainer"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "meta": {
+          "name": "Label"
+        },
+        "position": {
+          "grow": 1
+        },
+        "props": {
+          "style": {
+            "classes": "Text/LineStatus",
+            "paddingLeft": 16,
+            "textAlign": "start"
+          },
+          "text": "Run Good Parts"
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

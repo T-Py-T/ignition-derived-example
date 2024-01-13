@@ -1,0 +1,184 @@
+{
+  "custom": {
+    "Value": null
+  },
+  "params": {
+    "Label": "Performance",
+    "State": "fail",
+    "TagPath": "",
+    "TagProvider": "[MES]"
+  },
+  "propConfig": {
+    "custom.Value": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.TagProvider}",
+            "2": "{view.params.TagPath}",
+            "3": "{view.params.Label}"
+          },
+          "tagPath": "{1}{2}/Analysis/Shift/OEE/{3}"
+        },
+        "transforms": [
+          {
+            "expression": "{value} * 100 ",
+            "type": "expression"
+          }
+        ],
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "params.Label": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.State": {
+      "binding": {
+        "config": {
+          "path": "view.custom.Value"
+        },
+        "transforms": [
+          {
+            "code": "\tlabel \u003d self.params.Label\n\t\n\tavailabilityThresholds \u003d self.session.custom.AvailabilityThresholds\n\tperformanceThresholds \u003d self.session.custom.PerformanceThresholds\n\tqualityThresholds \u003d self.session.custom.QualityThresholds\n\t\n\tif label \u003d\u003d \"Performance\":\n\t\tif value \u003c performanceThresholds.Bad:\n\t\t\treturn gpa.frontEnd.localUI.Constants.ERROR\n\t\telif value \u003c performanceThresholds.Warning:\n\t\t\treturn gpa.frontEnd.localUI.Constants.WARNING\n\t\telse:\n\t\t\treturn \"\"\n\telif label \u003d\u003d \"Availability\":\n\t\tif value \u003c availabilityThresholds.Bad:\n\t\t\treturn gpa.frontEnd.localUI.Constants.ERROR\n\t\telif value \u003c availabilityThresholds.Warning:\n\t\t\treturn gpa.frontEnd.localUI.Constants.WARNING\n\t\telse:\n\t\t\treturn \"\"\n\telif label \u003d\u003d \"Quality\":\n\t\tif value \u003c qualityThresholds.Bad:\n\t\t\treturn gpa.frontEnd.localUI.Constants.ERROR\n\t\telif value \u003c qualityThresholds.Warning:\n\t\t\treturn gpa.frontEnd.localUI.Constants.WARNING\n\t\telse:\n\t\t\treturn \"\"\n\t",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "paramDirection": "output",
+      "persistent": true
+    },
+    "params.TagPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.TagProvider": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 135,
+      "width": 304
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "MetricTitle"
+            },
+            "position": {
+              "basis": "85px"
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.Label"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "TextFields/TextTitle"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "MovingAnalogIndicator"
+            },
+            "position": {
+              "basis": "80px",
+              "grow": 1
+            },
+            "propConfig": {
+              "props.processValue": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.Value"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "desiredHigh": 100,
+              "desiredLow": 65,
+              "desiredRangeColor": "#00B4FF",
+              "highAlarm": 1000,
+              "highHighAlarm": null,
+              "highInterlock": null,
+              "level1AlarmColor": "#EAAA00",
+              "lowAlarm": 65,
+              "lowInterlock": null,
+              "lowLowAlarm": 40
+            },
+            "type": "ia.display.moving-analog-indicator"
+          }
+        ],
+        "meta": {
+          "name": "ProdBody"
+        },
+        "position": {
+          "basis": "215px"
+        },
+        "props": {
+          "direction": "column"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "meta": {
+          "name": "MetricValue"
+        },
+        "position": {
+          "basis": "85px"
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.custom.Value"
+              },
+              "transforms": [
+                {
+                  "formatType": "numeric",
+                  "formatValue": "number",
+                  "type": "format"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "TextFields/TextTitle"
+          },
+          "textStyle": {
+            "fontSize": "1.5rem"
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

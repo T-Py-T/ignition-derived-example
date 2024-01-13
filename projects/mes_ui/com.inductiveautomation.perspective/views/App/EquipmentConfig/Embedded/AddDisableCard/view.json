@@ -1,0 +1,346 @@
+{
+  "custom": {
+    "EqType": "value",
+    "Label": "value"
+  },
+  "params": {
+    "EqData": {
+      "EqEnabled": true,
+      "EqID": "",
+      "EqName": "",
+      "EqPath": "",
+      "EqType": ""
+    },
+    "EqEnabled": "",
+    "EqPath": "",
+    "EqType": "",
+    "ID": "",
+    "ModalName": "eqConfigPopup",
+    "label": ""
+  },
+  "propConfig": {
+    "custom.EqType": {
+      "persistent": true
+    },
+    "custom.Label": {
+      "persistent": true
+    },
+    "params.EqData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.EqEnabled": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.EqType": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.ID": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.ModalName": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.label": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 70,
+      "width": 936
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "events": {
+              "dom": {
+                "onClick": [
+                  {
+                    "config": {
+                      "script": "\tlogger \u003d system.util.getLogger(\u0027addAsset_popup\u0027)\n\t\n\ttry:\n\t    modalPath \u003d \u0027App/EquipmentConfig/Embedded/Popups/AddAsset\u0027\n\t    eqData \u003d self.view.params.EqData\n\t    modalName \u003d \u0027addAsset\u0027\n\t    \n\t    # Replace missing values in eqData with None or an empty string\n\t    for key in eqData:\n\t        if not eqData[key]:\n\t            eqData[key] \u003d None   # Use \"\" for empty string\n\t\n\t    params \u003d {\n\t        \u0027ModalName\u0027: modalName,\n\t        \u0027EqData\u0027: eqData\n\t    }\n\t    \n\t    system.perspective.openPopup(modalName, modalPath, params, title\u003d\"Add Asset\", modal\u003dTrue, overlayDismiss\u003dTrue)\n\texcept Exception as e:\n\t    errorParams \u003d {\n\t        \"ModalName\": \"ErrorModal\",\n\t        \"ErrorMessage\": \u0027There was an error: \u0027 + str(e)\n\t    }\n\t\n\t    msg \u003d \u0027There was an error: \u0027 + str(e)\n\t    logger.error(msg)\n\t    system.perspective.openPopup(\"ErrorModal\", \"GlobalComponents/Modals/ErrorModal\", errorParams)"
+                    },
+                    "scope": "G",
+                    "type": "script"
+                  },
+                  {
+                    "config": {
+                      "draggable": true,
+                      "id": "addAsset",
+                      "modal": true,
+                      "overlayDismiss": true,
+                      "resizable": true,
+                      "showCloseIcon": true,
+                      "title": "Add Asset",
+                      "type": "toggle",
+                      "viewParams": {
+                        "EqData": "{view.params.EqData}",
+                        "ModalName": "addAsset"
+                      },
+                      "viewPath": "App/EquipmentConfig/Embedded/Popups/AddAsset",
+                      "viewportBound": false
+                    },
+                    "enabled": false,
+                    "scope": "C",
+                    "type": "popup"
+                  }
+                ]
+              }
+            },
+            "meta": {
+              "name": "Button"
+            },
+            "position": {
+              "basis": "80px",
+              "grow": 1
+            },
+            "propConfig": {
+              "props.enabled": {
+                "binding": {
+                  "config": {
+                    "expression": "if(\r\n\t{view.params.EqData.EqType} \u003d \u0027cell\u0027,\r\n\tfalse,\r\n\ttrue\r\n)"
+                  },
+                  "type": "expr"
+                }
+              },
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.EqType"
+                  },
+                  "transforms": [
+                    {
+                      "expression": "\"Add\"+ case({value},\r\n\t\"enterprise\",\" Site\",\r\n\t\"site\",\" Area\",\r\n\t\"area\",\" Line\",\r\n\t\"line\",\" Cell\",\r\n\t\"\")",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Buttons/ButtonStyle Global/MarginRight",
+                "marginTop": 10
+              }
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "Row1"
+        },
+        "position": {
+          "basis": "180px"
+        },
+        "props": {
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "events": {
+              "dom": {
+                "onClick": [
+                  {
+                    "config": {
+                      "script": "\tlogger \u003d system.util.getLogger(\u0027state_export\u0027)\n\teqType \u003d self.view.params.EqType\n\n\ttype_lookup \u003d {\n\t    \u0027enterprise\u0027: \u0027sites\u0027,\n\t    \u0027site\u0027: \u0027areas\u0027,\n\t    \u0027area\u0027: \u0027lines\u0027,\n\t    \u0027line\u0027: \u0027cells\u0027\n\t}\n\t\n\ttry:\n\t    if eqType in type_lookup:\n\t        params \u003d { \u0027Type\u0027: type_lookup[eqType], \u0027EqPath\u0027:  self.view.params.EqData.EqPath}\n\t        system.perspective.openPopup(\"ImportFile\", \"GlobalComponents/Modals/ImportFile\", params)\n\t    else:\n\t        logger.warn(\"Invalid eqType provided: {}\".format(eqType))\n\t\n\texcept Exception as e:\n\t    errorParams \u003d {\n\t        \"ModalName\": \"ErrorModal\",\n\t        \"ErrorMessage\": \u0027There was an error: \u0027 + str(e)\n\t    }\n\t    \n\t    msg \u003d \u0027There was an error: \u0027 + str(e)\n\t    logger.warn(msg)\n\t    system.perspective.openPopup(\"ErrorModal\", \"GlobalComponents/Modals/ErrorModal\", errorParams)"
+                    },
+                    "scope": "G",
+                    "type": "script"
+                  },
+                  {
+                    "config": {
+                      "draggable": true,
+                      "id": "addAsset",
+                      "modal": true,
+                      "overlayDismiss": true,
+                      "resizable": true,
+                      "showCloseIcon": true,
+                      "title": "Add Asset",
+                      "type": "toggle",
+                      "viewParams": {
+                        "EqData": "{view.params.EqData}",
+                        "ModalName": "addAsset"
+                      },
+                      "viewPath": "App/EquipmentConfig/Embedded/Popups/AddAsset",
+                      "viewportBound": false
+                    },
+                    "enabled": false,
+                    "scope": "C",
+                    "type": "popup"
+                  }
+                ]
+              }
+            },
+            "meta": {
+              "name": "Button"
+            },
+            "position": {
+              "basis": "80px",
+              "grow": 1
+            },
+            "propConfig": {
+              "props.enabled": {
+                "binding": {
+                  "config": {
+                    "expression": "if(\r\n\t{view.params.EqData.EqType} \u003d \u0027cell\u0027,\r\n\tfalse,\r\n\ttrue\r\n)"
+                  },
+                  "type": "expr"
+                }
+              },
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.EqType"
+                  },
+                  "transforms": [
+                    {
+                      "expression": "\"Import\"+ case({value},\r\n\t\"enterprise\",\" Sites\",\r\n\t\"site\",\" Areas\",\r\n\t\"area\",\" Lines\",\r\n\t\"line\",\" Cells\",\r\n\t\"\")",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Buttons/ButtonStyle Global/MarginRight",
+                "marginTop": 10
+              }
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "Row3"
+        },
+        "position": {
+          "basis": "180px"
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "expression": "if({view.params.EqType} \u003d \u0027\u0027, false, true)"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\tlogger \u003d system.util.getLogger(\u0027disableEqConfig\u0027)\n\t\t\t\n\ttry:\n\t\teqType \u003d self.view.params.EqType\n\t\teqID \u003d self.view.params.ID\n\t\teqPath \u003d self.view.params.EqPath\n\t\teqName \u003d self.view.params.label\n\t\teqEnabled \u003d self.view.params.EqEnabled\n\t\tmodalName \u003d \u0027Disable\u0027\n\t\tmodalPath \u003d \u0027App/EquipmentConfig/Embedded/Popups/AddDisablePopup\u0027\n\t\t\n\t\tparams \u003d {\n\t\t\t\"ModalName\": modalName,\n\t\t\t\"ID\": eqID,\n\t\t\t\"EqName\": eqName,\n\t\t\t\"EqPath\": eqPath,\n\t\t\t\"EqType\": eqType,\n\t\t\t\u0027EqEnabled\u0027: eqEnabled\n\t\t}\n\t\t\n\t\tsystem.perspective.openPopup(modalName, modalPath, params, title\u003d\"Disable\", modal\u003dTrue, overlayDismiss\u003dTrue)\n\texcept Exception as e:\n\t\terrorParams \u003d {\n\t\t\t\"ModalName\": \"ErrorModal\",\n\t\t\t\"ErrorMessage\": \u0027There was an error: \u0027 + str(e)\n\t\t}\n\t\t\n\t\tmsg \u003d \u0027There was an error: \u0027 + str(e)\n\t\tsystem.perspective.openPopup(\"ErrorModal\", \"GlobalComponents/Modals/ErrorModal\", errorParams)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Button"
+            },
+            "position": {
+              "basis": "80px",
+              "grow": 1
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "expression": "if(\r\n\t{view.params.EqEnabled} \u003d true,\r\n\t\u0027Disable\u0027,\r\n\t\u0027Enable\u0027\r\n)"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Buttons/ButtonStyle Global/MarginRight",
+                "marginTop": 10
+              }
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "Row2"
+        },
+        "position": {
+          "basis": "180px"
+        },
+        "props": {
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "events": {
+      "dom": {
+        "onClick": {
+          "config": {
+            "script": "\tsystem.perspective.print(self.view.params)"
+          },
+          "scope": "G",
+          "type": "script"
+        }
+      }
+    },
+    "meta": {
+      "name": "root"
+    },
+    "propConfig": {
+      "custom.label": {
+        "access": "PUBLIC"
+      }
+    },
+    "props": {
+      "justify": "center"
+    },
+    "scripts": {
+      "customMethods": [],
+      "extensionFunctions": null,
+      "messageHandlers": [
+        {
+          "messageType": "configSettingsSelected",
+          "pageScope": true,
+          "script": "\t# implement your handler here\n\tself.view.custom.EqType \u003d payload[\u0027EqType\u0027]",
+          "sessionScope": false,
+          "viewScope": false
+        }
+      ]
+    },
+    "type": "ia.container.flex"
+  }
+}

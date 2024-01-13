@@ -1,0 +1,193 @@
+{
+  "custom": {},
+  "params": {
+    "EqPath": "[GatewayHealth]Gateways/Script",
+    "State": ""
+  },
+  "propConfig": {
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.State": {
+      "binding": {
+        "config": {
+          "path": "/root/Gauge.props.value"
+        },
+        "transforms": [
+          {
+            "expression": "runScript(\u0027gpa.frontEnd.localUI.getComponentStatus\u0027, 0, {value})",
+            "type": "expression"
+          }
+        ],
+        "type": "property"
+      },
+      "paramDirection": "output",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 181,
+      "width": 264
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Gauge"
+        },
+        "position": {
+          "basis": "250px",
+          "shrink": 4
+        },
+        "propConfig": {
+          "props.outerAxis.needle.color": {
+            "binding": {
+              "config": {
+                "path": "session.props.theme"
+              },
+              "transforms": [
+                {
+                  "fallback": "black",
+                  "inputType": "scalar",
+                  "mappings": [
+                    {
+                      "input": "custom-light",
+                      "output": "black"
+                    },
+                    {
+                      "input": "custom-dark",
+                      "output": "white"
+                    }
+                  ],
+                  "outputType": "scalar",
+                  "type": "map"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.outerAxis.tickMarks.color": {
+            "binding": {
+              "config": {
+                "path": "session.props.theme"
+              },
+              "transforms": [
+                {
+                  "fallback": "black",
+                  "inputType": "scalar",
+                  "mappings": [
+                    {
+                      "input": "custom-light",
+                      "output": "black"
+                    },
+                    {
+                      "input": "custom-dark",
+                      "output": "white"
+                    }
+                  ],
+                  "outputType": "scalar",
+                  "type": "map"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.value": {
+            "binding": {
+              "config": {
+                "fallbackDelay": 2.5,
+                "mode": "indirect",
+                "references": {
+                  "1": "{view.params.EqPath}"
+                },
+                "tagPath": "{1}/Performance/Disk Utilization"
+              },
+              "type": "tag"
+            }
+          }
+        },
+        "props": {
+          "backgroundColor": "",
+          "innerAxis": {
+            "data": "secondaryValue",
+            "needle": {
+              "color": "black",
+              "origin": 115
+            },
+            "percentRadius": 70,
+            "ranges": [
+              {
+                "color": "green",
+                "end": 70,
+                "start": 0,
+                "width": 8
+              },
+              {
+                "color": "yellow",
+                "end": 85,
+                "start": 65,
+                "width": 12
+              },
+              {
+                "color": "red",
+                "end": 100,
+                "start": 85,
+                "width": 14
+              }
+            ],
+            "show": false,
+            "width": 1
+          },
+          "outerAxis": {
+            "data": "value",
+            "needle": {
+              "reach": 90
+            },
+            "percentRadius": 90,
+            "ranges": [
+              {
+                "color": "green",
+                "end": 70,
+                "start": 0,
+                "width": 8
+              },
+              {
+                "color": "yellow",
+                "end": 85,
+                "start": 65,
+                "width": 12
+              },
+              {
+                "color": "red",
+                "end": 100,
+                "start": 85,
+                "width": 14
+              }
+            ],
+            "show": true,
+            "tickMarks": {},
+            "width": 1
+          },
+          "secondaryValue": 23.054814339,
+          "style": {
+            "classes": [],
+            "fontSize": "12px",
+            "minWidth": "180px",
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.chart.gauge"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

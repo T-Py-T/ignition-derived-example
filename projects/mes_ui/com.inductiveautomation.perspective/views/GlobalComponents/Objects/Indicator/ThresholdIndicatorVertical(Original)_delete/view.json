@@ -1,0 +1,342 @@
+{
+  "custom": {},
+  "params": {
+    "baseFrame": {
+      "isVisible": true,
+      "style": {
+        "backgroundColor": "00000080",
+        "classes": "Color/Frame/Surface1"
+      }
+    },
+    "desired": {
+      "isVisble": true,
+      "rangeHi": 8000,
+      "rangeLo": 0,
+      "style": {
+        "backgroundColor": "#78BFE2",
+        "classes": "Color/Frame/Surface3"
+      }
+    },
+    "label": {
+      "formatPattern": "##00.0",
+      "isBottom": true,
+      "isVisible": true,
+      "style": {
+        "classes": "Text/LabelTextSmall \nText/textColorGray",
+        "textAlign": "center"
+      }
+    },
+    "maxValue": 10000,
+    "minValue": 0,
+    "units": "tons",
+    "value": 5000,
+    "xvalue": 0.1,
+    "yvalue": 0.1
+  },
+  "propConfig": {
+    "params.baseFrame": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.baseFrame.isVisible": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.baseFrame.style": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.desired": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.desired.isVisble": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.desired.rangeHi": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.desired.rangeLo": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.desired.rangeLo_1": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.desired.rangeLo_2": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.desired.style": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.desired.style.classes": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.group.key": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.label": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.label.formatPattern": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.label.isBottom": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.label.isVisible": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.label.style": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.maxValue": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.minValue": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.units": {
+      "paramDirection": "inout",
+      "persistent": true
+    },
+    "params.value": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.xvalue": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.yvalue": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 200,
+      "width": 90
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "baseFrame"
+        },
+        "position": {
+          "height": 0.995
+        },
+        "propConfig": {
+          "meta.visible": {
+            "binding": {
+              "config": {
+                "path": "view.params.baseFrame.isVisible"
+              },
+              "type": "property"
+            }
+          },
+          "position.width": {
+            "binding": {
+              "config": {
+                "expression": "if({view.params.label.isVisible},\r\n0.3,\r\n0.5)"
+              },
+              "type": "expr"
+            }
+          },
+          "position.x": {
+            "binding": {
+              "config": {
+                "path": "view.params.xvalue"
+              },
+              "type": "property"
+            }
+          },
+          "props.style": {
+            "binding": {
+              "config": {
+                "path": "view.params.baseFrame.style"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "desiredFrame"
+        },
+        "propConfig": {
+          "position.height": {
+            "binding": {
+              "config": {
+                "expression": "{../baseFrame.position.y}\t\t// always move over to adjust for the initial margin\r\n+\r\n(\r\n\t{view.params.value} \r\n\t* (1- 2*{../baseFrame.position.y})\t\t// the value is over the visible segment not whole view\r\n)\r\n/\r\n({view.params.maxValue}-{view.params.minValue}) // normalize for whatever the min/max range is\r\n"
+              },
+              "type": "expr"
+            }
+          },
+          "position.width": {
+            "binding": {
+              "config": {
+                "path": "../baseFrame.position.width"
+              },
+              "type": "property"
+            }
+          },
+          "position.x": {
+            "binding": {
+              "config": {
+                "path": "../baseFrame.position.x"
+              },
+              "type": "property"
+            }
+          },
+          "position.y": {
+            "binding": {
+              "config": {
+                "expression": "1 - {this.position.height}"
+              },
+              "type": "expr"
+            }
+          },
+          "props.style": {
+            "binding": {
+              "config": {
+                "path": "view.params.desired.style"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "label"
+        },
+        "position": {
+          "height": 0.1308,
+          "width": 0.6
+        },
+        "propConfig": {
+          "meta.visible": {
+            "binding": {
+              "config": {
+                "path": "view.params.label.isVisible"
+              },
+              "type": "property"
+            }
+          },
+          "position.x": {
+            "binding": {
+              "config": {
+                "expression": "if(\r\n\t{view.params.label.isBottom}\r\n\t, 0.49\r\n\t, 0\r\n)"
+              },
+              "type": "expr"
+            }
+          },
+          "position.y": {
+            "binding": {
+              "config": {
+                "expression": "\r\n\r\nif ({../verticalLine.position.y} \u003e 0.8533, 0.0749, // no overlap at max point\r\n\tif ({../verticalLine.position.y} \u003c 0.0799, -0.1644, // no overlap at low point\r\n\t\t({../verticalLine.position.y} // move this value to folloow the set max value\r\n\t\t\t\t\t-\r\n\t\t\t\t\t{this.position.height} / 2)+0.006)) // move component back so the center of the line is over target point\r\n\t\t\t\t\t\r\n// move component back so the center of the line is over target point )\r\n\r\n//\tif ({../verticalLine.position.x} \u003c0.0799,-0.1644)\r\n//\r\n//\t\t({../verticalLine.position.x} // move this value to folloow the set max value\r\n//\t\t-\r\n//\t\t{this.position.width} / 2)+0.006\t\t// move component back so the center of the line is over target point\r\n//if self.parent.getChild(\"Enter and Validation\").getChild(\"NumericEntryField\").props.value \u003d\u003d 123: \r\n//\t\tself.parent.getChild(\"Enter and Validation\").getChild(\"Checkbox\").custom.confrimedValid \u003d 1\r\n//\telse:\r\n//\t\tself.parent.getChild(\"Enter and Validation\").getChild(\"Checkbox\").custom.confrimedValid \u003d 0"
+              },
+              "type": "expr"
+            }
+          },
+          "props.style": {
+            "binding": {
+              "config": {
+                "path": "view.params.label.style"
+              },
+              "type": "property"
+            }
+          },
+          "props.text": {
+            "binding": {
+              "config": {
+                "expression": "concat({view.params.desired.rangeHi},\" \",{view.params.units})\r\n"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "verticalLine"
+        },
+        "position": {
+          "height": 0.008
+        },
+        "propConfig": {
+          "meta.visible": {
+            "binding": {
+              "config": {
+                "path": "view.params.desired.isVisble"
+              },
+              "type": "property"
+            }
+          },
+          "position.width": {
+            "binding": {
+              "config": {
+                "expression": "{../desiredFrame.position.width} + 0.15"
+              },
+              "type": "expr"
+            }
+          },
+          "position.x": {
+            "binding": {
+              "config": {
+                "expression": "{view.params.xvalue} - 0.03"
+              },
+              "type": "expr"
+            }
+          },
+          "position.y": {
+            "binding": {
+              "config": {
+                "expression": "1 - ({../baseFrame.position.y}\t\t// always move over to adjust for the initial margin\r\n+\r\n(\r\n\t{view.params.desired.rangeHi} \r\n\t* (1- 2*{../baseFrame.position.y})\t\t// the value is over the visible segment not whole view\r\n)\r\n/\r\n({view.params.maxValue}-{view.params.minValue}) // normalize for whatever the min/max range is\r\n-\r\n{this.position.height} / 2\t\t// move component back so the center of the line is over target point\r\n)"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#C8102E",
+            "classes": "Color/Frame/Surface4"
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent",
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

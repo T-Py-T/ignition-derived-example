@@ -1,0 +1,1 @@
+EXEC [dashboard].[stp_getDashboardConfig] @UserName = :userName

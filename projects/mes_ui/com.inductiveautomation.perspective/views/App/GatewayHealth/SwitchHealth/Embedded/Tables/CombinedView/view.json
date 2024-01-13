@@ -1,0 +1,101 @@
+{
+  "custom": {
+    "ActiveTab": 0,
+    "RowData": []
+  },
+  "params": {},
+  "propConfig": {
+    "custom.ActiveTab": {
+      "binding": {
+        "config": {
+          "bidirectional": true,
+          "path": "/root/TabContainer.props.currentTabIndex"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.RowData": {
+      "binding": {
+        "config": {
+          "path": "/root/TabContainer/AllLogs.props.params.SelectedRow"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 524,
+      "width": 789
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "AllLogs"
+            },
+            "position": {
+              "tabIndex": 1
+            },
+            "props": {
+              "params": {
+                "SelectedRow": []
+              },
+              "path": "App/GatewayHealth/SwitchHealth/Embedded/Tables/AllLogs"
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "Alarms"
+            },
+            "props": {
+              "path": "App/GatewayHealth/SwitchHealth/Embedded/Alarms/Alarms"
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "TabContainer"
+        },
+        "position": {
+          "basis": "300px",
+          "grow": 1
+        },
+        "props": {
+          "menuType": "modern",
+          "tabs": [
+            "Alarms",
+            "All Logs"
+          ]
+        },
+        "type": "ia.container.tab"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "scripts": {
+      "customMethods": [],
+      "extensionFunctions": null,
+      "messageHandlers": [
+        {
+          "messageType": "clickedNotes",
+          "pageScope": true,
+          "script": "\t# implement your handler here\n\tself.view.custom.ActiveTab \u003d 1",
+          "sessionScope": false,
+          "viewScope": false
+        }
+      ]
+    },
+    "type": "ia.container.flex"
+  }
+}

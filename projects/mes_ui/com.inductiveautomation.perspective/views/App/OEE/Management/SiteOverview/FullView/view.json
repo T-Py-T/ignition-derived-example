@@ -1,0 +1,453 @@
+{
+  "custom": {
+    "Areas": [
+      {
+        "Icon": "",
+        "IconDisplay": true,
+        "Params": {
+          "EqPath": "Fiberon/1NL/PE Extrusion",
+          "State": "",
+          "TagProvider": "[default]",
+          "Thickness": 10
+        },
+        "Path": "GlobalComponents/Objects/Gauges/OEE/OEETogether",
+        "Provider": "value",
+        "SizeBasis": "value",
+        "TagPath": "",
+        "Title": "PE Extrusion",
+        "Type": "",
+        "useDefaultHeight": false,
+        "useDefaultWidth": false
+      },
+      {
+        "Icon": "",
+        "IconDisplay": true,
+        "Params": {
+          "EqPath": "Fiberon/1NL/Cast House",
+          "State": "",
+          "TagProvider": "[default]",
+          "Thickness": 10
+        },
+        "Path": "GlobalComponents/Objects/Gauges/OEE/OEETogether",
+        "Provider": "value",
+        "SizeBasis": "value",
+        "TagPath": "",
+        "Title": "Cast House",
+        "Type": "",
+        "useDefaultHeight": false,
+        "useDefaultWidth": false
+      }
+    ],
+    "AreasWoutput": "value",
+    "EqPath": "Fiberon/1NL"
+  },
+  "params": {
+    "SiteID": 6
+  },
+  "permissions": {
+    "securityLevels": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [],
+                "name": "Administrator"
+              },
+              {
+                "children": [],
+                "name": "Manager"
+              }
+            ],
+            "name": "Roles"
+          }
+        ],
+        "name": "Authenticated"
+      }
+    ],
+    "type": "AnyOf"
+  },
+  "propConfig": {
+    "custom.Areas": {
+      "binding": {
+        "config": {
+          "parameters": {
+            "siteID": "{/root/Selections/EmbeddedView.props.params.SelectedSiteID}"
+          },
+          "queryPath": "app/Config/getAreas",
+          "returnFormat": "json"
+        },
+        "transforms": [
+          {
+            "code": "\tareaArray \u003d []\n\t\n\tfor area in value:\n\t\tareaArray.append({\n\t\t\t  \"TagPath\": \"\",\n\t\t\t  \"Icon\": \"\",\n\t\t\t  \"IconDisplay\": True,\n\t\t\t  \"Params\": {\n\t\t\t    \"State\": \"\",\n\t\t\t    \"EqPath\": area[\"TagPath\"],\n\t\t\t    \"TagProvider\": \"[default]\",\n\t\t\t    \"Thickness\": 10\n\t\t\t  },\n#\t\t\t  \"Path\": \"GlobalComponents/Objects/Gauges/OEE/AQPCombined\",\n\t\t\t  \"Path\": \"GlobalComponents/Objects/Gauges/OEE/OEETogether\",\n\t\t\t  \"Provider\": \"value\",\n\t\t\t  \"SizeBasis\": \"value\",\n\t\t\t  \"Title\": area[\"Title\"],\n\t\t\t  \"Type\": \"\",\n\t\t\t  \"useDefaultHeight\": False,\n\t\t\t  \"useDefaultWidth\": False\n\t\t})\n\t\t\n\treturn areaArray\n\t",
+            "type": "script"
+          }
+        ],
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "custom.AreasWoutput": {
+      "persistent": true
+    },
+    "custom.EqPath": {
+      "binding": {
+        "config": {
+          "path": "/root/Selections/EmbeddedView.props.params.SelectedSitePath"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "params.SiteID": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 868,
+      "width": 1356
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "EmbeddedView"
+            },
+            "position": {
+              "basis": "320px",
+              "grow": 1
+            },
+            "props": {
+              "params": {
+                "SelectedAreaID": 18,
+                "SelectedAreaPath": "Fiberon/1NL/PE Extrusion",
+                "SelectedSiteID": 9,
+                "SelectedSitePath": "Fiberon/1NL",
+                "SiteOnly": true
+              },
+              "path": "GlobalComponents/Selections/SiteAreaSelector"
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "Selections"
+        },
+        "position": {
+          "basis": "55px"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "custom": {
+              "key": {}
+            },
+            "meta": {
+              "name": "SiteOEE"
+            },
+            "position": {
+              "basis": "25%"
+            },
+            "propConfig": {
+              "props.params.Params.EqPath": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.EqPath"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "Icon": "material/warning",
+                "IconDisplay": true,
+                "Params": {
+                  "State": "warning",
+                  "Thickness": 10
+                },
+                "Path": "GlobalComponents/Objects/Gauges/OEE/OEETogether",
+                "Provider": "value",
+                "SizeBasis": "value",
+                "TagPath": "/",
+                "Title": "Site OEE",
+                "Type": "warning",
+                "useDefaultHeight": false,
+                "useDefaultWidth": false
+              },
+              "path": "GlobalComponents/Cards/Card",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Top5Break"
+                },
+                "position": {
+                  "basis": "50%",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.params.Params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.EqPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "Icon": "",
+                    "IconDisplay": true,
+                    "Params": {
+                      "State": "",
+                      "Type": ""
+                    },
+                    "Path": "GlobalComponents/Widgets/Embedded/DownTimeTable",
+                    "Provider": "value",
+                    "SizeBasis": "value",
+                    "TagPath": "value",
+                    "Title": "Top 5 Breakdowns",
+                    "Type": "",
+                    "useDefaultHeight": false,
+                    "useDefaultWidth": false
+                  },
+                  "path": "GlobalComponents/Cards/Card",
+                  "style": {
+                    "classes": "Global/MarginRight"
+                  }
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "meta": {
+                  "name": "Top5Micro"
+                },
+                "position": {
+                  "basis": "50%",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.params.Params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.EqPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "Icon": "",
+                    "IconDisplay": true,
+                    "Params": {
+                      "State": "",
+                      "Type": "Micro"
+                    },
+                    "Path": "GlobalComponents/Widgets/Embedded/DownTimeTable",
+                    "Provider": "value",
+                    "SizeBasis": "value",
+                    "TagPath": "value",
+                    "Title": "Top 5 Micro",
+                    "Type": "",
+                    "useDefaultHeight": false,
+                    "useDefaultWidth": false
+                  },
+                  "path": "GlobalComponents/Cards/Card",
+                  "style": {
+                    "classes": "Global/MarginRight"
+                  }
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "Top5"
+            },
+            "position": {
+              "basis": "500px",
+              "grow": 1
+            },
+            "props": {
+              "justify": "center"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Row1"
+        },
+        "position": {
+          "basis": "50%",
+          "grow": 1
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "ProductTracking"
+            },
+            "position": {
+              "display": false,
+              "grow": 3
+            },
+            "propConfig": {
+              "props.params": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.ProductTracking"
+                  },
+                  "enabled": false,
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "Icon": "",
+                "IconDisplay": false,
+                "Params": {},
+                "Path": "App/OEE/Management/SiteOverview/Embedded/ProductionTracking",
+                "SizeBasis": "value",
+                "Title": "Production Tracking",
+                "Type": null,
+                "useDefaultHeight": false,
+                "useDefaultWidth": false
+              },
+              "path": "GlobalComponents/Cards/Card",
+              "style": {
+                "marginRight": "8px",
+                "marginTop": ""
+              }
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "AreaOEE_old"
+            },
+            "position": {
+              "basis": "100%",
+              "display": false,
+              "grow": 1,
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.instances": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.Areas"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.wrap": {
+                "binding": {
+                  "config": {
+                    "expression": "If(len({this.props.instances})\u003e4,\n\t\u0027wrap\u0027,\n\t\u0027nowrap\u0027\n\t)"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "elementPosition": {
+                "basis": "auto"
+              },
+              "elementStyle": {
+                "classes": "Cards/Root Global/MarginRight"
+              },
+              "path": "App/OEE/Management/SiteOverview/Embedded/OEETogether",
+              "useDefaultViewHeight": false,
+              "useDefaultViewWidth": false
+            },
+            "type": "ia.display.flex-repeater"
+          },
+          {
+            "meta": {
+              "name": "AreaOEE"
+            },
+            "position": {
+              "basis": "100%",
+              "grow": 1,
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.instances": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.Areas"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.wrap": {
+                "binding": {
+                  "config": {
+                    "expression": "If(len({this.props.instances})\u003e4,\n\t\u0027wrap\u0027,\n\t\u0027nowrap\u0027\n\t)"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "elementPosition": {
+                "basis": "auto"
+              },
+              "elementStyle": {
+                "classes": "Global/MarginRight"
+              },
+              "loading": {
+                "order": "with-parent"
+              },
+              "path": "GlobalComponents/Cards/Card",
+              "useDefaultViewHeight": false,
+              "useDefaultViewWidth": false
+            },
+            "type": "ia.display.flex-repeater"
+          }
+        ],
+        "meta": {
+          "name": "Row2"
+        },
+        "position": {
+          "basis": "50%",
+          "grow": 1
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "classes": "Global/MarginAll"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

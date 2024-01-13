@@ -1,0 +1,184 @@
+{
+  "custom": {
+    "NullValue": false
+  },
+  "params": {
+    "TestTypeID": 10
+  },
+  "propConfig": {
+    "custom.NullValue": {
+      "binding": {
+        "config": {
+          "expression": "if({view.params.TestTypeID} \u003d Null, true, false)"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "params.TestTypeID": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 112,
+      "width": 452
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Label"
+        },
+        "position": {
+          "basis": "32px"
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "expression": "if({view.custom.NullValue} \u003d  true, false, true)"
+              },
+              "type": "expr"
+            }
+          },
+          "props.text": {
+            "binding": {
+              "config": {
+                "expression": "\u0027Are you sure you want to delete test type #\u0027 + toStr({view.params.TestTypeID}) + \u0027?\u0027"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "margin": "1em",
+            "text-align": "center"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "children": [
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "script": "\tTestTypeID \u003d self.view.params.TestTypeID\n\tlogger \u003d system.util.getLogger(\u0027DeleteQualityTestType\u0027)\n\ttry:\n\t\tsystem.db.runNamedQuery(\"app/Quality/DeleteTestType\", {\u0027TestTypeID\u0027:TestTypeID})\n\t\tMessageParams \u003d {\n\t\t\t\t\t\t\t    \"ModalName\": \"Sucess\",\n\t\t\t\t\t\t\t    \"ErrorMessage\": \"Test Type: \"+str(self.view.params.TestTypeID)+\" has successfully been deleted\",\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\n\t\tsystem.perspective.closePopup(\u0027\u0027)\n\t\tsystem.perspective.openPopup(\"ErrorModal\", \"GlobalComponents/Modals/ErrorModal\", MessageParams, modal \u003d True)\n\texcept Exception as e:\n\t\terrorParams \u003d {\n\t\t    \"ModalName\": \"ErrorModal\",\n\t\t    \"ErrorMessage\": str(e),\n\t\t}\n\t\t\n\t\tsystem.perspective.openPopup(\"ErrorModal\", \"GlobalComponents/Modals/ErrorModal\", errorParams)\n\t\tlogger.warn(\u0027There was an error: \u0027 + str(e))\n\t\n\tsystem.perspective.sendMessage(\"refreshAttributeTable\")\n\tsystem.perspective.sendMessage(\"TestTypeAttributeTablePopup\")"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Confirm"
+            },
+            "position": {
+              "basis": "190px"
+            },
+            "props": {
+              "style": {
+                "classes": "Buttons/OperatorButtons"
+              },
+              "text": "Yes, delete this test type"
+            },
+            "type": "ia.input.button"
+          },
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "draggable": true,
+                    "id": "DeleteTest",
+                    "modal": false,
+                    "overlayDismiss": false,
+                    "resizable": true,
+                    "showCloseIcon": true,
+                    "type": "close",
+                    "viewPath": "",
+                    "viewportBound": false
+                  },
+                  "scope": "C",
+                  "type": "popup"
+                }
+              }
+            },
+            "meta": {
+              "name": "Cancel"
+            },
+            "position": {
+              "basis": "193px"
+            },
+            "props": {
+              "primary": false,
+              "style": {
+                "classes": "Buttons/OperatorButtons"
+              },
+              "text": "No, keep this test type"
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "FlexContainer"
+        },
+        "position": {
+          "basis": "46px"
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "expression": "if({view.custom.NullValue} \u003d  true, false, true)"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "justify": "space-around"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "meta": {
+          "name": "Label_0"
+        },
+        "position": {
+          "basis": "32px"
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "expression": "if({view.custom.NullValue} \u003d  true, true, false)"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "margin": "1em",
+            "text-align": "center"
+          },
+          "text": "Error selecting test please select the test again."
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

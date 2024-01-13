@@ -1,0 +1,1134 @@
+{
+  "custom": {
+    "DATAVALIDATION": {
+      "Targets": false
+    },
+    "Datatype": "",
+    "HasLimits": false,
+    "Hi": null,
+    "HiHi": null,
+    "Lo": null,
+    "LoLo": null,
+    "MaterialID": null,
+    "Name": "",
+    "ProductCodeID": 2,
+    "Target": null,
+    "TestTypeID": 1,
+    "ValidEnd": "",
+    "ValidStart": null
+  },
+  "events": {
+    "system": {
+      "onShutdown": {
+        "config": {
+          "script": "\tsystem.perspective.sendMessage(\"refreshAttributeManager\", payload \u003d {}, scope \u003d \"session\")"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "MaterialID": null,
+    "ProductCodeID": 2,
+    "TestTypeID": 1
+  },
+  "propConfig": {
+    "custom.DATAVALIDATION": {
+      "persistent": true
+    },
+    "custom.DATAVALIDATION.DataType": {
+      "binding": {
+        "config": {
+          "path": "view.custom.Datatype"
+        },
+        "type": "property"
+      }
+    },
+    "custom.DATAVALIDATION.LimitsEntered": {
+      "binding": {
+        "config": {
+          "expression": "If({/root/Limits/LimitsHiHi/HiHiValue.props.value} !\u003d Null \u0026\u0026 {/root/Limits/LimitsLoLo/LoLoValue.props.value} !\u003d Null\r\n\u0026\u0026 {/root/Limits/LimitsHi/HiValue.props.value} !\u003d Null\r\n\u0026\u0026 {/root/Limits/LimitsLo/LoValue.props.value} !\u003d Null, true, false)"
+        },
+        "type": "expr"
+      }
+    },
+    "custom.DATAVALIDATION.LimitsRange": {
+      "binding": {
+        "config": {
+          "path": "view.custom.DATAVALIDATION.LimitsEntered"
+        },
+        "transforms": [
+          {
+            "code": "\tif value \u003d\u003d True:\n\t\tHiHi \u003d self.custom.HiHi\n\t\tHi \u003d self.custom.Hi\n\t\tLo \u003d self.custom.Lo\n\t\tLoLo \u003d self.custom.LoLo\n\t\n\t    # Check if HiHi is the highest value\n\t\tif HiHi \u003e\u003d Hi and HiHi \u003e\u003d Lo and HiHi \u003e\u003d LoLo:\n\t\t\t# Check if Hi is the second greatest value but not greater than HiHi\n\t\t\tif Hi \u003e\u003d Lo and Hi \u003e\u003d LoLo and Hi \u003c\u003d HiHi:\n\t\t\t\t# Check if Lo is the third value but not lower than LoLo\n\t\t\t\tif Lo \u003e\u003d LoLo:\n\t\t\t\t\t# Check if LoLo is the lowest value and not higher than any of the above values\n\t\t\t\t\tif LoLo \u003c\u003d Hi and LoLo \u003c\u003d HiHi and LoLo \u003c\u003d Lo:\n\t\t\t\t\t    return True\n\t\treturn False\n\treturn False",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.DATAVALIDATION.NameEntered": {
+      "binding": {
+        "config": {
+          "expression": "if(len({view.custom.Name}) \u003e 0, true, false)"
+        },
+        "type": "expr"
+      }
+    },
+    "custom.DATAVALIDATION.Pass": {
+      "binding": {
+        "config": {
+          "expression": "if({view.custom.DATAVALIDATION.LimitsRange} \u0026\u0026 {view.custom.DATAVALIDATION.LimitsEntered} \u0026\u0026 {view.custom.DATAVALIDATION.NameEntered},\r\n true, if({view.custom.DATAVALIDATION.DataType} \u003d 3||{view.custom.DATAVALIDATION.DataType} \u003d 4, true, false))"
+        },
+        "type": "expr"
+      }
+    },
+    "custom.Datatype": {
+      "binding": {
+        "config": {
+          "path": "/root/Metadata/MetadataDatatype/Datatype.props.value"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.HasLimits": {
+      "binding": {
+        "config": {
+          "expression": "{/root/Metadata/MetadataDatatype/Datatype.props.value}"
+        },
+        "transforms": [
+          {
+            "code": "\tHasLimits \u003d False\n\t\n\tif value \u003e 0:\n\t\tfor (k, v) in system.dataset.toPyDataSet(self.getChild(\"root\").getChild(\"Metadata\").getChild(\"MetadataDatatype\").getChild(\"Datatype\").props.options):\n\t\t\tif value \u003d\u003d k and (v \u003d\u003d \u0027Integer\u0027 or v \u003d\u003d \u0027Float\u0027):\n\t\t\t\tHasLimits \u003d True\n\t\n\treturn HasLimits",
+            "type": "script"
+          }
+        ],
+        "type": "expr"
+      },
+      "onChange": {
+        "enabled": null,
+        "script": "\tif currentValue.value \u003d\u003d False:\n\t\tself.getChild(\"root\").getChild(\"Limits\").getChild(\"LimitsHiHi\").getChild(\"HiHiValue\").props.value \u003d None\n\t\tself.getChild(\"root\").getChild(\"Limits\").getChild(\"LimitsHi\").getChild(\"HiValue\").props.value \u003d None\n\t\tself.getChild(\"root\").getChild(\"Limits\").getChild(\"LimitsTarget\").getChild(\"Target\").props.value \u003d None\n\t\tself.getChild(\"root\").getChild(\"Limits\").getChild(\"LimitsLo\").getChild(\"LoValue\").props.value \u003d None\n\t\tself.getChild(\"root\").getChild(\"Limits\").getChild(\"LimitsLoLo\").getChild(\"LoLoValue\").props.value \u003d None"
+      },
+      "persistent": true
+    },
+    "custom.Hi": {
+      "binding": {
+        "config": {
+          "path": "/root/Limits/LimitsHi/HiValue.props.value"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.HiHi": {
+      "binding": {
+        "config": {
+          "path": "/root/Limits/LimitsHiHi/HiHiValue.props.value"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.Lo": {
+      "binding": {
+        "config": {
+          "path": "/root/Limits/LimitsLo/LoValue.props.value"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.LoLo": {
+      "binding": {
+        "config": {
+          "path": "/root/Limits/LimitsLoLo/LoLoValue.props.value"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.MaterialID": {
+      "binding": {
+        "config": {
+          "path": "view.params.MaterialID"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.Name": {
+      "binding": {
+        "config": {
+          "path": "/root/Metadata/MetadataName/Name.props.text"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.ProductCodeID": {
+      "binding": {
+        "config": {
+          "path": "view.params.ProductCodeID"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.Target": {
+      "binding": {
+        "config": {
+          "path": "/root/Limits/LimitsTarget/Target.props.value"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.TestTypeID": {
+      "binding": {
+        "config": {
+          "path": "view.params.TestTypeID"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.ValidEnd": {
+      "binding": {
+        "config": {
+          "path": "/root/Metadata/MetadataValidEnd/ValidEnd.props.value"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.ValidStart": {
+      "binding": {
+        "config": {
+          "path": "/root/Metadata/MetadataValidStart/ValidStart.props.value"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "params.MaterialID": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.ProductCodeID": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.TestTypeID": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 296,
+      "width": 770
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label4"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "expression": "\u0027New Test Attribute for Test Type: \u0027+{view.params.TestTypeID}+\u0027 and Product: \u0027+{view.params.ProductCodeID}"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+              },
+              "textStyle": {
+                "classes": "TextFields/TextTitle",
+                "textAlign": "left"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "FlexContainer_0"
+        },
+        "position": {
+          "display": false,
+          "grow": 1
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginAll",
+            "marginBottom": 0,
+            "paddingBottom": 0
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label1"
+                },
+                "position": {
+                  "basis": "42px"
+                },
+                "props": {
+                  "style": {
+                    "classes": "Text/Heading"
+                  },
+                  "text": "Name",
+                  "textStyle": {
+                    "classes": "TextFields/TextTitle",
+                    "font-weight": "bold",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "Name"
+                },
+                "position": {
+                  "basis": "42px"
+                },
+                "props": {
+                  "placeholder": "Enter attribute name",
+                  "style": {
+                    "classes": "TextFields/TextField"
+                  }
+                },
+                "type": "ia.input.text-field"
+              }
+            ],
+            "meta": {
+              "name": "MetadataName"
+            },
+            "position": {
+              "basis": "200px"
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label2"
+                },
+                "position": {
+                  "basis": "42px"
+                },
+                "props": {
+                  "style": {
+                    "classes": "Text/Heading"
+                  },
+                  "text": "Datatype",
+                  "textStyle": {
+                    "classes": "TextFields/TextTitle",
+                    "font-weight": "bold",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "custom": {
+                  "selectedCode": "Select..."
+                },
+                "meta": {
+                  "name": "Datatype"
+                },
+                "position": {
+                  "basis": "42px"
+                },
+                "propConfig": {
+                  "props.options": {
+                    "binding": {
+                      "config": {
+                        "expression": "runscript(\u0027mes.quality.sp.getTestAttributeDataTypes\u0027, 0)"
+                      },
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "placeholder": {
+                    "icon": {
+                      "path": "material/search"
+                    },
+                    "text": "Select"
+                  },
+                  "style": {
+                    "classes": "TextFields/Dropdown",
+                    "overflow": "hidden"
+                  }
+                },
+                "type": "ia.input.dropdown"
+              }
+            ],
+            "meta": {
+              "name": "MetadataDatatype"
+            },
+            "position": {
+              "basis": "200px"
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label3"
+                },
+                "position": {
+                  "basis": "42px"
+                },
+                "props": {
+                  "style": {
+                    "classes": "Text/Heading"
+                  },
+                  "text": "Valid Start",
+                  "textStyle": {
+                    "classes": "TextFields/TextTitle",
+                    "font-weight": "bold",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "ValidStart"
+                },
+                "position": {
+                  "basis": "42px"
+                },
+                "props": {
+                  "dismissOnSelect": false,
+                  "format": "YYYY-MM-DD",
+                  "formattedValue": null,
+                  "inputProps": {
+                    "style": {
+                      "borderBottomLeftRadius": "10px",
+                      "borderBottomRightRadius": "10px",
+                      "borderTopLeftRadius": "10px",
+                      "borderTopRightRadius": "10px",
+                      "classes": ""
+                    }
+                  },
+                  "modalStyle": {
+                    "classes": "TextFields/TextArea"
+                  },
+                  "pickerType": "date",
+                  "style": {
+                    "classes": "TextFields/TextArea TextFields/TextField"
+                  }
+                },
+                "type": "ia.input.date-time-input"
+              }
+            ],
+            "meta": {
+              "name": "MetadataValidStart"
+            },
+            "position": {
+              "basis": "200px"
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "Label4"
+                    },
+                    "position": {
+                      "basis": "50%",
+                      "grow": 1
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "TextFields/Root TextFields/TextTitle"
+                      },
+                      "text": "Valid End",
+                      "textStyle": {
+                        "classes": "TextFields/TextTitle",
+                        "font-weight": "bold",
+                        "textAlign": "left"
+                      }
+                    },
+                    "type": "ia.display.label"
+                  }
+                ],
+                "meta": {
+                  "name": "FlexContainer"
+                },
+                "position": {
+                  "basis": "42px"
+                },
+                "props": {
+                  "style": {
+                    "classes": "Text/Heading"
+                  }
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "meta": {
+                  "name": "ValidEnd",
+                  "tooltip": {
+                    "delay": 0,
+                    "enabled": true,
+                    "location": "bottom",
+                    "sustain": 0,
+                    "text": "If the end date is left empty the test will stay in the system forever."
+                  }
+                },
+                "position": {
+                  "basis": "42px"
+                },
+                "props": {
+                  "format": "YYYY-MM-DD",
+                  "formattedValue": null,
+                  "inputProps": {
+                    "style": {
+                      "borderBottomLeftRadius": "10px",
+                      "borderBottomRightRadius": "10px",
+                      "borderTopLeftRadius": "10px",
+                      "borderTopRightRadius": "10px",
+                      "classes": ""
+                    }
+                  },
+                  "modalStyle": {
+                    "classes": "TextFields/TextArea"
+                  },
+                  "pickerType": "date",
+                  "style": {
+                    "classes": "TextFields/TextField"
+                  },
+                  "value": ""
+                },
+                "type": "ia.input.date-time-input"
+              }
+            ],
+            "meta": {
+              "name": "MetadataValidEnd"
+            },
+            "position": {
+              "basis": "200px"
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "Label4"
+                    },
+                    "position": {
+                      "basis": "50%",
+                      "grow": 1
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "TextFields/Root TextFields/TextTitle"
+                      },
+                      "text": "Clear Date",
+                      "textStyle": {
+                        "classes": "TextFields/TextTitle",
+                        "font-weight": "bold",
+                        "textAlign": "left"
+                      }
+                    },
+                    "type": "ia.display.label"
+                  }
+                ],
+                "meta": {
+                  "name": "FlexContainer"
+                },
+                "position": {
+                  "basis": "42px"
+                },
+                "props": {
+                  "style": {
+                    "classes": "Text/Heading",
+                    "paddingBottom": 8
+                  }
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "children": [
+                  {
+                    "events": {
+                      "component": {
+                        "onActionPerformed": {
+                          "config": {
+                            "script": "\tself.parent.parent.parent.getChild(\"MetadataValidEnd/ValidEnd\").props.value \u003d \u0027\u0027\n\tself.parent.parent.parent.getChild(\"MetadataValidEnd/ValidEnd\").props.formattedValue \u003d \u0027\u0027"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "Button"
+                    },
+                    "position": {
+                      "basis": "80px",
+                      "grow": 1
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "Buttons/OperatorButtons"
+                      },
+                      "text": "Clear"
+                    },
+                    "type": "ia.input.button"
+                  }
+                ],
+                "meta": {
+                  "name": "FlexContainer_0"
+                },
+                "position": {
+                  "basis": "42px"
+                },
+                "props": {
+                  "alignContent": "center",
+                  "justify": "center"
+                },
+                "type": "ia.container.flex"
+              }
+            ],
+            "meta": {
+              "name": "MetadataValidEnd_0"
+            },
+            "position": {
+              "basis": "200px"
+            },
+            "props": {
+              "direction": "column",
+              "justify": "center",
+              "style": {
+                "classes": "\n"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Metadata"
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label1"
+                },
+                "position": {
+                  "basis": "42px",
+                  "grow": 1
+                },
+                "props": {
+                  "style": {
+                    "classes": "TextFields/Root TextFields/TextTitle"
+                  },
+                  "text": "Hi Hi Limit",
+                  "textStyle": {
+                    "classes": "TextFields/TextTitle",
+                    "font-weight": "bold",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "HiHiValue"
+                },
+                "position": {
+                  "basis": "42px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.enabled": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.HasLimits"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "align": "left",
+                  "placeholder": "Enter Number",
+                  "style": {
+                    "classes": "TextFields/TextField",
+                    "margin": 0
+                  },
+                  "value": null
+                },
+                "type": "ia.input.numeric-entry-field"
+              }
+            ],
+            "meta": {
+              "name": "LimitsHiHi"
+            },
+            "position": {
+              "basis": "200px"
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label2"
+                },
+                "position": {
+                  "basis": "42px",
+                  "grow": 1
+                },
+                "props": {
+                  "style": {
+                    "classes": "TextFields/Root TextFields/TextTitle"
+                  },
+                  "text": "Hi Limit",
+                  "textStyle": {
+                    "classes": "TextFields/TextTitle",
+                    "font-weight": "bold",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "HiValue"
+                },
+                "position": {
+                  "basis": "42px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.enabled": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.HasLimits"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "align": "left",
+                  "placeholder": "Enter Number",
+                  "style": {
+                    "classes": "TextFields/TextField",
+                    "margin": 0
+                  },
+                  "value": null
+                },
+                "type": "ia.input.numeric-entry-field"
+              }
+            ],
+            "meta": {
+              "name": "LimitsHi"
+            },
+            "position": {
+              "basis": "200px"
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label3"
+                },
+                "position": {
+                  "basis": "42px",
+                  "grow": 1
+                },
+                "props": {
+                  "style": {
+                    "classes": "TextFields/Root TextFields/TextTitle"
+                  },
+                  "text": "Target",
+                  "textStyle": {
+                    "classes": "TextFields/TextTitle",
+                    "font-weight": "bold",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "Target"
+                },
+                "position": {
+                  "basis": "42px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.enabled": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.HasLimits"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "align": "left",
+                  "placeholder": "Enter Number",
+                  "style": {
+                    "classes": "TextFields/TextField",
+                    "margin": 0
+                  },
+                  "value": null
+                },
+                "type": "ia.input.numeric-entry-field"
+              }
+            ],
+            "meta": {
+              "name": "LimitsTarget"
+            },
+            "position": {
+              "basis": "200px"
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label4"
+                },
+                "position": {
+                  "basis": "42px",
+                  "grow": 1
+                },
+                "props": {
+                  "style": {
+                    "classes": "TextFields/Root TextFields/TextTitle"
+                  },
+                  "text": "Lo Limit",
+                  "textStyle": {
+                    "classes": "TextFields/TextTitle",
+                    "font-weight": "bold",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "LoValue"
+                },
+                "position": {
+                  "basis": "42px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.enabled": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.HasLimits"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "align": "left",
+                  "placeholder": "Enter Number",
+                  "style": {
+                    "classes": "TextFields/TextField",
+                    "margin": 0
+                  },
+                  "value": null
+                },
+                "type": "ia.input.numeric-entry-field"
+              }
+            ],
+            "meta": {
+              "name": "LimitsLo"
+            },
+            "position": {
+              "basis": "200px"
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label5"
+                },
+                "position": {
+                  "basis": "42px",
+                  "grow": 1
+                },
+                "props": {
+                  "style": {
+                    "classes": "TextFields/Root TextFields/TextTitle"
+                  },
+                  "text": "Lo Lo Limit",
+                  "textStyle": {
+                    "classes": "TextFields/TextTitle",
+                    "font-weight": "bold",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "LoLoValue"
+                },
+                "position": {
+                  "basis": "42px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.enabled": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.HasLimits"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "align": "left",
+                  "placeholder": "Enter Number",
+                  "style": {
+                    "classes": "TextFields/TextField",
+                    "margin": 0
+                  },
+                  "value": null
+                },
+                "type": "ia.input.numeric-entry-field"
+              }
+            ],
+            "meta": {
+              "name": "LimitsLoLo"
+            },
+            "position": {
+              "basis": "200px"
+            },
+            "props": {
+              "direction": "column"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Limits"
+        },
+        "propConfig": {
+          "meta.visible": {
+            "binding": {
+              "config": {
+                "expression": "if({../Metadata/MetadataDatatype/Datatype.props.value} \u003d \u0027\u0027||{../Metadata/MetadataDatatype/Datatype.props.value} \u003d -1, false, true)"
+              },
+              "type": "expr"
+            }
+          },
+          "props.style.opacity": {
+            "binding": {
+              "config": {
+                "expression": "if({view.custom.HasLimits}, 1, 0.3)"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "script": "\tTestTypeID \u003d self.view.custom.TestTypeID\n\tProductCodeID \u003d self.view.custom.ProductCodeID\n\tName \u003d self.view.custom.Name\n\tTestAttributeDataTypeID \u003d self.view.custom.Datatype\n\tValidStartDate \u003d self.view.custom.ValidStart\n\tValidEndDate \u003d self.view.custom.ValidEnd\n\tHiHiLimit \u003d self.view.custom.HiHi\n\tHiLimit \u003d self.view.custom.Hi\n\tTargetValue \u003d self.view.custom.Target\n\tLoLimit \u003d self.view.custom.Lo\n\tLoLoLimit \u003d self.view.custom.LoLo\n\tMaterialID \u003d self.view.custom.MaterialID\n\t\n\tsystem.perspective.print(\u0027testtype \u0027 + str(TestTypeID) + \u0027 productcode \u0027 + str(ProductCodeID) + \u0027 material \u0027 + str(MaterialID))\n\t\n\t\n\tmes.quality.sp.insertTestAttribute(TestTypeID \u003d TestTypeID, Name \u003d Name, TestAttributeDataTypeID \u003d TestAttributeDataTypeID, ProductCodeID \u003d ProductCodeID, MaterialID \u003d MaterialID, ValidStartDate \u003d ValidStartDate, ValidEndDate \u003d ValidEndDate, HiHiLimit \u003d HiHiLimit, HiLimit \u003d HiLimit, TargetValue \u003d TargetValue, LoLimit \u003d LoLimit, LoLoLimit \u003d LoLoLimit)\n\t\n\tmessageType \u003d \u0027refreshAttributeTable\u0027\n\tpayload \u003d {}\n\tsystem.perspective.sendMessage(messageType, payload, view \u003d \u0027session\u0027)\n\t\n\t\n\tsystem.perspective.closePopup(\"\")\n\t\n\tMessage \u003d \u0027Success fully added \u0027+str(Name)\n\tsystem.perspective.openPopup(\u0027Message\u0027, \u0027GlobalComponents/Modals/ErrorModal\u0027, params \u003d {\u0027ErrorMessage\u0027:Message, \u0027ModalName\u0027:\u0027Message\u0027})"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Unapprove"
+            },
+            "position": {
+              "basis": "25%"
+            },
+            "propConfig": {
+              "props.enabled": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.DATAVALIDATION.Pass"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "image": {
+                "height": 42,
+                "icon": {
+                  "path": "material/check_circle"
+                }
+              },
+              "style": {
+                "classes": "Buttons/ButtonStyle Global/MarginAll"
+              },
+              "text": "Add Attribute"
+            },
+            "type": "ia.input.button"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\tsystem.perspective.closePopup(\"\")"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Unapprove_0"
+            },
+            "position": {
+              "basis": "25%"
+            },
+            "props": {
+              "image": {
+                "height": 42,
+                "icon": {
+                  "path": "material/cancel"
+                }
+              },
+              "style": {
+                "classes": "Buttons/ButtonStyle Global/MarginAll"
+              },
+              "text": "Cancel"
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "FlexContainer_3"
+        },
+        "position": {
+          "basis": "42px",
+          "grow": 1,
+          "shrink": 0
+        },
+        "props": {
+          "alignItems": "center",
+          "justify": "center"
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "classes": "Global/MarginAll"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

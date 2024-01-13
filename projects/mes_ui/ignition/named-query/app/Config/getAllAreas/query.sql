@@ -1,0 +1,1 @@
+EXEC [ui].[stp_getAllAreas]

@@ -1,0 +1,127 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 73,
+      "width": 166
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Icon"
+            },
+            "position": {
+              "basis": "30px"
+            },
+            "props": {
+              "color": "#EEF7FB",
+              "path": "material/brightness_3"
+            },
+            "type": "ia.display.icon"
+          },
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "script": "\ttheme \u003d \u0027\u0027\n\tif self.props.selected \u003d\u003d True:\n\t\tself.session.props.theme \u003d \u0027custom-light\u0027\n\t\ttheme \u003d \u0027custom-light\u0027\n\telse:\n\t\tself.session.props.theme \u003d \u0027custom-dark\u0027\n\t\ttheme \u003d \u0027custom-dark\u0027"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "ToggleSwitch"
+            },
+            "position": {
+              "basis": "60px"
+            },
+            "propConfig": {
+              "props.selected": {
+                "binding": {
+                  "config": {
+                    "path": "session.props.theme"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": true,
+                      "inputType": "scalar",
+                      "mappings": [
+                        {
+                          "input": "custom-light",
+                          "output": true
+                        },
+                        {
+                          "input": "custom-dark",
+                          "output": false
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "color": {
+                "selected": "#EEF7FB",
+                "unselected": "--neutral-100"
+              },
+              "label": {
+                "style": {
+                  "backgroundColor": "var(--neutral-100)"
+                }
+              },
+              "style": {
+                "marginTop": "5px"
+              }
+            },
+            "type": "ia.input.toggle-switch"
+          },
+          {
+            "meta": {
+              "name": "Icon_0"
+            },
+            "position": {
+              "basis": "30px"
+            },
+            "props": {
+              "color": "#EEF7FB",
+              "path": "material/wb_sunny"
+            },
+            "type": "ia.display.icon"
+          }
+        ],
+        "meta": {
+          "name": "ThemeSelection"
+        },
+        "position": {
+          "basis": "150px"
+        },
+        "props": {
+          "alignContent": "center",
+          "justify": "flex-end",
+          "style": {
+            "paddingRight": "35px"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

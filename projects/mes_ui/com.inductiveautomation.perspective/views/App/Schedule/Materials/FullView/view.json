@@ -1,0 +1,158 @@
+{
+  "custom": {
+    "SiteID": 9
+  },
+  "params": {
+    "SiteID": 9
+  },
+  "permissions": {
+    "securityLevels": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [],
+                "name": "Administrator"
+              },
+              {
+                "children": [],
+                "name": "Manager"
+              }
+            ],
+            "name": "Roles"
+          }
+        ],
+        "name": "Authenticated"
+      }
+    ],
+    "type": "AnyOf"
+  },
+  "propConfig": {
+    "custom.SiteID": {
+      "binding": {
+        "config": {
+          "path": "session.custom.SelectedSite"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "params.SiteID": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {},
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "page": "/schedule/product_codes"
+                  },
+                  "scope": "C",
+                  "type": "nav"
+                }
+              }
+            },
+            "meta": {
+              "name": "Button"
+            },
+            "position": {
+              "basis": "146px"
+            },
+            "props": {
+              "style": {
+                "classes": "Buttons/OperatorButtons"
+              },
+              "text": "Go To Product Codes"
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "Row1"
+        },
+        "position": {
+          "basis": "42px"
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "MaterialsCard"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "props.params.Params.SiteID": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.SiteID"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "HideTitle": false,
+                "Icon": "",
+                "IconDisplay": true,
+                "Params": {
+                  "State": "value",
+                  "TagPath": "value",
+                  "TagProvider": "value"
+                },
+                "Path": "App/Schedule/Materials/Embedded/TablesView",
+                "Provider": "value",
+                "SizeBasis": "value",
+                "TagPath": "value",
+                "Title": "Materials",
+                "Type": "value",
+                "useDefaultHeight": false,
+                "useDefaultWidth": false
+              },
+              "path": "GlobalComponents/Cards/Card"
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "Row2"
+        },
+        "position": {
+          "basis": "320px",
+          "grow": 1
+        },
+        "props": {
+          "direction": "column"
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "classes": "Global/MarginAll"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

@@ -1,0 +1,435 @@
+{
+  "custom": {
+    "IdealRunRate": "1,250",
+    "ParentMaterial": "HighPPM",
+    "RemainingHours": 310.08,
+    "WOName": "41562641"
+  },
+  "params": {
+    "Controls": {
+      "instances": [
+        {
+          "field": "Remaining Hours",
+          "style": {
+            "classes": "Text/LabelTextSmall Text/textColorBlack",
+            "overflow": "visible"
+          },
+          "value": 190080000
+        },
+        {
+          "field": "Parent Material",
+          "style": {
+            "classes": "Text/LabelTextSmall Text/textColorBlack",
+            "overflow": "visible"
+          },
+          "value": "30162PP"
+        },
+        {
+          "field": "TI",
+          "style": {
+            "classes": "Text/LabelTextSmall Text/textColorBlack",
+            "overflow": "hidden"
+          },
+          "value": "0010"
+        },
+        {
+          "field": "HI",
+          "style": {
+            "classes": "Text/LabelTextSmall Text/textColorBlack",
+            "overflow": "hidden"
+          },
+          "value": "0004"
+        }
+      ],
+      "style": {
+        "classes": "Text/LabelTextSmall Text/textColorBlack",
+        "overflow": "hidden"
+      },
+      "title": "Basic Info"
+    },
+    "RunData": {
+      "$": [
+        "ds",
+        201,
+        1684936328965
+      ],
+      "$columns": [
+        {
+          "data": [
+            "41562641"
+          ],
+          "name": "WOName",
+          "type": "String"
+        },
+        {
+          "data": [
+            1250
+          ],
+          "name": "IdealRunRate",
+          "type": "Integer"
+        },
+        {
+          "data": [
+            310.083333
+          ],
+          "name": "RemainingHours",
+          "type": "Double"
+        },
+        {
+          "data": [
+            "HighPPM"
+          ],
+          "name": "ParentMaterial",
+          "type": "String"
+        }
+      ]
+    }
+  },
+  "propConfig": {
+    "custom.IdealRunRate": {
+      "binding": {
+        "config": {
+          "expression": "{view.params.RunData}[\u0027IdealRunRate\u0027]"
+        },
+        "transforms": [
+          {
+            "formatType": "numeric",
+            "formatValue": "number",
+            "type": "format"
+          }
+        ],
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.ParentMaterial": {
+      "binding": {
+        "config": {
+          "expression": "{view.params.RunData}[\u0027ParentMaterial\u0027]"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.RemainingHours": {
+      "binding": {
+        "config": {
+          "expression": "round({view.params.RunData}[\u0027RemainingHours\u0027], 2)"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.WOName": {
+      "binding": {
+        "config": {
+          "expression": "{view.params.RunData}[\u0027WOName\u0027]"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "params.Controls": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.RunData": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 85,
+      "width": 325
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardText"
+              },
+              "text": "Work Order Name"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "basis": "75px",
+              "grow": 1,
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.style.backgroundColor": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.State"
+                  },
+                  "enabled": false,
+                  "transforms": [
+                    {
+                      "fallback": "",
+                      "inputType": "scalar",
+                      "mappings": [
+                        {
+                          "input": "fail",
+                          "output": "--error"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.WOName"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "",
+                "classes": "Cards/Common/CardValue"
+              },
+              "textStyle": {
+                "fontWeight": "bold",
+                "textAlign": "right"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "WOName"
+        },
+        "position": {
+          "basis": "20px",
+          "display": false,
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "marginBottom": "2px",
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardText"
+              },
+              "text": "Parent Material"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "grow": 1,
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.ParentMaterial"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/Boolean"
+              },
+              "textStyle": {
+                "fontWeight": "bold",
+                "textAlign": "right"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "ParentMaterial"
+        },
+        "position": {
+          "basis": "20px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardText"
+              },
+              "text": "Remaining Hours"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.RemainingHours"
+                  },
+                  "transforms": [
+                    {
+                      "expression": "numberFormat(floor({value}/ 60),\"#0\") + \u0027h\u0027\n+\":\"+numberFormat(60*(({value} / 60)-floor({value} / 60)),\"00\") + \u0027m\u0027\n",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardValue"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "RemainingHours"
+        },
+        "position": {
+          "basis": "20px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "TextFields/TextFieldAlternate",
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardText"
+              },
+              "text": "Ideal Run Rate"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "grow": 1,
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.IdealRunRate"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/Boolean"
+              },
+              "textStyle": {
+                "fontWeight": "bold",
+                "textAlign": "right"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "IdealRunRate"
+        },
+        "position": {
+          "basis": "20px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

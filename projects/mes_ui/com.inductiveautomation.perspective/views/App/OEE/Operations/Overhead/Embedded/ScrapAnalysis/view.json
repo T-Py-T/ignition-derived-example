@@ -1,0 +1,297 @@
+{
+  "custom": {
+    "MaxAllowed": 10,
+    "RawScrap": 10,
+    "ScrapPercent": 5
+  },
+  "params": {
+    "EqPath": ""
+  },
+  "propConfig": {
+    "custom.MaxAllowed": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/calculatedValues/shiftScrapPartsPercentTarget"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.RawScrap": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/calculatedValues/shiftRawScrap"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.ScrapPercent": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/calculatedValues/shiftScrapPartsPercent"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 139,
+      "width": 418
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Count"
+            },
+            "position": {
+              "basis": "418px"
+            },
+            "props": {
+              "style": {
+                "classes": "OverheadScreens/Text"
+              },
+              "text": "Count",
+              "textStyle": {
+                "textAlign": "left"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "MaxAllowed"
+            },
+            "position": {
+              "basis": "418px"
+            },
+            "props": {
+              "style": {
+                "classes": "OverheadScreens/Text"
+              },
+              "text": "Max Allowed",
+              "textStyle": {
+                "textAlign": "right"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Row1"
+        },
+        "position": {
+          "basis": "20px"
+        },
+        "props": {
+          "justify": "center",
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "CountValue"
+            },
+            "position": {
+              "basis": "324px"
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.RawScrap"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "OverheadScreens/Values"
+              },
+              "textStyle": {
+                "fontSize": "3rem",
+                "textAlign": "left"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "MaxAllowedValue"
+            },
+            "position": {
+              "basis": "324px"
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.MaxAllowed"
+                  },
+                  "transforms": [
+                    {
+                      "expression": "{value} + \u0027%\u0027",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "OverheadScreens/Values"
+              },
+              "textStyle": {
+                "fontSize": "3rem",
+                "textAlign": "right"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Row2"
+        },
+        "position": {
+          "basis": "85px"
+        },
+        "propConfig": {
+          "position.basis": {
+            "binding": {
+              "config": {
+                "path": "page.props.path"
+              },
+              "enabled": false,
+              "transforms": [
+                {
+                  "code": "\tsplit \u003d gpa.frontEnd.localUI.splitPath(value)\n\t\n\tif split \u003d\u003d \"overhead\":\n\t\treturn \"85px\"\n\telse:\n\t\treturn \"86px\"",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "Cards/Common/CardTitleBorder"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "basis": "418px"
+            },
+            "props": {
+              "style": {
+                "classes": "OverheadScreens/Text"
+              },
+              "text": "Running Percent Scrap",
+              "textStyle": {
+                "textAlign": "left"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Label_0"
+            },
+            "position": {
+              "basis": "166px"
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.ScrapPercent"
+                  },
+                  "transforms": [
+                    {
+                      "expression": "{value} + \u0027%\u0027",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "alignVertical": "top",
+              "style": {
+                "classes": "OverheadScreens/Values",
+                "overflow": "hidden"
+              },
+              "textStyle": {
+                "fontSize": "2em",
+                "textAlign": "center"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Row3"
+        },
+        "position": {
+          "basis": "15%",
+          "grow": 1
+        },
+        "props": {
+          "alignContent": "center",
+          "alignItems": "center",
+          "justify": "center",
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

@@ -1,0 +1,746 @@
+{
+  "custom": {
+    "EqPath": "[default]GPA/Wilmington/Mixing/Mixer1",
+    "LineState": null
+  },
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\tsystem.perspective.closeDock(\u0027topHeader\u0027)\n\tsystem.perspective.closeDock(\u0027sideBar\u0027)"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "TagPath": "",
+    "TagProvider": "[default]"
+  },
+  "permissions": {
+    "securityLevels": [
+      {
+        "children": [],
+        "name": "Authenticated"
+      }
+    ],
+    "type": "AnyOf"
+  },
+  "propConfig": {
+    "custom.EqPath": {
+      "binding": {
+        "config": {
+          "path": "session.custom.EqPath"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.LineState": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.TagPath}"
+          },
+          "tagPath": "[default]{1}/config/stateDS"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "params.TagPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.TagProvider": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 1245,
+      "width": 2239
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "CurrentLineInfo"
+                },
+                "position": {
+                  "basis": "12%"
+                },
+                "propConfig": {
+                  "props.params.Params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.EqPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "HideTitle": true,
+                    "Icon": "",
+                    "IconDisplay": true,
+                    "Params": {
+                      "State": "value",
+                      "TagPath": "",
+                      "TagProvider": ""
+                    },
+                    "Path": "App/OEE/Operations/Overhead/Embedded/CurrentLineInfo",
+                    "Provider": "value",
+                    "SizeBasis": "value",
+                    "TagPath": "value",
+                    "Title": "",
+                    "Type": "value",
+                    "useDefaultHeight": false,
+                    "useDefaultWidth": false
+                  },
+                  "path": "GlobalComponents/Cards/Card",
+                  "style": {
+                    "classes": "Global/MarginBottom"
+                  }
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "meta": {
+                  "name": "LineStatus"
+                },
+                "propConfig": {
+                  "props.params.Params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.EqPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "HideTitle": true,
+                    "Icon": "",
+                    "IconDisplay": true,
+                    "Params": {
+                      "State": "value",
+                      "TagPath": "",
+                      "TagProvider": ""
+                    },
+                    "Path": "App/OEE/Operations/Overhead/Embedded/LineStatus",
+                    "Provider": "value",
+                    "SizeBasis": "value",
+                    "TagPath": "value",
+                    "Title": "Card Title",
+                    "Type": "value",
+                    "useDefaultHeight": false,
+                    "useDefaultWidth": false
+                  },
+                  "path": "GlobalComponents/Cards/Card",
+                  "style": {
+                    "classes": "Global/MarginBottom"
+                  }
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "meta": {
+                  "name": "TimeBreakdown"
+                },
+                "position": {
+                  "basis": "20%"
+                },
+                "propConfig": {
+                  "props.params.Params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.EqPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "HideTitle": false,
+                    "Icon": "",
+                    "IconDisplay": false,
+                    "Params": {
+                      "State": "value"
+                    },
+                    "Path": "GlobalComponents/Objects/Indicator/TimeBreakDownLabels",
+                    "SizeBasis": "value",
+                    "Title": "Time Breakdown",
+                    "Type": "value",
+                    "useDefaultHeight": true,
+                    "useDefaultWidth": false
+                  },
+                  "path": "GlobalComponents/Cards/Card",
+                  "style": {
+                    "classes": "Global/MarginBottom"
+                  }
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "meta": {
+                  "name": "OrderInfo"
+                },
+                "position": {
+                  "basis": "35%"
+                },
+                "propConfig": {
+                  "props.params.Params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.EqPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "HideTitle": false,
+                    "Icon": "",
+                    "IconDisplay": true,
+                    "Params": {
+                      "State": "",
+                      "TagPath": "",
+                      "TagProvider": ""
+                    },
+                    "Path": "App/OEE/Operations/Overhead/Embedded/OrderInformation",
+                    "Provider": "value",
+                    "SizeBasis": "value",
+                    "TagPath": "value",
+                    "Title": "Current Order Information",
+                    "Type": "",
+                    "useDefaultHeight": false,
+                    "useDefaultWidth": false
+                  },
+                  "path": "GlobalComponents/Cards/Card",
+                  "style": {
+                    "classes": "Global/MarginBottom"
+                  }
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "meta": {
+                  "name": "Schedule"
+                },
+                "position": {
+                  "basis": "35%"
+                },
+                "propConfig": {
+                  "props.params.Params.TagPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.TagPath"
+                      },
+                      "type": "property"
+                    }
+                  },
+                  "props.params.Params.TagProvider": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.TagProvider"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "EqPath": "value",
+                    "HideTitle": false,
+                    "Icon": "",
+                    "IconDisplay": true,
+                    "Params": {
+                      "State": "value"
+                    },
+                    "Path": "",
+                    "Provider": "value",
+                    "SizeBasis": "value",
+                    "TagPath": "value",
+                    "Title": "Schedule",
+                    "Type": "value",
+                    "useDefaultHeight": false,
+                    "useDefaultWidth": false
+                  },
+                  "path": "GlobalComponents/Cards/Card"
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "LineInfo"
+            },
+            "position": {
+              "basis": "50%",
+              "grow": 1
+            },
+            "props": {
+              "direction": "column"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Col1"
+        },
+        "position": {
+          "basis": "25%",
+          "grow": 1
+        },
+        "props": {
+          "direction": "column",
+          "style": {
+            "classes": "Global/MarginRight"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "ProductionGraph"
+            },
+            "position": {
+              "basis": "70%",
+              "grow": 1
+            },
+            "propConfig": {
+              "props.params.Params.EqPath": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.EqPath"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "HideTitle": false,
+                "Icon": "",
+                "IconDisplay": true,
+                "Params": {
+                  "State": "",
+                  "TagPath": "",
+                  "TagProvider": ""
+                },
+                "Path": "GlobalComponents/Charts/ProductionChart",
+                "Provider": "value",
+                "SizeBasis": "value",
+                "TagPath": "value",
+                "Title": "Shift Production",
+                "Type": "",
+                "useDefaultHeight": false,
+                "useDefaultWidth": false
+              },
+              "path": "GlobalComponents/Cards/Card",
+              "style": {
+                "classes": "Global/MarginBottom"
+              }
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Production"
+                },
+                "position": {
+                  "basis": "320px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.params.Params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.EqPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "HideTitle": false,
+                    "Icon": "",
+                    "IconDisplay": true,
+                    "Params": {
+                      "State": "",
+                      "TagPath": "",
+                      "TagProvider": "",
+                      "Type": "GoodParts",
+                      "UoM": "pcs/hr"
+                    },
+                    "Path": "App/OEE/Operations/Overhead/Embedded/MetricLarge",
+                    "Provider": "value",
+                    "SizeBasis": "value",
+                    "TagPath": "value",
+                    "Title": "Production Counts",
+                    "Type": "",
+                    "useDefaultHeight": false,
+                    "useDefaultWidth": false
+                  },
+                  "path": "GlobalComponents/Cards/Card",
+                  "style": {
+                    "classes": "Global/MarginRight"
+                  }
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "meta": {
+                  "name": "ProductionRate"
+                },
+                "position": {
+                  "basis": "320px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.params.Params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.EqPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "HideTitle": false,
+                    "Icon": "",
+                    "IconDisplay": true,
+                    "Params": {
+                      "State": "",
+                      "TagPath": "",
+                      "TagProvider": "",
+                      "Type": "Rate",
+                      "UoM": "pcs/hr"
+                    },
+                    "Path": "App/OEE/Operations/Overhead/Embedded/MetricLarge",
+                    "Provider": "value",
+                    "SizeBasis": "value",
+                    "TagPath": "value",
+                    "Title": "Production Rate",
+                    "Type": "",
+                    "useDefaultHeight": false,
+                    "useDefaultWidth": false
+                  },
+                  "path": "GlobalComponents/Cards/Card",
+                  "style": {
+                    "classes": "Global/MarginRight"
+                  }
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "meta": {
+                  "name": "Scrap"
+                },
+                "position": {
+                  "basis": "320px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.params.Params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.EqPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "HideTitle": false,
+                    "Icon": "",
+                    "IconDisplay": true,
+                    "Params": {
+                      "State": "",
+                      "TagPath": "",
+                      "TagProvider": "",
+                      "Type": "ScrapPartsPercent"
+                    },
+                    "Path": "App/OEE/Operations/Overhead/Embedded/ScrapAnalysis",
+                    "Provider": "value",
+                    "SizeBasis": "value",
+                    "TagPath": "value",
+                    "Title": "Scrap",
+                    "Type": "",
+                    "useDefaultHeight": false,
+                    "useDefaultWidth": false
+                  },
+                  "path": "GlobalComponents/Cards/Card"
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "ProudctionCards"
+            },
+            "position": {
+              "basis": "20%",
+              "grow": 1
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Col2"
+        },
+        "position": {
+          "basis": "45%",
+          "grow": 1
+        },
+        "props": {
+          "direction": "column",
+          "style": {
+            "classes": "Global/MarginRight"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "OEEView"
+            },
+            "position": {
+              "basis": "40%"
+            },
+            "propConfig": {
+              "props.params.Params.EqPath": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.EqPath"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "HideTitle": false,
+                "Icon": "material/error",
+                "IconDisplay": true,
+                "Params": {
+                  "State": "fail"
+                },
+                "Path": "App/OEE/Operations/Overhead/Embedded/OEEVertical",
+                "Provider": "value",
+                "SizeBasis": "value",
+                "TagPath": "value",
+                "Title": "Line OEE",
+                "Type": "fail",
+                "useDefaultHeight": false,
+                "useDefaultWidth": false
+              },
+              "path": "GlobalComponents/Cards/Card",
+              "style": {
+                "classes": "Global/MarginBottom"
+              }
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "Top5"
+            },
+            "position": {
+              "basis": "50%",
+              "grow": 1
+            },
+            "propConfig": {
+              "props.params.Params.EqPath": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.EqPath"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "HideTitle": false,
+                "Icon": "",
+                "IconDisplay": true,
+                "Params": {
+                  "State": ""
+                },
+                "Path": "App/OEE/Operations/Overhead/Embedded/DownTimeTable",
+                "Provider": "value",
+                "SizeBasis": "value",
+                "TagPath": "value",
+                "Title": "Top 5 Breakdowns",
+                "Type": "",
+                "useDefaultHeight": false,
+                "useDefaultWidth": false
+              },
+              "path": "GlobalComponents/Cards/Card"
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Planned"
+                },
+                "position": {
+                  "basis": "50%",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.params.Params.TagPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.TagPath"
+                      },
+                      "type": "property"
+                    }
+                  },
+                  "props.params.Params.TagProvider": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.TagProvider"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "HideTitle": false,
+                    "Icon": "",
+                    "IconDisplay": true,
+                    "Params": {
+                      "State": "value",
+                      "Type": "Planned"
+                    },
+                    "Path": "GlobalComponents/OverheadScreens/DownTimeTracking",
+                    "Provider": "value",
+                    "SizeBasis": "value",
+                    "TagPath": "value",
+                    "Title": "Planned Downtime",
+                    "Type": "value",
+                    "useDefaultHeight": false,
+                    "useDefaultWidth": false
+                  },
+                  "path": "GlobalComponents/Cards/Card",
+                  "style": {
+                    "classes": "Global/MarginRight"
+                  }
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "meta": {
+                  "name": "Unplanned"
+                },
+                "position": {
+                  "basis": "50%",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.params.Params.TagPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.TagPath"
+                      },
+                      "type": "property"
+                    }
+                  },
+                  "props.params.Params.TagProvider": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.TagProvider"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "HideTitle": false,
+                    "Icon": "",
+                    "IconDisplay": true,
+                    "Params": {
+                      "State": "value",
+                      "Type": "Unplanned"
+                    },
+                    "Path": "GlobalComponents/OverheadScreens/DownTimeTracking",
+                    "Provider": "value",
+                    "SizeBasis": "value",
+                    "TagPath": "value",
+                    "Title": "Unplanned Downtime",
+                    "Type": "value",
+                    "useDefaultHeight": false,
+                    "useDefaultWidth": false
+                  },
+                  "path": "GlobalComponents/Cards/Card"
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "DownTime"
+            },
+            "position": {
+              "basis": "20%",
+              "display": false
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginBottom"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Col3"
+        },
+        "position": {
+          "basis": "25%",
+          "grow": 1
+        },
+        "props": {
+          "direction": "column"
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "style": {
+        "classes": "Global/MarginAll"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

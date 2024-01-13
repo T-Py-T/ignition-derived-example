@@ -1,0 +1,151 @@
+{
+  "custom": {},
+  "params": {
+    "SiteID": 1
+  },
+  "permissions": {
+    "securityLevels": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [],
+                "name": "Administrator"
+              },
+              {
+                "children": [],
+                "name": "Manager"
+              }
+            ],
+            "name": "Roles"
+          }
+        ],
+        "name": "Authenticated"
+      }
+    ],
+    "type": "AnyOf"
+  },
+  "propConfig": {
+    "params.SiteID": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {},
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "page": "/schedule/materials"
+                  },
+                  "scope": "C",
+                  "type": "nav"
+                }
+              }
+            },
+            "meta": {
+              "name": "Button"
+            },
+            "position": {
+              "basis": "146px"
+            },
+            "props": {
+              "style": {
+                "classes": "Buttons/OperatorButtons"
+              },
+              "text": "Go To Materials"
+            },
+            "type": "ia.input.button"
+          },
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "page": "/schedule/work_orders"
+                  },
+                  "scope": "C",
+                  "type": "nav"
+                }
+              }
+            },
+            "meta": {
+              "name": "Button_0"
+            },
+            "position": {
+              "basis": "146px"
+            },
+            "props": {
+              "style": {
+                "classes": "Buttons/OperatorButtons",
+                "marginLeft": 5
+              },
+              "text": "Go To Work Orders"
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "Row1"
+        },
+        "position": {
+          "basis": "42px"
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "meta": {
+          "name": "ProductCodeCard"
+        },
+        "position": {
+          "basis": "320px",
+          "grow": 1
+        },
+        "props": {
+          "params": {
+            "HideTitle": false,
+            "Icon": "",
+            "IconDisplay": true,
+            "Params": {
+              "SiteID": 1,
+              "State": "value",
+              "TagPath": "value",
+              "TagProvider": "value"
+            },
+            "Path": "App/Schedule/ProductCodes/Embedded/TablesView",
+            "Provider": "value",
+            "SizeBasis": "value",
+            "TagPath": "value",
+            "Title": "Product Codes",
+            "Type": "value",
+            "useDefaultHeight": false,
+            "useDefaultWidth": false
+          },
+          "path": "GlobalComponents/Cards/Card"
+        },
+        "type": "ia.display.view"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "classes": "Global/MarginAll"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "custom": {},
+  "params": {
+    "TestID": ""
+  },
+  "propConfig": {
+    "params.TestID": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 112,
+      "width": 452
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Label"
+        },
+        "position": {
+          "basis": "32px"
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "expression": "\u0027Are you sure you want to delete test #\u0027 + toStr({view.params.TestID}) + \u0027?\u0027"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "margin": "1em",
+            "text-align": "center"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "children": [
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "script": "\tmes.quality.sp.disableTest(self.view.params.TestID)\n\tsystem.perspective.print(\u0027Success deleted id number\u0027+str(self.view.params.TestID))\n\n\tmessageType \u003d \u0027refreshQualityTable\u0027 \n\tpayload \u003d {}\n\tsystem.perspective.sendMessage(messageType, payload, view \u003d \u0027session\u0027)\n\tsystem.perspective.closePopup(\u0027\u0027)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Confirm"
+            },
+            "position": {
+              "basis": "190px"
+            },
+            "props": {
+              "text": "Yes, delete this test"
+            },
+            "type": "ia.input.button"
+          },
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "draggable": true,
+                    "id": "DeleteTest",
+                    "modal": false,
+                    "overlayDismiss": false,
+                    "resizable": true,
+                    "showCloseIcon": true,
+                    "type": "close",
+                    "viewPath": "",
+                    "viewportBound": false
+                  },
+                  "scope": "C",
+                  "type": "popup"
+                }
+              }
+            },
+            "meta": {
+              "name": "Cancel"
+            },
+            "position": {
+              "basis": "193px"
+            },
+            "props": {
+              "primary": false,
+              "text": "No, keep this test"
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "FlexContainer"
+        },
+        "position": {
+          "basis": "46px"
+        },
+        "props": {
+          "justify": "space-around"
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

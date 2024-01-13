@@ -1,0 +1,420 @@
+{
+  "custom": {},
+  "params": {
+    "displayPath": "",
+    "eventId": "",
+    "eventTime": {
+      "$": [
+        "ts",
+        192,
+        1629306435158
+      ],
+      "$ts": 1629305337410
+    },
+    "priority": 1,
+    "source": "prov:default:/tag:Equipment/Wilevco/F8:0:/alm:Alarm",
+    "state": 1
+  },
+  "propConfig": {
+    "params.displayPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.eventId": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.eventTime": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.priority": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.source": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.state": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 200,
+      "width": 300
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Alarm Name"
+        },
+        "position": {
+          "basis": "32px"
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.source"
+              },
+              "transforms": [
+                {
+                  "code": "\treturn \"Name: \" + value.split(\":\")[-1]",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginAllTop"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Break"
+        },
+        "position": {
+          "basis": "1px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "MES/DockedViews/Alarms/Break",
+            "overflowWrap": "break-word"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Event Time"
+        },
+        "position": {
+          "basis": "32px"
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "expression": "\"Event Time: \" + {view.params.eventTime}"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Break_0"
+        },
+        "position": {
+          "basis": "1px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "MES/DockedViews/Alarms/Break",
+            "overflowWrap": "break-word"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Value"
+        },
+        "position": {
+          "basis": "32px"
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.source"
+              },
+              "transforms": [
+                {
+                  "code": "\ttry:\n\t\treturn \"Equipment: \" +  value.split(\"/\")[3] + \u0027/\u0027 + value.split(\"/\")[4]\n\texcept:\n\t\treturn \"Equipment: \" +  value.split(\"/\")[3]",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "overflowWrap": "break-word"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Break_1"
+        },
+        "position": {
+          "basis": "1px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "MES/DockedViews/Alarms/Break",
+            "overflowWrap": "break-word"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Alarm Priority"
+        },
+        "position": {
+          "basis": "32px"
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.priority"
+              },
+              "transforms": [
+                {
+                  "fallback": "-",
+                  "inputType": "scalar",
+                  "mappings": [
+                    {
+                      "input": 0,
+                      "output": "Diagnostic"
+                    },
+                    {
+                      "input": 1,
+                      "output": "Low"
+                    },
+                    {
+                      "input": 2,
+                      "output": "Medium"
+                    },
+                    {
+                      "input": 3,
+                      "output": "High"
+                    },
+                    {
+                      "input": 4,
+                      "output": "Critical"
+                    }
+                  ],
+                  "outputType": "scalar",
+                  "type": "map"
+                },
+                {
+                  "expression": "\"Priority: \" + {value}",
+                  "type": "expression"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "overflowWrap": "break-word"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Break_2"
+        },
+        "position": {
+          "basis": "1px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "MES/DockedViews/Alarms/Break",
+            "overflowWrap": "break-word"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Spacing"
+        },
+        "position": {
+          "basis": "32px",
+          "grow": 1
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\tsystem.alarm.acknowledge([self.view.params.eventId], \"\", \"guest\")"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          },
+          "dom": {
+            "onMouseDown": {
+              "config": {
+                "script": "\tif self.props.enabled:\n\t\tself.props.style.backgroundColor \u003d \"#B1C726\""
+              },
+              "scope": "G",
+              "type": "script"
+            },
+            "onMouseUp": {
+              "config": {
+                "script": "\tif self.props.enabled:\n\t\tself.props.style.backgroundColor \u003d \"#34DED3\""
+              },
+              "scope": "G",
+              "type": "script"
+            },
+            "onSelect": {
+              "config": {
+                "script": "\tif self.props.enabled:\n\t\tself.props.style.backgroundColor \u003d \"#B1C726\""
+              },
+              "scope": "G",
+              "type": "script"
+            },
+            "onTouchCancel": {
+              "config": {
+                "script": "\tif self.props.enabled:\n\t\tself.props.style.backgroundColor \u003d \"#34DED3\""
+              },
+              "scope": "G",
+              "type": "script"
+            },
+            "onTouchEnd": {
+              "config": {
+                "script": "\tif self.props.enabled:\n\t\tself.props.style.backgroundColor \u003d \"#34DED3\""
+              },
+              "scope": "G",
+              "type": "script"
+            },
+            "onTouchStart": {
+              "config": {
+                "script": "\tif self.props.enabled:\n\t\tself.props.style.backgroundColor \u003d \"#B1C726\""
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Acknowledge"
+        },
+        "position": {
+          "basis": "34px",
+          "shrink": 0
+        },
+        "propConfig": {
+          "props.enabled": {
+            "binding": {
+              "config": {
+                "path": "view.params.state"
+              },
+              "transforms": [
+                {
+                  "fallback": false,
+                  "inputType": "scalar",
+                  "mappings": [
+                    {
+                      "input": 2,
+                      "output": true
+                    },
+                    {
+                      "input": 3,
+                      "output": false
+                    }
+                  ],
+                  "outputType": "scalar",
+                  "type": "map"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.style.backgroundColor": {
+            "binding": {
+              "config": {
+                "path": "view.params.state"
+              },
+              "transforms": [
+                {
+                  "fallback": "#7F7F7F",
+                  "inputType": "scalar",
+                  "mappings": [
+                    {
+                      "input": 2,
+                      "output": "#34DED3"
+                    },
+                    {
+                      "input": 3,
+                      "output": "#7F7F7F"
+                    }
+                  ],
+                  "outputType": "scalar",
+                  "type": "map"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.state"
+              },
+              "transforms": [
+                {
+                  "fallback": "Acknowledge",
+                  "inputType": "scalar",
+                  "mappings": [
+                    {
+                      "input": 2,
+                      "output": "Acknowledge"
+                    },
+                    {
+                      "input": 3,
+                      "output": "Acknowledged"
+                    }
+                  ],
+                  "outputType": "scalar",
+                  "type": "map"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "type": "ia.input.button"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "classes": "MES/DockedViews/Alarms/CardBody"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

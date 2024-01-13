@@ -1,0 +1,207 @@
+{
+  "custom": {
+    "AreaOEE": {
+      "$": [
+        "ds",
+        192,
+        1695753372367
+      ],
+      "$columns": [
+        {
+          "data": [
+            "Assembly",
+            "Molding",
+            "Packaging"
+          ],
+          "name": "AreaName",
+          "type": "String"
+        },
+        {
+          "data": [
+            0.959235,
+            0.643375,
+            0.482626
+          ],
+          "name": "OEE",
+          "type": "Double"
+        }
+      ]
+    },
+    "EqPath": "GPA/Wilmington/Baking/Oven1",
+    "GoodParts": 695543,
+    "Rejects": 38642,
+    "Scraps": 55
+  },
+  "params": {
+    "EqPath": "GPA/Wilmington/Baking/Oven1",
+    "TagPath": "[default]"
+  },
+  "propConfig": {
+    "custom.AreaOEE": {
+      "binding": {
+        "config": {
+          "parameters": {
+            "endTime": "now()",
+            "site": "{session.custom.SelectedSite}",
+            "startTime": "tag({view.custom.EqPath}+\u0027/calculatedValues/time/runStartTime\u0027)"
+          },
+          "queryPath": "app/OEE/getReportAreaOEE_AQP"
+        },
+        "transforms": [
+          {
+            "code": "\tpyData \u003d system.dataset.toPyDataSet(value)\n\tNewData \u003d []\n\tfor row in pyData:\n\t\tdata \u003d [row[\u0027AreaName\u0027], row[\u0027OEE\u0027]]\n\t\tNewData.append(data)\n\tNewHeaders \u003d [\u0027AreaName\u0027,\u0027OEE\u0027]\n\tNewDataSet \u003d system.dataset.toDataSet(NewHeaders, NewData)\n\treturn NewDataSet\n\t\n\t\t",
+            "type": "script"
+          }
+        ],
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "custom.EqPath": {
+      "binding": {
+        "config": {
+          "path": "session.custom.EqPath"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.GoodParts": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.TagPath}",
+            "2": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}{2}/jobs/currentJob/RunCounts/runRawOutfeed"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.Rejects": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.TagPath}",
+            "2": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}{2}/jobs/currentJob/RunCounts/runRawReject"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.Scraps": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.TagPath}",
+            "2": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}{2}/jobs/currentJob/RunCounts/runRawScrap"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.TagPath": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 573,
+      "width": 852
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "PieChart"
+        },
+        "position": {
+          "grow": 1
+        },
+        "propConfig": {
+          "props.data[0].count": {
+            "binding": {
+              "config": {
+                "path": "view.custom.GoodParts"
+              },
+              "type": "property"
+            }
+          },
+          "props.data[1].count": {
+            "binding": {
+              "config": {
+                "path": "view.custom.Rejects"
+              },
+              "type": "property"
+            }
+          },
+          "props.data[2].count": {
+            "binding": {
+              "config": {
+                "path": "view.custom.Scraps"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "colors": [
+            "#00B3FF",
+            "#860E00",
+            "#FF5900",
+            "#7B16D0",
+            "#E600D7"
+          ],
+          "data": [
+            {
+              "parts": "Good Parts"
+            },
+            {
+              "parts": "Reject"
+            },
+            {
+              "parts": "Scrap"
+            }
+          ],
+          "labels": {
+            "color": "white"
+          },
+          "legendLabelColor": "white",
+          "sectionOutline": {
+            "color": "white"
+          },
+          "threeDimensional": true,
+          "titleColor": "white",
+          "valueFormat": {
+            "showValueAsPercent": false
+          }
+        },
+        "type": "ia.chart.pie"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

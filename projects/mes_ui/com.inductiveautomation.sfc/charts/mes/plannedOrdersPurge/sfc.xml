@@ -1,0 +1,288 @@
+<?xml version="1.0" ?>
+<sfc zoom="1.0" canvas="20 20" execution-mode="Disabled" hot-editable="false" persist-state="true" redundant-sync="false">
+	<onstart>def onStart(chart):
+	"""
+	This will run once when the chart is started.
+
+	Arguments:
+		chart: A reference to the chart's scope.
+	"""
+</onstart>
+	<onabort>def onAbort(chart):
+	"""
+	This will run once if the chart is aborted.
+	The exception that caused the abort is
+	available via chart.abortCause
+
+	Arguments:
+		chart: A reference to the chart's scope.
+	"""
+	logger = system.util.getLogger('sfc/mes/plannedOrdersPurge')
+	logger.error('Planned Orders Purge SFC was aborted: %s' % str(chart.abortCause)) 	</onabort>
+	<step id="d77b8ca8-b319-4c66-b4d1-2979db4fee4e" location="5 0" name="__begin" factory-id="begin-step">	</step>
+	<step id="9109132b-ec45-4fa7-a197-e69b1ed662c4" location="5 2" name="checkProductionModule" factory-id="action-step">
+		<start-script>def onStart(chart, step):
+	"""
+	This will run when the step starts, before any
+	other action.
+
+	Arguments:
+		chart: A reference to the chart's scope.
+		step: A reference to this step's scope.
+	"""
+	isProductionStarted = False
+	try:
+		isProductionStarted = system.mes.isProductionStarted()
+	except:
+		isProductionStarted = False
+		
+	if isProductionStarted:
+		chart.productionStarted = True
+	else:
+		chart.productionStarted = False</start-script>
+	</step>
+	<step id="38d7a359-5b92-4fd1-9452-85f77c67d59f" location="4 6" name="getEquipmentPaths" factory-id="action-step">
+		<start-script>def onStart(chart, step):
+	"""
+	This will run when the step starts, before any
+	other action.
+
+	Arguments:
+		chart: A reference to the chart's scope.
+		step: A reference to this step's scope.
+	"""
+	chart.equipmentPaths = []
+	chart.index = 0
+	
+	
+	filter = system.mes.object.filter.createFilter()
+	filter.setMESObjectTypeName('Line')
+	filter.setShowEquipmentPath(True)
+	mesObjectlist = system.mes.searchMESObjects(filter)
+	eqPaths = []
+	for item in mesObjectlist:
+		eqPaths.append(item.getName())
+	chart.equipmentPaths = eqPaths
+	chart.equipmentPathCount = len(eqPaths)</start-script>
+	</step>
+	<step id="4c6255c6-395e-4c4a-882a-c6a7414b051b" location="4 8" name="recheckProductionModule" factory-id="action-step">
+		<start-script>def onStart(chart, step):
+	"""
+	This will run when the step starts, before any
+	other action.
+
+	Arguments:
+		chart: A reference to the chart's scope.
+		step: A reference to this step's scope.
+	"""
+	isProductionStarted = False
+	try:
+		isProductionStarted = system.mes.isProductionStarted()
+	except:
+		isProductionStarted = False
+		
+	if isProductionStarted:
+		chart.productionStarted = True
+	else:
+		chart.productionStarted = False</start-script>
+	</step>
+	<step id="a9b5b088-f0aa-4000-8f03-b7904200e0e3" location="4 12" name="getAllMESOrders" factory-id="action-step">
+		<start-script>def onStart(chart, step):
+	"""
+	This will run when the step starts, before any
+	other action.
+
+	Arguments:
+		chart: A reference to the chart's scope.
+		step: A reference to this step's scope.
+	"""
+	
+	index = chart.index
+	
+	chart.currentEquipmentPath = chart.equipmentPaths[index]
+#	chart.currentEquipmentPath = 'Newell\\Maryville\\Assembly\\SFN13'
+	
+	chart.orders = []
+		
+	orders = mes.schedule.sap.getScheduledOrdersForEqPath(chart.currentEquipmentPath)
+	if len(orders) &gt; 0:
+		chart.orders = orders
+	
+	chart.index += 1
+#	if chart.index &gt;= len(chart.equipmentPaths):
+#		chart.index =0
+	
+	</start-script>
+	</step>
+	<step id="a67c5e2e-0177-4fe9-aa41-b426c130ad45" location="11 7" name="__end1" factory-id="end-step">	</step>
+	<step id="9a81b12f-cc61-4781-b280-9c7295cd24c1" location="4 13" name="getHeijunkaOrders" factory-id="action-step">
+		<start-script>def onStart(chart, step):
+	"""
+	This will run when the step starts, before any
+	other action.
+
+	Arguments:
+		chart: A reference to the chart's scope.
+		step: A reference to this step's scope.
+	"""
+	logger = system.util.getLogger('sfc.mes.plannedOrdersPurge.getHeijunkaOrders')
+
+	
+	orders = chart.orders
+	query = """SELECT *
+				FROM vwDailyScheduleMRV
+				where AssignMachine = ?
+				"""
+	equipmentPath = chart.currentEquipmentPath
+	lineName = equipmentPath.split('\\')[-1]
+	res = system.db.runPrepQuery(query, [lineName],'heijunka')
+	sapList = []
+	heijunkaOrders = []
+	removeOrders = []
+	cancelledOrders = []
+#	if len(res) &gt; 0:
+	
+	for row in range(res.rowCount):
+		
+		if float(res.getValueAt(row,'Priority')) &lt;= -1.0:
+			#add orders that have low priority - dont check these
+			removeOrders.append(str(res.getValueAt(row,'PlndOrder')))
+		#add all orders to heijunka list
+		heijunkaOrders.append(str(res.getValueAt(row,'PlndOrder')))
+	
+	for order in orders:
+		if order['plannedOrderNumber'] in removeOrders:
+			cancelledOrders.append(str(order['plannedOrderNumber']))
+		
+		elif order['plannedOrderNumber'] not in heijunkaOrders:
+			sapList.append(str(order['plannedOrderNumber']))
+			
+				
+	chart.sapList = sapList
+	chart.cancelledOrders = cancelledOrders
+	
+	</start-script>
+	</step>
+	<step id="0c0df86e-00a1-458e-86af-f2d20f5bc7ae" location="4 14" name="getSAPInformation" factory-id="action-step">
+		<start-script>def onStart(chart, step):
+	"""
+	This will run when the step starts, before any
+	other action.
+
+	Arguments:
+		chart: A reference to the chart's scope.
+		step: A reference to this step's scope.
+	"""
+	
+	logger = system.util.getLogger('sfc.mes.plannedOrdersPurge.getSAPInformation')
+	
+	
+	orders = chart.orders
+	sapList = chart.sapList
+	operations = []
+	if sapList != []:
+		response = mes.schedule.sap.getPlannedOrders(sapList)
+		
+		if response['statusCode'] == 200:
+			sapData = response['operationsSchedules']
+			
+			operations = mes.schedule.sap.getOperationsData(sapData)
+			
+	chart.operations = operations
+	</start-script>
+	</step>
+	<step id="eaf40b6f-48af-4243-8806-f232f066111d" location="4 15" name="purge" factory-id="action-step">
+		<start-script>def onStart(chart, step):
+	"""
+	This will run when the step starts, before any
+	other action.
+
+	Arguments:
+		chart: A reference to the chart's scope.
+		step: A reference to this step's scope.
+	"""
+	logger = system.util.getLogger('sfc.mes.plannedOrdersPurge')
+	reschedule = False
+	sapList = chart.sapList
+	
+	orders = chart.orders
+	cancelledOrders = chart.cancelledOrders
+	operations = chart.operations
+	logger.info(str(orders))
+	logger.info('SAP Check: ' + str(sapList))
+	for order in sapList:
+		operationData = operations[str(order)]
+		if mes.schedule.sap.operationScheduleError(operationData,order):
+			#Remove order if not in sap.
+			mes.schedule.sap.removeClosedOrder(order)
+			reschedule = True
+		else:
+			logger.info('%s still active in SAP' % (str(order)))
+#	if chart.index &gt;= len(chart.equipmentPaths):
+#		chart.index =0
+
+	for order in cancelledOrders:
+		#remove order if -1
+		if mes.schedule.sap.removeClosedOrder(str(order),-1):
+			reschedule = True
+		
+	chart.reschedule = reschedule
+	
+	</start-script>
+	</step>
+	<step id="f8b00132-8ee4-46f1-a73c-12bea508372c" location="3 18" name="reschedule" factory-id="action-step">
+		<start-script>def onStart(chart, step):
+	"""
+	This will run when the step starts, before any
+	other action.
+
+	Arguments:
+		chart: A reference to the chart's scope.
+		step: A reference to this step's scope.
+	"""
+	logger = system.util.getLogger('sfc/mes/plannedOrdersPurge/reschedule')
+	
+	eqPath = chart.currentEquipmentPath
+	orders = mes.schedule.sap.getScheduledOrdersForEqPath(eqPath)
+	
+	
+	lineName = eqPath.split('\\')[-1]
+	
+	logger.info('Rescheduling orders for line %s' %(str(lineName)))
+	mes.schedule.sap.scheduleOrders(orders, lineName, True)</start-script>
+	</step>
+	<transition id="4e823f6f-add6-42f5-ad2e-4e23fd59e098" location="5 3" timeout-enabled="true" timeout-delay="1000" timeout-flag="watchdogIsStarted">{watchdogIsStarted} = true </transition>
+	<transition id="622ab46f-f836-4d15-90b4-eee57472f920" location="4 5">{productionStarted} = true</transition>
+	<transition id="d5aec6a7-df3c-4c93-8f2b-2b1e11642050" location="6 5">{productionStarted} = false</transition>
+	<transition id="d7a2a434-a7b9-442d-b135-9af24756c34f" location="4 9" timeout-enabled="true" timeout-delay="10000" timeout-flag="watchdog">{watchdog} = true</transition>
+	<transition id="7edd2070-2a06-4e2b-a4a0-bac86d17a02b" location="9 6">{index} &lt; {equipmentPathCount}</transition>
+	<transition id="2f9c398b-5135-4e78-b71c-ccd5b72d23a9" location="4 11">{productionStarted} = true</transition>
+	<transition id="e914399f-b4be-44c6-89c2-993d4f3b56e9" location="5 11">true</transition>
+	<transition id="2ec0807a-58d8-4dd5-8c9d-9811e7dcaa34" location="11 6">{index} &gt;= {equipmentPathCount}</transition>
+	<transition id="7cc27128-de80-49f0-8fa9-40ec9090f437" location="3 17">{reschedule}</transition>
+	<transition id="0d490282-eb66-43f7-8180-93aca2b63e29" location="5 17">!{reschedule}</transition>
+	<jump id="e0566268-20ed-4cc1-a6e3-976a8e4f38ba" location="6 6">B</jump>
+	<jump id="05d7996a-a69e-40b5-bf50-5aed598ea6c2" location="9 7">A</jump>
+	<jump id="feaa4841-a35a-410e-8a65-011fee425bb0" location="5 12">A</jump>
+	<jump id="134c1a92-d6a4-4a1d-bd68-a47cb6a34226" location="5 18">C</jump>
+	<jump id="cccd7594-4e56-49e0-9427-49a02863b56d" location="3 19">C</jump>
+	<anchor id="60d38a9f-4fc4-4c07-98df-711b9968a0fa" location="6 0">B</anchor>
+	<anchor id="70676275-814c-4e77-903d-c7a5ada90124" location="3 6">A</anchor>
+	<anchor id="66875207-066b-445f-9277-f3a76f7bb42e" location="10 4">C</anchor>
+	<link id="41a7bf28-e918-4e12-9300-0d7fe0f0dc7c" location="5 1"><up/><down/><right/></link>
+	<link id="161061fe-d6d0-41fd-8327-425b5f37669d" location="4 4"><left/><down/><right/></link>
+	<link id="2d4b4309-b801-4272-b488-a4964a5d3910" location="6 1"><up/><left/><down/></link>
+	<link id="8d2dfe44-0852-4d42-861f-51f4c1ab156e" location="5 4"><up/><left/><down/><right/></link>
+	<link id="b6cd4bb2-925b-4302-bed1-7ec4212fcf84" location="6 4"><left/><down/><right/></link>
+	<link id="ce697c3e-8777-4738-bb62-1eb89a93f315" location="3 7"><up/><down/><right/></link>
+	<link id="0ac576dd-6be4-4a01-a9b5-2ad19346c7ab" location="4 7"><up/><left/><down/></link>
+	<link id="7376aa22-3b63-40cd-a2b9-1f319e98f008" location="9 5"><left/><down/><right/></link>
+	<link id="26ce072e-de5f-44cf-901e-bbbc30d065c8" location="4 10"><up/><down/><right/></link>
+	<link id="79106d47-29fb-4198-8163-5e70e7f0db54" location="5 10"><up/><left/><down/></link>
+	<link id="ffc5ce6c-83ad-4d0b-9fcc-e4011b8dbecb" location="10 5"><up/><left/><down/><right/></link>
+	<link id="80dbe1db-3930-45b0-a339-68b3b0825887" location="11 5"><left/><down/><right/></link>
+	<link id="ea717013-b158-4d7a-b5dc-b298a0863970" location="3 16"><left/><down/><right/></link>
+	<link id="d14f00b5-299d-46fc-8e8b-3844dc5515cd" location="4 16"><up/><left/><down/><right/></link>
+	<link id="1d64c19f-aba0-437e-9292-90d4d43aac84" location="5 16"><left/><down/><right/></link>
+
+</sfc>

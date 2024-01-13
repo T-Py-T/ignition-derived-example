@@ -1,0 +1,214 @@
+{
+  "custom": {},
+  "params": {
+    "Display": true,
+    "Icon": "value",
+    "Params": {
+      "CellID": "value",
+      "CellOrder": "value",
+      "Disable": "value",
+      "KeyCell": "value",
+      "LineName": "value",
+      "TimeStamp": "value"
+    },
+    "SizeBasis": "value",
+    "StartingPath": "\"[GatewayHealth]Gateways/Tag1/\"",
+    "Title": "value",
+    "Type": "value",
+    "useDefaultHeight": false,
+    "useDefaultWidth": false
+  },
+  "propConfig": {
+    "params.Display": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Icon": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Params": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.SizeBasis": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.StartingPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Title": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Type": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.useDefaultHeight": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.useDefaultWidth": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 151,
+      "width": 303
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.print(self.view.params)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "EmbeddedView"
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "path": "view.params.Display"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.Icon": {
+            "binding": {
+              "config": {
+                "path": "this.props.params.Type"
+              },
+              "transforms": [
+                {
+                  "fallback": null,
+                  "inputType": "scalar",
+                  "mappings": [
+                    {
+                      "input": "success",
+                      "output": "material/check"
+                    },
+                    {
+                      "input": "warning",
+                      "output": "material/warning"
+                    },
+                    {
+                      "input": "fail",
+                      "output": "material/error"
+                    }
+                  ],
+                  "outputType": "scalar",
+                  "type": "map"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.params.Params.CellID": {
+            "binding": {
+              "config": {
+                "path": "view.params.Params.CellID"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.Params.CellOrder": {
+            "binding": {
+              "config": {
+                "path": "view.params.Params.CellOrder"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.Params.Disable": {
+            "binding": {
+              "config": {
+                "path": "view.params.Params.Disable"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.Params.KeyCell": {
+            "binding": {
+              "config": {
+                "path": "view.params.Params.KeyCell"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.Params.LineName": {
+            "binding": {
+              "config": {
+                "path": "view.params.Params.LineName"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.Params.TimeStamp": {
+            "binding": {
+              "config": {
+                "path": "view.params.Params.TimeStamp"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.SizeBasis": {
+            "binding": {
+              "config": {
+                "path": "view.params.SizeBasis"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.Title": {
+            "binding": {
+              "config": {
+                "path": "view.params.Title"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.Type": {
+            "binding": {
+              "config": {
+                "path": "view.params.Type"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "params": {
+            "Params": {},
+            "Path": "App/TrackAndTrace/Stations/Embedded/Stations",
+            "useDefaultHeight": false,
+            "useDefaultWidth": false
+          },
+          "path": "GlobalComponents/Cards/Card"
+        },
+        "type": "ia.display.view"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

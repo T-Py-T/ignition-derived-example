@@ -1,0 +1,238 @@
+{
+  "custom": {
+    "clear": false,
+    "date": {
+      "$": [
+        "ts",
+        192,
+        1683209822380
+      ],
+      "$ts": 1683209822380
+    },
+    "endDateDefault": {
+      "$": [
+        "ts",
+        192,
+        1683209810368
+      ],
+      "$ts": 1683209810368
+    },
+    "output": {
+      "data": [],
+      "dataList": {}
+    },
+    "run": false,
+    "startDateDefault": {
+      "$": [
+        "ts",
+        192,
+        1683209810370
+      ],
+      "$ts": 1683123410368
+    }
+  },
+  "params": {
+    "analysis": {
+      "endDate": {
+        "$": [
+          "ts",
+          192,
+          1594325061233
+        ],
+        "$ts": 1594324874607
+      },
+      "joins": [
+        {
+          "keys": [
+            "Equipment Path"
+          ],
+          "name": "resultTable",
+          "sources": [
+            "mesAnalysis1",
+            "sql1"
+          ],
+          "type": "left"
+        }
+      ],
+      "mesAnalyses": [
+        {
+          "dataPoints": [],
+          "filterBy": "",
+          "groupBy": [],
+          "name": "analysis1",
+          "orderBy": [],
+          "params": {}
+        }
+      ],
+      "sqlAnalyses": [
+        {
+          "name": "SQL1",
+          "query": ""
+        },
+        {
+          "name": "SQL2",
+          "query": ""
+        }
+      ],
+      "startDate": {
+        "$": [
+          "ts",
+          192,
+          1594325061233
+        ],
+        "$ts": 1594238474607
+      }
+    },
+    "clear": false,
+    "data": [],
+    "dataList": {},
+    "run": false
+  },
+  "propConfig": {
+    "custom.clear": {
+      "binding": {
+        "config": {
+          "path": "view.params.clear"
+        },
+        "type": "property"
+      },
+      "onChange": {
+        "enabled": null,
+        "script": "\tif currentValue.value is True:\n\t\tself.params.clear \u003d False\n\t\tdataList \u003d self.custom.output.dataList\n\t\tfor item in dataList:\n\t\t\tdataList[item] \u003d []"
+      },
+      "persistent": true
+    },
+    "custom.date": {
+      "binding": {
+        "config": {
+          "expression": "now(1000)"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.endDateDefault": {
+      "binding": {
+        "config": {
+          "expression": "now(0)"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.output": {
+      "persistent": true
+    },
+    "custom.run": {
+      "binding": {
+        "config": {
+          "path": "view.params.run"
+        },
+        "type": "property"
+      },
+      "onChange": {
+        "enabled": null,
+        "script": "\tif currentValue.value is True:\n\t\t### Logging! ###\n\t\tlogger \u003d system.util.getLogger(\u0027OAPQLogger\u0027)\n\t\tnow    \u003d app.util.getCurrentDateTime()\n\t\tlogger.info(system.date.format(now, \u0027HH:mm:ss.SSS\u0027) + \u0027: analysisObject run value set to true\u0027)\n\t\t################\n\t\t\n\t\tself.params.run \u003d False\n\t\troot \u003d self.getChild(\"root\")\n\t\troot.getData()"
+      },
+      "persistent": true
+    },
+    "custom.startDateDefault": {
+      "binding": {
+        "config": {
+          "expression": "addHours({view.custom.endDateDefault},-24)"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "params.analysis": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.analysis.endDate": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.analysis.joins": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.analysis.joins[0]": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.analysis.mesAnalyses": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.analysis.sqlAnalyses": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.analysis.startDate": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.clear": {
+      "paramDirection": "inout",
+      "persistent": true
+    },
+    "params.data": {
+      "binding": {
+        "config": {
+          "path": "view.custom.output.data"
+        },
+        "type": "property"
+      },
+      "paramDirection": "output",
+      "persistent": true
+    },
+    "params.dataList": {
+      "binding": {
+        "config": {
+          "path": "view.custom.output.dataList"
+        },
+        "type": "property"
+      },
+      "paramDirection": "output",
+      "persistent": true
+    },
+    "params.run": {
+      "paramDirection": "inout",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 457
+    }
+  },
+  "root": {
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "scripts": {
+      "customMethods": [
+        {
+          "name": "getData",
+          "params": [],
+          "script": "\t# implement your method here\n\tstartDate \t\t\u003d self.view.params.analysis.startDate\n\tendDate \t\t\u003d self.view.params.analysis.endDate\n\tmesAnalyses \t\u003d self.view.params.analysis.mesAnalyses\n\tsqlAnalyses \t\u003d self.view.params.analysis.sqlAnalyses\n\tjoins \t\t\t\u003d self.view.params.analysis.joins\n\t\n\t### Logging! ###\n\tlogger         \u003d system.util.getLogger(\u0027OAPQLogger\u0027)\n\tnow            \u003d app.util.getCurrentDateTime()\n\tlogStartDate   \u003d system.date.format(startDate, \u0027yyyy-MM-dd HH:mm:ss\u0027)\n\tlogEndDate     \u003d system.date.format(endDate, \u0027yyyy-MM-dd, HH:mm:ss\u0027)\n\tlogMesAnalyses \u003d str(mesAnalyses)\n\tlogSqlAnalyses \u003d str(sqlAnalyses)\n\tlogJoins       \u003d str(joins)\n\tlogger.info(system.date.format(now, \u0027HH:mm:ss.SSS\u0027) + \u0027: about to run app.analysis.run.getData() with following params: startDate - \u0027 + logStartDate + \u0027, endDate - \u0027 + logEndDate + \u0027, mesAnalyses - \u0027 + logMesAnalyses + \u0027, sqlAnalyses - \u0027 + logSqlAnalyses + \u0027, joins - \u0027 + logJoins)\n\t################\n\t\n\tdata \u003d app.analysis.run.getData(\n\t\tstartDate\t\t\u003d startDate, \n\t\tendDate\t\t\t\u003d endDate, \n\t\tmesAnalyses\t\t\u003d mesAnalyses, \n\t\tsqlAnalyses\t\t\u003d sqlAnalyses, \n\t\tjoins\t\t\t\u003d joins,\n\t)\n\t\n\t### Logging! ###\n\tnow \u003d app.util.getCurrentDateTime() \n\tlogger.info(system.date.format(now, \u0027HH:mm:ss.SSS\u0027) + \u0027: app.analysis.run.getData() returned\u0027)\n\t################\n\t\n\tself.view.params.data \u003d data[\"data\"]\n\tself.view.params.dataList \u003d data[\"dataList\"]"
+        }
+      ],
+      "extensionFunctions": null,
+      "messageHandlers": [
+        {
+          "messageType": "execute-analysis",
+          "pageScope": true,
+          "script": "\t# implement your handler here\n\tself.getData()",
+          "sessionScope": false,
+          "viewScope": false
+        }
+      ]
+    },
+    "type": "ia.container.flex"
+  }
+}

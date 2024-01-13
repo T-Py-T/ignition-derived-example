@@ -1,0 +1,58 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\tactive \u003d system.tag.readBlocking(\"[default]\"+self.session.custom.SelectedSitePath+\"/calculatedValues/Parameters.Active\")\n\tif active[0].value \u003d\u003d 1: \n\t\tsystem.perspective.closeDock(id\u003d\"licenseBar\")"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 50,
+      "width": 1920
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Label"
+        },
+        "position": {
+          "basis": "32px",
+          "grow": 1
+        },
+        "props": {
+          "style": {
+            "backgroundColor": "#FF0000",
+            "color": "#FFFF00",
+            "fontSize": 24,
+            "fontWeight": "bold",
+            "overflow": "visible",
+            "overflowX": "visible",
+            "overflowY": "visible",
+            "textAlign": "center"
+          },
+          "text": "THIS INSTANCE OF ELEV8MES IS UNLICENSED. SOME FUNCTIONS MAY BE RESTRICTED OR INOPERABLE. PLEASE REACH OUT TO YOUR GPA PARTNER TO RESOLVE."
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "overflow": "visible"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

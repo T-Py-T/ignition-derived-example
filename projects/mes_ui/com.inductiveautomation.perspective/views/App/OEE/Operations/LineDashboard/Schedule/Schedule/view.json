@@ -1,0 +1,771 @@
+{
+  "custom": {
+    "LineID": 18,
+    "LineSchedule": null,
+    "RunID": 0,
+    "SelectedRowData": "",
+    "currentJob": "",
+    "eqPath": "Fiberon/1NL/PE Extrusion/Line 17",
+    "matName": null,
+    "nextJob": "",
+    "tagPath": "Fiberon/1NL/PE Extrusion/Line 17"
+  },
+  "params": {},
+  "propConfig": {
+    "custom.LineID": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.custom.tagPath}"
+          },
+          "tagPath": "{1}/OEE_Events/lineID"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.LineSchedule": {
+      "binding": {
+        "config": {
+          "parameters": {
+            "lineID": "{view.custom.LineID}"
+          },
+          "queryPath": "app/Schedule/getLineSchedule"
+        },
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "custom.RunID": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.custom.eqPath}"
+          },
+          "tagPath": "{1}/jobs/currentJob/runId"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.SelectedRowData": {
+      "binding": {
+        "config": {
+          "path": "/root/Main/ScheduleTable.props.params.Params.RowData"
+        },
+        "transforms": [
+          {
+            "expression": "if(len({value}) \u003e 0, {value}, \"\")",
+            "type": "expression"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.currentJob": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "0": "{view.custom.eqPath}"
+          },
+          "tagPath": "[default]{0}/jobs/currentJob/workOrder"
+        },
+        "overlayOptOut": true,
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.eqPath": {
+      "binding": {
+        "config": {
+          "path": "session.custom.EqPath"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.matName": {
+      "binding": {
+        "config": {
+          "path": "/root/main/Table.props.selection.data[0].ProductNumber"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.nextJob": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "0": "{view.custom.eqPath}"
+          },
+          "tagPath": "[default]{0}/jobs/nextJob/workOrder"
+        },
+        "overlayOptOut": true,
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.tagPath": {
+      "binding": {
+        "config": {
+          "path": "view.custom.eqPath"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 720,
+      "width": 1000
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "basis": "100%"
+            },
+            "props": {
+              "text": "Schedule",
+              "textStyle": {
+                "classes": "Text/Heading"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Header"
+        },
+        "position": {
+          "basis": "50px",
+          "display": false
+        },
+        "props": {
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "ScheduleTable"
+            },
+            "position": {
+              "basis": "320px",
+              "grow": 1
+            },
+            "props": {
+              "params": {
+                "EqPath": "value",
+                "HideTitle": false,
+                "Icon": "",
+                "IconDisplay": true,
+                "Params": {
+                  "EqPath": "value",
+                  "RowData": [],
+                  "State": "value",
+                  "TagPath": "value",
+                  "TagProvider": "value"
+                },
+                "Path": "App/OEE/Operations/LineDashboard/Schedule/Embedded/ScheduleTable",
+                "Provider": "value",
+                "SizeBasis": "value",
+                "TagPath": "value",
+                "Title": "Schedule",
+                "Type": "value",
+                "useDefaultHeight": false,
+                "useDefaultWidth": false
+              },
+              "path": "GlobalComponents/Cards/Card"
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "Main"
+        },
+        "position": {
+          "basis": "200px",
+          "grow": 1
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginAll",
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "page": "/operations/operator_dashboard"
+                      },
+                      "scope": "C",
+                      "type": "nav"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "returnToProduction"
+                },
+                "position": {
+                  "basis": "120px",
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "position.display": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.currentJob"
+                      },
+                      "enabled": false,
+                      "transforms": [
+                        {
+                          "expression": "{value}!\u003d\u0027\u0027",
+                          "type": "expression"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "disabledPopup": {
+                      "message": "Please sign in as quarterback to proceed.",
+                      "messageType": "",
+                      "payload": {},
+                      "title": "Invalid Permissions"
+                    },
+                    "enabled": true,
+                    "hover": false,
+                    "iconPath": "material/save",
+                    "isSelectable": false,
+                    "label": "Return to Production",
+                    "selected": true
+                  },
+                  "path": "GlobalComponents/Buttons/OverheadButton",
+                  "style": {
+                    "marginLeft": "0.5em",
+                    "marginRight": "0.5em"
+                  }
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "page": "/operator/jobSetup"
+                      },
+                      "scope": "C",
+                      "type": "nav"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "returnToJobSetup"
+                },
+                "position": {
+                  "basis": "120px",
+                  "display": false,
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "position.display": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.nextJob"
+                      },
+                      "enabled": false,
+                      "transforms": [
+                        {
+                          "expression": "{value}!\u003d\u0027\u0027",
+                          "type": "expression"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "disabledPopup": {
+                      "message": "Please sign in as quarterback to proceed.",
+                      "messageType": "",
+                      "payload": {},
+                      "title": "Invalid Permissions"
+                    },
+                    "enabled": true,
+                    "hover": false,
+                    "iconPath": "material/save",
+                    "isSelectable": false,
+                    "label": "Return to Run Setup",
+                    "selected": true
+                  },
+                  "path": "GlobalComponents/Buttons/OverheadButton",
+                  "style": {
+                    "marginLeft": "0.5em",
+                    "marginRight": "0.5em"
+                  }
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "Left"
+            },
+            "position": {
+              "basis": "280px",
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\tif self.props.params.enabled:\n\t\tviewPath \u003d \u0027app/operator/main/schedule/moveLines\u0027\n\t\tparams \u003d {}\n\t\tparams[\u0027matName\u0027] \u003d self.view.custom.matName\n\t\tparams[\u0027opSchedUUID\u0027] \u003d self.view.custom.opSchedUUID\n\t\tparams[\u0027qty\u0027] \u003d self.view.custom.qty\n\t\t\n\t\tid \u003d \u0027moveLines\u0027\n\t\tsystem.perspective.openPopup(id,viewPath,params,showCloseIcon\u003dFalse,draggable\u003dFalse,resizable\u003dFalse,modal\u003dTrue,overlayDismiss\u003dTrue)"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "moveLines"
+                },
+                "position": {
+                  "basis": "120px",
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "props.params.disabledPopup.message": {
+                    "binding": {
+                      "config": {
+                        "expression": "if({view.custom.opSchedUUID} \u003d \u0027\u0027, \u0027Please Select a Planned Order to move lines.\u0027,\r\nif({view.custom.active}, \u0027Cannot move current Planned Order.\u0027,\r\nif({view.custom.selectedWo} \u003d {view.custom.nextJob}, \u0027Cannot move Planned Order when set as Next Run.\u0027,\u0027\u0027)))\r\n"
+                      },
+                      "type": "expr"
+                    }
+                  },
+                  "props.params.disabledPopup.title": {
+                    "binding": {
+                      "config": {
+                        "expression": "if({view.custom.opSchedUUID} \u003d \u0027\u0027, \u0027Select Planned Order\u0027,\r\nif({view.custom.active}, \u0027Invalid Planned Order\u0027,\r\nif({view.custom.selectedWo} \u003d {view.custom.nextJob}, \u0027Invalid Planned Order\u0027,\u0027\u0027)))\r\n"
+                      },
+                      "type": "expr"
+                    }
+                  },
+                  "props.params.enabled": {
+                    "binding": {
+                      "config": {
+                        "expression": "{view.custom.opSchedUUID} !\u003d \u0027\u0027\r\n\u0026\u0026!{view.custom.active}\r\n\u0026\u0026 !({view.custom.selectedWo} \u003d {view.custom.nextJob})"
+                      },
+                      "overlayOptOut": true,
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "disabledPopup": {
+                      "messageType": "",
+                      "payload": {}
+                    },
+                    "hover": false,
+                    "iconPath": "material/save",
+                    "isSelectable": false,
+                    "label": "Move Lines",
+                    "selected": true
+                  },
+                  "path": "GlobalComponents/Buttons/OverheadButton",
+                  "style": {
+                    "marginLeft": "0.5em",
+                    "marginRight": "0.5em"
+                  }
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\tif self.props.params.enabled:\n\t\tviewPath \u003d \u0027app/operator/main/modals/workOrderDetails\u0027\n\t\tparams \u003d {}\n\t\tparams[\u0027woNumber\u0027] \u003d self.view.custom.selectedWo\n\t\t\n\t\tid \u003d \u0027workOrderDetails\u0027\n\t\tsystem.perspective.openPopup(id,viewPath,params,showCloseIcon\u003dFalse,draggable\u003dFalse,resizable\u003dFalse,modal\u003dTrue,overlayDismiss\u003dTrue)"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "orderDetails"
+                },
+                "position": {
+                  "basis": "120px",
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "props.params.enabled": {
+                    "binding": {
+                      "config": {
+                        "expression": "{view.custom.opSchedUUID} !\u003d \u0027\u0027"
+                      },
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "disabledPopup": {
+                      "message": "Please select a Planned Order to view details.",
+                      "messageType": "",
+                      "payload": {},
+                      "title": "Select Planned Order"
+                    },
+                    "hover": false,
+                    "iconPath": "material/save",
+                    "isSelectable": false,
+                    "label": "Order Details",
+                    "selected": true
+                  },
+                  "path": "GlobalComponents/Buttons/OverheadButton",
+                  "style": {
+                    "marginLeft": "0.5em",
+                    "marginRight": "0.5em"
+                  }
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "draggable": false,
+                        "id": "people",
+                        "modal": true,
+                        "overlayDismiss": true,
+                        "resizable": false,
+                        "showCloseIcon": false,
+                        "type": "toggle",
+                        "viewPath": "app/operator/main/modals/people"
+                      },
+                      "scope": "C",
+                      "type": "popup"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "people"
+                },
+                "position": {
+                  "basis": "120px",
+                  "shrink": 0
+                },
+                "props": {
+                  "params": {
+                    "disabledPopup": {
+                      "message": "Please sign in as quarterback to proceed.",
+                      "messageType": "",
+                      "payload": {},
+                      "title": "Invalid Permissions"
+                    },
+                    "enabled": true,
+                    "hover": true,
+                    "iconPath": "material/save",
+                    "isSelectable": false,
+                    "label": "People",
+                    "selected": true
+                  },
+                  "path": "GlobalComponents/Buttons/OverheadButton",
+                  "style": {
+                    "marginLeft": "0.5em",
+                    "marginRight": "0.5em"
+                  }
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "draggable": false,
+                        "id": "troubleCall",
+                        "modal": true,
+                        "overlayDismiss": true,
+                        "resizable": false,
+                        "showCloseIcon": false,
+                        "type": "open",
+                        "viewParams": {
+                          "eqPath": "{view.params.eqPath}"
+                        },
+                        "viewPath": "app/operator/main/modals/troubleCall/mainView",
+                        "viewportBound": false
+                      },
+                      "scope": "C",
+                      "type": "popup"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "troubleCall",
+                  "visible": false
+                },
+                "position": {
+                  "basis": "100px",
+                  "shrink": 0
+                },
+                "props": {
+                  "params": {
+                    "borderColor": "#FFAC47",
+                    "borderStyle": "solid",
+                    "borderWidth": 4,
+                    "disabledPopup": {
+                      "message": "Please sign in as quarterback to proceed.",
+                      "messageType": "",
+                      "payload": {},
+                      "title": "Invalid Permissions"
+                    },
+                    "enabled": true,
+                    "hover": false,
+                    "iconPath": "material/save",
+                    "isSelectable": false,
+                    "label": "Trouble Call",
+                    "selected": true,
+                    "styleClass": "Color/Border/troublecall_border"
+                  },
+                  "path": "GlobalComponents/Buttons/OverheadButton",
+                  "style": {
+                    "marginLeft": "0.5em",
+                    "marginRight": "0.5em",
+                    "width": "100px"
+                  }
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "Middle"
+            },
+            "position": {
+              "display": false,
+              "grow": 1,
+              "shrink": 0
+            },
+            "props": {
+              "justify": "center",
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "events": {
+                  "dom": {
+                    "onClick": [
+                      {
+                        "config": {
+                          "draggable": true,
+                          "id": "scheduleRun",
+                          "modal": true,
+                          "overlayDismiss": false,
+                          "resizable": true,
+                          "showCloseIcon": false,
+                          "title": "Schedule Run",
+                          "type": "open",
+                          "viewParams": {
+                            "CanEdit": "true",
+                            "ModalName": "scheduleRun",
+                            "RowData": "{view.custom.SelectedRowData}"
+                          },
+                          "viewPath": "App/OEE/Operations/LineDashboard/Schedule/Embedded/Popups/JobSetup",
+                          "viewportBound": false
+                        },
+                        "enabled": false,
+                        "scope": "C",
+                        "type": "popup"
+                      },
+                      {
+                        "config": {
+                          "script": "\tlogger \u003d system.util.getLogger(\u0027setNextRun\u0027)\n\tqueryPath \u003d \u0027app/Schedule/addRun\u0027\n\ttagPath \u003d self.view.custom.eqPath\n\tjobPath \u003d tagPath + \u0027/jobs/currentJob\u0027\n\tmodalPath \u003d \u0027App/OEE/Operations/LineDashboard/Schedule/Embedded/Popups/JobSetup\u0027\n\tmodalName \u003d \u0027scheduleRun\u0027\n\tscheduleID \u003d self.view.custom.SelectedRowData[0].ID\n\tselectedRowData \u003dself.parent.parent.parent.getChild(\"Main/ScheduleTable\").props.params.Params.RowData\n\tparams \u003d { \u0027scheduleID\u0027: scheduleID }\n\tmodalParams \u003d {\n\t\t\u0027CanEdit\u0027: True,\n\t\t\u0027ModalName\u0027: modalName,\n\t\t\u0027RowData\u0027: self.view.custom.SelectedRowData\n\t}\n\t\n\terrorParams \u003d {\n\t\t\"ModalName\": \"ErrorModal\",\n\t\t\"ErrorMessage\": \"Error. Please select a row first!\"\n\t}\n\t\n\ttry:\n\t\tif len(selectedRowData) \u003e 0:\n\t\t\tsystem.db.runNamedQuery(queryPath, params)\n\t\t\tmes.schedule.jobs.copyJob(tagPath)\n\t\t\tmes.schedule.jobs.clearJob(jobPath)\n\t\t\tmes.schedule.jobs.updateJob(scheduleID, tagPath, \u0027currentJob\u0027)\n\t\t\tsystem.perspective.openPopup(modalName, modalPath, modalParams, modal\u003dTrue, title\u003d\"Job Setup\")\n\t\telse:\n\t\t\tsystem.perspective.openPopup(\"ErrorModal\", \n\t\t\t\"GlobalComponents/Modals/ErrorModal\", \n\t\t\terrorParams, \n\t\t\ttitle\u003d\"Job Setup\", \n\t\t\tmodal\u003dTrue)\t\t\n\texcept Exception as e:\n\t\tmsg \u003d \u0027There was an error: \u0027 + str(e)\n\t\tlogger.warn(msg)\n\t\tsystem.perspective.print(\u0027Error\u0027)"
+                        },
+                        "scope": "G",
+                        "type": "script"
+                      }
+                    ]
+                  }
+                },
+                "meta": {
+                  "name": "SetNextJob"
+                },
+                "position": {
+                  "basis": "120px",
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "position.display": {
+                    "binding": {
+                      "config": {
+                        "expression": "if({view.custom.RunID} \u003d 0 || isNull({view.custom.RunID}), \r\n\ttrue, \r\n\tfalse\r\n)"
+                      },
+                      "type": "expr"
+                    }
+                  },
+                  "props.params.enabled": {
+                    "binding": {
+                      "config": {
+                        "expression": "if({view.custom.SelectedRowData} !\u003d \"\", true, false)"
+                      },
+                      "overlayOptOut": true,
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "hover": false,
+                    "iconPath": "material/save",
+                    "isSelectable": false,
+                    "label": "Set Next Run",
+                    "selected": false
+                  },
+                  "path": "GlobalComponents/Buttons/OverheadButton",
+                  "style": {
+                    "marginLeft": "0.5em",
+                    "marginRight": "0.5em"
+                  }
+                },
+                "scripts": {
+                  "customMethods": [
+                    {
+                      "name": "proceed",
+                      "params": [],
+                      "script": "\t# implement your method here\n\topSchedUUID \u003d self.view.custom.opSchedUUID\n\ttagPath \u003d self.view.custom.tagPath\n\tworkOrderName \u003d str(self.view.custom.selectedWo)\n\tmes.schedule.jobs.setNextJob(tagPath, opSchedUUID, workOrderName)\n\tpageUrl \u003d \u0027/operator/jobSetup\u0027\n\tsystem.perspective.navigate(page \u003d pageUrl)"
+                    }
+                  ],
+                  "extensionFunctions": null,
+                  "messageHandlers": [
+                    {
+                      "messageType": "proceed",
+                      "pageScope": true,
+                      "script": "\t# implement your handler here\n\t\n\tself.proceed()",
+                      "sessionScope": false,
+                      "viewScope": false
+                    }
+                  ]
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "Right"
+            },
+            "position": {
+              "basis": "280px",
+              "shrink": 0
+            },
+            "props": {
+              "justify": "flex-end",
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Buttons"
+        },
+        "position": {
+          "basis": "65px"
+        },
+        "props": {
+          "justify": "space-between",
+          "style": {
+            "overflow": "hidden",
+            "padding": "1ex"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "events": {
+      "system": {
+        "onStartup": {
+          "config": {
+            "script": "\tself.getChild(\"main\").getChild(\"Table\").props.selection.selectedRow \u003d -1"
+          },
+          "enabled": false,
+          "scope": "G",
+          "type": "script"
+        }
+      }
+    },
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "classes": "Global/MarginAll",
+        "overflow": "hidden"
+      }
+    },
+    "scripts": {
+      "customMethods": [],
+      "extensionFunctions": null,
+      "messageHandlers": [
+        {
+          "messageType": "refresh",
+          "pageScope": true,
+          "script": "\t# implement your handler here\n\tself.view.refreshBinding(\u0027custom.scheduleEntries\u0027)",
+          "sessionScope": false,
+          "viewScope": false
+        }
+      ]
+    },
+    "type": "ia.container.flex"
+  }
+}

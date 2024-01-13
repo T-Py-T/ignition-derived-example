@@ -1,0 +1,130 @@
+{
+  "custom": {},
+  "params": {
+    "icon": "value",
+    "placeholder": "value",
+    "text": "value",
+    "type": "value"
+  },
+  "propConfig": {
+    "params.icon": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.placeholder": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.text": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.type": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 57,
+      "width": 298
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "ViewCanvas"
+        },
+        "position": {
+          "basis": "104px"
+        },
+        "propConfig": {
+          "props.instances[0].viewParams.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.text"
+              },
+              "type": "property"
+            }
+          },
+          "props.instances[0].viewParams.type": {
+            "binding": {
+              "config": {
+                "path": "view.params.type"
+              },
+              "type": "property"
+            }
+          },
+          "props.instances[1].viewParams.icon": {
+            "binding": {
+              "config": {
+                "path": "view.params.icon"
+              },
+              "type": "property"
+            }
+          },
+          "props.instances[1].viewParams.type": {
+            "binding": {
+              "config": {
+                "path": "this.props.instances[0].viewParams.type"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "instances": [
+            {
+              "bottom": "auto",
+              "height": "auto",
+              "left": "0px",
+              "position": "absolute",
+              "right": "auto",
+              "style": {
+                "classes": ""
+              },
+              "top": "0px",
+              "viewParams": {
+                "placeholder": "value"
+              },
+              "viewPath": "StyleGuide/Components/Text/TextField",
+              "width": "auto",
+              "zIndex": "auto"
+            },
+            {
+              "bottom": "auto",
+              "height": "auto",
+              "left": "230px",
+              "position": "relative",
+              "right": "auto",
+              "style": {
+                "classes": ""
+              },
+              "top": "12px",
+              "viewParams": {},
+              "viewPath": "StyleGuide/Components/Icons/IconMain",
+              "width": "auto",
+              "zIndex": "auto"
+            }
+          ],
+          "transitionSettings": {
+            "duration": "1s",
+            "timingFunction": "linear"
+          }
+        },
+        "type": "ia.display.viewcanvas"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "classes": "TextFields/Root"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

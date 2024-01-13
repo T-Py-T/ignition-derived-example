@@ -1,0 +1,1482 @@
+{
+  "custom": {
+    "PartsValues": {},
+    "TestValues": {}
+  },
+  "params": {
+    "TestID": 63,
+    "TestType": "Material Lot Test"
+  },
+  "propConfig": {
+    "custom.PartsValues": {
+      "persistent": true
+    },
+    "custom.PartsValues.Accumulator": {
+      "binding": {
+        "config": {
+          "path": "view.custom.PartsValues.DS"
+        },
+        "transforms": [
+          {
+            "code": "\treturn value.getValueAt(0, \u0027Accumulator\u0027)",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.PartsValues.CreationDate": {
+      "binding": {
+        "config": {
+          "path": "view.custom.PartsValues.DS"
+        },
+        "transforms": [
+          {
+            "code": "\treturn value.getValueAt(0, \u0027CreationTime\u0027)",
+            "type": "script"
+          },
+          {
+            "formatType": "datetime",
+            "formatValue": {
+              "date": "short",
+              "time": "short"
+            },
+            "type": "format"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.PartsValues.DS": {
+      "binding": {
+        "config": {
+          "expression": "runscript(\u0027mes.trace.sp.getParts\u0027, 0, Null, Null, {view.custom.PartsValues.PartsLabel}, True, Null,Null,Null,Null,False, False)\r\n\r\n//getParts(StartTime \u003d None, EndTime \u003d None, Label \u003d None, LabelExactMatch \u003d False, ProductCodeID \u003d None, Workorder \u003d None, InventoryID \u003d None, AccumulatorID \u003d None, GetCompletedOnly \u003d False, GetWIPOnly \u003d False):\r\n"
+        },
+        "type": "expr"
+      }
+    },
+    "custom.PartsValues.ID": {
+      "binding": {
+        "config": {
+          "path": "view.custom.PartsValues.DS"
+        },
+        "transforms": [
+          {
+            "code": "\treturn value.getValueAt(0, \u0027ID\u0027)",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.PartsValues.Inventory": {
+      "binding": {
+        "config": {
+          "path": "view.custom.PartsValues.DS"
+        },
+        "transforms": [
+          {
+            "code": "\treturn value.getValueAt(0, \u0027Inventory\u0027)",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.PartsValues.PartValid": {
+      "binding": {
+        "config": {
+          "path": "view.custom.PartsValues.DS"
+        },
+        "transforms": [
+          {
+            "expression": "if(len({value}) \u003e 0, true, false)",
+            "type": "expression"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.PartsValues.PartsLabel": {
+      "binding": {
+        "config": {
+          "path": "/root/Top/Right/Data/PartLabelValue.props.text"
+        },
+        "type": "property"
+      }
+    },
+    "custom.PartsValues.ProductCode": {
+      "binding": {
+        "config": {
+          "path": "view.custom.PartsValues.DS"
+        },
+        "transforms": [
+          {
+            "code": "\treturn value.getValueAt(0, \u0027ProductCode\u0027)",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.PartsValues.WorkOrder": {
+      "binding": {
+        "config": {
+          "path": "view.custom.PartsValues.DS"
+        },
+        "transforms": [
+          {
+            "code": "\treturn value.getValueAt(0, \u0027WorkOrder\u0027)",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.TestValues": {
+      "persistent": true
+    },
+    "custom.TestValues.DS": {
+      "binding": {
+        "config": {
+          "expression": "runscript(\u0027mes.quality.sp.getPartTest\u0027, 0, {view.custom.TestValues.TestID})"
+        },
+        "type": "expr"
+      }
+    },
+    "custom.TestValues.DateCreated": {
+      "binding": {
+        "config": {
+          "expression": "runscript(\u0027mes.quality.sp.getPartTest\u0027, 0, {view.custom.TestValues.TestID})"
+        },
+        "transforms": [
+          {
+            "code": "\tret \u003d value.getValueAt(0, \u0027DateCreated\u0027)\n\treturn ret\n\t",
+            "type": "script"
+          }
+        ],
+        "type": "expr"
+      }
+    },
+    "custom.TestValues.IsPass": {
+      "binding": {
+        "config": {
+          "path": "view.custom.TestValues.DS"
+        },
+        "transforms": [
+          {
+            "code": "\treturn value.getValueAt(0, \u0027IsPass\u0027)",
+            "type": "script"
+          },
+          {
+            "expression": "if({value} \u003d Null, false, true)",
+            "type": "expression"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.TestValues.TestID": {
+      "binding": {
+        "config": {
+          "path": "view.params.TestID"
+        },
+        "type": "property"
+      }
+    },
+    "params.TestID": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.TestType": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 632,
+      "width": 995
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label1"
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                  },
+                  "text": "Test:",
+                  "textStyle": {
+                    "fontWeight": "bold",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "Value1"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.TestValues.TestID"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                  },
+                  "textStyle": {
+                    "classes": "TextFields/TextTitle",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "Label2"
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                  },
+                  "text": "Date:",
+                  "textStyle": {
+                    "fontWeight": "bold",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "Value2"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.TestValues.DateCreated"
+                      },
+                      "transforms": [
+                        {
+                          "formatType": "datetime",
+                          "formatValue": {
+                            "date": "short",
+                            "time": "short"
+                          },
+                          "type": "format"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                  },
+                  "textStyle": {
+                    "classes": "TextFields/TextTitle",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "Label3"
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                  },
+                  "text": "Username:",
+                  "textStyle": {
+                    "fontWeight": "bold",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "Value3"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "session.props.auth.user.userName"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                  },
+                  "textStyle": {
+                    "classes": "TextFields/TextTitle",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "Left"
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginAll"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "LeftLabel"
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                  },
+                  "text": "Notes:",
+                  "textStyle": {
+                    "fontWeight": "bold",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "TextArea"
+                },
+                "position": {
+                  "basis": "240px"
+                },
+                "type": "ia.input.text-area"
+              }
+            ],
+            "meta": {
+              "name": "Middle"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginAll"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "title"
+                    },
+                    "props": {
+                      "alignVertical": "top",
+                      "style": {
+                        "classes": "Text/Heading",
+                        "marginBottom": 10
+                      },
+                      "text": "References:",
+                      "textStyle": {
+                        "color": "--callToAction",
+                        "textAlign": "center"
+                      }
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "children": [
+                      {
+                        "meta": {
+                          "name": "LeftLabel"
+                        },
+                        "position": {
+                          "basis": "50%",
+                          "grow": 1
+                        },
+                        "props": {
+                          "style": {
+                            "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                          },
+                          "text": "ID:",
+                          "textStyle": {
+                            "fontWeight": "bold",
+                            "textAlign": "right"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      },
+                      {
+                        "meta": {
+                          "name": "Value"
+                        },
+                        "position": {
+                          "basis": "50%",
+                          "grow": 1
+                        },
+                        "propConfig": {
+                          "props.text": {
+                            "binding": {
+                              "config": {
+                                "path": "view.custom.PartsValues.ID"
+                              },
+                              "type": "property"
+                            }
+                          }
+                        },
+                        "props": {
+                          "style": {
+                            "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                          },
+                          "textStyle": {
+                            "classes": "TextFields/TextTitle",
+                            "textAlign": "left"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      }
+                    ],
+                    "meta": {
+                      "name": "Item1"
+                    },
+                    "propConfig": {
+                      "position.display": {
+                        "binding": {
+                          "config": {
+                            "path": "view.custom.PartsValues.PartValid"
+                          },
+                          "type": "property"
+                        }
+                      }
+                    },
+                    "type": "ia.container.flex"
+                  },
+                  {
+                    "children": [
+                      {
+                        "meta": {
+                          "name": "LeftLabel"
+                        },
+                        "position": {
+                          "basis": "50%",
+                          "grow": 1
+                        },
+                        "props": {
+                          "style": {
+                            "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                          },
+                          "text": "Accumulator:",
+                          "textStyle": {
+                            "fontWeight": "bold",
+                            "textAlign": "right"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      },
+                      {
+                        "meta": {
+                          "name": "Value"
+                        },
+                        "position": {
+                          "basis": "50%",
+                          "grow": 1
+                        },
+                        "propConfig": {
+                          "props.text": {
+                            "binding": {
+                              "config": {
+                                "path": "view.custom.PartsValues.Accumulator"
+                              },
+                              "type": "property"
+                            }
+                          }
+                        },
+                        "props": {
+                          "style": {
+                            "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                          },
+                          "textStyle": {
+                            "classes": "TextFields/TextTitle",
+                            "textAlign": "left"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      }
+                    ],
+                    "meta": {
+                      "name": "Item2"
+                    },
+                    "propConfig": {
+                      "position.display": {
+                        "binding": {
+                          "config": {
+                            "path": "view.custom.PartsValues.PartValid"
+                          },
+                          "type": "property"
+                        }
+                      }
+                    },
+                    "type": "ia.container.flex"
+                  },
+                  {
+                    "children": [
+                      {
+                        "meta": {
+                          "name": "LeftLabel"
+                        },
+                        "position": {
+                          "basis": "50%",
+                          "grow": 1
+                        },
+                        "props": {
+                          "style": {
+                            "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                          },
+                          "text": "Inventory:",
+                          "textStyle": {
+                            "fontWeight": "bold",
+                            "textAlign": "right"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      },
+                      {
+                        "meta": {
+                          "name": "Value"
+                        },
+                        "position": {
+                          "basis": "50%",
+                          "grow": 1
+                        },
+                        "propConfig": {
+                          "props.text": {
+                            "binding": {
+                              "config": {
+                                "path": "view.custom.PartsValues.Inventory"
+                              },
+                              "type": "property"
+                            }
+                          }
+                        },
+                        "props": {
+                          "style": {
+                            "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                          },
+                          "textStyle": {
+                            "classes": "TextFields/TextTitle",
+                            "textAlign": "left"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      }
+                    ],
+                    "meta": {
+                      "name": "Item3"
+                    },
+                    "propConfig": {
+                      "position.display": {
+                        "binding": {
+                          "config": {
+                            "path": "view.custom.PartsValues.PartValid"
+                          },
+                          "type": "property"
+                        }
+                      }
+                    },
+                    "type": "ia.container.flex"
+                  },
+                  {
+                    "children": [
+                      {
+                        "meta": {
+                          "name": "LeftLabel"
+                        },
+                        "position": {
+                          "basis": "50%",
+                          "grow": 1
+                        },
+                        "props": {
+                          "style": {
+                            "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                          },
+                          "text": "Product Code:",
+                          "textStyle": {
+                            "fontWeight": "bold",
+                            "textAlign": "right"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      },
+                      {
+                        "meta": {
+                          "name": "Value"
+                        },
+                        "position": {
+                          "basis": "50%",
+                          "grow": 1
+                        },
+                        "propConfig": {
+                          "props.text": {
+                            "binding": {
+                              "config": {
+                                "path": "view.custom.PartsValues.ProductCode"
+                              },
+                              "type": "property"
+                            }
+                          }
+                        },
+                        "props": {
+                          "style": {
+                            "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                          },
+                          "textStyle": {
+                            "classes": "TextFields/TextTitle",
+                            "textAlign": "left"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      }
+                    ],
+                    "meta": {
+                      "name": "Item5"
+                    },
+                    "propConfig": {
+                      "position.display": {
+                        "binding": {
+                          "config": {
+                            "path": "view.custom.PartsValues.PartValid"
+                          },
+                          "type": "property"
+                        }
+                      }
+                    },
+                    "type": "ia.container.flex"
+                  },
+                  {
+                    "children": [
+                      {
+                        "meta": {
+                          "name": "LeftLabel"
+                        },
+                        "position": {
+                          "basis": "50%",
+                          "grow": 1
+                        },
+                        "props": {
+                          "style": {
+                            "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                          },
+                          "text": "Creation Date:",
+                          "textStyle": {
+                            "fontWeight": "bold",
+                            "textAlign": "right"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      },
+                      {
+                        "meta": {
+                          "name": "Value"
+                        },
+                        "position": {
+                          "basis": "50%",
+                          "grow": 1
+                        },
+                        "propConfig": {
+                          "props.text": {
+                            "binding": {
+                              "config": {
+                                "path": "view.custom.PartsValues.CreationDate"
+                              },
+                              "type": "property"
+                            }
+                          }
+                        },
+                        "props": {
+                          "style": {
+                            "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                          },
+                          "textStyle": {
+                            "classes": "TextFields/TextTitle",
+                            "textAlign": "left"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      }
+                    ],
+                    "meta": {
+                      "name": "Item4"
+                    },
+                    "propConfig": {
+                      "position.display": {
+                        "binding": {
+                          "config": {
+                            "path": "view.custom.PartsValues.PartValid"
+                          },
+                          "type": "property"
+                        }
+                      }
+                    },
+                    "type": "ia.container.flex"
+                  },
+                  {
+                    "children": [
+                      {
+                        "meta": {
+                          "name": "LeftLabel"
+                        },
+                        "position": {
+                          "basis": "50%",
+                          "grow": 1
+                        },
+                        "props": {
+                          "style": {
+                            "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                          },
+                          "text": "Work Order:",
+                          "textStyle": {
+                            "fontWeight": "bold",
+                            "textAlign": "right"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      },
+                      {
+                        "meta": {
+                          "name": "Value"
+                        },
+                        "position": {
+                          "basis": "50%",
+                          "grow": 1
+                        },
+                        "propConfig": {
+                          "props.text": {
+                            "binding": {
+                              "config": {
+                                "path": "view.custom.PartsValues.WorkOrder"
+                              },
+                              "type": "property"
+                            }
+                          }
+                        },
+                        "props": {
+                          "style": {
+                            "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                          },
+                          "textStyle": {
+                            "classes": "TextFields/TextTitle",
+                            "textAlign": "left"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      }
+                    ],
+                    "meta": {
+                      "name": "Item6"
+                    },
+                    "propConfig": {
+                      "position.display": {
+                        "binding": {
+                          "config": {
+                            "path": "view.custom.PartsValues.PartValid"
+                          },
+                          "type": "property"
+                        }
+                      }
+                    },
+                    "type": "ia.container.flex"
+                  },
+                  {
+                    "meta": {
+                      "name": "Label"
+                    },
+                    "propConfig": {
+                      "position.display": {
+                        "binding": {
+                          "config": {
+                            "path": "view.custom.PartsValues.PartValid"
+                          },
+                          "transforms": [
+                            {
+                              "expression": "!{value}",
+                              "type": "expression"
+                            }
+                          ],
+                          "type": "property"
+                        }
+                      },
+                      "props.text": {
+                        "binding": {
+                          "config": {
+                            "expression": "if({.../Data/PartLabelValue.props.text} \u003d \u0027\u0027 || {.../Data/PartLabelValue.props.text} \u003d None, \u0027Please enter a Part Label.\u0027, \u0027The selected part label is not in the database.\u0027)"
+                          },
+                          "type": "expr"
+                        }
+                      }
+                    },
+                    "props": {
+                      "textStyle": {
+                        "textAlign": "center"
+                      }
+                    },
+                    "type": "ia.display.label"
+                  }
+                ],
+                "meta": {
+                  "name": "References"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "props": {
+                  "direction": "column"
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "PartLabel"
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                      },
+                      "text": "Part Label:",
+                      "textStyle": {
+                        "classes": "TextFields/TextTitle",
+                        "textAlign": "left"
+                      }
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "meta": {
+                      "name": "PartLabelValue"
+                    },
+                    "position": {
+                      "basis": "42px"
+                    },
+                    "props": {
+                      "placeholder": "Enter Part Label....",
+                      "style": {
+                        "classes": "TextFields/TextField"
+                      }
+                    },
+                    "type": "ia.input.text-field"
+                  }
+                ],
+                "meta": {
+                  "name": "Data"
+                },
+                "props": {
+                  "direction": "column"
+                },
+                "type": "ia.container.flex"
+              }
+            ],
+            "meta": {
+              "name": "Right"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginAll"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Top"
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginAll"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "AttributeLabel1"
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                  },
+                  "text": "Attribute 1:",
+                  "textStyle": {
+                    "classes": "TextFields/TextTitle",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "AttributeValue1"
+                },
+                "position": {
+                  "basis": "32px"
+                },
+                "propConfig": {
+                  "props.value": {
+                    "binding": {
+                      "config": {
+                        "expression": "Null"
+                      },
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "align": "left",
+                  "format": "0,0",
+                  "placeholder": "Please Enter a Number....",
+                  "style": {
+                    "classes": "TextFields/TextField"
+                  }
+                },
+                "type": "ia.input.numeric-entry-field"
+              },
+              {
+                "meta": {
+                  "name": "AttributeLabel2"
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                  },
+                  "text": "Attribute 2:",
+                  "textStyle": {
+                    "classes": "TextFields/TextTitle",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "AttributeValue2"
+                },
+                "position": {
+                  "basis": "32px"
+                },
+                "props": {
+                  "align": "left",
+                  "format": "0,0",
+                  "placeholder": "Please Enter a Number....",
+                  "style": {
+                    "classes": "TextFields/TextField"
+                  },
+                  "value": null
+                },
+                "type": "ia.input.numeric-entry-field"
+              },
+              {
+                "meta": {
+                  "name": "AttributeLabel3"
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                  },
+                  "text": "Attribute 3:",
+                  "textStyle": {
+                    "classes": "TextFields/TextTitle",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "AttributeValue3"
+                },
+                "position": {
+                  "basis": "32px"
+                },
+                "props": {
+                  "align": "left",
+                  "placeholder": "Please Enter a Number....",
+                  "style": {
+                    "classes": "TextFields/TextField"
+                  },
+                  "value": null
+                },
+                "type": "ia.input.numeric-entry-field"
+              },
+              {
+                "meta": {
+                  "name": "AttributeLabel4"
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                  },
+                  "text": "Attribute 4:",
+                  "textStyle": {
+                    "classes": "TextFields/TextTitle",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "AttributeValue4"
+                },
+                "position": {
+                  "basis": "32px"
+                },
+                "props": {
+                  "align": "left",
+                  "format": "0,0",
+                  "placeholder": "Please Enter a Number....",
+                  "style": {
+                    "classes": "TextFields/TextField"
+                  },
+                  "value": null
+                },
+                "type": "ia.input.numeric-entry-field"
+              },
+              {
+                "meta": {
+                  "name": "AttributeLabel5"
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                  },
+                  "text": "Attribute 5:",
+                  "textStyle": {
+                    "classes": "TextFields/TextTitle",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "AttributeValue5"
+                },
+                "position": {
+                  "basis": "32px"
+                },
+                "props": {
+                  "align": "left",
+                  "format": "0,0",
+                  "placeholder": "Please Enter a Number....",
+                  "style": {
+                    "classes": "TextFields/TextField"
+                  },
+                  "value": null
+                },
+                "type": "ia.input.numeric-entry-field"
+              }
+            ],
+            "meta": {
+              "name": "Left"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginAll",
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "AttributeLabel6"
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                  },
+                  "text": "Attribute 6:",
+                  "textStyle": {
+                    "classes": "TextFields/TextTitle",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "AttributeValue6"
+                },
+                "position": {
+                  "basis": "32px"
+                },
+                "props": {
+                  "style": {
+                    "classes": "TextFields/TextField"
+                  },
+                  "text": "Attribute 6 Value"
+                },
+                "type": "ia.input.checkbox"
+              },
+              {
+                "meta": {
+                  "name": "AttributeLabel7"
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                  },
+                  "text": "Attribute 7:",
+                  "textStyle": {
+                    "classes": "TextFields/TextTitle",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "AttributeValue7"
+                },
+                "position": {
+                  "basis": "32px"
+                },
+                "props": {
+                  "style": {
+                    "classes": "TextFields/TextField"
+                  },
+                  "text": "Attribute 7 Value"
+                },
+                "type": "ia.input.checkbox"
+              },
+              {
+                "meta": {
+                  "name": "AttributeLabel8"
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                  },
+                  "text": "Attribute 8:",
+                  "textStyle": {
+                    "classes": "TextFields/TextTitle",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "AttributeValue8"
+                },
+                "position": {
+                  "basis": "32px"
+                },
+                "props": {
+                  "style": {
+                    "classes": "TextFields/TextField"
+                  },
+                  "text": "Attribute 8 Value"
+                },
+                "type": "ia.input.checkbox"
+              },
+              {
+                "meta": {
+                  "name": "AttributeLabel9"
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                  },
+                  "text": "Attribute 9:",
+                  "textStyle": {
+                    "classes": "TextFields/TextTitle",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "TextField"
+                },
+                "position": {
+                  "basis": "32px"
+                },
+                "props": {
+                  "placeholder": "Enter Text Here....",
+                  "style": {
+                    "classes": "TextFields/TextField"
+                  }
+                },
+                "type": "ia.input.text-field"
+              },
+              {
+                "meta": {
+                  "name": "AttributeLabel10"
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+                  },
+                  "text": "Attribute 10:",
+                  "textStyle": {
+                    "classes": "TextFields/TextTitle",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "AttributeValue10"
+                },
+                "position": {
+                  "basis": "32px"
+                },
+                "propConfig": {
+                  "props.value": {
+                    "binding": {
+                      "config": {
+                        "expression": "Null"
+                      },
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "align": "left",
+                  "format": "0,0",
+                  "placeholder": "Please Enter a Number....",
+                  "style": {
+                    "classes": "TextFields/TextField"
+                  }
+                },
+                "type": "ia.input.numeric-entry-field"
+              }
+            ],
+            "meta": {
+              "name": "Right"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginAll",
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Bottom"
+        },
+        "position": {
+          "grow": 1
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\tTestID \u003d self.view.custom.TestValues.TestID\n\tPartID \u003d self.view.custom.PartsValues.ID\n\tTestedBy \u003d self.session.props.auth.user.userName\n\tIsPass \u003d self.view.custom.TestValues.IsPass\n\tNotes \u003d self.parent.parent.parent.getChild(\"Top\").getChild(\"Middle\").getChild(\"TextArea\").props.text\n\tAttribute01 \u003d self.parent.parent.parent.getChild(\"Bottom\").getChild(\"Left\").getChild(\"AttributeValue1\").props.value\n\tAttribute02 \u003d self.parent.parent.parent.getChild(\"Bottom\").getChild(\"Left\").getChild(\"AttributeValue2\").props.value\n\tAttribute03 \u003d self.parent.parent.parent.getChild(\"Bottom\").getChild(\"Left\").getChild(\"AttributeValue3\").props.value\n\tAttribute04 \u003d self.parent.parent.parent.getChild(\"Bottom\").getChild(\"Left\").getChild(\"AttributeValue4\").props.value\n\tAttribute05 \u003d self.parent.parent.parent.getChild(\"Bottom\").getChild(\"Left\").getChild(\"AttributeValue5\").props.value\n\tAttribute06 \u003d self.parent.parent.parent.getChild(\"Bottom\").getChild(\"Right\").getChild(\"AttributeValue6\").props.selected\n\tAttribute07 \u003d self.parent.parent.parent.getChild(\"Bottom\").getChild(\"Right\").getChild(\"AttributeValue7\").props.selected\n\tAttribute08 \u003d self.parent.parent.parent.getChild(\"Bottom\").getChild(\"Right\").getChild(\"AttributeValue8\").props.selected\n\tAttribute09 \u003d self.parent.parent.parent.getChild(\"Bottom\").getChild(\"Right\").getChild(\"TextField\").props.text\n\tAttribute10 \u003d self.parent.parent.parent.getChild(\"Bottom\").getChild(\"Right\").getChild(\"AttributeValue10\").props.value\n\t\n\tmes.quality.sp.upsertPartTest(TestID \u003dTestID, PartID \u003d PartID, TestedBy \u003d TestedBy, IsPass\u003dIsPass, Notes\u003dNotes,\n\t                   Attribute01\u003dAttribute01, Attribute02\u003dAttribute02, Attribute03\u003dAttribute03,\n\t                   Attribute04\u003dAttribute04, Attribute05\u003dAttribute05, Attribute06\u003dAttribute06,\n\t                   Attribute07\u003dAttribute07, Attribute08\u003dAttribute08, Attribute09\u003dAttribute09,\n\t                   Attribute10\u003dAttribute10)\n\t\n\tmessageType \u003d \u0027refreshQualityTable\u0027 \n\tpayload \u003d {}\n\tsystem.perspective.sendMessage(messageType, payload, view \u003d \u0027session\u0027)\n\n\tsystem.perspective.closePopup(\"AttributeScreen\")"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "SaveButton"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "propConfig": {
+                  "meta.visible": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.PartsValues.PartValid"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "Label": "Save",
+                    "backgroundColor": "value",
+                    "disabledPopup": {
+                      "message": "Please sign in as quarterback to proceed.",
+                      "messageType": "",
+                      "payload": {},
+                      "title": "Invalid Permissions"
+                    },
+                    "enabled": true,
+                    "hover": true,
+                    "iconPath": "material/add",
+                    "isSelectable": false,
+                    "label": "Add",
+                    "selected": true,
+                    "size": "142px",
+                    "type": "normalsuccess"
+                  },
+                  "path": "GlobalComponents/Buttons/Button",
+                  "style": {
+                    "marginRight": "8px"
+                  }
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "Save"
+            },
+            "position": {
+              "basis": "50%",
+              "grow": 1
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\tmessageType \u003d \u0027refreshQualityTable\u0027 \n\tpayload \u003d {}\n\tsystem.perspective.sendMessage(messageType, payload, view \u003d \u0027session\u0027)\n\n\tsystem.perspective.closePopup(\"AttributeScreen\")"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "CancelButton"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "props": {
+                  "params": {
+                    "IconPath": "material/cancel",
+                    "Label": "Cancel",
+                    "backgroundColor": "value",
+                    "disabledPopup": {
+                      "message": "Please sign in as quarterback to proceed.",
+                      "messageType": "",
+                      "payload": {},
+                      "title": "Invalid Permissions"
+                    },
+                    "enabled": true,
+                    "hover": true,
+                    "isSelectable": false,
+                    "label": "Cancel",
+                    "selected": true,
+                    "size": "value",
+                    "type": "normalfail"
+                  },
+                  "path": "GlobalComponents/Buttons/Button"
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "Cancel"
+            },
+            "position": {
+              "basis": "50%",
+              "grow": 1
+            },
+            "props": {
+              "direction": "column"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Footer"
+        },
+        "position": {
+          "basis": "40px",
+          "grow": 1
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginAll"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

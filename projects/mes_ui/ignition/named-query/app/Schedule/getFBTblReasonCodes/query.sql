@@ -1,0 +1,1 @@
+exec [fb].[stp_getTblReasons]

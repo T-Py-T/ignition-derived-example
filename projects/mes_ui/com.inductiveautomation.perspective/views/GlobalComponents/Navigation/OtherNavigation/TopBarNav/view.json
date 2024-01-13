@@ -1,0 +1,124 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 85,
+      "width": 575
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "PrimaryNav"
+        },
+        "position": {
+          "basis": "384px",
+          "grow": 1
+        },
+        "propConfig": {
+          "props.params.navItems[1].label": {
+            "binding": {
+              "config": {
+                "path": "page.props.primaryView"
+              },
+              "transforms": [
+                {
+                  "code": "\tpaths \u003d value.split(\u0027/\u0027)\n\ttoString \u003d str(paths[1])\n\tsystem.perspective.print(toString)\n\treturn \u0027\u0027.join([\u0027 \u0027+ s if s.isupper()  else s for s in toString]).lstrip()\n\t",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "params": {
+            "navItems": [
+              {
+                "enabled": true,
+                "icon": {
+                  "path": "material/home"
+                },
+                "items": [],
+                "label": "Home",
+                "style": {
+                  "classes": ""
+                },
+                "target": "/"
+              },
+              {
+                "enabled": true,
+                "icon": {
+                  "path": "material/pie_chart"
+                },
+                "items": [],
+                "style": {
+                  "classes": ""
+                },
+                "target": ""
+              }
+            ]
+          },
+          "path": "StyleGuide/Navigation/PrimaryNav"
+        },
+        "type": "ia.display.view"
+      },
+      {
+        "meta": {
+          "name": "Theme"
+        },
+        "position": {
+          "basis": "200px"
+        },
+        "props": {
+          "path": "StyleGuide/Components/Icons/DarkMode"
+        },
+        "type": "ia.display.view"
+      },
+      {
+        "meta": {
+          "name": "Dropdown"
+        },
+        "position": {
+          "basis": "120px"
+        },
+        "propConfig": {
+          "props.value": {
+            "binding": {
+              "config": {
+                "bidirectional": true,
+                "path": "session.props.locale"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "options": [
+            {
+              "label": "Espanol",
+              "value": "es-US"
+            },
+            {
+              "label": "English",
+              "value": "en-US"
+            }
+          ],
+          "style": {
+            "classes": "TextFields/TextArea",
+            "marginBottom": "10px",
+            "marginRight": "5px",
+            "marginTop": "10px"
+          }
+        },
+        "type": "ia.input.dropdown"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.flex"
+  }
+}

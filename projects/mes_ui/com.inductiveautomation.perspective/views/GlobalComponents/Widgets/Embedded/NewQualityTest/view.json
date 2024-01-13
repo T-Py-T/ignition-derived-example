@@ -1,0 +1,67 @@
+{
+  "custom": {
+    "True": true
+  },
+  "params": {},
+  "propConfig": {
+    "custom.True": {
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 119,
+      "width": 507
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "draggable": true,
+                "id": "TestType",
+                "modal": true,
+                "overlayDismiss": false,
+                "resizable": true,
+                "showCloseIcon": false,
+                "title": "New Test",
+                "type": "open",
+                "viewParams": {
+                  "fromDashboard": "{view.custom.True}"
+                },
+                "viewPath": "App/Quality/Embedded/AddTest",
+                "viewportBound": false
+              },
+              "scope": "C",
+              "type": "popup"
+            }
+          }
+        },
+        "meta": {
+          "name": "Button_0"
+        },
+        "position": {
+          "basis": "42px"
+        },
+        "props": {
+          "style": {
+            "classes": "Buttons/ButtonStyle Global/MarginAll"
+          },
+          "text": "New Test"
+        },
+        "type": "ia.input.button"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "justify": "center"
+    },
+    "type": "ia.container.flex"
+  }
+}

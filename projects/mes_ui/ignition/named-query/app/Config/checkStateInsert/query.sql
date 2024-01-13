@@ -1,0 +1,1 @@
+SELECT ID FROM dbo.states WHERE ReasonCode = 6 AND LineID = 1

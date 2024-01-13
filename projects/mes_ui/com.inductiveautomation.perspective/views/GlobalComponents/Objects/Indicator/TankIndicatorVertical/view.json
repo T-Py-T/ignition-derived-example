@@ -1,0 +1,337 @@
+{
+  "custom": {
+    "ErrorColors": {
+      "Color": "#E78F8E",
+      "Tank": "#f7dddd"
+    },
+    "SuccessColors": {
+      "Color": "#60d394",
+      "Tank": "#bfedd4 "
+    },
+    "Value": 0,
+    "WarningColors": {
+      "Color": "#ffd97d",
+      "Tank": "#ffefcb"
+    }
+  },
+  "params": {
+    "EqPath": "",
+    "Type": "Perfromance"
+  },
+  "propConfig": {
+    "custom.ErrorColors": {
+      "persistent": true
+    },
+    "custom.SuccessColors": {
+      "persistent": true
+    },
+    "custom.Value": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}",
+            "2": "{view.params.Type}"
+          },
+          "tagPath": "{1}/calculatedValues/oee{2}"
+        },
+        "transforms": [
+          {
+            "expression": "round({value} * 100)",
+            "type": "expression"
+          }
+        ],
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.WarningColors": {
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Type": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 141,
+      "width": 207
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "basis": "400px"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "CylindricalTank"
+            },
+            "position": {
+              "basis": "100%",
+              "grow": 1
+            },
+            "propConfig": {
+              "props.liquidColor": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.Value"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tif value \u003c 50: return self.view.custom.ErrorColors.Color\n\telif value \u003e 75: return self.view.custom.SuccessColors.Color\n\telse: return self.view.custom.WarningColors.Color",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.tankColor": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.Value"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tif value \u003c 50: return self.view.custom.ErrorColors.Tank\n\telif value \u003e 75: return self.view.custom.SuccessColors.Tank\n\telse: return self.view.custom.WarningColors.Tank",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.value": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.Value"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "liquidOpacity": 0.5,
+              "style": {
+                "classes": "Global/MarginBottom",
+                "overflow": "hidden"
+              },
+              "valueDisplay": {
+                "enabled": false
+              },
+              "warningThreshold": 125
+            },
+            "type": "ia.display.cylindrical-tank"
+          },
+          {
+            "meta": {
+              "name": "Label_0"
+            },
+            "position": {
+              "basis": "400px"
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Row1",
+          "visible": false
+        },
+        "position": {
+          "basis": "33.33%",
+          "display": false,
+          "grow": 1
+        },
+        "props": {
+          "justify": "center",
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "CylindricalTank"
+            },
+            "position": {
+              "height": 1.3901,
+              "rotate": {
+                "angle": "90deg"
+              },
+              "width": 0.1789,
+              "x": 0.4516,
+              "y": -0.197
+            },
+            "propConfig": {
+              "props.liquidColor": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.Value"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tif value \u003c 50: return self.view.custom.ErrorColors.Color\n\telif value \u003e 75: return self.view.custom.SuccessColors.Color\n\telse: return self.view.custom.WarningColors.Color",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.tankColor": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.Value"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tif value \u003c 50: return self.view.custom.ErrorColors.Tank\n\telif value \u003e 75: return self.view.custom.SuccessColors.Tank\n\telse: return self.view.custom.WarningColors.Tank",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.value": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.Value"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "liquidOpacity": 0.5,
+              "style": {
+                "classes": "Global/MarginBottom",
+                "overflow": "hidden"
+              },
+              "valueDisplay": {
+                "enabled": false
+              },
+              "warningThreshold": 125
+            },
+            "type": "ia.display.cylindrical-tank"
+          }
+        ],
+        "meta": {
+          "name": "CoordinateContainer"
+        },
+        "position": {
+          "basis": "100px"
+        },
+        "props": {
+          "mode": "percent",
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.coord"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Name"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.Type"
+                  },
+                  "transforms": [
+                    {
+                      "expression": "subString({value}, 0, 1) + \u0027:\u0027",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginRight"
+              },
+              "textStyle": {
+                "fontWeight": "bold",
+                "textAlign": "end"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.Value"
+                  },
+                  "transforms": [
+                    {
+                      "expression": "{value} + \u0027%\u0027",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "textStyle": {
+                "fontWeight": "bold",
+                "textAlign": "start"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Row2"
+        },
+        "position": {
+          "basis": "32px"
+        },
+        "props": {
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

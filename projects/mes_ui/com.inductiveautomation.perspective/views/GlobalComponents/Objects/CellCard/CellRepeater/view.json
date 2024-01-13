@@ -1,0 +1,125 @@
+{
+  "custom": {
+    "EqPath": "",
+    "Instances": null,
+    "LinesDS": null
+  },
+  "params": {
+    "EqPath": ""
+  },
+  "propConfig": {
+    "custom.EqPath": {
+      "binding": {
+        "config": {
+          "path": "session.custom.EqPath"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.Instances": {
+      "binding": {
+        "config": {
+          "path": "view.custom.LinesDS"
+        },
+        "transforms": [
+          {
+            "code": "#\tinstances \u003d []\n#\teqPath \u003d self.params.EqPath\n#\t\n#\tfor v in value:\n#\t\tcellPath \u003d eqPath + \u0027/\u0027 + v[\u0027Name\u0027]\n#\t\tinstances.append({ \u0027EqPath\u0027: cellPath, \u0027ShowArrow\u0027: True })\n#\t\t\n#\treturn instances\n\tinstances \u003d []\n\teqPath \u003d self.custom.EqPath\n\t\n\tfor i, v in enumerate(value):\n\t    cellPath \u003d eqPath + \u0027/\u0027 + v[\u0027Name\u0027]\n\t\n\t    if i \u003d\u003d len(value) - 1:\n\t        instances.append({\n\t          \"instanceStyle\": {\n\t            \"classes\": \"\"\n\t          },\n\t          \"instancePosition\": {},\n\t          \"EqPath\": cellPath,\n\t          \"ShowArrow\": False\n\t        })\n\t    else:\n\t        instances.append({\n\t          \"instanceStyle\": {\n\t            \"classes\": \"\"\n\t          },\n\t          \"instancePosition\": {},\n\t          \"EqPath\": cellPath,\n\t          \"ShowArrow\": True\n\t        })\n\t\n\treturn instances",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.LinesDS": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.custom.EqPath}"
+          },
+          "tagPath": "{1}/config/LineCellsConfigDS"
+        },
+        "transforms": [
+          {
+            "code": "\treturn gpa.data.datasetToJson(value)",
+            "type": "script"
+          }
+        ],
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 916,
+      "width": 356
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "FlexRepeater"
+        },
+        "position": {
+          "basis": "320px",
+          "grow": 1
+        },
+        "propConfig": {
+          "props.instances": {
+            "binding": {
+              "config": {
+                "path": "view.custom.Instances"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "direction": "column",
+          "path": "GlobalComponents/Objects/CellCard/Embedded/CellCard"
+        },
+        "type": "ia.display.flex-repeater"
+      }
+    ],
+    "events": {
+      "dom": {
+        "onClick": {
+          "config": {
+            "script": "\tsystem.perspective.print(self.view.custom.Instances)"
+          },
+          "scope": "G",
+          "type": "script"
+        }
+      }
+    },
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "scripts": {
+      "customMethods": [],
+      "extensionFunctions": null,
+      "messageHandlers": [
+        {
+          "messageType": "changedLine",
+          "pageScope": true,
+          "script": "\t# implement your handler here\n#\tself.view.refreshBinding(\u0027custom.LineDS\u0027)\n\tself.view.refreshBinding(\u0027custom.Instances\u0027)\n\t",
+          "sessionScope": false,
+          "viewScope": false
+        }
+      ]
+    },
+    "type": "ia.container.flex"
+  }
+}

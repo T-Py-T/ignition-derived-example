@@ -1,0 +1,296 @@
+{
+  "custom": {
+    "EqPath": "",
+    "Instances": [
+      {
+        "displayPath": "",
+        "eventId": "e8724f46-331b-45a0-9787-53a09964574e",
+        "eventTime": {
+          "$": [
+            "ts",
+            192,
+            1694728913867
+          ],
+          "$ts": 1694121399099
+        },
+        "priority": 0,
+        "source": "prov:default:/tag:Engine/ScriptFailed:/alm:ScriptFailure",
+        "state": 3
+      }
+    ],
+    "IsOperator": false,
+    "LinesDropdown": {
+      "$": [
+        "ds",
+        192,
+        1694706878407
+      ],
+      "$columns": [
+        {
+          "data": [
+            1,
+            2,
+            3,
+            4,
+            11,
+            12,
+            13,
+            14
+          ],
+          "name": "value",
+          "type": "Integer"
+        },
+        {
+          "data": [
+            "SFN1",
+            "SFN2",
+            "SFN3",
+            "SFN4",
+            "201",
+            "202",
+            "ACCTC1",
+            "ACCTC2"
+          ],
+          "name": "label",
+          "type": "String"
+        },
+        {
+          "data": [
+            "",
+            "",
+            "",
+            "",
+            "GPA/Wilmington/Boxing/Boxer1",
+            "GPA/Wilmington/Boxing/Boxer1",
+            "GPA/Wilmington/Boxing/Boxer1",
+            "GPA/Wilmington/Boxing/Boxer1"
+          ],
+          "name": "EquipmentPath",
+          "type": "String"
+        }
+      ]
+    },
+    "SelectedEqPath": null,
+    "SelectedLine": ""
+  },
+  "params": {},
+  "propConfig": {
+    "custom.EqPath": {
+      "binding": {
+        "config": {
+          "path": "session.custom.EqPath"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.Instances": {
+      "binding": {
+        "config": {
+          "expression": "now(1000)"
+        },
+        "transforms": [
+          {
+            "code": "\tdisplayPath \u003d self.custom.EqPath\n\tackAlarms   \u003d system.alarm.queryStatus(state \u003d [\"ActiveAcked\"], provider \u003d [\"default\"])\n\tUnackAlarms \u003d system.alarm.queryStatus(state \u003d [\"ActiveUnacked\"], provider \u003d [\"default\"])\n\t\n\tackAlarms   \u003d system.dataset.toPyDataSet(ackAlarms.getDataset())\n\tunackAlarms \u003d system.dataset.toPyDataSet(UnackAlarms.getDataset())\n\n\talarmList \u003d []\n\tif self.custom.IsOperator:\n\t\tfor alarm in unackAlarms:\n\t\t\tif alarm[\u0027DisplayPath\u0027] \u003d\u003d self.custom.SelectedEqPath:\n\t\t\t\talarmProps \u003d {\n\t\t\t\t\t\"eventId\":     alarm[\"EventID\"],\n\t\t\t\t\t\"source\": \t   alarm[\"Source\"],\n\t\t\t\t\t\"displayPath\": alarm[\"DisplayPath\"],\n\t\t\t\t\t\"eventTime\":   alarm[\"EventTime\"],\n\t\t\t\t\t\"state\":   \t   alarm[\"State\"],\n\t\t\t\t\t#\"label\":   \t   alarm[\"Label\"],\n\t\t\t\t\t\"priority\":    alarm[\"Priority\"]\n\t\t\t\t}\n\t\t\t\talarmList.append(alarmProps)\n\t\t\t\t\n\t\tfor alarm in ackAlarms:\n\t\t\tif alarm[\u0027DisplayPath\u0027] \u003d\u003d self.custom.SelectedEqPath:\n\t\t\t\talarmProps \u003d {\n\t\t\t\t\t\"eventId\":     alarm[\"EventID\"],\n\t\t\t\t\t\"source\": \t   alarm[\"Source\"],\n\t\t\t\t\t\"displayPath\": alarm[\"DisplayPath\"],\n\t\t\t\t\t\"eventTime\":   alarm[\"EventTime\"],\n\t\t\t\t\t\"state\":   \t   alarm[\"State\"],\n\t\t\t\t\t#\"label\":   \t   alarm[\"Label\"],\n\t\t\t\t\t\"priority\":    alarm[\"Priority\"]\n\t\t\t\t}\n\t\t\t\talarmList.append(alarmProps)\n\telse:\t\n\t\tfor alarm in unackAlarms:\n\t#\t\tif alarm[\u0027DisplayPath\u0027] \u003d\u003d self.custom.SelectedEqPath:\n\t\t\talarmProps \u003d {\n\t\t\t\t\"eventId\":     alarm[\"EventID\"],\n\t\t\t\t\"source\": \t   alarm[\"Source\"],\n\t\t\t\t\"displayPath\": alarm[\"DisplayPath\"],\n\t\t\t\t\"eventTime\":   alarm[\"EventTime\"],\n\t\t\t\t\"state\":   \t   alarm[\"State\"],\n\t\t\t\t#\"label\":   \t   alarm[\"Label\"],\n\t\t\t\t\"priority\":    alarm[\"Priority\"]\n\t\t\t}\n\t\t\talarmList.append(alarmProps)\n\t\t\t\t\n\t\tfor alarm in ackAlarms:\n\t#\t\tif alarm[\u0027DisplayPath\u0027] \u003d\u003d self.custom.SelectedEqPath:\n\t\t\talarmProps \u003d {\n\t\t\t\t\"eventId\":     alarm[\"EventID\"],\n\t\t\t\t\"source\": \t   alarm[\"Source\"],\n\t\t\t\t\"displayPath\": alarm[\"DisplayPath\"],\n\t\t\t\t\"eventTime\":   alarm[\"EventTime\"],\n\t\t\t\t\"state\":   \t   alarm[\"State\"],\n\t\t\t\t#\"label\":   \t   alarm[\"Label\"],\n\t\t\t\t\"priority\":    alarm[\"Priority\"]\n\t\t\t}\n\t\t\talarmList.append(alarmProps)\t\t\n\t\t\t\n\treturn alarmList\n\t\t",
+            "type": "script"
+          }
+        ],
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.IsOperator": {
+      "binding": {
+        "config": {
+          "expression": "if({page.props.path} \u003d \u0027/operations/operator_dashboard\u0027,\r\n\tTrue,\r\n\tFalse\r\n)"
+        },
+        "enabled": false,
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.LinesDropdown": {
+      "binding": {
+        "config": {
+          "queryPath": "app/Config/getLines"
+        },
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "custom.SelectedEqPath": {
+      "binding": {
+        "config": {
+          "path": "view.custom.SelectedLine"
+        },
+        "transforms": [
+          {
+            "code": "\tpydata \u003d system.dataset.toPyDataSet(self.custom.LinesDropdown)\n\t\n\tfor row in pydata:\n\t\tif row[\u0027value\u0027] \u003d\u003d value:\n\t\t\treturn row[\u0027EquipmentPath\u0027]\n\t\t\t\n\treturn None\n\t\t\n\t\t",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.SelectedLine": {
+      "binding": {
+        "config": {
+          "path": "/root/Row1/SelectFilter.props.value"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    }
+  },
+  "props": {},
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "MES/DockedViews/Alarms/Header"
+              },
+              "text": "Alarm Sidebar"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "SelectFilter"
+            },
+            "position": {
+              "basis": "42px",
+              "display": false,
+              "grow": 1,
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.options": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.LinesDropdown"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.value": {
+                "persistent": false
+              }
+            },
+            "props": {
+              "dropdownOptionStyle": {
+                "classes": "TextFields/Dropdown"
+              },
+              "placeholder": {
+                "text": "Select"
+              },
+              "style": {
+                "classes": "TextFields/Dropdown"
+              }
+            },
+            "type": "ia.input.dropdown"
+          }
+        ],
+        "meta": {
+          "name": "Row1"
+        },
+        "position": {
+          "basis": "42px",
+          "shrink": 0
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "meta": {
+          "name": "FlexRepeater"
+        },
+        "position": {
+          "basis": "320px",
+          "grow": 1
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "expression": "if(len({../FlexRepeater.props.instances})\u003e0, True, False)"
+              },
+              "type": "expr"
+            }
+          },
+          "props.instances": {
+            "binding": {
+              "config": {
+                "path": "view.custom.Instances"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "direction": "column",
+          "elementPosition": {
+            "basis": "180px",
+            "grow": 0,
+            "shrink": 0
+          },
+          "elementStyle": {
+            "marginBottom": "10px"
+          },
+          "path": "GlobalComponents/Alarms/CardTogether",
+          "style": {
+            "classes": "MES/DockedViews/Navigation/Body",
+            "padding": "10px"
+          },
+          "useDefaultViewHeight": false,
+          "useDefaultViewWidth": false
+        },
+        "type": "ia.display.flex-repeater"
+      },
+      {
+        "meta": {
+          "name": "No Alarms"
+        },
+        "position": {
+          "basis": "32px",
+          "grow": 1
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "expression": "if(len({../FlexRepeater.props.instances})\u003e0, False, True)"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "textAlign": "center"
+          },
+          "text": "No Active Alarms"
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "classes": "MES/DockedViews/Alarms/Body"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

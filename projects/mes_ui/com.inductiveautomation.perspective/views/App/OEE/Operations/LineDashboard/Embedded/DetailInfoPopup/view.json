@@ -1,0 +1,58 @@
+{
+  "custom": {},
+  "params": {
+    "Instances": "value"
+  },
+  "propConfig": {
+    "params.Instances": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 289,
+      "width": 197
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Metrics"
+        },
+        "position": {
+          "basis": "137px",
+          "grow": 1
+        },
+        "propConfig": {
+          "props.instances": {
+            "binding": {
+              "config": {
+                "path": "view.params.Instances"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "direction": "column",
+          "path": "App/OEE/Operations/LineDashboard/Embedded/DetailInfoMetric",
+          "wrap": "wrap"
+        },
+        "type": "ia.display.flex-repeater"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "classes": "Global/MarginAll",
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

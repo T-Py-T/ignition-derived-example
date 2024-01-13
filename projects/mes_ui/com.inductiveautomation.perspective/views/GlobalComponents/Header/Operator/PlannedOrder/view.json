@@ -1,0 +1,470 @@
+{
+  "custom": {
+    "NextWO": null,
+    "Pieces": null,
+    "RunID": null,
+    "ScheduleTotal": "0",
+    "WOComplete": false,
+    "WOName": null,
+    "WOTotal": "0"
+  },
+  "params": {
+    "EqPath": ""
+  },
+  "propConfig": {
+    "custom.NextWO": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/jobs/nextJob/workOrder"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.Pieces": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/jobs/currentJob/RunCounts/runGoodParts"
+        },
+        "transforms": [
+          {
+            "formatType": "numeric",
+            "formatValue": "number",
+            "type": "format"
+          }
+        ],
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.RunID": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/jobs/currentJob/runId"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.Schedule": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/jobs/currentJob/scheduleQuantity"
+        },
+        "transforms": [
+          {
+            "expression": "if({value} \u003d null, 0, {value})",
+            "type": "expression"
+          },
+          {
+            "formatType": "numeric",
+            "formatValue": "number",
+            "type": "format"
+          }
+        ],
+        "type": "tag"
+      }
+    },
+    "custom.ScheduleTotal": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/jobs/currentJob/scheduleQuantity"
+        },
+        "transforms": [
+          {
+            "expression": "if({value} \u003d null, 0, {value})",
+            "type": "expression"
+          },
+          {
+            "formatType": "numeric",
+            "formatValue": "number",
+            "type": "format"
+          }
+        ],
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.WOComplete": {
+      "binding": {
+        "config": {
+          "expression": "{view.custom.Pieces} \u003e\u003d {view.custom.WOTotal}"
+        },
+        "enabled": false,
+        "transforms": [
+          {
+            "code": "\tqueryPath \u003d \u0027app/Schedule/runEnd\u0027\n\trunID \u003d self.custom.RunID\n\tparams \u003d { \u0027runID\u0027: runID }\n\ttagPath \u003d self.params.EqPath\n\ttry:\n\t\tmes.schedule.jobs.copyJob(tagPath)\n\t\tres \u003d system.db.runNamedQuery(queryPath, params)\n\t\t#make sure to clear after namedquery\t\t\n\t\tmes.schedule.jobs.clearJob(jobPath)\n\texcept Exception as e:\n\t\terrorMessage \u003d \"Something went wrong with your request!\" + str(e)\n\t\terrorParams \u003d {\n\t\t\t\"ModalName\": \"ErrorModal\",\n\t\t\t\"ErrorMessage\": errorMessage\n\t\t}\n\t\tsystem.perspective.openPopup(\"ErrorModal\", \"GlobalComponents/Modals/ErrorModal\", errorParams)\n\t\n\treturn value",
+            "type": "script"
+          }
+        ],
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.WOName": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/jobs/currentJob/workOrder"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.WOTotal": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/jobs/currentJob/workOrderQuantity"
+        },
+        "transforms": [
+          {
+            "expression": "if({value} \u003d null, 0, {value})",
+            "type": "expression"
+          },
+          {
+            "formatType": "numeric",
+            "formatValue": "number",
+            "type": "format"
+          }
+        ],
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 83,
+      "width": 493
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "PlannedOrder"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginRight"
+              },
+              "text": "Current Planned Order:",
+              "textStyle": {
+                "classes": "Cards/Common/CardText",
+                "color": "white"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "WO"
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.WOName"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginRight"
+              },
+              "textStyle": {
+                "classes": "Cards/Common/CardText",
+                "color": "white"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Spacer"
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginRight"
+              },
+              "text": "|",
+              "textStyle": {
+                "classes": "Cards/Common/CardText",
+                "color": "white"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Current"
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.Pieces"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "marginRight": 2
+              },
+              "textStyle": {
+                "classes": "Cards/Common/CardText",
+                "color": "white"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Spacer_0"
+            },
+            "position": {
+              "basis": "-59px"
+            },
+            "props": {
+              "style": {
+                "marginRight": 2
+              },
+              "text": "/",
+              "textStyle": {
+                "classes": "Cards/Common/CardText",
+                "color": "white"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Current_0"
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.ScheduleTotal"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginRight"
+              },
+              "textStyle": {
+                "classes": "Cards/Common/CardText",
+                "color": "white"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Row1"
+        },
+        "position": {
+          "grow": 1
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "expression": "!{view.custom.WOComplete}"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "NextPlannedOrder"
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginRight"
+              },
+              "text": "Next Planned order:",
+              "textStyle": {
+                "classes": "Cards/Common/CardText",
+                "color": "white"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "WO"
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.NextWO"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginRight"
+              },
+              "textStyle": {
+                "classes": "Cards/Common/CardText",
+                "color": "white"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Row2"
+        },
+        "position": {
+          "display": false,
+          "grow": 1
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "expression": "!{view.custom.WOComplete}"
+              },
+              "enabled": false,
+              "type": "expr"
+            }
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Icon"
+            },
+            "position": {
+              "basis": "94px"
+            },
+            "props": {
+              "color": "--success",
+              "path": "material/check"
+            },
+            "type": "ia.display.icon"
+          },
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "basis": "50px",
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Text/Heading"
+              },
+              "text": "Work Order Complete",
+              "textStyle": {
+                "color": "--success"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Row3"
+        },
+        "position": {
+          "grow": 1
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "expression": "{view.custom.WOComplete}"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

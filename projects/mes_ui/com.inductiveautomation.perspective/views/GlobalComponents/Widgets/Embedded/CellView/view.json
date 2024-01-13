@@ -1,0 +1,93 @@
+{
+  "custom": {},
+  "params": {
+    "EqPath": "[default]GPA/Wilmington/Mixing/mixer1"
+  },
+  "propConfig": {
+    "params.EqPath": {
+      "binding": {
+        "config": {
+          "bidirectional": true,
+          "path": "/root/TextField.props.text"
+        },
+        "type": "property"
+      },
+      "paramDirection": "inout",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 232,
+      "width": 546
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Label"
+        },
+        "position": {
+          "basis": "32px"
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.EqPath"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "TextField"
+        },
+        "position": {
+          "basis": "32px"
+        },
+        "props": {
+          "placeholder": "enter path",
+          "text": "[default]GPA/Wilmington/Mixing/mixer1"
+        },
+        "type": "ia.input.text-field"
+      },
+      {
+        "meta": {
+          "name": "EmbeddedView"
+        },
+        "position": {
+          "basis": "320px"
+        },
+        "propConfig": {
+          "props.params.EqPath": {
+            "binding": {
+              "config": {
+                "path": "view.params.EqPath"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "params": {
+            "State": ""
+          },
+          "path": "GlobalComponents/Widgets/Embedded/OrderInformation"
+        },
+        "type": "ia.display.view"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

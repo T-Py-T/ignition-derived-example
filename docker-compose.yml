@@ -21,8 +21,11 @@ services:
     image: testing_igniton:v1  # uncomment to apply a custom tag to the built image
     ports:
       - 8088:8088
-    # volumes:  # this volumes section is commented out for easier testing
-    #   - gateway-data:/usr/local/bin/ignition/data
+    volumes:  # this volumes section is commented out for easier testing
+      - gw-data:/usr/local/bin/ignition/data
+      - ./themes:/usr/local/bin/ignition/data/modules/com.inductiveautomation.perspective/themes
+      - ./fonts:/usr/local/bin/ignition/data/modules/com.inductiveautomation.perspective/fonts
+      - ./projects:/usr/local/bin/ignition/data/projects
     environment:
       # Defining these below will perform a password reset, see the build above for 
       # updating/preloading the admin username/password in the `default` user source.
@@ -57,6 +60,10 @@ services:
     command: >
       -n Ignition-base
       -m 1024
+
+volumes:
+  gw-data:
+    driver: local
 
 # secrets:
 #   gateway-admin-password:

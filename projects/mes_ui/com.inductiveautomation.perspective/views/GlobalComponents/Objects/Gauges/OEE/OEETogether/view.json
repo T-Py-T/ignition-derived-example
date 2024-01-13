@@ -1,0 +1,378 @@
+{
+  "custom": {
+    "LinesInProduction": "value"
+  },
+  "params": {
+    "EqPath": "GPA/Wilmington/Baking/Oven1",
+    "State": "fail",
+    "metrics": [
+      {
+        "header": "Lines in production:",
+        "metric": 100,
+        "units": ""
+      },
+      {
+        "header": "Offline Machines: ",
+        "metric": 2,
+        "units": ""
+      },
+      {
+        "header": "Open Work Orders",
+        "metric": 10,
+        "units": ""
+      }
+    ]
+  },
+  "propConfig": {
+    "custom.LinesInProduction": {
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.State": {
+      "binding": {
+        "config": {
+          "bidirectional": true,
+          "path": "/root/OEEUtilization/OEEGauge.props.params.State"
+        },
+        "type": "property"
+      },
+      "paramDirection": "output",
+      "persistent": true
+    },
+    "params.metrics": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 404,
+      "width": 275
+    },
+    "loading": {
+      "mode": "blocking"
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "OEEGauge"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "props.params.EqPath": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.EqPath"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "State": "fail"
+              },
+              "path": "GlobalComponents/Objects/Gauges/OEE/OEEGauge"
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "Space",
+              "visible": false
+            },
+            "position": {
+              "display": false,
+              "grow": 1
+            },
+            "props": {
+              "text": "Label"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Utilization"
+                },
+                "position": {
+                  "grow": 1,
+                  "shrink": 2
+                },
+                "propConfig": {
+                  "props.params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.EqPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "path": "GlobalComponents/Objects/Gauges/OEE/BarIndicator"
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "meta": {
+                  "name": "Legend"
+                },
+                "position": {
+                  "grow": 1,
+                  "shrink": 0
+                },
+                "props": {
+                  "style": {
+                    "classes": "Cards/Common/Row",
+                    "fontSize": "0.8em",
+                    "fontWeight": "bold",
+                    "textAlign": "left"
+                  },
+                  "text": "Utilization"
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "MachineUtilization"
+            },
+            "position": {
+              "basis": "30%",
+              "display": false,
+              "grow": 1,
+              "shrink": 0
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "OEEUtilization"
+        },
+        "position": {
+          "grow": 1
+        },
+        "props": {
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "meta": {
+          "name": "FlexRepeater"
+        },
+        "position": {
+          "basis": "1%",
+          "display": false,
+          "shrink": 0
+        },
+        "props": {
+          "direction": "column",
+          "elementPosition": {
+            "basis": "auto",
+            "grow": 0,
+            "shrink": 0
+          },
+          "elementStyle": {
+            "classes": "_ref/Button/Contained/Alarm"
+          },
+          "instances": null,
+          "path": "GlobalComponents/Metrics/NumberMetricHorizontal",
+          "style": {
+            "classes": "Cards/Embedded",
+            "overflow": "hidden"
+          },
+          "useDefaultViewHeight": false,
+          "useDefaultViewWidth": false
+        },
+        "type": "ia.display.flex-repeater"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "FlexRepeater"
+            },
+            "position": {
+              "display": false
+            },
+            "propConfig": {
+              "props.instances": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.metrics"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "alignContent": "center",
+              "path": "App/OEE/Management/SiteOverview/Embedded/OEEUtilizationMetrics",
+              "style": {
+                "overflow": "hidden"
+              },
+              "wrap": "wrap"
+            },
+            "type": "ia.display.flex-repeater"
+          },
+          {
+            "meta": {
+              "name": "LinesInProduction"
+            },
+            "position": {
+              "basis": "32px"
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "expression": "\u0027Lines In Production: \u0027 +{parent.custom.LinesInProduction}"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "OfflineMachines"
+            },
+            "position": {
+              "basis": "32px"
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "expression": "\u0027 Offline Machines: \u0027+ {parent.custom.OfflineMachines}"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "OpenWorkOrders"
+            },
+            "position": {
+              "basis": "32px"
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "expression": "\u0027Open WorkOrders: \u0027 + {parent.custom.OpenWorkOrders}"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Metrics"
+        },
+        "position": {
+          "basis": "20%",
+          "display": false,
+          "shrink": 0
+        },
+        "propConfig": {
+          "custom.LinesInProduction": {
+            "binding": {
+              "config": {
+                "fallbackDelay": 2.5,
+                "mode": "indirect",
+                "references": {
+                  "1": "{view.params.TagProvider}",
+                  "2": "{view.params.TagPath}"
+                },
+                "tagPath": "{1}{2}/Analysis/Shift/Utilization/LinesInProduction"
+              },
+              "type": "tag"
+            }
+          },
+          "custom.OfflineMachines": {
+            "binding": {
+              "config": {
+                "fallbackDelay": 2.5,
+                "mode": "indirect",
+                "references": {
+                  "1": "{view.params.TagProvider}",
+                  "2": "{view.params.TagPath}"
+                },
+                "tagPath": "{1}{2}/Analysis/Shift/Utilization/LinesOffline"
+              },
+              "type": "tag"
+            }
+          },
+          "custom.OpenWorkOrders": {
+            "binding": {
+              "config": {
+                "fallbackDelay": 2.5,
+                "mode": "indirect",
+                "references": {
+                  "1": "{view.params.TagProvider}",
+                  "2": "{view.params.TagPath}"
+                },
+                "tagPath": "{1}{2}/Analysis/Shift/Utilization/OpenWorkOrders"
+              },
+              "type": "tag"
+            }
+          }
+        },
+        "props": {
+          "direction": "column"
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "propConfig": {
+      "props.style.classes": {
+        "binding": {
+          "config": {
+            "path": "view.params.OEEValue"
+          },
+          "enabled": false,
+          "transforms": [
+            {
+              "code": "\twarning \u003d self.session.custom.OEEThresholds.Warning\n\tbad \u003d self.session.custom.OEEThresholds.Bad\n\t\n\tif value \u003c bad:\n\t\treturn localUI.Constants.CARD_ERROR\n\telif value \u003c warning:\n\t\treturn localUI.Constants.CARD_WARNING\n\telse:\n\t\treturn localUI.Constants.CARD_ROOT",
+              "type": "script"
+            }
+          ],
+          "type": "property"
+        }
+      }
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

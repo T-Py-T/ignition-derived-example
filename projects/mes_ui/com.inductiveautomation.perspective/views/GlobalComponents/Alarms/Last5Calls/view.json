@@ -1,0 +1,620 @@
+{
+  "custom": {
+    "AlarmDS": {
+      "$": [
+        "ds",
+        192,
+        1703106238040
+      ],
+      "$columns": [
+        {
+          "data": [
+            "7523d25f-0208-4f9a-9b23-78d3b2615017",
+            "7523d25f-0208-4f9a-9b23-78d3b2615017",
+            "3673b1e9-627a-475a-9c8b-4d9adefc685c",
+            "3673b1e9-627a-475a-9c8b-4d9adefc685c",
+            "5a766042-43d2-465f-a24d-02bb86d7e10e"
+          ],
+          "name": "EventId",
+          "type": "String"
+        },
+        {
+          "data": [
+            "prov:default:/tag:Fiberon/1NL/PE Extrusion/Line 23/scadaControlled/mode:/alm:Team Lead Called",
+            "prov:default:/tag:Fiberon/1NL/PE Extrusion/Line 23/scadaControlled/mode:/alm:Team Lead Called",
+            "prov:default:/tag:Fiberon/1NL/PE Extrusion/Line 23/scadaControlled/mode:/alm:Team Lead Called",
+            "prov:default:/tag:Fiberon/1NL/PE Extrusion/Line 23/scadaControlled/mode:/alm:Team Lead Called",
+            "prov:default:/tag:Fiberon/1NL/PE Extrusion/Line 23/scadaControlled/mode:/alm:QA Called"
+          ],
+          "name": "Source",
+          "type": "String"
+        },
+        {
+          "data": [
+            "Fiberon/1NL/PE Extrusion/Line 23",
+            "Fiberon/1NL/PE Extrusion/Line 23",
+            "Fiberon/1NL/PE Extrusion/Line 23",
+            "Fiberon/1NL/PE Extrusion/Line 23",
+            "Fiberon/1NL/PE Extrusion/Line 23"
+          ],
+          "name": "DisplayPath",
+          "type": "String"
+        },
+        {
+          "data": [
+            1703105766193,
+            1703105757400,
+            1703105747920,
+            1703105740730,
+            1703105733883
+          ],
+          "name": "EventTime",
+          "type": "Date"
+        },
+        {
+          "data": [
+            1,
+            0,
+            1,
+            0,
+            1
+          ],
+          "name": "EventState",
+          "type": "Integer"
+        },
+        {
+          "data": [
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "name": "Priority",
+          "type": "Integer"
+        },
+        {
+          "data": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "name": "IsSystemEvent",
+          "type": "Boolean"
+        }
+      ]
+    }
+  },
+  "params": {
+    "EqPath": ""
+  },
+  "propConfig": {
+    "custom.AlarmDS": {
+      "binding": {
+        "config": {
+          "path": "view.params.EqPath"
+        },
+        "transforms": [
+          {
+            "code": "\tjournal \u003d \u0027AlarmJournal\u0027\n\tend \u003d system.date.now()\n\tstart \u003d system.date.addDays(end, -30)\n\t#states \u003d [\u0027ClearAcked\u0027, \u0027ClearUnacked\u0027]\n\tdisplayPaths \u003d value \n\tisSystems \u003d False\n\t \n\tAlarms \u003d system.alarm.queryJournal(startDate \u003d start, endDate \u003d end, displayPath\u003ddisplayPaths, includeSystem\u003dFalse)\n\tAlarmDS \u003d Alarms.getDataset()\n\tsortedPyDS \u003d system.dataset.sort(AlarmDS,\u0027EventTime\u0027, False)\n\tPyDS \u003d system.dataset.toPyDataSet(sortedPyDS)\n\t\n\theaders \u003d system.dataset.getColumnHeaders(AlarmDS)\n\tdata, count \u003d [], 0\n\tfor row in PyDS:\n\t#for row in sortedPyDS:\n\t\tif count \u003c 5:\n\t\t\tdata.append(row)\n\t\t\tcount +\u003d1\n\t\tif count \u003e 5: break\n\tnewDS \u003d system.dataset.toDataSet(headers, data)\n\t#print newDS\n\treturn newDS",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 196,
+      "width": 500
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "AlarmJournalTable"
+        },
+        "position": {
+          "basis": "400px",
+          "display": false,
+          "grow": 1
+        },
+        "propConfig": {
+          "props.dateRange.historical.endDate": {
+            "binding": {
+              "config": {
+                "expression": "now(100000)"
+              },
+              "type": "expr"
+            }
+          },
+          "props.dateRange.historical.startDate": {
+            "binding": {
+              "config": {
+                "expression": "addDays(now(100000), -1)"
+              },
+              "type": "expr"
+            }
+          },
+          "props.filter.conditions.displayPath": {
+            "binding": {
+              "config": {
+                "path": "view.params.EqPath"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "columns": {
+            "eventId": {
+              "enabled": false
+            },
+            "name": {
+              "enabled": true
+            },
+            "source": {
+              "enabled": false
+            }
+          },
+          "dateRange": {
+            "historical": {},
+            "mode": "historical"
+          },
+          "enableHeader": false,
+          "filter": {
+            "conditions": {},
+            "events": {
+              "active": false,
+              "system": true
+            },
+            "priorities": {
+              "critical": false,
+              "high": false,
+              "low": false,
+              "medium": false
+            }
+          },
+          "name": "",
+          "pager": {
+            "enabled": false
+          },
+          "toolbar": {
+            "enabled": false
+          }
+        },
+        "type": "ia.display.alarmjournaltable"
+      },
+      {
+        "meta": {
+          "name": "Table"
+        },
+        "position": {
+          "grow": 1
+        },
+        "propConfig": {
+          "props.data": {
+            "binding": {
+              "config": {
+                "path": "view.custom.AlarmDS"
+              },
+              "transforms": [
+                {
+                  "code": "\tjson \u003d gpa.data.datasetToJson(value)\n\t\n\tfor row in json:\n\t\tsplitString \u003d row[\u0027Source\u0027].split(\u0027:\u0027)\n\t\trow[\u0027Source\u0027] \u003d splitString[-1]\n\t\t\n\treturn json",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "columns": [
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "EventId",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "justify": "auto",
+              "nullFormat": {
+                "includeNullStrings": false,
+                "nullFormatValue": "",
+                "strict": false
+              },
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": false,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "Source",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "justify": "auto",
+              "nullFormat": {
+                "includeNullStrings": false,
+                "nullFormatValue": "",
+                "strict": false
+              },
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": "Global/MarginLeft"
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY",
+              "editable": false,
+              "field": "DisplayPath",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "justify": "auto",
+              "nullFormat": {
+                "includeNullStrings": false,
+                "nullFormatValue": "",
+                "strict": false
+              },
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "auto",
+              "resizable": true,
+              "sort": "none",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": false,
+              "width": ""
+            },
+            {
+              "align": "center",
+              "boolean": "checkbox",
+              "dateFormat": "MM/DD/YYYY HH:mm:ss",
+              "editable": false,
+              "field": "EventTime",
+              "filter": {
+                "boolean": {
+                  "condition": ""
+                },
+                "date": {
+                  "condition": "",
+                  "value": ""
+                },
+                "enabled": false,
+                "number": {
+                  "condition": "",
+                  "value": ""
+                },
+                "string": {
+                  "condition": "",
+                  "value": ""
+                },
+                "visible": "on-hover"
+              },
+              "footer": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": ""
+              },
+              "header": {
+                "align": "center",
+                "justify": "left",
+                "style": {
+                  "classes": ""
+                },
+                "title": "Event Time"
+              },
+              "justify": "auto",
+              "nullFormat": {
+                "includeNullStrings": false,
+                "nullFormatValue": "",
+                "strict": false
+              },
+              "number": "value",
+              "numberFormat": "0,0.##",
+              "progressBar": {
+                "bar": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "max": 100,
+                "min": 0,
+                "track": {
+                  "color": "",
+                  "style": {
+                    "classes": ""
+                  }
+                },
+                "value": {
+                  "enabled": true,
+                  "format": "0,0.##",
+                  "justify": "center",
+                  "style": {
+                    "classes": ""
+                  }
+                }
+              },
+              "render": "date",
+              "resizable": true,
+              "sort": "ascending",
+              "sortable": true,
+              "strictWidth": false,
+              "style": {
+                "classes": ""
+              },
+              "toggleSwitch": {
+                "color": {
+                  "selected": "",
+                  "unselected": ""
+                }
+              },
+              "viewParams": {},
+              "viewPath": "",
+              "visible": true,
+              "width": ""
+            }
+          ],
+          "enableHeader": false,
+          "pager": {
+            "bottom": false
+          }
+        },
+        "type": "ia.display.table"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "scripts": {
+      "customMethods": [],
+      "extensionFunctions": null,
+      "messageHandlers": [
+        {
+          "messageType": "productionChange",
+          "pageScope": true,
+          "script": "\t# implement your handler here\n\tself.view.refreshBinding(\u0027custom.AlarmDS\u0027)",
+          "sessionScope": false,
+          "viewScope": false
+        }
+      ]
+    },
+    "type": "ia.container.flex"
+  }
+}

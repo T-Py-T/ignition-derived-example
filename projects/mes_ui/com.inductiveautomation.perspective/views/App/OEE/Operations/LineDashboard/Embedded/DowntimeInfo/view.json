@@ -1,0 +1,791 @@
+{
+  "custom": {
+    "CurrentCall": null,
+    "CurrentCallDuration": "",
+    "CurrentCallTimeStamp": null,
+    "CurrentMode": null,
+    "Duration": "04:27:45",
+    "LineStateDS": [],
+    "StateCode": null
+  },
+  "params": {
+    "EqPath": ""
+  },
+  "propConfig": {
+    "custom.CurrentCall": {
+      "binding": {
+        "config": {
+          "parameters": {
+            "ModeID": "{view.custom.CurrentMode}"
+          },
+          "queryPath": "app/Operations/Dashboard/getMachineMode"
+        },
+        "transforms": [
+          {
+            "expression": "if({value}[\u0027Description\u0027] \u003d \u0027Production\u0027, \u0027\u0027, {value}[\u0027Description\u0027])",
+            "type": "expression"
+          }
+        ],
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "custom.CurrentCallDuration": {
+      "binding": {
+        "config": {
+          "path": "view.custom.CurrentCallTimeStamp"
+        },
+        "transforms": [
+          {
+            "expression": "try(\r\n\tif(typeOf({value}) !\u003d \"Date\", \"\",\r\n\t\tnumberFormat(hoursBetween({value}, now()), \u002700\u0027) + \u0027:\u0027 +\r\n\t\tnumberFormat(minutesBetween({value}, now()) % 60, \u002700\u0027) + \u0027:\u0027 +\r\n\t\tnumberFormat(secondsBetween({value}, now()) % 60, \u002700\u0027)\r\n\t), -1\r\n)",
+            "type": "expression"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.CurrentCallTimeStamp": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/scadaControlled/mode.Timestamp"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.CurrentMode": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/OEE_Events/mode"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.Duration": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/OEE_Events/state"
+        },
+        "transforms": [
+          {
+            "expression": "numberFormat(hoursBetween(timestampOf({value}), now()), \u002700\u0027) + \u0027:\u0027 +\r\nnumberFormat(minutesBetween(timestampOf({value}), now()) % 60, \u002700\u0027) + \u0027:\u0027 +\r\nnumberFormat(secondsBetween(timestampOf({value}), now()) % 60, \u002700\u0027)\r\n\r\n//{value}",
+            "type": "expression"
+          }
+        ],
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.LineStateDS": {
+      "binding": {
+        "config": {
+          "parameters": {
+            "stateID": "{view.custom.StateCode}"
+          },
+          "queryPath": "app/DT/getDTCodeByStateID",
+          "returnFormat": "json"
+        },
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "custom.StateCode": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/OEE_Events/state"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 181,
+      "width": 300
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.Name"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardTitle"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Name"
+        },
+        "position": {
+          "basis": "20px",
+          "display": false,
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "Cards/Common/CardTitleBorder",
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardText"
+              },
+              "text": "Description",
+              "textStyle": {
+                "fontSize": 16
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.style.backgroundColor": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.LineStateDS[0].DisplayColor"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.LineStateDS[0].Description"
+                  },
+                  "transforms": [
+                    {
+                      "expression": "upper({value})",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.textStyle.color": {
+                "binding": {
+                  "config": {
+                    "expression": "if({this.props.style.backgroundColor}\u003d \u0027#FAFD20\u0027, \r\n\t\u0027black\u0027, \r\n\t\u0027white\u0027\r\n)"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardValue"
+              },
+              "textStyle": {
+                "fontSize": 16
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Reason"
+        },
+        "position": {
+          "basis": "20px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "marginBottom": "2px",
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardText"
+              },
+              "text": "Duration",
+              "textStyle": {
+                "fontSize": "16px"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "grow": 1,
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.Duration"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardValue"
+              },
+              "textStyle": {
+                "fontSize": "16px",
+                "textAlign": "right"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Duration"
+        },
+        "position": {
+          "basis": "20px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "TextFields/TextFieldAlternate",
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardText"
+              },
+              "text": "State",
+              "textStyle": {
+                "fontSize": "16px"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "expression": "coalesce({view.custom.StateCode})"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardValue"
+              },
+              "textStyle": {
+                "fontSize": "16px"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "State"
+        },
+        "position": {
+          "basis": "20px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "props": {
+                  "style": {
+                    "classes": "Cards/Common/CardText"
+                  },
+                  "text": "Current Call",
+                  "textStyle": {
+                    "fontSize": "16px"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "Value"
+                },
+                "position": {
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.CurrentCall"
+                      },
+                      "transforms": [
+                        {
+                          "expression": "upper({value})",
+                          "type": "expression"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "Cards/Common/CardValue"
+                  },
+                  "textStyle": {
+                    "fontSize": "16px"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "CurrentCall"
+            },
+            "position": {
+              "basis": "20px",
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "classes": "TextFields/TextFieldAlternate",
+                "overflow": "hidden"
+              },
+              "wrap": "wrap"
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "props": {
+                  "style": {
+                    "classes": "Cards/Common/CardText"
+                  },
+                  "text": "Duration",
+                  "textStyle": {
+                    "fontSize": "16px"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "Value"
+                },
+                "position": {
+                  "grow": 1,
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.CurrentCallDuration"
+                      },
+                      "transforms": [
+                        {
+                          "expression": "if({view.custom.CurrentCall} \u003d \u0027\u0027, \u0027\u0027, {value})",
+                          "type": "expression"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "Cards/Common/Boolean"
+                  },
+                  "textStyle": {
+                    "fontSize": "16px",
+                    "fontWeight": "bold",
+                    "textAlign": "end"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "CallDuration"
+            },
+            "position": {
+              "basis": "20px",
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "overflow": "hidden"
+              },
+              "wrap": "wrap"
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "props": {
+                  "style": {
+                    "classes": "Cards/Common/CardText"
+                  },
+                  "text": "Call State",
+                  "textStyle": {
+                    "fontSize": "16px"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "Value"
+                },
+                "position": {
+                  "grow": 1,
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.CallState"
+                      },
+                      "transforms": [
+                        {
+                          "fallback": "",
+                          "inputType": "scalar",
+                          "mappings": [
+                            {
+                              "input": 0,
+                              "output": "Active"
+                            },
+                            {
+                              "input": 1,
+                              "output": "Clear and Acked"
+                            },
+                            {
+                              "input": 2,
+                              "output": "Active and Unacked"
+                            },
+                            {
+                              "input": 3,
+                              "output": "Active and Acked"
+                            },
+                            {
+                              "input": 0,
+                              "output": "Clear and Unacked"
+                            }
+                          ],
+                          "outputType": "scalar",
+                          "type": "map"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "Cards/Common/Boolean"
+                  },
+                  "textStyle": {
+                    "fontSize": "16px",
+                    "fontWeight": "bold",
+                    "textAlign": "end"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "State"
+            },
+            "position": {
+              "basis": "20px",
+              "display": false,
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "classes": "TextFields/TextFieldAlternate",
+                "overflow": "hidden"
+              },
+              "wrap": "wrap"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "CurrentCallsFlex"
+        },
+        "position": {
+          "basis": "63px"
+        },
+        "props": {
+          "direction": "column",
+          "style": {
+            "classes": "Global/MarginBottom"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\tviewPath \u003d \u0027App/OEE/Operations/LineDashboard/Embedded/Comments\u0027\n\n\n\t\n\tsystem.perspective.openPopup(\u0027commentPopup\u0027, viewPath, title\u003d\u0027Comments\u0027, overlayDismiss\u003dTrue, modal\u003dTrue)\t"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "CommentsButton"
+            },
+            "position": {
+              "display": false,
+              "grow": 1
+            },
+            "props": {
+              "params": {
+                "BackgroundColor": "value",
+                "DisabledPopup": {
+                  "message": "Please sign in as quarterback to proceed.",
+                  "messageType": "",
+                  "payload": {},
+                  "title": "Invalid Permissions"
+                },
+                "Enabled": true,
+                "Hover": true,
+                "IconPath": "material/comment",
+                "IsSelectable": false,
+                "Label": "Comments",
+                "Selected": true,
+                "Size": "value",
+                "Type": "value"
+              },
+              "path": "GlobalComponents/Buttons/Button",
+              "style": {
+                "classes": "Global/MarginRight",
+                "marginLeft": "auto"
+              }
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\tif self.props.params.Enabled:\n\t\tviewPath \u003d \u0027App/OEE/Operations/LineDashboard/Popups/Downtime/ActiveTroubleCall\u0027\n\t\tcurrentCallName \u003d self.view.custom.CurrentCall\n\t\tcurrentCallTime \u003d self.view.custom.CurrentCallTimeStamp\n\t\tcurrentMode \u003d self.view.custom.CurrentMode\n\t\t\n\t\tparams \u003d {\n\t\t\t\u0027CurrentCall\u0027: currentCallName,\n\t\t\t\u0027CurrentCallTime\u0027: currentCallTime,\n\t\t\t\u0027CurrentMode\u0027: currentMode\n\t\t}\n\t\t\n\t\tsystem.perspective.openPopup(\u0027activeCall\u0027, \n\t\t\t\tviewPath, \n\t\t\t\tparams\u003dparams, \n\t\t\t\ttitle\u003d\u0027Active Calls\u0027, \n\t\t\t\toverlayDismiss\u003dFalse, \n\t\t\t\tmodal\u003dTrue, \n\t\t\t\tshowCloseIcon\u003dFalse)\t"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "ActiveCallInfo"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "props.params.Enabled": {
+                "binding": {
+                  "config": {
+                    "expression": "if({view.custom.CurrentCall} !\u003d \u0027\u0027, true, false)"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "BackgroundColor": "value",
+                "DisabledPopup": {
+                  "message": "Please sign in as quarterback to proceed.",
+                  "messageType": "",
+                  "payload": {},
+                  "title": "Invalid Permissions"
+                },
+                "Hover": true,
+                "IconPath": "material/info",
+                "IsSelectable": false,
+                "Label": "Active Call Info",
+                "Selected": true,
+                "Size": "value",
+                "Type": "value"
+              },
+              "path": "GlobalComponents/Buttons/Button",
+              "style": {
+                "marginRight": "auto"
+              }
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "ButtonContainer"
+        },
+        "position": {
+          "basis": "42px",
+          "shrink": 0
+        },
+        "props": {
+          "alignContent": "center",
+          "style": {
+            "marginLeft": "auto",
+            "marginRight": "auto"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "scripts": {
+      "customMethods": [],
+      "extensionFunctions": null,
+      "messageHandlers": [
+        {
+          "messageType": "productionChange",
+          "pageScope": false,
+          "script": "\tself.view.refreshBinding(\u0027custom.CurrentCallsDS\u0027)",
+          "sessionScope": false,
+          "viewScope": false
+        }
+      ]
+    },
+    "type": "ia.container.flex"
+  }
+}

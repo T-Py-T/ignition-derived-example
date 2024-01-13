@@ -1,0 +1,219 @@
+{
+  "custom": {},
+  "params": {
+    "deferUpdates": "",
+    "icon": "",
+    "params": {},
+    "placeholder": "",
+    "showSearchIcon": "",
+    "text": "",
+    "type": ""
+  },
+  "propConfig": {
+    "params.deferUpdates": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.icon": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.params": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.placeholder": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.showSearchIcon": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.text": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.type": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 651,
+      "width": 1248
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "ViewCanvas"
+        },
+        "position": {
+          "basis": "61px"
+        },
+        "propConfig": {
+          "props.instances[0].viewParams.deferUpdates": {
+            "binding": {
+              "config": {
+                "path": "view.params.deferUpdates"
+              },
+              "type": "property"
+            }
+          },
+          "props.instances[0].viewParams.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.text"
+              },
+              "type": "property"
+            }
+          },
+          "props.instances[0].viewParams.type": {
+            "binding": {
+              "config": {
+                "path": "view.params.type"
+              },
+              "type": "property"
+            }
+          },
+          "props.instances[1].viewParams.icon": {
+            "binding": {
+              "config": {
+                "path": "view.params.icon"
+              },
+              "type": "property"
+            }
+          },
+          "props.instances[1].viewParams.type": {
+            "binding": {
+              "config": {
+                "path": "this.props.instances[0].viewParams.type"
+              },
+              "type": "property"
+            }
+          },
+          "props.instances[2].style.display": {
+            "binding": {
+              "config": {
+                "path": "view.params.showSearchIcon"
+              },
+              "transforms": [
+                {
+                  "fallback": "none",
+                  "inputType": "scalar",
+                  "mappings": [
+                    {
+                      "input": true,
+                      "output": "inline"
+                    },
+                    {
+                      "input": false,
+                      "output": "none"
+                    }
+                  ],
+                  "outputType": "scalar",
+                  "type": "map"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.instances[2].viewParams.showSearchIcon": {
+            "binding": {
+              "config": {
+                "path": "view.params.showSearchIcon"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "instances": [
+            {
+              "bottom": "auto",
+              "height": "auto",
+              "left": "0px",
+              "position": "absolute",
+              "right": "auto",
+              "style": {
+                "classes": ""
+              },
+              "top": "0px",
+              "viewParams": {
+                "filter": "value",
+                "placeholder": ""
+              },
+              "viewPath": "GlobalComponents/Text/TextField",
+              "width": "auto",
+              "zIndex": "auto"
+            },
+            {
+              "bottom": "auto",
+              "height": "auto",
+              "left": "0px",
+              "position": "absolute",
+              "right": "auto",
+              "style": {
+                "classes": ""
+              },
+              "top": "12px",
+              "viewParams": {},
+              "viewPath": "GlobalComponents/Icons/IconMain",
+              "width": "auto",
+              "zIndex": "auto"
+            },
+            {
+              "bottom": "auto",
+              "height": "auto",
+              "left": "10px",
+              "position": "absolute",
+              "right": "auto",
+              "style": {
+                "classes": ""
+              },
+              "top": "12px",
+              "viewParams": {
+                "icon": "material/search",
+                "type": ""
+              },
+              "viewPath": "GlobalComponents/Icons/IconMain",
+              "width": "auto",
+              "zIndex": "auto"
+            }
+          ],
+          "transitionSettings": {
+            "duration": "1s",
+            "timingFunction": "linear"
+          }
+        },
+        "scripts": {
+          "customMethods": [],
+          "extensionFunctions": null,
+          "messageHandlers": [
+            {
+              "messageType": "clearFilter",
+              "pageScope": true,
+              "script": "\t# implement your handler here\n\tself.view.params.text \u003d \"\"\n\tsystem.perspective.print(\u0027test\u0027)",
+              "sessionScope": false,
+              "viewScope": false
+            }
+          ]
+        },
+        "type": "ia.display.viewcanvas"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "classes": "TextFields/Root"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

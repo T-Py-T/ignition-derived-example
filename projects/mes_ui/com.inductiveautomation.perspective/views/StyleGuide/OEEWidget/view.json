@@ -1,0 +1,83 @@
+{
+  "custom": {},
+  "params": {
+    "EqPath": "value",
+    "Title": "value"
+  },
+  "propConfig": {
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Title": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 251,
+      "width": 281
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "EmbeddedView"
+        },
+        "position": {
+          "basis": "320px",
+          "grow": 1
+        },
+        "propConfig": {
+          "props.params.Params.EqPath": {
+            "binding": {
+              "config": {
+                "path": "view.params.EqPath"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.Title": {
+            "binding": {
+              "config": {
+                "path": "view.params.Title"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "params": {
+            "EqPath": "value",
+            "HideTitle": false,
+            "Icon": "material/error",
+            "IconDisplay": true,
+            "Params": {
+              "State": "fail",
+              "TagPath": "value",
+              "TagProvider": "value"
+            },
+            "Path": "GlobalComponents/Objects/Gauges/OEE/OEETogether",
+            "Provider": "value",
+            "SizeBasis": "value",
+            "TagPath": "value",
+            "Type": "fail",
+            "useDefaultHeight": false,
+            "useDefaultWidth": false
+          },
+          "path": "GlobalComponents/Cards/Card"
+        },
+        "type": "ia.display.view"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

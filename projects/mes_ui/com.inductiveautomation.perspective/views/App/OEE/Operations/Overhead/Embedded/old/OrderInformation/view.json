@@ -1,0 +1,208 @@
+{
+  "custom": {},
+  "params": {
+    "TagPath": "Newell/Maryville/Assembly/SFN1",
+    "TagProvider": "[default]"
+  },
+  "propConfig": {
+    "params.TagPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.TagProvider": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 236,
+      "width": 517
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Title"
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginRight OverheadScreens/Text"
+              },
+              "text": "Planned Order:"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "OrderNumber"
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "fallbackDelay": 2.5,
+                    "mode": "indirect",
+                    "references": {
+                      "1": "{view.params.TagProvider}",
+                      "2": "{view.params.TagPath}"
+                    },
+                    "tagPath": "{1}{2}/jobs/currentJob/workOrder"
+                  },
+                  "transforms": [
+                    {
+                      "expression": "if({value} \u003d \"\", \"No order found\", {value})",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "tag"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "OverheadScreens/Text"
+              },
+              "textStyle": {
+                "color": ""
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "CurrentPlannedOrder"
+        },
+        "position": {
+          "basis": "25%"
+        },
+        "props": {
+          "style": {
+            "classes": "Cards/Common/CardTitleBorder"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Title"
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginRight OverheadScreens/Text"
+              },
+              "text": "Run:"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "RunInfoView"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "props": {
+                  "path": "App/OEE/Operations/LineDashboard/OverviewScreen/Embedded/RunInformation",
+                  "useDefaultViewHeight": true
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "RunInformation"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "alignContent": "center",
+              "alignItems": "center",
+              "justify": "center",
+              "style": {
+                "classes": "Global/MarginTop"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "CurrentRun"
+        },
+        "position": {
+          "basis": "50%"
+        },
+        "props": {
+          "style": {
+            "classes": "Cards/Common/CardTitleBorder"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Title"
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginRight OverheadScreens/Text"
+              },
+              "text": "Next Planned Order:"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "OrderNumber"
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "fallbackDelay": 2.5,
+                    "mode": "indirect",
+                    "references": {
+                      "1": "{view.params.TagProvider}",
+                      "2": "{view.params.TagPath}"
+                    },
+                    "tagPath": "{1}{2}/jobs/nextJob/workOrder"
+                  },
+                  "type": "tag"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "OverheadScreens/Text"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "NextOrder"
+        },
+        "position": {
+          "basis": "25%"
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

@@ -1,0 +1,322 @@
+{
+  "custom": {
+    "stringFolderPath": "\"[GatewayHealth]Gateways/Tag1/\""
+  },
+  "params": {
+    "Label": ""
+  },
+  "propConfig": {
+    "custom.stringFolderPath": {
+      "persistent": true
+    },
+    "params.Label": {
+      "paramDirection": "inout",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 1038,
+      "width": 1592
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "page": "/apps/mes/directory"
+                  },
+                  "scope": "C",
+                  "type": "nav"
+                }
+              }
+            },
+            "meta": {
+              "name": "Back Arrow"
+            },
+            "position": {
+              "basis": "30px",
+              "shrink": 0
+            },
+            "props": {
+              "color": "--neutral-90",
+              "path": "material/chevron_left",
+              "style": {
+                "cursor": "pointer"
+              }
+            },
+            "type": "ia.display.icon"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "page": "/apps/mes/directory"
+                  },
+                  "scope": "C",
+                  "type": "nav"
+                }
+              }
+            },
+            "meta": {
+              "name": "Back Label"
+            },
+            "position": {
+              "basis": "70px",
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "cursor": "pointer",
+                "fontSize": "14px",
+                "textAlign": "left"
+              },
+              "text": "Directory"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "basis": "50px",
+              "grow": 1
+            },
+            "props": {
+              "text": "Gateway Diagnostics"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Spacing"
+            },
+            "position": {
+              "basis": "100px",
+              "shrink": 0
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Header"
+        },
+        "position": {
+          "basis": "32px",
+          "display": false,
+          "shrink": 0
+        },
+        "props": {
+          "justify": "center",
+          "style": {
+            "classes": "MES/MainViews/TopHeader"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "EmbeddedView"
+                },
+                "position": {
+                  "basis": "320px",
+                  "grow": 1
+                },
+                "props": {
+                  "params": {
+                    "pageName": "Track \u0026 Trace History"
+                  },
+                  "path": "StyleGuide/Navigation/Embedded/TopBarName"
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "Title"
+            },
+            "position": {
+              "basis": "50px",
+              "display": false,
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "marginBottom": "5px"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "TextField"
+                },
+                "props": {
+                  "placeholder": "Search...",
+                  "style": {
+                    "classes": "TextFields/TextField",
+                    "marginLeft": "auto"
+                  }
+                },
+                "type": "ia.input.text-field"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "#\tsystem.perspective.print(self.getSibling(\"TextField\").props.text)\n#\tinstances \u003d self.parent.parent.getChild(\"StationCards/FlexRepeater\").props.instances\n#\t\n#\tfor instance in instances:\n#\t\tsystem.perspective.print(instance.params)\n#\t\tinstance.instanceStyle.display \u003d \"none\"\n\n\tres \u003d mes.trace.sp.getFullPartHistory(2, None)\n\tdataset \u003d system.dataset.toPyDataSet(res)\n\t\n\tsystem.perspective.print(dataset)\n\t\n#\tfor row in range(dataset.getRowCount()):\n#\t\tfor col in range(dataset.getColumnCount()):\n#\t\t\tsystem.perspective.print(dataset.getValueAt(row, col))\n\n\tNewDict \u003d { \n\t\t \"Data %d\" % i : dict(zip(dataset.columnNames,list(row))) \n\t\t     for i,row in enumerate(dataset)\n\t}\n\t\n\tsystem.perspective.print(NewDict)"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "EmbeddedView"
+                },
+                "position": {
+                  "basis": "142px"
+                },
+                "props": {
+                  "params": {
+                    "disabledPopup": {
+                      "message": "Please sign in as quarterback to proceed.",
+                      "messageType": "",
+                      "payload": {},
+                      "title": "Invalid Permissions"
+                    },
+                    "enabled": true,
+                    "hover": true,
+                    "iconPath": "material/search",
+                    "isSelectable": false,
+                    "label": "Search",
+                    "selected": true,
+                    "size": "value",
+                    "type": "normalsuccess"
+                  },
+                  "path": "StyleGuide/Components/Buttons/Button",
+                  "style": {
+                    "marginRight": "auto"
+                  }
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "Search"
+            },
+            "position": {
+              "basis": "35px",
+              "display": false,
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "marginLeft": "15px",
+                "marginRight": "15px",
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "custom": {
+                  "filterParams": {}
+                },
+                "meta": {
+                  "name": "TableView"
+                },
+                "position": {
+                  "basis": "500px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.params.Params.Label": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.Label"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "EqPath": "value",
+                    "HideTitle": false,
+                    "Icon": "",
+                    "IconDisplay": true,
+                    "Params": {
+                      "EqPath": "value",
+                      "State": "value",
+                      "TagPath": "value",
+                      "TagProvider": "value"
+                    },
+                    "Path": "App/TrackAndTrace/History (Test)/Embedded/History",
+                    "Provider": "value",
+                    "SizeBasis": "auto",
+                    "TagPath": "value",
+                    "Title": "Historical Data",
+                    "Type": "value",
+                    "useDefaultHeight": false,
+                    "useDefaultWidth": false
+                  },
+                  "path": "GlobalComponents/Cards/Card"
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "HistoryTable"
+            },
+            "position": {
+              "basis": "1000px",
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "HistoricalData"
+        },
+        "props": {
+          "direction": "column",
+          "style": {
+            "overflow": "visible"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "classes": "Global/MarginAll"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

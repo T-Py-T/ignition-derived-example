@@ -1,0 +1,226 @@
+{
+  "custom": {
+    "AreaOEE": {
+      "$": [
+        "ds",
+        192,
+        1695934656893
+      ],
+      "$columns": [
+        {
+          "data": [],
+          "name": "AreaName",
+          "type": "String"
+        },
+        {
+          "data": [],
+          "name": "OEE",
+          "type": "String"
+        }
+      ]
+    }
+  },
+  "params": {
+    "EqPath": "GPA/Wilmington/Baking/Oven1SFN4",
+    "TagPath": "[default]"
+  },
+  "propConfig": {
+    "custom.AreaOEE": {
+      "binding": {
+        "config": {
+          "parameters": {
+            "endTime": "now()",
+            "site": "{session.custom.SelectedSite}",
+            "startTime": "tag({view.params.EqPath}+\u0027/calculatedValues/time/runStartTime\u0027)"
+          },
+          "queryPath": "app/OEE/getReportAreaOEE_AQP"
+        },
+        "transforms": [
+          {
+            "code": "\tpyData \u003d system.dataset.toPyDataSet(value)\n\tNewData \u003d []\n\tfor row in pyData:\n\t\tdata \u003d [row[\u0027AreaName\u0027], row[\u0027OEE\u0027]]\n\t\tNewData.append(data)\n\tNewHeaders \u003d [\u0027AreaName\u0027,\u0027OEE\u0027]\n\tNewDataSet \u003d system.dataset.toDataSet(NewHeaders, NewData)\n\treturn NewDataSet\n\t\n\t\t",
+            "type": "script"
+          }
+        ],
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.TagPath": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 119,
+      "width": 437
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Sparkline"
+        },
+        "position": {
+          "grow": 1
+        },
+        "propConfig": {
+          "props.points": {
+            "binding": {
+              "config": {
+                "aggregate": "MinMax",
+                "avoidScanClassValidation": true,
+                "dateRange": {
+                  "mostRecent": "2",
+                  "mostRecentUnits": "HOUR"
+                },
+                "enableValueCache": true,
+                "ignoreBadQuality": false,
+                "polling": {
+                  "enabled": false,
+                  "rate": "30"
+                },
+                "preventInterpolation": false,
+                "returnFormat": "Wide",
+                "returnSize": {
+                  "numRows": "100",
+                  "type": "FIXED"
+                },
+                "tags": [
+                  {
+                    "alias": "GoodParts",
+                    "path": "[default]GPA/Wilmington/Baking/Oven1/calculatedValues/shiftGoodParts"
+                  }
+                ],
+                "valueFormat": "DATASET"
+              },
+              "type": "tag-history"
+            }
+          }
+        },
+        "props": {
+          "color": "#00D8FF",
+          "marker": {
+            "first": {
+              "size": 1
+            },
+            "high": {
+              "size": 1
+            },
+            "last": {
+              "size": 1
+            },
+            "low": {
+              "size": 1
+            }
+          },
+          "style": {
+            "paddingLeft": "5%",
+            "paddingRight": "5%",
+            "paddingTop": "10%"
+          },
+          "width": 2
+        },
+        "type": "ia.display.sparkline"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "props": {
+              "text": "Part Count:",
+              "textStyle": {
+                "fontSize": "18px",
+                "paddingRight": 8,
+                "textAlign": "right"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.style.backgroundColor": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.State"
+                  },
+                  "enabled": false,
+                  "transforms": [
+                    {
+                      "fallback": "",
+                      "inputType": "scalar",
+                      "mappings": [
+                        {
+                          "input": "fail",
+                          "output": "--error"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "fallbackDelay": 2.5,
+                    "mode": "direct",
+                    "tagPath": "[default]GPA/Wilmington/Baking/Oven1/calculatedValues/shiftGoodParts"
+                  },
+                  "transforms": [
+                    {
+                      "formatType": "numeric",
+                      "formatValue": "#,###.## PCS",
+                      "type": "format"
+                    }
+                  ],
+                  "type": "tag"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "",
+                "classes": "Text/Heading"
+              },
+              "textStyle": {
+                "fontSize": "18px",
+                "paddingLeft": 8,
+                "textAlign": "start"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "FlexContainer"
+        },
+        "props": {
+          "alignItems": "center",
+          "direction": "column",
+          "justify": "center"
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.flex"
+  }
+}

@@ -1,0 +1,416 @@
+{
+  "custom": {
+    "Instances": [],
+    "Lines": [
+      {
+        "label": "201",
+        "value": "Newell/Maryville/Molding/201"
+      },
+      {
+        "label": "202",
+        "value": "Newell/Maryville/Molding/202"
+      },
+      {
+        "label": "ACCTC1",
+        "value": "Newell/Maryville/Packaging/ACCTC1"
+      },
+      {
+        "label": "ACCTC2",
+        "value": "Newell/Maryville/Packaging/ACCTC2"
+      },
+      {
+        "label": "LABSIM",
+        "value": "Newell/Maryville/Assembly/LABSIM"
+      },
+      {
+        "label": "SFN1",
+        "value": "Newell/Maryville/Assembly/SFN1"
+      },
+      {
+        "label": "SFN2",
+        "value": "Newell/Maryville/Assembly/SFN2"
+      },
+      {
+        "label": "SFN3",
+        "value": "Newell/Maryville/Assembly/SFN3"
+      },
+      {
+        "label": "SFN4",
+        "value": "Newell/Maryville/Assembly/SFN4"
+      }
+    ],
+    "SiteID": 1
+  },
+  "params": {},
+  "propConfig": {
+    "custom.Instances": {
+      "binding": {
+        "config": {
+          "path": "session.custom.SelectedLines"
+        },
+        "transforms": [
+          {
+            "code": "\tx \u003d []\n\tif value is not None:\n\t\tfor itemIndex in range(len(value)):\n\t\t\tx.append({\u0027EqPath\u0027: value[itemIndex]})\n\t\n\treturn x",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.Lines": {
+      "binding": {
+        "config": {
+          "parameters": {
+            "SiteID": "{view.custom.SiteID}"
+          },
+          "queryPath": "app/Config/getAllLinesView",
+          "returnFormat": "json"
+        },
+        "transforms": [
+          {
+            "code": "\tdata \u003d []\n\t\n\tfor item in value:\n\t\tdata.append({ \"value\": item.EqPath, \"label\": item.Line })\n\t\n\tdata.sort(key\u003dlambda x: x[\u0027label\u0027])\n\treturn data",
+            "type": "script"
+          }
+        ],
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "custom.SiteID": {
+      "binding": {
+        "config": {
+          "path": "session.custom.SelectedSite"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 359,
+      "width": 337
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "title"
+                    },
+                    "position": {
+                      "basis": "100%"
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "Cards/header"
+                      },
+                      "text": "Currently Configured Lines"
+                    },
+                    "type": "ia.display.label"
+                  }
+                ],
+                "meta": {
+                  "name": "Title"
+                },
+                "position": {
+                  "display": false,
+                  "shrink": 0
+                },
+                "props": {
+                  "style": {
+                    "overflow": "hidden"
+                  }
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "meta": {
+                  "name": "FlexRepeater"
+                },
+                "propConfig": {
+                  "props.instances": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.Instances"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "alignItems": "center",
+                  "direction": "column",
+                  "elementPosition": {
+                    "grow": 0
+                  },
+                  "path": "App/OEE/Operations/LineDashboard/Embedded/CurrentConfigLines",
+                  "style": {
+                    "overflowX": "hidden",
+                    "overflowY": "auto"
+                  }
+                },
+                "type": "ia.display.flex-repeater"
+              }
+            ],
+            "meta": {
+              "name": "Top"
+            },
+            "position": {
+              "basis": "200px",
+              "grow": 1
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Cards/Tile_White",
+                "overflowX": "hidden",
+                "overflowY": "auto"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "Dropdown"
+                    },
+                    "position": {
+                      "grow": 1
+                    },
+                    "propConfig": {
+                      "props.options": {
+                        "binding": {
+                          "config": {
+                            "path": "view.custom.Lines"
+                          },
+                          "type": "property"
+                        }
+                      }
+                    },
+                    "props": {
+                      "dropdownOptionStyle": {
+                        "classes": "TextFields/Dropdown"
+                      },
+                      "style": {
+                        "classes": "TextFields/Dropdown"
+                      }
+                    },
+                    "type": "ia.input.dropdown"
+                  },
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "script": "#\tdeviceIdentifier \u003d self.session.props.device.identifier\n#\tequipmentPath \u003d self.getSibling(\"Dropdown\").props.value\n#\tif equipmentPath !\u003d \u0027\u0027:\n#\t\tappName \u003d\"operator\"\n#\t\turlPath \u003d \"/operator/schedule\"\n#\t\tsortOrder \u003d vertech.util.clientDevice.getClientDeviceNextSortOrder(deviceIdentifier, appName)\n#\t\t\n#\t\tvertech.util.clientDevice.addClientDevicePath(deviceIdentifier, equipmentPath, appName, urlPath, sortOrder)\n#\t\t\n#\t\teqPaths \u003d vertech.util.clientDevice.getClientDevicePaths(deviceIdentifier,appName)\n#\t\tself.session.custom.configuredLines \u003d eqPaths\n#\t\t#NS 05/27/2020 if first one added, select as default path\n#\t\tif len(eqPaths) \u003d\u003d 1:\n#\t\t\tself.session.custom.eqPath \u003d eqPaths[0]\n\n\teqPath \u003d self.getSibling(\"Dropdown\").props.value\n \t\n \tif eqPath !\u003d \u0027\u0027:\n \t\tappName \u003d \"operator\"\n \t\turlPath \u003d \"/operations/operator_dashboard\"\n \t\t\n \t\tself.session.custom.SelectedLines.append(eqPath)\n \t"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "AddButton"
+                    },
+                    "position": {
+                      "shrink": 0
+                    },
+                    "props": {
+                      "params": {
+                        "BackgroundColor": "",
+                        "DisabledPopup": {
+                          "message": "Please sign in as quarterback to proceed.",
+                          "messageType": "",
+                          "payload": {},
+                          "title": "Invalid Permissions"
+                        },
+                        "Enabled": true,
+                        "Hover": true,
+                        "IconPath": "material/add",
+                        "IsSelectable": false,
+                        "Label": "Add",
+                        "Selected": true,
+                        "Size": "value",
+                        "Type": "value"
+                      },
+                      "path": "GlobalComponents/Buttons/Button",
+                      "style": {
+                        "marginBottom": 5,
+                        "marginTop": 5
+                      }
+                    },
+                    "type": "ia.display.view"
+                  }
+                ],
+                "meta": {
+                  "name": "Content"
+                },
+                "position": {
+                  "basis": "224px",
+                  "shrink": 0
+                },
+                "type": "ia.container.flex"
+              }
+            ],
+            "meta": {
+              "name": "Bottom"
+            },
+            "position": {
+              "basis": "50px"
+            },
+            "props": {
+              "justify": "center",
+              "style": {
+                "classes": "Cards/Tile_White"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "CurrentLines"
+        },
+        "position": {
+          "basis": "50%",
+          "grow": 1
+        },
+        "props": {
+          "direction": "column",
+          "justify": "center",
+          "style": {
+            "classes": "Global/MarginBottom"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\teqPaths \u003d self.session.custom.configuredLines\n\tif len(eqPaths) \u003e 0:\n\t\tsystem.perspective.navigate(\u0027/operator/schedule\u0027)"
+                  },
+                  "enabled": false,
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Compelete"
+            },
+            "position": {
+              "basis": "166px"
+            },
+            "props": {
+              "params": {
+                "BackgroundColor": "",
+                "DisabledPopup": {
+                  "message": "Please sign in as quarterback to proceed.",
+                  "messageType": "",
+                  "payload": {},
+                  "title": "Invalid Permissions"
+                },
+                "Enabled": true,
+                "Hover": true,
+                "IconPath": "material/arrow_back",
+                "IsSelectable": false,
+                "Label": "Return To Schedule",
+                "Selected": true,
+                "Size": "value",
+                "Type": "value"
+              },
+              "path": "GlobalComponents/Buttons/Button",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "#\teqPaths \u003d self.session.custom.configuredLines\n#\tif len(eqPaths) \u003e 0:\n#\t\tsystem.perspective.navigate(\u0027/operator/schedule\u0027)\n#\telse:\n\tsystem.perspective.navigate(\u0027/operations/operator_dashboard\u0027)"
+                  },
+                  "enabled": false,
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Dashboard"
+            },
+            "position": {
+              "basis": "103px",
+              "display": false
+            },
+            "props": {
+              "params": {
+                "BackgroundColor": "",
+                "DisabledPopup": {
+                  "message": "Please sign in as quarterback to proceed.",
+                  "messageType": "",
+                  "payload": {},
+                  "title": "Invalid Permissions"
+                },
+                "Enabled": true,
+                "Hover": true,
+                "IconPath": "material/arrow_forward",
+                "IsSelectable": false,
+                "Label": "Dashboard",
+                "Selected": true,
+                "Size": "value",
+                "Type": "value"
+              },
+              "path": "GlobalComponents/Buttons/Button"
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "Buttons"
+        },
+        "position": {
+          "basis": "100%",
+          "shrink": 0
+        },
+        "props": {
+          "alignItems": "center",
+          "justify": "center"
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "alignContent": "space-around",
+      "alignItems": "center",
+      "justify": "center",
+      "style": {
+        "classes": "Text/Screen",
+        "overflow": "hidden"
+      },
+      "wrap": "wrap"
+    },
+    "type": "ia.container.flex"
+  }
+}

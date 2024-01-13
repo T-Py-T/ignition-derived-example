@@ -1,0 +1,51 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {},
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Label"
+        },
+        "position": {
+          "height": 32,
+          "width": 50,
+          "x": 663,
+          "y": 82
+        },
+        "props": {
+          "text": "test"
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": {
+              "config": {
+                "script": "\timport time\n\t\n\tlogger \u003d system.util.getLogger(\u0027GatewayEvent_Update\u0027)\n\t\n\tdefaultPath \u003d \"/usr/local/bin/ignition/data/projects/default.json\"\n\tmesPath \u003d \"/usr/local/bin/ignition/data/projects/mes.json\"\n\tappPath \u003d \"/usr/local/bin/ignition/data/projects/app_1.json\"\n\ttagPath \u003d \"/usr/local/bin/ignition/data/projects/tag_1.json\"\n\tgatewayHealthPath \u003d \"/usr/local/bin/ignition/data/projects/app.json\"\n\t\n\tsystem.tag.exportTags(filePath\u003ddefaultPath, tagPaths\u003d[\"[default]\"])\n\tsystem.tag.exportTags(filePath\u003dmesPath, tagPaths\u003d[\"[MES]\"])\n\tsystem.tag.exportTags(filePath\u003dappPath, tagPaths\u003d[\"[Tag1_System]\"])\n\tsystem.tag.exportTags(filePath\u003dtagPath, tagPaths\u003d[\"[App1_System]\"])\n\tsystem.tag.exportTags(filePath\u003dgatewayHealthPath, tagPaths\u003d[\"[GatewayHealth]\"])\n\t\n\t\n\ttime.sleep(5)\n\t\n\tlogger.warn(\u0027starting push\u0027)\n\tsystem.perspective.print(\u0027start\u0027)\n\tres \u003d system.util.execute([\"/usr/local/bin/ignition/data/git-auto-commit.sh\"])\n\tlogger.warn(res)\n\tlogger.warn(\u0027end push\u0027)\n\tsystem.perspective.print(\u0027end\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Button"
+        },
+        "position": {
+          "height": 34,
+          "width": 80,
+          "x": 464,
+          "y": 90
+        },
+        "type": "ia.input.button"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.coord"
+  }
+}

@@ -1,0 +1,736 @@
+{
+  "custom": {},
+  "params": {
+    "EventEnd": "2022-10-14 08:38:06",
+    "EventID": 0,
+    "EventStart": "2022-10-14 08:26:01",
+    "LineID": 0,
+    "LineName": "LineXX",
+    "StateID": 4,
+    "StateName": "State"
+  },
+  "propConfig": {
+    "params.EventEnd": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.EventID": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.EventStart": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.LineID": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.LineName": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.StateID": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.StateName": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 417,
+      "width": 898
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "LabelHeader"
+        },
+        "position": {
+          "basis": "32px",
+          "shrink": 0
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "expression": "{view.params.LineName} + \u0027 \u0027 + {view.params.StateName}"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "textStyle": {
+            "fontWeight": "bold",
+            "textAlign": "center"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "LabelStart"
+            },
+            "position": {
+              "basis": "15%"
+            },
+            "props": {
+              "text": "Start Date:",
+              "textStyle": {
+                "fontWeight": "bold",
+                "textAlign": "end"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "LabelStartVal"
+            },
+            "position": {
+              "basis": "20%"
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.EventStart"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "LabelEnd"
+            },
+            "position": {
+              "basis": "15%"
+            },
+            "props": {
+              "text": "End Date:",
+              "textStyle": {
+                "fontWeight": "bold",
+                "textAlign": "end"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "LabelEndVal"
+            },
+            "position": {
+              "basis": "20%"
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.EventEnd"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "FlexContainerEventDates"
+        },
+        "position": {
+          "basis": "40px"
+        },
+        "props": {
+          "justify": "space-around"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "basis": "10%"
+            },
+            "props": {
+              "text": "Fault Code:",
+              "textStyle": {
+                "fontWeight": "bold"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Dropdown"
+            },
+            "position": {
+              "basis": "30%"
+            },
+            "propConfig": {
+              "props.options": {
+                "binding": {
+                  "config": {
+                    "path": "/root.custom.DTReasons"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.value": {
+                "onChange": {
+                  "enabled": false,
+                  "script": "\tif currentValue.value \u003d\u003d None and previousValue.value !\u003d None:\n\t\tself.parent.custom.Delete \u003d True\n\t\tself.parent.custom.DeleteReasonID \u003d previousValue.value"
+                }
+              }
+            },
+            "props": {
+              "showClearIcon": true,
+              "value": null
+            },
+            "type": "ia.input.dropdown"
+          },
+          {
+            "meta": {
+              "name": "TextField"
+            },
+            "position": {
+              "basis": "50%"
+            },
+            "propConfig": {
+              "props.enabled": {
+                "binding": {
+                  "config": {
+                    "expression": "!isNull({.../FlexContainerReason0/Dropdown.props.value}) \u0026\u0026 {.../FlexContainerReason0/Dropdown.props.value} \u003e 0"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "placeholder": "Comments"
+            },
+            "type": "ia.input.text-field"
+          }
+        ],
+        "custom": {
+          "Delete": false,
+          "DeleteReasonID": 0
+        },
+        "meta": {
+          "name": "FlexContainerReason0"
+        },
+        "position": {
+          "basis": "40px"
+        },
+        "props": {
+          "justify": "space-around"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "basis": "10%"
+            },
+            "props": {
+              "text": "Reason 1:",
+              "textStyle": {
+                "fontWeight": "bold"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Dropdown"
+            },
+            "position": {
+              "basis": "30%"
+            },
+            "propConfig": {
+              "props.enabled": {
+                "binding": {
+                  "config": {
+                    "expression": "!isNull({.../FlexContainerReason0/Dropdown.props.value}) \u0026\u0026 {.../FlexContainerReason0/Dropdown.props.value} \u003e 0"
+                  },
+                  "type": "expr"
+                }
+              },
+              "props.options": {
+                "binding": {
+                  "config": {
+                    "path": "/root.custom.DTReasons"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.value": {
+                "onChange": {
+                  "enabled": null,
+                  "script": "\tif currentValue.value \u003d\u003d None and previousValue.value !\u003d None:\n\t\tself.parent.custom.Delete \u003d True\t\n\t\tself.parent.custom.DeleteReasonID \u003d previousValue.value\t\t"
+                }
+              }
+            },
+            "props": {
+              "showClearIcon": true
+            },
+            "type": "ia.input.dropdown"
+          },
+          {
+            "meta": {
+              "name": "TextField"
+            },
+            "position": {
+              "basis": "50%"
+            },
+            "propConfig": {
+              "props.enabled": {
+                "binding": {
+                  "config": {
+                    "expression": "!isNull({.../FlexContainerReason1/Dropdown.props.value}) \u0026\u0026 {.../FlexContainerReason1/Dropdown.props.value} \u003e 0"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "placeholder": "Comments"
+            },
+            "type": "ia.input.text-field"
+          }
+        ],
+        "custom": {
+          "Delete": false,
+          "DeleteReasonID": 0
+        },
+        "meta": {
+          "name": "FlexContainerReason1"
+        },
+        "position": {
+          "basis": "40px"
+        },
+        "props": {
+          "justify": "space-around"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "basis": "10%"
+            },
+            "props": {
+              "text": "Reason 2:",
+              "textStyle": {
+                "fontWeight": "bold"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Dropdown"
+            },
+            "position": {
+              "basis": "30%"
+            },
+            "propConfig": {
+              "props.enabled": {
+                "binding": {
+                  "config": {
+                    "expression": "!isNull({.../FlexContainerReason1/Dropdown.props.value}) \u0026\u0026 {.../FlexContainerReason1/Dropdown.props.value} \u003e 0"
+                  },
+                  "type": "expr"
+                }
+              },
+              "props.options": {
+                "binding": {
+                  "config": {
+                    "path": "/root.custom.DTReasons"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.value": {
+                "onChange": {
+                  "enabled": null,
+                  "script": "\tif currentValue.value \u003d\u003d None and previousValue.value !\u003d None:\n\t\tself.parent.custom.Delete \u003d True\t\n\t\tself.parent.custom.DeleteReasonID \u003d previousValue.value\t\t"
+                }
+              }
+            },
+            "props": {
+              "showClearIcon": true
+            },
+            "type": "ia.input.dropdown"
+          },
+          {
+            "meta": {
+              "name": "TextField"
+            },
+            "position": {
+              "basis": "50%"
+            },
+            "propConfig": {
+              "props.enabled": {
+                "binding": {
+                  "config": {
+                    "expression": "!isNull({.../FlexContainerReason2/Dropdown.props.value}) \u0026\u0026 {.../FlexContainerReason2/Dropdown.props.value} \u003e 0"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "placeholder": "Comments"
+            },
+            "type": "ia.input.text-field"
+          }
+        ],
+        "custom": {
+          "Delete": false,
+          "DeleteReasonID": 0
+        },
+        "meta": {
+          "name": "FlexContainerReason2"
+        },
+        "position": {
+          "basis": "40px"
+        },
+        "props": {
+          "justify": "space-around"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "basis": "10%"
+            },
+            "props": {
+              "text": "Reason 3:",
+              "textStyle": {
+                "fontWeight": "bold"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Dropdown"
+            },
+            "position": {
+              "basis": "30%"
+            },
+            "propConfig": {
+              "props.enabled": {
+                "binding": {
+                  "config": {
+                    "expression": "!isNull({.../FlexContainerReason2/Dropdown.props.value}) \u0026\u0026 {.../FlexContainerReason2/Dropdown.props.value} \u003e 0"
+                  },
+                  "type": "expr"
+                }
+              },
+              "props.options": {
+                "binding": {
+                  "config": {
+                    "path": "/root.custom.DTReasons"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.value": {
+                "onChange": {
+                  "enabled": null,
+                  "script": "\tif currentValue.value \u003d\u003d None and previousValue.value !\u003d None:\n\t\tself.parent.custom.Delete \u003d True\t\n\t\tself.parent.custom.DeleteReasonID \u003d previousValue.value\t\t"
+                }
+              }
+            },
+            "props": {
+              "showClearIcon": true
+            },
+            "type": "ia.input.dropdown"
+          },
+          {
+            "meta": {
+              "name": "TextField"
+            },
+            "position": {
+              "basis": "50%"
+            },
+            "propConfig": {
+              "props.enabled": {
+                "binding": {
+                  "config": {
+                    "expression": "!isNull({.../FlexContainerReason3/Dropdown.props.value}) \u0026\u0026 {.../FlexContainerReason3/Dropdown.props.value} \u003e 0"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "placeholder": "Comments"
+            },
+            "type": "ia.input.text-field"
+          }
+        ],
+        "custom": {
+          "Delete": false,
+          "DeleteReasonID": 0
+        },
+        "meta": {
+          "name": "FlexContainerReason3"
+        },
+        "position": {
+          "basis": "40px"
+        },
+        "props": {
+          "justify": "space-around"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "basis": "10%"
+            },
+            "props": {
+              "text": "Reason 4:",
+              "textStyle": {
+                "fontWeight": "bold"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Dropdown"
+            },
+            "position": {
+              "basis": "30%"
+            },
+            "propConfig": {
+              "props.enabled": {
+                "binding": {
+                  "config": {
+                    "expression": "!isNull({.../FlexContainerReason3/Dropdown.props.value}) \u0026\u0026 {.../FlexContainerReason3/Dropdown.props.value} \u003e 0"
+                  },
+                  "type": "expr"
+                }
+              },
+              "props.options": {
+                "binding": {
+                  "config": {
+                    "path": "/root.custom.DTReasons"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.value": {
+                "onChange": {
+                  "enabled": null,
+                  "script": "\tif currentValue.value \u003d\u003d None and previousValue.value !\u003d None:\n\t\tself.parent.custom.Delete \u003d True\t\n\t\tself.parent.custom.DeleteReasonID \u003d previousValue.value\t\t"
+                }
+              }
+            },
+            "props": {
+              "showClearIcon": true
+            },
+            "type": "ia.input.dropdown"
+          },
+          {
+            "meta": {
+              "name": "TextField"
+            },
+            "position": {
+              "basis": "50%"
+            },
+            "propConfig": {
+              "props.enabled": {
+                "binding": {
+                  "config": {
+                    "expression": "!isNull({.../FlexContainerReason4/Dropdown.props.value}) \u0026\u0026 {.../FlexContainerReason4/Dropdown.props.value} \u003e 0"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "placeholder": "Comments"
+            },
+            "type": "ia.input.text-field"
+          }
+        ],
+        "custom": {
+          "Delete": false,
+          "DeleteReasonID": 0
+        },
+        "meta": {
+          "name": "FlexContainerReason4"
+        },
+        "position": {
+          "basis": "40px"
+        },
+        "props": {
+          "justify": "space-around"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "script": "\teventID \u003d self.view.params.EventID\n\tuserName \u003d self.session.props.auth.user.userName\n\t\n\tdeletes \u003d []\n\tupserts \u003d []\n\tfor seq in range(0,4):\n\t\tcont \u003d \"FlexContainerReason%s\" % seq\n\t\tparms \u003d {\n\t\t\t\t\t\"stateEventID\":eventID,\n\t\t\t\t\t\"sequence\":seq\n\t\t\t\t}\n\t\t\n\t\tif self.parent.parent.getChild(cont).custom.Delete:\n\t\t\tparms[\"reasonID\"] \u003d self.parent.parent.getChild(cont).custom.DeleteReasonID\n\t\t\tdeletes.append(parms)\n\t\telif self.parent.parent.getChild(cont).getChild(\"TextField\").props.enabled:\n\t\t\tnotes \u003d self.parent.parent.getChild(cont).getChild(\"TextField\").props.text\n\t\t\tparms[\"reasonID\"] \u003d self.parent.parent.getChild(cont).getChild(\"Dropdown\").props.value\n\t\t\tparms[\"userName\"] \u003d userName\n\t\t\tparms[\"notes\"] \u003d notes\n\t\t\tupserts.append(parms)\n\t\t\t\n\t#Process Deletes first to avoid primary key errors\n\tfor parm in deletes:\n\t\tsystem.perspective.print(\"Deleting reason %s and event %s\" % (parm[\"reasonID\"], parm[\"stateEventID\"]))\n\t\tquery \u003d \"app/DT/deleteEventDowntimeReason\"\n\t\trowCount \u003d system.db.runNamedQuery(query, parm)\n\t\tsystem.perspective.print(\"Rows affected \u003d %s\" % rowCount)\n\t\t\n\t#Now process inserts and updates\n\tfor parm in upserts:\n\t\tsystem.perspective.print(\"Upserting reason %s and event %s to reason sequence %s\" % (parm[\"reasonID\"], parm[\"stateEventID\"], parm[\"sequence\"]))\n\t\tquery \u003d \"app/DT/upsertEventDowntimeReason\"\n\t\trowCount \u003d system.db.runNamedQuery(query, parm)\n\t\tsystem.perspective.print(\"Rows affected \u003d %s\" % rowCount)\t\n\t"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "ButtonSave"
+            },
+            "position": {
+              "basis": "120px"
+            },
+            "propConfig": {
+              "props.enabled": {
+                "binding": {
+                  "config": {
+                    "expression": "!isNull({.../FlexContainerReason0/Dropdown.props.value}) \u0026\u0026 {.../FlexContainerReason0/Dropdown.props.value} \u003e 0"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "#4202D1"
+              },
+              "text": "Save"
+            },
+            "type": "ia.input.button"
+          },
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "script": "\tsystem.perspective.closePopup(\u0027DTReasons\u0027)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "ButtonClose"
+            },
+            "position": {
+              "basis": "120px"
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "#4202D1"
+              },
+              "text": "Close"
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "FlexContainerButtons"
+        },
+        "position": {
+          "basis": "40px"
+        },
+        "props": {
+          "justify": "space-around"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "meta": {
+          "name": "LabelSpacing"
+        },
+        "position": {
+          "basis": "8px"
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "propConfig": {
+      "custom.DTReasons": {
+        "binding": {
+          "config": {
+            "parameters": {
+              "lineID": "{view.params.LineID}",
+              "stateID": "{view.params.StateID}"
+            },
+            "queryPath": "app/DT/getDTReasonForStateLine",
+            "returnFormat": "json"
+          },
+          "type": "query"
+        }
+      },
+      "custom.EventReasons": {
+        "binding": {
+          "config": {
+            "parameters": {
+              "stateEventID": "{view.params.EventID}"
+            },
+            "queryPath": "app/DT/getDTReasonsForEvent",
+            "returnFormat": "json"
+          },
+          "transforms": [
+            {
+              "code": "\tfor row in value:\n\t\tself.getChild(\"FlexContainerReason%s\" % row[\u0027Sequence\u0027]).getChild(\"Dropdown\").props.value \u003d row[\u0027ReasonID\u0027]\n\t\tself.getChild(\"FlexContainerReason%s\" % row[\u0027Sequence\u0027]).getChild(\"TextField\").props.text \u003d row[\u0027Notes\u0027]\t\t\t\n\treturn value",
+              "type": "script"
+            }
+          ],
+          "type": "query"
+        }
+      }
+    },
+    "props": {
+      "direction": "column",
+      "justify": "space-between"
+    },
+    "type": "ia.container.flex"
+  }
+}

@@ -1,0 +1,227 @@
+{
+  "custom": {
+    "BackgroundColor": "#FF0000",
+    "LineState": "BLOCKED",
+    "StateCode": 5
+  },
+  "params": {
+    "EqPath": ""
+  },
+  "propConfig": {
+    "custom.BackgroundColor": {
+      "binding": {
+        "config": {
+          "parameters": {
+            "id": "{view.custom.StateCode}"
+          },
+          "queryPath": "app/Config/getLineStateColor"
+        },
+        "transforms": [
+          {
+            "code": "\tpydata \u003d system.dataset.toPyDataSet(value)\n\t\n\treturn pydata[0][1]",
+            "type": "script"
+          }
+        ],
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "custom.LineState": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/OEE_Events/state"
+        },
+        "transforms": [
+          {
+            "fallback": "Error",
+            "inputType": "scalar",
+            "mappings": [
+              {
+                "input": 1,
+                "output": "Running"
+              },
+              {
+                "input": 0,
+                "output": "Disabled"
+              },
+              {
+                "input": 2,
+                "output": "Change Over"
+              },
+              {
+                "input": 3,
+                "output": "Idle"
+              },
+              {
+                "input": 4,
+                "output": "E-Stop"
+              },
+              {
+                "input": 5,
+                "output": "Blocked"
+              },
+              {
+                "input": 6,
+                "output": "Starved"
+              },
+              {
+                "input": 7,
+                "output": "Planned Downtime"
+              },
+              {
+                "input": 8,
+                "output": "Unplanned Downtime"
+              }
+            ],
+            "outputType": "scalar",
+            "type": "map"
+          },
+          {
+            "expression": "upper({value})",
+            "type": "expression"
+          }
+        ],
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.StateCode": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/OEE_Events/state"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 63,
+      "width": 297
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginRight Text/NormalText"
+              },
+              "text": "Line Status: ",
+              "textStyle": {
+                "textAlign": "start"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Value"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.style.backgroundColor": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.BackgroundColor"
+                      },
+                      "type": "property"
+                    }
+                  },
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.LineState"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "Text/LineStatus Text/NormalText"
+                  },
+                  "textStyle": {
+                    "fontWeight": "bold"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "EmbeddedView"
+                },
+                "position": {
+                  "display": false,
+                  "grow": 1
+                },
+                "props": {
+                  "params": {
+                    "Icon": "material/check",
+                    "Type": "success"
+                  },
+                  "path": "GlobalComponents/Icons/IconMain"
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "Status"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "justify": "center"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "LineStatus"
+        },
+        "position": {
+          "basis": "41px"
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginTop",
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

@@ -1,0 +1,589 @@
+{
+  "custom": {
+    "Availability": "85%",
+    "MBTF": "value",
+    "MTTR": "value",
+    "OEE": "72%",
+    "Performance": "100%",
+    "Quality": "97%"
+  },
+  "params": {
+    "TagPath": "Newell/Maryville",
+    "TagProvider": "[MES]"
+  },
+  "propConfig": {
+    "custom.Availability": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.TagProvider}",
+            "2": "{view.params.TagPath}"
+          },
+          "tagPath": "{1}{2}/Analysis/Shift/OEE/Availability"
+        },
+        "transforms": [
+          {
+            "expression": "toInt({value} * 100) + \u0027%\u0027",
+            "type": "expression"
+          }
+        ],
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.MBTF": {
+      "persistent": true
+    },
+    "custom.MTTR": {
+      "persistent": true
+    },
+    "custom.OEE": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.TagProvider}",
+            "2": "{view.params.TagPath}"
+          },
+          "tagPath": "{1}{2}/Analysis/Shift/OEE/OEE"
+        },
+        "transforms": [
+          {
+            "expression": "toInt({value} * 100)+\u0027%\u0027",
+            "type": "expression"
+          }
+        ],
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.Performance": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.TagProvider}",
+            "2": "{view.params.TagPath}"
+          },
+          "tagPath": "{1}{2}/Analysis/Shift/OEE/Performance"
+        },
+        "transforms": [
+          {
+            "expression": "toInt({value} * 100) + \u0027%\u0027",
+            "type": "expression"
+          }
+        ],
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.Quality": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.TagProvider}",
+            "2": "{view.params.TagPath}"
+          },
+          "tagPath": "{1}{2}/Analysis/Shift/OEE/Quality"
+        },
+        "transforms": [
+          {
+            "expression": "toInt({value} * 100) + \u0027%\u0027",
+            "type": "expression"
+          }
+        ],
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "params.TagPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.TagProvider": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 314,
+      "width": 166
+    },
+    "loading": {
+      "mode": "blocking"
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "SimpleGauge"
+        },
+        "position": {
+          "basis": "40%",
+          "grow": 1,
+          "shrink": 0
+        },
+        "propConfig": {
+          "custom.Height": {
+            "binding": {
+              "config": {
+                "expression": "toInt({view.props.defaultSize.height} / 12)"
+              },
+              "type": "expr"
+            }
+          },
+          "custom.Width": {
+            "binding": {
+              "config": {
+                "expression": "toInt({view.props.defaultSize.width} / 7)"
+              },
+              "type": "expr"
+            }
+          },
+          "props.label.offsetY": {
+            "binding": {
+              "config": {
+                "expression": "toInt({this.props.label.size}*.7)"
+              },
+              "type": "expr"
+            }
+          },
+          "props.label.size": {
+            "binding": {
+              "config": {
+                "expression": "toInt({view.props.defaultSize.width} / 6.5)"
+              },
+              "type": "expr"
+            }
+          },
+          "props.value": {
+            "binding": {
+              "config": {
+                "path": "view.custom.OEE"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "arc": {
+            "color": "#78BFE2",
+            "width": 10
+          },
+          "arcBackground": {
+            "color": "#78BFE2"
+          },
+          "endAngle": 405,
+          "label": {
+            "units": "%"
+          },
+          "startAngle": 135,
+          "style": {
+            "classes": []
+          }
+        },
+        "type": "ia.chart.simple-gauge"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label"
+                },
+                "position": {
+                  "grow": 2
+                },
+                "props": {
+                  "style": {
+                    "classes": "Cards/Common/Row"
+                  },
+                  "text": "OEE",
+                  "textStyle": {
+                    "fontWeight": "bold"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "OEEValue"
+                },
+                "position": {
+                  "basis": "100px",
+                  "grow": 1,
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.OEE"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "Cards/Common/TextValue",
+                    "overflow": "hidden"
+                  },
+                  "textStyle": {
+                    "textAlign": "right"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "OEE"
+            },
+            "position": {
+              "basis": "15px",
+              "grow": 1,
+              "shrink": 0
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label"
+                },
+                "position": {
+                  "grow": 2
+                },
+                "props": {
+                  "style": {
+                    "classes": "Cards/Common/Row"
+                  },
+                  "text": "Availability ",
+                  "textStyle": {
+                    "fontWeight": "bold"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "AvailabilityValue"
+                },
+                "position": {
+                  "basis": "100px",
+                  "grow": 1,
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.Availability"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "Cards/Common/TextValue",
+                    "overflow": "hidden"
+                  },
+                  "textStyle": {
+                    "textAlign": "right"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "Availability"
+            },
+            "position": {
+              "basis": "15px",
+              "grow": 1,
+              "shrink": 0
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label"
+                },
+                "position": {
+                  "grow": 2
+                },
+                "props": {
+                  "style": {
+                    "classes": "Cards/Common/Row"
+                  },
+                  "text": "Performance",
+                  "textStyle": {
+                    "fontWeight": "bold"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "PerformanceValue"
+                },
+                "position": {
+                  "basis": "100px",
+                  "grow": 1,
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.Performance"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "Cards/Common/TextValue",
+                    "overflow": "hidden"
+                  },
+                  "textStyle": {
+                    "textAlign": "right"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "Performance"
+            },
+            "position": {
+              "basis": "15px",
+              "grow": 1,
+              "shrink": 0
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label"
+                },
+                "position": {
+                  "grow": 2
+                },
+                "props": {
+                  "style": {
+                    "classes": "Cards/Common/Row"
+                  },
+                  "text": "Quality",
+                  "textStyle": {
+                    "fontWeight": "bold"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "QualityValue"
+                },
+                "position": {
+                  "basis": "100px",
+                  "grow": 1,
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.Quality"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "Cards/Common/TextValue",
+                    "overflow": "hidden"
+                  },
+                  "textStyle": {
+                    "textAlign": "right"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "Quality"
+            },
+            "position": {
+              "basis": "15px",
+              "grow": 1,
+              "shrink": 0
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label"
+                },
+                "position": {
+                  "grow": 2
+                },
+                "props": {
+                  "style": {
+                    "classes": "Cards/Common/Row"
+                  },
+                  "text": "MTTR",
+                  "textStyle": {
+                    "fontWeight": "bold"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "MTTRValue"
+                },
+                "position": {
+                  "basis": "100px",
+                  "grow": 1,
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.MTTR"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "Cards/Common/TextValue",
+                    "overflow": "hidden"
+                  },
+                  "textStyle": {
+                    "textAlign": "right"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "MTTR"
+            },
+            "position": {
+              "basis": "15px",
+              "grow": 1,
+              "shrink": 0
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label"
+                },
+                "position": {
+                  "grow": 2
+                },
+                "props": {
+                  "style": {
+                    "classes": "Cards/Common/Row"
+                  },
+                  "text": "MBTF",
+                  "textStyle": {
+                    "fontWeight": "bold"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "MBTFValue"
+                },
+                "position": {
+                  "basis": "100px",
+                  "grow": 1,
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.MBTF"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "Cards/Common/TextValue",
+                    "overflow": "hidden"
+                  },
+                  "textStyle": {
+                    "textAlign": "right"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "MBTF"
+            },
+            "position": {
+              "basis": "15px",
+              "grow": 1,
+              "shrink": 0
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Details"
+        },
+        "position": {
+          "basis": "50%",
+          "grow": 1,
+          "shrink": 0
+        },
+        "props": {
+          "direction": "column",
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

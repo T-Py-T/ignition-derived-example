@@ -1,0 +1,3694 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\tsystem.perspective.sendMessage(\u0027refresh\u0027, {})"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "currStateClassUUID": "",
+    "editState": false,
+    "eqUUID": "",
+    "newStateClassUUID": ""
+  },
+  "propConfig": {
+    "params.currStateClassUUID": {
+      "onChange": {
+        "enabled": null,
+        "script": "\tif currentValue.value is not None and currentValue.value !\u003d \u0027\u0027:\n\t\t\n\t\tdef look(dict, UUID, count):\n\t\t\t\n\t\t\tdict[\u0027expanded\u0027] \u003d True\n\t\t\tfor index, item in enumerate(dict[\u0027items\u0027]):\n\t\t\t\t\n\t\t\t\t\n\t\t\t\tif item[\u0027data\u0027][\u0027eqStateUUID\u0027] \u003d\u003d str(UUID):\n\t\t\t\t\titem[\u0027expanded\u0027] \u003d True\n\t\t\t\t\tself.getChild(\"root\").getChild(\"content\").getChild(\"Tree\").props.selection \u003d []\n\t\t\t\t\tself.getChild(\"root\").getChild(\"content\").getChild(\"Tree\").props.selection.append(count + \u0027/\u0027 + str(index))\n\t\t\t\tif item[\u0027items\u0027] is not None:\n\t\t\t\t\tlook(item, UUID, str(count)+\u0027/\u0027+str(index))\n\t\t\t\t\t\n\t\tUUID \u003d currentValue.value\n\t\titems \u003d self.getChild(\"root\").getChild(\"content\").getChild(\"Tree\").props.items\n\t\tfor item in items:\n\t\t\tlook(item, UUID, \"0\")\n\t\t\n\telse:\n\t\tdef look(dict):\n\t\t\tdict[\u0027expanded\u0027] \u003d False\n\t\t\tfor index, item in enumerate(dict[\u0027items\u0027]):\n\t\t\t\titem[\u0027expanded\u0027] \u003d False\n\t\t\t\tif item[\u0027items\u0027] is not None:\n\t\t\t\t\tlook(item)\n\t\titems \u003d self.getChild(\"root\").getChild(\"content\").getChild(\"Tree\").props.items\t\t\t\n\t\tfor item in items:\n\t\t\tlook(item)\t\t\t\n\t\tself.getChild(\"root\").getChild(\"content\").getChild(\"Tree\").props.selection \u003d []"
+      },
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.editState": {
+      "paramDirection": "inout",
+      "persistent": true
+    },
+    "params.eqUUID": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.newStateClassUUID": {
+      "paramDirection": "inout",
+      "persistent": true
+    }
+  },
+  "props": {},
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "title"
+            },
+            "position": {
+              "grow": 1,
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/header",
+                "marginLeft": "0.25rem",
+                "marginTop": "0.25rem"
+              },
+              "text": "Equipment States"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\tself.view.params.editState \u003d False\n\tself.view.params.currStateClassUUID \u003d \u0027\u0027\n\tsystem.perspective.sendMessage(\u0027refresh\u0027,{})"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "back"
+            },
+            "position": {
+              "basis": "88px",
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "classes": "Button/Text",
+                "marginBottom": "0.25rem",
+                "marginLeft": "0.25rem",
+                "marginRight": "0.25rem",
+                "marginTop": "0.25rem"
+              },
+              "text": "back"
+            },
+            "type": "ia.input.button"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\teqUUID \u003d self.view.params.eqUUID\n\tcurrStateClassUUID \u003d self.view.params.currStateClassUUID\n\tnewStateClassUUID \u003d self.view.params.newStateClassUUID\n\t\n\teqObj \u003d system.mes.loadMESObject(eqUUID)\n\teqObj.setPropertyValue(\u0027EquipmentStateClassUUID\u0027, newStateClassUUID)\n\tsystem.mes.saveMESObject(eqObj)\n\tsystem.perspective.sendMessage(\u0027refresh\u0027, {})\n\tself.view.params.editState \u003d False\n\tself.view.params.currStateClassUUID \u003d \u0027\u0027"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "save"
+            },
+            "position": {
+              "basis": "88px",
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.enabled": {
+                "binding": {
+                  "config": {
+                    "expression": "{view.params.newStateClassUUID}!\u003d\u0027\u0027"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "primary": false,
+              "style": {
+                "classes": "Button/Add-HoverDark",
+                "marginBottom": "0.25rem",
+                "marginLeft": "0.25rem",
+                "marginRight": "0.25rem",
+                "marginTop": "0.25rem"
+              },
+              "text": "Save"
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "header"
+        },
+        "position": {
+          "basis": "40px"
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "expression": "!{../content.custom.newState}\r\n\u0026\u0026 ! {../content.custom.newStateClass}"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "header/header"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "events": {
+              "component": {
+                "onItemClicked": {
+                  "config": {
+                    "script": "\tstate \u003d event.data[\u0027eqStateUUID\u0027]\n\tself.parent.getChild(\"editBar\").getChild(\"info\").custom.eqStateUUID \u003d state\n\tif event.data[\u0027class\u0027]:\n\t\tself.view.params.newStateClassUUID \u003d state\n\telse:\n\t\tself.view.params.newStateClassUUID \u003d \u0027\u0027\n\tself.getSibling(\"newState\").custom.relativeUUID \u003d state\n\t\n\tself.getSibling(\"newStateClass\").custom.relativeUUID \u003d state"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Tree"
+            },
+            "position": {
+              "basis": "200px",
+              "grow": 1,
+              "shrink": 0
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "expression": "!{parent.custom.newState}\r\n\u0026\u0026!{parent.custom.newStateClass}"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "appearance": {
+                "defaultNodeIcons": {
+                  "collapsed": {
+                    "color": "#5F707E",
+                    "path": "material/folder"
+                  },
+                  "empty": {
+                    "color": "#869DB1",
+                    "path": "material/stop"
+                  },
+                  "expanded": {
+                    "color": "#5F707E",
+                    "path": "material/folder_open"
+                  }
+                },
+                "expandIcons": {
+                  "collapsed": {
+                    "color": "#869DB1",
+                    "path": "material/arrow_right"
+                  },
+                  "empty": {
+                    "color": "#869DB1"
+                  },
+                  "expanded": {
+                    "color": "#869DB1",
+                    "path": "material/arrow_drop_down"
+                  }
+                }
+              },
+              "items": [
+                {
+                  "data": {
+                    "class": false,
+                    "eqStateUUID": ""
+                  },
+                  "expanded": true,
+                  "items": [
+                    {
+                      "data": {
+                        "class": true,
+                        "eqStateUUID": "861d5ef2-a7ef-4e9e-b819-2e8751e45d21"
+                      },
+                      "expanded": true,
+                      "items": [
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "822e5c45-5e5d-40d4-aa0c-1421f24d2db4"
+                          },
+                          "expanded": false,
+                          "items": [
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "9bae24a8-a059-4cf5-a272-2a423e0a65ce"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Samples"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "913b00d7-da82-4fcc-a981-04fb072e8f8b"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Trials"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "9bae24a8-a059-4cf5-a272-2a423e0a65ce"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Samples"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "913b00d7-da82-4fcc-a981-04fb072e8f8b"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Trials"
+                            }
+                          ],
+                          "label": "Engineering"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "e9f2bc9d-5fe8-4050-ae84-ce954ec45d66"
+                          },
+                          "expanded": false,
+                          "items": [
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "e1551ec3-c48e-42e6-8099-547febb0ea79"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Break"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "89e1bf8a-bb79-4df5-98f6-f19c6d1fbc5a"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Cleaning"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "0bf2c329-8e96-43bc-9350-a4d8c03b54de"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Lunch"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "d78b0a5e-c2fd-4fc8-b7cb-a8e9d0dcadae"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Maintenance Called "
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "e2156a07-df62-404f-8a25-3225f9f77079"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Meeting"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "e62cba5d-f80b-46af-8171-92c4e369538c"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Team Lead Called"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "0bf2c329-8e96-43bc-9350-a4d8c03b54de"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Lunch"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "d78b0a5e-c2fd-4fc8-b7cb-a8e9d0dcadae"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Maintenance Called "
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "e2156a07-df62-404f-8a25-3225f9f77079"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Meeting"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "e62cba5d-f80b-46af-8171-92c4e369538c"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Team Lead Called"
+                            }
+                          ],
+                          "label": "General Stop"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "1cc8a72a-4062-4415-9598-20ba28a738ac"
+                          },
+                          "expanded": true,
+                          "items": [
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "0c4aba39-a001-418e-8403-9db6430a2683"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "No Inventory"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "24c41221-33cc-4aee-9795-8992a7e6d1bd"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Parts Crib General Supplies"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "1c2999e1-3a6d-4a0c-ae2a-0826bcc26480"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "parts crib machine part"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "a3500596-d1ac-4394-915d-c8cae700048f"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "waiting on material handler"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "0c4aba39-a001-418e-8403-9db6430a2683"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "No Inventory"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "24c41221-33cc-4aee-9795-8992a7e6d1bd"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Parts Crib General Supplies"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "1c2999e1-3a6d-4a0c-ae2a-0826bcc26480"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "parts crib machine part"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "a3500596-d1ac-4394-915d-c8cae700048f"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "waiting on material handler"
+                            }
+                          ],
+                          "label": "Material"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "8f7e07f5-a97d-454d-8f96-b0bd398c9167"
+                          },
+                          "expanded": true,
+                          "items": [
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "607ffa75-8fa9-4a10-affb-ae4aec4b75b3"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Blocked"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "66b31ec1-a20a-4b5c-9707-aca9ab0423ca"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Disabled"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "5d6a32eb-0e0a-4305-a3d9-89b5ae57b817"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Idle"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "e6257e22-01ea-4e46-9263-00beaf6a8284"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Running"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "9abeb54c-4e67-4633-9dcf-b888e33c7208"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Starved"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "77cf0bcb-37d3-47f9-a9ea-90e0bd362ee8"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Unselected Reason"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "e6257e22-01ea-4e46-9263-00beaf6a8284"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Running"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "9abeb54c-4e67-4633-9dcf-b888e33c7208"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Starved"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "77cf0bcb-37d3-47f9-a9ea-90e0bd362ee8"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Unselected Reason"
+                            }
+                          ],
+                          "label": "Non Selectable"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "5e7aec18-6d4b-4fcf-b39a-7de970a2f8c0"
+                          },
+                          "expanded": false,
+                          "items": [],
+                          "label": "Preventative Maintenance"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "cb58ade4-d11b-40eb-8f7a-a13b40cc455a"
+                          },
+                          "expanded": true,
+                          "items": [
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "30b7034c-34bc-4500-9273-025c51f57b50"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Flame Treat issue"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "48f0fd5d-4b4d-48de-ad08-e21f4cb854ee"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Print Pad change"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "22c682af-157c-462e-bda1-2f85cc748a12"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Print engine adjustment"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "a85e2ef2-2442-4dac-beba-a61b50979624"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Print engine repair"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "6d415bca-d59b-4779-821a-10bdcae1a3f3"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "UV issue"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "6d415bca-d59b-4779-821a-10bdcae1a3f3"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "UV issue"
+                            }
+                          ],
+                          "label": "Printing"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "2224c636-ef9f-4e39-a858-3cf9c7ce932d"
+                          },
+                          "expanded": false,
+                          "items": [
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "7848d20a-68d9-40d6-b9c3-5976c15d6311"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Contamination"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "324cebc8-0574-4d12-b69c-f4ac990ef6fa"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "High Scrap Rate"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "31f4ebbf-ba9d-4c83-9595-b7ca41ee845a"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "QA needed"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "40dcc84b-4ce4-4b29-a5eb-eb8245a3b732"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Standard QA checks"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "71d6979a-00a7-4552-8193-0bc5a814cb3a"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Suspect Material - AQL"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "40dcc84b-4ce4-4b29-a5eb-eb8245a3b732"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Standard QA checks"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "71d6979a-00a7-4552-8193-0bc5a814cb3a"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Suspect Material - AQL"
+                            }
+                          ],
+                          "label": "Quality"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "ae6291dd-b632-48a3-b3d9-ee05ea12e963"
+                          },
+                          "expanded": false,
+                          "items": [
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "bd579999-ce2f-465d-9acd-ee351a73669e"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "No Operator"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "ece0bb94-59e1-41e4-b2d6-7c06afcdc06b"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Not Scheduled"
+                            }
+                          ],
+                          "label": "Scheduling"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "96fa5040-c5d8-451f-b52d-3159d4e65630"
+                          },
+                          "expanded": false,
+                          "items": [
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "62c30e30-f9c6-4490-b48b-8cfcddec9c35"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "ChangeOver Forced"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "1ab8f083-561c-4842-b08d-393d442da4d4"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "ChangeOver planned"
+                            }
+                          ],
+                          "label": "Setup and Changeover"
+                        }
+                      ],
+                      "label": "Class - Assembly Standard"
+                    },
+                    {
+                      "data": {
+                        "class": true,
+                        "eqStateUUID": "3cc3776e-89c0-4d77-8859-4788f70b5d65"
+                      },
+                      "expanded": false,
+                      "items": [
+                        {
+                          "data": {
+                            "class": true,
+                            "eqStateUUID": "81c202f1-a201-475c-8627-c451d8903e37"
+                          },
+                          "expanded": false,
+                          "items": [
+                            {
+                              "data": {
+                                "class": true,
+                                "eqStateUUID": "f1684609-f98f-43ec-bbe5-efaf83b6e1f5"
+                              },
+                              "expanded": false,
+                              "items": [
+                                {
+                                  "data": {
+                                    "class": false,
+                                    "eqStateUUID": "968e97d5-0965-4177-a942-a09580635d36"
+                                  },
+                                  "expanded": false,
+                                  "items": [],
+                                  "label": "TEST AGAIN 1"
+                                }
+                              ],
+                              "label": "Class - TEST"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "6d9552ae-4704-4a86-a12e-5240add60e61"
+                              },
+                              "expanded": false,
+                              "items": [
+                                {
+                                  "data": {
+                                    "class": false,
+                                    "eqStateUUID": "ead60fe0-1364-4891-a55b-4652d7069976"
+                                  },
+                                  "expanded": false,
+                                  "items": [],
+                                  "label": "Nested Unplanned"
+                                }
+                              ],
+                              "label": "Unplanned Downtime"
+                            }
+                          ],
+                          "label": "Class - DefaultInner"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "64e279b6-a74d-4620-9507-39d881c76559"
+                          },
+                          "expanded": false,
+                          "items": [],
+                          "label": "Blocked"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "aba48feb-8f2c-4bbd-8989-6bdbc847e7a9"
+                          },
+                          "expanded": false,
+                          "items": [],
+                          "label": "Disabled"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "44c63cfe-60e5-4ab3-a372-708e0f1c1e91"
+                          },
+                          "expanded": false,
+                          "items": [],
+                          "label": "Idle"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "0e37489a-c7fc-4be7-b09b-55530169e752"
+                          },
+                          "expanded": false,
+                          "items": [],
+                          "label": "Planned Downtime"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "808e075b-6d1f-42c6-b59b-24d98e503c13"
+                          },
+                          "expanded": false,
+                          "items": [],
+                          "label": "Running"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "d3085455-4528-4fde-94c9-1c0bb7af112e"
+                          },
+                          "expanded": false,
+                          "items": [],
+                          "label": "Starved"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "2a47d1f7-6fcc-4bce-a69c-b32ae990fa33"
+                          },
+                          "expanded": false,
+                          "items": [],
+                          "label": "Unplanned Downtime"
+                        }
+                      ],
+                      "label": "Class - Default"
+                    },
+                    {
+                      "data": {
+                        "class": true,
+                        "eqStateUUID": "3667b8d0-97e7-4938-90a6-cd0b66945919"
+                      },
+                      "expanded": false,
+                      "items": [
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "ba13833c-cc6e-4111-b2cc-41dffb2cd85d"
+                          },
+                          "expanded": false,
+                          "items": [
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "b6bad1cf-91d7-406d-b706-cbe7ba47471b"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Conveyor"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "429741e9-e8a5-416a-b0a5-9d75cc5f1486"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Feed System"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "f31a7d58-e1ef-40f3-bd34-79eb3fd585dd"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Grinder"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "79453ef5-d880-47c0-af8e-eb19408c3f06"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Part Containment"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "9e4aace9-bbc1-4e5a-8c5c-d9ac21228437"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Temperature Controller"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "685b97aa-9922-424e-8946-698e92816d52"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Thermalator"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "b6bad1cf-91d7-406d-b706-cbe7ba47471b"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Conveyor"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "429741e9-e8a5-416a-b0a5-9d75cc5f1486"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Feed System"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "f31a7d58-e1ef-40f3-bd34-79eb3fd585dd"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Grinder"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "79453ef5-d880-47c0-af8e-eb19408c3f06"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Part Containment"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "9e4aace9-bbc1-4e5a-8c5c-d9ac21228437"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Temperature Controller"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "685b97aa-9922-424e-8946-698e92816d52"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Thermalator"
+                            }
+                          ],
+                          "label": "Auxiliary"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "5c85ffe9-1258-43af-ac0a-f99196e239cf"
+                          },
+                          "expanded": false,
+                          "items": [
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "2596ef0a-7a09-4ff0-9e17-4c0af8d35fe1"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Samples"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "d570bf3b-2d75-49f2-af83-4119389152f9"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Trials"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "2596ef0a-7a09-4ff0-9e17-4c0af8d35fe1"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Samples"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "d570bf3b-2d75-49f2-af83-4119389152f9"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Trials"
+                            }
+                          ],
+                          "label": "Engineering"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "bb300100-c6a6-4f2d-af3e-d72c8bec24c3"
+                          },
+                          "expanded": false,
+                          "items": [
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "be9a5677-8dc6-4e80-ba01-e654a6210377"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Clamp Unit"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "e8154cf1-be0f-4041-963e-0c63e4027d48"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "HMI"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "aecca07d-f8ff-4c3c-b0d8-e8a97b7554af"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Hydraulic"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "21cbcbb3-8639-482a-b21a-4da70eb3735e"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Injection Unit"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "bc02153b-6c80-470b-8c49-bb430fd9a59e"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Sensor - Switch"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "e8154cf1-be0f-4041-963e-0c63e4027d48"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "HMI"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "aecca07d-f8ff-4c3c-b0d8-e8a97b7554af"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Hydraulic"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "21cbcbb3-8639-482a-b21a-4da70eb3735e"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Injection Unit"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "bc02153b-6c80-470b-8c49-bb430fd9a59e"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Sensor - Switch"
+                            }
+                          ],
+                          "label": "Equipment"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "62482247-b813-49bb-b7de-4ef655e4b95a"
+                          },
+                          "expanded": false,
+                          "items": [
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "a2e31972-a573-4d1a-a4bf-2fe8defb1563"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "No Air "
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "64d9b82c-fd99-436b-804d-f1323369da7d"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "No Water"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "a2e31972-a573-4d1a-a4bf-2fe8defb1563"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "No Air "
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "64d9b82c-fd99-436b-804d-f1323369da7d"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "No Water"
+                            }
+                          ],
+                          "label": "Facility"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "cc4744f8-e656-4348-9664-4df5d047c607"
+                          },
+                          "expanded": false,
+                          "items": [
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "baeacb3c-0d27-46ba-92be-3808643bdac7"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Disabled"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "3b6f4bc5-e2b6-4edf-8b46-cfcd4ea45a54"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Idle"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "6206e95f-93a4-4058-a486-c69009166ba0"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Running"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "8236655a-b83b-49e9-9fd2-b1909b6d2b1c"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Unselected Reason"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "6206e95f-93a4-4058-a486-c69009166ba0"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Running"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "8236655a-b83b-49e9-9fd2-b1909b6d2b1c"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Unselected Reason"
+                            }
+                          ],
+                          "label": "Non Selectable"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "887b34dd-ddb1-4fc6-b16f-73e4741b9ec5"
+                          },
+                          "expanded": false,
+                          "items": [],
+                          "label": "Preventative Maintenance"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "89cf6b58-ba91-4bf1-ae94-3c40f52a268d"
+                          },
+                          "expanded": false,
+                          "items": [
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "10a04df2-7466-43ab-b4c2-e3e9c830e8f9"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Flash"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "f497ccd7-6200-45bb-97e0-feec3a08614f"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Mold Damage"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "5ec9b23a-60bb-4a7b-aaad-e2c75bae156a"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Venting Issues"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "0c87aad8-45fc-4857-8061-736c8fb77ad9"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Water Issues"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "5ec9b23a-60bb-4a7b-aaad-e2c75bae156a"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Venting Issues"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "0c87aad8-45fc-4857-8061-736c8fb77ad9"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Water Issues"
+                            }
+                          ],
+                          "label": "Quality"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "3dc056e3-255b-41d2-9f3b-33d051d245f4"
+                          },
+                          "expanded": false,
+                          "items": [
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "8efa2cb1-e273-4666-9a22-3b1b8fd0f20c"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Mold Cleaning"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "b59808d4-9d7e-49ef-8072-ceef77da5cd4"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "No Material"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "f33b7d50-8a1e-48e1-a06d-a31df64b4bc8"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "No Operator"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "704603be-c036-4057-ad33-054d01c96261"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "No Technician"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "25fb82a4-b328-48b4-ba56-967670ea9af8"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Not Scheduled"
+                            }
+                          ],
+                          "label": "Scheduling"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "c0d0b735-3288-4a56-8d17-a3d7a5a14853"
+                          },
+                          "expanded": false,
+                          "items": [
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "f41579f9-1ab0-4412-ab53-2105f426cfc4"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Mold Change"
+                            }
+                          ],
+                          "label": "Setup and Changeover"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "54d5ff43-b19b-47a8-85ee-f1814d151c05"
+                          },
+                          "expanded": false,
+                          "items": [
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "0f38e970-3d93-4d09-a6bc-beb784357005"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Bad Heater"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "03abccfc-0aef-48ff-82f7-cf53000335e6"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Broken Mold Part"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "31f5b9e6-43ca-4214-b467-08b1212000ba"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Sensor Issues"
+                            }
+                          ],
+                          "label": "Tool and Mold"
+                        }
+                      ],
+                      "label": "Class - Molding Standard"
+                    },
+                    {
+                      "data": {
+                        "class": true,
+                        "eqStateUUID": "dafdd3e7-7cd0-400d-9d62-a98d22cf0e9d"
+                      },
+                      "expanded": false,
+                      "items": [
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "689e3990-943c-4871-9d9c-fb2f9bf1b88d"
+                          },
+                          "expanded": false,
+                          "items": [
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "8730902e-4cab-40a4-8113-ebc0bf89378e"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Bag Material change"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "36c3d062-a34f-4f9d-9fd0-6cd2bed9b432"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Barcode failure"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "f773eca3-2c70-4107-a963-9f2491dda49c"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Label issues"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "a52292aa-8868-411a-b824-aff55eec0679"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Not Sealing"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "73cdcfdb-60ac-408b-af6f-da9fd4aefbe8"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Seal Jam Faults"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "36c3d062-a34f-4f9d-9fd0-6cd2bed9b432"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Barcode failure"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "f773eca3-2c70-4107-a963-9f2491dda49c"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Label issues"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "a52292aa-8868-411a-b824-aff55eec0679"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Not Sealing"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "73cdcfdb-60ac-408b-af6f-da9fd4aefbe8"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Seal Jam Faults"
+                            }
+                          ],
+                          "label": "Bagger"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "1549fa8f-97e8-4380-ad21-42a3da3bd2ad"
+                          },
+                          "expanded": false,
+                          "items": [
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "ef4361d8-18c2-4d82-a39d-68b7491c5e09"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Samples"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "4974c237-15d9-423c-90a4-1040620a6d42"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Trials"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "ef4361d8-18c2-4d82-a39d-68b7491c5e09"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Samples"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "4974c237-15d9-423c-90a4-1040620a6d42"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Trials"
+                            }
+                          ],
+                          "label": "Engineering"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "0656360b-b544-48d2-92d7-23202bcd3566"
+                          },
+                          "expanded": false,
+                          "items": [
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "1d8e2500-340d-4066-8841-2bc91cb1ea7a"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Break"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "2ee2de38-85c2-4b4f-8242-66eb163c1c19"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Cleaning"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "23dc703d-c9e4-472c-9812-a7a02c63394d"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Lunch"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "cf5b00e3-194a-45aa-8e39-fcd2b366c031"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Maintenance Called "
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "7738cf9e-e7ca-4bbf-bf9d-d391bcb67193"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Meeting"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "eb5ead91-3959-4f10-bbf4-c75c73ee5be2"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Team Lead Called"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "16a667c9-6b94-4829-8ef6-62815a855f23"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Tooling Called"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "23dc703d-c9e4-472c-9812-a7a02c63394d"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Lunch"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "cf5b00e3-194a-45aa-8e39-fcd2b366c031"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Maintenance Called "
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "7738cf9e-e7ca-4bbf-bf9d-d391bcb67193"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Meeting"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "eb5ead91-3959-4f10-bbf4-c75c73ee5be2"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Team Lead Called"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "16a667c9-6b94-4829-8ef6-62815a855f23"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Tooling Called"
+                            }
+                          ],
+                          "label": "General Stop"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "6f7d4b75-7176-4e63-9820-a88341c7b15d"
+                          },
+                          "expanded": false,
+                          "items": [
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "70540ff4-8f77-44db-8a78-e5c6af019cec"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "No Inventory"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "34543d8c-464c-4e87-a08a-c1889fddae59"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Parts Crib General Supplies"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "9f726ea3-4945-46bd-bd16-9e0ee903762f"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "parts crib machine part"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "80cb6394-596c-44eb-bd26-fd22a04b47b2"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "waiting on material handler"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "70540ff4-8f77-44db-8a78-e5c6af019cec"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "No Inventory"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "34543d8c-464c-4e87-a08a-c1889fddae59"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Parts Crib General Supplies"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "9f726ea3-4945-46bd-bd16-9e0ee903762f"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "parts crib machine part"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "80cb6394-596c-44eb-bd26-fd22a04b47b2"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "waiting on material handler"
+                            }
+                          ],
+                          "label": "Material"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "0d8812e4-bc5d-4146-919a-f536979fddae"
+                          },
+                          "expanded": false,
+                          "items": [
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "e8823c59-86b3-4de0-bdbc-b0cb6c5d0f77"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Blocked"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "089ce3ec-c87a-4ad9-ae62-8c1db9bb9579"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Disabled"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "54445459-2006-4679-9497-125c2b33752f"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Idle"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "4637270b-a7c6-4fd8-ab96-ec4afd522724"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Running"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "7d52bdea-9b69-448b-a357-b5130d32e5f1"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Starved"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "dbb2a297-f267-4f2c-89d5-62acd5570de3"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Unselected Reason"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "4637270b-a7c6-4fd8-ab96-ec4afd522724"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Running"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "7d52bdea-9b69-448b-a357-b5130d32e5f1"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Starved"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "dbb2a297-f267-4f2c-89d5-62acd5570de3"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Unselected Reason"
+                            }
+                          ],
+                          "label": "Non Selectable"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "6e936add-b4f6-4a64-a2ab-8c5d1095ec78"
+                          },
+                          "expanded": false,
+                          "items": [],
+                          "label": "Preventative Maintenance"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "6d1628cb-d9ea-4fe6-9431-f3f3bd22365a"
+                          },
+                          "expanded": false,
+                          "items": [
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "2884b61f-4ecb-4ca2-9686-443dc3ec1020"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Contamination"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "4eadc8da-3d1f-4200-85de-9aebec46770c"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "High Scrap Rate"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "9f6cbb65-ec5c-4300-9175-1ae177c38153"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "QA needed"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "cc737cbb-29a6-4955-bf9d-ba99eecf0f00"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Sealing issues"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "cd156f2d-8ed1-468d-8d4b-f1354a0ddeda"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Standard QA checks"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "707e072e-6e65-4fde-b3c1-bbd36d1a0aed"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Suspect Material - AQL"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "cc737cbb-29a6-4955-bf9d-ba99eecf0f00"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Sealing issues"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "cd156f2d-8ed1-468d-8d4b-f1354a0ddeda"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Standard QA checks"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "707e072e-6e65-4fde-b3c1-bbd36d1a0aed"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Suspect Material - AQL"
+                            }
+                          ],
+                          "label": "Quality"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "270a25ff-5f6a-400e-b7a5-1b050e3685e4"
+                          },
+                          "expanded": false,
+                          "items": [
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "4ad0852e-8f16-42a3-ba99-3673f9d609b1"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Dropping Markers"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "9713e041-e20c-49f7-9a74-130fdb7ce6cc"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Marker Lay Issue"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "52b6efae-3dca-4b38-8e01-eb1fd4d2e448"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Robot Homing"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "b12c8735-9011-4325-a173-c9c62826218c"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Vacuum Issue"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "52b6efae-3dca-4b38-8e01-eb1fd4d2e448"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Robot Homing"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "b12c8735-9011-4325-a173-c9c62826218c"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Vacuum Issue"
+                            }
+                          ],
+                          "label": "Robot"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "1f368ffd-f287-47e6-8b59-a26823eff4e6"
+                          },
+                          "expanded": false,
+                          "items": [
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "c2ce52d3-f162-4fb2-a72a-9eac299d043e"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "No Operator"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "5293a66c-3cde-448d-9ba4-bbc7fdd6ede4"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Not Scheduled"
+                            }
+                          ],
+                          "label": "Scheduling"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "79c3dbe4-fe13-493f-b7c5-c63b382e71e1"
+                          },
+                          "expanded": false,
+                          "items": [
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "9e62219f-96db-4c4d-bf4e-30232462e769"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "ChangeOver Forced"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "d27c14bf-fd3a-4158-b85d-408c9859e0ae"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "ChangeOver planned"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "e4db5cd3-8eea-4105-9872-d5598ef669fb"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Tool Change"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "e4db5cd3-8eea-4105-9872-d5598ef669fb"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Tool Change"
+                            }
+                          ],
+                          "label": "Setup and Changeover"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "70d20658-cbd0-49f3-9a6d-91346cadd9fb"
+                          },
+                          "expanded": false,
+                          "items": [
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "58900f12-b735-4784-b24f-20bd53e62b2a"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Blister adjustment"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "b151ad62-1a7c-4a97-a3dc-33aa9d76562b"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Cards adjustment"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "16510950-62ff-49f6-921a-7f24b1d298ea"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Heat Plate adjustment"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "6a21524e-9af9-47ac-a47e-c7b8f42bf726"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Sensor adjustment"
+                            }
+                          ],
+                          "label": "Tool and Mold"
+                        }
+                      ],
+                      "label": "Class - Packaging Standard"
+                    },
+                    {
+                      "data": {
+                        "class": true,
+                        "eqStateUUID": "3a6776a7-a845-4745-a72e-4206da86cbfd"
+                      },
+                      "expanded": false,
+                      "items": [
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "513e26d1-75ae-497c-b4c9-1f0f55dae928"
+                          },
+                          "expanded": false,
+                          "items": [
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "7436e975-bb4b-4641-b684-63264d7cdf91"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Samples"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "faf4bc1e-9247-4972-8a01-2a14d8dc1a1e"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Trials"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "7436e975-bb4b-4641-b684-63264d7cdf91"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Samples"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "faf4bc1e-9247-4972-8a01-2a14d8dc1a1e"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Trials"
+                            }
+                          ],
+                          "label": "Engineering"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "3381f5da-ae6d-4593-8671-9fb600957569"
+                          },
+                          "expanded": false,
+                          "items": [
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "c8df87c6-2f10-46ec-b205-36457b1c8113"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Break"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "cfc5acbb-069f-4b4c-8d16-676f61c40fe6"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Cleaning"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "a78f2de1-6992-4301-a900-c23f7399ead8"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Lunch"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "29d21376-3310-434e-895e-bb8a6ebfc7aa"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Maintenance Called "
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "06395569-1d73-46d9-9f7a-a36fbae69ba8"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Meeting"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "4b4026f6-437e-4ab0-995b-4f56393c5849"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Team Lead Called"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "a78f2de1-6992-4301-a900-c23f7399ead8"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Lunch"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "29d21376-3310-434e-895e-bb8a6ebfc7aa"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Maintenance Called "
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "06395569-1d73-46d9-9f7a-a36fbae69ba8"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Meeting"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "4b4026f6-437e-4ab0-995b-4f56393c5849"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Team Lead Called"
+                            }
+                          ],
+                          "label": "General Stop"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "414b252c-29c5-4bac-9994-f6bbdbfc7d62"
+                          },
+                          "expanded": false,
+                          "items": [
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "4e967dba-1f12-4159-8c3d-85ac85558082"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "No Inventory"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "27b1b0a6-ce38-4c2c-98b5-e7b105aa8442"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Parts Crib General Supplies"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "015f2ae9-5420-4bfa-8b80-486e81fa9f8e"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "parts crib machine part"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "2aebaeab-5171-4837-9436-128e6a154f18"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "waiting on material handler"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "4e967dba-1f12-4159-8c3d-85ac85558082"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "No Inventory"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "27b1b0a6-ce38-4c2c-98b5-e7b105aa8442"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Parts Crib General Supplies"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "015f2ae9-5420-4bfa-8b80-486e81fa9f8e"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "parts crib machine part"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "2aebaeab-5171-4837-9436-128e6a154f18"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "waiting on material handler"
+                            }
+                          ],
+                          "label": "Material"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "d424ea67-642b-4397-b14a-a50dc5c8f51b"
+                          },
+                          "expanded": false,
+                          "items": [
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "3a98aa3d-8273-4851-897d-dc9c5ad6fba6"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Blocked"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "5b50cd1b-0ec7-4c98-a155-008319d48386"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Disabled"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "edee98f2-25f9-4788-9863-8daaadbac8b4"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Idle"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "c6d99844-cf26-4a3e-9bbe-f50646c8a6f3"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Running"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "20c92ec9-e5a1-46e9-9acb-86c7048bd0fa"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Starved"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "7303921b-5ff3-4e90-bdad-debbac4e4ec2"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Unselected Reason"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "c6d99844-cf26-4a3e-9bbe-f50646c8a6f3"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Running"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "20c92ec9-e5a1-46e9-9acb-86c7048bd0fa"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Starved"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "7303921b-5ff3-4e90-bdad-debbac4e4ec2"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Unselected Reason"
+                            }
+                          ],
+                          "label": "Non Selectable"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "dd984c0f-52c9-43c9-a3de-95ec2d13c47d"
+                          },
+                          "expanded": false,
+                          "items": [],
+                          "label": "Preventative Maintenance"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "2c22c84b-76be-477e-a756-c212c2170f38"
+                          },
+                          "expanded": false,
+                          "items": [
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "de89423b-b123-45e9-92f2-7070afe7bcbc"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Flame Treat issue"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "b1fdb139-a4a5-48e7-aeda-6b9742467de6"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Print Pad change"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "112039c5-ed00-4b11-9e2f-a083092bd385"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Print engine adjustment"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "c1b4247a-d850-409a-8e1e-a4c4e9180d7b"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Print engine repair"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "bb6a3ce6-7da1-4e7b-94fd-af1e48ce184c"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "UV issue"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "bb6a3ce6-7da1-4e7b-94fd-af1e48ce184c"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "UV issue"
+                            }
+                          ],
+                          "label": "Printing"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "b38a2de6-ac00-4de9-8a50-917ebe7b6fe4"
+                          },
+                          "expanded": false,
+                          "items": [
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "81e9593f-57dc-4e37-b70b-157f024748c6"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Contamination"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "3432fce0-8bb5-42ac-8b51-054fc42fe4d3"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "High Scrap Rate"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "7b22ea09-7259-4822-9478-6c65daa38726"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "QA needed"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "254e0d32-cbfb-4d35-b09e-a69fcb586972"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Standard QA checks"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "bda17670-8087-4e54-8ed2-b31f63f514ef"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Suspect Material - AQL"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "254e0d32-cbfb-4d35-b09e-a69fcb586972"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Standard QA checks"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "bda17670-8087-4e54-8ed2-b31f63f514ef"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Suspect Material - AQL"
+                            }
+                          ],
+                          "label": "Quality"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "0232bfb4-ece2-4eca-a8e7-8e290c7e8ab6"
+                          },
+                          "expanded": false,
+                          "items": [
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "92d3f915-d1a8-464c-9350-e7f3f08d2dd3"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "No Operator"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "d952bd63-bcd5-4dfb-9c6b-0c2f774c06de"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "Not Scheduled"
+                            }
+                          ],
+                          "label": "Scheduling"
+                        },
+                        {
+                          "data": {
+                            "class": false,
+                            "eqStateUUID": "19032103-79c7-4f05-a79f-c65fad762cbc"
+                          },
+                          "expanded": false,
+                          "items": [
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "94d827b3-9004-4b88-b3bc-24523c40d2bc"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "ChangeOver Forced"
+                            },
+                            {
+                              "data": {
+                                "class": false,
+                                "eqStateUUID": "db94590c-990c-4ae9-b919-f4b6c0b89a62"
+                              },
+                              "expanded": false,
+                              "items": [],
+                              "label": "ChangeOver planned"
+                            }
+                          ],
+                          "label": "Setup and Changeover"
+                        }
+                      ],
+                      "label": "Class - Printing Standard"
+                    }
+                  ],
+                  "label": "Equipment States"
+                }
+              ],
+              "selection": [
+                "0"
+              ],
+              "selectionData": [
+                {
+                  "itemPath": "0",
+                  "value": {
+                    "class": false,
+                    "eqStateUUID": ""
+                  }
+                }
+              ],
+              "style": {
+                "cursor": "pointer"
+              }
+            },
+            "type": "ia.display.tree"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "script": "\tself.parent.parent.parent.getChild(\"newStateClass\").custom.new \u003d True\n\tself.parent.parent.parent.parent.getChild(\"content\").custom.newStateClass \u003d True\n\t\n\tself.parent.parent.parent.getChild(\"newStateClass\").getChild(\"data\").getChild(\"nameEntry\").props.text \u003d \u0027\u0027"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "newStateClass"
+                    },
+                    "position": {
+                      "basis": "44px",
+                      "shrink": 0
+                    },
+                    "propConfig": {
+                      "props.enabled": {
+                        "binding": {
+                          "config": {
+                            "expression": "{view.params.newStateClassUUID} !\u003d \u0027\u0027\r\n|| {..../newState.custom.relativeUUID} \u003d \u0027\u0027"
+                          },
+                          "type": "expr"
+                        }
+                      }
+                    },
+                    "props": {
+                      "image": {
+                        "source": "/system/images/Builtin/icons/24/document.png"
+                      },
+                      "primary": false,
+                      "style": {
+                        "classes": "Button/Add-HoverDark",
+                        "marginBottom": "0.5rem",
+                        "marginLeft": "0.5rem",
+                        "marginRight": "0.5rem",
+                        "marginTop": "0.5rem"
+                      },
+                      "text": "New Equipment State Class"
+                    },
+                    "type": "ia.input.button"
+                  },
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "script": "\tself.parent.parent.parent.getChild(\"newState\").custom.new \u003d True\n\tself.parent.parent.parent.parent.getChild(\"content\").custom.newState \u003d True\n\t\n\tself.parent.parent.parent.getChild(\"newState\").getChild(\"data\").getChild(\"nameEntry\").props.text \u003d \u0027\u0027\n\tself.parent.parent.parent.getChild(\"newState\").getChild(\"data\").getChild(\"thresholdEntry\").props.text \u003d 0\n\tself.parent.parent.parent.getChild(\"newState\").getChild(\"data\").getChild(\"typeSelect\").props.value \u003d \u0027Unplanned Downtime\u0027\n\tself.parent.parent.parent.getChild(\"newState\").getChild(\"data\").getChild(\"scopeSelect\").props.value \u003d \u0027Detected Equipment State\u0027\n\tself.parent.parent.parent.getChild(\"newState\").getChild(\"data\").getChild(\"overrideSelect\").props.value \u003d \u0027Optional\u0027"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "newState"
+                    },
+                    "position": {
+                      "basis": "44px",
+                      "shrink": 0
+                    },
+                    "propConfig": {
+                      "props.enabled": {
+                        "binding": {
+                          "config": {
+                            "expression": " {..../newState.custom.relativeUUID} !\u003d \u0027\u0027"
+                          },
+                          "type": "expr"
+                        }
+                      }
+                    },
+                    "props": {
+                      "image": {
+                        "source": "/system/images/Builtin/icons/24/document_add.png"
+                      },
+                      "primary": false,
+                      "style": {
+                        "classes": "Button/Add-HoverDark",
+                        "marginBottom": "0.5rem",
+                        "marginLeft": "0.5rem",
+                        "marginRight": "0.5rem",
+                        "marginTop": "0.5rem"
+                      },
+                      "text": "New Equipment State"
+                    },
+                    "type": "ia.input.button"
+                  },
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "script": "\tif self.view.params.newStateClassUUID \u003d\u003d \u0027\u0027:\n\t\tself.parent.parent.parent.getChild(\"newState\").custom.new \u003d False\n\t\tself.parent.parent.parent.parent.getChild(\"content\").custom.newState \u003d True\n\t\tselfUUID \u003d self.parent.parent.parent.getChild(\"newState\").custom.relativeUUID\n\t\t\n\t\tmesObject\u003d system.mes.loadMESObject(selfUUID)\n\t\tcode \u003d mesObject.getStateCode()\n\t\tscope \u003d mesObject.getStateOverrideScope()\n\t\toverride \u003d mesObject.getStateOverrideSetting()\n\t\tthreshold \u003d mesObject.getStateShortStopThreshold()\n\t\ttype \u003d mesObject.getStateTypeName()\n\t\t\n\t\tself.parent.parent.parent.getChild(\"newState\").getChild(\"data\").getChild(\"nameEntry\").props.text \u003d mesObject.getName()\n\t\tself.parent.parent.parent.getChild(\"newState\").getChild(\"data\").getChild(\"thresholdEntry\").props.text \u003d threshold\n\t\tself.parent.parent.parent.getChild(\"newState\").getChild(\"data\").getChild(\"codeEntry\").props.value \u003d code\n\t\tself.parent.parent.parent.getChild(\"newState\").getChild(\"data\").getChild(\"typeSelect\").props.value \u003d type\n\t\tself.parent.parent.parent.getChild(\"newState\").getChild(\"data\").getChild(\"scopeSelect\").props.value \u003d scope\n\t\tself.parent.parent.parent.getChild(\"newState\").getChild(\"data\").getChild(\"overrideSelect\").props.value \u003d override\n\telse:\n\t\tself.parent.parent.parent.getChild(\"newStateClass\").custom.new \u003d False\n\t\t\n\t\tself.parent.parent.parent.parent.getChild(\"content\").custom.newStateClass \u003d True\n\t\tselfUUID \u003d self.parent.parent.parent.getChild(\"newState\").custom.relativeUUID\n\t\t\t\t\n\t\tmesObject\u003d system.mes.loadMESObject(selfUUID)\n\t\tself.parent.parent.parent.getChild(\"newStateClass\").getChild(\"data\").getChild(\"nameEntry\").props.text \u003d mesObject.getName()"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "edit"
+                    },
+                    "position": {
+                      "basis": "44px",
+                      "shrink": 0
+                    },
+                    "propConfig": {
+                      "props.enabled": {
+                        "binding": {
+                          "config": {
+                            "expression": " {..../newState.custom.relativeUUID} !\u003d \u0027\u0027"
+                          },
+                          "type": "expr"
+                        }
+                      }
+                    },
+                    "props": {
+                      "image": {
+                        "source": "/system/images/Builtin/icons/24/document_edit.png"
+                      },
+                      "primary": false,
+                      "style": {
+                        "classes": "Button/Add-HoverDark",
+                        "marginBottom": "0.5rem",
+                        "marginLeft": "0.5rem",
+                        "marginRight": "0.5rem",
+                        "marginTop": "0.5rem"
+                      },
+                      "text": "Edit"
+                    },
+                    "type": "ia.input.button"
+                  },
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "script": "\tuuid \u003d self.parent.parent.parent.getChild(\"newState\").custom.relativeUUID\n\teqObject \u003d system.mes.loadMESObject(uuid)\n\tused \u003d 0\n\tif eqObject.getMESObjectTypeName() \u003d\u003d \u0027EquipmentStateClass\u0027:\n\t\t\n\t\t#VERIFY NOT BEING USED!\n\t\tdef checkUsed(eqpType, uuid \u003d uuid):\n\t\t\tfilter \u003d system.mes.object.filter.createFilter()\n\t\t\tfilter.setMESObjectTypeName(eqpType)\n\t\t\tresults \u003d system.mes.searchMESObjects(filter)\n\t\t\t\n\t\t\tfor equipment in results:\n\t\t\t\tmesObject \u003d equipment.getMESObject()\n\t\t\t\tif mesObject.getEquipmentStateClassUUID() \u003d\u003d uuid:\n\t\t\t\t\tused \u003d 1\n\t\t\t\t\tbreak\n\t\t\n\t\tif not used:\n\t\t\tcheckUsed(\u0027Line\u0027)\n\t\tif not used:\n\t\t\tcheckUsed(\u0027LineCellGroup\u0027)\n\t\tif not used:\n\t\t\tcheckUsed(\u0027LineCell\u0027)\n\tchildren \u003d []\n\tdef findChildren(eqObject):\n\t\tchildCollection \u003d eqObject.getChildCollection().getList()\n\t\tif childCollection.size() \u003e 0:\n\t\t\tfor child in childCollection:\n\t\t\t\tchildren.append(child.getMESObjectUUID())\n\t\t\t\tfindChildren(child.getMESObject())\n\tfindChildren(eqObject)\n\t\n\t\t\t\n\tif not used:\t\n\t\tchildren.append(uuid)\t\n\t\tfor eqUUID in children:\n\t\t\teqObject \u003d system.mes.loadMESObject(eqUUID)\n\t\t\tif eqObject.getMESObjectTypeName() in [\u0027EquipmentStateClass\u0027, \u0027EquipmentState\u0027]:\n\t\t\t\teqObject.setEnabled(False)\n\t\t\t\tsystem.mes.saveMESObject(eqObject)\n\t\tsystem.perspective.sendMessage(\u0027refresh\u0027, {})\n\telse:\n\t\timport time\n\t\tself.getSibling(\"message\").meta.visible \u003d True\n\t\ttime.sleep(5)\n\t\tself.getSibling(\"message\").meta.visible \u003d False\n\n\t\t\t"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "delete"
+                    },
+                    "position": {
+                      "basis": "44px",
+                      "shrink": 0
+                    },
+                    "propConfig": {
+                      "props.enabled": {
+                        "binding": {
+                          "config": {
+                            "expression": " {..../newState.custom.relativeUUID} !\u003d \u0027\u0027"
+                          },
+                          "type": "expr"
+                        }
+                      }
+                    },
+                    "props": {
+                      "image": {
+                        "source": "/system/images/Builtin/icons/24/document_delete.png"
+                      },
+                      "primary": false,
+                      "style": {
+                        "classes": "Button/Add-HoverDark",
+                        "marginBottom": "0.5rem",
+                        "marginLeft": "0.5rem",
+                        "marginRight": "0.5rem",
+                        "marginTop": "0.5rem"
+                      },
+                      "text": "Delete"
+                    },
+                    "type": "ia.input.button"
+                  },
+                  {
+                    "meta": {
+                      "name": "message",
+                      "visible": false
+                    },
+                    "position": {
+                      "basis": "30px"
+                    },
+                    "props": {
+                      "style": {
+                        "marginBottom": "0.5rem",
+                        "marginLeft": "0.5rem",
+                        "marginRight": "0.5rem",
+                        "marginTop": "0.5rem"
+                      },
+                      "text": "Can\u0027t Delete Class, it is in use."
+                    },
+                    "type": "ia.display.label"
+                  }
+                ],
+                "meta": {
+                  "name": "buttons"
+                },
+                "position": {
+                  "basis": "200px",
+                  "grow": 1,
+                  "shrink": 0
+                },
+                "props": {
+                  "direction": "column"
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "custom": {
+                  "eqStateUUID": ""
+                },
+                "meta": {
+                  "name": "info"
+                },
+                "position": {
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "custom.eqStateUUID": {
+                    "onChange": {
+                      "enabled": null,
+                      "script": "\tinstances \u003d []\n\tif currentValue.value is not None and currentValue.value !\u003d \u0027\u0027 and len(currentValue.value) \u003e 0:\n\t\tmesUUID \u003d currentValue.value\n\t\tmesObject \u003d system.mes.loadMESObject(mesUUID)\n\t\tif mesObject.getMESObjectTypeName() \u003d\u003d \u0027EquipmentState\u0027:\n\t\t\t\n\t\t\tdict \u003d {}\n\t\t\tdict[\u0027title\u0027] \u003d \u0027Code:\u0027\n\t\t\tdict[\u0027value\u0027] \u003d mesObject.getStateCode()\n\t\t\tinstances.append(dict)\n\t\t\tdict \u003d {}\n\t\t\tdict[\u0027title\u0027] \u003d \u0027Type:\u0027\n\t\t\tdict[\u0027value\u0027] \u003d mesObject.getStateTypeName()\n\t\t\tinstances.append(dict)\n\t\t\tdict \u003d {}\n\t\t\tdict[\u0027title\u0027] \u003d \u0027Short Stop Threshold:\u0027\n\t\t\tdict[\u0027value\u0027] \u003d mesObject.getStateShortStopThreshold()\n\t\t\tinstances.append(dict)\n\t\t\tdict \u003d {}\n\t\t\tdict[\u0027title\u0027] \u003d \u0027Override:\u0027\n\t\t\tdict[\u0027value\u0027] \u003d mesObject.getStateOverrideSetting()\n\t\t\tinstances.append(dict)\n\t\t\tdict \u003d {}\n\t\t\tdict[\u0027title\u0027] \u003d \u0027Scope:\u0027\n\t\t\tdict[\u0027value\u0027] \u003d mesObject.getStateOverrideScope()\n\t\t\tinstances.append(dict)\n\t\telif mesObject.getMESObjectTypeName() \u003d\u003d \u0027EquipmentStateClass\u0027:\n\t\t\tdict \u003d {}\n\t\t\tdict[\u0027title\u0027] \u003d \u0027Roles: \u0027\n\t\t\tdict[\u0027value\u0027] \u003d str(mesObject.getPropertyValue(\u0027EquipmentStateClassSecurity\u0027))\n\t\t\tinstances.append(dict)\n\t\t\t\n\t\n\tself.props.instances \u003d instances"
+                    }
+                  }
+                },
+                "props": {
+                  "direction": "column",
+                  "elementPosition": {
+                    "basis": "auto",
+                    "shrink": 0
+                  },
+                  "path": "App/uncategorized/configure/equipmentStateInfo",
+                  "style": {
+                    "classes": "Components/Labels/TooltipDark"
+                  },
+                  "useDefaultViewHeight": false,
+                  "useDefaultViewWidth": false
+                },
+                "type": "ia.display.flex-repeater"
+              }
+            ],
+            "meta": {
+              "name": "editBar"
+            },
+            "position": {
+              "basis": "200px",
+              "grow": 1
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "expression": "!{parent.custom.newState}\r\n\u0026\u0026 !{parent.custom.newStateClass}"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "direction": "column"
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "title"
+                    },
+                    "position": {
+                      "grow": 1,
+                      "shrink": 0
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "Cards/header"
+                      },
+                      "text": "Equipment State Editor"
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "script": "\tself.parent.parent.parent.parent.getChild(\"content\").custom.newState \u003d False"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "back"
+                    },
+                    "position": {
+                      "basis": "88px",
+                      "shrink": 0
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "Button/Text",
+                        "marginBottom": "0.25rem",
+                        "marginLeft": "0.25rem",
+                        "marginRight": "0.25rem",
+                        "marginTop": "0.25rem"
+                      },
+                      "text": "back"
+                    },
+                    "type": "ia.input.button"
+                  },
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "script": "\tdataCtr \u003d self.parent.parent.getChild(\"data\")\n\tname \u003d dataCtr.getChild(\"nameEntry\").props.text\n\tcode \u003d dataCtr.getChild(\"codeEntry\").props.value\n\ttype \u003d dataCtr.getChild(\"typeSelect\").props.value\n\toverride \u003d dataCtr.getChild(\"overrideSelect\").props.value\n\tscope \u003d dataCtr.getChild(\"scopeSelect\").props.value\n\tif self.parent.parent.parent.getChild(\"newState\").custom.new:\n\t\tstateCls \u003d system.mes.loadMESObject(self.parent.parent.parent.getChild(\"newState\").custom.relativeUUID)\n\t\t#insert the name of your State Class here\n\t\tstate \u003d system.mes.createMESObject(\u0027EquipmentState\u0027)\n\t\tstateCls.addChild(state)\n\telse:\n\t\tstateCls \u003d system.mes.loadMESObject(self.parent.parent.parent.getChild(\"newState\").custom.parentUUID)\n\t\tstate \u003d system.mes.loadMESObject(self.parent.parent.parent.getChild(\"newState\").custom.relativeUUID)\n\tstate.setPropertyValue(\u0027Name\u0027, name)\n\tstate.setPropertyValue(\u0027EquipmentStateCode\u0027, code)\n\tstate.setPropertyValue(\u0027EquipmentStateType\u0027, type)\n\t#valid values for EquipmentStateType: \"Running\", \"Idle\", \"Blocked\", \"Starved\", \"Planned Downtime\", \"Unplanned Downtime\", \"Disabled\"\n\tstate.setPropertyValue(\u0027EquipmentStateOverride\u0027, override)\n\tstate.setPropertyValue(\u0027EquipmentStateOverrideScope\u0027, scope)\n\t\n\tif name !\u003d \u0027\u0027:\n\t\tsystem.mes.saveMESObject(state)\n\t\n\t\tsystem.mes.saveMESObject(stateCls)\n\t\n\t\n#\t\n\t\tsystem.perspective.sendMessage(\u0027refresh\u0027, {})\n\t\t\n\t\tself.parent.parent.parent.parent.getChild(\"content\").custom.newState \u003d False"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "save"
+                    },
+                    "position": {
+                      "basis": "88px",
+                      "shrink": 0
+                    },
+                    "props": {
+                      "primary": false,
+                      "style": {
+                        "classes": "Button/Add-HoverDark",
+                        "marginBottom": "0.25rem",
+                        "marginLeft": "0.25rem",
+                        "marginRight": "0.25rem",
+                        "marginTop": "0.25rem"
+                      },
+                      "text": "Save"
+                    },
+                    "type": "ia.input.button"
+                  }
+                ],
+                "meta": {
+                  "name": "header"
+                },
+                "position": {
+                  "basis": "40px",
+                  "shrink": 0
+                },
+                "props": {
+                  "style": {
+                    "classes": "header/header"
+                  }
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "name"
+                    },
+                    "position": {
+                      "basis": "20px",
+                      "shrink": 0
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "Cards/header",
+                        "marginBottom": "1ch"
+                      },
+                      "text": "Name"
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "meta": {
+                      "name": "nameEntry"
+                    },
+                    "position": {
+                      "basis": "30px",
+                      "shrink": 0
+                    },
+                    "props": {
+                      "style": {
+                        "marginBottom": "1ch"
+                      },
+                      "text": "Running"
+                    },
+                    "type": "ia.input.text-field"
+                  },
+                  {
+                    "meta": {
+                      "name": "code"
+                    },
+                    "position": {
+                      "basis": "20px",
+                      "shrink": 0
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "Cards/header",
+                        "marginBottom": "1ch"
+                      },
+                      "text": "Code"
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "meta": {
+                      "name": "codeEntry"
+                    },
+                    "position": {
+                      "basis": "30px",
+                      "shrink": 0
+                    },
+                    "props": {
+                      "inputBounds": {
+                        "minimum": 1
+                      },
+                      "style": {
+                        "marginBottom": "1ch"
+                      },
+                      "value": 9
+                    },
+                    "type": "ia.input.numeric-entry-field"
+                  },
+                  {
+                    "meta": {
+                      "name": "type"
+                    },
+                    "position": {
+                      "basis": "20px",
+                      "shrink": 0
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "Cards/header",
+                        "marginBottom": "1ch"
+                      },
+                      "text": "Type"
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "meta": {
+                      "name": "typeSelect"
+                    },
+                    "position": {
+                      "basis": "36px",
+                      "shrink": 0
+                    },
+                    "props": {
+                      "options": [
+                        {
+                          "label": "Unplanned Downtime",
+                          "value": "Unplanned Downtime"
+                        },
+                        {
+                          "label": "Planned Downtime",
+                          "value": "Planned Downtime"
+                        },
+                        {
+                          "label": "Blocked",
+                          "value": "Blocked"
+                        },
+                        {
+                          "label": "Starved",
+                          "value": "Starved"
+                        },
+                        {
+                          "label": "Running",
+                          "value": "Running"
+                        },
+                        {
+                          "label": "Idel",
+                          "value": "Idle"
+                        },
+                        {
+                          "label": "Disabled",
+                          "value": "Disabled"
+                        }
+                      ],
+                      "style": {
+                        "marginBottom": "1ch"
+                      },
+                      "value": "Running"
+                    },
+                    "type": "ia.input.dropdown"
+                  },
+                  {
+                    "meta": {
+                      "name": "threshold"
+                    },
+                    "position": {
+                      "basis": "20px",
+                      "shrink": 0
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "Cards/header",
+                        "marginBottom": "1ch"
+                      },
+                      "text": "Short Stop Threshold (seconds)"
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "meta": {
+                      "name": "thresholdEntry"
+                    },
+                    "position": {
+                      "basis": "30px",
+                      "shrink": 0
+                    },
+                    "props": {
+                      "inputBounds": {
+                        "minimum": 0
+                      },
+                      "style": {
+                        "marginBottom": "1ch"
+                      },
+                      "text": 0
+                    },
+                    "type": "ia.input.numeric-entry-field"
+                  },
+                  {
+                    "meta": {
+                      "name": "meantime"
+                    },
+                    "position": {
+                      "basis": "20px",
+                      "shrink": 0
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "Cards/header",
+                        "marginBottom": "1ch"
+                      },
+                      "text": "Enabled Meantime Metrics"
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "meta": {
+                      "name": "meantimeCheck"
+                    },
+                    "position": {
+                      "basis": "36px",
+                      "shrink": 0
+                    },
+                    "props": {
+                      "style": {
+                        "marginBottom": "1ch"
+                      },
+                      "text": " "
+                    },
+                    "type": "ia.input.checkbox"
+                  },
+                  {
+                    "meta": {
+                      "name": "assignedCodes"
+                    },
+                    "position": {
+                      "basis": "20px",
+                      "shrink": 0
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "Cards/header",
+                        "marginBottom": "1ch"
+                      },
+                      "text": "Assigned Codes"
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "meta": {
+                      "name": "assignedCodesDisplay"
+                    },
+                    "position": {
+                      "basis": "100px",
+                      "shrink": 0
+                    },
+                    "props": {
+                      "enabled": false,
+                      "style": {
+                        "fontFamily": "sans-serif",
+                        "marginBottom": "1ch"
+                      },
+                      "text": "0, 1, 2, 3, 4, 5, 6, 7, 8"
+                    },
+                    "type": "ia.input.text-area"
+                  },
+                  {
+                    "meta": {
+                      "name": "override"
+                    },
+                    "position": {
+                      "basis": "20px",
+                      "shrink": 0
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "Cards/header",
+                        "marginBottom": "1ch"
+                      },
+                      "text": "Override"
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "meta": {
+                      "name": "overrideSelect"
+                    },
+                    "position": {
+                      "basis": "36px",
+                      "shrink": 0
+                    },
+                    "props": {
+                      "options": [
+                        {
+                          "label": "Optional",
+                          "value": "Optional"
+                        },
+                        {
+                          "label": "Prohibited",
+                          "value": "Prohibited"
+                        },
+                        {
+                          "label": "Required",
+                          "value": "Required"
+                        }
+                      ],
+                      "style": {
+                        "marginBottom": "1ch"
+                      },
+                      "value": "Optional"
+                    },
+                    "type": "ia.input.dropdown"
+                  },
+                  {
+                    "meta": {
+                      "name": "scope"
+                    },
+                    "position": {
+                      "basis": "20px",
+                      "shrink": 0
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "Cards/header",
+                        "marginBottom": "1ch"
+                      },
+                      "text": "Scope"
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "meta": {
+                      "name": "scopeSelect"
+                    },
+                    "position": {
+                      "basis": "36px",
+                      "shrink": 0
+                    },
+                    "props": {
+                      "options": [
+                        {
+                          "label": "Detected Equipment State",
+                          "value": "Detected Equipment State"
+                        },
+                        {
+                          "label": "Any Equipment State",
+                          "value": "Any Equipment State"
+                        },
+                        {
+                          "label": "Sub State",
+                          "value": "Sub State"
+                        }
+                      ],
+                      "style": {
+                        "marginBottom": "1ch"
+                      },
+                      "value": "Detected Equipment State"
+                    },
+                    "type": "ia.input.dropdown"
+                  }
+                ],
+                "meta": {
+                  "name": "data"
+                },
+                "position": {
+                  "basis": "200px",
+                  "grow": 1,
+                  "shrink": 0
+                },
+                "props": {
+                  "direction": "column",
+                  "style": {
+                    "classes": "Text/Screen"
+                  }
+                },
+                "type": "ia.container.flex"
+              }
+            ],
+            "custom": {
+              "new": false,
+              "parent": "Default",
+              "parentUUID": "3cc3776e-89c0-4d77-8859-4788f70b5d65",
+              "relativeUUID": ""
+            },
+            "meta": {
+              "name": "newState"
+            },
+            "position": {
+              "grow": 1,
+              "shrink": 0
+            },
+            "propConfig": {
+              "custom.relativeUUID": {
+                "onChange": {
+                  "enabled": null,
+                  "script": "\tif currentValue.value is not None and currentValue.value !\u003d \u0027\u0027:\n\t\trelativeUUID \u003d currentValue.value\n\t\tobj \u003d system.mes.loadMESObject(relativeUUID)\n\t\ttype \u003d obj.getMESObjectTypeName()\n\t\t\n\t\t\n\t\tdef look(obj):\n\t\t\tlist \u003d obj.getParentCollection().getList()\n\t\t\tfor item in list:\n\t\t\t\t\n#\t\t\t\tparentName \u003d item.getName()\n\t\t\t\treturn item\n\t\t\t\t\n\t\tl \u003d []\n\t\tdef findAllParents(obj, l \u003d l):\n\t\t\tlist \u003d obj.getParentCollection().getList()\n\t\t\tfor item in list:\n\t\t\t\t\n\t\t\t\tparentName \u003d item.getName()\n\t\t\t\tif parentName !\u003d \u0027Equipment States\u0027:\n\t\t\t\t\tl.append(item.getMESObject())\n\t\t\t\t\tfindAllParents(item.getMESObject())\n\t\t#\treturn parentName\n\t\t\n\t\tif type \u003d\u003d \u0027EquipmentState\u0027:\n\t\t\titem \u003d look(obj)\n\t\t\tparentUUID \u003d item.getMESObjectUUID()\n\t\t\tparentName \u003d item.getName()\n\t\telse:\n\t\t\tparentName \u003d obj.getName()\n\t\t\tparentUUID \u003d relativeUUID\n\t\t\n#\t\tparentName \u003d look(obj)\n\t\t\n\t\tself.custom.parent \u003d parentName\n\t\tself.custom.parentUUID \u003d parentUUID\n\t\tfindAllParents(obj)\n\t\tcodes \u003d []\n\t\tdef findCodes(parent, codes \u003d codes):\n\t\t\t\n\t\t\tparentObject \u003d parent\n\t\t\t\n\t\t\tchildList \u003d parentObject.getChildCollection().getList()\n\t\t\t\n\t\t\tfor child in childList:\n\t\t\t\tif child.getMESObjectTypeName() \u003d\u003d \u0027EquipmentState\u0027:\n\t\t\t\t\tcodes.append(child.getMESObject().getStateCode())\n\t\t\t\telse:\n\t\t\t\t\tfindCodes(child.getMESObject(), codes)\n\t\t\t\t\t\n\t\tparents \u003d l\n\t\tfor parent in parents:\n\t\t\tfindCodes(parent)\n\t\tif len(codes) \u003e 0:\n\t\t\tcode \u003d max(codes) + 1\n\t\telse:\n\t\t\tcode \u003d 1\n\t\t\n\t\tself.getChild(\"data\").getChild(\"assignedCodesDisplay\").props.text \u003d \u0027, \u0027.join(map(str, set(codes)))\n\t\tself.getChild(\"data\").getChild(\"codeEntry\").props.value \u003d code\n\t\t"
+                }
+              },
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "path": "parent.custom.newState"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "direction": "column"
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "title"
+                    },
+                    "position": {
+                      "grow": 1,
+                      "shrink": 0
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "Cards/header"
+                      },
+                      "text": "Equipment State Class Editor"
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "script": "\tself.parent.parent.parent.parent.getChild(\"content\").custom.newStateClass \u003d False"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "back"
+                    },
+                    "position": {
+                      "basis": "88px",
+                      "shrink": 0
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "Button/Text",
+                        "marginBottom": "0.25rem",
+                        "marginLeft": "0.25rem",
+                        "marginRight": "0.25rem",
+                        "marginTop": "0.25rem"
+                      },
+                      "text": "back"
+                    },
+                    "type": "ia.input.button"
+                  },
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "script": "\tdataCtr \u003d self.parent.parent.getChild(\"data\")\n\tname \u003d dataCtr.getChild(\"nameEntry\").props.text\n\t\n\tif self.parent.parent.parent.getChild(\"newStateClass\").custom.new:\n\t\ttry:\n\t\t\tstateCls \u003d system.mes.loadMESObject(self.parent.parent.parent.getChild(\"newStateClass\").custom.parentUUID)\n\t\texcept:\n\t\t\tstateCls \u003d system.mes.loadMESObject(\u0027Equipment States\u0027,\u0027EquipmentStateRoot\u0027)\n\t\t#insert the name of your State Class here\n\t\tstate \u003d system.mes.createMESObject(\u0027EquipmentStateClass\u0027)\n\t\tstateCls.addChild(state)\n\telse:\n\t\tstateCls \u003d system.mes.loadMESObject(self.parent.parent.parent.getChild(\"newStateClass\").custom.parentUUID)\n\t\tstate \u003d system.mes.loadMESObject(self.parent.parent.parent.getChild(\"newStateClass\").custom.relativeUUID)\n\tstate.setPropertyValue(\u0027Name\u0027, name)\n\t\n\t\n\tif name !\u003d \u0027\u0027:\n\t\tsystem.mes.saveMESObject(state)\n\t\n\t\tsystem.mes.saveMESObject(stateCls)\n\t\n\t\n#\t\n\t\tsystem.perspective.sendMessage(\u0027refresh\u0027, {})\n\t\t\n\t\tself.parent.parent.parent.parent.getChild(\"content\").custom.newStateClass \u003d False"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "save"
+                    },
+                    "position": {
+                      "basis": "88px",
+                      "shrink": 0
+                    },
+                    "props": {
+                      "primary": false,
+                      "style": {
+                        "classes": "Button/Add-HoverDark",
+                        "marginBottom": "0.25rem",
+                        "marginLeft": "0.25rem",
+                        "marginRight": "0.25rem",
+                        "marginTop": "0.25rem"
+                      },
+                      "text": "Save"
+                    },
+                    "type": "ia.input.button"
+                  }
+                ],
+                "meta": {
+                  "name": "header"
+                },
+                "position": {
+                  "basis": "40px",
+                  "shrink": 0
+                },
+                "props": {
+                  "style": {
+                    "classes": "header/header"
+                  }
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "name"
+                    },
+                    "position": {
+                      "basis": "20px",
+                      "shrink": 0
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "Cards/header",
+                        "marginBottom": "1ch"
+                      },
+                      "text": "Name"
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "meta": {
+                      "name": "nameEntry"
+                    },
+                    "position": {
+                      "basis": "30px",
+                      "shrink": 0
+                    },
+                    "props": {
+                      "style": {
+                        "marginBottom": "1ch"
+                      },
+                      "text": "TEST 1"
+                    },
+                    "type": "ia.input.text-field"
+                  }
+                ],
+                "meta": {
+                  "name": "data"
+                },
+                "position": {
+                  "basis": "200px",
+                  "grow": 1,
+                  "shrink": 0
+                },
+                "props": {
+                  "direction": "column",
+                  "style": {
+                    "classes": "Text/Screen"
+                  }
+                },
+                "type": "ia.container.flex"
+              }
+            ],
+            "custom": {
+              "new": false,
+              "parent": "",
+              "parentUUID": "",
+              "relativeUUID": ""
+            },
+            "meta": {
+              "name": "newStateClass"
+            },
+            "position": {
+              "basis": "200px",
+              "grow": 1
+            },
+            "propConfig": {
+              "custom.relativeUUID": {
+                "onChange": {
+                  "enabled": null,
+                  "script": "\tif currentValue.value is not None and currentValue.value !\u003d \u0027\u0027:\n\t\trelativeUUID \u003d currentValue.value\n\t\tobj \u003d system.mes.loadMESObject(relativeUUID)\n\t\ttype \u003d obj.getMESObjectTypeName()\n\t\t\n\t\t\n\t\tdef look(obj):\n\t\t\tlist \u003d obj.getParentCollection().getList()\n\t\t\tfor item in list:\n\t\t\t\t\n#\t\t\t\tparentName \u003d item.getName()\n#\t\t\t\tparentUUID \u003d item.getMESObjectUUID()\n\t\t\t\treturn item\n\t\t\t\t\n\t\tl \u003d []\n\t\tdef findAllParents(obj, l \u003d l):\n\t\t\tlist \u003d obj.getParentCollection().getList()\n\t\t\tfor item in list:\n\t\t\t\t\n\t\t\t\tparentName \u003d item.getName()\n\t\t\t\tif parentName !\u003d \u0027Equipment States\u0027:\n\t\t\t\t\tl.append(item.getMESObject())\n\t\t\t\t\tfindAllParents(item.getMESObject())\n\t\t#\treturn parentName\n\t\t\n\t\tif type \u003d\u003d \u0027EquipmentState\u0027:\n\t\t\titem \u003d look(obj)\n\t\t\tparentUUID \u003d item.getMESObjectUUID()\n\t\t\tparentName \u003d item.getName()\n\t\telse:\n\t\t\tparentName \u003d obj.getName()\n\t\t\tparentUUID \u003d relativeUUID\n#\t\tparentName \u003d look(obj)\n\t\t\n\t\tself.custom.parent \u003d parentName\n\t\tself.custom.parentUUID \u003d parentUUID\n\telse:\n\t\tself.custom.parent \u003d \u0027\u0027\n\t\tself.custom.parentUUID \u003d \u0027\u0027"
+                }
+              },
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "path": "parent.custom.newStateClass"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "direction": "column"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "custom": {
+          "newState": false,
+          "newStateClass": false
+        },
+        "meta": {
+          "name": "content"
+        },
+        "position": {
+          "grow": 1,
+          "shrink": 0
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "scripts": {
+      "customMethods": [],
+      "extensionFunctions": null,
+      "messageHandlers": [
+        {
+          "messageType": "refresh",
+          "pageScope": false,
+          "script": "\tpass\n\t# implement your handler here\n#\trootDict \u003d {\n#\t  \"label\": \"Equipment States\",\n#\t  \"expanded\": False,\n#\t  \"data\": {},\n#\t  \"items\": []\n#\t}\n#\tdef look(dict, uuid, classDict):\n#\t\tfor item in dict[\u0027items\u0027]:\n#\t\t\t\n#\t\t\tif item[\u0027data\u0027][\u0027eqStateUUID\u0027] \u003d\u003d uuid:\n#\t\t\t\titem[\u0027items\u0027].append(classDict)\n#\t\t\tif item[\u0027items\u0027] is not None:\n#\t\t\t\tlook(item, uuid, classDict)\n#\t\n#\trootDict[\u0027data\u0027][\u0027eqStateUUID\u0027] \u003d \u0027\u0027\n#\trootDict[\u0027data\u0027][\u0027class\u0027] \u003d False\n#\tfilter \u003d system.mes.object.filter.createFilter()\n#\tfilter.setMESObjectTypeName(\u0027EquipmentStateClass\u0027)\n#\tfilter.setShowEquipmentPath(1)\n#\tlist \u003d system.mes.searchMESObjects(filter)\n#\tfor index in range(list.size()):\n#\t\tclassDict \u003d {\n#\t\t\t  \"label\": \"\",\n#\t\t\t  \"expanded\": False,\n#\t\t\t  \"data\": {},\n#\t\t\t  \"items\": []\n#\t\t\t}\n#\t\tclassDict[\u0027label\u0027] \u003d \u0027Class - \u0027 + list.get(index).getName()\n#\t\tclassDict[\u0027data\u0027][\u0027eqStateUUID\u0027] \u003d list.get(index).getMESObjectUUID()\n#\t\tclassDict[\u0027data\u0027][\u0027class\u0027] \u003d True\n#\t\tpC \u003d list.get(index).getMESObject().getParentCollection().getList()\n#\t\tfor p in pC:\n#\t\t\tif p.getName() \u003d\u003d \u0027Equipment States\u0027:\n#\t\t\t\trootDict[\u0027items\u0027].append(classDict)\n#\t\t\telse:\n#\t\t\t\tlook(rootDict, p.getMESObjectUUID(), classDict)\n#\t\t\t\t\t\t\n#\t\t\n#\tfilter \u003d system.mes.object.filter.createFilter()\n#\tfilter.setMESObjectTypeName(\u0027EquipmentState\u0027)\n#\tfilter.setShowEquipmentPath(1)\n#\t#\tfilter.setPrimaryMESObjectUUID(list.get(index).getMESObjectUUID())\n#\tlist2 \u003d system.mes.searchMESObjects(filter)\n#\t\n#\tdef children(classDict, cC):\n#\t\tfor c in cC:\n#\t\t\tnewDict \u003d {\n#\t\t\t\t  \"label\": \"\",\n#\t\t\t\t  \"expanded\": False,\n#\t\t\t\t  \"data\": {},\n#\t\t\t\t  \"items\": []\n#\t\t\t\t}\n#\t\t\tnewDict[\u0027label\u0027] \u003d c.getName()\n#\t\t\tnewDict[\u0027data\u0027][\u0027eqStateUUID\u0027] \u003d c.getMESObjectUUID()\n#\t\t\tnewDict[\u0027data\u0027][\u0027class\u0027] \u003d False\n#\t\t\tclassDict[\u0027items\u0027].append(newDict)\n#\t\t\tcCC \u003d c.getMESObject().getChildCollection().getList()\n#\t\t\tif cCC.size() \u003e 0:\n#\t\t\t\tchildren(newDict, cCC)\n#\t\n#\tfor index2 in range(list2.size()):\n#\t\tclassDict \u003d {\n#\t\t\t\t  \"label\": \"\",\n#\t\t\t\t  \"expanded\": False,\n#\t\t\t\t  \"data\": {},\n#\t\t\t\t  \"items\": []\n#\t\t\t\t}\n#\t\t\n#\t\tclassDict[\u0027label\u0027] \u003d list2.get(index2).getName()\n#\t\tclassDict[\u0027data\u0027][\u0027eqStateUUID\u0027] \u003d list2.get(index2).getMESObjectUUID()\n#\t\tclassDict[\u0027data\u0027][\u0027class\u0027] \u003d False\n#\t\tpC \u003d list2.get(index2).getMESObject().getParentCollection().getList()\n#\t\tcC \u003d list2.get(index2).getMESObject().getChildCollection().getList()\n#\t\tchildren(classDict, cC)\n#\t\n#\t\tfor p in pC:\n#\t\t\tif p.getName() \u003d\u003d \u0027Equipment States\u0027:\n#\t\t\t\trootDict[\u0027items\u0027].append(classDict)\n#\t\t\telse:\n#\t\t\t\tlook(rootDict, p.getMESObjectUUID(), classDict)\t\n##\tprint rootDict\n#\tself.getChild(\"content\").getChild(\"Tree\").props.items \u003d []\n#\tself.getChild(\"content\").getChild(\"Tree\").props.items.append(rootDict)\n#\t\n#\t\n#\t\n#\t#TRIES TO OPEN TO SELECTED UUID\n#\tcurrStateClassUUID \u003d self.view.params.currStateClassUUID\n#\tif  currStateClassUUID is not None and currStateClassUUID !\u003d \u0027\u0027:\n#\t\t\t\n#\t\tdef look(dict, UUID, count):\n#\t\t\t\n#\t\t\tdict[\u0027expanded\u0027] \u003d True\n#\t\t\tfor index, item in enumerate(dict[\u0027items\u0027]):\n#\t\t\t\t\n#\t\t\t\t\n#\t\t\t\tif item[\u0027data\u0027][\u0027eqStateUUID\u0027] \u003d\u003d str(UUID):\n#\t\t\t\t\titem[\u0027expanded\u0027] \u003d True\n#\t\t\t\t\tself.getChild(\"content\").getChild(\"Tree\").props.selection \u003d []\n#\t\t\t\t\tself.getChild(\"content\").getChild(\"Tree\").props.selection.append(count + \u0027/\u0027 + str(index))\n#\t\t\t\tif item[\u0027items\u0027] is not None:\n#\t\t\t\t\tlook(item, UUID, str(count)+\u0027/\u0027+str(index))\n#\t\t\t\t\t\n#\t\tUUID \u003d currStateClassUUID\n#\t\titems \u003d self.getChild(\"content\").getChild(\"Tree\").props.items\n#\t\tfor item in items:\n#\t\t\tlook(item, UUID, \"0\")\n#\t\t\n#\telse:\n#\t\tdef look(dict):\n#\t\t\tdict[\u0027expanded\u0027] \u003d False\n#\t\t\tfor index, item in enumerate(dict[\u0027items\u0027]):\n#\t\t\t\titem[\u0027expanded\u0027] \u003d False\n#\t\t\t\tif item[\u0027items\u0027] is not None:\n#\t\t\t\t\tlook(item)\n#\t\titems \u003d self.getChild(\"content\").getChild(\"Tree\").props.items\t\t\t\n#\t\tfor item in items:\n#\t\t\tlook(item)\t\t\t\n#\t\tself.getChild(\"content\").getChild(\"Tree\").props.selection \u003d []\n\t",
+          "sessionScope": false,
+          "viewScope": false
+        }
+      ]
+    },
+    "type": "ia.container.flex"
+  }
+}

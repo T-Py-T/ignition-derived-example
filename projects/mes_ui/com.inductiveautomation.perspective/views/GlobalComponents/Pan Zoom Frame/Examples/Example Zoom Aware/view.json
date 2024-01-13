@@ -1,0 +1,333 @@
+{
+  "custom": {
+    "font": {
+      "max": 64,
+      "min": 4,
+      "start": 32
+    },
+    "zoom": {
+      "breakpoint": 1
+    }
+  },
+  "params": {
+    "panZoomScale": 1,
+    "text": "Title"
+  },
+  "propConfig": {
+    "custom.font": {
+      "persistent": true
+    },
+    "custom.font.size": {
+      "binding": {
+        "config": {
+          "path": "view.params.panZoomScale"
+        },
+        "transforms": [
+          {
+            "code": "\tfontSize \u003d 1.0*self.custom.font.start/value\n\tfontSize \u003d min(fontSize, self.custom.font.max)\n\tfontSize \u003d max(fontSize, self.custom.font.min)\n\treturn \u0027%spx\u0027%(fontSize)",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.zoom": {
+      "persistent": true
+    },
+    "custom.zoom.visible": {
+      "binding": {
+        "config": {
+          "expression": "{view.params.panZoomScale}\u003e\u003d{view.custom.zoom.breakpoint}"
+        },
+        "type": "expr"
+      }
+    },
+    "params.panZoomScale": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.text": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {},
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "basis": "50px",
+              "grow": 1
+            },
+            "propConfig": {
+              "props.style.fontSize": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.font.size"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.text"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "textAlign": "center",
+                "transition": "font-size 100ms linear"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Example View"
+            },
+            "position": {
+              "basis": "600px",
+              "grow": 1
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.zoom.visible"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "path": "Exchange/Pan Zoom Frame/Examples/Example View"
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "Placeholder"
+            },
+            "position": {
+              "basis": "600px",
+              "grow": 1
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "expression": "!{view.custom.zoom.visible}"
+                  },
+                  "type": "expr"
+                }
+              },
+              "props.style.fontSize": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.font.size"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "expression": "\u0027Zoom above \u0027+toInt({view.custom.zoom.breakpoint}*100)+\u0027% to see data\u0027 "
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "textAlign": "center",
+                "transition": "font-size 100ms linear"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Left"
+        },
+        "position": {
+          "basis": "200px",
+          "grow": 1
+        },
+        "props": {
+          "direction": "column",
+          "style": {
+            "borderBottomLeftRadius": 16,
+            "borderBottomRightRadius": 16,
+            "borderStyle": "solid",
+            "borderTopLeftRadius": 16,
+            "borderTopRightRadius": 16,
+            "borderWidth": 1,
+            "margin": 4,
+            "overflow": "visible",
+            "padding": 4
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "basis": "50px",
+              "grow": 1
+            },
+            "propConfig": {
+              "props.style.fontSize": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.font.size"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.text"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "textAlign": "center",
+                "transition": "font-size 100ms linear"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Example View"
+            },
+            "position": {
+              "basis": "600px",
+              "grow": 1
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "path": "parent.custom.zoom.visible"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "path": "Exchange/Pan Zoom Frame/Examples/Example View"
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "Placeholder"
+            },
+            "position": {
+              "basis": "600px",
+              "grow": 1
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "expression": "!{parent.custom.zoom.visible}"
+                  },
+                  "type": "expr"
+                }
+              },
+              "props.style.fontSize": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.font.size"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "expression": "\u0027Zoom above \u0027+toInt({parent.custom.zoom.breakpoint}*100)+\u0027% to see data\u0027 "
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "textAlign": "center",
+                "transition": "font-size 100ms linear"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "custom": {
+          "zoom": {
+            "breakpoint": 1.1
+          }
+        },
+        "meta": {
+          "name": "Right"
+        },
+        "position": {
+          "basis": "200px",
+          "grow": 1
+        },
+        "propConfig": {
+          "custom.zoom.visible": {
+            "binding": {
+              "config": {
+                "expression": "{view.params.panZoomScale}\u003e\u003d{this.custom.zoom.breakpoint}"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "direction": "column",
+          "style": {
+            "borderBottomLeftRadius": 16,
+            "borderBottomRightRadius": 16,
+            "borderStyle": "solid",
+            "borderTopLeftRadius": 16,
+            "borderTopRightRadius": 16,
+            "borderWidth": 1,
+            "margin": 4,
+            "overflow": "visible",
+            "padding": 4
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "style": {
+        "padding": 128
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

@@ -1,0 +1,1207 @@
+{
+  "name": "",
+  "tagType": "Provider",
+  "tags": [
+    {
+      "name": "Gateways",
+      "tagType": "Folder",
+      "tags": [
+        {
+          "name": "Script",
+          "tagType": "Folder",
+          "tags": [
+            {
+              "name": "_History",
+              "tagType": "Folder",
+              "tags": [
+                {
+                  "valueSource": "memory",
+                  "rawHigh": 1.0,
+                  "scaleMode": "Off",
+                  "dataType": "DataSet",
+                  "name": "CPU",
+                  "value": "{\"columns\":[{\"name\":\"t_stamp\",\"type\":\"java.sql.Timestamp\"},{\"name\":\"Gateways/Script/Performance/CPU Usage\",\"type\":\"java.lang.Long\"}],\"rows\":[]}",
+                  "tagType": "AtomicTag",
+                  "scaledHigh": 100.0
+                },
+                {
+                  "valueSource": "memory",
+                  "dataType": "DataSet",
+                  "name": "Memory",
+                  "value": "{\"columns\":[{\"name\":\"t_stamp\",\"type\":\"java.sql.Timestamp\"},{\"name\":\"Gateways/Script/Performance/Memory Utilization\",\"type\":\"java.lang.Long\"}],\"rows\":[]}",
+                  "tagType": "AtomicTag"
+                },
+                {
+                  "valueSource": "memory",
+                  "dataType": "DataSet",
+                  "name": "Disk",
+                  "value": "{\"columns\":[{\"name\":\"t_stamp\",\"type\":\"java.sql.Timestamp\"},{\"name\":\"Gateways/Script/Performance/Disk Utilization\",\"type\":\"java.lang.Long\"}],\"rows\":[]}",
+                  "tagType": "AtomicTag"
+                }
+              ]
+            },
+            {
+              "valueSource": "memory",
+              "expression": "{[System]Gateway/EAM/Agents/dev-app-gateway-1/Independent/BrowserURL}",
+              "dataType": "String",
+              "name": "URL",
+              "formatString": "#,##0.##",
+              "value": "http://192.168.2.170:8088",
+              "tagType": "AtomicTag"
+            },
+            {
+              "name": "Performance",
+              "tagType": "Folder",
+              "tags": [
+                {
+                  "valueSource": "expr",
+                  "historyMaxAge": 1,
+                  "historyTimeDeadband": 10,
+                  "expression": "{[System]Gateway/Performance/Memory Usage}",
+                  "dataType": "Float4",
+                  "historyProvider": "IGNDB",
+                  "name": "Memory Usage",
+                  "historyEnabled": false,
+                  "historyTimeDeadbandUnits": "MIN",
+                  "executionMode": "TagGroupRate",
+                  "tagType": "AtomicTag"
+                },
+                {
+                  "valueSource": "expr",
+                  "rawHigh": 1.0,
+                  "historyMaxAge": 10,
+                  "expression": "{[System]Gateway/Performance/Memory Utilization}",
+                  "historySampleRateUnits": "MIN",
+                  "tagType": "AtomicTag",
+                  "scaledHigh": 100.0,
+                  "scaleMode": "Linear",
+                  "dataType": "Float4",
+                  "historyProvider": "IgnitionHistorian",
+                  "historyMaxAgeUnits": "MIN",
+                  "name": "Memory Utilization",
+                  "historyEnabled": true,
+                  "historyTimeDeadbandUnits": "MIN",
+                  "executionMode": "TagGroupRate",
+                  "historySampleRate": 1,
+                  "sampleMode": "TagGroup"
+                },
+                {
+                  "valueSource": "expr",
+                  "rawHigh": 1.0,
+                  "historyMaxAge": 10,
+                  "expression": "{[System]Gateway/Performance/CPU Usage}",
+                  "engHigh": 10.0,
+                  "historySampleRateUnits": "MIN",
+                  "tagType": "AtomicTag",
+                  "scaledHigh": 100.0,
+                  "scaleMode": "Linear",
+                  "dataType": "Float4",
+                  "historyProvider": "IgnitionHistorian",
+                  "historyMaxAgeUnits": "MIN",
+                  "name": "CPU Usage",
+                  "historyEnabled": true,
+                  "executionMode": "TagGroupRate",
+                  "historySampleRate": 1,
+                  "sampleMode": "TagGroup"
+                },
+                {
+                  "valueSource": "expr",
+                  "expression": "{[System]Gateway/Performance/Available Disk Space (MB)}",
+                  "name": "Available Disk Space (MB)",
+                  "executionMode": "TagGroupRate",
+                  "tagType": "AtomicTag"
+                },
+                {
+                  "valueSource": "expr",
+                  "expression": "{[System]Gateway/Performance/Max Memory}",
+                  "dataType": "Int8",
+                  "name": "Max Memory",
+                  "executionMode": "TagGroupRate",
+                  "tagType": "AtomicTag"
+                },
+                {
+                  "valueSource": "expr",
+                  "rawHigh": 1.0,
+                  "historyMaxAge": 10,
+                  "expression": "{[System]Gateway/Performance/Disk Utilization}",
+                  "historySampleRateUnits": "MIN",
+                  "tagType": "AtomicTag",
+                  "scaledHigh": 100.0,
+                  "scaleMode": "Linear",
+                  "dataType": "Float4",
+                  "historyProvider": "IgnitionHistorian",
+                  "historyMaxAgeUnits": "MIN",
+                  "name": "Disk Utilization",
+                  "historyEnabled": true,
+                  "executionMode": "TagGroupRate",
+                  "historySampleRate": 1,
+                  "sampleMode": "TagGroup"
+                }
+              ]
+            },
+            {
+              "valueSource": "memory",
+              "dataType": "String",
+              "name": "ProviderPath",
+              "value": "[System]Gateway",
+              "tagType": "AtomicTag"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "_types_",
+      "tagType": "Folder",
+      "tags": [
+        {
+          "name": "GPA",
+          "tagType": "Folder",
+          "tags": [
+            {
+              "name": "Device",
+              "typeId": "",
+              "parameters": {
+                "Server": {
+                  "dataType": "String"
+                },
+                "Device": {
+                  "dataType": "String"
+                }
+              },
+              "tagType": "UdtType",
+              "tags": [
+                {
+                  "opcItemPath": {
+                    "bindType": "parameter",
+                    "binding": "nsu\u003durn:inductiveautomation:ignition:opcua:tags;s\u003d[System]/Gateway/Devices/{Device}/Description"
+                  },
+                  "opcServer": {
+                    "bindType": "parameter",
+                    "binding": "{Server}_OPCUA"
+                  },
+                  "valueSource": "opc",
+                  "dataType": "String",
+                  "name": "Description",
+                  "tagGroup": "30sec",
+                  "tagType": "AtomicTag"
+                },
+                {
+                  "opcItemPath": {
+                    "bindType": "parameter",
+                    "binding": "nsu\u003durn:inductiveautomation:ignition:opcua:tags;s\u003d[System]/Gateway/Devices/{Device}/Name"
+                  },
+                  "opcServer": {
+                    "bindType": "parameter",
+                    "binding": "{Server}_OPCUA"
+                  },
+                  "valueSource": "opc",
+                  "dataType": "String",
+                  "name": "Name",
+                  "tagGroup": "30sec",
+                  "tagType": "AtomicTag"
+                },
+                {
+                  "opcItemPath": {
+                    "bindType": "parameter",
+                    "binding": "nsu\u003durn:inductiveautomation:ignition:opcua:tags;s\u003d[System]/Gateway/Devices/{Device}/Status"
+                  },
+                  "opcServer": {
+                    "bindType": "parameter",
+                    "binding": "{Server}_OPCUA"
+                  },
+                  "valueSource": "opc",
+                  "dataType": "String",
+                  "name": "Status",
+                  "tagGroup": "30sec",
+                  "tagType": "AtomicTag"
+                },
+                {
+                  "opcItemPath": {
+                    "bindType": "parameter",
+                    "binding": "nsu\u003durn:inductiveautomation:ignition:opcua:tags;s\u003d[System]/Gateway/Devices/{Device}/Enabled"
+                  },
+                  "opcServer": {
+                    "bindType": "parameter",
+                    "binding": "{Server}_OPCUA"
+                  },
+                  "valueSource": "opc",
+                  "dataType": "Boolean",
+                  "name": "Enabled",
+                  "tagGroup": "30sec",
+                  "tagType": "AtomicTag"
+                }
+              ]
+            },
+            {
+              "name": "SessionInstance",
+              "tagType": "UdtType",
+              "tags": [
+                {
+                  "valueSource": "memory",
+                  "expression": "{[System]Client/Network/Hostname}",
+                  "dataType": "String",
+                  "name": "SessionRoles",
+                  "value": "Administrator",
+                  "tagType": "AtomicTag"
+                },
+                {
+                  "valueSource": "memory",
+                  "dataType": "String",
+                  "name": "SessionUser",
+                  "value": "joe",
+                  "tagType": "AtomicTag"
+                },
+                {
+                  "valueSource": "memory",
+                  "dataType": "DataSet",
+                  "name": "UserSelectedAuditLogHistory",
+                  "value": "{\"columns\":[{\"name\":\"Timestamp\",\"type\":\"java.util.Date\"},{\"name\":\"Actor\",\"type\":\"java.lang.String\"},{\"name\":\"Action\",\"type\":\"java.lang.String\"},{\"name\":\"Action Target\",\"type\":\"java.lang.String\"},{\"name\":\"Action Value\",\"type\":\"java.lang.String\"},{\"name\":\"Result Code\",\"type\":\"java.lang.Integer\"},{\"name\":\"Result\",\"type\":\"java.lang.String\"},{\"name\":\"System\",\"type\":\"java.lang.String\"},{\"name\":\"Context Code\",\"type\":\"java.lang.Integer\"},{\"name\":\"Context\",\"type\":\"java.lang.String\"}],\"rows\":[[\"Wed Apr 14 12:47:00 EDT 2021\",null,\"gateway startup\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Wed Apr 14 12:55:31 EDT 2021\",\"joe\",\"login\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Wed Apr 14 12:59:06 EDT 2021\",\"Unauthenticated\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027Unauthenticated\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Wed Apr 14 12:59:51 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Wed Apr 14 12:59:51 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Wed Apr 14 12:59:51 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/session-scripts\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Wed Apr 14 12:59:52 EDT 2021\",\"Unauthenticated\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027Unauthenticated\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Wed Apr 14 13:05:56 EDT 2021\",\"joe\",\"logout\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Wed Apr 14 13:06:45 EDT 2021\",\"Unauthenticated\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027Unauthenticated\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Wed Apr 14 13:07:40 EDT 2021\",\"Unauthenticated\",\"Login Request\",\"\",\"Success: redirected to IdP \u0027default\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1:/route:/login/Step1\",1,\"Gateway\"],[\"Wed Apr 14 13:07:52 EDT 2021\",\"Unauthenticated\",\"Login Response\",\"http://localhost:8088/data/federate/callback/ignition?code\u003dKYnqGrn3Wjz4tJH0CpfEWoWnIZ6ZJUWb8ANJBpscxik\u0026state\u003deyJraWQiOiJrMSIsImFsZyI6IkhTMjU2In0.eyJqdGkiOiJGR3d3cUJ5NVVQbV8yVldqZVhLRHlXZk53LWtfNmhGYklBcjhmWlNDSDhjIiwidXJpIjoiL2RhdGEvcGVyc3BlY3RpdmUvY2xpZW50L1N0ZXAxIn0.tLQFjLpUzT_O3nDads0c8ksYqlxCc8qjj0096Z_j0bA\",\"Success: received from IdP \u0027default\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Wed Apr 14 13:07:52 EDT 2021\",\"joe\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027joe\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027, \u0027Authenticated/Roles/Administrator\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Wed Apr 14 13:10:39 EDT 2021\",null,\"gateway shutdown\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Wed Apr 14 19:49:32 EDT 2021\",null,\"gateway startup\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Wed Apr 14 19:53:13 EDT 2021\",\"joe\",\"login\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Wed Apr 14 19:56:29 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Wed Apr 14 19:56:29 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Wed Apr 14 19:56:29 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/session-scripts\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Wed Apr 14 22:09:41 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Wed Apr 14 22:09:41 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Wed Apr 14 22:09:41 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/Tanks/Tank_Sparkline\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 10:57:50 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 10:57:51 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 10:57:51 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/session-scripts, com.inductiveautomation.perspective/views/Tabs/Components/Tanks/Tank_Sparkline\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:00:47 EDT 2021\",\"joe\",\"tag move\",\"[default]Mentorship/Mentorship/Step1\",\"dest\u003d[default]Mentorship, cut\u003dtrue\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:01:07 EDT 2021\",\"joe\",\"tag delete\",\"[default]Mentorship/Mentorship\",\"\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:01:33 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:01:33 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:01:33 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/session-scripts, com.inductiveautomation.perspective/views/Tabs/Components/Tanks/Tank_Sparkline\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:02:20 EDT 2021\",\"joe\",\"tag write\",\"[default]LinePath\",\"[default]Mentorship/Step1/TNT\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:04:27 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:04:27 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:04:27 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.vision/client-event-scripts, ignition/event-scripts, com.inductiveautomation.perspective/session-scripts\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:07:03 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:07:03 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:07:03 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/Tanks/TankTemplate, com.inductiveautomation.perspective/views/Tabs/Components/Tanks/Tank_Sparkline\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:07:17 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:07:18 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:07:18 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/Tanks/TankTemplate\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:07:52 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:07:52 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:07:52 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/Tanks/TankTemplate\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:10:27 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:10:27 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:10:27 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/Launch/Launch, com.inductiveautomation.perspective/views/Tabs/Components/Launch/InfoPane\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:12:02 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:12:03 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:12:03 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/Launch/LeftHeader\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:12:39 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:12:39 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:12:39 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/Launch/RightHeader\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:12:50 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:12:50 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:12:50 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/Launch/RightHeader\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:27:07 EDT 2021\",\"joe\",\"login\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:35:25 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:35:25 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:35:25 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"ignition/event-scripts, com.inductiveautomation.perspective/views/Tabs/Cards/Overview/Audit_Overview\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:36:54 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Step1/TNT/Launch/AuditStartDate\",\"2021-04-13 23:23:50.000\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:40:10 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:40:10 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:40:10 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"ignition/event-scripts, com.inductiveautomation.perspective/views/Tabs/Cards/Overview/Audit_Overview\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:42:16 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:42:16 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:42:16 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Cards/Overview/Audit_Overview\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:42:25 EDT 2021\",\"Unauthenticated\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027Unauthenticated\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:42:58 EDT 2021\",\"Unauthenticated\",\"Login Request\",\"\",\"Success: redirected to IdP \u0027default\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1:/route:/login/Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:43:04 EDT 2021\",\"Unauthenticated\",\"Login Response\",\"http://localhost:8088/data/federate/callback/ignition?code\u003d_P3Dz_TRO-4vrzl-Il7FgG5yHkr4Xk719WFwZakm1Io\u0026state\u003deyJraWQiOiJrMSIsImFsZyI6IkhTMjU2In0.eyJqdGkiOiJJazJUamo4N2N4ZFpjUGVLMDFyaXc2Y1ZtNHJHa2kyTmNfd0pTaGVKSEI4IiwidXJpIjoiL2RhdGEvcGVyc3BlY3RpdmUvY2xpZW50L1N0ZXAxIn0.1os_iQsM9yh6os-hUHi8YPp6jdWCeBZ5-N6CZ8QR_70\",\"Success: received from IdP \u0027default\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:43:04 EDT 2021\",\"joe\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027joe\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027, \u0027Authenticated/Roles/Administrator\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:46:31 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:46:31 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:46:31 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/Launch/Launch, com.inductiveautomation.perspective/views/Tabs/Components/_Template/MemoryUsage/LastHour, com.inductiveautomation.perspective/views/Tabs/Components/_Template/CPU_Usage/LastHour\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:46:31 EDT 2021\",\"joe\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027joe\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027, \u0027Authenticated/Roles/Administrator\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:47:49 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:47:49 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:47:49 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/_Template/MemoryUsage/LastHour, com.inductiveautomation.perspective/views/Tabs/Components/_Template/CPU_Usage/LastHour\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:47:49 EDT 2021\",\"joe\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027joe\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027, \u0027Authenticated/Roles/Administrator\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:48:50 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:48:50 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:48:50 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.vision/windows/Audit, com.inductiveautomation.vision/windows/Tanks, com.inductiveautomation.perspective/views/Tabs/Components/_Template/MemoryUsage/LastHour, com.inductiveautomation.perspective/views/Tabs/Components/_Template/CPU_Usage/LastHour, com.inductiveautomation.vision/windows/MotorControl, com.inductiveautomation.vision/windows/Landing\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:48:50 EDT 2021\",\"joe\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027joe\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027, \u0027Authenticated/Roles/Administrator\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:48:54 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:48:54 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:48:54 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.vision/windows/Audit, com.inductiveautomation.vision/windows/Tanks, com.inductiveautomation.vision/windows/MotorControl, com.inductiveautomation.vision/windows/Landing\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:50:10 EDT 2021\",\"joe\",\"login\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:50:24 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Step1/TNT/Launch/Client/ClientIP\",\"127.0.0.1\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:50:24 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Step1/TNT/Launch/Client/ClientHostName\",\"WIN-16UJEQMDV3Q\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:50:24 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Step1/TNT/Launch/Client/ClientUser\",\"joe\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:50:24 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Step1/TNT/Launch/Client/ClientRoles\",\"(\u0027Administrator\u0027,)\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:50:24 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Step1/TNT/Launch/AuditStartDate\",\"2021-04-15 11:50:23\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:50:27 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientUser\",\"joe\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:50:27 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientRoles\",\"Administrator\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:50:27 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientIP\",\"127.0.0.1\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:50:27 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientHostName\",\"WIN-16UJEQMDV3Q\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:50:27 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientTimezone\",\"America/New_York\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:50:38 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientUser\",\"joe\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:50:38 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientRoles\",\"Administrator\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:50:38 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientIP\",\"127.0.0.1\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:50:38 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientHostName\",\"WIN-16UJEQMDV3Q\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:50:38 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientTimezone\",\"America/New_York\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:51:09 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Step1/TNT/Launch/AuditStartDate\",\"2021-04-13 11:50:23.000\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:51:20 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientUser\",\"joe\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:51:20 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientRoles\",\"Administrator\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:51:20 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientIP\",\"127.0.0.1\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:51:20 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientHostName\",\"WIN-16UJEQMDV3Q\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:51:20 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientTimezone\",\"America/New_York\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:51:39 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientUser\",\"joe\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:51:39 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientRoles\",\"Administrator\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:51:39 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientIP\",\"127.0.0.1\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:51:39 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientHostName\",\"WIN-16UJEQMDV3Q\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:51:39 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientTimezone\",\"America/New_York\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:52:28 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Step1/TNT/Launch/AuditStartDate\",\"2021-04-14 11:50:23.000\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:52:33 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientUser\",\"joe\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:52:33 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientRoles\",\"Administrator\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:52:33 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientIP\",\"127.0.0.1\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:52:33 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientHostName\",\"WIN-16UJEQMDV3Q\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:52:33 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientTimezone\",\"America/New_York\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:52:42 EDT 2021\",\"joe\",\"logout\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:52:49 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:52:49 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:52:49 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/_Template/MemoryUsage/LastHour, com.inductiveautomation.perspective/views/Tabs/Components/_Template/CPU_Usage/LastHour, com.inductiveautomation.perspective/views/Tabs/Cards/Overview/Audit_Overview\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:54:57 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:54:57 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:54:57 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/_Template/MemoryUsage/LastHour, com.inductiveautomation.perspective/views/Tabs/Components/_Template/CPU_Usage/LastHour, com.inductiveautomation.perspective/session-scripts\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 12:58:20 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 12:58:22 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 12:58:22 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/Launch/Launch, com.inductiveautomation.perspective/views/Tabs/Components/_Template/MemoryUsage/LastHour, com.inductiveautomation.perspective/views/Tabs/Components/Launch/LeftHeader, com.inductiveautomation.perspective/views/Tabs/Components/_Template/CPU_Usage/LastHour, com.inductiveautomation.perspective/views/Tabs/Cards/Overview/Audit_Overview, com.inductiveautomation.perspective/session-scripts, com.inductiveautomation.perspective/views/Tabs/Components/Launch/InfoPane\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 12:58:35 EDT 2021\",\"Unauthenticated\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027Unauthenticated\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 12:59:05 EDT 2021\",\"Unauthenticated\",\"Login Request\",\"\",\"Success: redirected to IdP \u0027default\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1:/route:/login/Step1\",1,\"Gateway\"],[\"Thu Apr 15 12:59:11 EDT 2021\",\"Unauthenticated\",\"Login Response\",\"http://localhost:8088/data/federate/callback/ignition?code\u003d1sErRtr-CXiw57oCIZLbvkibcXesf1H_Tn3E869pu2E\u0026state\u003deyJraWQiOiJrMSIsImFsZyI6IkhTMjU2In0.eyJqdGkiOiJKVjNUb1pJbHpIZW9fdjhueG9kX1pzTHBLa1ZrYXI3MWZZbVZlclkzNFZRIiwidXJpIjoiL2RhdGEvcGVyc3BlY3RpdmUvY2xpZW50L1N0ZXAxIn0.Woy3xgbFfISCVLhOmAKfhkowzp-ll1NzuMjROGh4Pko\",\"Success: received from IdP \u0027default\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 12:59:11 EDT 2021\",\"joe\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027joe\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027, \u0027Authenticated/Roles/Administrator\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 13:10:17 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 13:10:18 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 13:10:18 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/_Template/MemoryUsage/LastHour, com.inductiveautomation.perspective/views/Tabs/Components/Launch/InfoPane\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 13:10:18 EDT 2021\",\"joe\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027joe\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027, \u0027Authenticated/Roles/Administrator\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 13:10:33 EDT 2021\",\"Unauthenticated\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027Unauthenticated\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 13:12:11 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 13:12:12 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 13:12:12 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/_Template/MemoryUsage/LastHour, com.inductiveautomation.perspective/session-scripts, com.inductiveautomation.perspective/views/Tabs/Components/Launch/InfoPane\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 13:13:07 EDT 2021\",\"Unauthenticated\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027Unauthenticated\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 13:14:49 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 13:14:50 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 13:14:50 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Cards/Overview/Launch_Overview, com.inductiveautomation.perspective/views/Tabs/Components/_Template/MemoryUsage/LastHour\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 13:14:50 EDT 2021\",\"Unauthenticated\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027Unauthenticated\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 13:15:01 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 13:15:01 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 13:15:01 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Cards/Overview/Launch_Overview\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 13:15:02 EDT 2021\",\"Unauthenticated\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027Unauthenticated\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 13:15:15 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 13:15:15 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 13:15:15 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Cards/Overview/Launch_Overview\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 13:15:15 EDT 2021\",\"Unauthenticated\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027Unauthenticated\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 13:27:43 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 13:27:43 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 13:27:43 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Cards/Overview/Launch_Overview, com.inductiveautomation.perspective/views/Tabs/Components/_Template/MemoryUsage/LastHour\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 13:27:43 EDT 2021\",\"Unauthenticated\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027Unauthenticated\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 13:28:13 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 13:28:13 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 13:28:13 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Cards/Overview/Launch_Overview\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 13:28:13 EDT 2021\",\"Unauthenticated\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027Unauthenticated\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 11:04:29 EDT 2021\",\"Unauthenticated\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027Unauthenticated\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 11:05:46 EDT 2021\",\"Unauthenticated\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027Unauthenticated\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 11:06:17 EDT 2021\",\"Unauthenticated\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027Unauthenticated\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 11:06:43 EDT 2021\",\"Unauthenticated\",\"Login Request\",\"\",\"Success: redirected to IdP \u0027default\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1:/route:/login/Step1\",1,\"Gateway\"],[\"Fri Apr 16 11:06:53 EDT 2021\",\"Unauthenticated\",\"Login Response\",\"http://localhost:8088/data/federate/callback/ignition?code\u003dBG_ZglDNQ5vppeTTNOfKjkBrI1QevZWrA9eOlON6_Ls\u0026state\u003deyJraWQiOiJrMSIsImFsZyI6IkhTMjU2In0.eyJqdGkiOiJrREFmQVZVLU5fT3lGUmJSRDdwMVVEVFNPeVh1M1Z4cjFPVld5S20zMU9VIiwidXJpIjoiL2RhdGEvcGVyc3BlY3RpdmUvY2xpZW50L1N0ZXAxIn0.uC1xq6nVRscpRxOW1qsh0QzA37DwfBO3Es6NZSkDTEk\",\"Success: received from IdP \u0027default\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 11:06:53 EDT 2021\",\"joe\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027joe\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027, \u0027Authenticated/Roles/Administrator\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 11:18:49 EDT 2021\",\"joe\",\"login\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 11:22:05 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 11:22:05 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 11:22:05 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/Launch/LeftHeader, com.inductiveautomation.perspective/session-scripts\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 11:22:18 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Step1/TNT/Launch/Session/SessionIP\",\"127.0.0.1\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 11:25:10 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 11:25:10 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 11:25:10 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/Launch/LeftHeader, com.inductiveautomation.perspective/views/Tabs/Components/Launch/InfoPane\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 11:25:16 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 11:25:16 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 11:25:16 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/Launch/InfoPane\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 12:35:32 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 12:35:32 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 12:35:32 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/Launch/InfoPane\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 12:36:00 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 12:36:00 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 12:36:00 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/Launch/InfoPane\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 12:43:32 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 12:43:33 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 12:43:33 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/Launch/InfoPane\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 12:44:19 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 12:44:19 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 12:44:19 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/Launch/InfoPane\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 12:44:33 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 12:44:33 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 12:44:33 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/Launch/InfoPane\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 12:44:37 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 12:44:37 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 12:44:37 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/Launch/InfoPane\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 12:44:45 EDT 2021\",\"joe\",\"logout\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 12:46:18 EDT 2021\",\"Unauthenticated\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027Unauthenticated\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 12:46:36 EDT 2021\",\"Unauthenticated\",\"Login Request\",\"\",\"Success: redirected to IdP \u0027default\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1:/route:/login/Step1\",1,\"Gateway\"],[\"Fri Apr 16 12:46:48 EDT 2021\",\"Unauthenticated\",\"Login Response\",\"http://localhost:8088/data/federate/callback/ignition?code\u003dT-KSORlot4giqRVAhFt8N25FhXpgK06BsnJYs6b1MS0\u0026state\u003deyJraWQiOiJrMSIsImFsZyI6IkhTMjU2In0.eyJqdGkiOiJNTm1hZGVtV2U0TGFWQnZxR2dmLUlDcW9vTTlfekcxRGd2UmtDTUMtQ1ljIiwidXJpIjoiL2RhdGEvcGVyc3BlY3RpdmUvY2xpZW50L1N0ZXAxIn0.OJmqQy_4pQ2YyPHUTHfVhSSlF4GhPXbMLSryuFX4Iug\",\"Success: received from IdP \u0027default\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 12:46:49 EDT 2021\",\"joe\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027joe\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027, \u0027Authenticated/Roles/Administrator\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 15:28:32 EDT 2021\",null,\"gateway shutdown\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Fri Apr 16 15:32:06 EDT 2021\",null,\"gateway startup\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Fri Apr 16 22:20:17 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 22:20:17 EDT 2021\",\"admin\",\"resources created\",\"Step1\",\"com.inductiveautomation.perspective/views/Framework/Breakpoint/Breakpoint, com.inductiveautomation.perspective/views/Framework/Breakpoint/Breakpoint Embedded\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 22:20:34 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 22:20:35 EDT 2021\",\"admin\",\"resources created\",\"Step1\",\"com.inductiveautomation.perspective/style-classes/Framework/Card/Label, com.inductiveautomation.perspective/views/Audit Log/Card, com.inductiveautomation.perspective/style-classes/Framework/Card/Value, com.inductiveautomation.perspective/views/Framework/Table Card Layout/Cards, com.inductiveautomation.perspective/style-classes/Framework/Card/Title, com.inductiveautomation.perspective/style-classes/Framework/Card/Bold_Text, com.inductiveautomation.perspective/style-classes/Framework/Card/Item_Border, com.inductiveautomation.perspective/style-classes/Framework/Card/Row, com.inductiveautomation.perspective/style-classes/Framework/TableCardLayout/Label, com.inductiveautomation.perspective/style-classes/Framework/Card/Card, com.inductiveautomation.perspective/views/Framework/Table Card Layout/Table, com.inductiveautomation.perspective/views/Framework/Table Card Layout/Responsive View, com.inductiveautomation.perspective/views/Framework/Card/Card, com.inductiveautomation.perspective/style-classes/Framework/Card/Item, com.inductiveautomation.perspective/views/Audit Log/Audit Log, ignition/named-query/Audit Log/Audit Log, com.inductiveautomation.perspective/style-classes/Framework/Card/Embedded\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 22:22:28 EDT 2021\",\"\",\"resources created\",\"Step1\",\"\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"project:Step1\",0,\"Unk (0)\"],[\"Fri Apr 16 22:23:52 EDT 2021\",\"joe\",\"login\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 22:41:52 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 22:41:52 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 22:41:52 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Framework/Breakpoint/Breakpoint, com.inductiveautomation.perspective/views/Framework/Table Card Layout/Responsive View, com.inductiveautomation.perspective/views/Framework/Card/Card, com.inductiveautomation.perspective/views/Audit Log/Audit Log\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 23:03:48 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 23:03:48 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 23:03:48 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Audit Log/Audit Log\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 23:17:52 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 23:17:52 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 23:17:52 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Audit Log/Audit Log\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 23:33:59 EDT 2021\",null,\"gateway startup\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Fri Apr 16 23:35:03 EDT 2021\",null,\"gateway shutdown\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Mon Apr 19 12:24:24 EDT 2021\",null,\"gateway startup\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Mon Apr 19 12:32:48 EDT 2021\",\"joe\",\"login\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Mon Apr 19 12:34:42 EDT 2021\",\"joe\",\"logout\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Mon Apr 19 12:35:50 EDT 2021\",null,\"gateway shutdown\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Mon Apr 19 12:40:42 EDT 2021\",null,\"gateway startup\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Mon Apr 19 12:42:07 EDT 2021\",null,\"gateway shutdown\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Mon Apr 19 12:46:25 EDT 2021\",null,\"gateway startup\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Mon Apr 19 12:51:38 EDT 2021\",null,\"gateway shutdown\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Mon Apr 19 12:57:58 EDT 2021\",null,\"gateway startup\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Mon Apr 19 12:58:41 EDT 2021\",null,\"gateway shutdown\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Mon May 03 12:36:34 EDT 2021\",null,\"gateway startup\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Fri May 28 09:37:45 EDT 2021\",\"joe\",\"gateway config added\",\"EULAS (ModuleEulaRecord)\",\"CRC\u003d213144928\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Fri May 28 09:37:52 EDT 2021\",\"joe\",\"gateway config added\",\"CERTIFICATES (CertificateRecord)\",\"SubjectName\u003d\\\"Sepasoft Inc.\\\", Thumbprint\u003dCWvKYvtjobQ32uvWhp96Yr6w2Qc\u003d\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Fri May 28 09:37:58 EDT 2021\",\"Unknown\",\"gateway config updated\",\"OEE Downtime V2 (oeedt2gateway) 2.81.0 (b2104201817)\",\"module install\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"\",0,\"Unk (0)\"],[\"Fri May 28 09:37:59 EDT 2021\",\"joe\",\"gateway config added\",\"CERTIFICATES (CertificateRecord)\",\"SubjectName\u003d\\\"Sepasoft Inc.\\\", Thumbprint\u003dCWvKYvtjobQ32uvWhp96Yr6w2Qc\u003d\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Fri May 28 09:38:03 EDT 2021\",\"Unknown\",\"gateway config updated\",\"OEE Downtime V2 (oeedt2gateway) 2.81.0 (b2104201817)\",\"module install\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"\",0,\"Unk (0)\"],[\"Fri May 28 09:38:04 EDT 2021\",\"joe\",\"gateway config added\",\"CERTIFICATES (CertificateRecord)\",\"SubjectName\u003d\\\"Sepasoft Inc.\\\", Thumbprint\u003dCWvKYvtjobQ32uvWhp96Yr6w2Qc\u003d\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Fri May 28 09:38:08 EDT 2021\",\"Unknown\",\"gateway config updated\",\"OEE Downtime V2 (oeedt2gateway) 2.81.0 (b2104201817)\",\"module install\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"\",0,\"Unk (0)\"],[\"Fri May 28 09:38:44 EDT 2021\",\"joe\",\"gateway config added\",\"EULAS (ModuleEulaRecord)\",\"CRC\u003d213144928\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Fri May 28 09:38:46 EDT 2021\",\"Unknown\",\"gateway config updated\",\"Recipe (recipegateway) 2.81.0 (b2104201817)\",\"module install\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"\",0,\"Unk (0)\"],[\"Fri May 28 09:38:47 EDT 2021\",\"joe\",\"gateway config added\",\"EULAS (ModuleEulaRecord)\",\"CRC\u003d213144928\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Fri May 28 09:38:48 EDT 2021\",\"Unknown\",\"gateway config updated\",\"Recipe (recipegateway) 2.81.0 (b2104201817)\",\"module install\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"\",0,\"Unk (0)\"],[\"Fri May 28 09:40:10 EDT 2021\",\"joe\",\"gateway config added\",\"EULAS (ModuleEulaRecord)\",\"CRC\u003d213144928\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Fri May 28 09:40:23 EDT 2021\",\"Unknown\",\"gateway config updated\",\"Production (productiongateway) 2.81.0 (b2104201817)\",\"module install\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"\",0,\"Unk (0)\"],[\"Fri May 28 09:40:25 EDT 2021\",\"joe\",\"gateway config added\",\"EULAS (ModuleEulaRecord)\",\"CRC\u003d213144928\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Fri May 28 09:40:39 EDT 2021\",\"Unknown\",\"gateway config updated\",\"Production (productiongateway) 2.81.0 (b2104201817)\",\"module install\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"\",0,\"Unk (0)\"],[\"Fri May 28 09:40:40 EDT 2021\",\"joe\",\"gateway config added\",\"EULAS (ModuleEulaRecord)\",\"CRC\u003d213144928\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Fri May 28 09:41:01 EDT 2021\",\"Unknown\",\"gateway config updated\",\"Production (productiongateway) 2.81.0 (b2104201817)\",\"module install\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"\",0,\"Unk (0)\"],[\"Fri May 28 09:41:05 EDT 2021\",\"joe\",\"gateway config added\",\"EULAS (ModuleEulaRecord)\",\"CRC\u003d213144928\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Fri May 28 09:41:26 EDT 2021\",\"Unknown\",\"gateway config updated\",\"Production (productiongateway) 2.81.0 (b2104201817)\",\"module install\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"\",0,\"Unk (0)\"],[\"Fri May 28 09:41:27 EDT 2021\",\"joe\",\"gateway config added\",\"EULAS (ModuleEulaRecord)\",\"CRC\u003d213144928\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Fri May 28 09:41:38 EDT 2021\",\"Unknown\",\"gateway config updated\",\"Production (productiongateway) 2.81.0 (b2104201817)\",\"module install\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"\",0,\"Unk (0)\"],[\"Fri May 28 09:41:38 EDT 2021\",\"joe\",\"gateway config added\",\"EULAS (ModuleEulaRecord)\",\"CRC\u003d213144928\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"]]}",
+                  "tagType": "AtomicTag"
+                },
+                {
+                  "valueSource": "memory",
+                  "dataType": "DateTime",
+                  "name": "AuditStartDate",
+                  "formatString": "yyyy-MM-dd h:mm:ss",
+                  "value": 1618415423000,
+                  "tagType": "AtomicTag"
+                },
+                {
+                  "valueSource": "memory",
+                  "dataType": "String",
+                  "name": "SessionHostName",
+                  "value": "WIN-16UJEQMDV3Q",
+                  "tagType": "AtomicTag"
+                },
+                {
+                  "valueSource": "memory",
+                  "expression": "{[System]Client/Network/IPAddress}",
+                  "dataType": "String",
+                  "sourceTagPath": "[System]Client/Network/IPAddress",
+                  "name": "SessionTimezone",
+                  "value": "America/New_York",
+                  "tagType": "AtomicTag",
+                  "opcServer": "Ignition OPC UA Server"
+                },
+                {
+                  "valueSource": "memory",
+                  "expression": "{[System]Client/Network/IPAddress}",
+                  "dataType": "String",
+                  "sourceTagPath": "[System]Client/Network/IPAddress",
+                  "name": "SessionIP",
+                  "value": "0:0:0:0:0:0:0:1",
+                  "tagType": "AtomicTag",
+                  "opcServer": "Ignition OPC UA Server"
+                }
+              ]
+            },
+            {
+              "name": "ClientInstance",
+              "tagType": "UdtType",
+              "tags": [
+                {
+                  "valueSource": "memory",
+                  "expression": "{[System]Client/Network/Hostname}",
+                  "dataType": "String",
+                  "name": "ClientRoles",
+                  "value": "(\u0027Administrator\u0027,)",
+                  "tagType": "AtomicTag"
+                },
+                {
+                  "valueSource": "memory",
+                  "dataType": "String",
+                  "name": "ClientHostName",
+                  "value": "WIN-16UJEQMDV3Q",
+                  "tagType": "AtomicTag"
+                },
+                {
+                  "valueSource": "memory",
+                  "dataType": "String",
+                  "name": "ClientUser",
+                  "value": "joe",
+                  "tagType": "AtomicTag"
+                },
+                {
+                  "valueSource": "memory",
+                  "expression": "{[System]Client/Network/IPAddress}",
+                  "dataType": "String",
+                  "sourceTagPath": "[System]Client/Network/IPAddress",
+                  "name": "ClientTimezone",
+                  "value": "America/New_York",
+                  "tagType": "AtomicTag",
+                  "opcServer": "Ignition OPC UA Server"
+                },
+                {
+                  "valueSource": "memory",
+                  "expression": "{[System]Client/Network/IPAddress}",
+                  "dataType": "String",
+                  "sourceTagPath": "[System]Client/Network/IPAddress",
+                  "name": "ClientIP",
+                  "value": "127.0.0.1",
+                  "tagType": "AtomicTag",
+                  "opcServer": "Ignition OPC UA Server"
+                },
+                {
+                  "valueSource": "memory",
+                  "dataType": "DateTime",
+                  "name": "AuditStartDate",
+                  "formatString": "yyyy-MM-dd h:mm:ss",
+                  "value": 1618415423000,
+                  "tagType": "AtomicTag"
+                },
+                {
+                  "valueSource": "memory",
+                  "dataType": "DataSet",
+                  "name": "UserSelectedAuditLogHistory",
+                  "value": "{\"columns\":[{\"name\":\"Timestamp\",\"type\":\"java.util.Date\"},{\"name\":\"Actor\",\"type\":\"java.lang.String\"},{\"name\":\"Action\",\"type\":\"java.lang.String\"},{\"name\":\"Action Target\",\"type\":\"java.lang.String\"},{\"name\":\"Action Value\",\"type\":\"java.lang.String\"},{\"name\":\"Result Code\",\"type\":\"java.lang.Integer\"},{\"name\":\"Result\",\"type\":\"java.lang.String\"},{\"name\":\"System\",\"type\":\"java.lang.String\"},{\"name\":\"Context Code\",\"type\":\"java.lang.Integer\"},{\"name\":\"Context\",\"type\":\"java.lang.String\"}],\"rows\":[[\"Wed Apr 14 12:47:00 EDT 2021\",null,\"gateway startup\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Wed Apr 14 12:55:31 EDT 2021\",\"joe\",\"login\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Wed Apr 14 12:59:06 EDT 2021\",\"Unauthenticated\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027Unauthenticated\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Wed Apr 14 12:59:51 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Wed Apr 14 12:59:51 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Wed Apr 14 12:59:51 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/session-scripts\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Wed Apr 14 12:59:52 EDT 2021\",\"Unauthenticated\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027Unauthenticated\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Wed Apr 14 13:05:56 EDT 2021\",\"joe\",\"logout\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Wed Apr 14 13:06:45 EDT 2021\",\"Unauthenticated\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027Unauthenticated\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Wed Apr 14 13:07:40 EDT 2021\",\"Unauthenticated\",\"Login Request\",\"\",\"Success: redirected to IdP \u0027default\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1:/route:/login/Step1\",1,\"Gateway\"],[\"Wed Apr 14 13:07:52 EDT 2021\",\"Unauthenticated\",\"Login Response\",\"http://localhost:8088/data/federate/callback/ignition?code\u003dKYnqGrn3Wjz4tJH0CpfEWoWnIZ6ZJUWb8ANJBpscxik\u0026state\u003deyJraWQiOiJrMSIsImFsZyI6IkhTMjU2In0.eyJqdGkiOiJGR3d3cUJ5NVVQbV8yVldqZVhLRHlXZk53LWtfNmhGYklBcjhmWlNDSDhjIiwidXJpIjoiL2RhdGEvcGVyc3BlY3RpdmUvY2xpZW50L1N0ZXAxIn0.tLQFjLpUzT_O3nDads0c8ksYqlxCc8qjj0096Z_j0bA\",\"Success: received from IdP \u0027default\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Wed Apr 14 13:07:52 EDT 2021\",\"joe\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027joe\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027, \u0027Authenticated/Roles/Administrator\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Wed Apr 14 13:10:39 EDT 2021\",null,\"gateway shutdown\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Wed Apr 14 19:49:32 EDT 2021\",null,\"gateway startup\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Wed Apr 14 19:53:13 EDT 2021\",\"joe\",\"login\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Wed Apr 14 19:56:29 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Wed Apr 14 19:56:29 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Wed Apr 14 19:56:29 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/session-scripts\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Wed Apr 14 22:09:41 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Wed Apr 14 22:09:41 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Wed Apr 14 22:09:41 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/Tanks/Tank_Sparkline\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 10:57:50 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 10:57:51 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 10:57:51 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/session-scripts, com.inductiveautomation.perspective/views/Tabs/Components/Tanks/Tank_Sparkline\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:00:47 EDT 2021\",\"joe\",\"tag move\",\"[default]Mentorship/Mentorship/Step1\",\"dest\u003d[default]Mentorship, cut\u003dtrue\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:01:07 EDT 2021\",\"joe\",\"tag delete\",\"[default]Mentorship/Mentorship\",\"\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:01:33 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:01:33 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:01:33 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/session-scripts, com.inductiveautomation.perspective/views/Tabs/Components/Tanks/Tank_Sparkline\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:02:20 EDT 2021\",\"joe\",\"tag write\",\"[default]LinePath\",\"[default]Mentorship/Step1/TNT\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:04:27 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:04:27 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:04:27 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.vision/client-event-scripts, ignition/event-scripts, com.inductiveautomation.perspective/session-scripts\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:07:03 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:07:03 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:07:03 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/Tanks/TankTemplate, com.inductiveautomation.perspective/views/Tabs/Components/Tanks/Tank_Sparkline\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:07:17 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:07:18 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:07:18 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/Tanks/TankTemplate\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:07:52 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:07:52 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:07:52 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/Tanks/TankTemplate\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:10:27 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:10:27 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:10:27 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/Launch/Launch, com.inductiveautomation.perspective/views/Tabs/Components/Launch/InfoPane\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:12:02 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:12:03 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:12:03 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/Launch/LeftHeader\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:12:39 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:12:39 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:12:39 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/Launch/RightHeader\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:12:50 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:12:50 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:12:50 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/Launch/RightHeader\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:27:07 EDT 2021\",\"joe\",\"login\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:35:25 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:35:25 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:35:25 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"ignition/event-scripts, com.inductiveautomation.perspective/views/Tabs/Cards/Overview/Audit_Overview\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:36:54 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Step1/TNT/Launch/AuditStartDate\",\"2021-04-13 23:23:50.000\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:40:10 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:40:10 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:40:10 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"ignition/event-scripts, com.inductiveautomation.perspective/views/Tabs/Cards/Overview/Audit_Overview\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:42:16 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:42:16 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:42:16 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Cards/Overview/Audit_Overview\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:42:25 EDT 2021\",\"Unauthenticated\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027Unauthenticated\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:42:58 EDT 2021\",\"Unauthenticated\",\"Login Request\",\"\",\"Success: redirected to IdP \u0027default\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1:/route:/login/Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:43:04 EDT 2021\",\"Unauthenticated\",\"Login Response\",\"http://localhost:8088/data/federate/callback/ignition?code\u003d_P3Dz_TRO-4vrzl-Il7FgG5yHkr4Xk719WFwZakm1Io\u0026state\u003deyJraWQiOiJrMSIsImFsZyI6IkhTMjU2In0.eyJqdGkiOiJJazJUamo4N2N4ZFpjUGVLMDFyaXc2Y1ZtNHJHa2kyTmNfd0pTaGVKSEI4IiwidXJpIjoiL2RhdGEvcGVyc3BlY3RpdmUvY2xpZW50L1N0ZXAxIn0.1os_iQsM9yh6os-hUHi8YPp6jdWCeBZ5-N6CZ8QR_70\",\"Success: received from IdP \u0027default\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:43:04 EDT 2021\",\"joe\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027joe\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027, \u0027Authenticated/Roles/Administrator\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:46:31 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:46:31 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:46:31 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/Launch/Launch, com.inductiveautomation.perspective/views/Tabs/Components/_Template/MemoryUsage/LastHour, com.inductiveautomation.perspective/views/Tabs/Components/_Template/CPU_Usage/LastHour\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:46:31 EDT 2021\",\"joe\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027joe\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027, \u0027Authenticated/Roles/Administrator\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:47:49 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:47:49 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:47:49 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/_Template/MemoryUsage/LastHour, com.inductiveautomation.perspective/views/Tabs/Components/_Template/CPU_Usage/LastHour\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:47:49 EDT 2021\",\"joe\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027joe\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027, \u0027Authenticated/Roles/Administrator\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:48:50 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:48:50 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:48:50 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.vision/windows/Audit, com.inductiveautomation.vision/windows/Tanks, com.inductiveautomation.perspective/views/Tabs/Components/_Template/MemoryUsage/LastHour, com.inductiveautomation.perspective/views/Tabs/Components/_Template/CPU_Usage/LastHour, com.inductiveautomation.vision/windows/MotorControl, com.inductiveautomation.vision/windows/Landing\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:48:50 EDT 2021\",\"joe\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027joe\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027, \u0027Authenticated/Roles/Administrator\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:48:54 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:48:54 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:48:54 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.vision/windows/Audit, com.inductiveautomation.vision/windows/Tanks, com.inductiveautomation.vision/windows/MotorControl, com.inductiveautomation.vision/windows/Landing\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:50:10 EDT 2021\",\"joe\",\"login\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:50:24 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Step1/TNT/Launch/Client/ClientIP\",\"127.0.0.1\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:50:24 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Step1/TNT/Launch/Client/ClientHostName\",\"WIN-16UJEQMDV3Q\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:50:24 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Step1/TNT/Launch/Client/ClientUser\",\"joe\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:50:24 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Step1/TNT/Launch/Client/ClientRoles\",\"(\u0027Administrator\u0027,)\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:50:24 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Step1/TNT/Launch/AuditStartDate\",\"2021-04-15 11:50:23\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:50:27 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientUser\",\"joe\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:50:27 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientRoles\",\"Administrator\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:50:27 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientIP\",\"127.0.0.1\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:50:27 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientHostName\",\"WIN-16UJEQMDV3Q\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:50:27 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientTimezone\",\"America/New_York\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:50:38 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientUser\",\"joe\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:50:38 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientRoles\",\"Administrator\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:50:38 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientIP\",\"127.0.0.1\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:50:38 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientHostName\",\"WIN-16UJEQMDV3Q\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:50:38 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientTimezone\",\"America/New_York\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:51:09 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Step1/TNT/Launch/AuditStartDate\",\"2021-04-13 11:50:23.000\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:51:20 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientUser\",\"joe\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:51:20 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientRoles\",\"Administrator\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:51:20 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientIP\",\"127.0.0.1\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:51:20 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientHostName\",\"WIN-16UJEQMDV3Q\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:51:20 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientTimezone\",\"America/New_York\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:51:39 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientUser\",\"joe\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:51:39 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientRoles\",\"Administrator\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:51:39 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientIP\",\"127.0.0.1\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:51:39 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientHostName\",\"WIN-16UJEQMDV3Q\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:51:39 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientTimezone\",\"America/New_York\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:52:28 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Step1/TNT/Launch/AuditStartDate\",\"2021-04-14 11:50:23.000\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:52:33 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientUser\",\"joe\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:52:33 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientRoles\",\"Administrator\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:52:33 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientIP\",\"127.0.0.1\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:52:33 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientHostName\",\"WIN-16UJEQMDV3Q\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:52:33 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Mentorship/Step1/TNT/Launch/Client/ClientTimezone\",\"America/New_York\",-2147483648,\"AuditStatus[0x80000000, Severity\u003dBad, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:52:42 EDT 2021\",\"joe\",\"logout\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",4,\"Client\"],[\"Thu Apr 15 11:52:49 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:52:49 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:52:49 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/_Template/MemoryUsage/LastHour, com.inductiveautomation.perspective/views/Tabs/Components/_Template/CPU_Usage/LastHour, com.inductiveautomation.perspective/views/Tabs/Cards/Overview/Audit_Overview\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:54:57 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 11:54:57 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 11:54:57 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/_Template/MemoryUsage/LastHour, com.inductiveautomation.perspective/views/Tabs/Components/_Template/CPU_Usage/LastHour, com.inductiveautomation.perspective/session-scripts\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 12:58:20 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 12:58:22 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 12:58:22 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/Launch/Launch, com.inductiveautomation.perspective/views/Tabs/Components/_Template/MemoryUsage/LastHour, com.inductiveautomation.perspective/views/Tabs/Components/Launch/LeftHeader, com.inductiveautomation.perspective/views/Tabs/Components/_Template/CPU_Usage/LastHour, com.inductiveautomation.perspective/views/Tabs/Cards/Overview/Audit_Overview, com.inductiveautomation.perspective/session-scripts, com.inductiveautomation.perspective/views/Tabs/Components/Launch/InfoPane\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 12:58:35 EDT 2021\",\"Unauthenticated\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027Unauthenticated\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 12:59:05 EDT 2021\",\"Unauthenticated\",\"Login Request\",\"\",\"Success: redirected to IdP \u0027default\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1:/route:/login/Step1\",1,\"Gateway\"],[\"Thu Apr 15 12:59:11 EDT 2021\",\"Unauthenticated\",\"Login Response\",\"http://localhost:8088/data/federate/callback/ignition?code\u003d1sErRtr-CXiw57oCIZLbvkibcXesf1H_Tn3E869pu2E\u0026state\u003deyJraWQiOiJrMSIsImFsZyI6IkhTMjU2In0.eyJqdGkiOiJKVjNUb1pJbHpIZW9fdjhueG9kX1pzTHBLa1ZrYXI3MWZZbVZlclkzNFZRIiwidXJpIjoiL2RhdGEvcGVyc3BlY3RpdmUvY2xpZW50L1N0ZXAxIn0.Woy3xgbFfISCVLhOmAKfhkowzp-ll1NzuMjROGh4Pko\",\"Success: received from IdP \u0027default\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 12:59:11 EDT 2021\",\"joe\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027joe\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027, \u0027Authenticated/Roles/Administrator\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 13:10:17 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 13:10:18 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 13:10:18 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/_Template/MemoryUsage/LastHour, com.inductiveautomation.perspective/views/Tabs/Components/Launch/InfoPane\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 13:10:18 EDT 2021\",\"joe\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027joe\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027, \u0027Authenticated/Roles/Administrator\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 13:10:33 EDT 2021\",\"Unauthenticated\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027Unauthenticated\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 13:12:11 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 13:12:12 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 13:12:12 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/_Template/MemoryUsage/LastHour, com.inductiveautomation.perspective/session-scripts, com.inductiveautomation.perspective/views/Tabs/Components/Launch/InfoPane\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 13:13:07 EDT 2021\",\"Unauthenticated\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027Unauthenticated\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 13:14:49 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 13:14:50 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 13:14:50 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Cards/Overview/Launch_Overview, com.inductiveautomation.perspective/views/Tabs/Components/_Template/MemoryUsage/LastHour\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 13:14:50 EDT 2021\",\"Unauthenticated\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027Unauthenticated\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 13:15:01 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 13:15:01 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 13:15:01 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Cards/Overview/Launch_Overview\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 13:15:02 EDT 2021\",\"Unauthenticated\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027Unauthenticated\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 13:15:15 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 13:15:15 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 13:15:15 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Cards/Overview/Launch_Overview\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 13:15:15 EDT 2021\",\"Unauthenticated\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027Unauthenticated\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 13:27:43 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 13:27:43 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 13:27:43 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Cards/Overview/Launch_Overview, com.inductiveautomation.perspective/views/Tabs/Components/_Template/MemoryUsage/LastHour\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 13:27:43 EDT 2021\",\"Unauthenticated\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027Unauthenticated\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 13:28:13 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Thu Apr 15 13:28:13 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 13:28:13 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Cards/Overview/Launch_Overview\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Thu Apr 15 13:28:13 EDT 2021\",\"Unauthenticated\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027Unauthenticated\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 11:04:29 EDT 2021\",\"Unauthenticated\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027Unauthenticated\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 11:05:46 EDT 2021\",\"Unauthenticated\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027Unauthenticated\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 11:06:17 EDT 2021\",\"Unauthenticated\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027Unauthenticated\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 11:06:43 EDT 2021\",\"Unauthenticated\",\"Login Request\",\"\",\"Success: redirected to IdP \u0027default\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1:/route:/login/Step1\",1,\"Gateway\"],[\"Fri Apr 16 11:06:53 EDT 2021\",\"Unauthenticated\",\"Login Response\",\"http://localhost:8088/data/federate/callback/ignition?code\u003dBG_ZglDNQ5vppeTTNOfKjkBrI1QevZWrA9eOlON6_Ls\u0026state\u003deyJraWQiOiJrMSIsImFsZyI6IkhTMjU2In0.eyJqdGkiOiJrREFmQVZVLU5fT3lGUmJSRDdwMVVEVFNPeVh1M1Z4cjFPVld5S20zMU9VIiwidXJpIjoiL2RhdGEvcGVyc3BlY3RpdmUvY2xpZW50L1N0ZXAxIn0.uC1xq6nVRscpRxOW1qsh0QzA37DwfBO3Es6NZSkDTEk\",\"Success: received from IdP \u0027default\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 11:06:53 EDT 2021\",\"joe\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027joe\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027, \u0027Authenticated/Roles/Administrator\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 11:18:49 EDT 2021\",\"joe\",\"login\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 11:22:05 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 11:22:05 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 11:22:05 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/Launch/LeftHeader, com.inductiveautomation.perspective/session-scripts\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 11:22:18 EDT 2021\",\"joe\",\"tag write\",\"[default]Mentorship/Step1/TNT/Launch/Session/SessionIP\",\"127.0.0.1\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 11:25:10 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 11:25:10 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 11:25:10 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/Launch/LeftHeader, com.inductiveautomation.perspective/views/Tabs/Components/Launch/InfoPane\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 11:25:16 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 11:25:16 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 11:25:16 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/Launch/InfoPane\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 12:35:32 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 12:35:32 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 12:35:32 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/Launch/InfoPane\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 12:36:00 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 12:36:00 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 12:36:00 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/Launch/InfoPane\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 12:43:32 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 12:43:33 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 12:43:33 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/Launch/InfoPane\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 12:44:19 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 12:44:19 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 12:44:19 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/Launch/InfoPane\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 12:44:33 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 12:44:33 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 12:44:33 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/Launch/InfoPane\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 12:44:37 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 12:44:37 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 12:44:37 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Tabs/Components/Launch/InfoPane\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 12:44:45 EDT 2021\",\"joe\",\"logout\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 12:46:18 EDT 2021\",\"Unauthenticated\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027Unauthenticated\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 12:46:36 EDT 2021\",\"Unauthenticated\",\"Login Request\",\"\",\"Success: redirected to IdP \u0027default\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1:/route:/login/Step1\",1,\"Gateway\"],[\"Fri Apr 16 12:46:48 EDT 2021\",\"Unauthenticated\",\"Login Response\",\"http://localhost:8088/data/federate/callback/ignition?code\u003dT-KSORlot4giqRVAhFt8N25FhXpgK06BsnJYs6b1MS0\u0026state\u003deyJraWQiOiJrMSIsImFsZyI6IkhTMjU2In0.eyJqdGkiOiJNTm1hZGVtV2U0TGFWQnZxR2dmLUlDcW9vTTlfekcxRGd2UmtDTUMtQ1ljIiwidXJpIjoiL2RhdGEvcGVyc3BlY3RpdmUvY2xpZW50L1N0ZXAxIn0.OJmqQy_4pQ2YyPHUTHfVhSSlF4GhPXbMLSryuFX4Iug\",\"Success: received from IdP \u0027default\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 12:46:49 EDT 2021\",\"joe\",\"Web Auth Status Change\",\"default\",\"Username \u003d \u0027joe\u0027, Authorized \u003d \u0027true\u0027, Security Levels \u003d \u0027SecurityZones\u0027, \u0027Authenticated/Roles/Administrator\u0027\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 15:28:32 EDT 2021\",null,\"gateway shutdown\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Fri Apr 16 15:32:06 EDT 2021\",null,\"gateway startup\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Fri Apr 16 22:20:17 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 22:20:17 EDT 2021\",\"admin\",\"resources created\",\"Step1\",\"com.inductiveautomation.perspective/views/Framework/Breakpoint/Breakpoint, com.inductiveautomation.perspective/views/Framework/Breakpoint/Breakpoint Embedded\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 22:20:34 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 22:20:35 EDT 2021\",\"admin\",\"resources created\",\"Step1\",\"com.inductiveautomation.perspective/style-classes/Framework/Card/Label, com.inductiveautomation.perspective/views/Audit Log/Card, com.inductiveautomation.perspective/style-classes/Framework/Card/Value, com.inductiveautomation.perspective/views/Framework/Table Card Layout/Cards, com.inductiveautomation.perspective/style-classes/Framework/Card/Title, com.inductiveautomation.perspective/style-classes/Framework/Card/Bold_Text, com.inductiveautomation.perspective/style-classes/Framework/Card/Item_Border, com.inductiveautomation.perspective/style-classes/Framework/Card/Row, com.inductiveautomation.perspective/style-classes/Framework/TableCardLayout/Label, com.inductiveautomation.perspective/style-classes/Framework/Card/Card, com.inductiveautomation.perspective/views/Framework/Table Card Layout/Table, com.inductiveautomation.perspective/views/Framework/Table Card Layout/Responsive View, com.inductiveautomation.perspective/views/Framework/Card/Card, com.inductiveautomation.perspective/style-classes/Framework/Card/Item, com.inductiveautomation.perspective/views/Audit Log/Audit Log, ignition/named-query/Audit Log/Audit Log, com.inductiveautomation.perspective/style-classes/Framework/Card/Embedded\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 22:22:28 EDT 2021\",\"\",\"resources created\",\"Step1\",\"\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"project:Step1\",0,\"Unk (0)\"],[\"Fri Apr 16 22:23:52 EDT 2021\",\"joe\",\"login\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 22:41:52 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 22:41:52 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 22:41:52 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Framework/Breakpoint/Breakpoint, com.inductiveautomation.perspective/views/Framework/Table Card Layout/Responsive View, com.inductiveautomation.perspective/views/Framework/Card/Card, com.inductiveautomation.perspective/views/Audit Log/Audit Log\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 23:03:48 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 23:03:48 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 23:03:48 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Audit Log/Audit Log\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 23:17:52 EDT 2021\",\"joe\",\"project updated\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",1,\"Gateway\"],[\"Fri Apr 16 23:17:52 EDT 2021\",\"joe\",\"project save\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 23:17:52 EDT 2021\",\"joe\",\"resources modified\",\"Step1\",\"com.inductiveautomation.perspective/views/Audit Log/Audit Log\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Fri Apr 16 23:33:59 EDT 2021\",null,\"gateway startup\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Fri Apr 16 23:35:03 EDT 2021\",null,\"gateway shutdown\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Mon Apr 19 12:24:24 EDT 2021\",null,\"gateway startup\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Mon Apr 19 12:32:48 EDT 2021\",\"joe\",\"login\",\"Step1\",null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Mon Apr 19 12:34:42 EDT 2021\",\"joe\",\"logout\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner:/project:Step1\",2,\"Designer\"],[\"Mon Apr 19 12:35:50 EDT 2021\",null,\"gateway shutdown\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Mon Apr 19 12:40:42 EDT 2021\",null,\"gateway startup\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Mon Apr 19 12:42:07 EDT 2021\",null,\"gateway shutdown\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Mon Apr 19 12:46:25 EDT 2021\",null,\"gateway startup\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Mon Apr 19 12:51:38 EDT 2021\",null,\"gateway shutdown\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Mon Apr 19 12:57:58 EDT 2021\",null,\"gateway startup\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Mon Apr 19 12:58:41 EDT 2021\",null,\"gateway shutdown\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Mon May 03 12:36:34 EDT 2021\",null,\"gateway startup\",null,null,0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Fri May 28 09:37:45 EDT 2021\",\"joe\",\"gateway config added\",\"EULAS (ModuleEulaRecord)\",\"CRC\u003d213144928\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Fri May 28 09:37:52 EDT 2021\",\"joe\",\"gateway config added\",\"CERTIFICATES (CertificateRecord)\",\"SubjectName\u003d\\\"Sepasoft Inc.\\\", Thumbprint\u003dCWvKYvtjobQ32uvWhp96Yr6w2Qc\u003d\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Fri May 28 09:37:58 EDT 2021\",\"Unknown\",\"gateway config updated\",\"OEE Downtime V2 (oeedt2gateway) 2.81.0 (b2104201817)\",\"module install\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"\",0,\"Unk (0)\"],[\"Fri May 28 09:37:59 EDT 2021\",\"joe\",\"gateway config added\",\"CERTIFICATES (CertificateRecord)\",\"SubjectName\u003d\\\"Sepasoft Inc.\\\", Thumbprint\u003dCWvKYvtjobQ32uvWhp96Yr6w2Qc\u003d\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Fri May 28 09:38:03 EDT 2021\",\"Unknown\",\"gateway config updated\",\"OEE Downtime V2 (oeedt2gateway) 2.81.0 (b2104201817)\",\"module install\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"\",0,\"Unk (0)\"],[\"Fri May 28 09:38:04 EDT 2021\",\"joe\",\"gateway config added\",\"CERTIFICATES (CertificateRecord)\",\"SubjectName\u003d\\\"Sepasoft Inc.\\\", Thumbprint\u003dCWvKYvtjobQ32uvWhp96Yr6w2Qc\u003d\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Fri May 28 09:38:08 EDT 2021\",\"Unknown\",\"gateway config updated\",\"OEE Downtime V2 (oeedt2gateway) 2.81.0 (b2104201817)\",\"module install\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"\",0,\"Unk (0)\"],[\"Fri May 28 09:38:44 EDT 2021\",\"joe\",\"gateway config added\",\"EULAS (ModuleEulaRecord)\",\"CRC\u003d213144928\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Fri May 28 09:38:46 EDT 2021\",\"Unknown\",\"gateway config updated\",\"Recipe (recipegateway) 2.81.0 (b2104201817)\",\"module install\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"\",0,\"Unk (0)\"],[\"Fri May 28 09:38:47 EDT 2021\",\"joe\",\"gateway config added\",\"EULAS (ModuleEulaRecord)\",\"CRC\u003d213144928\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Fri May 28 09:38:48 EDT 2021\",\"Unknown\",\"gateway config updated\",\"Recipe (recipegateway) 2.81.0 (b2104201817)\",\"module install\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"\",0,\"Unk (0)\"],[\"Fri May 28 09:40:10 EDT 2021\",\"joe\",\"gateway config added\",\"EULAS (ModuleEulaRecord)\",\"CRC\u003d213144928\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Fri May 28 09:40:23 EDT 2021\",\"Unknown\",\"gateway config updated\",\"Production (productiongateway) 2.81.0 (b2104201817)\",\"module install\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"\",0,\"Unk (0)\"],[\"Fri May 28 09:40:25 EDT 2021\",\"joe\",\"gateway config added\",\"EULAS (ModuleEulaRecord)\",\"CRC\u003d213144928\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Fri May 28 09:40:39 EDT 2021\",\"Unknown\",\"gateway config updated\",\"Production (productiongateway) 2.81.0 (b2104201817)\",\"module install\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"\",0,\"Unk (0)\"],[\"Fri May 28 09:40:40 EDT 2021\",\"joe\",\"gateway config added\",\"EULAS (ModuleEulaRecord)\",\"CRC\u003d213144928\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Fri May 28 09:41:01 EDT 2021\",\"Unknown\",\"gateway config updated\",\"Production (productiongateway) 2.81.0 (b2104201817)\",\"module install\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"\",0,\"Unk (0)\"],[\"Fri May 28 09:41:05 EDT 2021\",\"joe\",\"gateway config added\",\"EULAS (ModuleEulaRecord)\",\"CRC\u003d213144928\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Fri May 28 09:41:26 EDT 2021\",\"Unknown\",\"gateway config updated\",\"Production (productiongateway) 2.81.0 (b2104201817)\",\"module install\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"\",0,\"Unk (0)\"],[\"Fri May 28 09:41:27 EDT 2021\",\"joe\",\"gateway config added\",\"EULAS (ModuleEulaRecord)\",\"CRC\u003d213144928\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"],[\"Fri May 28 09:41:38 EDT 2021\",\"Unknown\",\"gateway config updated\",\"Production (productiongateway) 2.81.0 (b2104201817)\",\"module install\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"\",0,\"Unk (0)\"],[\"Fri May 28 09:41:38 EDT 2021\",\"joe\",\"gateway config added\",\"EULAS (ModuleEulaRecord)\",\"CRC\u003d213144928\",0,\"AuditStatus[0x00000000, Severity\u003dGood, Subcode\u003dNotSpecified]\",\"sys:Step1-TaylorTurner\",1,\"Gateway\"]]}",
+                  "tagType": "AtomicTag"
+                }
+              ]
+            },
+            {
+              "typeColor": -10719104,
+              "name": "Gateway",
+              "typeId": "",
+              "parameters": {
+                "Provider": {
+                  "dataType": "String",
+                  "value": "System"
+                },
+                "GatewayName": {
+                  "dataType": "String",
+                  "value": ""
+                }
+              },
+              "tagType": "UdtType",
+              "tags": [
+                {
+                  "name": "Alarming",
+                  "tagType": "Folder",
+                  "tags": [
+                    {
+                      "valueSource": "expr",
+                      "expression": "Tag(\u0027[System]Gateway/Alarming/\u0027+{TagName})",
+                      "name": "Active and Acked",
+                      "executionMode": "TagGroupRate",
+                      "tagType": "AtomicTag"
+                    },
+                    {
+                      "valueSource": "expr",
+                      "expression": "{[System]Gateway/Alarming/Clear and Acked}",
+                      "name": "Clear and Acked",
+                      "executionMode": "TagGroupRate",
+                      "tagType": "AtomicTag"
+                    },
+                    {
+                      "valueSource": "expr",
+                      "expression": "{[System]Gateway/Alarming/Clear and Unacked}",
+                      "name": "Clear and Unacked",
+                      "executionMode": "TagGroupRate",
+                      "tagType": "AtomicTag"
+                    },
+                    {
+                      "valueSource": "expr",
+                      "expression": "{[System]Gateway/Alarming/Active and Unacked}",
+                      "name": "Active and Unacked",
+                      "executionMode": "TagGroupRate",
+                      "tagType": "AtomicTag"
+                    }
+                  ]
+                },
+                {
+                  "name": "Sessions",
+                  "tagType": "Folder",
+                  "tags": [
+                    {
+                      "valueSource": "expr",
+                      "expression": "{[System]Gateway/Sessions/SessionCount}",
+                      "name": "SessionCount",
+                      "executionMode": "TagGroupRate",
+                      "tagType": "AtomicTag"
+                    }
+                  ]
+                },
+                {
+                  "name": "StoreAndForward",
+                  "tagType": "Folder",
+                  "tags": [
+                    {
+                      "name": "igndb",
+                      "tagType": "Folder",
+                      "tags": [
+                        {
+                          "name": "Database Storage",
+                          "tagType": "Folder",
+                          "tags": [
+                            {
+                              "valueSource": "expr",
+                              "expression": "{[System]Gateway/StoreAndForward/igndb/Database Storage/IsStore}",
+                              "dataType": "Boolean",
+                              "name": "IsStore",
+                              "executionMode": "TagGroupRate",
+                              "tagType": "AtomicTag"
+                            },
+                            {
+                              "valueSource": "expr",
+                              "expression": "{[System]Gateway/StoreAndForward/igndb/Database Storage/Available}",
+                              "dataType": "Boolean",
+                              "name": "Available",
+                              "executionMode": "TagGroupRate",
+                              "tagType": "AtomicTag"
+                            }
+                          ]
+                        },
+                        {
+                          "valueSource": "expr",
+                          "expression": "{[System]Gateway/StoreAndForward/igndb/Dropped}",
+                          "name": "Dropped",
+                          "executionMode": "TagGroupRate",
+                          "tagType": "AtomicTag"
+                        },
+                        {
+                          "valueSource": "expr",
+                          "expression": "{[System]Gateway/StoreAndForward/igndb/Quarantined}",
+                          "name": "Quarantined",
+                          "executionMode": "TagGroupRate",
+                          "tagType": "AtomicTag"
+                        },
+                        {
+                          "name": "Local Cache",
+                          "tagType": "Folder",
+                          "tags": [
+                            {
+                              "valueSource": "expr",
+                              "expression": "{[System]Gateway/StoreAndForward/igndb/Local Cache/DroppedRecords}",
+                              "name": "DroppedRecords",
+                              "executionMode": "TagGroupRate",
+                              "tagType": "AtomicTag"
+                            },
+                            {
+                              "name": "StorageMetrics",
+                              "tagType": "Folder",
+                              "tags": [
+                                {
+                                  "valueSource": "expr",
+                                  "expression": "{[System]Gateway/StoreAndForward/igndb/Local Cache/StorageMetrics/MaxDuration}",
+                                  "name": "MaxDuration",
+                                  "executionMode": "TagGroupRate",
+                                  "tagType": "AtomicTag"
+                                },
+                                {
+                                  "valueSource": "expr",
+                                  "expression": "{[System]Gateway/StoreAndForward/igndb/Local Cache/StorageMetrics/MinDuration}",
+                                  "name": "MinDuration",
+                                  "executionMode": "TagGroupRate",
+                                  "tagType": "AtomicTag"
+                                },
+                                {
+                                  "valueSource": "expr",
+                                  "expression": "{[System]Gateway/StoreAndForward/igndb/Local Cache/StorageMetrics/TimeUnit}",
+                                  "dataType": "String",
+                                  "name": "TimeUnit",
+                                  "executionMode": "TagGroupRate",
+                                  "tagType": "AtomicTag"
+                                },
+                                {
+                                  "valueSource": "expr",
+                                  "expression": "{[System]Gateway/StoreAndForward/igndb/Local Cache/StorageMetrics/AverageDuration}",
+                                  "name": "AverageDuration",
+                                  "executionMode": "TagGroupRate",
+                                  "tagType": "AtomicTag"
+                                },
+                                {
+                                  "valueSource": "expr",
+                                  "expression": "{[System]Gateway/StoreAndForward/igndb/Local Cache/StorageMetrics/Total}",
+                                  "name": "Total",
+                                  "executionMode": "TagGroupRate",
+                                  "tagType": "AtomicTag"
+                                },
+                                {
+                                  "valueSource": "expr",
+                                  "expression": "{[System]Gateway/StoreAndForward/igndb/Local Cache/StorageMetrics/Throughput}",
+                                  "name": "Throughput",
+                                  "executionMode": "TagGroupRate",
+                                  "tagType": "AtomicTag"
+                                }
+                              ]
+                            },
+                            {
+                              "valueSource": "expr",
+                              "expression": "{[System]Gateway/StoreAndForward/igndb/Local Cache/PendingRecords}",
+                              "name": "PendingRecords",
+                              "executionMode": "TagGroupRate",
+                              "tagType": "AtomicTag"
+                            },
+                            {
+                              "name": "ForwardMetrics",
+                              "tagType": "Folder",
+                              "tags": [
+                                {
+                                  "valueSource": "expr",
+                                  "expression": "{[System]Gateway/StoreAndForward/igndb/Local Cache/ForwardMetrics/Throughput}",
+                                  "name": "Throughput",
+                                  "executionMode": "TagGroupRate",
+                                  "tagType": "AtomicTag"
+                                },
+                                {
+                                  "valueSource": "expr",
+                                  "expression": "{[System]Gateway/StoreAndForward/igndb/Local Cache/ForwardMetrics/TimeUnit}",
+                                  "dataType": "String",
+                                  "name": "TimeUnit",
+                                  "executionMode": "TagGroupRate",
+                                  "tagType": "AtomicTag"
+                                },
+                                {
+                                  "valueSource": "expr",
+                                  "expression": "{[System]Gateway/StoreAndForward/igndb/Local Cache/ForwardMetrics/MaxDuration}",
+                                  "name": "MaxDuration",
+                                  "executionMode": "TagGroupRate",
+                                  "tagType": "AtomicTag"
+                                },
+                                {
+                                  "valueSource": "expr",
+                                  "expression": "{[System]Gateway/StoreAndForward/igndb/Local Cache/ForwardMetrics/AverageDuration}",
+                                  "name": "AverageDuration",
+                                  "executionMode": "TagGroupRate",
+                                  "tagType": "AtomicTag"
+                                },
+                                {
+                                  "valueSource": "expr",
+                                  "expression": "{[System]Gateway/StoreAndForward/igndb/Local Cache/ForwardMetrics/Total}",
+                                  "name": "Total",
+                                  "executionMode": "TagGroupRate",
+                                  "tagType": "AtomicTag"
+                                },
+                                {
+                                  "valueSource": "expr",
+                                  "expression": "{[System]Gateway/StoreAndForward/igndb/Local Cache/ForwardMetrics/MinDuration}",
+                                  "name": "MinDuration",
+                                  "executionMode": "TagGroupRate",
+                                  "tagType": "AtomicTag"
+                                }
+                              ]
+                            },
+                            {
+                              "valueSource": "expr",
+                              "expression": "{[System]Gateway/StoreAndForward/igndb/Local Cache/CanQuarantine}",
+                              "name": "CanQuarantine",
+                              "executionMode": "TagGroupRate",
+                              "tagType": "AtomicTag"
+                            },
+                            {
+                              "valueSource": "expr",
+                              "expression": "{[System]Gateway/StoreAndForward/igndb/Local Cache/MaxRecords}",
+                              "name": "MaxRecords",
+                              "executionMode": "TagGroupRate",
+                              "tagType": "AtomicTag"
+                            },
+                            {
+                              "valueSource": "expr",
+                              "expression": "{[System]Gateway/StoreAndForward/igndb/Local Cache/IsStore}",
+                              "dataType": "Boolean",
+                              "name": "IsStore",
+                              "executionMode": "TagGroupRate",
+                              "tagType": "AtomicTag"
+                            },
+                            {
+                              "valueSource": "expr",
+                              "expression": "{[System]Gateway/StoreAndForward/igndb/Local Cache/QuarantinedRecords}",
+                              "name": "QuarantinedRecords",
+                              "executionMode": "TagGroupRate",
+                              "tagType": "AtomicTag"
+                            },
+                            {
+                              "name": "TakeMetrics",
+                              "tagType": "Folder",
+                              "tags": [
+                                {
+                                  "valueSource": "expr",
+                                  "expression": "{[System]Gateway/StoreAndForward/igndb/Local Cache/TakeMetrics/MinDuration}",
+                                  "name": "MinDuration",
+                                  "executionMode": "TagGroupRate",
+                                  "tagType": "AtomicTag"
+                                },
+                                {
+                                  "valueSource": "expr",
+                                  "expression": "{[System]Gateway/StoreAndForward/igndb/Local Cache/TakeMetrics/AverageDuration}",
+                                  "name": "AverageDuration",
+                                  "executionMode": "TagGroupRate",
+                                  "tagType": "AtomicTag"
+                                },
+                                {
+                                  "valueSource": "expr",
+                                  "expression": "{[System]Gateway/StoreAndForward/igndb/Local Cache/TakeMetrics/TimeUnit}",
+                                  "dataType": "String",
+                                  "name": "TimeUnit",
+                                  "executionMode": "TagGroupRate",
+                                  "tagType": "AtomicTag"
+                                },
+                                {
+                                  "valueSource": "expr",
+                                  "expression": "{[System]Gateway/StoreAndForward/igndb/Local Cache/TakeMetrics/MaxDuration}",
+                                  "name": "MaxDuration",
+                                  "executionMode": "TagGroupRate",
+                                  "tagType": "AtomicTag"
+                                },
+                                {
+                                  "valueSource": "expr",
+                                  "expression": "{[System]Gateway/StoreAndForward/igndb/Local Cache/TakeMetrics/Throughput}",
+                                  "name": "Throughput",
+                                  "executionMode": "TagGroupRate",
+                                  "tagType": "AtomicTag"
+                                },
+                                {
+                                  "valueSource": "expr",
+                                  "expression": "{[System]Gateway/StoreAndForward/igndb/Local Cache/TakeMetrics/Total}",
+                                  "name": "Total",
+                                  "executionMode": "TagGroupRate",
+                                  "tagType": "AtomicTag"
+                                }
+                              ]
+                            },
+                            {
+                              "valueSource": "expr",
+                              "expression": "{[System]Gateway/StoreAndForward/igndb/Local Cache/Available}",
+                              "dataType": "Boolean",
+                              "name": "Available",
+                              "executionMode": "TagGroupRate",
+                              "tagType": "AtomicTag"
+                            }
+                          ]
+                        },
+                        {
+                          "valueSource": "expr",
+                          "expression": "{[System]Gateway/StoreAndForward/igndb/Available}",
+                          "dataType": "Boolean",
+                          "name": "Available",
+                          "executionMode": "TagGroupRate",
+                          "tagType": "AtomicTag"
+                        },
+                        {
+                          "name": "Memory Buffer",
+                          "tagType": "Folder",
+                          "tags": [
+                            {
+                              "valueSource": "expr",
+                              "expression": "{[System]Gateway/StoreAndForward/igndb/Memory Buffer/MaxRecords}",
+                              "name": "MaxRecords",
+                              "executionMode": "TagGroupRate",
+                              "tagType": "AtomicTag"
+                            },
+                            {
+                              "valueSource": "expr",
+                              "expression": "{[System]Gateway/StoreAndForward/igndb/Memory Buffer/CanQuarantine}",
+                              "name": "CanQuarantine",
+                              "executionMode": "TagGroupRate",
+                              "tagType": "AtomicTag"
+                            },
+                            {
+                              "name": "ForwardMetrics",
+                              "tagType": "Folder",
+                              "tags": [
+                                {
+                                  "valueSource": "expr",
+                                  "expression": "{[System]Gateway/StoreAndForward/igndb/Memory Buffer/ForwardMetrics/MaxDuration}",
+                                  "name": "MaxDuration",
+                                  "executionMode": "TagGroupRate",
+                                  "tagType": "AtomicTag"
+                                },
+                                {
+                                  "valueSource": "expr",
+                                  "expression": "{[System]Gateway/StoreAndForward/igndb/Memory Buffer/ForwardMetrics/TimeUnit}",
+                                  "dataType": "String",
+                                  "name": "TimeUnit",
+                                  "executionMode": "TagGroupRate",
+                                  "tagType": "AtomicTag"
+                                },
+                                {
+                                  "valueSource": "expr",
+                                  "expression": "{[System]Gateway/StoreAndForward/igndb/Memory Buffer/ForwardMetrics/Throughput}",
+                                  "name": "Throughput",
+                                  "executionMode": "TagGroupRate",
+                                  "tagType": "AtomicTag"
+                                },
+                                {
+                                  "valueSource": "expr",
+                                  "expression": "{[System]Gateway/StoreAndForward/igndb/Memory Buffer/ForwardMetrics/MinDuration}",
+                                  "name": "MinDuration",
+                                  "executionMode": "TagGroupRate",
+                                  "tagType": "AtomicTag"
+                                },
+                                {
+                                  "valueSource": "expr",
+                                  "expression": "{[System]Gateway/StoreAndForward/igndb/Memory Buffer/ForwardMetrics/AverageDuration}",
+                                  "name": "AverageDuration",
+                                  "executionMode": "TagGroupRate",
+                                  "tagType": "AtomicTag"
+                                },
+                                {
+                                  "valueSource": "expr",
+                                  "expression": "{[System]Gateway/StoreAndForward/igndb/Memory Buffer/ForwardMetrics/Total}",
+                                  "name": "Total",
+                                  "executionMode": "TagGroupRate",
+                                  "tagType": "AtomicTag"
+                                }
+                              ]
+                            },
+                            {
+                              "valueSource": "expr",
+                              "expression": "{[System]Gateway/StoreAndForward/igndb/Memory Buffer/Available}",
+                              "dataType": "Boolean",
+                              "name": "Available",
+                              "executionMode": "TagGroupRate",
+                              "tagType": "AtomicTag"
+                            },
+                            {
+                              "name": "StorageMetrics",
+                              "tagType": "Folder",
+                              "tags": [
+                                {
+                                  "valueSource": "expr",
+                                  "expression": "{[System]Gateway/StoreAndForward/igndb/Memory Buffer/StorageMetrics/Total}",
+                                  "name": "Total",
+                                  "executionMode": "TagGroupRate",
+                                  "tagType": "AtomicTag"
+                                },
+                                {
+                                  "valueSource": "expr",
+                                  "expression": "{[System]Gateway/StoreAndForward/igndb/Memory Buffer/StorageMetrics/AverageDuration}",
+                                  "name": "AverageDuration",
+                                  "executionMode": "TagGroupRate",
+                                  "tagType": "AtomicTag"
+                                },
+                                {
+                                  "valueSource": "expr",
+                                  "expression": "{[System]Gateway/StoreAndForward/igndb/Memory Buffer/StorageMetrics/MinDuration}",
+                                  "name": "MinDuration",
+                                  "executionMode": "TagGroupRate",
+                                  "tagType": "AtomicTag"
+                                },
+                                {
+                                  "valueSource": "expr",
+                                  "expression": "{[System]Gateway/StoreAndForward/igndb/Memory Buffer/StorageMetrics/MaxDuration}",
+                                  "name": "MaxDuration",
+                                  "executionMode": "TagGroupRate",
+                                  "tagType": "AtomicTag"
+                                },
+                                {
+                                  "valueSource": "expr",
+                                  "expression": "{[System]Gateway/StoreAndForward/igndb/Memory Buffer/StorageMetrics/TimeUnit}",
+                                  "dataType": "String",
+                                  "name": "TimeUnit",
+                                  "executionMode": "TagGroupRate",
+                                  "tagType": "AtomicTag"
+                                },
+                                {
+                                  "valueSource": "expr",
+                                  "expression": "{[System]Gateway/StoreAndForward/igndb/Memory Buffer/StorageMetrics/Throughput}",
+                                  "name": "Throughput",
+                                  "executionMode": "TagGroupRate",
+                                  "tagType": "AtomicTag"
+                                }
+                              ]
+                            },
+                            {
+                              "valueSource": "expr",
+                              "expression": "{[System]Gateway/StoreAndForward/igndb/Memory Buffer/PendingRecords}",
+                              "name": "PendingRecords",
+                              "executionMode": "TagGroupRate",
+                              "tagType": "AtomicTag"
+                            },
+                            {
+                              "valueSource": "expr",
+                              "expression": "{[System]Gateway/StoreAndForward/igndb/Memory Buffer/QuarantinedRecords}",
+                              "name": "QuarantinedRecords",
+                              "executionMode": "TagGroupRate",
+                              "tagType": "AtomicTag"
+                            },
+                            {
+                              "name": "TakeMetrics",
+                              "tagType": "Folder",
+                              "tags": [
+                                {
+                                  "valueSource": "expr",
+                                  "expression": "{[System]Gateway/StoreAndForward/igndb/Memory Buffer/TakeMetrics/Total}",
+                                  "name": "Total",
+                                  "executionMode": "TagGroupRate",
+                                  "tagType": "AtomicTag"
+                                },
+                                {
+                                  "valueSource": "expr",
+                                  "expression": "{[System]Gateway/StoreAndForward/igndb/Memory Buffer/TakeMetrics/MaxDuration}",
+                                  "name": "MaxDuration",
+                                  "executionMode": "TagGroupRate",
+                                  "tagType": "AtomicTag"
+                                },
+                                {
+                                  "valueSource": "expr",
+                                  "expression": "{[System]Gateway/StoreAndForward/igndb/Memory Buffer/TakeMetrics/AverageDuration}",
+                                  "name": "AverageDuration",
+                                  "executionMode": "TagGroupRate",
+                                  "tagType": "AtomicTag"
+                                },
+                                {
+                                  "valueSource": "expr",
+                                  "expression": "{[System]Gateway/StoreAndForward/igndb/Memory Buffer/TakeMetrics/MinDuration}",
+                                  "name": "MinDuration",
+                                  "executionMode": "TagGroupRate",
+                                  "tagType": "AtomicTag"
+                                },
+                                {
+                                  "valueSource": "expr",
+                                  "expression": "{[System]Gateway/StoreAndForward/igndb/Memory Buffer/TakeMetrics/Throughput}",
+                                  "name": "Throughput",
+                                  "executionMode": "TagGroupRate",
+                                  "tagType": "AtomicTag"
+                                },
+                                {
+                                  "valueSource": "expr",
+                                  "expression": "{[System]Gateway/StoreAndForward/igndb/Memory Buffer/TakeMetrics/TimeUnit}",
+                                  "dataType": "String",
+                                  "name": "TimeUnit",
+                                  "executionMode": "TagGroupRate",
+                                  "tagType": "AtomicTag"
+                                }
+                              ]
+                            },
+                            {
+                              "valueSource": "expr",
+                              "expression": "{[System]Gateway/StoreAndForward/igndb/Memory Buffer/IsStore}",
+                              "dataType": "Boolean",
+                              "name": "IsStore",
+                              "executionMode": "TagGroupRate",
+                              "tagType": "AtomicTag"
+                            },
+                            {
+                              "valueSource": "expr",
+                              "expression": "{[System]Gateway/StoreAndForward/igndb/Memory Buffer/DroppedRecords}",
+                              "name": "DroppedRecords",
+                              "executionMode": "TagGroupRate",
+                              "tagType": "AtomicTag"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Redundancy",
+                  "tagType": "Folder",
+                  "tags": [
+                    {
+                      "valueSource": "expr",
+                      "expression": "{[System]Gateway/Redundancy/IsMaster}",
+                      "dataType": "Boolean",
+                      "name": "IsMaster",
+                      "executionMode": "TagGroupRate",
+                      "tagType": "AtomicTag"
+                    },
+                    {
+                      "valueSource": "expr",
+                      "expression": "{[System]Gateway/Redundancy/ActivityLevel}",
+                      "dataType": "String",
+                      "name": "ActivityLevel",
+                      "executionMode": "TagGroupRate",
+                      "tagType": "AtomicTag"
+                    },
+                    {
+                      "valueSource": "expr",
+                      "expression": "{[System]Gateway/Redundancy/Role}",
+                      "dataType": "String",
+                      "name": "Role",
+                      "executionMode": "TagGroupRate",
+                      "tagType": "AtomicTag"
+                    },
+                    {
+                      "valueSource": "expr",
+                      "expression": "{[System]Gateway/Redundancy/IsActive}",
+                      "dataType": "Boolean",
+                      "name": "IsActive",
+                      "executionMode": "TagGroupRate",
+                      "tagType": "AtomicTag"
+                    },
+                    {
+                      "name": "Connection",
+                      "tagType": "Folder",
+                      "tags": [
+                        {
+                          "valueSource": "expr",
+                          "expression": "{[System]Gateway/Redundancy/Connection/IsConnected}",
+                          "dataType": "Boolean",
+                          "name": "IsConnected",
+                          "executionMode": "TagGroupRate",
+                          "tagType": "AtomicTag"
+                        },
+                        {
+                          "valueSource": "expr",
+                          "expression": "{[System]Gateway/Redundancy/Connection/PeerId}",
+                          "name": "PeerId",
+                          "executionMode": "TagGroupRate",
+                          "tagType": "AtomicTag"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "valueSource": "expr",
+                  "expression": "{[System]Gateway/UptimeSeconds}",
+                  "dataType": "Int8",
+                  "name": "UptimeSeconds",
+                  "executionMode": "TagGroupRate",
+                  "tagType": "AtomicTag"
+                },
+                {
+                  "valueSource": "expr",
+                  "expression": "{[System]Gateway/Timezone}",
+                  "dataType": "String",
+                  "name": "Timezone",
+                  "executionMode": "TagGroupRate",
+                  "tagType": "AtomicTag"
+                },
+                {
+                  "valueSource": "expr",
+                  "expression": "dateFormat({[System]Gateway/CurrentDateTime}, \u0027YYYY-MM-dd hh:mm:ss a\u0027)",
+                  "dataType": "String",
+                  "name": "CurrentDateTime",
+                  "executionMode": "TagGroupRate",
+                  "tagType": "AtomicTag"
+                },
+                {
+                  "valueSource": "expr",
+                  "expression": "{[System]Gateway/LicenseState}",
+                  "dataType": "String",
+                  "name": "LicenseState",
+                  "executionMode": "TagGroupRate",
+                  "tagType": "AtomicTag"
+                },
+                {
+                  "valueSource": "expr",
+                  "expression": "{[System]Gateway/SystemName}",
+                  "dataType": "String",
+                  "name": "SystemName",
+                  "executionMode": "TagGroupRate",
+                  "tagType": "AtomicTag"
+                },
+                {
+                  "name": "OPC",
+                  "tagType": "Folder",
+                  "tags": [
+                    {
+                      "name": "Connections",
+                      "tagType": "Folder",
+                      "tags": [
+                        {
+                          "name": "Ignition OPC UA Server",
+                          "tagType": "Folder",
+                          "tags": [
+                            {
+                              "valueSource": "expr",
+                              "expression": "{[System]Gateway/OPC/Connections/Ignition OPC UA Server/State}",
+                              "dataType": "String",
+                              "name": "State",
+                              "executionMode": "TagGroupRate",
+                              "tagType": "AtomicTag"
+                            },
+                            {
+                              "valueSource": "expr",
+                              "expression": "{[System]Gateway/OPC/Connections/Ignition OPC UA Server/Connected}",
+                              "dataType": "Boolean",
+                              "name": "Connected",
+                              "executionMode": "TagGroupRate",
+                              "tagType": "AtomicTag"
+                            },
+                            {
+                              "valueSource": "expr",
+                              "expression": "{[System]Gateway/OPC/Connections/Ignition OPC UA Server/Enabled}",
+                              "dataType": "Boolean",
+                              "name": "Enabled",
+                              "executionMode": "TagGroupRate",
+                              "tagType": "AtomicTag"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Database",
+                  "tagType": "Folder",
+                  "tags": [
+                    {
+                      "name": "IgnitionHistorian",
+                      "tagType": "Folder",
+                      "tags": [
+                        {
+                          "valueSource": "expr",
+                          "expression": "{[System]Gateway/Database/IgnitionHistorian/ActiveConnections}",
+                          "name": "ActiveConnections",
+                          "executionMode": "TagGroupRate",
+                          "tagType": "AtomicTag"
+                        },
+                        {
+                          "valueSource": "expr",
+                          "expression": "{[System]Gateway/Database/IgnitionHistorian/AvgQueryTime}",
+                          "name": "AvgQueryTime",
+                          "executionMode": "TagGroupRate",
+                          "tagType": "AtomicTag"
+                        },
+                        {
+                          "valueSource": "expr",
+                          "expression": "{[System]Gateway/Database/IgnitionHistorian/ConnectionSaturation}",
+                          "name": "ConnectionSaturation",
+                          "executionMode": "TagGroupRate",
+                          "tagType": "AtomicTag"
+                        },
+                        {
+                          "valueSource": "expr",
+                          "expression": "{[System]Gateway/Database/IgnitionHistorian/QueriesPerSecond}",
+                          "name": "QueriesPerSecond",
+                          "executionMode": "TagGroupRate",
+                          "tagType": "AtomicTag"
+                        },
+                        {
+                          "valueSource": "expr",
+                          "expression": "{[System]Gateway/Database/IgnitionHistorian/AvailableThroughFailover}",
+                          "dataType": "Boolean",
+                          "name": "AvailableThroughFailover",
+                          "executionMode": "TagGroupRate",
+                          "tagType": "AtomicTag"
+                        },
+                        {
+                          "valueSource": "expr",
+                          "expression": "{[System]Gateway/Database/IgnitionHistorian/Available}",
+                          "dataType": "Boolean",
+                          "name": "Available",
+                          "executionMode": "TagGroupRate",
+                          "tagType": "AtomicTag"
+                        }
+                      ]
+                    },
+                    {
+                      "name": "MES",
+                      "tagType": "Folder",
+                      "tags": [
+                        {
+                          "valueSource": "expr",
+                          "expression": "{[System]Gateway/Database/IGNDB/Available}",
+                          "dataType": "Boolean",
+                          "name": "Available",
+                          "executionMode": "TagGroupRate",
+                          "tagType": "AtomicTag"
+                        },
+                        {
+                          "valueSource": "expr",
+                          "expression": "{[System]Gateway/Database/IGNDB/ConnectionSaturation}",
+                          "name": "ConnectionSaturation",
+                          "executionMode": "TagGroupRate",
+                          "tagType": "AtomicTag"
+                        },
+                        {
+                          "valueSource": "expr",
+                          "expression": "{[System]Gateway/Database/IGNDB/AvailableThroughFailover}",
+                          "dataType": "Boolean",
+                          "name": "AvailableThroughFailover",
+                          "executionMode": "TagGroupRate",
+                          "tagType": "AtomicTag"
+                        },
+                        {
+                          "valueSource": "expr",
+                          "expression": "{[System]Gateway/Database/IGNDB/ActiveConnections}",
+                          "name": "ActiveConnections",
+                          "executionMode": "TagGroupRate",
+                          "tagType": "AtomicTag"
+                        },
+                        {
+                          "valueSource": "expr",
+                          "expression": "{[System]Gateway/Database/IGNDB/AvgQueryTime}",
+                          "name": "AvgQueryTime",
+                          "executionMode": "TagGroupRate",
+                          "tagType": "AtomicTag"
+                        },
+                        {
+                          "valueSource": "expr",
+                          "expression": "{[System]Gateway/Database/IGNDB/QueriesPerSecond}",
+                          "name": "QueriesPerSecond",
+                          "executionMode": "TagGroupRate",
+                          "tagType": "AtomicTag"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Performance",
+                  "tagType": "Folder",
+                  "tags": [
+                    {
+                      "valueSource": "expr",
+                      "historyMaxAge": 1,
+                      "expression": "{[System]Gateway/Performance/Memory Utilization}",
+                      "dataType": "Float4",
+                      "historyProvider": "IGNDB",
+                      "name": "Memory Utilization",
+                      "historyEnabled": true,
+                      "historyTimeDeadbandUnits": "MIN",
+                      "executionMode": "TagGroupRate",
+                      "tagType": "AtomicTag"
+                    },
+                    {
+                      "valueSource": "expr",
+                      "expression": "{[System]Gateway/Performance/Max Memory}",
+                      "dataType": "Int8",
+                      "name": "Max Memory",
+                      "executionMode": "TagGroupRate",
+                      "tagType": "AtomicTag"
+                    },
+                    {
+                      "valueSource": "expr",
+                      "expression": "{[System]Gateway/Performance/Available Disk Space (MB)}",
+                      "name": "Available Disk Space (MB)",
+                      "executionMode": "TagGroupRate",
+                      "tagType": "AtomicTag"
+                    },
+                    {
+                      "valueSource": "expr",
+                      "historyMaxAge": 1,
+                      "expression": "{[System]Gateway/Performance/CPU Usage}",
+                      "dataType": "Float4",
+                      "historyProvider": "IGNDB",
+                      "name": "CPU Usage",
+                      "historyEnabled": true,
+                      "executionMode": "TagGroupRate",
+                      "tagType": "AtomicTag"
+                    },
+                    {
+                      "valueSource": "expr",
+                      "historyMaxAge": 1,
+                      "historyTimeDeadband": 10,
+                      "expression": "{[System]Gateway/Performance/Memory Usage}",
+                      "dataType": "Int4",
+                      "historyProvider": "IGNDB",
+                      "name": "Memory Usage",
+                      "historyEnabled": true,
+                      "historyTimeDeadbandUnits": "MIN",
+                      "executionMode": "TagGroupRate",
+                      "tagType": "AtomicTag"
+                    },
+                    {
+                      "valueSource": "expr",
+                      "expression": "{[System]Gateway/Performance/Disk Utilization}",
+                      "name": "Disk Utilization",
+                      "executionMode": "TagGroupRate",
+                      "tagType": "AtomicTag"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

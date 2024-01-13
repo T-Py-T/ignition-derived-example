@@ -1,0 +1,518 @@
+{
+  "custom": {
+    "DisplayTime": "hr",
+    "DisplayUnits": "lbs",
+    "Language": "en-US",
+    "SelectedDisplayTime": "hr",
+    "SelectedDisplayUnits": "lbs",
+    "SelectedLanguage": "en-US",
+    "SelectedTheme": "custom-dark",
+    "Theme": "custom-dark"
+  },
+  "params": {
+    "ModalName": "userConfig"
+  },
+  "propConfig": {
+    "custom.DisplayTime": {
+      "binding": {
+        "config": {
+          "path": "session.custom.DisplayTime"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.DisplayUnits": {
+      "binding": {
+        "config": {
+          "path": "session.custom.DisplayUnits"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.Language": {
+      "binding": {
+        "config": {
+          "path": "session.custom.UserSettings[0].UserLanguage"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.SelectedDisplayTime": {
+      "binding": {
+        "config": {
+          "path": "/root/Time/Dropdown.props.value"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.SelectedDisplayUnits": {
+      "binding": {
+        "config": {
+          "path": "/root/Units/Dropdown.props.value"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.SelectedLanguage": {
+      "binding": {
+        "config": {
+          "path": "/root/Language/Dropdown.props.value"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.SelectedTheme": {
+      "binding": {
+        "config": {
+          "path": "/root/Theme/Dropdown.props.value"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.Theme": {
+      "binding": {
+        "config": {
+          "path": "session.custom.UserSettings[0].Theme"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "params.ModalName": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 281,
+      "width": 343
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.Name"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardTitle"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Name"
+        },
+        "position": {
+          "basis": "20px",
+          "display": false,
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "Cards/Common/CardTitleBorder Global/MarginBottom",
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardText"
+              },
+              "text": "Language"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Dropdown"
+            },
+            "position": {
+              "basis": "115px",
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.value": {
+                "binding": {
+                  "config": {
+                    "bidirectional": true,
+                    "path": "view.custom.Language"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "options": [
+                {
+                  "label": "Español",
+                  "value": "es-US"
+                },
+                {
+                  "label": "English",
+                  "value": "en-US"
+                },
+                {
+                  "label": "Portuguese",
+                  "value": "pt-PT"
+                }
+              ],
+              "style": {
+                "classes": "TextFields/TextArea"
+              },
+              "textAlign": "center"
+            },
+            "type": "ia.input.dropdown"
+          }
+        ],
+        "meta": {
+          "name": "Language"
+        },
+        "position": {
+          "basis": "42px"
+        },
+        "props": {
+          "style": {
+            "marginBottom": "2px",
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardText"
+              },
+              "text": "Theme"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "script": "\ttheme \u003d \u0027\u0027\n\tif self.props.value \u003d\u003d \u0027light\u0027:\n\t\tself.session.props.theme \u003d \u0027custom-light\u0027\n\t\ttheme \u003d \u0027custom-light\u0027\n\telse:\n\t\tself.session.props.theme \u003d \u0027custom-dark\u0027\n\t\ttheme \u003d \u0027custom-dark\u0027\n"
+                  },
+                  "enabled": false,
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Dropdown"
+            },
+            "position": {
+              "basis": "115px",
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.value": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.Theme"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "options": [
+                {
+                  "label": "Light",
+                  "value": "custom-light"
+                },
+                {
+                  "label": "Dark",
+                  "value": "custom-dark"
+                }
+              ],
+              "style": {
+                "classes": "TextFields/TextArea"
+              },
+              "textAlign": "center"
+            },
+            "type": "ia.input.dropdown"
+          }
+        ],
+        "meta": {
+          "name": "Theme"
+        },
+        "position": {
+          "basis": "42px"
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginBottom TextFields/TextFieldAlternate",
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardText"
+              },
+              "text": "Measured Units"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Dropdown"
+            },
+            "position": {
+              "basis": "115px",
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.value": {
+                "binding": {
+                  "config": {
+                    "bidirectional": true,
+                    "path": "view.custom.DisplayUnits"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "options": [
+                {
+                  "label": "pounds",
+                  "value": "lbs"
+                },
+                {
+                  "label": "kilograms",
+                  "value": "kgs"
+                },
+                {
+                  "label": "pieces",
+                  "value": "pcs"
+                },
+                {
+                  "label": "each",
+                  "value": "ea"
+                }
+              ],
+              "style": {
+                "classes": "TextFields/TextArea"
+              },
+              "textAlign": "center"
+            },
+            "type": "ia.input.dropdown"
+          }
+        ],
+        "meta": {
+          "name": "Units"
+        },
+        "position": {
+          "basis": "42px"
+        },
+        "props": {
+          "style": {
+            "marginBottom": "2px",
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardText"
+              },
+              "text": "Time Units"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Dropdown"
+            },
+            "position": {
+              "basis": "115px",
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.value": {
+                "binding": {
+                  "config": {
+                    "bidirectional": true,
+                    "path": "view.custom.DisplayTime"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "options": [
+                {
+                  "label": "seconds",
+                  "value": "sec"
+                },
+                {
+                  "label": "minute",
+                  "value": "min"
+                },
+                {
+                  "label": "hour",
+                  "value": "hr"
+                },
+                {
+                  "label": "day",
+                  "value": "day"
+                }
+              ],
+              "style": {
+                "classes": "TextFields/TextArea"
+              },
+              "textAlign": "center"
+            },
+            "type": "ia.input.dropdown"
+          }
+        ],
+        "meta": {
+          "name": "Time"
+        },
+        "position": {
+          "basis": "42px"
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginBottom TextFields/TextFieldAlternate",
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "script": "\tlanguage \u003d self.view.custom.SelectedLanguage\n\ttheme \u003d self.view.custom.SelectedTheme\n\tunits \u003d self.view.custom.SelectedDisplayUnits\n\ttime \u003d self.view.custom.SelectedDisplayTime\n\tuserName \u003d self.session.custom.UserName\n\tqueryPath \u003d \u0027app/UserSettings/addUserSettings\u0027\n\t\n\tparams \u003d {\n\t\t\u0027language\u0027: language,\n\t\t\u0027theme\u0027: theme,\n\t\t\u0027userName\u0027: userName\n\t}\n\t\n\tself.session.props.locale \u003d language\n\tself.session.props.theme \u003d theme\n\tself.session.custom.DisplayUnits \u003d units\n\tself.session.custom.DisplayTime \u003d time\n\tsystem.db.runNamedQuery(queryPath, params)\n\tsystem.perspective.closePopup(self.view.params.ModalName)\n\tself.session.refreshBinding(\u0027custom.UserSettings\u0027)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Save"
+            },
+            "position": {
+              "basis": "80px"
+            },
+            "props": {
+              "image": {
+                "icon": {
+                  "path": "material/save"
+                }
+              },
+              "style": {
+                "classes": "Buttons/OperatorButtons"
+              },
+              "text": "Save"
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "Buttons"
+        },
+        "position": {
+          "basis": "42px"
+        },
+        "props": {
+          "justify": "center",
+          "style": {
+            "classes": "Global/MarginBottom",
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "classes": "Global/MarginAll"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

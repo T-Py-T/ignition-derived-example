@@ -1,0 +1,448 @@
+{
+  "custom": {
+    "eqPath": null,
+    "plannedOrder": null,
+    "quantities": null
+  },
+  "params": {
+    "LabelState2": "Incomplete",
+    "labelState1": "Complete",
+    "labelState3": "Confirm Work Order Change",
+    "stateSelected": 2
+  },
+  "propConfig": {
+    "custom.eqPath": {
+      "binding": {
+        "config": {
+          "path": "session.custom.eqPath"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.plannedOrder": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "0": "{view.custom.eqPath}"
+          },
+          "tagPath": "{0}/jobs/currentJob/workOrder"
+        },
+        "overlayOptOut": true,
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.quantities": {
+      "binding": {
+        "config": {
+          "struct": {
+            "plannedOrder": "{view.custom.plannedOrder}",
+            "refresh": "now(1000)"
+          },
+          "waitOnAll": true
+        },
+        "transforms": [
+          {
+            "code": "\twoObj \u003d system.mes.workorder.getMESWorkOrder(str(value.plannedOrder))\n\tremaining \u003d -1\n\tplanned \u003d -1\n\tproduced \u003d -1\n\tif woObj is not None:\n\t\tremaining \u003d woObj.getRemainingQuantity()\n\t\tplanned \u003d woObj.getWorkOrderQuantity()\n\t\tproduced \u003d woObj.getActualQuantity()\n\tret \u003d {\u0027remaining\u0027:remaining,\u0027planned\u0027:planned,\u0027produced\u0027:produced}\n\treturn ret",
+            "type": "script"
+          }
+        ],
+        "type": "expr-struct"
+      },
+      "persistent": true
+    },
+    "params.LabelState2": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.labelState1": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.labelState3": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.stateSelected": {
+      "paramDirection": "inout",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 182,
+      "width": 297
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "header"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Text/CardHeaders",
+                "textAlign": "left"
+              },
+              "text": "Planned Order Status"
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "title"
+        },
+        "position": {
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "Cards/header",
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "produced"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.params.metric": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.quantities.produced"
+                  },
+                  "enabled": false,
+                  "transforms": [
+                    {
+                      "formatType": "numeric",
+                      "formatValue": "#,##0.#",
+                      "type": "format"
+                    },
+                    {
+                      "expression": "if(isnull({value}),\u0027\u0027,{value})",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "header": "Produced",
+                "metric": "",
+                "units": ""
+              },
+              "path": "GlobalComponents/Metrics/NumberMetricWithTitleLarge",
+              "style": {
+                "marginLeft": "2ch",
+                "marginRight": "5ch"
+              }
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "planned"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.params.metric": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.quantities.planned"
+                  },
+                  "enabled": false,
+                  "transforms": [
+                    {
+                      "formatType": "numeric",
+                      "formatValue": "#,##0.#",
+                      "type": "format"
+                    },
+                    {
+                      "expression": "if(isnull({value}),\u0027\u0027,{value})",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "header": "Planned",
+                "metric": "",
+                "units": ""
+              },
+              "path": "GlobalComponents/Metrics/NumberMetricWithTitleLarge",
+              "style": {
+                "marginRight": "5ch"
+              }
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "deviation"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.params.metric": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.quantities.planned"
+                  },
+                  "enabled": false,
+                  "transforms": [
+                    {
+                      "formatType": "numeric",
+                      "formatValue": "#,##0.#",
+                      "type": "format"
+                    },
+                    {
+                      "expression": "if(isnull({value}),\u0027\u0027,{value})",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "header": "Remaining",
+                "metric": "",
+                "units": ""
+              },
+              "path": "GlobalComponents/Metrics/NumberMetricWithTitleLarge",
+              "style": {
+                "marginRight": "5ch"
+              }
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "quantities"
+        },
+        "position": {
+          "basis": "50px",
+          "shrink": 0
+        },
+        "props": {
+          "alignContent": "flex-start",
+          "alignItems": "center",
+          "style": {
+            "marginTop": "1ch",
+            "overflow": "visible"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "custom": {
+              "state": 0
+            },
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "#\tself.custom.state \u003d 1\n#\tself.getSibling(\"incomplete\").custom.state \u003d 0\n\tself.parent.custom.completeState \u003d 1"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "complete"
+            },
+            "position": {
+              "basis": "8ch",
+              "display": false
+            },
+            "propConfig": {
+              "props.style.backgroundColor": {
+                "binding": {
+                  "config": {
+                    "expression": "if ({parent.custom.completeState}  \u003d 1, \"#298fc2\", \"#FFFFFF\")"
+                  },
+                  "type": "expr"
+                }
+              },
+              "props.style.borderColor": {
+                "binding": {
+                  "config": {
+                    "expression": "if ({parent.custom.completeState}  \u003d 1, \"#298fc2\", \"#808080\")"
+                  },
+                  "type": "expr"
+                }
+              },
+              "props.style.color": {
+                "binding": {
+                  "config": {
+                    "expression": "if ({parent.custom.completeState}  \u003d 1, \"#FFFFFF\",\"#808080\")"
+                  },
+                  "type": "expr"
+                }
+              },
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.labelState1"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "borderBottomLeftRadius": "8pt",
+                "borderBottomRightRadius": "8pt",
+                "borderTopLeftRadius": "8pt",
+                "borderTopRightRadius": "8pt",
+                "borderWidth": "1pt",
+                "classes": "Button/multiStateButtons",
+                "fontWeight": "bold",
+                "marginBottom": "0.5em"
+              }
+            },
+            "type": "ia.input.button"
+          },
+          {
+            "custom": {
+              "state": 2
+            },
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "#\tself.custom.state \u003d 2\n#\tself.getSibling(\"complete\").custom.state \u003d 0\n\tself.parent.custom.completeState \u003d 2"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Complete"
+            },
+            "position": {
+              "basis": "8ch"
+            },
+            "propConfig": {
+              "custom.state": {
+                "persistent": true
+              },
+              "props.style.backgroundColor": {
+                "binding": {
+                  "config": {
+                    "expression": "if ({parent.custom.completeState} \u003d 2, \"#298fc2\", \"#FFFFFF\")"
+                  },
+                  "type": "expr"
+                }
+              },
+              "props.style.borderColor": {
+                "binding": {
+                  "config": {
+                    "expression": "if ({parent.custom.completeState}  \u003d 2, \"#298fc2\", \"#808080\")"
+                  },
+                  "type": "expr"
+                }
+              },
+              "props.style.color": {
+                "binding": {
+                  "config": {
+                    "expression": "if ({parent.custom.completeState}  \u003d 2, \"#FFFFFF\",\"#808080\")"
+                  },
+                  "type": "expr"
+                }
+              },
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.labelState3"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "borderBottomLeftRadius": "8pt",
+                "borderBottomRightRadius": "8pt",
+                "borderTopLeftRadius": "8pt",
+                "borderTopRightRadius": "8pt",
+                "borderWidth": "1pt",
+                "classes": "Button/multiStateButtons",
+                "fontWeight": "bold",
+                "marginTop": "0.5em"
+              }
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "multiSelect"
+        },
+        "position": {
+          "basis": "100px",
+          "grow": 1
+        },
+        "propConfig": {
+          "custom.completeState": {
+            "binding": {
+              "config": {
+                "bidirectional": true,
+                "path": "view.params.stateSelected"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "direction": "column",
+          "justify": "center",
+          "style": {
+            "overflow": "hidden",
+            "paddingBottom": "1ch",
+            "paddingTop": "1ch"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

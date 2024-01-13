@@ -1,0 +1,226 @@
+{
+  "custom": {
+    "actionText": "",
+    "draggable": false,
+    "id": "scanBadge",
+    "modal": true,
+    "overlayDismiss": false,
+    "pageId": "GlobalComponents/Buttons/authButton_delete",
+    "path": "app/operator/main/modals/scanBadge",
+    "resizable": false,
+    "showCloseIcon": false
+  },
+  "params": {
+    "actionText": "",
+    "disabledPopup": {
+      "message": "Please sign in as quarterback to proceed.",
+      "messageType": "",
+      "payload": {},
+      "title": "Invalid Permissions"
+    },
+    "enabled": true,
+    "failureHandler": "setJobFailure",
+    "failurePayload": {
+      "userId": ""
+    },
+    "fontSize": 16,
+    "isBadge": true,
+    "label": "Button",
+    "roles": [],
+    "showLoading": false,
+    "styleClass": "",
+    "successHandler": "setJobSuccess",
+    "successPayload": {
+      "userId": ""
+    }
+  },
+  "propConfig": {
+    "custom.actionText": {
+      "binding": {
+        "config": {
+          "path": "view.params.actionText"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.draggable": {
+      "persistent": true
+    },
+    "custom.id": {
+      "persistent": true
+    },
+    "custom.modal": {
+      "persistent": true
+    },
+    "custom.overlayDismiss": {
+      "persistent": true
+    },
+    "custom.pageId": {
+      "binding": {
+        "config": {
+          "path": "page.props.pageId"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.path": {
+      "persistent": true
+    },
+    "custom.resizable": {
+      "persistent": true
+    },
+    "custom.showCloseIcon": {
+      "persistent": true
+    },
+    "params.actionText": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.disabledPopup": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.enabled": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.failureHandler": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.failurePayload": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.failurePayload.userId": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.fontSize": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.isBadge": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.label": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.roles": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.showLoading": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.styleClass": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.successHandler": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.successPayload": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.successPayload.userId": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 38,
+      "width": 112
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\t\n\t\n\t\n\tif self.view.params.enabled and self.view.params.isBadge:\n\t\tfailureHandler \t\t\u003d self.view.params.failureHandler\n\t\tsuccessHandler \t\t\u003d self.view.params.successHandler\n\t\tsuccessPayload \t\t\u003d self.view.params.successPayload\n\t\tfailurePayload \t\t\u003d self.view.params.failurePayload\n\t\tpageId \t\t\t\t\u003d self.view.custom.pageId\n\t\troles\t\t\t\t\u003d self.view.params.roles\n\t\t\n\t\tparams \u003d {}\n\t\tparams[\u0027actionText\u0027] \t\t\t\u003d self.view.params.actionText\n\t\tparams[\u0027failureHandler\u0027] \t\t\u003d failureHandler\n\t\tparams[\u0027successHandler\u0027] \t\t\u003d successHandler\n\t\tparams[\u0027successPayload\u0027] \t\t\u003d successPayload\n\t\tparams[\u0027pageId\u0027] \t\t\t\t\u003d pageId\n\t\tparams[\u0027rolenames\u0027] \t\t\t\u003d roles\n\t\t\n\t\tview \t\t\t\u003d self.view.custom.path\n\t\tid \t\t\t\t\u003d self.view.custom.id\n\t\tmodal \t\t\t\u003d self.view.custom.modal\n\t\tshowCloseIcon \t\u003d self.view.custom.showCloseIcon\n\t\toverlayDismiss \t\u003d self.view.custom.overlayDismiss\n\t\tdraggable \t\t\u003d self.view.custom.draggable\n\t\tresizable \t\t\u003d self.view.custom.resizable\n\t\t\n\t\tsystem.perspective.openPopup(\n\t\t\tid\u003did, \n\t\t\tview\u003dview, \n\t\t\tparams\u003dparams, \n\t\t\tmodal\u003dmodal, \n\t\t\tshowCloseIcon\u003dshowCloseIcon, \n\t\t\toverlayDismiss\u003doverlayDismiss, \n\t\t\tdraggable\u003ddraggable,\n\t\t\tresizable\u003dresizable\n\t\t)\n\telif self.view.params.enabled and not self.view.params.isBadge:\n\t\tsuccessHandler \t\t\u003d self.view.params.successHandler\n\t\tsuccessPayload \t\t\u003d self.view.params.successPayload\n\t\tsystem.perspective.sendMessage(successHandler, successPayload)\n\t\t\n\t\t#log in\n\t\t#This does not block - need to have user_cache piece somewhere else..\n#\t\tsystem.perspective.login()\n#\t\tpass\n\t\t\n\t\t#if not using a badge force Identity Provider log in or out. \n\t\t\n\t\t#Should this be in handler???\n\t\t#if from people popup perform log in or out\n\t\t\n\t\t\n\t\t#if from other screens, - should this be on outer layer of button? \n\t\t#if qb exists\n\t\t#yes: do your thing\n\t\t#no: popup failure.(disabled action)\n\t\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "EmbeddedView"
+        },
+        "position": {
+          "basis": "320px"
+        },
+        "propConfig": {
+          "props.params.disabledPopup": {
+            "binding": {
+              "config": {
+                "path": "view.params.disabledPopup"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.enabled": {
+            "binding": {
+              "config": {
+                "path": "view.params.enabled"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.fontSize": {
+            "binding": {
+              "config": {
+                "path": "view.params.fontSize"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.label": {
+            "binding": {
+              "config": {
+                "path": "view.params.label"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.styleClass": {
+            "binding": {
+              "config": {
+                "path": "view.params.styleClass"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "params": {
+            "hover": false,
+            "iconPath": "material/security",
+            "isSelectable": true,
+            "selected": false
+          },
+          "path": "components/buttons/button"
+        },
+        "type": "ia.display.view"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

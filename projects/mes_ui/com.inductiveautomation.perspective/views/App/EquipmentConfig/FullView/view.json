@@ -1,0 +1,758 @@
+{
+  "custom": {
+    "EqData": {
+      "EqEnabled": "",
+      "EqID": "",
+      "EqName": "",
+      "EqPath": "",
+      "EqType": ""
+    },
+    "EqID": "0",
+    "EqType": "",
+    "PreviousSelection": {
+      "EqPath": "",
+      "ID": 24,
+      "SelectedEq": "GPA",
+      "SelectedItemData": {
+        "EqEnabled": true,
+        "EqID": 24,
+        "EqName": "GPA",
+        "EqPath": "GPA",
+        "EqType": "enterprise"
+      },
+      "SelectedPath": "GPA",
+      "Selection": "enterprise",
+      "State": "",
+      "TagPath": "",
+      "TagProvider": ""
+    },
+    "ScreenHeight": "0",
+    "SelectedEq": "",
+    "SelectedEqPath": "",
+    "SelectedItemEnabled": "",
+    "StaticData": {
+      "EqPath": "",
+      "ID": 24,
+      "SelectedEq": "GPA",
+      "SelectedItemData": {
+        "EqEnabled": true,
+        "EqID": 24,
+        "EqName": "GPA",
+        "EqPath": "GPA",
+        "EqType": "enterprise"
+      },
+      "SelectedPath": "GPA",
+      "Selection": "enterprise",
+      "State": "",
+      "TagPath": "",
+      "TagProvider": ""
+    }
+  },
+  "params": {},
+  "permissions": {
+    "securityLevels": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [],
+                "name": "Administrator"
+              }
+            ],
+            "name": "Roles"
+          }
+        ],
+        "name": "Authenticated"
+      }
+    ],
+    "type": "AnyOf"
+  },
+  "propConfig": {
+    "custom.EqData": {
+      "binding": {
+        "config": {
+          "path": "/root/Tree/TreeView.props.params.Params.SelectedItemData"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.EqID": {
+      "binding": {
+        "config": {
+          "path": "/root/Tree/TreeView.props.params.Params.ID"
+        },
+        "transforms": [
+          {
+            "formatType": "numeric",
+            "formatValue": "number",
+            "type": "format"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.EqType": {
+      "binding": {
+        "config": {
+          "path": "/root/Tree/TreeView.props.params.Params.SelectedItemData.EqType"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.PreviousSelection": {
+      "persistent": true
+    },
+    "custom.ScreenHeight": {
+      "binding": {
+        "config": {
+          "path": "page.props.dimensions.screen.height"
+        },
+        "transforms": [
+          {
+            "formatType": "numeric",
+            "formatValue": "number",
+            "type": "format"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.SelectedEq": {
+      "binding": {
+        "config": {
+          "path": "/root/Tree/TreeView.props.params.Params.SelectedEq"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.SelectedEqPath": {
+      "binding": {
+        "config": {
+          "path": "/root/Tree/TreeView.props.params.Params.SelectedItemData.EqPath"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.SelectedItemEnabled": {
+      "binding": {
+        "config": {
+          "path": "/root/Tree/TreeView.props.params.Params.SelectedItemData.EqEnabled"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.StaticData": {
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 1200,
+      "width": 1047
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "TreeView"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "params": {
+                "EqPath": "value",
+                "HideTitle": false,
+                "Icon": "",
+                "IconDisplay": true,
+                "Params": {
+                  "EqPath": "",
+                  "ID": "",
+                  "SelectedEq": "",
+                  "SelectedItemData": {
+                    "EqEnabled": "",
+                    "EqID": "",
+                    "EqName": "",
+                    "EqPath": "",
+                    "EqType": ""
+                  },
+                  "SelectedPath": "",
+                  "Selection": "",
+                  "State": "",
+                  "TagPath": "",
+                  "TagProvider": ""
+                },
+                "Path": "App/EquipmentConfig/Embedded/Tree",
+                "Provider": "value",
+                "SizeBasis": "value",
+                "TagPath": "value",
+                "Title": "Tree Selection",
+                "Type": "",
+                "useDefaultHeight": false
+              },
+              "path": "GlobalComponents/Cards/Card"
+            },
+            "scripts": {
+              "customMethods": [],
+              "extensionFunctions": null,
+              "messageHandlers": [
+                {
+                  "messageType": "refreshTreeView",
+                  "pageScope": true,
+                  "script": "\tparams \u003d self.props.params.Params\n\timport time\n\ttime.sleep(0.25)\n\tself.props.params.Params \u003d params\n\tsystem.perspective.print(\u0027DATA Received\u0027)\n",
+                  "sessionScope": true,
+                  "viewScope": true
+                }
+              ]
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "Tree"
+        },
+        "position": {
+          "breakpoints": [
+            {
+              "colIndex": 0,
+              "name": "sm",
+              "order": 0,
+              "rowIndex": 0,
+              "span": 12
+            },
+            {
+              "colIndex": 0,
+              "name": "md",
+              "order": 0,
+              "rowIndex": 0,
+              "span": 5
+            },
+            {
+              "colIndex": 0,
+              "name": "lg",
+              "order": 0,
+              "rowIndex": 0,
+              "span": 3
+            }
+          ],
+          "height": "auto"
+        },
+        "props": {
+          "direction": "column",
+          "style": {
+            "height": "100%"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Selection"
+            },
+            "position": {
+              "basis": "65px",
+              "display": false
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "expression": "if(\r\n\t{view.custom.EqData.EqType} \u003d \u0027enterprise\u0027 || {view.custom.EqData.EqType} \u003d \u0027\u0027,\r\n\tfalse,\r\n\ttrue\r\n)"
+                  },
+                  "type": "expr"
+                },
+                "persistent": true
+              },
+              "props.params.Params.ID": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.EqID"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.params.Params.label": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.SelectedEq"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.params.Title": {
+                "binding": {
+                  "config": {
+                    "expression": "{view.custom.SelectedEq} + \u0027 Settings\u0027"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "EqPath": "value",
+                "HideTitle": true,
+                "Icon": "",
+                "IconDisplay": false,
+                "Params": {
+                  "EqPath": "value",
+                  "State": "value",
+                  "TagPath": "value",
+                  "TagProvider": "value"
+                },
+                "Path": "App/EquipmentConfig/Embedded/SettingsCard",
+                "Provider": "value",
+                "SizeBasis": "value",
+                "TagPath": "value",
+                "Type": "value",
+                "useDefaultHeight": false
+              },
+              "path": "GlobalComponents/Cards/Card",
+              "style": {
+                "classes": "Global/MarginBottom",
+                "display": "flex"
+              }
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "Selection_0"
+            },
+            "position": {
+              "display": false
+            },
+            "propConfig": {
+              "position.display": {
+                "persistent": true
+              },
+              "props.params.Params.ID": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.EqID"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.params.Params.label": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.SelectedEq"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.params.Title": {
+                "binding": {
+                  "config": {
+                    "expression": "{view.custom.SelectedEq} + \u0027 Settings\u0027"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "EqPath": "value",
+                "HideTitle": true,
+                "Icon": "",
+                "IconDisplay": true,
+                "Params": {
+                  "EqPath": "value",
+                  "State": "value",
+                  "TagPath": "value",
+                  "TagProvider": "value"
+                },
+                "Path": "App/EquipmentConfig/Embedded/SettingsCard",
+                "Provider": "value",
+                "SizeBasis": "value",
+                "TagPath": "value",
+                "Type": "value",
+                "useDefaultHeight": false
+              },
+              "path": "App/EquipmentConfig/Embedded/SettingsCard",
+              "style": {
+                "classes": "Global/MarginBottom",
+                "display": "none"
+              }
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "ConfigCard"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "expression": "if(\r\n\t{view.custom.EqData.EqType} \u003d \u0027enterprise\u0027 || {view.custom.EqData.EqType} \u003d \u0027\u0027,\r\n\tfalse,\r\n\ttrue\r\n)"
+                  },
+                  "type": "expr"
+                }
+              },
+              "props.params.Params.ID": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.EqID"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "EqPath": "value",
+                "HideTitle": false,
+                "Icon": "",
+                "IconDisplay": true,
+                "Params": {
+                  "EqPath": "value",
+                  "EqType": "value",
+                  "State": "value",
+                  "TagPath": "value",
+                  "TagProvider": "value"
+                },
+                "Path": "App/EquipmentConfig/Embedded/AddEditStatesTable",
+                "Provider": "value",
+                "SizeBasis": "value",
+                "TagPath": "value",
+                "Title": "State Configuration",
+                "Type": "value",
+                "useDefaultHeight": false
+              },
+              "path": "GlobalComponents/Cards/Card"
+            },
+            "scripts": {
+              "customMethods": [],
+              "extensionFunctions": null,
+              "messageHandlers": [
+                {
+                  "messageType": "configSettingsSelected",
+                  "pageScope": true,
+                  "script": "\tlogger \u003d system.util.getLogger(\u0027configSettingsSelected_messageHandler\u0027)\n\tsystem.perspective.print(payload)\n\n\ttry:\n\t\tif payload[\u0027SettingsType\u0027] \u003d\u003d \u0027scrap\u0027:\n\t\t\tself.position.display \u003d True\n\t\t\tself.props.params.Path \u003d \u0027App/EquipmentConfig/Embedded/AddEditScrapReasonTable\u0027\n\t\t\tself.props.params.Title \u003d \u0027Scrap Categories\u0027\n\t\telif payload[\u0027SettingsType\u0027] \u003d\u003d \u0027modes\u0027:\n\t\t\tself.position.display \u003d True\n\t\t\tself.props.params.Path \u003d \u0027App/EquipmentConfig/Embedded/AddEditModesTable\u0027\n\t\t\tself.props.params.Title \u003d \u0027Modes Configuration\u0027\n\t\t\t\n\t\t\t\n\t\tif payload[\u0027EqType\u0027] !\u003d \u0027enterprise\u0027:\n\t\t\tself.getSibling(\"Label\").position.display \u003d False\n\t\t\tself.position.display \u003d True\n\t\t\n\t\t\n\n\t\t\tif payload[\u0027SettingsType\u0027] \u003d\u003d \u0027modes\u0027:\n\t\t\t\tself.props.params.Path \u003d \u0027App/EquipmentConfig/Embedded/AddEditModesTable\u0027\n\t\t\t\tself.props.params.Title \u003d \u0027Modes Configuration\u0027\n\t\t\telif payload[\u0027SettingsType\u0027] \u003d\u003d \u0027scrap\u0027:\n\t\t\t\tself.props.params.Path \u003d \u0027App/EquipmentConfig/Embedded/AddEditScrapReasonTable\u0027\n\t\t\t\tself.props.params.Title \u003d \u0027Scrap Categories\u0027\t\n\t\t\telif payload[\u0027EqType\u0027] \u003d\u003d \u0027line\u0027 and payload[\u0027SettingsType\u0027] \u003d\u003d \u0027states\u0027:\n\t\t\t\t\tself.props.params.Path \u003d \u0027App/EquipmentConfig/Embedded/AddEditStatesTable\u0027\n\t\t\t\t\tself.props.params.Title \u003d \u0027State Configuration\u0027\n\t\t\telif payload[\u0027EqType\u0027] \u003d\u003d \u0027line\u0027: \n\t\t\t\tself.props.params.Path \u003d \u0027App/EquipmentConfig/Embedded/AddEditLine\u0027\n\t\t\t\tself.props.params.Title \u003d \u0027Line Configuration\u0027\n\t\t\telif payload[\u0027EqType\u0027] \u003d\u003d \u0027area\u0027: \n\t\t\t\tself.props.params.Path \u003d \u0027App/EquipmentConfig/Embedded/AddEditArea\u0027\n\t\t\t\tself.props.params.Title \u003d \u0027Area Configuration\u0027\n\t\t\telif payload[\u0027EqType\u0027] \u003d\u003d \u0027cell\u0027: \n\t\t\t\tself.props.params.Path \u003d \u0027App/EquipmentConfig/Embedded/AddEditCell\u0027\n\t\t\t\tself.props.params.Title \u003d \u0027Cell Configuration\u0027\n\t\t\telif payload[\u0027EqType\u0027] \u003d\u003d \u0027site\u0027: \n\t\t\t\tself.props.params.Path \u003d \u0027App/EquipmentConfig/Embedded/AddEditSite\u0027\n\t\t\t\tself.props.params.Title \u003d \u0027Site Configuration\u0027\n\n\texcept Exception as e:\n\t\tmsg \u003d \u0027There was an error: \u0027 + str(e)\n\t\tlogger.warn(msg)",
+                  "sessionScope": false,
+                  "viewScope": false
+                }
+              ]
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "basis": "32px"
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "expression": "if(\r\n\t{view.custom.EqData.EqType} \u003d \u0027enterprise\u0027 || {view.custom.EqData.EqType} \u003d \u0027\u0027,\r\n\ttrue,\r\n\tfalse\r\n)"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Text/Heading Text/Transition"
+              },
+              "text": "Select from the tree to continue...",
+              "textStyle": {
+                "marginBottom": "auto",
+                "marginTop": "auto",
+                "textAlign": ""
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Config"
+        },
+        "position": {
+          "breakpoints": [
+            {
+              "colIndex": 0,
+              "name": "sm",
+              "order": 2,
+              "rowIndex": 0,
+              "span": 12
+            },
+            {
+              "colIndex": 0,
+              "name": "md",
+              "order": 1.5,
+              "rowIndex": 0,
+              "span": 12
+            },
+            {
+              "colIndex": 6,
+              "name": "lg",
+              "order": 2.5,
+              "rowIndex": 0,
+              "span": 6
+            }
+          ],
+          "height": 850
+        },
+        "props": {
+          "direction": "column",
+          "style": {
+            "display": "flex"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Selection"
+            },
+            "position": {
+              "basis": "65px"
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "expression": "if(\r\n\t{view.custom.EqData.EqType} \u003d \u0027enterprise\u0027 || {view.custom.EqData.EqType} \u003d \u0027\u0027,\r\n\tfalse,\r\n\ttrue\r\n)"
+                  },
+                  "enabled": false,
+                  "type": "expr"
+                },
+                "persistent": true
+              },
+              "props.params.Params.EqData": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.EqData"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.params.Params.EqEnabled": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.SelectedItemEnabled"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.params.Params.EqPath": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.SelectedEqPath"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.params.Params.EqType": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.EqType"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.params.Params.ID": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.EqID"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.params.Params.label": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.SelectedEq"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.params.Title": {
+                "binding": {
+                  "config": {
+                    "expression": "{view.custom.SelectedEq} + \u0027 Settings\u0027"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "EqPath": "value",
+                "HideTitle": true,
+                "Icon": "",
+                "IconDisplay": false,
+                "Params": {
+                  "State": "value",
+                  "TagPath": "value",
+                  "TagProvider": "value"
+                },
+                "Path": "App/EquipmentConfig/Embedded/AddDisableCard",
+                "Provider": "value",
+                "SizeBasis": "value",
+                "TagPath": "value",
+                "Type": "value",
+                "useDefaultHeight": false
+              },
+              "path": "GlobalComponents/Cards/Card",
+              "style": {
+                "classes": "Global/MarginBottom",
+                "display": "flex"
+              }
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "UDTView"
+            },
+            "position": {
+              "basis": "320px",
+              "grow": 1
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "expression": "if(\r\n\t{view.custom.EqData.EqType} \u003d \u0027enterprise\u0027 || {view.custom.EqData.EqType} \u003d \u0027\u0027,\r\n\tfalse,\r\n\ttrue\r\n)"
+                  },
+                  "type": "expr"
+                }
+              },
+              "props.params.Params.EqData": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.EqData"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.params.Params.EqPath": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.SelectedEqPath"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "EqPath": "value",
+                "HideTitle": false,
+                "Icon": "",
+                "IconDisplay": true,
+                "Params": {
+                  "ID": 2,
+                  "SelectedEq": "SFN2",
+                  "Selection": "line",
+                  "State": "value",
+                  "TagPath": "value",
+                  "TagProvider": "value"
+                },
+                "Path": "App/EquipmentConfig/Embedded/TagTree",
+                "Provider": "value",
+                "SizeBasis": "value",
+                "TagPath": "value",
+                "Title": "UDT Structure",
+                "Type": "value",
+                "useDefaultHeight": false
+              },
+              "path": "GlobalComponents/Cards/Card"
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "UDTTree"
+        },
+        "position": {
+          "breakpoints": [
+            {
+              "colIndex": 0,
+              "name": "sm",
+              "order": 0,
+              "rowIndex": 0,
+              "span": 12
+            },
+            {
+              "colIndex": 5,
+              "name": "md",
+              "order": 1,
+              "rowIndex": 0,
+              "span": 7
+            },
+            {
+              "colIndex": 3,
+              "name": "lg",
+              "order": 1,
+              "rowIndex": 0,
+              "span": 3
+            }
+          ],
+          "height": 850
+        },
+        "props": {
+          "direction": "column"
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "basis": "auto",
+      "grow": 1,
+      "shrink": 1
+    },
+    "props": {
+      "breakpoints": [
+        {
+          "minWidth": 0,
+          "name": "sm"
+        },
+        {
+          "minWidth": 900,
+          "name": "md"
+        },
+        {
+          "minWidth": 1200,
+          "name": "lg"
+        }
+      ],
+      "gutters": {
+        "horizontal": 8,
+        "vertical": 8
+      },
+      "style": {
+        "classes": "Global/MarginAll",
+        "height": "auto"
+      }
+    },
+    "type": "ia.container.column"
+  }
+}

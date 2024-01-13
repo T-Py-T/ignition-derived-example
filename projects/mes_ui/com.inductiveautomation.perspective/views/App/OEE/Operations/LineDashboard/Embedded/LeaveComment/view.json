@@ -1,0 +1,86 @@
+{
+  "custom": {},
+  "params": {
+    "Comment": "value"
+  },
+  "propConfig": {
+    "params.Comment": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 212,
+      "width": 576
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "TextArea"
+        },
+        "position": {
+          "basis": "160px"
+        },
+        "propConfig": {
+          "props.placeholder": {
+            "binding": {
+              "config": {
+                "path": "view.params.Comment"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginLeft Global/MarginRight TextFields/TextArea"
+          }
+        },
+        "type": "ia.input.text-area"
+      },
+      {
+        "meta": {
+          "name": "EmbeddedView"
+        },
+        "position": {
+          "basis": "42px"
+        },
+        "props": {
+          "params": {
+            "BackgroundColor": "value",
+            "DisabledPopup": {
+              "message": "Please sign in as quarterback to proceed.",
+              "messageType": "",
+              "payload": {},
+              "title": "Invalid Permissions"
+            },
+            "Enabled": true,
+            "Hover": true,
+            "IconPath": "material/save",
+            "IsSelectable": false,
+            "Label": "Submit",
+            "Selected": true,
+            "Size": "value",
+            "Type": "value"
+          },
+          "path": "GlobalComponents/Buttons/Button",
+          "style": {
+            "marginLeft": "auto",
+            "marginRight": "auto"
+          }
+        },
+        "type": "ia.display.view"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

@@ -1,0 +1,167 @@
+{
+  "custom": {
+    "Underline": "value"
+  },
+  "params": {
+    "componentName": "categorySelector",
+    "instances": [
+      {
+        "category": "OEE",
+        "componentName": "categorySelector",
+        "selected": 1
+      },
+      {
+        "category": "Availability",
+        "componentName": "categorySelector",
+        "selected": 0
+      },
+      {
+        "category": "Performance",
+        "componentName": "categorySelector",
+        "selected": 0
+      },
+      {
+        "category": "Quality",
+        "componentName": "categorySelector",
+        "selected": 0
+      }
+    ],
+    "selectedCategory": "OEE"
+  },
+  "propConfig": {
+    "custom.Underline": {
+      "persistent": true
+    },
+    "params.componentName": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.instances": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.instances[0]": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.instances[0].category": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.instances[0].componentName": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.instances[0].selected": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.instances[1]": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.instances[1].category": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.instances[1].selected": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.instances[2]": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.instances[2].category": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.instances[2].selected": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.instances[3]": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.instances[3].category": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.instances[3].selected": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.selectedCategory": {
+      "paramDirection": "inout",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 46,
+      "width": 533
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "dateSelectors"
+        },
+        "position": {
+          "grow": 1
+        },
+        "propConfig": {
+          "props.instances": {
+            "binding": {
+              "config": {
+                "path": "view.params.instances"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "elementPosition": {
+            "basis": "auto"
+          },
+          "justify": "space-evenly",
+          "path": "GlobalComponents/Objects/CategorySelector/Selector",
+          "style": {
+            "overflow": "hidden"
+          },
+          "useDefaultViewHeight": false,
+          "useDefaultViewWidth": false
+        },
+        "type": "ia.display.flex-repeater"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "style": {
+        "borderBottomLeftRadius": "1ch",
+        "borderBottomRightRadius": "1ch",
+        "borderColor": "#D5D5D500",
+        "borderStyle": "solid",
+        "borderWidth": "1pt"
+      }
+    },
+    "scripts": {
+      "customMethods": [],
+      "extensionFunctions": null,
+      "messageHandlers": [
+        {
+          "messageType": "updateCategorySelector",
+          "pageScope": true,
+          "script": "\t# implement your handler here\n\t\n\tif payload[\u0027componentName\u0027] \u003d\u003d self.view.params.componentName:\n\t\tself.view.params.selectedCategory \u003d payload[\u0027category\u0027]\n\t\t",
+          "sessionScope": false,
+          "viewScope": false
+        }
+      ]
+    },
+    "type": "ia.container.flex"
+  }
+}

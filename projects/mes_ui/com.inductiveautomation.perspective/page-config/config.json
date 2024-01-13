@@ -1,0 +1,477 @@
+{
+  "pages": {
+    "/": {
+      "docks": {
+        "cornerPriority": "top-bottom"
+      },
+      "title": "Loss Downtime Report",
+      "viewPath": "App/OEE/Management/Overviews/SiteAreaView"
+    },
+    "/area_overview": {
+      "title": "Area Overview",
+      "viewPath": "App/OEE/Management/AreaOverview/FullView"
+    },
+    "/equipment_config": {
+      "title": "Equipment Config",
+      "viewPath": "App/EquipmentConfig/FullView"
+    },
+    "/error_logger": {
+      "title": "",
+      "viewPath": "App/ErrorLogger/FullView"
+    },
+    "/gateway": {
+      "title": "Gateway Performance",
+      "viewPath": "App/GatewayHealth/Diagnostics/FullView"
+    },
+    "/gateway/allgateways": {
+      "title": "All Gateways",
+      "viewPath": "App/GatewayHealth/AllGatewayHealth/GatewayStatusView"
+    },
+    "/operations": {
+      "title": "",
+      "viewPath": "App/OEE/Management/Overviews/SiteAreaView"
+    },
+    "/operations/fb_past_schedule": {
+      "title": "Past Schedule",
+      "viewPath": "App/OEE/Operations/LineDashboard/Schedule/FB_PastSchedule"
+    },
+    "/operations/fb_schedule": {
+      "title": "Schedule",
+      "viewPath": "App/OEE/Operations/LineDashboard/Schedule/FB_Schedule"
+    },
+    "/operations/job_setup": {
+      "docks": {
+        "left": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "sideBar",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 1,
+            "viewParams": {
+              "Path": "GlobalComponents/SideBar/OperatorSideBar"
+            },
+            "viewPath": "GlobalComponents/SideBar/View"
+          }
+        ],
+        "top": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "operatorHeader",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 50,
+            "viewParams": {
+              "IsOperator": true,
+              "SecondaryView": "GlobalComponents/Header/Operator/FullView",
+              "alarmBar": true,
+              "navBar": true
+            },
+            "viewPath": "GlobalComponents/Header/View"
+          }
+        ]
+      },
+      "title": "Job Setup",
+      "viewPath": "App/OEE/Operations/LineDashboard/Schedule/Embedded/Popups/JobSetup"
+    },
+    "/operations/operator_dashboard": {
+      "docks": {
+        "left": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 1,
+            "viewParams": {
+              "Path": "GlobalComponents/SideBar/OperatorSideBar"
+            },
+            "viewPath": "GlobalComponents/SideBar/View"
+          }
+        ],
+        "right": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "cellDock",
+            "modal": false,
+            "resizable": false,
+            "show": "onDemand",
+            "size": 350,
+            "viewParams": {},
+            "viewPath": "GlobalComponents/Objects/CellCard/CellRepeater"
+          }
+        ],
+        "top": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "operatorHeader",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 50,
+            "viewParams": {
+              "IsOperator": true,
+              "SecondaryView": "GlobalComponents/Header/Operator/FullView",
+              "alarmBar": true,
+              "navBar": true
+            },
+            "viewPath": "GlobalComponents/Header/View"
+          }
+        ]
+      },
+      "title": "Line Overview",
+      "viewPath": "App/OEE/Operations/LineDashboard/FullView"
+    },
+    "/operations/overhead": {
+      "title": "",
+      "viewPath": "App/OEE/Operations/Overhead/FullView"
+    },
+    "/operations/production_close": {
+      "docks": {
+        "top": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "topHeader",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 50,
+            "viewParams": {
+              "IsOperator": true,
+              "SecondaryView": "GlobalComponents/Header/Operator/FullView",
+              "alarmBar": true,
+              "navBar": true
+            },
+            "viewPath": "GlobalComponents/Header/View"
+          }
+        ]
+      },
+      "title": "Production Close",
+      "viewPath": "App/OEE/Operations/LineDashboard/Schedule/ProductionClose"
+    },
+    "/operations/schedule": {
+      "docks": {
+        "cornerPriority": "top-bottom",
+        "left": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 1,
+            "viewParams": {
+              "Path": "GlobalComponents/SideBar/OperatorSideBar"
+            },
+            "viewPath": "GlobalComponents/SideBar/View"
+          }
+        ],
+        "top": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "operatorHeader",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 50,
+            "viewParams": {
+              "IsOperator": true,
+              "SecondaryView": "GlobalComponents/Header/Operator/FullView",
+              "alarmBar": true,
+              "navBar": true
+            },
+            "viewPath": "GlobalComponents/Header/View"
+          }
+        ]
+      },
+      "title": "Schedule",
+      "viewPath": "App/OEE/Operations/LineDashboard/Schedule/Schedule"
+    },
+    "/operations/statetimeline": {
+      "title": "",
+      "viewPath": "App/OEE/Management/StateTimelineView/FullView"
+    },
+    "/quality/attributemanager": {
+      "title": "",
+      "viewPath": "App/Quality/AttributeManager/FullView"
+    },
+    "/quality/overview": {
+      "title": "Quality Overview",
+      "viewPath": "App/Quality/QualityOverview/FullView"
+    },
+    "/quality/test_sample": {
+      "title": "Test Sample Overview",
+      "viewPath": "App/Quality/TestSample/FullView"
+    },
+    "/report/loss_report": {
+      "title": "Loss Report",
+      "viewPath": "App/OEE/Management/Reports/Loss/LossReport"
+    },
+    "/report/oaqp_report": {
+      "docks": {
+        "cornerPriority": "top-bottom"
+      },
+      "title": "OAQP Report",
+      "viewPath": "App/OEE/Management/Reports/OAQP/OAPQReport"
+    },
+    "/schedule/materials": {
+      "docks": {
+        "right": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "materialsDock",
+            "modal": false,
+            "resizable": false,
+            "show": "onDemand",
+            "size": 270,
+            "viewParams": {
+              "ModalName": "value",
+              "ViewPath": "App/Schedule/Operations/Materials/Embedded/Popups/Add/FullView"
+            },
+            "viewPath": "App/Schedule/Operations/Materials/Embedded/Popups/FullView"
+          }
+        ]
+      },
+      "title": "Schedule - Materials",
+      "viewPath": "App/Schedule/Materials/FullView"
+    },
+    "/schedule/product_codes": {
+      "title": "Product Codes",
+      "viewPath": "App/Schedule/ProductCodes/FullView"
+    },
+    "/schedule/schedulemanager": {
+      "title": "Existing Schedule",
+      "viewPath": "App/Schedule/ScheduleManagement/ManageSchedule"
+    },
+    "/schedule/unscheduledWO": {
+      "title": "Non Existing Schedule",
+      "viewPath": "App/Schedule/ScheduleManagement/UnscheduledWO"
+    },
+    "/schedule/work_orders": {
+      "title": "Scheduled Items",
+      "viewPath": "App/Schedule/WorkOrders/FullView"
+    },
+    "/site_overview": {
+      "title": "Site Overview",
+      "viewPath": "App/OEE/Management/SiteOverview/FullView"
+    },
+    "/switch_health/health": {
+      "title": "Switch Health",
+      "viewPath": "App/GatewayHealth/SwitchHealth/SwitchHealth"
+    },
+    "/switch_health/setup": {
+      "title": "Switch Setup",
+      "viewPath": "App/GatewayHealth/SwitchHealth/Setup"
+    },
+    "/test/:Label": {
+      "title": "",
+      "viewPath": "App/TrackAndTrace/History/FullView"
+    },
+    "/test3": {
+      "title": "",
+      "viewPath": "App/OEE/Management/Overviews/FullView"
+    },
+    "/test_widgets": {
+      "docks": {
+        "top": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "operatorHeader",
+            "modal": false,
+            "resizable": false,
+            "show": "visible",
+            "size": 50,
+            "viewParams": {
+              "IsOperator": true,
+              "SecondaryView": "GlobalComponents/Header/Operator/FullView",
+              "alarmBar": true,
+              "navBar": true
+            },
+            "viewPath": "GlobalComponents/Header/View"
+          }
+        ]
+      },
+      "title": "Widtet Test",
+      "viewPath": "GlobalComponents/Widgets/Config/WidgetTesting"
+    },
+    "/testing_taylor": {
+      "title": "",
+      "viewPath": "App/EquipmentConfig/FullView"
+    },
+    "/testpage1": {
+      "title": "",
+      "viewPath": "dragTable"
+    },
+    "/testsoverview": {
+      "title": "",
+      "viewPath": "App/Quality/TestOverview/FullView"
+    },
+    "/trackandtrace/WIP": {
+      "title": "",
+      "viewPath": "App/TrackAndTrace/WorkInProgress/FullView"
+    },
+    "/trackandtrace/accumulators": {
+      "title": "",
+      "viewPath": "App/TrackAndTrace/Accumulators/FullView"
+    },
+    "/trackandtrace/history": {
+      "docks": {
+        "right": [
+          {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "cover",
+            "handle": "hide",
+            "iconUrl": "",
+            "id": "cellDock",
+            "modal": false,
+            "resizable": false,
+            "show": "onDemand",
+            "size": 350,
+            "viewParams": {},
+            "viewPath": "GlobalComponents/Objects/CellCard/CellRepeater"
+          }
+        ]
+      },
+      "title": "Track And Trace History",
+      "viewPath": "App/TrackAndTrace/History/FullView"
+    },
+    "/trackandtrace/history/:Label": {
+      "title": "Track And Trace History",
+      "viewPath": "App/TrackAndTrace/History/FullView"
+    },
+    "/trackandtrace/inventory": {
+      "title": "Inventory",
+      "viewPath": "App/TrackAndTrace/Inventory/FullView"
+    },
+    "/trackandtrace/labelmanagement": {
+      "title": "",
+      "viewPath": "App/TrackAndTrace/Label Manager/FullView"
+    },
+    "/trackandtrace/stations": {
+      "title": "Stations",
+      "viewPath": "App/TrackAndTrace/Stations/FullView"
+    },
+    "/translation_manager": {
+      "title": "Translation Manager",
+      "viewPath": "TranslationsManager/MainView"
+    }
+  },
+  "sharedDocks": {
+    "bottom": [
+      {
+        "anchor": "fixed",
+        "autoBreakpoint": 480,
+        "content": "push",
+        "handle": "hide",
+        "iconUrl": "",
+        "id": "licenseBar",
+        "modal": false,
+        "resizable": false,
+        "show": "onDemand",
+        "size": 0,
+        "viewParams": {},
+        "viewPath": "GlobalComponents/Footer/FooterBar"
+      }
+    ],
+    "cornerPriority": "top-bottom",
+    "left": [
+      {
+        "anchor": "fixed",
+        "autoBreakpoint": 480,
+        "content": "push",
+        "handle": "show",
+        "iconUrl": "",
+        "id": "sideBar",
+        "modal": false,
+        "resizable": false,
+        "show": "visible",
+        "size": 65,
+        "viewParams": {
+          "Path": "GlobalComponents/SideBar/SideBar"
+        },
+        "viewPath": "GlobalComponents/SideBar/View"
+      }
+    ],
+    "right": [
+      {
+        "anchor": "fixed",
+        "autoBreakpoint": 480,
+        "content": "push",
+        "handle": "hide",
+        "iconUrl": "",
+        "id": "alarmBar",
+        "modal": false,
+        "resizable": false,
+        "show": "onDemand",
+        "size": 350,
+        "viewParams": {},
+        "viewPath": "GlobalComponents/Alarms/View"
+      }
+    ],
+    "top": [
+      {
+        "anchor": "fixed",
+        "autoBreakpoint": 480,
+        "content": "push",
+        "handle": "autoHide",
+        "iconUrl": "",
+        "id": "topHeader",
+        "modal": false,
+        "resizable": false,
+        "show": "visible",
+        "size": 50,
+        "viewParams": {
+          "IsOperator": false,
+          "SecondaryView": "GlobalComponents/Header/TopHeader",
+          "alarmBar": true,
+          "navBar": true
+        },
+        "viewPath": "GlobalComponents/Header/View"
+      }
+    ]
+  }
+}

@@ -1,0 +1,2398 @@
+{
+  "custom": {
+    "Data": {
+      "$": [
+        "ds",
+        192,
+        1703178329722
+      ],
+      "$columns": [
+        {
+          "data": [
+            7719,
+            7715,
+            7716,
+            7718,
+            7720
+          ],
+          "name": "ID",
+          "type": "Integer"
+        },
+        {
+          "data": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "name": "isLocked",
+          "type": "Boolean"
+        },
+        {
+          "data": [
+            1695658140000,
+            1696867020000,
+            1696867500000,
+            1697472420000,
+            1697472600000
+          ],
+          "name": "ScheduleDate",
+          "type": "Date"
+        },
+        {
+          "data": [
+            4,
+            4,
+            4,
+            4,
+            4
+          ],
+          "name": "Priority",
+          "type": "Integer"
+        },
+        {
+          "data": [
+            "300000111953441",
+            "300000111946370",
+            "300000111953387",
+            "300000111953423",
+            "300000111953459"
+          ],
+          "name": "ERPSequence",
+          "type": "String"
+        },
+        {
+          "data": [
+            3,
+            5,
+            6,
+            7,
+            8
+          ],
+          "name": "AdjScheduleQueue",
+          "type": "Integer"
+        },
+        {
+          "data": [
+            5416,
+            5412,
+            5413,
+            5415,
+            5417
+          ],
+          "name": "WorkOrderID",
+          "type": "Integer"
+        },
+        {
+          "data": [
+            "1NL7166",
+            "1NL7162",
+            "1NL7163",
+            "1NL7165",
+            "1NL7167"
+          ],
+          "name": "WorkOrderNumber",
+          "type": "String"
+        },
+        {
+          "data": [
+            "10205",
+            "10202",
+            "10203",
+            "10204",
+            "10205"
+          ],
+          "name": "PartNumber",
+          "type": "String"
+        },
+        {
+          "data": [
+            "Good Life 16 ft Grooved Cottage Deck Board",
+            "Good Life 16 ft Grooved Cabin Deck Board",
+            "Good Life 20 ft Grooved Cabin Deck Board",
+            "Good Life 12 ft Grooved Cottage Deck Board",
+            "Good Life 16 ft Grooved Cottage Deck Board"
+          ],
+          "name": "PartCodeDescription",
+          "type": "String"
+        },
+        {
+          "data": [
+            5600,
+            4200,
+            4200,
+            5600,
+            5600
+          ],
+          "name": "Quantity",
+          "type": "Integer"
+        },
+        {
+          "data": [
+            "10205",
+            "10202",
+            "10203",
+            "10204",
+            "10205"
+          ],
+          "name": "PartNumber",
+          "type": "String"
+        },
+        {
+          "data": [
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "name": "ActualQuantity",
+          "type": "Integer"
+        },
+        {
+          "data": [
+            null,
+            null,
+            null,
+            null,
+            37
+          ],
+          "name": "RunID",
+          "type": "Integer"
+        },
+        {
+          "data": [
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "name": "IsEnabled",
+          "type": "Boolean"
+        },
+        {
+          "data": [
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "name": "IsClosed",
+          "type": "Boolean"
+        },
+        {
+          "data": [
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          "name": "Note",
+          "type": "String"
+        },
+        {
+          "data": [
+            5,
+            5,
+            5,
+            5,
+            5
+          ],
+          "name": "LineID",
+          "type": "Integer"
+        },
+        {
+          "data": [
+            0,
+            0,
+            0,
+            0,
+            3
+          ],
+          "name": "Status",
+          "type": "Integer"
+        }
+      ]
+    },
+    "LineID": null,
+    "MoveSelected": false,
+    "PreviousRow": -1,
+    "PreviousSelection": -1,
+    "SelectedID": -1,
+    "SelectedRow": null
+  },
+  "params": {
+    "LineID": 5,
+    "SelectedRow": null,
+    "SelectedRowData": []
+  },
+  "propConfig": {
+    "custom.Data": {
+      "binding": {
+        "config": {
+          "parameters": {
+            "lineID": "{view.params.LineID}",
+            "pastSchedule": "0"
+          },
+          "queryPath": "app/Schedule/getFBProductionSchedule"
+        },
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "custom.LineID": {
+      "binding": {
+        "config": {
+          "path": "/root/Row2/Table.props.selection.data[0].LineID"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.MoveSelected": {
+      "persistent": true
+    },
+    "custom.PreviousRow": {
+      "binding": {
+        "config": {
+          "expression": "if( \r\n\t{view.custom.MoveSelected} \u003d false,\r\n\t-1,\r\n\t\u0027\u0027\r\n)"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.PreviousSelection": {
+      "binding": {
+        "config": {
+          "expression": "if( \r\n\t{view.custom.MoveSelected} \u003d false,\r\n\t-1,\r\n\t\u0027\u0027\r\n)"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.SelectedID": {
+      "binding": {
+        "config": {
+          "expression": "if(len({/root/Row2/Table.props.selection.data}) \u003e 0,\r\n\t{/root/Row2/Table.props.selection.data[0].ID},\r\n\t-1\r\n)\r\n\t"
+        },
+        "type": "expr"
+      },
+      "onChange": {
+        "enabled": null,
+        "script": "\tif self.custom.MoveSelected: self.custom.PreviousSelection \u003d previousValue\n\telse: -1"
+      },
+      "persistent": true
+    },
+    "custom.SelectedRow": {
+      "binding": {
+        "config": {
+          "path": "/root/Row2/Table.props.selection.selectedRow"
+        },
+        "type": "property"
+      },
+      "onChange": {
+        "enabled": null,
+        "script": "\tif self.custom.MoveSelected: self.custom.PreviousRow \u003d previousValue\n\telse: -1"
+      },
+      "persistent": true
+    },
+    "params.LineID": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.SelectedRow": {
+      "binding": {
+        "config": {
+          "path": "view.custom.SelectedRow"
+        },
+        "type": "property"
+      },
+      "paramDirection": "output",
+      "persistent": true
+    },
+    "params.SelectedRowData": {
+      "binding": {
+        "config": {
+          "path": "/root/Row2/Table.props.selection.data"
+        },
+        "type": "property"
+      },
+      "paramDirection": "output",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "width": 945
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Title"
+            },
+            "props": {
+              "text": "Schedule",
+              "textStyle": {
+                "classes": "Cards/Common/CardTitle"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "MoveMessage",
+              "visible": false
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.MoveSelected"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "expression": "if(\r\n\t{view.custom.SelectedID} !\u003d -1,\r\n\t\u0027Work Order \u0027 + {view.custom.SelectedID} + \u0027 with Seq. \u0027 + {.../Row2/Table.props.selection.data[0].AdjScheduleQueue} + \u0027 ready to move.\u0027,\r\n\t\u0027\u0027\r\n)"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "textStyle": {
+                "color": "--error",
+                "textAlign": "center"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "children": [
+              {
+                "events": {
+                  "component": {
+                    "onActionPerformed": {
+                      "config": {
+                        "script": "\tif self.props.selected:\n\t    self.parent.parent.parent.getChild(\"Row2/Materials\").props.columns[7].filter.enabled \u003d False\n\telse:\n\t    self.parent.parent.parent.getChild(\"Row2/Materials\").props.columns[7].filter.enabled \u003d True\n\t    "
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "ShowDeleted"
+                },
+                "position": {
+                  "display": false
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginLeft"
+                  },
+                  "text": "Show Deleted"
+                },
+                "type": "ia.input.checkbox"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\timport time\n\t\n\t# Refresh user table binding and rotate refresh icon.\n\tself.view.refreshBinding(\u0027custom.Data\u0027)\n\tself.rotateIcon()"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "Refresh",
+                  "tooltip": {
+                    "enabled": true,
+                    "text": "Refresh Table"
+                  }
+                },
+                "position": {
+                  "basis": "26px",
+                  "shrink": 0
+                },
+                "props": {
+                  "color": "--neutral-100",
+                  "path": "material/refresh",
+                  "style": {
+                    "classes": "",
+                    "marginRight": 8
+                  }
+                },
+                "scripts": {
+                  "customMethods": [
+                    {
+                      "name": "rotateIcon",
+                      "params": [],
+                      "script": "\timport time\n\t\n\t# Rotate icon 360 degrees.\n\tfor degree in range(0,361, 10):\n\t\tself.props.style.transform \u003d \u0027rotate(\u0027 + str(degree) + \u0027deg)\u0027\n\t\ttime.sleep(0.0278)"
+                    }
+                  ],
+                  "extensionFunctions": null,
+                  "messageHandlers": [
+                    {
+                      "messageType": "refreshTable",
+                      "pageScope": true,
+                      "script": "\t# Refresh user table binding\n\tself.parent.parent.getChild(\"Table\").refreshBinding(\"props.data\")",
+                      "sessionScope": true,
+                      "viewScope": true
+                    }
+                  ]
+                },
+                "type": "ia.display.icon"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\tself.view.refreshBinding(\u0027custom.Data\u0027)"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "Download",
+                  "tooltip": {
+                    "enabled": true,
+                    "text": "Download Schedule"
+                  }
+                },
+                "position": {
+                  "basis": "26px",
+                  "shrink": 0
+                },
+                "props": {
+                  "color": "--neutral-100",
+                  "path": "material/cloud_download",
+                  "style": {
+                    "classes": "",
+                    "marginRight": 8
+                  }
+                },
+                "type": "ia.display.icon"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\ttable \u003d self.parent.parent.parent.getChild(\"Row2/Table\")\n\ttable.lock(self.view.custom.SelectedID)"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "Lock",
+                  "tooltip": {
+                    "enabled": true,
+                    "text": "Lock Work Order"
+                  }
+                },
+                "position": {
+                  "basis": "26px",
+                  "shrink": 0
+                },
+                "props": {
+                  "color": "--neutral-100",
+                  "path": "material/lock",
+                  "style": {
+                    "classes": "",
+                    "marginRight": 8
+                  }
+                },
+                "type": "ia.display.icon"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\ttable \u003d self.parent.parent.parent.getChild(\"Row2/Table\")\n\ttable.unlock(self.view.custom.SelectedID)"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "Unlock",
+                  "tooltip": {
+                    "enabled": true,
+                    "text": "Unlock Work Order"
+                  }
+                },
+                "position": {
+                  "basis": "26px",
+                  "shrink": 0
+                },
+                "props": {
+                  "color": "--neutral-100",
+                  "path": "material/lock_open",
+                  "style": {
+                    "classes": "",
+                    "marginRight": 8
+                  }
+                },
+                "type": "ia.display.icon"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\ttable \u003d self.parent.parent.parent.getChild(\"Row2/Table\")\n\tif self.view.custom.MoveSelected:\n\t\tself.view.custom.MoveSelected \u003d False\n\telse:\n\t\tself.view.custom.MoveSelected \u003d True\n\t\tself.parent.parent.getChild(\"MoveMessage\").meta.visible \u003d True\n#\tfrom java.util.concurrent import Executors, TimeUnit\n#\t\n#\tdef revertMoveSelected():\n#\t    try:\n#\t        # Check if a row has been clicked (this part of the logic depends on your application)\n#\t        # For example, check a property that gets set when a row is clicked\n#\t        rowClicked \u003d self.view.custom.PreviousRow # This is just an example property\n#\t\n#\t        if not rowClicked:\n#\t            self.view.custom.MoveSelected \u003d False\n#\t            self.parent.parent.getChild(\"MoveMessage\").meta.visible \u003d False\n#\t            # Additional logic to revert the operation can go here\n#\t\n#\t    except Exception as e:\n#\t        system.perspective.print(\"Error: \" + str(e))  # Handle exceptions as needed\n#\t\n#\t# Check if MoveSelected is True, and if so, start the timer\n#\tif self.view.custom.MoveSelected:\n#\t    self.view.custom.MoveSelected \u003d False\n#\telse:\n#\t    self.view.custom.MoveSelected \u003d True\n#\t    self.parent.parent.getChild(\"MoveMessage\").meta.visible \u003d True\n#\t\n#\t    # Start a timer to revert MoveSelected after 20 seconds\n#\t    executor \u003d Executors.newSingleThreadScheduledExecutor()\n#\t    executor.schedule(revertMoveSelected, 20, TimeUnit.SECONDS)\n\t\t"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "Move",
+                  "tooltip": {
+                    "enabled": true
+                  }
+                },
+                "position": {
+                  "basis": "26px",
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "meta.tooltip.text": {
+                    "binding": {
+                      "config": {
+                        "expression": "\u0027Move (Current: \u0027 + {view.custom.MoveSelected} + \u0027)\u0027"
+                      },
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "color": "--neutral-100",
+                  "path": "material/compare_arrows",
+                  "style": {
+                    "classes": "",
+                    "marginRight": 8
+                  }
+                },
+                "type": "ia.display.icon"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": [
+                      {
+                        "config": {
+                          "draggable": true,
+                          "id": "moveWO",
+                          "modal": true,
+                          "overlayDismiss": false,
+                          "resizable": true,
+                          "showCloseIcon": true,
+                          "title": "Move / Delete Work Order",
+                          "type": "toggle",
+                          "viewParams": {
+                            "ModalName": "moveWO"
+                          },
+                          "viewPath": "App/OEE/Operations/LineDashboard/Schedule/Embedded/Popups/MoveDeleteWorkOrder",
+                          "viewportBound": false
+                        },
+                        "enabled": false,
+                        "scope": "C",
+                        "type": "popup"
+                      },
+                      {
+                        "config": {
+                          "script": "\ttable \u003d self.parent.parent.parent.getChild(\"Row2/Table\")\n\ttable.delete(self.view.custom.SelectedID)"
+                        },
+                        "scope": "G",
+                        "type": "script"
+                      }
+                    ]
+                  }
+                },
+                "meta": {
+                  "name": "Delete",
+                  "tooltip": {
+                    "enabled": true,
+                    "text": "Delete Work Order"
+                  }
+                },
+                "position": {
+                  "basis": "26px",
+                  "shrink": 0
+                },
+                "props": {
+                  "color": "--neutral-100",
+                  "path": "material/delete_forever",
+                  "style": {
+                    "classes": "",
+                    "marginRight": 8
+                  }
+                },
+                "type": "ia.display.icon"
+              }
+            ],
+            "meta": {
+              "name": "Icons"
+            },
+            "position": {
+              "basis": "250px"
+            },
+            "propConfig": {
+              "position.grow": {
+                "binding": {
+                  "config": {
+                    "expression": "if( \r\n\t{view.custom.MoveSelected} \u003d false,\r\n\t1,\r\n\t0\r\n)"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "justify": "flex-end",
+              "style": {
+                "overflow": "hidden"
+              },
+              "wrap": "wrap"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Row1"
+        },
+        "props": {
+          "alignContent": "space-between",
+          "style": {
+            "classes": "Global/MarginTop Global/MarginBottom"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "custom": {
+              "selectedRow": "value"
+            },
+            "events": {
+              "component": {
+                "onRowClick": {
+                  "config": {
+                    "script": "\tif self.view.custom.MoveSelected and self.view.custom.PreviousRow \u003e 0:\n\t\ttable \u003d self.move(self.view.custom.PreviousSelection)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "contextMenu": {
+                "enabled": true,
+                "items": [
+                  {
+                    "children": [],
+                    "icon": {
+                      "color": "--neutral-100",
+                      "path": "material/work",
+                      "style": {}
+                    },
+                    "link": {
+                      "target": "self",
+                      "url": ""
+                    },
+                    "message": {
+                      "payload": {},
+                      "scope": "page",
+                      "type": ""
+                    },
+                    "method": {
+                      "name": "",
+                      "params": {}
+                    },
+                    "style": {
+                      "classes": ""
+                    },
+                    "type": "link"
+                  },
+                  {
+                    "children": [],
+                    "icon": {
+                      "color": "--neutral-100",
+                      "path": "material/lock",
+                      "style": {}
+                    },
+                    "link": {
+                      "target": "self",
+                      "url": ""
+                    },
+                    "message": {
+                      "payload": {},
+                      "scope": "page",
+                      "type": ""
+                    },
+                    "method": {
+                      "name": "lock",
+                      "params": {}
+                    },
+                    "style": {
+                      "classes": "Text/ContextMenuHover"
+                    },
+                    "type": "method"
+                  },
+                  {
+                    "children": [],
+                    "icon": {
+                      "color": "--neutral-100",
+                      "path": "material/lock_open",
+                      "style": {}
+                    },
+                    "link": {
+                      "target": "self",
+                      "url": ""
+                    },
+                    "message": {
+                      "payload": {},
+                      "scope": "page",
+                      "type": ""
+                    },
+                    "method": {
+                      "name": "unlock",
+                      "params": {}
+                    },
+                    "style": {
+                      "classes": "Text/ContextMenuHover"
+                    },
+                    "text": "Unlock WorkOrder",
+                    "type": "method"
+                  },
+                  {
+                    "children": [],
+                    "icon": {
+                      "color": "--neutral-100",
+                      "path": "material/lock_open",
+                      "style": {}
+                    },
+                    "link": {
+                      "target": "self",
+                      "url": ""
+                    },
+                    "message": {
+                      "payload": {},
+                      "scope": "page",
+                      "type": ""
+                    },
+                    "method": {
+                      "name": "move",
+                      "params": {
+                        "scheduleID": -1
+                      }
+                    },
+                    "style": {
+                      "classes": "Text/ContextMenuHover"
+                    },
+                    "text": "Move Work Order",
+                    "type": "method"
+                  },
+                  {
+                    "children": [],
+                    "icon": {
+                      "color": "--neutral-100",
+                      "path": "material/lock_open",
+                      "style": {}
+                    },
+                    "link": {
+                      "target": "self",
+                      "url": ""
+                    },
+                    "message": {
+                      "payload": {},
+                      "scope": "page",
+                      "type": ""
+                    },
+                    "method": {
+                      "name": "delete",
+                      "params": {
+                        "scheduleID": -1
+                      }
+                    },
+                    "style": {
+                      "classes": "Text/ContextMenuHover"
+                    },
+                    "text": "Delete Work Order",
+                    "type": "method"
+                  }
+                ],
+                "style": {
+                  "backgroundImage": "var(--cardBg)"
+                }
+              },
+              "domId": "fb_scheduleTable",
+              "name": "Table"
+            },
+            "position": {
+              "basis": "400px",
+              "grow": 1
+            },
+            "propConfig": {
+              "meta.contextMenu.items[0].method.params.scheduleID": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.SelectedID"
+                  },
+                  "type": "property"
+                }
+              },
+              "meta.contextMenu.items[0].text": {
+                "binding": {
+                  "config": {
+                    "expression": "\u0027Schedule ID: \u0027 + toInt({view.custom.SelectedID})"
+                  },
+                  "type": "expr"
+                }
+              },
+              "meta.contextMenu.items[1].method.params.scheduleID": {
+                "binding": {
+                  "config": {
+                    "expression": "toInt({view.custom.SelectedID})"
+                  },
+                  "type": "expr"
+                }
+              },
+              "meta.contextMenu.items[1].text": {
+                "binding": {
+                  "config": {
+                    "expression": "\u0027Lock WorkOrder to: \u0027 + {this.props.selection.data[0].Quantity}"
+                  },
+                  "type": "expr"
+                }
+              },
+              "meta.contextMenu.items[2].method.params.scheduleID": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.SelectedID"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.data": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.Data"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.rows.subview.enabled": {
+                "binding": {
+                  "config": {
+                    "expression": "if(\r\n\t!isNull({this.props.selection.selectedRow}),\r\n\ttrue,\r\n\tfalse\r\n)"
+                  },
+                  "enabled": false,
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "columns": [
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "ID",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "justify": "auto",
+                  "nullFormat": {
+                    "includeNullStrings": false,
+                    "nullFormatValue": "",
+                    "strict": false
+                  },
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": false,
+                  "width": ""
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "Status",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "center",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Locked"
+                  },
+                  "justify": "center",
+                  "nullFormat": {
+                    "includeNullStrings": false,
+                    "nullFormatValue": "",
+                    "strict": false
+                  },
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "view",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": true,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "App/OEE/Operations/LineDashboard/Schedule/Embedded/Icon",
+                  "visible": true,
+                  "width": 80
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "ScheduleDate",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "center",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Schedule Date"
+                  },
+                  "justify": "center",
+                  "nullFormat": {
+                    "includeNullStrings": false,
+                    "nullFormatValue": "",
+                    "strict": false
+                  },
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "date",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": true,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": 120
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "Priority",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "center",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "justify": "center",
+                  "nullFormat": {
+                    "includeNullStrings": false,
+                    "nullFormatValue": "",
+                    "strict": false
+                  },
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": true,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": 90
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "ERPSequence",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "center",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Seq"
+                  },
+                  "justify": "center",
+                  "nullFormat": {
+                    "includeNullStrings": false,
+                    "nullFormatValue": "",
+                    "strict": false
+                  },
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": true,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": 150
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "AdjScheduleQueue",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "center",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "AdjSeq"
+                  },
+                  "justify": "center",
+                  "nullFormat": {
+                    "includeNullStrings": false,
+                    "nullFormatValue": "",
+                    "strict": false
+                  },
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": true,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": 70
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "WorkOrderNumber",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "center",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "WoNum"
+                  },
+                  "justify": "center",
+                  "nullFormat": {
+                    "includeNullStrings": false,
+                    "nullFormatValue": "",
+                    "strict": false
+                  },
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": true,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": 250
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "PartCodeDescription",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "center",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Part Code / Description"
+                  },
+                  "justify": "center",
+                  "nullFormat": {
+                    "includeNullStrings": false,
+                    "nullFormatValue": "",
+                    "strict": false
+                  },
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": true,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": 350
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "Quantity",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "center",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "center",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "justify": "center",
+                  "nullFormat": {
+                    "includeNullStrings": false,
+                    "nullFormatValue": "",
+                    "strict": false
+                  },
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": ""
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "Note",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "center",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "justify": "center",
+                  "nullFormat": {
+                    "includeNullStrings": false,
+                    "nullFormatValue": "",
+                    "strict": false
+                  },
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": true,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": 200
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "IsEnabled",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "center",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "Valid"
+                  },
+                  "justify": "center",
+                  "nullFormat": {
+                    "includeNullStrings": false,
+                    "nullFormatValue": "",
+                    "strict": false
+                  },
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": ""
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "isLocked",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": "isLocked"
+                  },
+                  "justify": "auto",
+                  "nullFormat": {
+                    "includeNullStrings": false,
+                    "nullFormatValue": "",
+                    "strict": false
+                  },
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": false,
+                  "width": ""
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "LineID",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "justify": "auto",
+                  "nullFormat": {
+                    "includeNullStrings": false,
+                    "nullFormatValue": "",
+                    "strict": false
+                  },
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": false,
+                  "width": ""
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "WorkOrderID",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "justify": "auto",
+                  "nullFormat": {
+                    "includeNullStrings": false,
+                    "nullFormatValue": "",
+                    "strict": false
+                  },
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": false,
+                  "width": ""
+                },
+                {
+                  "align": "center",
+                  "boolean": "checkbox",
+                  "dateFormat": "MM/DD/YYYY",
+                  "editable": false,
+                  "field": "PartNumber",
+                  "filter": {
+                    "boolean": {
+                      "condition": ""
+                    },
+                    "date": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "enabled": false,
+                    "number": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "string": {
+                      "condition": "",
+                      "value": ""
+                    },
+                    "visible": "on-hover"
+                  },
+                  "footer": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "header": {
+                    "align": "center",
+                    "justify": "left",
+                    "style": {
+                      "classes": ""
+                    },
+                    "title": ""
+                  },
+                  "justify": "auto",
+                  "nullFormat": {
+                    "includeNullStrings": false,
+                    "nullFormatValue": "",
+                    "strict": false
+                  },
+                  "number": "value",
+                  "numberFormat": "0,0.##",
+                  "progressBar": {
+                    "bar": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "max": 100,
+                    "min": 0,
+                    "track": {
+                      "color": "",
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "value": {
+                      "enabled": true,
+                      "format": "0,0.##",
+                      "justify": "center",
+                      "style": {
+                        "classes": ""
+                      }
+                    }
+                  },
+                  "render": "auto",
+                  "resizable": true,
+                  "sort": "none",
+                  "sortable": true,
+                  "strictWidth": false,
+                  "style": {
+                    "classes": ""
+                  },
+                  "toggleSwitch": {
+                    "color": {
+                      "selected": "",
+                      "unselected": ""
+                    }
+                  },
+                  "viewParams": {},
+                  "viewPath": "",
+                  "visible": true,
+                  "width": ""
+                }
+              ],
+              "filter": {
+                "enabled": true
+              },
+              "footerGroups": [
+                []
+              ],
+              "pager": {
+                "bottom": false,
+                "initialOption": 100000
+              },
+              "rows": {
+                "height": 33,
+                "subview": {
+                  "viewParams": {
+                    "Heigth": 30,
+                    "MinHeigth": 30
+                  },
+                  "viewPath": "App/OEE/Operations/LineDashboard/Schedule/Embedded/TableSubview"
+                },
+                "subviewExpansionMode": "single"
+              },
+              "selection": {
+                "mode": "multiple interval"
+              }
+            },
+            "scripts": {
+              "customMethods": [
+                {
+                  "name": "unlock",
+                  "params": [
+                    "scheduleID"
+                  ],
+                  "script": "\ttry:\n\t    selectedRowData \u003d self.props.selection.data\n\t\n\t    if len(selectedRowData) \u003d\u003d 0: raise Exception(\u0027Please select a row first!\u0027)\n\t\n\t    queryPath \u003d \u0027app/Schedule/unlockScheduleByID\u0027\n\t    schID \u003d int(scheduleID)\n\t    isLocked \u003d selectedRowData[0].isLocked\n\t\n\t    if int(isLocked) \u003d\u003d 0: raise Exception(\u0027Schedule is already unlocked.\u0027)\n\t\n\t    params \u003d {\u0027scheduleID\u0027: schID}\n\t    res \u003d system.db.runNamedQuery(queryPath, params)\n\t    if res !\u003d -1: raise Exception(\u0027Could not unlock the schedule\u0027)\n\t\n\t    self.view.refreshBinding(\u0027custom.Data\u0027)\n\t\n\texcept Exception as e:\n\t    gpa.frontEnd.localUI.throwError(e)\n\telse:\n\t\tgpa.frontEnd.localUI.throwSuccess(\u0027Schedule unlocked\u0027)"
+                },
+                {
+                  "name": "lock",
+                  "params": [
+                    "scheduleID"
+                  ],
+                  "script": "\ttry:\n\t    selectedRowData \u003d self.props.selection.data\n\t\n\t    if len(selectedRowData) \u003d\u003d 0: raise Exception(\u0027Please select a row first!\u0027)\n\t\n\t    queryPath \u003d \u0027app/Schedule/lockScheduleByID\u0027\n\t    schID \u003d int(scheduleID)\n\t    isLocked \u003d selectedRowData[0].isLocked\n\t\n\t    if int(isLocked) \u003d\u003d 1: raise Exception(\u0027Schedule is already locked.\u0027)\n\t\n\t    params \u003d {\u0027scheduleID\u0027: schID}\n\t    res \u003d system.db.runNamedQuery(queryPath, params)\n\t    if res !\u003d -1: raise Exception(\u0027Could not lock the schedule\u0027)\n\t\n\t    self.view.refreshBinding(\u0027custom.Data\u0027)\n\t\n\texcept Exception as e:\n\t    gpa.frontEnd.localUI.throwError(e)\n\telse:\n\t\tgpa.frontEnd.localUI.throwSuccess(\u0027Schedule locked\u0027)"
+                },
+                {
+                  "name": "move_old",
+                  "params": [
+                    "scheduleID"
+                  ],
+                  "script": "\ttry:\n\t\tselectedRowData \u003d self.props.selection.data\n\t\t\n\t\tif len(selectedRowData) \u003d\u003d 0: raise Exception(\u0027Please select a row first!\u0027)\n\t        \n\t\tseq \u003d self.props.selection.data[0].AdjScheduleQueue\n\t\tschedID \u003d self.props.selection.data[0].ID\n\t\tlineID \u003d self.props.selection.data[0].LineID\n\t\tpopupPath \u003d \u0027App/OEE/Operations/LineDashboard/Schedule/Embedded/Popups/MoveDeleteWorkOrder\u0027\n\n\t\tif int(seq) \u003c\u003d 4: raise Exception(\"Current work order up to sequence 4 can\u0027t be moved.\")\n\t\telse:\n\t\t\tsystem.perspective.print(\u0027Begin move workorder\u0027)\n\t\t\tparams \u003d { \u0027RowData\u0027: selectedRowData, \u0027ModalName\u0027: \u0027MoveWO\u0027, \u0027Type\u0027: \u0027move\u0027 }\t\n\t\t\tsystem.perspective.openPopup(\u0027MoveWO\u0027, popupPath, params)\t\t\t\n\t\n\texcept Exception as e:\n\t\tgpa.frontEnd.localUI.throwError(e)\n"
+                },
+                {
+                  "name": "move",
+                  "params": [
+                    "scheduleID"
+                  ],
+                  "script": "\ttry:\n\t    if self.view.custom.MoveSelected:\n\t    \tself.parent.parent.getChild(\"Row1\").getChild(\"MoveMessage\").meta.visible \u003d False\n\t        selectedRowData \u003d self.props.selection.data\n\t        ds \u003d self.view.custom.Data\n\t        \n\t        if len(selectedRowData) \u003d\u003d 0:\n\t            raise Exception(\u0027Please select a row first!\u0027)\n\t\n\t        popupPath \u003d \u0027App/OEE/Operations/LineDashboard/Schedule/Embedded/Popups/MoveDeleteWorkOrder\u0027\n\t        selectedRow \u003d self.view.custom.SelectedRow\n\t        previousRow \u003d self.view.custom.PreviousRow\n\t        previousID \u003d self.view.custom.PreviousSelection\n\t        lineID \u003d self.view.custom.LineID\n\t        seq \u003d self.props.selection.data[0].AdjScheduleQueue\n\t\n\t        if previousRow is None or previousRow \u003d\u003d \u0027\u0027:\n\t            raise Exception(\u0027Previous row is not selected\u0027)\n\t\n\t        previousSeq \u003d ds.getValueAt(int(previousRow), \u0027AdjScheduleQueue\u0027)\n\t        if previousSeq is None or previousSeq \u003d\u003d \u0027\u0027:\n\t            raise Exception(\u0027Previous sequence is empty or invalid\u0027)\n\t\n\t        if int(previousSeq) \u003c\u003d 4 or int(seq) \u003c\u003d 4:\n\t            raise Exception(\"Current work order up to sequence 4 can\u0027t be moved.\")\n\t        else:\n\t            if previousID \u003c 0:\n\t                raise Exception(\u0027Something went wrong\u0027)\n\t            else:\n\t                moveParams \u003d {\n\t                    \u0027schedID\u0027: previousID,\n\t                    \u0027lineID\u0027: lineID,\n\t                    \u0027seq\u0027: seq\n\t                }\n\t                res \u003d mes.schedule.sp.fb_resequenceSchedule(moveParams)\n\t                if res !\u003d True:\n\t                    raise Exception(\u0027Could not move work order\u0027)\n\t                \n\t                data \u003d []\n\t                json \u003d gpa.data.datasetToJson(ds)\n\t                for j in json:\n\t                    if j[\u0027ID\u0027] \u003d\u003d previousID:\n\t                        data.append(j)\n\t\n\t                params \u003d {\n\t                    \u0027RowData\u0027: data, \n\t                    \u0027ModalName\u0027: \u0027MoveWO\u0027, \n\t                    \u0027Type\u0027: \u0027move\u0027,\n\t                    \u0027MoveParams\u0027: moveParams\n\t                }   \n\t                system.perspective.openPopup(\u0027MoveWO\u0027, popupPath, params)    \n\t                system.perspective.sendMessage(\u0027refreshCurrentSchedule\u0027)\n\t    else:\n\t        raise Exception(\u0027You must enable move first\u0027)\n\t\n\texcept Exception as e:\n\t    gpa.frontEnd.localUI.throwError(e)\n\tfinally:\n\t\tself.view.custom.MoveSelected \u003d False\n"
+                },
+                {
+                  "name": "delete",
+                  "params": [
+                    "scheduleID"
+                  ],
+                  "script": "\ttry:\n\t\tselectedRowData \u003d self.props.selection.data\n\t\t\n\t\tif len(selectedRowData) \u003d\u003d 0: raise Exception(\u0027Please select a row first!\u0027)\n\t        \n\t\tseq \u003d self.props.selection.data[0].AdjScheduleQueue\n\t\tschedID \u003d self.props.selection.data[0].ID\n\t\tlineID \u003d self.props.selection.data[0].LineID\n\t\tpopupPath \u003d \u0027App/OEE/Operations/LineDashboard/Schedule/Embedded/Popups/MoveDeleteWorkOrder\u0027\n\t\n\t\tif int(seq) \u003c\u003d 4: raise Exception(\"Current work order up to sequence 4 can\u0027t be moved.\")\n\t\telse:\n\t\t\tsystem.perspective.print(\u0027Begin move workorder\u0027)\n\t\t\tparams \u003d { \u0027RowData\u0027: selectedRowData, \u0027ModalName\u0027: \u0027DeleteWO\u0027, \u0027Type\u0027: \u0027delete\u0027 }\t\n\t\t\tsystem.perspective.openPopup(\u0027DeleteWO\u0027, popupPath, params)\t\t\t\n\texcept Exception as e:\n\t\tgpa.frontEnd.localUI.throwError(e)\n"
+                }
+              ],
+              "extensionFunctions": null,
+              "messageHandlers": [
+                {
+                  "messageType": "refreshCurrentSchedule",
+                  "pageScope": true,
+                  "script": "\tself.view.refreshBinding(\u0027custom.Data\u0027)",
+                  "sessionScope": false,
+                  "viewScope": false
+                }
+              ]
+            },
+            "type": "ia.display.table"
+          }
+        ],
+        "meta": {
+          "name": "Row2"
+        },
+        "position": {
+          "grow": 1
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

@@ -1,0 +1,309 @@
+{
+  "custom": {},
+  "params": {
+    "LineNo": 24,
+    "Name": "Change Line Status"
+  },
+  "propConfig": {
+    "params.LineNo": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Name": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 90,
+      "key": "value",
+      "width": 352
+    },
+    "loading": {
+      "mode": "blocking"
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.Name"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardTitle"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Name"
+        },
+        "position": {
+          "basis": "20px",
+          "display": false,
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "Cards/Common/CardTitleBorder",
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "expression": "\u0027PE LINE \u0027+ {view.params.LineNo}"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "textStyle": {
+                "fontSize": "18px"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "State"
+            },
+            "position": {
+              "grow": 1,
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "",
+                "classes": "Text/Heading"
+              },
+              "text": "RUNNING",
+              "textStyle": {
+                "fontSize": "18px",
+                "textAlign": "center"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "custom": {
+          "expanded": 0
+        },
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tself.custom.expanded \u003d 1"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Current"
+        },
+        "position": {
+          "basis": "51px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "marginBottom": "2px",
+            "overflow": "hidden",
+            "transition": "flex,opacity 0.25s linear"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "events": {
+                  "component": {
+                    "onActionPerformed": {
+                      "config": {
+                        "script": "\tself.parent.parent.parent.getChild(\"Current\").custom.expanded \u003d 0"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "Dropdown"
+                },
+                "position": {
+                  "basis": "217px"
+                },
+                "props": {
+                  "options": [
+                    {
+                      "label": "IDLE",
+                      "value": "IDLE"
+                    },
+                    {
+                      "label": "CHANGE",
+                      "value": "CHANGE"
+                    },
+                    {
+                      "label": "AWAITING STARTUP",
+                      "value": "AWAITING STARTUP"
+                    },
+                    {
+                      "label": "STARTUP",
+                      "value": "STARTUP"
+                    },
+                    {
+                      "label": "AWAITING FPI",
+                      "value": "AWAITING FPI"
+                    },
+                    {
+                      "label": "RUNNING",
+                      "value": "RUNNING"
+                    },
+                    {
+                      "label": "TRIAL R\u0026D",
+                      "value": "TRIAL R\u0026D"
+                    },
+                    {
+                      "label": "TRIAL CI",
+                      "value": "TRIAL CI"
+                    },
+                    {
+                      "label": "PM",
+                      "value": "PM"
+                    }
+                  ],
+                  "placeholder": {
+                    "text": "Select State"
+                  },
+                  "style": {
+                    "borderBottomLeftRadius": 10,
+                    "borderBottomRightRadius": 10,
+                    "borderTopLeftRadius": 10,
+                    "borderTopRightRadius": 10,
+                    "marginRight": 5
+                  }
+                },
+                "type": "ia.input.dropdown"
+              },
+              {
+                "events": {
+                  "component": {
+                    "onActionPerformed": {
+                      "config": {
+                        "script": "\tself.parent.parent.parent.getChild(\"Current\").custom.expanded \u003d 0"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "Button"
+                },
+                "position": {
+                  "basis": "80px"
+                },
+                "props": {
+                  "style": {
+                    "backgroundColor": "--neutral-20",
+                    "borderBottomLeftRadius": 10,
+                    "borderBottomRightRadius": 10,
+                    "borderTopLeftRadius": 10,
+                    "borderTopRightRadius": 10,
+                    "color": "--neutral-80"
+                  },
+                  "text": "Cancel"
+                },
+                "type": "ia.input.button"
+              }
+            ],
+            "meta": {
+              "name": "Container"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "justify": "center",
+              "style": {
+                "overflow": "hidden",
+                "transition": "margin-top 0.5s ease"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "DropDown"
+        },
+        "propConfig": {
+          "position.basis": {
+            "binding": {
+              "config": {
+                "expression": "if({../Current.custom.expanded}\u003d1,\u002760px\u0027,\u00270px\u0027)"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "justify": "center",
+          "style": {
+            "overflow": "hidden",
+            "transition": "flex 0.33s ease, opacity 0.5s ease"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "overflow": "hidden",
+        "transition": "flex 0.33s ease, opacity 0.5s ease"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "custom": {},
+  "params": {
+    "TagPath": "value"
+  },
+  "propConfig": {
+    "params.TagPath": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 278,
+      "width": 478
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "EmbeddedView"
+            },
+            "position": {
+              "basis": "320px"
+            },
+            "propConfig": {
+              "props.params.TagPath": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.TagPath"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "path": "App/GatewayHealth/Diagnostics/Embedded/Charts/Memory/UsageGuage",
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "UsageGauge"
+        },
+        "position": {
+          "basis": "50%",
+          "grow": 1
+        },
+        "props": {
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "EmbeddedView"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "props.params.TagPath": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.TagPath"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "path": "App/GatewayHealth/Diagnostics/Embedded/Charts/Memory/TimeSeriesChart",
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "TimeChart"
+        },
+        "position": {
+          "basis": "50%",
+          "grow": 1
+        },
+        "props": {
+          "alignItems": "center",
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

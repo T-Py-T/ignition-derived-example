@@ -1,0 +1,334 @@
+{
+  "custom": {
+    "IPAddress": null,
+    "SwitchID": null
+  },
+  "params": {
+    "Message": "value",
+    "ModalName": "value",
+    "RowData": "value"
+  },
+  "propConfig": {
+    "custom.IPAddress": {
+      "binding": {
+        "config": {
+          "path": "view.params.RowData"
+        },
+        "transforms": [
+          {
+            "code": "\treturn value[0][\"asset_ip\"]",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.SwitchID": {
+      "binding": {
+        "config": {
+          "path": "view.params.RowData[0].ID"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.functionalSubAreas": {
+      "persistent": true
+    },
+    "custom.projectName": {
+      "persistent": true
+    },
+    "custom.projectSiteId": {
+      "persistent": true
+    },
+    "params.FunctionalAreaId": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Message": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.ModalName": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.RowData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.ae": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.alarmType": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.alertType": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.delay": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.functionalAreaId": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.hyst": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.limit": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.loopId": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.loopType": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.loopalarmid": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.mode": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.projectId": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.projectName": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.projectSiteId": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.projectname": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.repeat": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.severity": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.subareaid": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 249,
+      "width": 602
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Header"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "props": {
+              "text": "Error!"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Spacing"
+            },
+            "position": {
+              "basis": "20px",
+              "grow": 1,
+              "shrink": 0
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Header"
+        },
+        "position": {
+          "basis": "40px",
+          "display": false,
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "UserManagement/Headers",
+            "marginBottom": "10px",
+            "overflow": "visible"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "TextField"
+            },
+            "position": {
+              "basis": "600px"
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.Message"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "textAlign": "center"
+              }
+            },
+            "type": "ia.input.text-field"
+          }
+        ],
+        "meta": {
+          "name": "FlexContainer"
+        },
+        "position": {
+          "basis": "200px"
+        },
+        "props": {
+          "justify": "space-between"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\tmodalName \u003d self.view.params.ModalName\n\tqueryPath \u003d \"app/SwitchHealth/deleteNCC\"\n\tparams \u003d { \"switchID\": self.view.custom.SwitchID }\n\t\n\t\n\tif modalName \u003d\u003d \"deleteWarning\":\n\t\tsystem.db.runNamedQuery(queryPath, params)\n\t\tsystem.perspective.sendMessage(\"refreshSwitchTable\")\t\t\n\t\t\n\t\n\tsystem.perspective.closePopup(self.view.params.ModalName)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Button"
+            },
+            "position": {
+              "basis": "142px"
+            },
+            "propConfig": {
+              "props.params.BackgroundColor": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.ModalName"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": null,
+                      "inputType": "scalar",
+                      "mappings": [
+                        {
+                          "input": "deleteWarning",
+                          "output": "--error"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "DisabledPopup": {
+                  "message": "Please sign in as quarterback to proceed.",
+                  "messageType": "",
+                  "payload": {},
+                  "title": "Invalid Permissions"
+                },
+                "Enabled": true,
+                "Hover": true,
+                "IconPath": "material/close",
+                "IsSelectable": false,
+                "Label": "OK",
+                "Selected": true,
+                "Size": "value",
+                "Type": "value"
+              },
+              "path": "GlobalComponents/Buttons/Button"
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "Footer"
+        },
+        "position": {
+          "basis": "40px",
+          "shrink": 0
+        },
+        "props": {
+          "justify": "center",
+          "style": {
+            "backgroundColor": "--neutral-20",
+            "classes": "Modals/DefaultModal",
+            "overflow": "visible"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "borderStyle": "solid",
+        "borderWidth": "1px",
+        "classes": "Modals/DefaultModal",
+        "minWidth": "320px"
+      }
+    },
+    "scripts": {
+      "customMethods": [],
+      "extensionFunctions": null,
+      "messageHandlers": [
+        {
+          "messageType": "config-tool-refresh",
+          "pageScope": true,
+          "script": "\t# We have new project data to display (probably) update as needed.\n#\tself.getChild(\"ColContainer\").getChild(\"Row 1\").getChild(\"Col2\").getChild(\"Label\").refreshBinding(\"props.text\")\n#\tsystem.perspective.print(self.view.params.projectName)",
+          "sessionScope": false,
+          "viewScope": false
+        }
+      ]
+    },
+    "type": "ia.container.flex"
+  }
+}

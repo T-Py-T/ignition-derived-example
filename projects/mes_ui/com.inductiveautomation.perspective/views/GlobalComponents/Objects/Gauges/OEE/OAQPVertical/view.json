@@ -1,0 +1,491 @@
+{
+  "custom": {
+    "StateObject": {}
+  },
+  "params": {
+    "EqPath": "",
+    "IsReport": "value",
+    "ReportData": "value",
+    "State": "fail",
+    "Thickness": 5
+  },
+  "propConfig": {
+    "custom.StateObject": {
+      "persistent": true
+    },
+    "custom.StateObject.AvailabilityState": {
+      "binding": {
+        "config": {
+          "path": "/root/Col2/Performance.props.params.State"
+        },
+        "type": "property"
+      }
+    },
+    "custom.StateObject.OEEState": {
+      "binding": {
+        "config": {
+          "path": "/root/Col2/OEEGauge.props.params.State"
+        },
+        "type": "property"
+      }
+    },
+    "custom.StateObject.PerformanceState": {
+      "binding": {
+        "config": {
+          "path": "/root/Col2/Performance.props.params.State"
+        },
+        "type": "property"
+      }
+    },
+    "custom.StateObject.QualityState": {
+      "binding": {
+        "config": {
+          "path": "/root/Col2/Quality.props.params.State"
+        },
+        "type": "property"
+      }
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.IsReport": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.ReportData": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.State": {
+      "binding": {
+        "config": {
+          "path": "view.custom.StateObject"
+        },
+        "transforms": [
+          {
+            "code": "\treturn gpa.frontEnd.localUI.getFinalState(value)",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "paramDirection": "output",
+      "persistent": true
+    },
+    "params.Thickness": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 514,
+      "width": 188
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "OEEGauge",
+              "tooltip": {
+                "enabled": true
+              }
+            },
+            "position": {
+              "basis": "200px",
+              "grow": 1
+            },
+            "propConfig": {
+              "meta.tooltip.text": {
+                "binding": {
+                  "config": {
+                    "expression": "\"OEE: \" + {this.props.params.OEEValue} + \"%\""
+                  },
+                  "type": "expr"
+                }
+              },
+              "props.params.EqPath": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.EqPath"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.params.Thickness": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.Thickness"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "FontSize": 15,
+                "OEEValue": null,
+                "State": null
+              },
+              "path": "GlobalComponents/Objects/Gauges/OEE/GaugeDescription"
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "OEE"
+            },
+            "position": {
+              "basis": "138px",
+              "display": false,
+              "grow": 1
+            },
+            "propConfig": {
+              "props.params.EqPath": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.EqPath"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "State": "fail",
+                "Type": ""
+              },
+              "path": "GlobalComponents/Objects/Indicator/TankIndicator",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\tviewPath \u003d \u0027App/OEE/Operations/LineDashboard/Embedded/AvailabilityMetrics\u0027\n\toperatingTime \u003d 5\n\tplannedProductionTime \u003d 25\n\ttarget \u003d 70\n\t\n\tparams \u003d {\n\t\t\u0027Instances\u0027: [\n\t\t\t{ \u0027Title\u0027: \u0027Target\u0027, \u0027Value\u0027: target },\n\t\t\t{ \u0027Title\u0027: \u0027Operating Time\u0027, \u0027Value\u0027: operatingTime, \u0027instanceStyle\u0027: { \u0027clases\u0027: \u0027TextFields/TextFieldAlternate\u0027 } },\n\t\t\t{ \u0027Title\u0027: \u0027Planned Prod. Time\u0027, \u0027Value\u0027: plannedProductionTime }\n\t\t]\n\t}\n\n\t\n\tsystem.perspective.openPopup(\u0027metricPopup\u0027, viewPath, params\u003dparams, title\u003d\u0027Metrics\u0027, overlayDismiss\u003dTrue, modal\u003dTrue)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Availability_",
+              "tooltip": {
+                "text": "Target: 55\nCurrent: 16\nTest: 33",
+                "width": "75px"
+              }
+            },
+            "position": {
+              "basis": "138px",
+              "display": false
+            },
+            "propConfig": {
+              "meta.tooltip.text": {
+                "binding": {
+                  "config": {
+                    "struct": {
+                      "Current": 16,
+                      "Target": 55,
+                      "Test": 33
+                    },
+                    "waitOnAll": true
+                  },
+                  "enabled": false,
+                  "transforms": [
+                    {
+                      "expression": "\"Target: \" + {value}[\"Target\"] + \"\\n\" +\r\n\"Current: \" + {value}[\"Current\"] + \"\\n\" +\r\n\"Test: \" + {value}[\"Test\"]",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "expr-struct"
+                }
+              },
+              "props.params.EqPath": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.EqPath"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "Type": "Availability"
+              },
+              "path": "GlobalComponents/Objects/Indicator/TankIndicatorVertical",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\tviewPath \u003d \u0027App/OEE/Operations/LineDashboard/Embedded/PerformanceMetrics\u0027\n\tselectedLine \u003d self.view.params.EqPath\n\t\n\toperatingTime \u003d 6\n\tidealCycleTime \u003d 25\n\ttotalCount \u003d 8\n\ttarget \u003d 80\n\tinfeed \u003d 44\n\trejects \u003d 3\n\trework \u003d 4\n\t\n\tparams \u003d {\n\t\t\u0027Instances\u0027: [\n\t\t\t{ \u0027Title\u0027: \u0027Target\u0027, \u0027Value\u0027: target },\n\t\t\t{ \u0027Title\u0027: \u0027Operating Time\u0027, \u0027Value\u0027: operatingTime },\n\t\t\t{ \u0027Title\u0027: \u0027Ideal Cycle Time\u0027, \u0027Value\u0027: idealCycleTime },\n\t\t\t{ \u0027Title\u0027: \u0027Items Started\u0027, \u0027Value\u0027: infeed },\n\t\t\t{ \u0027Title\u0027: \u0027Items Completed\u0027, \u0027Value\u0027: totalCount },\n\t\t\t{ \u0027Title\u0027: \u0027Items Started\u0027, \u0027Value\u0027: infeed },\n\t\t\t{ \u0027Title\u0027: \u0027Rejects\u0027, \u0027Value\u0027: rejects },\n\t\t\t{ \u0027Title\u0027: \u0027Rework\u0027, \u0027Value\u0027: rework }\n\t\t]\n\t}\n\n\t\n\tsystem.perspective.openPopup(\u0027metricPopup\u0027, viewPath, params\u003dparams, title\u003d\u0027Metrics\u0027, overlayDismiss\u003dTrue, modal\u003dTrue)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Performance_"
+            },
+            "position": {
+              "basis": "138px",
+              "display": false,
+              "grow": 1
+            },
+            "propConfig": {
+              "props.params.EqPath": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.EqPath"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "Type": "Performance"
+              },
+              "path": "GlobalComponents/Objects/Indicator/TankIndicatorVertical",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\n\n\tviewPath \u003d \u0027App/OEE/Operations/LineDashboard/Embedded/QualityMetrics\u0027\n\tselectedLine \u003d self.view.params.EqPath\n\t\n\ttarget \u003d 80\n\tgoodCount \u003d 50\n\ttotalCount \u003d 39\n\trejects \u003d 3\n\n\t\n\tparams \u003d {\n\t\t\t\u0027Instances\u0027: [\n\t\t\t\t{ \u0027Title\u0027: \u0027Target\u0027, \u0027Value\u0027: target },\n\t\t\t\t{ \u0027Title\u0027: \u0027Good Count\u0027, \u0027Value\u0027: goodCount },\n\t\t\t\t{ \u0027Title\u0027: \u0027Total Count\u0027, \u0027Value\u0027: totalCount },\n\t\t\t\t{ \u0027Title\u0027: \u0027Rejects\u0027, \u0027Value\u0027: rejects }\n\t\t\t]\n\t\t}\n\n\t\n\tsystem.perspective.openPopup(\u0027qualityPopup\u0027, viewPath, params\u003dparams, title\u003d\u0027Metrics\u0027, overlayDismiss\u003dTrue, modal\u003dTrue)\n"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Quality_"
+            },
+            "position": {
+              "basis": "138px",
+              "display": false,
+              "grow": 1
+            },
+            "propConfig": {
+              "props.params.EqPath": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.EqPath"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "Type": "Quality"
+              },
+              "path": "GlobalComponents/Objects/Indicator/TankIndicatorVertical"
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\tviewPath \u003d \u0027App/OEE/Operations/LineDashboard/Embedded/AvailabilityMetrics\u0027\n\toperatingTime \u003d 5\n\tplannedProductionTime \u003d 25\n\ttarget \u003d 70\n\t\n\tparams \u003d {\n\t\t\u0027Instances\u0027: [\n\t\t\t{ \u0027Title\u0027: \u0027Target\u0027, \u0027Value\u0027: target },\n\t\t\t{ \u0027Title\u0027: \u0027Operating Time\u0027, \u0027Value\u0027: operatingTime, \u0027instanceStyle\u0027: { \u0027clases\u0027: \u0027TextFields/TextFieldAlternate\u0027 } },\n\t\t\t{ \u0027Title\u0027: \u0027Planned Prod. Time\u0027, \u0027Value\u0027: plannedProductionTime }\n\t\t]\n\t}\n\n\t\n\tsystem.perspective.openPopup(\u0027metricPopup\u0027, viewPath, params\u003dparams, title\u003d\u0027Metrics\u0027, overlayDismiss\u003dTrue, modal\u003dTrue)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Availability",
+              "tooltip": {
+                "text": "Target: 55\nCurrent: 16\nTest: 33",
+                "width": "75px"
+              }
+            },
+            "position": {
+              "basis": "138px",
+              "grow": 1
+            },
+            "propConfig": {
+              "meta.tooltip.text": {
+                "binding": {
+                  "config": {
+                    "struct": {
+                      "Current": 16,
+                      "Target": 55,
+                      "Test": 33
+                    },
+                    "waitOnAll": true
+                  },
+                  "enabled": false,
+                  "transforms": [
+                    {
+                      "expression": "\"Target: \" + {value}[\"Target\"] + \"\\n\" +\r\n\"Current: \" + {value}[\"Current\"] + \"\\n\" +\r\n\"Test: \" + {value}[\"Test\"]",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "expr-struct"
+                }
+              },
+              "props.params.EqPath": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.EqPath"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "IsReport": false,
+                "ReportValue": "",
+                "State": "fail",
+                "Type": "Availability"
+              },
+              "path": "GlobalComponents/Objects/Indicator/MovingIndicatorVertical",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\n\n\tviewPath \u003d \u0027App/OEE/Operations/LineDashboard/Embedded/QualityMetrics\u0027\n\tselectedLine \u003d self.view.params.EqPath\n\t\n\ttarget \u003d 80\n\tgoodCount \u003d 50\n\ttotalCount \u003d 39\n\trejects \u003d 3\n\n\t\n\tparams \u003d {\n\t\t\t\u0027Instances\u0027: [\n\t\t\t\t{ \u0027Title\u0027: \u0027Target\u0027, \u0027Value\u0027: target },\n\t\t\t\t{ \u0027Title\u0027: \u0027Good Count\u0027, \u0027Value\u0027: goodCount },\n\t\t\t\t{ \u0027Title\u0027: \u0027Total Count\u0027, \u0027Value\u0027: totalCount },\n\t\t\t\t{ \u0027Title\u0027: \u0027Rejects\u0027, \u0027Value\u0027: rejects }\n\t\t\t]\n\t\t}\n\n\t\n\tsystem.perspective.openPopup(\u0027qualityPopup\u0027, viewPath, params\u003dparams, title\u003d\u0027Metrics\u0027, overlayDismiss\u003dTrue, modal\u003dTrue)\n"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Quality"
+            },
+            "position": {
+              "basis": "138px",
+              "grow": 1
+            },
+            "propConfig": {
+              "props.params.EqPath": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.EqPath"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "IsReport": false,
+                "ReportValue": "",
+                "State": "fail",
+                "Type": "Quality"
+              },
+              "path": "GlobalComponents/Objects/Indicator/MovingIndicatorVertical"
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\tviewPath \u003d \u0027App/OEE/Operations/LineDashboard/Embedded/PerformanceMetrics\u0027\n\tselectedLine \u003d self.view.params.EqPath\n\t\n\toperatingTime \u003d 6\n\tidealCycleTime \u003d 25\n\ttotalCount \u003d 8\n\ttarget \u003d 80\n\tinfeed \u003d 44\n\trejects \u003d 3\n\trework \u003d 4\n\t\n\tparams \u003d {\n\t\t\u0027Instances\u0027: [\n\t\t\t{ \u0027Title\u0027: \u0027Target\u0027, \u0027Value\u0027: target },\n\t\t\t{ \u0027Title\u0027: \u0027Operating Time\u0027, \u0027Value\u0027: operatingTime },\n\t\t\t{ \u0027Title\u0027: \u0027Ideal Cycle Time\u0027, \u0027Value\u0027: idealCycleTime },\n\t\t\t{ \u0027Title\u0027: \u0027Items Started\u0027, \u0027Value\u0027: infeed },\n\t\t\t{ \u0027Title\u0027: \u0027Items Completed\u0027, \u0027Value\u0027: totalCount },\n\t\t\t{ \u0027Title\u0027: \u0027Items Started\u0027, \u0027Value\u0027: infeed },\n\t\t\t{ \u0027Title\u0027: \u0027Rejects\u0027, \u0027Value\u0027: rejects },\n\t\t\t{ \u0027Title\u0027: \u0027Rework\u0027, \u0027Value\u0027: rework }\n\t\t]\n\t}\n\n\t\n\tsystem.perspective.openPopup(\u0027metricPopup\u0027, viewPath, params\u003dparams, title\u003d\u0027Metrics\u0027, overlayDismiss\u003dTrue, modal\u003dTrue)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Performance"
+            },
+            "position": {
+              "basis": "138px",
+              "grow": 1
+            },
+            "propConfig": {
+              "props.params.EqPath": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.EqPath"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "IsReport": false,
+                "ReportValue": "",
+                "State": "fail",
+                "Type": "Performance"
+              },
+              "path": "GlobalComponents/Objects/Indicator/MovingIndicatorVertical",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "Col2"
+        },
+        "position": {
+          "grow": 1,
+          "shrink": 0
+        },
+        "props": {
+          "alignContent": "space-around",
+          "direction": "column",
+          "justify": "space-between",
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

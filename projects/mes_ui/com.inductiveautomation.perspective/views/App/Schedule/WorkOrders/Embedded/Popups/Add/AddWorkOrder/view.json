@@ -1,0 +1,1535 @@
+{
+  "custom": {
+    "Closed": "",
+    "Hide": "",
+    "ProductCode": "",
+    "ProductsDropdown": {
+      "$": [
+        "ds",
+        192,
+        1686019763388
+      ],
+      "$columns": [
+        {
+          "data": [
+            1,
+            2,
+            3,
+            10,
+            11
+          ],
+          "name": "value",
+          "type": "Integer"
+        },
+        {
+          "data": [
+            "LowPPM",
+            "HighPPM",
+            "PC-41093",
+            "PC-41093_Alt",
+            "PC-65053"
+          ],
+          "name": "label",
+          "type": "String"
+        }
+      ]
+    },
+    "Quantity": "",
+    "RequiredEndDate": "",
+    "Timestamp": "",
+    "WorkOrder": ""
+  },
+  "params": {
+    "ModalName": "value",
+    "SiteID": "value"
+  },
+  "propConfig": {
+    "custom.Closed": {
+      "binding": {
+        "config": {
+          "path": "/root/Row4/Closed/Input/Content/Dropdown.props.value"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.Hide": {
+      "binding": {
+        "config": {
+          "path": "/root/Row5/Hide/Input/Content/Dropdown.props.value"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.ProductCode": {
+      "binding": {
+        "config": {
+          "path": "/root/Row7/ProductCodeID/Input/Content/Dropdown.props.value"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.ProductsDropdown": {
+      "binding": {
+        "config": {
+          "queryPath": "app/Schedule/getAllProductDropdowns",
+          "returnFormat": "dataset"
+        },
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "custom.Quantity": {
+      "binding": {
+        "config": {
+          "path": "/root/Row3/Quantity/Input/Content/TextField.props.text"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.RequiredEndDate": {
+      "binding": {
+        "config": {
+          "path": "/root/Row8/RequiredEndDate/Input/Content/DateTimeInput.props.value"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.Timestamp": {
+      "binding": {
+        "config": {
+          "path": "/root/Row6/TimeStamp/Input/Content/DateTimeInput.props.value"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.WorkOrder": {
+      "binding": {
+        "config": {
+          "path": "/root/Row2/WorkOrder/Input/Content/TextField.props.text"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "params.ModalName": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.SiteID": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 361,
+      "width": 335
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Title"
+            },
+            "position": {
+              "basis": "50px",
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "TextFields/TextTitle"
+              },
+              "text": "Add Material"
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Row1"
+        },
+        "position": {
+          "basis": "24.5%",
+          "display": false
+        },
+        "props": {
+          "justify": "center",
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "Label"
+                    },
+                    "position": {
+                      "grow": 1
+                    },
+                    "props": {
+                      "style": {
+                        "marginRight": "8px"
+                      },
+                      "text": "Work Order",
+                      "textStyle": {
+                        "fontWeight": "bold",
+                        "textAlign": "center"
+                      }
+                    },
+                    "type": "ia.display.label"
+                  }
+                ],
+                "meta": {
+                  "name": "Title"
+                },
+                "props": {
+                  "style": {
+                    "overflow": "hidden"
+                  }
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "meta": {
+                          "name": "ValidationIcon"
+                        },
+                        "position": {
+                          "basis": "25px",
+                          "display": false
+                        },
+                        "props": {
+                          "params": {
+                            "Icon": "material/error",
+                            "Type": "fail"
+                          },
+                          "path": "GlobalComponents/Icons/IconMain"
+                        },
+                        "type": "ia.display.view"
+                      },
+                      {
+                        "meta": {
+                          "name": "TextField"
+                        },
+                        "position": {
+                          "basis": "150px",
+                          "grow": 1
+                        },
+                        "props": {
+                          "style": {
+                            "classes": "TextFields/TextField"
+                          }
+                        },
+                        "type": "ia.input.text-field"
+                      }
+                    ],
+                    "meta": {
+                      "name": "Content"
+                    },
+                    "position": {
+                      "grow": 1
+                    },
+                    "props": {
+                      "style": {
+                        "overflow": "hidden"
+                      }
+                    },
+                    "type": "ia.container.flex"
+                  },
+                  {
+                    "children": [
+                      {
+                        "meta": {
+                          "name": "Label"
+                        },
+                        "position": {
+                          "basis": "419px",
+                          "grow": 1
+                        },
+                        "props": {
+                          "style": {
+                            "classes": "TextFields/ErrorText"
+                          },
+                          "text": "Please check for valid input"
+                        },
+                        "type": "ia.display.label"
+                      }
+                    ],
+                    "meta": {
+                      "name": "ErrorValidation"
+                    },
+                    "position": {
+                      "basis": "60px",
+                      "display": false,
+                      "grow": 1
+                    },
+                    "props": {
+                      "style": {
+                        "overflow": "hidden"
+                      }
+                    },
+                    "type": "ia.container.flex"
+                  }
+                ],
+                "meta": {
+                  "name": "Input"
+                },
+                "position": {
+                  "basis": "20%",
+                  "grow": 1
+                },
+                "props": {
+                  "direction": "column",
+                  "style": {
+                    "overflow": "hidden"
+                  }
+                },
+                "type": "ia.container.flex"
+              }
+            ],
+            "meta": {
+              "name": "WorkOrder"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "direction": "column"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Row2"
+        },
+        "position": {
+          "basis": "62px"
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginBottom",
+            "marginLeft": 6,
+            "marginRight": 5
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "Label"
+                    },
+                    "position": {
+                      "grow": 1
+                    },
+                    "props": {
+                      "style": {
+                        "marginRight": "8px"
+                      },
+                      "text": "Quantity",
+                      "textStyle": {
+                        "fontWeight": "bold",
+                        "textAlign": "center"
+                      }
+                    },
+                    "type": "ia.display.label"
+                  }
+                ],
+                "meta": {
+                  "name": "Title"
+                },
+                "props": {
+                  "style": {
+                    "overflow": "hidden"
+                  }
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "meta": {
+                          "name": "ValidationIcon"
+                        },
+                        "position": {
+                          "basis": "25px",
+                          "display": false
+                        },
+                        "props": {
+                          "params": {
+                            "Icon": "material/error",
+                            "Type": "fail"
+                          },
+                          "path": "GlobalComponents/Icons/IconMain"
+                        },
+                        "type": "ia.display.view"
+                      },
+                      {
+                        "meta": {
+                          "name": "TextField"
+                        },
+                        "position": {
+                          "basis": "150px",
+                          "grow": 1
+                        },
+                        "props": {
+                          "style": {
+                            "classes": "TextFields/TextField"
+                          }
+                        },
+                        "type": "ia.input.text-field"
+                      }
+                    ],
+                    "meta": {
+                      "name": "Content"
+                    },
+                    "position": {
+                      "grow": 1
+                    },
+                    "props": {
+                      "style": {
+                        "overflow": "hidden"
+                      }
+                    },
+                    "type": "ia.container.flex"
+                  },
+                  {
+                    "children": [
+                      {
+                        "meta": {
+                          "name": "Label"
+                        },
+                        "position": {
+                          "basis": "419px",
+                          "grow": 1
+                        },
+                        "props": {
+                          "style": {
+                            "classes": "TextFields/ErrorText"
+                          },
+                          "text": "Please check for valid input"
+                        },
+                        "type": "ia.display.label"
+                      }
+                    ],
+                    "meta": {
+                      "name": "ErrorValidation"
+                    },
+                    "position": {
+                      "basis": "60px",
+                      "display": false,
+                      "grow": 1
+                    },
+                    "props": {
+                      "style": {
+                        "overflow": "hidden"
+                      }
+                    },
+                    "type": "ia.container.flex"
+                  }
+                ],
+                "meta": {
+                  "name": "Input"
+                },
+                "position": {
+                  "basis": "20%",
+                  "grow": 1
+                },
+                "props": {
+                  "direction": "column",
+                  "style": {
+                    "overflow": "hidden"
+                  }
+                },
+                "type": "ia.container.flex"
+              }
+            ],
+            "meta": {
+              "name": "Quantity"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "direction": "column"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Row3"
+        },
+        "position": {
+          "basis": "62px"
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginBottom",
+            "marginLeft": 6,
+            "marginRight": 5
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "Label"
+                    },
+                    "position": {
+                      "grow": 1
+                    },
+                    "props": {
+                      "style": {
+                        "marginRight": "8px"
+                      },
+                      "text": "Closed",
+                      "textStyle": {
+                        "fontWeight": "bold",
+                        "textAlign": "center"
+                      }
+                    },
+                    "type": "ia.display.label"
+                  }
+                ],
+                "meta": {
+                  "name": "Title"
+                },
+                "props": {
+                  "style": {
+                    "overflow": "hidden"
+                  }
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "meta": {
+                          "name": "ValidationIcon"
+                        },
+                        "position": {
+                          "basis": "25px",
+                          "display": false
+                        },
+                        "props": {
+                          "params": {
+                            "Icon": "material/error",
+                            "Type": "fail"
+                          },
+                          "path": "GlobalComponents/Icons/IconMain"
+                        },
+                        "type": "ia.display.view"
+                      },
+                      {
+                        "meta": {
+                          "name": "Dropdown"
+                        },
+                        "position": {
+                          "basis": "150px",
+                          "grow": 1
+                        },
+                        "props": {
+                          "dropdownOptionStyle": {
+                            "classes": "TextFields/TextArea"
+                          },
+                          "options": [
+                            {
+                              "label": "Enabled",
+                              "value": true
+                            },
+                            {
+                              "label": "Disabled",
+                              "value": false
+                            }
+                          ],
+                          "style": {
+                            "classes": "TextFields/TextArea"
+                          }
+                        },
+                        "type": "ia.input.dropdown"
+                      }
+                    ],
+                    "meta": {
+                      "name": "Content"
+                    },
+                    "position": {
+                      "grow": 1
+                    },
+                    "props": {
+                      "style": {
+                        "overflow": "hidden"
+                      }
+                    },
+                    "type": "ia.container.flex"
+                  },
+                  {
+                    "children": [
+                      {
+                        "meta": {
+                          "name": "Label"
+                        },
+                        "position": {
+                          "basis": "419px",
+                          "grow": 1
+                        },
+                        "props": {
+                          "style": {
+                            "classes": "TextFields/ErrorText"
+                          },
+                          "text": "Please check for valid input"
+                        },
+                        "type": "ia.display.label"
+                      }
+                    ],
+                    "meta": {
+                      "name": "ErrorValidation"
+                    },
+                    "position": {
+                      "basis": "60px",
+                      "display": false,
+                      "grow": 1
+                    },
+                    "props": {
+                      "style": {
+                        "overflow": "hidden"
+                      }
+                    },
+                    "type": "ia.container.flex"
+                  }
+                ],
+                "meta": {
+                  "name": "Input"
+                },
+                "position": {
+                  "basis": "20%",
+                  "grow": 1
+                },
+                "props": {
+                  "direction": "column",
+                  "style": {
+                    "overflow": "hidden"
+                  }
+                },
+                "type": "ia.container.flex"
+              }
+            ],
+            "meta": {
+              "name": "Closed"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "direction": "column"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Row4",
+          "visible": false
+        },
+        "position": {
+          "basis": "62px",
+          "display": false
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginBottom",
+            "marginLeft": 6,
+            "marginRight": 5
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "Label"
+                    },
+                    "position": {
+                      "grow": 1
+                    },
+                    "props": {
+                      "style": {
+                        "marginRight": "8px"
+                      },
+                      "text": "Hide",
+                      "textStyle": {
+                        "fontWeight": "bold",
+                        "textAlign": "center"
+                      }
+                    },
+                    "type": "ia.display.label"
+                  }
+                ],
+                "meta": {
+                  "name": "Title"
+                },
+                "props": {
+                  "style": {
+                    "overflow": "hidden"
+                  }
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "meta": {
+                          "name": "ValidationIcon"
+                        },
+                        "position": {
+                          "basis": "25px",
+                          "display": false
+                        },
+                        "props": {
+                          "params": {
+                            "Icon": "material/error",
+                            "Type": "fail"
+                          },
+                          "path": "GlobalComponents/Icons/IconMain"
+                        },
+                        "type": "ia.display.view"
+                      },
+                      {
+                        "meta": {
+                          "name": "Dropdown"
+                        },
+                        "position": {
+                          "basis": "150px",
+                          "grow": 1
+                        },
+                        "props": {
+                          "dropdownOptionStyle": {
+                            "classes": "TextFields/TextArea"
+                          },
+                          "options": [
+                            {
+                              "label": "Enabled",
+                              "value": true
+                            },
+                            {
+                              "label": "Disabled",
+                              "value": false
+                            }
+                          ],
+                          "style": {
+                            "classes": "TextFields/TextArea"
+                          }
+                        },
+                        "type": "ia.input.dropdown"
+                      }
+                    ],
+                    "meta": {
+                      "name": "Content"
+                    },
+                    "position": {
+                      "grow": 1
+                    },
+                    "props": {
+                      "style": {
+                        "overflow": "hidden"
+                      }
+                    },
+                    "type": "ia.container.flex"
+                  },
+                  {
+                    "children": [
+                      {
+                        "meta": {
+                          "name": "Label"
+                        },
+                        "position": {
+                          "basis": "419px",
+                          "grow": 1
+                        },
+                        "props": {
+                          "style": {
+                            "classes": "TextFields/ErrorText"
+                          },
+                          "text": "Please check for valid input"
+                        },
+                        "type": "ia.display.label"
+                      }
+                    ],
+                    "meta": {
+                      "name": "ErrorValidation"
+                    },
+                    "position": {
+                      "basis": "60px",
+                      "display": false,
+                      "grow": 1
+                    },
+                    "props": {
+                      "style": {
+                        "overflow": "hidden"
+                      }
+                    },
+                    "type": "ia.container.flex"
+                  }
+                ],
+                "meta": {
+                  "name": "Input"
+                },
+                "position": {
+                  "basis": "20%",
+                  "grow": 1
+                },
+                "props": {
+                  "direction": "column",
+                  "style": {
+                    "overflow": "hidden"
+                  }
+                },
+                "type": "ia.container.flex"
+              }
+            ],
+            "meta": {
+              "name": "Hide"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "direction": "column"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Row5",
+          "visible": false
+        },
+        "position": {
+          "basis": "62px",
+          "display": false
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginBottom",
+            "marginLeft": 6,
+            "marginRight": 5
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "Label"
+                    },
+                    "position": {
+                      "grow": 1
+                    },
+                    "props": {
+                      "style": {
+                        "marginRight": "8px"
+                      },
+                      "text": "Timestamp",
+                      "textStyle": {
+                        "fontWeight": "bold",
+                        "textAlign": "center"
+                      }
+                    },
+                    "type": "ia.display.label"
+                  }
+                ],
+                "meta": {
+                  "name": "Title"
+                },
+                "props": {
+                  "style": {
+                    "overflow": "hidden"
+                  }
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "meta": {
+                          "name": "ValidationIcon"
+                        },
+                        "position": {
+                          "basis": "25px",
+                          "display": false
+                        },
+                        "props": {
+                          "params": {
+                            "Icon": "material/error",
+                            "Type": "fail"
+                          },
+                          "path": "GlobalComponents/Icons/IconMain"
+                        },
+                        "type": "ia.display.view"
+                      },
+                      {
+                        "custom": {
+                          "selectedDate": "value"
+                        },
+                        "meta": {
+                          "name": "DateTimeInput"
+                        },
+                        "position": {
+                          "basis": "205px",
+                          "grow": 1
+                        },
+                        "props": {
+                          "formattedValue": null,
+                          "inputProps": {
+                            "style": {
+                              "borderBottomLeftRadius": "10px",
+                              "borderBottomRightRadius": "10px",
+                              "borderTopLeftRadius": "10px",
+                              "borderTopRightRadius": "10px",
+                              "classes": ""
+                            }
+                          },
+                          "modalStyle": {
+                            "classes": "TextFields/TextArea"
+                          },
+                          "style": {
+                            "classes": "TextFields/TextArea"
+                          },
+                          "value": ""
+                        },
+                        "type": "ia.input.date-time-input"
+                      }
+                    ],
+                    "meta": {
+                      "name": "Content"
+                    },
+                    "position": {
+                      "grow": 1
+                    },
+                    "props": {
+                      "style": {
+                        "overflow": "hidden"
+                      }
+                    },
+                    "type": "ia.container.flex"
+                  },
+                  {
+                    "children": [
+                      {
+                        "meta": {
+                          "name": "Label"
+                        },
+                        "position": {
+                          "basis": "419px",
+                          "grow": 1
+                        },
+                        "props": {
+                          "style": {
+                            "classes": "TextFields/ErrorText"
+                          },
+                          "text": "Please check for valid input"
+                        },
+                        "type": "ia.display.label"
+                      }
+                    ],
+                    "meta": {
+                      "name": "ErrorValidation"
+                    },
+                    "position": {
+                      "basis": "60px",
+                      "display": false,
+                      "grow": 1
+                    },
+                    "props": {
+                      "style": {
+                        "overflow": "hidden"
+                      }
+                    },
+                    "type": "ia.container.flex"
+                  }
+                ],
+                "meta": {
+                  "name": "Input"
+                },
+                "position": {
+                  "basis": "20%",
+                  "grow": 1
+                },
+                "props": {
+                  "direction": "column",
+                  "style": {
+                    "overflow": "hidden"
+                  }
+                },
+                "type": "ia.container.flex"
+              }
+            ],
+            "meta": {
+              "name": "TimeStamp"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "direction": "column"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Row6"
+        },
+        "position": {
+          "basis": "62px",
+          "display": false
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginBottom",
+            "marginLeft": 6,
+            "marginRight": 5
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "Label"
+                    },
+                    "position": {
+                      "grow": 1
+                    },
+                    "props": {
+                      "style": {
+                        "marginRight": "8px"
+                      },
+                      "text": "Product Code",
+                      "textStyle": {
+                        "fontWeight": "bold",
+                        "textAlign": "center"
+                      }
+                    },
+                    "type": "ia.display.label"
+                  }
+                ],
+                "meta": {
+                  "name": "Title"
+                },
+                "props": {
+                  "style": {
+                    "overflow": "hidden"
+                  }
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "meta": {
+                          "name": "ValidationIcon"
+                        },
+                        "position": {
+                          "basis": "25px",
+                          "display": false
+                        },
+                        "props": {
+                          "params": {
+                            "Icon": "material/error",
+                            "Type": "fail"
+                          },
+                          "path": "GlobalComponents/Icons/IconMain"
+                        },
+                        "type": "ia.display.view"
+                      },
+                      {
+                        "meta": {
+                          "name": "Dropdown"
+                        },
+                        "position": {
+                          "basis": "150px",
+                          "grow": 1
+                        },
+                        "propConfig": {
+                          "props.options": {
+                            "binding": {
+                              "config": {
+                                "path": "view.custom.ProductsDropdown"
+                              },
+                              "type": "property"
+                            }
+                          }
+                        },
+                        "props": {
+                          "dropdownOptionStyle": {
+                            "classes": "TextFields/TextArea"
+                          },
+                          "search": {
+                            "enabled": false
+                          },
+                          "style": {
+                            "classes": "TextFields/TextArea"
+                          }
+                        },
+                        "type": "ia.input.dropdown"
+                      }
+                    ],
+                    "meta": {
+                      "name": "Content"
+                    },
+                    "position": {
+                      "grow": 1
+                    },
+                    "props": {
+                      "style": {
+                        "overflow": "hidden"
+                      }
+                    },
+                    "type": "ia.container.flex"
+                  },
+                  {
+                    "children": [
+                      {
+                        "meta": {
+                          "name": "Label"
+                        },
+                        "position": {
+                          "basis": "419px",
+                          "grow": 1
+                        },
+                        "props": {
+                          "style": {
+                            "classes": "TextFields/ErrorText"
+                          },
+                          "text": "Please check for valid input"
+                        },
+                        "type": "ia.display.label"
+                      }
+                    ],
+                    "meta": {
+                      "name": "ErrorValidation"
+                    },
+                    "position": {
+                      "basis": "60px",
+                      "display": false,
+                      "grow": 1
+                    },
+                    "props": {
+                      "style": {
+                        "overflow": "hidden"
+                      }
+                    },
+                    "type": "ia.container.flex"
+                  }
+                ],
+                "meta": {
+                  "name": "Input"
+                },
+                "position": {
+                  "basis": "20%",
+                  "grow": 1
+                },
+                "props": {
+                  "direction": "column",
+                  "style": {
+                    "overflow": "hidden"
+                  }
+                },
+                "type": "ia.container.flex"
+              }
+            ],
+            "meta": {
+              "name": "ProductCodeID"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "direction": "column"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Row7"
+        },
+        "position": {
+          "basis": "62px"
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginBottom",
+            "marginLeft": 6,
+            "marginRight": 5
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "Label"
+                    },
+                    "position": {
+                      "grow": 1
+                    },
+                    "props": {
+                      "style": {
+                        "marginRight": "8px"
+                      },
+                      "text": "Required End Date",
+                      "textStyle": {
+                        "fontWeight": "bold",
+                        "textAlign": "center"
+                      }
+                    },
+                    "type": "ia.display.label"
+                  }
+                ],
+                "meta": {
+                  "name": "Title"
+                },
+                "props": {
+                  "style": {
+                    "overflow": "hidden"
+                  }
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "meta": {
+                          "name": "ValidationIcon"
+                        },
+                        "position": {
+                          "basis": "25px",
+                          "display": false
+                        },
+                        "props": {
+                          "params": {
+                            "Icon": "material/error",
+                            "Type": "fail"
+                          },
+                          "path": "GlobalComponents/Icons/IconMain"
+                        },
+                        "type": "ia.display.view"
+                      },
+                      {
+                        "custom": {
+                          "selectedDate": "value"
+                        },
+                        "meta": {
+                          "name": "DateTimeInput"
+                        },
+                        "position": {
+                          "basis": "150px",
+                          "grow": 1
+                        },
+                        "props": {
+                          "formattedValue": null,
+                          "inputProps": {
+                            "style": {
+                              "borderBottomLeftRadius": "10px",
+                              "borderBottomRightRadius": "10px",
+                              "borderTopLeftRadius": "10px",
+                              "borderTopRightRadius": "10px",
+                              "classes": ""
+                            }
+                          },
+                          "modalStyle": {
+                            "classes": "TextFields/TextArea"
+                          },
+                          "style": {
+                            "classes": "TextFields/TextArea"
+                          },
+                          "value": ""
+                        },
+                        "type": "ia.input.date-time-input"
+                      }
+                    ],
+                    "meta": {
+                      "name": "Content"
+                    },
+                    "position": {
+                      "grow": 1
+                    },
+                    "props": {
+                      "style": {
+                        "overflow": "hidden"
+                      }
+                    },
+                    "type": "ia.container.flex"
+                  },
+                  {
+                    "children": [
+                      {
+                        "meta": {
+                          "name": "Label"
+                        },
+                        "position": {
+                          "basis": "419px",
+                          "grow": 1
+                        },
+                        "props": {
+                          "style": {
+                            "classes": "TextFields/ErrorText"
+                          },
+                          "text": "Please check for valid input"
+                        },
+                        "type": "ia.display.label"
+                      }
+                    ],
+                    "meta": {
+                      "name": "ErrorValidation"
+                    },
+                    "position": {
+                      "basis": "60px",
+                      "display": false,
+                      "grow": 1
+                    },
+                    "props": {
+                      "style": {
+                        "overflow": "hidden"
+                      }
+                    },
+                    "type": "ia.container.flex"
+                  }
+                ],
+                "meta": {
+                  "name": "Input"
+                },
+                "position": {
+                  "basis": "20%",
+                  "grow": 1
+                },
+                "props": {
+                  "direction": "column",
+                  "style": {
+                    "overflow": "hidden"
+                  }
+                },
+                "type": "ia.container.flex"
+              }
+            ],
+            "meta": {
+              "name": "RequiredEndDate"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "direction": "column"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Row8"
+        },
+        "position": {
+          "basis": "62px"
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginBottom",
+            "marginLeft": 6,
+            "marginRight": 5
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\tqueryPath \u003d \"app/Schedule/addWorkOrder\"\n\t\n\tparams \u003d {\n\t\t\"workOrder\": self.view.custom.WorkOrder,\n\t\t\"quantity\": self.view.custom.Quantity,\n\t\t\"closed\": self.view.custom.Closed,\n\t\t\"hide\": self.view.custom.Hide,\n#\t\t\"timeStamp\": self.view.custom.Timestamp,\n\t\t\"productCodeID\": self.view.custom.ProductCode,\n\t\t\"requiredEndDate\": self.view.custom.RequiredEndDate\n\t}\n\t\n\t\n\tsystem.db.runNamedQuery(queryPath, params)\n\tsystem.perspective.sendMessage(\"addedWorkOrder\")\n\tsystem.perspective.closePopup(self.view.params.ModalName)"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "SaveButton"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "props": {
+                  "params": {
+                    "BackgroundColor": "value",
+                    "DisabledPopup": {
+                      "message": "Please sign in as quarterback to proceed.",
+                      "messageType": "",
+                      "payload": {},
+                      "title": "Invalid Permissions"
+                    },
+                    "Enabled": true,
+                    "Hover": true,
+                    "IconPath": "material/save",
+                    "IsSelectable": false,
+                    "Label": "Save",
+                    "Selected": true,
+                    "Size": "value",
+                    "Type": "normalsuccess"
+                  },
+                  "path": "GlobalComponents/Buttons/Button",
+                  "style": {
+                    "marginRight": "8px"
+                  }
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "Save"
+            },
+            "position": {
+              "basis": "50%",
+              "grow": 1
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\tmodalName \u003d self.view.params.ModalName\n\n\tsystem.perspective.closePopup(modalName)"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "CancelButton"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "props": {
+                  "params": {
+                    "BackgroundColor": "value",
+                    "DisabledPopup": {
+                      "message": "Please sign in as quarterback to proceed.",
+                      "messageType": "",
+                      "payload": {},
+                      "title": "Invalid Permissions"
+                    },
+                    "Enabled": true,
+                    "Hover": true,
+                    "IconPath": "material/cancel",
+                    "IsSelectable": false,
+                    "Label": "Cancel",
+                    "Selected": true,
+                    "Size": "value",
+                    "Type": "normalfail"
+                  },
+                  "path": "GlobalComponents/Buttons/Button"
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "Cancel"
+            },
+            "position": {
+              "basis": "50%",
+              "grow": 1
+            },
+            "props": {
+              "direction": "column"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Footer"
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginBottom Global/MarginLeft Global/MarginRight"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "classes": "Global/MarginAllEmbedded"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

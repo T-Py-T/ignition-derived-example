@@ -1,0 +1,105 @@
+{
+  "custom": {},
+  "params": {
+    "CurrentColor": "value"
+  },
+  "propConfig": {
+    "params.CurrentColor": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 226,
+      "width": 584
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "ColorPicker"
+            },
+            "position": {
+              "basis": "320px"
+            },
+            "props": {
+              "params": {
+                "canvasSize": {
+                  "height": 150,
+                  "width": 150
+                },
+                "initialRGB": "#FF0000",
+                "outputRGB": "#FF0000"
+              },
+              "path": "GlobalComponents/ColorPicker/ColorPicker"
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "children": [
+              {
+                "events": {
+                  "component": {
+                    "onActionPerformed": {
+                      "config": {
+                        "script": "\t#grab output rgb from color picker\n\trgb \u003d self.parent.parent.getChild(\"ColorPicker\").props.params.outputRGB\n\tsystem.perspective.print(rgb)\n\t#set background rgb\n\tself.view.getChild(\"root\").props.style.backgroundColor \u003d rgb\n\tpayload \u003d { \u0027color\u0027: rgb }\n\tsystem.perspective.sendMessage(\u0027colorPicked\u0027, payload)\n\tsystem.perspective.closePopup(\u0027colorPicker\u0027)"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "Button"
+                },
+                "position": {
+                  "basis": "61px"
+                },
+                "props": {
+                  "style": {
+                    "classes": "Buttons/ButtonStyle"
+                  },
+                  "text": "Set Background Color"
+                },
+                "type": "ia.input.button"
+              }
+            ],
+            "meta": {
+              "name": "FlexContainer"
+            },
+            "position": {
+              "basis": "250px"
+            },
+            "props": {
+              "direction": "column",
+              "justify": "center"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "FlexContainer"
+        },
+        "position": {
+          "basis": "208px"
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "backgroundColor": "",
+        "classes": "ColorPicker/ContainerPadding"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

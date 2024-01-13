@@ -1,0 +1,181 @@
+{
+  "custom": {
+    "ProductCodesData": [
+      {
+        "Description": "testst",
+        "ID": 10,
+        "IdealRunRate": 55,
+        "ProductCode": "test1234"
+      }
+    ],
+    "ProductCodesMaterialData": [
+      {
+        "ID": 5,
+        "MaterialID": 14,
+        "MaterialName": "test#8",
+        "ProductCodeID": 10,
+        "RequiredQuantity": 66
+      }
+    ]
+  },
+  "params": {},
+  "propConfig": {
+    "custom.ProductCodesData": {
+      "persistent": true
+    },
+    "custom.ProductCodesMaterialData": {
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "width": 1059
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "ProductCodes"
+            },
+            "position": {
+              "basis": "320px",
+              "grow": 1
+            },
+            "props": {
+              "path": "App/Schedule/ProductCodes/Embedded/ProductCodesTable"
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "Col1"
+        },
+        "position": {
+          "basis": "50%",
+          "grow": 1
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginRight"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "PCMaterialsTable"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.params.ProductCodeID": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.ProductCodesData[0].ID"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "path": "App/Schedule/ProductCodes/Embedded/PCMaterials"
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "meta": {
+                  "name": "PCSegmentsTable"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.params.ProductCodeID": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.ProductCodesData[0].ID"
+                      },
+                      "type": "property"
+                    }
+                  },
+                  "props.params.ProductCodeMaterialID": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.ProductCodesMaterialData[0].MaterialID"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "path": "App/Schedule/ProductCodes/Embedded/PCSegments"
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "ProductCodeMaterial"
+            },
+            "position": {
+              "basis": "320px",
+              "grow": 1
+            },
+            "props": {
+              "direction": "column"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Col2"
+        },
+        "position": {
+          "basis": "50%",
+          "display": false,
+          "grow": 1
+        },
+        "propConfig": {
+          "position.display": {
+            "persistent": true
+          }
+        },
+        "props": {
+          "direction": "column"
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "scripts": {
+      "customMethods": [],
+      "extensionFunctions": null,
+      "messageHandlers": [
+        {
+          "messageType": "productCodesRowSelected",
+          "pageScope": true,
+          "script": "\t# implement your handler here\n\tself.view.custom.ProductCodesData \u003d payload\n\tself.getChild(\"Col2\").position.display \u003d True",
+          "sessionScope": true,
+          "viewScope": true
+        },
+        {
+          "messageType": "productCodesMaterialRowSelected",
+          "pageScope": true,
+          "script": "\t# implement your handler here\n\tself.view.custom.ProductCodesMaterialData \u003d payload",
+          "sessionScope": false,
+          "viewScope": false
+        }
+      ]
+    },
+    "type": "ia.container.flex"
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "custom": {
+    "MaterialsData": [
+      {
+        "DateModified": 1678748059527,
+        "ID": 14,
+        "IsDeleted": false,
+        "MaterialQuantity": 117,
+        "Name": "MT-18839452",
+        "SiteID": 1,
+        "column_7": ""
+      }
+    ]
+  },
+  "params": {},
+  "propConfig": {
+    "custom.MaterialsData": {
+      "persistent": true
+    }
+  },
+  "props": {},
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "UnscheduledTable"
+            },
+            "position": {
+              "basis": "320px",
+              "grow": 1
+            },
+            "props": {
+              "params": {
+                "EqPath": "value",
+                "HideTitle": false,
+                "Icon": "",
+                "IconDisplay": true,
+                "Params": {
+                  "EqPath": "value",
+                  "State": "value",
+                  "TagPath": "value",
+                  "TagProvider": "value"
+                },
+                "Path": "App/Schedule/ScheduleManagement/Embedded/UnscheduledWOTable",
+                "Provider": "value",
+                "SizeBasis": "value",
+                "TagPath": "value",
+                "Title": "Unscheduled Work Orders",
+                "Type": "value",
+                "useDefaultHeight": false,
+                "useDefaultWidth": false
+              },
+              "path": "GlobalComponents/Cards/Card"
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "Col1"
+        },
+        "position": {
+          "basis": "50%",
+          "grow": 1
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "ScheduledTable"
+            },
+            "position": {
+              "basis": "320px",
+              "grow": 1
+            },
+            "props": {
+              "params": {
+                "EqPath": "value",
+                "HideTitle": false,
+                "Icon": "",
+                "IconDisplay": true,
+                "Params": {
+                  "EqPath": "value",
+                  "State": "value",
+                  "TagPath": "value",
+                  "TagProvider": "value"
+                },
+                "Path": "App/Schedule/ScheduleManagement/Embedded/ScheduledWOTable",
+                "Provider": "value",
+                "SizeBasis": "value",
+                "TagPath": "value",
+                "Title": "Scheduled Work Orders",
+                "Type": "value",
+                "useDefaultHeight": false,
+                "useDefaultWidth": false
+              },
+              "path": "GlobalComponents/Cards/Card"
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "Col2"
+        },
+        "position": {
+          "basis": "50%",
+          "grow": 1
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

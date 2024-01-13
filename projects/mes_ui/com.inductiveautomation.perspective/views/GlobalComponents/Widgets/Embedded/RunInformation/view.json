@@ -1,0 +1,421 @@
+{
+  "custom": {
+    "Percent": 0.446754,
+    "Pieces": "670,131",
+    "RunState": "",
+    "RunValue": 670131,
+    "SchedTotal": "1,500,000",
+    "Units": "lbs",
+    "WOTotal": "100,000,000"
+  },
+  "params": {
+    "EqPath": "[default]GPA/Wilmington/Mixing/Mixer1",
+    "State": ""
+  },
+  "propConfig": {
+    "custom.Percent": {
+      "binding": {
+        "config": {
+          "path": "view.custom.RunValue"
+        },
+        "transforms": [
+          {
+            "expression": "min({value} / {view.custom.SchedTotal}, 1)",
+            "type": "expression"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.Pieces": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/jobs/currentJob/RunCounts/runGoodParts"
+        },
+        "transforms": [
+          {
+            "formatType": "numeric",
+            "formatValue": "number",
+            "type": "format"
+          }
+        ],
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.RunState": {
+      "binding": {
+        "config": {
+          "expression": "if({view.custom.RunValue} \u003e {view.custom.SchedTotal}, \u0027fail\u0027, \u0027\u0027)"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.RunValue": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/jobs/currentJob/RunCounts/runGoodParts"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.SchedTotal": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/jobs/currentJob/scheduleQuantity"
+        },
+        "transforms": [
+          {
+            "formatType": "numeric",
+            "formatValue": "number",
+            "type": "format"
+          }
+        ],
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.Units": {
+      "binding": {
+        "config": {
+          "path": "session.custom.DisplayUnits"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.WOTotal": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/jobs/currentJob/workOrderQuantity"
+        },
+        "transforms": [
+          {
+            "formatType": "numeric",
+            "formatValue": "number",
+            "type": "format"
+          }
+        ],
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.State": {
+      "binding": {
+        "config": {
+          "expression": " if(isNull({view.custom.RunState}), \u0027\u0027, {view.custom.RunState})"
+        },
+        "type": "expr"
+      },
+      "paramDirection": "output",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 75,
+      "width": 390
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label"
+                },
+                "position": {
+                  "basis": "50px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "expression": "now()"
+                      },
+                      "transforms": [
+                        {
+                          "formatType": "datetime",
+                          "formatValue": {
+                            "date": "medium",
+                            "time": "medium"
+                          },
+                          "type": "format"
+                        }
+                      ],
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "textStyle": {
+                    "fontWeight": "bold",
+                    "textAlign": "end"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "Date"
+            },
+            "position": {
+              "display": false
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginBottom"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Value"
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.Percent"
+                      },
+                      "transforms": [
+                        {
+                          "expression": "toStr(round({value} * 100)) + \"%\"",
+                          "type": "expression"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  },
+                  "props.textStyle.color": {
+                    "binding": {
+                      "config": {
+                        "expression": "if({view.custom.Pieces}\u003e{view.custom.SchedTotal},\r\n\t\u0027#FF0000\u0027, //Its overrunning (bad)\r\n\t\u0027#FFFFFF\u0027\r\n\t)"
+                      },
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginRight Text/NormalText"
+                  },
+                  "textStyle": {
+                    "fontWeight": "bold"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "Progress"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.value": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.Percent"
+                      },
+                      "transforms": [
+                        {
+                          "expression": "{value} * 100",
+                          "type": "expression"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "paddingTop": "10px"
+                  }
+                },
+                "type": "ia.display.progress"
+              }
+            ],
+            "meta": {
+              "name": "Progress"
+            },
+            "position": {
+              "basis": "43px"
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginBottom"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "CurrentQuantity"
+                },
+                "position": {
+                  "grow": 1,
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.Pieces"
+                      },
+                      "transforms": [
+                        {
+                          "expression": "{value} + \" \" +{view.custom.Units}",
+                          "type": "expression"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  },
+                  "props.textStyle.color": {
+                    "binding": {
+                      "config": {
+                        "expression": "if({view.custom.Pieces}\u003e{view.custom.SchedTotal},\r\n\t\u0027#FF0000\u0027, //Its overrunning (bad)\r\n\t\u0027#FFFFFF\u0027\r\n\t)"
+                      },
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "alignVertical": "top",
+                  "style": {
+                    "classes": "Text/NormalText"
+                  },
+                  "textStyle": {
+                    "fontWeight": "bold",
+                    "textAlign": "right",
+                    "textTransform": "lowercase"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "Slash"
+                },
+                "position": {
+                  "shrink": 0
+                },
+                "props": {
+                  "alignVertical": "top",
+                  "style": {
+                    "classes": "Global/MarginLeft Global/MarginRight Text/NormalText"
+                  },
+                  "text": "/",
+                  "textStyle": {
+                    "fontWeight": "bold",
+                    "textAlign": "center"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "ScheduleQuantity"
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.SchedTotal"
+                      },
+                      "transforms": [
+                        {
+                          "expression": "{value} + \" \" +{view.custom.Units}",
+                          "type": "expression"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "alignVertical": "top",
+                  "style": {
+                    "classes": "Text/NormalText",
+                    "textTransform": "lowercase"
+                  },
+                  "textStyle": {
+                    "fontWeight": "bold",
+                    "textAlign": "right"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "Metrics"
+            },
+            "position": {
+              "basis": "34px"
+            },
+            "props": {
+              "alignContent": "flex-end",
+              "justify": "flex-end"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Body"
+        },
+        "position": {
+          "basis": "168px"
+        },
+        "props": {
+          "direction": "column"
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

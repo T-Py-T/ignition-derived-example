@@ -1,0 +1,248 @@
+{
+  "custom": {},
+  "params": {
+    "code": "1006-0001-CELL15",
+    "description": "value",
+    "descriptionLength": "30ch",
+    "descriptionVisible": true,
+    "field": 12345678,
+    "itemLength": "14ch",
+    "itemText": "value",
+    "qtyLength": "14ch",
+    "quantity": 190090,
+    "style": {
+      "borderBottomColor": "#808080",
+      "borderBottomStyle": "solid",
+      "borderBottomWidth": ".25ch",
+      "borderLeftStyle": "none",
+      "borderRightStyle": "none",
+      "borderTopStyle": "none",
+      "classes": "Text/LabelTextSmall Text/textColorBlack",
+      "overflow": "hidden"
+    }
+  },
+  "propConfig": {
+    "params.code": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.description": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.descriptionLength": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.descriptionVisible": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.field": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.itemLength": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.itemText": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.qtyLength": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.quantity": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.style": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 30,
+      "width": 499
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "field"
+        },
+        "position": {
+          "basis": "13ch",
+          "shrink": 0
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.field"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "textAlign": "left"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "description"
+        },
+        "position": {
+          "grow": 1,
+          "shrink": 0
+        },
+        "propConfig": {
+          "position.basis": {
+            "binding": {
+              "config": {
+                "expression": "{view.params.descriptionLength}"
+              },
+              "type": "expr"
+            }
+          },
+          "position.display": {
+            "binding": {
+              "config": {
+                "path": "view.params.descriptionVisible"
+              },
+              "type": "property"
+            }
+          },
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.description"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "overflowWrap": "break-word",
+            "paddingLeft": "1ch"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "itemText"
+        },
+        "propConfig": {
+          "position.basis": {
+            "binding": {
+              "config": {
+                "path": "view.params.itemLength"
+              },
+              "type": "property"
+            }
+          },
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.itemText"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "paddingLeft": "1ch",
+            "textAlign": "left"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "quantity"
+        },
+        "propConfig": {
+          "position.basis": {
+            "binding": {
+              "config": {
+                "path": "view.params.qtyLength"
+              },
+              "type": "property"
+            }
+          },
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.quantity"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "overflowWrap": "break-word",
+            "textAlign": "right"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "code"
+        },
+        "position": {
+          "basis": "17ch"
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.code"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "paddingLeft": "1ch",
+            "textAlign": "left"
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "basis": "auto"
+    },
+    "propConfig": {
+      "props.style": {
+        "binding": {
+          "config": {
+            "path": "view.params.style"
+          },
+          "type": "property"
+        }
+      }
+    },
+    "props": {
+      "justify": "space-between"
+    },
+    "type": "ia.container.flex"
+  }
+}

@@ -1,0 +1,379 @@
+{
+  "custom": {},
+  "params": {
+    "Instructions": "",
+    "controls": {
+      "headers": {
+        "header1": {
+          "label": "Group:",
+          "value": 50031921
+        },
+        "header2": {
+          "label": "Group Counter:",
+          "value": 50031921
+        },
+        "header3": {
+          "label": "Sequence:",
+          "value": 50031921
+        }
+      },
+      "params": {
+        "description": "\nSHARPIE TANK HL 4CT ASST + 1\n\nREGION: NA\n\n*\n*TOOLING *\n***********************\nTOOLING NUMBER: TC5931H\nPLUG NUMBER: 1356\nNUMBER UP: 4\nOTHER: 6 STATION\n\n*\n*UNIT*\n**********************\n*\n*SHELF PACK *\n***********************\nCOLOR ORDER: FROM LEFT TO RIGHT WHEN LOOKING AT FRONT OF PACK:\nFRONT ROW: GREEN\nBACK ROW: PINK, ORANGE, YELLOW, BLUE *\n*CASE *\n***********************\n\"9296 SHOULD BE ADDED ON TOP FLAP TO KEEP LID CLOSED DURING SHIPMENT\nMUST AVOID PLACING OVER PERFORATION\"\n*\n*PALLET *\n***********************\n*\n",
+        "descriptionLength": "auto",
+        "descriptionVisible": true,
+        "style": {
+          "border": "none",
+          "classes": "Text/LabelTextSmall Text/textColorBlack",
+          "overflow": "visible"
+        }
+      },
+      "title": ""
+    }
+  },
+  "propConfig": {
+    "params.Instructions": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.controls": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.controls.headers": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.controls.headers.header1.label": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.controls.headers.header1.value": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.controls.headers.header2": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.controls.headers.header3": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.controls.params": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.controls.params.style.border": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.controls.params[0].descriptionLength": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.controls.params[0].style": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.controls.params[1]": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.controls.params[2]": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.controls.title": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 313,
+      "width": 369
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "title"
+        },
+        "position": {
+          "display": false,
+          "shrink": 0
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.controls.title"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "Text/LabelTextSmall Text/textColorBlack",
+            "fontWeight": "bold",
+            "marginBottom": "1ch"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "grouLabel"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.controls.headers.header1.label"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "textAlign": "left"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "label"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.controls.headers.header1.value"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Text/LabelTextSmall",
+                "fontWeight": "normal",
+                "paddingLeft": "1ch"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "group"
+        },
+        "position": {
+          "display": false,
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "Text/LabelTextSmall Text/textColorBlack",
+            "fontWeight": "bold",
+            "overflow": "hidden",
+            "paddingBottom": "0.5ch",
+            "paddingTop": "1ch"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "grouLabel"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.controls.headers.header2.label"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "textAlign": "left"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "label"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.controls.headers.header2.value"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Text/LabelTextSmall",
+                "fontWeight": "normal",
+                "paddingLeft": "1ch"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "groupCounter"
+        },
+        "position": {
+          "display": false,
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "Text/LabelTextSmall Text/textColorBlack",
+            "fontWeight": "bold",
+            "overflow": "hidden",
+            "paddingBottom": "0.5ch",
+            "paddingTop": "1ch"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "grouLabel"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.controls.headers.header3.label"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "textAlign": "left"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "label"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.controls.headers.header3.value"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Text/LabelTextSmall",
+                "fontWeight": "normal",
+                "paddingLeft": "1ch"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "sequence"
+        },
+        "position": {
+          "display": false,
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "Text/LabelTextSmall Text/textColorBlack",
+            "fontWeight": "bold",
+            "overflow": "hidden",
+            "paddingBottom": "0.5ch",
+            "paddingTop": "1ch"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "meta": {
+          "name": "textArea"
+        },
+        "position": {
+          "grow": 1,
+          "shrink": 0
+        },
+        "propConfig": {
+          "props.style": {
+            "binding": {
+              "config": {
+                "path": "view.params.controls.params.style"
+              },
+              "type": "property"
+            }
+          },
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.Instructions"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "type": "ia.input.text-area"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "overflow": "visible"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

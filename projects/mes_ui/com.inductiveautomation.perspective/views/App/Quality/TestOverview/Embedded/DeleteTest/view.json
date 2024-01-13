@@ -1,0 +1,184 @@
+{
+  "custom": {
+    "NullValue": true
+  },
+  "params": {
+    "TestID": null
+  },
+  "propConfig": {
+    "custom.NullValue": {
+      "binding": {
+        "config": {
+          "expression": "if({view.params.TestID} \u003d Null, true, false)"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "params.TestID": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 112,
+      "width": 452
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Label"
+        },
+        "position": {
+          "basis": "32px"
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "expression": "if({view.custom.NullValue} \u003d  true, false, true)"
+              },
+              "type": "expr"
+            }
+          },
+          "props.text": {
+            "binding": {
+              "config": {
+                "expression": "\u0027Are you sure you want to delete test #\u0027 + toStr({view.params.TestID}) + \u0027?\u0027"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "margin": "1em",
+            "text-align": "center"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "children": [
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "script": "\t\n\tlogger \u003d system.util.getLogger(\u0027DeleteQualityTest\u0027)\n\ttry:\n\t\tmes.quality.sp.disableTest(self.view.params.TestID)\n\t\tsystem.perspective.closePopup(\u0027DeleteTest\u0027)\n\t\tMessageParams \u003d {\n\t\t\t\t\t\t\t    \"ModalName\": \"Sucess\",\n\t\t\t\t\t\t\t    \"ErrorMessage\": \"Test \"+str(self.view.params.TestID)+\" has successfully been deleted\",\n\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\n\t\tsystem.perspective.openPopup(\"ErrorModal\", \"GlobalComponents/Modals/ErrorModal\", MessageParams, modal \u003d True)\n\texcept Exception as e:\n\t\terrorParams \u003d {\n\t\t    \"ModalName\": \"ErrorModal\",\n\t\t    \"ErrorMessage\": str(e),\n\t\t}\n\t\t\n\t\tsystem.perspective.openPopup(\"ErrorModal\", \"GlobalComponents/Modals/ErrorModal\", errorParams)\n\t\tlogger.warn(\u0027There was an error: \u0027 + str(e))\n\t\n\t\n\n\tmessageType \u003d \u0027refreshQualityTable\u0027 \n\tpayload \u003d {}\n\tsystem.perspective.sendMessage(messageType, payload, view \u003d \u0027session\u0027)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Confirm"
+            },
+            "position": {
+              "basis": "190px"
+            },
+            "props": {
+              "style": {
+                "classes": "Buttons/OperatorButtons"
+              },
+              "text": "Yes, delete this test"
+            },
+            "type": "ia.input.button"
+          },
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "draggable": true,
+                    "id": "DeleteTest",
+                    "modal": false,
+                    "overlayDismiss": false,
+                    "resizable": true,
+                    "showCloseIcon": true,
+                    "type": "close",
+                    "viewPath": "",
+                    "viewportBound": false
+                  },
+                  "scope": "C",
+                  "type": "popup"
+                }
+              }
+            },
+            "meta": {
+              "name": "Cancel"
+            },
+            "position": {
+              "basis": "193px"
+            },
+            "props": {
+              "primary": false,
+              "style": {
+                "classes": "Buttons/OperatorButtons"
+              },
+              "text": "No, keep this test"
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "FlexContainer"
+        },
+        "position": {
+          "basis": "46px"
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "expression": "if({view.custom.NullValue} \u003d  true, false, true)"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "justify": "space-around"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "meta": {
+          "name": "Label_0"
+        },
+        "position": {
+          "basis": "32px"
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "expression": "if({view.custom.NullValue} \u003d  true, true, false)"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "margin": "1em",
+            "text-align": "center"
+          },
+          "text": "Error selecting test please select the test again."
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

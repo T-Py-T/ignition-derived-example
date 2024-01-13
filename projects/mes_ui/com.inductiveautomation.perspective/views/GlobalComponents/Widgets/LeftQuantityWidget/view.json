@@ -1,0 +1,100 @@
+{
+  "custom": {},
+  "params": {
+    "EqPath": "",
+    "State": "value",
+    "Title": "Quantity Left",
+    "UoM": "pcs"
+  },
+  "propConfig": {
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.State": {
+      "paramDirection": "output",
+      "persistent": true
+    },
+    "params.Title": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.UoM": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 128,
+      "width": 292
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Metrics"
+        },
+        "position": {
+          "basis": "149px",
+          "grow": 1
+        },
+        "propConfig": {
+          "props.params.Params.EqPath": {
+            "binding": {
+              "config": {
+                "path": "view.params.EqPath"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.Params.UoM": {
+            "binding": {
+              "config": {
+                "path": "view.params.UoM"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.Title": {
+            "binding": {
+              "config": {
+                "path": "view.params.Title"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "params": {
+            "EqPath": "value",
+            "HideTitle": false,
+            "Icon": "",
+            "IconDisplay": true,
+            "Params": {
+              "State": "",
+              "Type": "Rate"
+            },
+            "Path": "GlobalComponents/Widgets/Embedded/LeftQuantity",
+            "Provider": "value",
+            "SizeBasis": "value",
+            "TagPath": "value",
+            "Type": "",
+            "useDefaultHeight": false,
+            "useDefaultWidth": false
+          },
+          "path": "GlobalComponents/Cards/Card"
+        },
+        "type": "ia.display.view"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

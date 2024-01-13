@@ -1,0 +1,1 @@
+exec oee.stp_getGroupOEE_AQP @StartDateTime =:timeStart, @EndDateTime =:timeEnd, @GroupID =:groupID, @LineID =:lineID

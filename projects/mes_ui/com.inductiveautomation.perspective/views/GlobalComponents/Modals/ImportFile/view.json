@@ -1,0 +1,317 @@
+{
+  "custom": {},
+  "params": {
+    "EqPath": "value",
+    "Type": "value"
+  },
+  "propConfig": {
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Type": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 100,
+      "width": 300
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "custom": {
+          "configCSV": "",
+          "csvDict": {
+            "$": [
+              "ds",
+              192,
+              1695325883662
+            ],
+            "$columns": [
+              {
+                "data": [
+                  0,
+                  1,
+                  2,
+                  3
+                ],
+                "name": "ID",
+                "type": "Integer"
+              },
+              {
+                "data": [
+                  2615,
+                  2615,
+                  2615,
+                  2615
+                ],
+                "name": "LineID",
+                "type": "Integer"
+              },
+              {
+                "data": [
+                  "Disabled",
+                  "Running",
+                  "ChangeOver",
+                  "Idle"
+                ],
+                "name": "Description",
+                "type": "String"
+              },
+              {
+                "data": [
+                  "NULL",
+                  "NULL",
+                  "NULL",
+                  "NULL"
+                ],
+                "name": "AltCode",
+                "type": "String"
+              },
+              {
+                "data": [
+                  "material/stop_circle",
+                  "material/directions_run",
+                  "material/stop_circle",
+                  "material/stop_circle"
+                ],
+                "name": "IconPath",
+                "type": "String"
+              },
+              {
+                "data": [
+                  "#FF8C00",
+                  "#00AC00",
+                  "#FF8C00",
+                  "#AC0000"
+                ],
+                "name": "DisplayColor",
+                "type": "String"
+              },
+              {
+                "data": [
+                  5,
+                  6,
+                  7,
+                  8
+                ],
+                "name": "ReasonCode",
+                "type": "Integer"
+              },
+              {
+                "data": [
+                  true,
+                  false,
+                  true,
+                  true
+                ],
+                "name": "RecordDowntime",
+                "type": "Boolean"
+              },
+              {
+                "data": [
+                  false,
+                  false,
+                  true,
+                  false
+                ],
+                "name": "PlannedDowntime",
+                "type": "Boolean"
+              },
+              {
+                "data": [
+                  false,
+                  false,
+                  false,
+                  false
+                ],
+                "name": "OperatorSelectable",
+                "type": "Boolean"
+              },
+              {
+                "data": [
+                  -1,
+                  -1,
+                  -1,
+                  -1
+                ],
+                "name": "SubReasonOf",
+                "type": "Integer"
+              },
+              {
+                "data": [
+                  0,
+                  0,
+                  3,
+                  3
+                ],
+                "name": "StateTypeID",
+                "type": "Integer"
+              },
+              {
+                "data": [
+                  1,
+                  1,
+                  1,
+                  1
+                ],
+                "name": "DowntimeCategoryCode",
+                "type": "Integer"
+              }
+            ]
+          }
+        },
+        "events": {
+          "component": {
+            "onFileReceived": {
+              "config": {
+                "script": "\tself.custom.configCSV \u003d event.file.getString()\n\tself.custom.csvDict \u003d system.dataset.fromCSV(event.file.getString())"
+              },
+              "scope": "G",
+              "type": "script"
+            },
+            "onUploadsCleared": {
+              "config": {
+                "script": "\tself.custom.configCSV \u003d \u0027\u0027"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "FileUpload"
+        },
+        "position": {
+          "basis": "55px",
+          "shrink": 0
+        },
+        "propConfig": {
+          "custom.csvDict": {
+            "binding": {
+              "config": {
+                "path": "this.custom.configCSV"
+              },
+              "enabled": false,
+              "transforms": [
+                {
+                  "code": "\treturn system.dataset.fromCSV(value)",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "fileUploadIcon": {
+            "path": "material/folder_open",
+            "style": {
+              "cursor": "pointer"
+            }
+          },
+          "maxUploads": 1,
+          "supportedFileTypes": [
+            "CSV"
+          ]
+        },
+        "type": "ia.input.fileupload"
+      },
+      {
+        "children": [
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\tlogger \u003d system.util.getLogger(\u0027importFile\u0027)\n\tsystem.perspective.print(\u0027testing import file\u0027)\n\ttry:\n\t\tcsvFile \u003d self.parent.parent.getChild(\"FileUpload\").custom.configCSV\n\t\tcsvDS \u003d self.parent.parent.getChild(\"FileUpload\").custom.csvDict\n\t\teqPath \u003d self.view.params.EqPath\n\t\tpayload \u003d { \u0027csvString\u0027: csvFile, \u0027csvDS\u0027: csvDS, \u0027EqPath\u0027: eqPath }\n\t\t\n\t\ttype_mapping \u003d {\n\t\t    \u0027states\u0027: \u0027importStates\u0027,\n\t\t    \u0027modes\u0027: \u0027importModes\u0027,\n\t\t    \u0027scrapCategory\u0027: \u0027importScrapCategory\u0027,\n\t\t    \u0027scrapReasons\u0027: \u0027importScrapReasons\u0027,\n\t\t    \u0027materials\u0027: \u0027importMaterials\u0027,\n\t\t    \u0027sites\u0027: \u0027importSites\u0027,\n\t\t    \u0027areas\u0027: \u0027importAreas\u0027,\n\t\t    \u0027lines\u0027: \u0027importLines\u0027,\n\t\t    \u0027cells\u0027: \u0027importCells\u0027,\n\t\t    \u0027attributes\u0027: \u0027importAttributes\u0027,\n\t\t    \u0027productcodes\u0027: \u0027importProductCodes\u0027\n\t\t}\n\t\tmessageType \u003d type_mapping.get(self.view.params.Type)\n\t\tsystem.perspective.print(messageType)\n\t\tif messageType:\n\t\t    system.perspective.sendMessage(messageType, payload)\t\t\t\t\t\n\t\t\t\t\t\t\t\t\t\n\t\tself.parent.parent.getChild(\"FileUpload\").custom.configCSV \u003d \u0027\u0027\n\t\tsystem.dataset.clearDataset(self.parent.parent.getChild(\"FileUpload\").custom.csvDict)\n\texcept Exception as e:\n\t\tlogger.warn(\u0027There was an error: \u0027 + str(e))"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Import"
+            },
+            "position": {
+              "basis": "80px"
+            },
+            "propConfig": {
+              "props.enabled": {
+                "binding": {
+                  "config": {
+                    "path": ".../FileUpload.custom.configJson"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tconfigJson \u003d str(value)\n\treturn not configJson \u003d\u003d \u0027\u0027",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "text": "Import"
+            },
+            "type": "ia.input.button"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\t#close popup\n\tid \u003d \u0027ImportFile\u0027\n\tsystem.perspective.closePopup(id)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Cancel"
+            },
+            "position": {
+              "basis": "80px"
+            },
+            "props": {
+              "primary": false,
+              "text": "Cancel"
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "Controls"
+        },
+        "position": {
+          "basis": "200px"
+        },
+        "props": {
+          "justify": "space-around",
+          "style": {
+            "marginTop": "5px"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "margin": "5px",
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

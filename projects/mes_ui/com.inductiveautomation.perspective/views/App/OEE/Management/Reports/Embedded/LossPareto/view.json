@@ -1,0 +1,677 @@
+{
+  "custom": {
+    "FilteredData": []
+  },
+  "params": {
+    "Data": {
+      "$": [
+        "ds",
+        0,
+        1690497916983
+      ],
+      "$columns": [
+        {
+          "data": [],
+          "name": "Type",
+          "type": "String"
+        },
+        {
+          "data": [],
+          "name": "Reason",
+          "type": "String"
+        },
+        {
+          "data": [],
+          "name": "LossTime",
+          "type": "Integer"
+        },
+        {
+          "data": [],
+          "name": "Cost",
+          "type": "Double"
+        }
+      ]
+    }
+  },
+  "propConfig": {
+    "custom.FilteredData": {
+      "binding": {
+        "config": {
+          "path": "view.params.Data"
+        },
+        "transforms": [
+          {
+            "code": "#\tsortedDS \u003d system.dataset.sort(value, \u0027LossTime\u0027, False)\n#\tpyData \u003d system.dataset.toPyDataSet(sortedDS)\n#\theaders \u003d system.dataset.getColumnHeaders(pyData)\n#\tdata, count \u003d [], 0\n#\t\n#\tfor row in pyData:\n#\t\tif count \u003c 5:\n#\t\t\tdata.append(row)\n#\t\t\tcount +\u003d 1\n#\t\tif count \u003e 5: break\n#\t\n#\tnewDS \u003d system.dataset.toDataSet(headers, data)\n#\treturn newDS\n\tsortedDS \u003d system.dataset.sort(value, \u0027LossTime\u0027, False)\n\tjson \u003d gpa.data.datasetToJson(sortedDS)\n\tdata, count \u003d [], 0\n\tfor row in json:\n\t\tif count \u003c 8:\n\t\t\tcolor \u003d \u0027#298FC2\u0027\n\t\t\tif row[\u0027Type\u0027] \u003d\u003d \u0027Availability\u0027: color \u003d \u0027#298FC2\u0027\n\t\t\telif row[\u0027Type\u0027] \u003d\u003d \u0027Quality\u0027: color \u003d \u0027teal\u0027\n\t\t\telif row[\u0027Type\u0027] \u003d\u003d \u0027Performance\u0027: color \u003d \u0027#ff6600\u0027\n\t\t\t\n\t\t\tdata.append({\n\t\t\t\t\u0027Type\u0027: row[\u0027Type\u0027],\n\t\t\t\t\u0027LossTime\u0027:  row[\u0027LossTime\u0027],\n\t\t\t\t\u0027Cost\u0027: row[\u0027Cost\u0027],\n\t\t\t\t\u0027Reason\u0027: row[\u0027Reason\u0027],\n\t\t\t\t\u0027color\u0027: color\n\t\t\t\t\n\t\t\t})\n\t\t\tcount +\u003d 1\n\t\tif count \u003e 8: break\n\t\t\n\treturn data\n\t\n\t",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "params.Data": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 257,
+      "width": 549
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "aColor"
+            },
+            "position": {
+              "basis": "20px",
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "#298FC2",
+                "marginLeft": "0.5rem",
+                "marginRight": "0.1rem"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "availability"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "marginLeft": "0.1rem",
+                "marginRight": "0.5rem"
+              },
+              "text": "Availability"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "pColor"
+            },
+            "position": {
+              "basis": "20px",
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "--elev8",
+                "marginLeft": "0.5rem",
+                "marginRight": "0.1rem"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "performance"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "marginLeft": "0.1rem",
+                "marginRight": "0.5rem"
+              },
+              "text": "Performance"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "qColor"
+            },
+            "position": {
+              "basis": "20px",
+              "display": false,
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "teal",
+                "marginLeft": "0.5rem",
+                "marginRight": "0.1rem"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "quality"
+            },
+            "position": {
+              "display": false,
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "marginLeft": "0.1rem",
+                "marginRight": "0.5rem"
+              },
+              "text": "Quality"
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "legend"
+        },
+        "position": {
+          "basis": "20px",
+          "shrink": 0
+        },
+        "props": {
+          "justify": "flex-end",
+          "style": {
+            "overflow": "visible"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "meta": {
+          "name": "XYChart"
+        },
+        "position": {
+          "basis": "200px",
+          "grow": 1,
+          "shrink": 0
+        },
+        "propConfig": {
+          "props.dataSources.example": {
+            "binding": {
+              "config": {
+                "path": "view.custom.FilteredData"
+              },
+              "overlayOptOut": true,
+              "type": "property"
+            }
+          },
+          "props.yAxes[0].value.range.max": {
+            "binding": {
+              "config": {
+                "expression": "max({view.params.Data}, \u0027LossTime\u0027)"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "background": {
+            "render": "gradient"
+          },
+          "dataSources": {},
+          "legend": {
+            "enabled": false,
+            "position": "left"
+          },
+          "series": [
+            {
+              "candlestick": {
+                "appearance": {
+                  "deriveFieldsFromData": {
+                    "fill": {
+                      "color": "",
+                      "opacity": ""
+                    },
+                    "stroke": {
+                      "color": "",
+                      "opacity": "",
+                      "width": ""
+                    }
+                  },
+                  "fill": {
+                    "color": "",
+                    "opacity": 1
+                  },
+                  "heatRules": {
+                    "dataField": "",
+                    "enabled": false,
+                    "max": "",
+                    "min": ""
+                  },
+                  "stacked": false,
+                  "stroke": {
+                    "color": "",
+                    "opacity": 1,
+                    "width": 1
+                  }
+                },
+                "high": {
+                  "x": "",
+                  "y": ""
+                },
+                "low": {
+                  "x": "",
+                  "y": ""
+                },
+                "open": {
+                  "x": "",
+                  "y": ""
+                }
+              },
+              "column": {
+                "appearance": {
+                  "deriveFieldsFromData": {
+                    "fill": {
+                      "color": "color",
+                      "opacity": ""
+                    },
+                    "stroke": {
+                      "color": "",
+                      "opacity": "color",
+                      "width": ""
+                    }
+                  },
+                  "fill": {
+                    "color": "",
+                    "opacity": 1
+                  },
+                  "heatRules": {
+                    "dataField": "",
+                    "enabled": false,
+                    "max": "",
+                    "min": ""
+                  },
+                  "height": null,
+                  "stacked": false,
+                  "stroke": {
+                    "color": "",
+                    "opacity": 1,
+                    "width": 1
+                  },
+                  "width": null
+                },
+                "open": {
+                  "x": "",
+                  "y": ""
+                }
+              },
+              "data": {
+                "source": "example",
+                "x": "Reason",
+                "y": "LossTime"
+              },
+              "defaultState": {
+                "visible": true
+              },
+              "hiddenInLegend": true,
+              "label": {
+                "text": "Data"
+              },
+              "line": {
+                "appearance": {
+                  "bullets": [
+                    {
+                      "deriveFieldsFromData": {
+                        "fill": {
+                          "color": "",
+                          "opacity": ""
+                        },
+                        "rotation": "",
+                        "stroke": {
+                          "color": "",
+                          "opacity": "",
+                          "width": ""
+                        }
+                      },
+                      "enabled": false,
+                      "fill": {
+                        "color": "",
+                        "opacity": 1
+                      },
+                      "heatRules": {
+                        "dataField": "",
+                        "enabled": false,
+                        "max": 100,
+                        "min": 2
+                      },
+                      "height": 10,
+                      "label": {
+                        "position": {
+                          "dx": 0,
+                          "dy": 0
+                        },
+                        "text": "{value}"
+                      },
+                      "render": "circle",
+                      "rotation": 0,
+                      "stroke": {
+                        "color": "",
+                        "opacity": 1,
+                        "width": 1
+                      },
+                      "tooltip": {
+                        "background": {
+                          "color": "",
+                          "opacity": 1
+                        },
+                        "cornerRadius": 3,
+                        "enabled": true,
+                        "pointerLength": 4,
+                        "text": "{name}: [bold]{valueY}[/]"
+                      },
+                      "width": 10
+                    }
+                  ],
+                  "connect": true,
+                  "fill": {
+                    "color": "",
+                    "opacity": 0
+                  },
+                  "minDistance": 0.5,
+                  "stroke": {
+                    "color": "",
+                    "dashArray": "",
+                    "opacity": 1,
+                    "width": 3
+                  },
+                  "tensionX": 1,
+                  "tensionY": 1
+                },
+                "open": {
+                  "x": "",
+                  "y": ""
+                }
+              },
+              "name": "",
+              "render": "column",
+              "stepLine": {
+                "appearance": {
+                  "bullets": [
+                    {
+                      "deriveFieldsFromData": {
+                        "fill": {
+                          "color": "",
+                          "opacity": ""
+                        },
+                        "rotation": "",
+                        "stroke": {
+                          "color": "",
+                          "opacity": "",
+                          "width": ""
+                        }
+                      },
+                      "enabled": true,
+                      "fill": {
+                        "color": "",
+                        "opacity": 1
+                      },
+                      "heatRules": {
+                        "dataField": "",
+                        "enabled": false,
+                        "max": 100,
+                        "min": 2
+                      },
+                      "height": 10,
+                      "label": {
+                        "position": {
+                          "dx": 0,
+                          "dy": 0
+                        },
+                        "text": "{value}"
+                      },
+                      "render": "circle",
+                      "rotation": 0,
+                      "stroke": {
+                        "color": "",
+                        "opacity": 1,
+                        "width": 1
+                      },
+                      "tooltip": {
+                        "background": {
+                          "color": "",
+                          "opacity": 1
+                        },
+                        "cornerRadius": 3,
+                        "enabled": true,
+                        "pointerLength": 4,
+                        "text": "{name}: [bold]{valueY}[/]"
+                      },
+                      "width": 10
+                    }
+                  ],
+                  "connect": true,
+                  "fill": {
+                    "color": "",
+                    "opacity": 0
+                  },
+                  "minDistance": 0.5,
+                  "stroke": {
+                    "color": "",
+                    "dashArray": "",
+                    "opacity": 1,
+                    "width": 3
+                  },
+                  "tensionX": 1,
+                  "tensionY": 1
+                },
+                "open": {
+                  "x": "",
+                  "y": ""
+                }
+              },
+              "tooltip": {
+                "background": {
+                  "color": "",
+                  "opacity": 1
+                },
+                "cornerRadius": 3,
+                "enabled": true,
+                "pointerLength": 4,
+                "text": "{x}: [bold]{valueY}[/]"
+              },
+              "visible": true,
+              "xAxis": "Reason",
+              "yAxis": "LossTime",
+              "zIndex": 0
+            }
+          ],
+          "xAxes": [
+            {
+              "appearance": {
+                "font": {
+                  "size": "",
+                  "weight": 500
+                },
+                "grid": {
+                  "color": "",
+                  "dashArray": "",
+                  "minDistance": 60,
+                  "opacity": 0,
+                  "position": 0.5
+                },
+                "inside": false,
+                "labels": {
+                  "color": "",
+                  "horizontalCenter": "middle",
+                  "opacity": 1,
+                  "rotation": 10,
+                  "verticalCenter": "middle",
+                  "wrap": true
+                },
+                "opposite": false
+              },
+              "category": {
+                "break": {
+                  "enabled": false,
+                  "endCategory": "",
+                  "size": 0.05,
+                  "startCategory": ""
+                }
+              },
+              "date": {
+                "baseInterval": {
+                  "count": 1,
+                  "enabled": false,
+                  "skipEmptyPeriods": false,
+                  "timeUnit": "hour"
+                },
+                "break": {
+                  "enabled": false,
+                  "endDate": "",
+                  "size": 0.05,
+                  "startDate": ""
+                },
+                "format": "M/d",
+                "inputFormat": "yyyy-MM-dd kk:mm:ss",
+                "range": {
+                  "max": "",
+                  "min": "",
+                  "useStrict": false
+                }
+              },
+              "inversed": false,
+              "label": {
+                "color": "",
+                "enabled": true,
+                "text": ""
+              },
+              "name": "Reason",
+              "render": "category",
+              "tooltip": {
+                "background": {
+                  "color": "",
+                  "opacity": 1
+                },
+                "cornerRadius": 3,
+                "enabled": true,
+                "pointerLength": 4,
+                "text": ""
+              },
+              "value": {
+                "break": {
+                  "enabled": false,
+                  "endValue": 100,
+                  "size": 0.05,
+                  "startValue": 0
+                },
+                "format": "#,###.##",
+                "logarithmic": false,
+                "range": {
+                  "max": "",
+                  "min": "",
+                  "useStrict": false
+                }
+              },
+              "visible": true
+            }
+          ],
+          "yAxes": [
+            {
+              "appearance": {
+                "font": {
+                  "size": "",
+                  "weight": 500
+                },
+                "grid": {
+                  "color": "",
+                  "dashArray": "",
+                  "minDistance": null,
+                  "opacity": 0,
+                  "position": 0.5
+                },
+                "inside": false,
+                "labels": {
+                  "color": "",
+                  "horizontalCenter": "middle",
+                  "opacity": 1,
+                  "rotation": 0,
+                  "verticalCenter": "middle",
+                  "wrap": true
+                },
+                "opposite": false
+              },
+              "category": {
+                "break": {
+                  "enabled": false,
+                  "endCategory": "",
+                  "size": 0.05,
+                  "startCategory": ""
+                }
+              },
+              "date": {
+                "baseInterval": {
+                  "count": 1,
+                  "enabled": false,
+                  "skipEmptyPeriods": false,
+                  "timeUnit": "hour"
+                },
+                "break": {
+                  "enabled": false,
+                  "endDate": "",
+                  "size": 0.05,
+                  "startDate": ""
+                },
+                "format": "M/d/yyyy HH:mm:ss",
+                "inputFormat": "yyyy-MM-dd kk:mm:ss",
+                "range": {
+                  "max": "",
+                  "min": "",
+                  "useStrict": false
+                }
+              },
+              "inversed": false,
+              "label": {
+                "color": "",
+                "enabled": true,
+                "text": "Minutes"
+              },
+              "name": "LossTime",
+              "render": "value",
+              "tooltip": {
+                "background": {
+                  "color": "",
+                  "opacity": 1
+                },
+                "cornerRadius": 3,
+                "enabled": true,
+                "pointerLength": 4,
+                "text": ""
+              },
+              "value": {
+                "break": {
+                  "enabled": false,
+                  "endValue": 100,
+                  "size": 0.05,
+                  "startValue": 0
+                },
+                "format": "#,###.##",
+                "logarithmic": false,
+                "range": {
+                  "min": 0,
+                  "useStrict": true
+                }
+              },
+              "visible": true
+            }
+          ]
+        },
+        "type": "ia.chart.xy"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

@@ -1,0 +1,261 @@
+{
+  "custom": {
+    "Lines": {
+      "$": [
+        "ds",
+        192,
+        1704404230418
+      ],
+      "$columns": [
+        {
+          "data": [
+            5,
+            9,
+            10,
+            11,
+            12,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23
+          ],
+          "name": "value",
+          "type": "Integer"
+        },
+        {
+          "data": [
+            "Line 24",
+            "Line 23",
+            "Line 22",
+            "Line 21",
+            "Line 20",
+            "Line 19",
+            "Line 18",
+            "Line 17",
+            "Line 16",
+            "Line 15",
+            "Line 14",
+            "Line 12",
+            "Line 11"
+          ],
+          "name": "label",
+          "type": "String"
+        },
+        {
+          "data": [
+            18,
+            18,
+            18,
+            18,
+            18,
+            18,
+            18,
+            18,
+            18,
+            18,
+            18,
+            18,
+            18
+          ],
+          "name": "AreaID",
+          "type": "Integer"
+        },
+        {
+          "data": [
+            "Fiberon/1NL/PE Extrusion/Line 24",
+            "Fiberon/1NL/PE Extrusion/Line 23",
+            "Fiberon/1NL/PE Extrusion/Line 22",
+            "Fiberon/1NL/PE Extrusion/Line 21",
+            "Fiberon/1NL/PE Extrusion/Line 20",
+            "Fiberon/1NL/PE Extrusion/Line 19",
+            "Fiberon/1NL/PE Extrusion/Line 18",
+            "Fiberon/1NL/PE Extrusion/Line 17",
+            "Fiberon/1NL/PE Extrusion/Line 16",
+            "Fiberon/1NL/PE Extrusion/Line 15",
+            "Fiberon/1NL/PE Extrusion/Line 14",
+            "Fiberon/1NL/PE Extrusion/Line 12",
+            "Fiberon/1NL/PE Extrusion/Line 11"
+          ],
+          "name": "EquipmentPath",
+          "type": "String"
+        }
+      ]
+    },
+    "SelectedArea": 18,
+    "SelectedLine": 9,
+    "SelectedPath": "Fiberon/1NL/PE Extrusion/Line 23",
+    "SiteID": 9
+  },
+  "params": {
+    "OptionsArray": ""
+  },
+  "propConfig": {
+    "custom.Lines": {
+      "binding": {
+        "config": {
+          "parameters": {
+            "areaID": "{session.custom.SelectedArea}\r//{view.custom.SelectedArea}"
+          },
+          "queryPath": "app/Config/getLines"
+        },
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "custom.SelectedArea": {
+      "binding": {
+        "config": {
+          "path": "session.custom.SelectedArea"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.SelectedLine": {
+      "binding": {
+        "config": {
+          "path": "/root/Dropdown.props.value"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.SelectedPath": {
+      "binding": {
+        "config": {
+          "path": "/root/Dropdown.props.options"
+        },
+        "transforms": [
+          {
+            "code": "\tselectedID \u003d self.custom.SelectedLine\n\tvalue \u003d gpa.data.datasetToJson(value)\n\t\t\n\tif selectedID is not None:\n\t\tfor v in value:\n\t\t\tsystem.perspective.print(v)\n\t\t\tif v[\u0027value\u0027] \u003d\u003d selectedID:\n\t\t\t\treturn v[\u0027EquipmentPath\u0027]\n\t\t\n\treturn \u0027\u0027",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.SiteID": {
+      "binding": {
+        "config": {
+          "path": "session.custom.SelectedSite"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "params.OptionsArray": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 58,
+      "width": 259
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "component": {
+            "onActionPerformed": [
+              {
+                "config": {
+                  "script": "\tif self.session.custom.EqPath !\u003d self.view.custom.SelectedPath:\n\t\n\t\tself.session.custom.EqPath \u003d self.view.custom.SelectedPath\n\t\tEqPath \u003d self.view.custom.SelectedPath\n\t\t\n\t\tcurrentWo \u003d system.tag.read(EqPath +\u0027/jobs/currentJob/workOrder\u0027).value\n\t\t\n\t\tcurrentLineID \u003d system.tag.read(EqPath + \u0027/OEE_Events/lineID\u0027).value\n\t\tself.session.custom.LineID \u003d currentLineID\n\n#\t\tif currentWo is not None and currentWo !\u003d \u0027\u0027:\n\t\t\t#running a wo\n\t\tsystem.perspective.navigate(\u0027/operations/operator_dashboard\u0027)\n\t\tsystem.perspective.closeDock(\"sideBar\")\n\t\tsystem.perspective.sendMessage(\u0027changedLine\u0027)\n\t\t\t\n#\t\telse:\n#\t\t\tsystem.perspective.navigate(\u0027/operations/schedule\u0027)\t\n#\t\t\tsystem.perspective.sendMessage(\u0027changedLine\u0027)"
+                },
+                "enabled": false,
+                "scope": "G",
+                "type": "script"
+              },
+              {
+                "config": {
+                  "script": "\tprevPath \u003d self.view.custom.SelectedPath\n\tprevLine \u003d self.view.custom.SelectedLine\n\n\tsystem.perspective.sendMessage(\u0027changedLine\u0027)\n\timport time\n\ttime.sleep(0.015)\n\t\n\tself.session.custom.EqPath \u003d self.view.custom.SelectedPath\n\tself.session.custom.LineID \u003d self.view.custom.SelectedLine\n\t\n\t\n#\tsystem.perspective.print(\u0027Message sent hasnt hit while loop\u0027)\n#\tsystem.perspective.print(prevPath)\n#\tsystem.perspective.print(prevLine)\n#\tsystem.perspective.print(self.session.custom.EqPath)\t\n#\tsystem.perspective.print(self.session.custom.LineID)\n#\t\n#\twhile self.session.custom.EqPath !\u003d prevPath or self.session.custom.LineID !\u003d prevLine:\n#\t\tself.session.custom.EqPath \u003d self.view.custom.SelectedPath\n#\t\tself.session.custom.LineID \u003d self.view.custom.SelectedLine\n#\t\t\n#\t\tsystem.perspective.print(\u0027WE MADE IT\u0027)\n#\t\tif self.session.custom.EqPath \u003d\u003d self.view.custom.SelectedPath and self.session.custom.LineID \u003d\u003d self.view.custom.SelectedLine:\n#\t\t\tsystem.perspective.print(\"Breaking Free\")\n#\t\t\tbreak\n#\t\n#showSpinner()\n#hideSpinner()"
+                },
+                "scope": "G",
+                "type": "script"
+              }
+            ]
+          },
+          "system": {
+            "onStartup": {
+              "config": {
+                "script": "\tlinePath \u003d self.session.custom.LineID\n\t\n\t\n\tself.props.value \u003d linePath"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Dropdown"
+        },
+        "position": {
+          "basis": "256px"
+        },
+        "propConfig": {
+          "props.options": {
+            "binding": {
+              "config": {
+                "path": "view.custom.Lines"
+              },
+              "type": "property"
+            }
+          },
+          "props.value": {
+            "persistent": true
+          }
+        },
+        "props": {
+          "dropdownOptionStyle": {
+            "classes": "TextFields/Dropdown"
+          },
+          "style": {
+            "classes": "TextFields/Dropdown"
+          },
+          "value": 9
+        },
+        "type": "ia.input.dropdown"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "scripts": {
+      "customMethods": [],
+      "extensionFunctions": null,
+      "messageHandlers": [
+        {
+          "messageType": "changedLine",
+          "pageScope": true,
+          "script": "\t# implement your handler here\n\tself.view.refreshBinding(\u0027custom.SelectedPath\u0027)",
+          "sessionScope": true,
+          "viewScope": false
+        },
+        {
+          "messageType": "navigate_operatordb",
+          "pageScope": true,
+          "script": "# implement your handler here\n\tsystem.perspective.print(payload)\n#\tsystem.perspective.print(\u0027starting...\u0027)\n\teqPath \u003d payload.get(\u0027EqPath\u0027)\n#\tsystem.perspective.print(eqPath)\n\tlineID \u003d system.tag.read(eqPath + \u0027/config/LineID\u0027).value\n#\tsystem.perspective.print(lineID)\n\t\n\tself.getChild(\"Dropdown\").props.value \u003d lineID\n\tself.session.custom.LineID \u003d lineID\n\tself.session.custom.EqPath \u003d eqPath\n\n#\timport time\n#\ttime.sleep(0.25)\n#\tsystem.perspective.print(\u0027sending messages\u0027)\n#\tsystem.perspective.sendMessage(\u0027changedLine\u0027)\n\tsystem.perspective.sendMessage(\u0027refreshDashboardEqPath\u0027)",
+          "sessionScope": true,
+          "viewScope": true
+        },
+        {
+          "messageType": "changedSite",
+          "pageScope": true,
+          "script": "\t# implement your handler here\n\tself.view.refreshBinding(\u0027custom.Lines\u0027)",
+          "sessionScope": false,
+          "viewScope": false
+        }
+      ]
+    },
+    "type": "ia.container.flex"
+  }
+}

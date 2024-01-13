@@ -1,0 +1,376 @@
+{
+  "custom": {
+    "EqPath": "Fiberon/1NL/PE Extrusion",
+    "OEEValue": ""
+  },
+  "params": {
+    "OEEValue": "",
+    "TagPath": "",
+    "TagProvider": ""
+  },
+  "permissions": {
+    "securityLevels": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [],
+                "name": "Administrator"
+              },
+              {
+                "children": [],
+                "name": "Manager"
+              }
+            ],
+            "name": "Roles"
+          }
+        ],
+        "name": "Authenticated"
+      }
+    ],
+    "type": "AnyOf"
+  },
+  "propConfig": {
+    "custom.EqPath": {
+      "binding": {
+        "config": {
+          "path": "/root/Row1/SelectionDropdown.props.params.SelectedAreaPath"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.OEEValue": {
+      "persistent": true
+    },
+    "params.OEEValue": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.TagPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.TagProvider": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 778,
+      "width": 1411
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "SelectionDropdown"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "params": {
+                "SelectedArea": "Fiberon/1NL/PE Extrusion",
+                "SelectedAreaID": 18,
+                "SelectedAreaPath": "Fiberon/1NL/PE Extrusion",
+                "SelectedSiteID": 9,
+                "SelectedSitePath": "Fiberon/1NL"
+              },
+              "path": "GlobalComponents/Selections/SiteAreaSelector"
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "Row1"
+        },
+        "props": {
+          "alignContent": "flex-start",
+          "alignItems": "flex-start",
+          "style": {
+            "classes": "Global/MarginBottom",
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "AreaOEE"
+            },
+            "position": {
+              "basis": "25%"
+            },
+            "propConfig": {
+              "props.params.Params.EqPath": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.EqPath"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.params.Title": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.EqPath"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tsplit \u003d value.split(\u0027/\u0027)\n\treturn split[len(split) - 1] + \" OEE\"",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "Icon": "material/warning",
+                "IconDisplay": true,
+                "Params": {
+                  "State": "warning"
+                },
+                "Path": "GlobalComponents/Objects/Gauges/OEE/OEETogether",
+                "Provider": "value",
+                "SizeBasis": "value",
+                "TagPath": "value",
+                "Type": "warning",
+                "useDefaultHeight": false,
+                "useDefaultWidth": false
+              },
+              "path": "GlobalComponents/Cards/Card",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "OEETable"
+            },
+            "position": {
+              "basis": "75%"
+            },
+            "propConfig": {
+              "props.params.Params.EqPath": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.EqPath"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "Icon": "",
+                "IconDisplay": true,
+                "Params": {
+                  "State": ""
+                },
+                "Path": "App/OEE/Management/AreaOverview/Embedded/OEETable",
+                "Provider": "value",
+                "SizeBasis": "value",
+                "TagPath": "value",
+                "Title": "OEE Table (Runs)",
+                "Type": "",
+                "useDefaultHeight": false,
+                "useDefaultWidth": false
+              },
+              "path": "GlobalComponents/Cards/Card",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "Row2"
+        },
+        "position": {
+          "basis": "50%",
+          "grow": 1
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Top5Break"
+            },
+            "position": {
+              "basis": "50%",
+              "grow": 1
+            },
+            "propConfig": {
+              "props.params.Params.EqPath": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.EqPath"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "Icon": "",
+                "IconDisplay": true,
+                "Params": {
+                  "State": "",
+                  "Type": ""
+                },
+                "Path": "GlobalComponents/Widgets/Embedded/DownTimeTable",
+                "Provider": "value",
+                "SizeBasis": "value",
+                "TagPath": "value",
+                "Title": "Top 5 Breakdowns",
+                "Type": "",
+                "useDefaultHeight": false,
+                "useDefaultWidth": false
+              },
+              "path": "GlobalComponents/Cards/Card",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "Top5Micro"
+            },
+            "position": {
+              "basis": "50%",
+              "grow": 1
+            },
+            "propConfig": {
+              "props.params.Params.EqPath": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.EqPath"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "Icon": "",
+                "IconDisplay": true,
+                "Params": {
+                  "State": "",
+                  "Type": "Micro"
+                },
+                "Path": "GlobalComponents/Widgets/Embedded/DownTimeTable",
+                "Provider": "value",
+                "SizeBasis": "value",
+                "TagPath": "value",
+                "Title": "Top 5 Micro",
+                "Type": "",
+                "useDefaultHeight": false,
+                "useDefaultWidth": false
+              },
+              "path": "GlobalComponents/Cards/Card",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "Row3"
+        },
+        "position": {
+          "basis": "50%",
+          "grow": 1
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "CellOEE"
+            },
+            "position": {
+              "basis": "100%",
+              "grow": 1,
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.instances": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.Areas"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.wrap": {
+                "binding": {
+                  "config": {
+                    "expression": "If(len({this.props.instances})\u003e4,\n\t\u0027wrap\u0027,\n\t\u0027nowrap\u0027\n\t)"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "elementPosition": {
+                "basis": "auto"
+              },
+              "elementStyle": {
+                "classes": "Global/MarginRight"
+              },
+              "loading": {
+                "order": "with-parent"
+              },
+              "path": "GlobalComponents/Cards/Card",
+              "useDefaultViewHeight": false,
+              "useDefaultViewWidth": false
+            },
+            "type": "ia.display.flex-repeater"
+          }
+        ],
+        "meta": {
+          "name": "Row4"
+        },
+        "position": {
+          "display": false,
+          "grow": 1
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "classes": "Global/MarginAll"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

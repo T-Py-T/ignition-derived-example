@@ -1,0 +1,152 @@
+{
+  "custom": {
+    "GatewayPaths": [],
+    "SelectedGW": null,
+    "SelectedGWPath": null
+  },
+  "params": {
+    "SelectedPath": null,
+    "selectedGWPath": null
+  },
+  "propConfig": {
+    "custom.GatewayPaths": {
+      "persistent": true
+    },
+    "custom.SelectedGW": {
+      "binding": {
+        "config": {
+          "path": "view.params.SelectedPath"
+        },
+        "transforms": [
+          {
+            "expression": "substring({value},lastIndexOf({value},\u0027/\u0027)+1)",
+            "type": "expression"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.SelectedGWPath": {
+      "binding": {
+        "config": {
+          "path": "view.custom.SelectedGW"
+        },
+        "transforms": [
+          {
+            "code": "    paths \u003d self.custom.GatewayPaths\n\t    \n    for path in paths:\n        split \u003d path.split(\u0027[\u0027)\n        if len(split) \u003e 1:\n            splittedPath \u003d split[1].split(\u0027_\u0027)\n            if splittedPath[0] \u003d\u003d value:\n                # Return the first part of the split path enclosed in brackets\n                return \u0027[\u0027 + split[1]\n                \n    # If \u0027value\u0027 is \u0027System\u0027 and no match was found in the paths, return \u0027[System]Gateway\u0027\n    if value \u003d\u003d \u0027Script\u0027:\n        return \u0027[System]Gateway\u0027\n    \n    print(\"No matching path found.\")\n    return None",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "params.SelectedPath": {
+      "binding": {
+        "config": {
+          "path": "/root/Row1/Dropdown.props.value"
+        },
+        "type": "property"
+      },
+      "paramDirection": "output",
+      "persistent": true
+    },
+    "params.selectedGWPath": {
+      "binding": {
+        "config": {
+          "path": "view.custom.SelectedGWPath"
+        },
+        "type": "property"
+      },
+      "paramDirection": "output",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 56,
+      "width": 216
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "script": "\tselectedGateway \u003d self.props.value\n\t\n\tself.session.custom.SelectedGateway \u003d selectedGateway\n\t"
+                  },
+                  "enabled": false,
+                  "scope": "G",
+                  "type": "script"
+                }
+              },
+              "system": {
+                "onStartup": {
+                  "config": {
+                    "script": "\tgateways \u003d system.tag.browse(\"[GatewayHealth]Gateways\")\n\t\n\tdirectPaths \u003d []\n\toptionsArr \u003d []\n\t\n\tfor gateway in gateways:\n\t\tlabel \u003d gateway[\"name\"]\n\t\tvalue \u003d gateway[\"fullPath\"]\n\t\toptionsArr.append({\"label\": label, \"value\": value})\n\t\n\tself.props.options \u003d optionsArr\n\t\n\tfor gateway in gateways.getResults():\n\t\tnames \u003d system.tag.browse(gateway[\u0027fullPath\u0027])\n\t\tfor name in names.getResults():\n\t\t\tif str(name[\u0027fullPath\u0027]).endswith(\u0027ProviderPath\u0027):\n\t\t\t\tdirectPaths.append(str(name[\u0027value\u0027].getValue()))\n\t\t\t\t\n\t\t\t\t\n\tself.view.custom.GatewayPaths \u003d directPaths"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Dropdown"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "props.value": {
+                "binding": {
+                  "config": {
+                    "path": "this.props.options[0].value"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "dropdownOptionStyle": {
+                "classes": "TextFields/Dropdown"
+              },
+              "placeholder": {
+                "text": "Select A System.."
+              },
+              "style": {
+                "classes": "TextFields/Dropdown",
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.input.dropdown"
+          }
+        ],
+        "meta": {
+          "name": "Row1"
+        },
+        "position": {
+          "grow": 1
+        },
+        "props": {
+          "direction": "column"
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

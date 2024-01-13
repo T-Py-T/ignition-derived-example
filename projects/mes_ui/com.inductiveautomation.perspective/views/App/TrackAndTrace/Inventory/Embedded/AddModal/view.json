@@ -1,0 +1,1112 @@
+{
+  "custom": {
+    "SiteId": 6,
+    "Test": {
+      "$": [
+        "ds",
+        192,
+        1694441920390
+      ],
+      "$columns": [
+        {
+          "data": [
+            6
+          ],
+          "name": "ID",
+          "type": "Integer"
+        },
+        {
+          "data": [
+            "test"
+          ],
+          "name": "Label",
+          "type": "String"
+        },
+        {
+          "data": [
+            1
+          ],
+          "name": "ProductCodeID",
+          "type": "Integer"
+        },
+        {
+          "data": [
+            "test"
+          ],
+          "name": "ProductCode",
+          "type": "String"
+        },
+        {
+          "data": [
+            1
+          ],
+          "name": "InventoryID",
+          "type": "Integer"
+        },
+        {
+          "data": [
+            "EndOfLine"
+          ],
+          "name": "Inventory",
+          "type": "String"
+        },
+        {
+          "data": [
+            "Location 1"
+          ],
+          "name": "InventoryLocation",
+          "type": "String"
+        },
+        {
+          "data": [
+            1692972304773
+          ],
+          "name": "CreationTime",
+          "type": "Date"
+        },
+        {
+          "data": [
+            1
+          ],
+          "name": "AccumulatorID",
+          "type": "Integer"
+        },
+        {
+          "data": [
+            "Accumulator1"
+          ],
+          "name": "Accumulator",
+          "type": "String"
+        },
+        {
+          "data": [
+            null
+          ],
+          "name": "WorkOrder",
+          "type": "String"
+        }
+      ]
+    },
+    "TestDS": {
+      "$": [
+        "ds",
+        192,
+        1694441920393
+      ],
+      "$columns": [
+        {
+          "data": [],
+          "name": "ID",
+          "type": "Integer"
+        },
+        {
+          "data": [],
+          "name": "Label",
+          "type": "String"
+        },
+        {
+          "data": [],
+          "name": "ProductCodeID",
+          "type": "Integer"
+        },
+        {
+          "data": [],
+          "name": "ProductCode",
+          "type": "String"
+        },
+        {
+          "data": [],
+          "name": "InventoryID",
+          "type": "Integer"
+        },
+        {
+          "data": [],
+          "name": "Inventory",
+          "type": "String"
+        },
+        {
+          "data": [],
+          "name": "InventoryLocation",
+          "type": "String"
+        },
+        {
+          "data": [],
+          "name": "CreationTime",
+          "type": "Date"
+        },
+        {
+          "data": [],
+          "name": "AccumulatorID",
+          "type": "Integer"
+        },
+        {
+          "data": [],
+          "name": "Accumulator",
+          "type": "String"
+        },
+        {
+          "data": [],
+          "name": "WorkOrder",
+          "type": "String"
+        }
+      ]
+    },
+    "inventory": "",
+    "label": "",
+    "location": ""
+  },
+  "params": {
+    "ModalName": "value"
+  },
+  "propConfig": {
+    "custom.SiteId": {
+      "binding": {
+        "config": {
+          "path": "session.custom.SelectedSite"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.Test": {
+      "binding": {
+        "config": {
+          "expression": "now(10000000000000000)"
+        },
+        "transforms": [
+          {
+            "code": "\treturn mes.trace.sp.getParts(LabelExactMatch \u003d True, Label \u003d \u0027test\u0027)",
+            "type": "script"
+          }
+        ],
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.TestDS": {
+      "binding": {
+        "config": {
+          "expression": "runScript(\u0027mes.trace.sp.getParts\u0027, 0, None,None,{view.custom.label}, true)"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.inventory": {
+      "binding": {
+        "config": {
+          "path": "/root/Inventory/Input/Content/InventorySelection.props.value"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.label": {
+      "binding": {
+        "config": {
+          "path": "/root/Label/Input/Content/TextField.props.text"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.location": {
+      "binding": {
+        "config": {
+          "path": "/root/Location/Input/Content/TextField.props.text"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "params.ModalName": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 280,
+      "width": 419
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "props": {
+                  "style": {
+                    "marginRight": "8px"
+                  },
+                  "text": "Select Inventory:",
+                  "textStyle": {
+                    "fontWeight": "bold",
+                    "textAlign": "center"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "Title"
+            },
+            "props": {
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "script": "\tself.getSibling(\"ValidationIcon\").position.display \u003d False\n\tself.parent.parent.getChild(\"ErrorValidation\").position.display \u003d False\n\tself.props.style.classes \u003d gpa.frontEnd.localUI.Constants.DROP_DOWN_NORMAL"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "InventorySelection"
+                    },
+                    "position": {
+                      "grow": 1
+                    },
+                    "propConfig": {
+                      "custom.options": {
+                        "binding": {
+                          "config": {
+                            "expression": "runScript(\"mes.trace.sp.getInventories\", 0, {view.custom.SiteId})"
+                          },
+                          "transforms": [
+                            {
+                              "code": "\toptions \u003d []\n\tpydata \u003d system.dataset.toPyDataSet(value)\n\t\n\tfor row in pydata:\n\t\toptions.append({\n\t\t\t\"label\": row[\"Name\"],\n\t\t\t\"value\": row[\"ID\"]\n\t\t})\n\t\t\n\treturn options\n\t\t\t\n\t",
+                              "type": "script"
+                            }
+                          ],
+                          "type": "expr"
+                        }
+                      },
+                      "props.options": {
+                        "binding": {
+                          "config": {
+                            "path": "this.custom.options"
+                          },
+                          "type": "property"
+                        }
+                      },
+                      "props.value": {
+                        "onChange": {
+                          "enabled": null,
+                          "script": "\tif previousValue !\u003d currentValue:\n\t\tself.parent.parent.getChild(\"ErrorValidation\").position.display \u003d False\n\t\t"
+                        }
+                      }
+                    },
+                    "props": {
+                      "placeholder": {
+                        "icon": {
+                          "path": "material/search"
+                        },
+                        "text": ""
+                      },
+                      "style": {
+                        "classes": "TextFields/Dropdown"
+                      }
+                    },
+                    "type": "ia.input.dropdown"
+                  },
+                  {
+                    "meta": {
+                      "name": "ValidationIcon"
+                    },
+                    "position": {
+                      "basis": "25px",
+                      "display": false
+                    },
+                    "props": {
+                      "params": {
+                        "Icon": "material/error",
+                        "Type": "fail"
+                      },
+                      "path": "GlobalComponents/Icons/IconMain"
+                    },
+                    "type": "ia.display.view"
+                  }
+                ],
+                "meta": {
+                  "name": "Content"
+                },
+                "position": {
+                  "basis": "40px",
+                  "shrink": 0
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "Label"
+                    },
+                    "position": {
+                      "basis": "419px",
+                      "display": false
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "TextFields/ErrorText"
+                      },
+                      "text": "Please check for valid input"
+                    },
+                    "type": "ia.display.label"
+                  }
+                ],
+                "meta": {
+                  "name": "ErrorValidation"
+                },
+                "position": {
+                  "basis": "40px",
+                  "display": false,
+                  "grow": 1
+                },
+                "type": "ia.container.flex"
+              }
+            ],
+            "meta": {
+              "name": "Input"
+            },
+            "position": {
+              "basis": "58.6px"
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.type"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": true,
+                      "inputType": "scalar",
+                      "mappings": [
+                        {
+                          "input": "add",
+                          "output": true
+                        },
+                        {
+                          "input": "remove",
+                          "output": false
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "direction": "column"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Inventory"
+        },
+        "position": {
+          "grow": 1
+        },
+        "props": {
+          "direction": "column"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "props": {
+                  "style": {
+                    "marginRight": "8px"
+                  },
+                  "text": "Enter Label:",
+                  "textStyle": {
+                    "fontWeight": "bold",
+                    "textAlign": "center"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "Title"
+            },
+            "props": {
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "script": "\tself.props.style.classes \u003d gpa.frontEnd.localUI.Constants.TEXT_NORMAL\n\tself.getSibling(\"ValidationIcon\").position.display \u003d False\n\tself.parent.parent.getChild(\"ErrorValidation\").position.display \u003d False"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "TextField"
+                    },
+                    "position": {
+                      "basis": "150px",
+                      "grow": 1
+                    },
+                    "propConfig": {
+                      "props.text": {
+                        "onChange": {
+                          "enabled": null,
+                          "script": "\tif previousValue !\u003d currentValue:\n\t\t\tself.parent.parent.getChild(\"ErrorValidation\").position.display \u003d False\t"
+                        }
+                      }
+                    },
+                    "props": {
+                      "placeholder": "...",
+                      "style": {
+                        "classes": "TextFields/TextField"
+                      }
+                    },
+                    "type": "ia.input.text-field"
+                  },
+                  {
+                    "meta": {
+                      "name": "ValidationIcon"
+                    },
+                    "position": {
+                      "basis": "25px",
+                      "display": false
+                    },
+                    "props": {
+                      "params": {
+                        "Icon": "material/error",
+                        "Type": "fail"
+                      },
+                      "path": "GlobalComponents/Icons/IconMain"
+                    },
+                    "type": "ia.display.view"
+                  }
+                ],
+                "meta": {
+                  "name": "Content"
+                },
+                "position": {
+                  "basis": "40px",
+                  "shrink": 0
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "Label"
+                    },
+                    "position": {
+                      "basis": "419px",
+                      "display": false
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "TextFields/ErrorText"
+                      },
+                      "text": "Please check for valid input"
+                    },
+                    "type": "ia.display.label"
+                  }
+                ],
+                "meta": {
+                  "name": "ErrorValidation"
+                },
+                "position": {
+                  "basis": "40px",
+                  "display": false,
+                  "grow": 1
+                },
+                "type": "ia.container.flex"
+              }
+            ],
+            "meta": {
+              "name": "Input"
+            },
+            "position": {
+              "basis": "58.6px"
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.type"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": true,
+                      "inputType": "scalar",
+                      "mappings": [
+                        {
+                          "input": "add",
+                          "output": true
+                        },
+                        {
+                          "input": "remove",
+                          "output": false
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "direction": "column"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Label"
+        },
+        "position": {
+          "grow": 1
+        },
+        "props": {
+          "direction": "column"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "props": {
+                  "style": {
+                    "marginRight": "8px"
+                  },
+                  "text": "Enter Product Code:",
+                  "textStyle": {
+                    "fontWeight": "bold",
+                    "textAlign": "center"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "Title"
+            },
+            "props": {
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "script": "\tself.props.style.classes \u003d localUI.Constants.TEXT_NORMAL\n\tself.getSibling(\"ValidationIcon\").position.display \u003d False\n\tself.parent.parent.getChild(\"ErrorValidation\").position.display \u003d False"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "TextField"
+                    },
+                    "position": {
+                      "basis": "150px",
+                      "grow": 1
+                    },
+                    "props": {
+                      "placeholder": "...",
+                      "style": {
+                        "classes": "TextFields/TextField"
+                      }
+                    },
+                    "type": "ia.input.text-field"
+                  },
+                  {
+                    "meta": {
+                      "name": "ValidationIcon"
+                    },
+                    "position": {
+                      "basis": "25px",
+                      "display": false
+                    },
+                    "props": {
+                      "params": {
+                        "icon": "material/error",
+                        "type": "fail"
+                      },
+                      "path": "StyleGuide/Components/Icons/IconMain"
+                    },
+                    "type": "ia.display.view"
+                  }
+                ],
+                "meta": {
+                  "name": "Content"
+                },
+                "position": {
+                  "basis": "40px",
+                  "shrink": 0
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "Label"
+                    },
+                    "position": {
+                      "basis": "419px"
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "TextFields/ErrorText"
+                      },
+                      "text": "Please check for valid input"
+                    },
+                    "type": "ia.display.label"
+                  }
+                ],
+                "meta": {
+                  "name": "ErrorValidation"
+                },
+                "position": {
+                  "basis": "40px",
+                  "display": false,
+                  "grow": 1
+                },
+                "type": "ia.container.flex"
+              }
+            ],
+            "meta": {
+              "name": "Input"
+            },
+            "position": {
+              "basis": "58.6px"
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.type"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": true,
+                      "inputType": "scalar",
+                      "mappings": [
+                        {
+                          "input": "add",
+                          "output": true
+                        },
+                        {
+                          "input": "remove",
+                          "output": false
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "direction": "column"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "ProductCode"
+        },
+        "position": {
+          "display": false,
+          "grow": 1
+        },
+        "props": {
+          "direction": "column"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "props": {
+                  "style": {
+                    "marginRight": "8px"
+                  },
+                  "text": "Enter Location:",
+                  "textStyle": {
+                    "fontWeight": "bold",
+                    "textAlign": "center"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "Title"
+            },
+            "props": {
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "script": "\tself.props.style.classes \u003d gpa.frontEnd.localUI.Constants.TEXT_NORMAL\n\tself.getSibling(\"ValidationIcon\").position.display \u003d False\n\tself.parent.parent.getChild(\"ErrorValidation\").position.display \u003d False"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "TextField"
+                    },
+                    "position": {
+                      "basis": "150px",
+                      "grow": 1
+                    },
+                    "propConfig": {
+                      "props.text": {
+                        "onChange": {
+                          "enabled": null,
+                          "script": "\tif previousValue !\u003d currentValue:\n\t\t\tself.parent.parent.getChild(\"ErrorValidation\").position.display \u003d False\t"
+                        }
+                      }
+                    },
+                    "props": {
+                      "placeholder": "...",
+                      "style": {
+                        "classes": "TextFields/TextField"
+                      }
+                    },
+                    "type": "ia.input.text-field"
+                  },
+                  {
+                    "meta": {
+                      "name": "ValidationIcon"
+                    },
+                    "position": {
+                      "basis": "25px",
+                      "display": false
+                    },
+                    "props": {
+                      "params": {
+                        "Icon": "material/error",
+                        "Type": "fail"
+                      },
+                      "path": "GlobalComponents/Icons/IconMain"
+                    },
+                    "type": "ia.display.view"
+                  }
+                ],
+                "meta": {
+                  "name": "Content"
+                },
+                "position": {
+                  "basis": "40px",
+                  "shrink": 0
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "Label"
+                    },
+                    "position": {
+                      "basis": "419px",
+                      "display": false
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "TextFields/ErrorText"
+                      },
+                      "text": "Please check for valid input"
+                    },
+                    "type": "ia.display.label"
+                  }
+                ],
+                "meta": {
+                  "name": "ErrorValidation"
+                },
+                "position": {
+                  "basis": "40px",
+                  "display": false,
+                  "grow": 1
+                },
+                "type": "ia.container.flex"
+              }
+            ],
+            "meta": {
+              "name": "Input"
+            },
+            "position": {
+              "basis": "58.6px"
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.type"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": true,
+                      "inputType": "scalar",
+                      "mappings": [
+                        {
+                          "input": "add",
+                          "output": true
+                        },
+                        {
+                          "input": "remove",
+                          "output": false
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "direction": "column"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Location"
+        },
+        "position": {
+          "grow": 1
+        },
+        "props": {
+          "direction": "column"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\ttry:\n\t    # Grabs values from inputs\n\t    inventory \u003d self.view.custom.inventory\n\t    label \u003d self.view.custom.label\n\t    location \u003d self.view.custom.location\n\t    logger \u003d system.util.getLogger(\u0027tnt_inventory\u0027)\n\t    # Check if parameters are empty and raise exceptions if they are\n\t    system.perspective.print(inventory)\n\t    system.perspective.print(len(label))\n\t    system.perspective.print(label)\n\t    system.perspective.print(location)\n\t    system.perspective.print(len(location))\n\t    if inventory \u003c\u003d0 or len(label) \u003d\u003d 0 or len(location) \u003d\u003d 0:\n\t\t\tif inventory \u003c\u003d0: self.parent.parent.parent.getChild(\"Inventory\").getChild(\"Input\").getChild(\"ErrorValidation\").getChild(\"Label\").position.display \u003d True\n\t\t\tif len(label) \u003d\u003d 0: self.parent.parent.parent.getChild(\"Label\").getChild(\"Input\").getChild(\"ErrorValidation\").getChild(\"Label\").position.display \u003d True\n\t\t\tif len(location) \u003d\u003d 0: self.parent.parent.parent.getChild(\"Location\").getChild(\"Input\").getChild(\"ErrorValidation\").position.display \u003d True\n\t\t\traise Exception(\u0027One or more parameters (Inventory, Label, Location) are empty\u0027)\n\t        \n\t    if inventory !\u003d \"\" and label !\u003d \"\":\n\t        InventoryID \u003d self.parent.parent.parent.getChild(\"Inventory\").getChild(\"Input\").getChild(\"Content\").getChild(\"InventorySelection\").props.value\n\t        label \u003d self.parent.parent.parent.getChild(\"Label\").getChild(\"Input\").getChild(\"Content\").getChild(\"TextField\").props.text\n\t        LabelCheck \u003d mes.trace.sp.getParts(Label \u003d label)\n\t        rows \u003d LabelCheck.getRowCount()\n\t        if rows \u003d\u003d 0:\n\t            ID \u003d 0\n\t        else:\n\t            ID \u003d LabelCheck.getValueAt(0,0)\n\t        if ID \u003e 0:\n\t            res \u003d mes.trace.sp.addPartToInventory(InventoryID, ID, InventoryLocation \u003d location)\n\t            system.perspective.print(res)\n\t\n\t            system.perspective.print(\"sending data\")\n\t            system.perspective.closePopup(self.view.params.ModalName)\n\t        else:\n\t            self.parent.parent.parent.getChild(\"Label\").getChild(\"Input\").getChild(\"Content\").getChild(\"TextField\").props.style.classes \u003d \u0027TextFields/TextFailure\u0027\n\t            self.parent.parent.parent.getChild(\"Location\").getChild(\"Input\").getChild(\"Content\").getChild(\"ValidationIcon\").position.display \u003d True\n\t            self.parent.parent.parent.getChild(\"Location\").getChild(\"Input\").getChild(\"ErrorValidation\").position.display \u003d True\n\t\n\t    messageType \u003d \u0027refreshTable\u0027\n\t    payload \u003d {}\n\t    system.perspective.sendMessage(messageType, payload, scope \u003d \u0027session\u0027)\n\texcept Exception as e:\n\t    msg \u003d \u0027There was an error: \u0027 + str(e)\n\t    logger.warn(msg)\n\t    raise e"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "SaveButton"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "props": {
+                  "params": {
+                    "Label": "Save",
+                    "backgroundColor": "value",
+                    "disabledPopup": {
+                      "message": "Please sign in as quarterback to proceed.",
+                      "messageType": "",
+                      "payload": {},
+                      "title": "Invalid Permissions"
+                    },
+                    "enabled": true,
+                    "hover": true,
+                    "iconPath": "material/add",
+                    "isSelectable": false,
+                    "label": "Add",
+                    "selected": true,
+                    "size": "142px",
+                    "type": "normalsuccess"
+                  },
+                  "path": "GlobalComponents/Buttons/Button",
+                  "style": {
+                    "marginRight": "8px"
+                  }
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "Save"
+            },
+            "position": {
+              "basis": "50%",
+              "grow": 1
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\tsystem.perspective.closePopup(self.view.params.ModalName)"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "CancelButton"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "props": {
+                  "params": {
+                    "IconPath": "material/cancel",
+                    "Label": "Cancel",
+                    "backgroundColor": "value",
+                    "disabledPopup": {
+                      "message": "Please sign in as quarterback to proceed.",
+                      "messageType": "",
+                      "payload": {},
+                      "title": "Invalid Permissions"
+                    },
+                    "enabled": true,
+                    "hover": true,
+                    "isSelectable": false,
+                    "label": "Cancel",
+                    "selected": true,
+                    "size": "value",
+                    "type": "normalfail"
+                  },
+                  "path": "GlobalComponents/Buttons/Button"
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "Cancel"
+            },
+            "position": {
+              "basis": "50%",
+              "grow": 1
+            },
+            "props": {
+              "direction": "column"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Footer"
+        },
+        "position": {
+          "grow": 1
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "classes": "Global/MarginAll"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

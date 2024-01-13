@@ -1,0 +1,267 @@
+{
+  "custom": {},
+  "params": {
+    "EqPath": "",
+    "State": "",
+    "TagProvider": ""
+  },
+  "propConfig": {
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.State": {
+      "paramDirection": "output",
+      "persistent": true
+    },
+    "params.TagProvider": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 246,
+      "width": 421
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "OeeGauge"
+        },
+        "position": {
+          "basis": "100px",
+          "grow": 1,
+          "shrink": 0
+        },
+        "propConfig": {
+          "props.params.EqPath": {
+            "binding": {
+              "config": {
+                "path": "view.params.EqPath"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "params": {
+            "State": ""
+          },
+          "path": "GlobalComponents/Objects/Gauges/OEE/OEEGauge",
+          "style": {
+            "classes": "Global/MarginRight"
+          }
+        },
+        "type": "ia.display.view"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "ProductionTotals"
+            },
+            "position": {
+              "basis": "150px",
+              "grow": 1
+            },
+            "propConfig": {
+              "props.params.currentRun.maxValue": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.productionTotals.currentRun.maxValue"
+                  },
+                  "overlayOptOut": true,
+                  "type": "property"
+                }
+              },
+              "props.params.currentRun.rangeHi": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.productionTotals.currentRun.maxValue"
+                  },
+                  "overlayOptOut": true,
+                  "type": "property"
+                }
+              },
+              "props.params.currentRun.units": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.productionTotals.currentRun.units"
+                  },
+                  "overlayOptOut": true,
+                  "type": "property"
+                }
+              },
+              "props.params.currentRun.value": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.productionTotals.currentRun.value"
+                  },
+                  "overlayOptOut": true,
+                  "type": "property"
+                }
+              },
+              "props.params.currentShift.maxValue": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.productionTotals.currentShift.maxValue"
+                  },
+                  "overlayOptOut": true,
+                  "type": "property"
+                }
+              },
+              "props.params.currentShift.rangeHi": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.productionTotals.currentShift.maxValue"
+                  },
+                  "overlayOptOut": true,
+                  "type": "property"
+                }
+              },
+              "props.params.currentShift.units": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.productionTotals.currentShift.units"
+                  },
+                  "overlayOptOut": true,
+                  "type": "property"
+                }
+              },
+              "props.params.currentShift.value": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.productionTotals.currentShift.value"
+                  },
+                  "overlayOptOut": true,
+                  "type": "property"
+                }
+              },
+              "props.params.shiftStartTime": {
+                "binding": {
+                  "config": {
+                    "expression": "dateFormat({view.custom.productionTotals.shiftStartTime}, \u0027yyyy-MM-dd hh:mm:ss a\u0027)"
+                  },
+                  "type": "expr"
+                }
+              },
+              "props.params.startTime": {
+                "binding": {
+                  "config": {
+                    "expression": "dateFormat({view.custom.productionTotals.startTime}, \u0027yyyy-MM-dd hh:mm:ss a\u0027)"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "currentRun": {
+                  "desiredVisible": false,
+                  "minValue": 0,
+                  "title": "Current Run"
+                },
+                "currentShift": {
+                  "desiredVisible": false,
+                  "minValue": 0,
+                  "title": "Current Shift"
+                },
+                "width": 250
+              },
+              "path": "GlobalComponents/Objects/Indicator/Embedded/ProductionTotals",
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "Downtime"
+            },
+            "position": {
+              "basis": "50%",
+              "grow": 1,
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.params.instances": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.breakdowns.instances"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "header": "Top 5 Breakdowns"
+              },
+              "path": "GlobalComponents/Objects/Indicator/Embedded/stackedHorizontalBarChartMMA"
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "ProductionInfo"
+        },
+        "position": {
+          "basis": "100px",
+          "display": false,
+          "grow": 2,
+          "shrink": 0
+        },
+        "props": {
+          "direction": "column"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "CurrentRun"
+            },
+            "position": {
+              "basis": "228px"
+            },
+            "propConfig": {
+              "props.params.EqPath": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.EqPath"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "path": "GlobalComponents/Widgets/Embedded/OrderInformation"
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "RunInfo"
+        },
+        "position": {
+          "basis": "100px",
+          "grow": 2,
+          "shrink": 0
+        },
+        "props": {
+          "direction": "column"
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.flex"
+  }
+}

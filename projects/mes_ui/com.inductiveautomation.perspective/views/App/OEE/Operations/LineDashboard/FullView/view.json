@@ -1,0 +1,2217 @@
+{
+  "custom": {
+    "AvailableWidgets": "",
+    "CurrentRunningWorkOrder": "1NL7148",
+    "Dashboards": {
+      "$": [
+        "ds",
+        192,
+        1703189953809
+      ],
+      "$columns": [
+        {
+          "data": [
+            "[{\"isConfigurable\":false,\"name\":\"Downtime\",\"header\":{\"style\":{\"classes\":\"\"},\"title\":\"\",\"enabled\":false},\"minSize\":{\"columnSpan\":1,\"rowSpan\":1},\"style\":{\"classes\":\"\"},\"position\":{\"columnEnd\":3,\"columnStart\":1,\"rowStart\":1,\"rowEnd\":3},\"body\":{\"style\":{\"classes\":\"\"}},\"viewParams\":{\"Type\":\"value\",\"State\":\"value\",\"EqPath\":\"Fiberon/1NL/PE Extrusion/Line 24\"},\"viewPath\":\"GlobalComponents/Widgets/DownTimeWidget\"},{\"isConfigurable\":false,\"name\":\"Last Five Calls\",\"header\":{\"style\":{\"classes\":\"\"},\"title\":\"\",\"enabled\":false},\"minSize\":{\"columnSpan\":1,\"rowSpan\":1},\"style\":{\"classes\":\"\"},\"position\":{\"columnEnd\":5,\"columnStart\":1,\"rowStart\":3,\"rowEnd\":7},\"body\":{\"style\":{\"classes\":\"\"}},\"viewParams\":{\"State\":\"value\",\"EqPath\":\"Fiberon/1NL/PE Extrusion/Line 24\"},\"viewPath\":\"GlobalComponents/Widgets/CurrentCallsWidget\"},{\"isConfigurable\":false,\"name\":\"Recent Downtime Events Composite\",\"header\":{\"style\":{\"classes\":\"\"},\"title\":\"\",\"enabled\":false},\"minSize\":{\"columnSpan\":1,\"rowSpan\":1},\"style\":{\"classes\":\"\"},\"position\":{\"columnEnd\":5,\"columnStart\":1,\"rowStart\":7,\"rowEnd\":11},\"body\":{\"style\":{\"classes\":\"\"}},\"viewParams\":{\"Type\":\"\",\"Title\":\"Recent Downtime Events Composite\",\"EqPath\":\"Fiberon/1NL/PE Extrusion/Line 24\"},\"viewPath\":\"GlobalComponents/Widgets/RecentDowntimeWidgetComposite\"},{\"isConfigurable\":false,\"name\":\"Break Widget\",\"header\":{\"style\":{\"classes\":\"\"},\"title\":\"\",\"enabled\":false},\"minSize\":{\"columnSpan\":1,\"rowSpan\":1},\"style\":{\"classes\":\"\"},\"position\":{\"columnEnd\":4,\"columnStart\":3,\"rowStart\":1,\"rowEnd\":3},\"viewParams\":{\"EqPath\":\"Fiberon/1NL/PE Extrusion/Line 24\"},\"body\":{\"style\":{\"classes\":\"\"}},\"viewPath\":\"GlobalComponents/Widgets/BreakWidget\"}]"
+          ],
+          "name": "LeftDashboard",
+          "type": "String"
+        },
+        {
+          "data": [
+            "[{\"isConfigurable\":false,\"name\":\"Job Count\",\"header\":{\"style\":{\"classes\":\"\"},\"title\":\"\",\"enabled\":false},\"minSize\":{\"columnSpan\":1,\"rowSpan\":1},\"style\":{\"classes\":\"\"},\"position\":{\"columnEnd\":3,\"columnStart\":1,\"rowStart\":1,\"rowEnd\":3},\"body\":{\"style\":{\"classes\":\"\"}},\"viewParams\":{\"Type\":\"GoodParts\",\"UoM\":\"pcs\",\"State\":\"value\",\"Title\":\"Job Count\",\"EqPath\":\"Fiberon/1NL/PE Extrusion/Line 24\"},\"viewPath\":\"GlobalComponents/Widgets/JobCountWidget\"},{\"isConfigurable\":false,\"name\":\"Scrap Analysis\",\"header\":{\"style\":{\"classes\":\"\"},\"title\":\"\",\"enabled\":false},\"minSize\":{\"columnSpan\":1,\"rowSpan\":3},\"style\":{\"classes\":\"\"},\"position\":{\"columnEnd\":3,\"columnStart\":1,\"rowStart\":3,\"rowEnd\":6},\"body\":{\"style\":{\"classes\":\"\"}},\"viewParams\":{\"State\":\"value\",\"EqPath\":\"Fiberon/1NL/PE Extrusion/Line 24\"},\"viewPath\":\"GlobalComponents/Widgets/ScrapWidget\"},{\"isConfigurable\":false,\"name\":\"Job Count\",\"header\":{\"style\":{\"classes\":\"\"},\"title\":\"\",\"enabled\":false},\"minSize\":{\"columnSpan\":1,\"rowSpan\":1},\"style\":{\"classes\":\"\"},\"position\":{\"columnEnd\":3,\"columnStart\":1,\"rowStart\":10,\"rowEnd\":12},\"body\":{\"style\":{\"classes\":\"\"}},\"viewParams\":{\"Type\":\"GoodParts\",\"UoM\":\"pcs\",\"State\":\"value\",\"Title\":\"Job Count\",\"EqPath\":\"Fiberon/1NL/PE Extrusion/Line 24\"},\"viewPath\":\"GlobalComponents/Widgets/JobCountWidget\"},{\"isConfigurable\":false,\"name\":\"Recent Downtime Events\",\"header\":{\"style\":{\"classes\":\"\"},\"title\":\"\",\"enabled\":false},\"minSize\":{\"columnSpan\":1,\"rowSpan\":1},\"style\":{\"classes\":\"\"},\"position\":{\"columnEnd\":5,\"columnStart\":1,\"rowStart\":6,\"rowEnd\":10},\"body\":{\"style\":{\"classes\":\"\"}},\"viewParams\":{\"Type\":\"\",\"Title\":\"Recent Downtime Events\",\"EqPath\":\"Fiberon/1NL/PE Extrusion/Line 24\"},\"viewPath\":\"GlobalComponents/Widgets/RecentDowntimeWidget\"}]"
+          ],
+          "name": "RightDashboard",
+          "type": "String"
+        },
+        {
+          "data": [
+            5
+          ],
+          "name": "LineID",
+          "type": "Integer"
+        }
+      ]
+    },
+    "EqPath": "Fiberon/1NL/PE Extrusion/Line 23",
+    "LineMode": 11,
+    "LineState": 1,
+    "Modes": [
+      {
+        "Description": "Change Over",
+        "ReasonCode": 2
+      },
+      {
+        "Description": "Disabled",
+        "ReasonCode": 0
+      },
+      {
+        "Description": "Production",
+        "ReasonCode": 1
+      },
+      {
+        "Description": "Idle",
+        "ReasonCode": 3
+      },
+      {
+        "Description": "Maintenance Called",
+        "ReasonCode": 10
+      },
+      {
+        "Description": "Maintenace In Progress",
+        "ReasonCode": 11
+      },
+      {
+        "Description": "Maintenace Left",
+        "ReasonCode": 12
+      },
+      {
+        "Description": "Quality Called",
+        "ReasonCode": 20
+      },
+      {
+        "Description": "Quality In Progress",
+        "ReasonCode": 21
+      },
+      {
+        "Description": "Team Lead Called",
+        "ReasonCode": 30
+      },
+      {
+        "Description": "Team Lead In Progress",
+        "ReasonCode": 31
+      },
+      {
+        "Description": "Team Lead Left",
+        "ReasonCode": 32
+      }
+    ],
+    "RunID": 32
+  },
+  "events": {
+    "system": {
+      "onStartup": [
+        {
+          "config": {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "display": "visible",
+            "handle": "hide",
+            "handleIcon": "",
+            "id": "topHeader",
+            "modal": false,
+            "resizable": false,
+            "size": 50,
+            "view": "GlobalComponents/Header/View",
+            "viewParams": {
+              "SecondaryView": "GlobalComponents/Header/Operator/FullView",
+              "alarmBar": true,
+              "navBar": true
+            }
+          },
+          "enabled": false,
+          "scope": "C",
+          "type": "alter-dock"
+        },
+        {
+          "config": {
+            "anchor": "fixed",
+            "autoBreakpoint": 480,
+            "content": "push",
+            "display": "visible",
+            "handle": "hide",
+            "handleIcon": "",
+            "id": "sideBar",
+            "modal": false,
+            "resizable": false,
+            "size": 0,
+            "view": "GlobalComponents/SideBar/View",
+            "viewParams": {
+              "Path": "GlobalComponents/SideBar/SideBar"
+            }
+          },
+          "enabled": false,
+          "scope": "C",
+          "type": "alter-dock"
+        },
+        {
+          "config": {
+            "script": "#\toperatorDockPath \u003d \u0027GlobalComponents/Header/Operator/FullView\u0027\n#\toperatorSideBarPath \u003d \u0027GlobalComponents/SideBar/OperatorSideBar\u0027\n#\t\n#\tsystem.perspective.alterDock(\u0027sideBar\u0027, {\n#\t\t\u0027viewParams\u0027: { \u0027Path\u0027: operatorSideBarPath }\n#\t})\n#\t\n#\tsystem.perspective.alterDock(\u0027topHeader\u0027, {\n#\t\t\u0027viewParams\u0027: { \u0027SecondaryView\u0027: operatorDockPath }\n#\t})\n\n\tsystem.perspective.closeDock(\u0027sideBar\u0027)\n"
+          },
+          "enabled": false,
+          "scope": "G",
+          "type": "script"
+        },
+        {
+          "config": {
+            "script": "\timport time\n\ttime.sleep(0.35)\n\tsystem.perspective.sendMessage(\u0027refreshDashboardEqPath\u0027)\n\t#self.refreshBinding(\u0027custom.Dashboards\u0027)"
+          },
+          "scope": "G",
+          "type": "script"
+        }
+      ]
+    }
+  },
+  "params": {},
+  "permissions": {
+    "securityLevels": [
+      {
+        "children": [
+          {
+            "children": [],
+            "name": "Roles"
+          }
+        ],
+        "name": "Authenticated"
+      }
+    ],
+    "type": "AnyOf"
+  },
+  "propConfig": {
+    "custom.AvailableWidgets": {
+      "persistent": true
+    },
+    "custom.CurrentRunningWorkOrder": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.custom.EqPath}"
+          },
+          "tagPath": "{1}/jobs/currentJob/workOrder"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.Dashboards": {
+      "binding": {
+        "config": {
+          "parameters": {
+            "userName": "{session.custom.UserName}"
+          },
+          "queryPath": "app/Operations/Dashboard/getOperatorDashboard"
+        },
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "custom.EqPath": {
+      "binding": {
+        "config": {
+          "path": "session.custom.EqPath"
+        },
+        "type": "property"
+      },
+      "onChange": {
+        "enabled": null,
+        "script": "\tif previousValue !\u003d currentValue:\n\t\ttry:\n\t\t\tleftDashboard \u003d self.getChild(\"root/Row1/Col1/Dashboard\").props.params.SelectedWidgets\n\t\t\trightDashboard \u003d self.getChild(\"root/Row1/Col3/Dashboard\").props.params.SelectedWidgets\n\t\t\t\n\t\t\tfor dashboard in leftDashboard: dashboard[\"viewParams\"][\"EqPath\"] \u003d currentValue\n\t\t\t\t\n\t\t\tfor dashboard in rightDashboard: dashboard[\"viewParams\"][\"EqPath\"] \u003d currentValue\n\t\texcept Exception as e:\n\t\t\tsystem.perspective.print(str(e))"
+      },
+      "persistent": true
+    },
+    "custom.LineMode": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.custom.EqPath}"
+          },
+          "tagPath": "{1}/OEE_Events/mode"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.LineState": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.custom.EqPath}"
+          },
+          "tagPath": "{1}/OEE_Events/state"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.Modes": {
+      "binding": {
+        "config": {
+          "path": "session.custom.Modes"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.RunID": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.custom.EqPath}"
+          },
+          "tagPath": "{1}/jobs/currentJob/runId"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 1022,
+      "width": 1636
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "events": {
+                  "system": {
+                    "onStartup": {
+                      "config": {
+                        "script": "\timport time\n\ttime.sleep(0.25)\n\t\n\ttry:\n\t\twidgets \u003d self.props.params.SelectedWidgets\n\t\tsystem.perspective.print(widgets)\n\t\tfor widget in widgets: widget[\u0027viewParams\u0027][\u0027EqPath\u0027] \u003d self.view.custom.EqPath\n\texcept Exception as e:\n\t\tsystem.perspective.print(str(e))\n\t\n\tself.view.refreshBinding(\u0027custom.Dashboards\u0027)"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "Dashboard"
+                },
+                "position": {
+                  "basis": "320px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.EqPath"
+                      },
+                      "type": "property"
+                    }
+                  },
+                  "props.params.SelectedWidgets": {
+                    "binding": {
+                      "config": {
+                        "expression": "try(\r\n\trunScript(\"gpa.frontEnd.localUI.getDashboardArray\", 0, {view.custom.Dashboards}, 0), \r\n-1)"
+                      },
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "path": "GlobalComponents/Widgets/Config/OperatorDashboard"
+                },
+                "scripts": {
+                  "customMethods": [],
+                  "extensionFunctions": null,
+                  "messageHandlers": [
+                    {
+                      "messageType": "resetDashboard",
+                      "pageScope": true,
+                      "script": "\t# implement your handler here\n\tself.props.params.SelectedWidgets \u003d []",
+                      "sessionScope": false,
+                      "viewScope": false
+                    },
+                    {
+                      "messageType": "saveDashboard",
+                      "pageScope": true,
+                      "script": "\t# implement your handler here\n\tqueryPath \u003d \u0027app/Operations/Dashboard/saveOperatorDashboard\u0027\n\tleftDashboard \u003d system.util.jsonEncode(self.props.params.SelectedWidgets) \n\trightDashboard \u003d system.util.jsonEncode(self.parent.parent.getChild(\"Col3/Dashboard\").props.params.SelectedWidgets) \n\tuserName \u003d self.session.custom.UserName\n\tlineID \u003d self.session.custom.LineID\n\t\n\tparams \u003d {\n\t\t\u0027userName\u0027: userName,\n\t\t\u0027rightDashboard\u0027: rightDashboard,\n\t\t\u0027leftDashboard\u0027: leftDashboard,\n\t\t\u0027lineID\u0027: lineID\n\t}\n\tsystem.perspective.print(params)\n\tres \u003d system.db.runNamedQuery(queryPath, params)\n\t\t\n\tif res is -1:\n\t\tmodalPath \u003d \u0027GlobalComponents/Modals/Modal\u0027\n\t\tparams \u003d {\n\t\t\t\u0027Message\u0027: \u0027Saved dashboard succesfully\u0027,\n\t\t\t\u0027ModalName\u0027: \u0027savedDashboard\u0027,\n\t\t\t\u0027Title\u0027: \u0027Saved Dashboard!\u0027\n\t\t}\n\t\t\n\t\tsystem.perspective.openPopup(\u0027savedDashboard\u0027, modalPath, params\u003dparams, showCloseIcon \u003d False, modal \u003d True, draggable\u003dFalse)\n\n\t\t",
+                      "sessionScope": true,
+                      "viewScope": true
+                    },
+                    {
+                      "messageType": "refreshDashboardEqPath",
+                      "pageScope": true,
+                      "script": "\twidgets \u003d self.props.params.SelectedWidgets\n\t\n\tfor widget in widgets:\n\t\twidget[\"viewParams\"][\"EqPath\"] \u003d self.view.custom.EqPath",
+                      "sessionScope": false,
+                      "viewScope": false
+                    }
+                  ]
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "Col1"
+            },
+            "position": {
+              "basis": "30%",
+              "grow": 1,
+              "shrink": 0
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "StateTimeline"
+                },
+                "position": {
+                  "basis": "130px",
+                  "display": false
+                },
+                "propConfig": {
+                  "props.params.Params.TagPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.EqPath"
+                      },
+                      "type": "property"
+                    }
+                  },
+                  "props.params.Params.TagProvider": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.TagProvider"
+                      },
+                      "enabled": false,
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "HideTitle": false,
+                    "Icon": "",
+                    "IconDisplay": true,
+                    "Params": {
+                      "State": "value",
+                      "TagProvider": null
+                    },
+                    "Path": "App/OEE/Operations/LineDashboard/Embedded/StateTimeline",
+                    "Provider": "value",
+                    "SizeBasis": "value",
+                    "TagPath": "value",
+                    "Title": "State Timeline",
+                    "Type": "value",
+                    "useDefaultHeight": true,
+                    "useDefaultWidth": false
+                  },
+                  "path": "GlobalComponents/Cards/Card"
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "meta": {
+                  "name": "ProductionCarousel"
+                },
+                "position": {
+                  "basis": "35%",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.params.Params.TagPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.EqPath"
+                      },
+                      "type": "property"
+                    }
+                  },
+                  "props.params.Params.TagProvider": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.TagProvider"
+                      },
+                      "enabled": false,
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "HideTitle": false,
+                    "Icon": "",
+                    "IconDisplay": true,
+                    "Params": {
+                      "State": "value",
+                      "TagProvider": null
+                    },
+                    "Path": "App/OEE/Operations/LineDashboard/Embedded/ProductionChartCarousel",
+                    "Provider": "value",
+                    "SizeBasis": "value",
+                    "TagPath": "value",
+                    "Title": "Shift Production",
+                    "Type": "value",
+                    "useDefaultHeight": false,
+                    "useDefaultWidth": false
+                  },
+                  "path": "GlobalComponents/Cards/Card",
+                  "style": {
+                    "classes": "Global/MarginBottom"
+                  }
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "meta": {
+                  "name": "Pareto"
+                },
+                "position": {
+                  "basis": "44.2%",
+                  "display": false,
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.params.Params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.EqPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "HideTitle": false,
+                    "Icon": "",
+                    "IconDisplay": true,
+                    "Params": {
+                      "State": "value"
+                    },
+                    "Path": "GlobalComponents/Charts/ParetoProdChart",
+                    "Provider": "value",
+                    "SizeBasis": "value",
+                    "TagPath": "value",
+                    "Title": "Shift Production",
+                    "Type": "value",
+                    "useDefaultHeight": false,
+                    "useDefaultWidth": false
+                  },
+                  "path": "GlobalComponents/Cards/CardChart",
+                  "style": {
+                    "classes": "Global/MarginBottom"
+                  }
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "CarouselCard"
+                    },
+                    "position": {
+                      "basis": "320px",
+                      "grow": 1
+                    },
+                    "propConfig": {
+                      "props.params.Params.ActivePane": {
+                        "binding": {
+                          "config": {
+                            "path": "view.custom.LineState"
+                          },
+                          "transforms": [
+                            {
+                              "expression": "if({value} \u003d 1, 0, 1)",
+                              "type": "expression"
+                            }
+                          ],
+                          "type": "property"
+                        }
+                      },
+                      "props.params.Params.EqPath": {
+                        "binding": {
+                          "config": {
+                            "path": "view.custom.EqPath"
+                          },
+                          "type": "property"
+                        }
+                      },
+                      "props.params.Title": {
+                        "binding": {
+                          "config": {
+                            "path": "this.props.params.Params.ActivePane"
+                          },
+                          "transforms": [
+                            {
+                              "fallback": "Order Info",
+                              "inputType": "scalar",
+                              "mappings": [
+                                {
+                                  "input": 0,
+                                  "output": "Order Info"
+                                },
+                                {
+                                  "input": 1,
+                                  "output": "Current Event"
+                                }
+                              ],
+                              "outputType": "scalar",
+                              "type": "map"
+                            }
+                          ],
+                          "type": "property"
+                        }
+                      }
+                    },
+                    "props": {
+                      "params": {
+                        "EqPath": "value",
+                        "HideTitle": false,
+                        "Icon": "",
+                        "IconDisplay": true,
+                        "Params": {
+                          "State": "value"
+                        },
+                        "Path": "App/OEE/Operations/LineDashboard/Embedded/CarouselView",
+                        "Provider": "value",
+                        "SizeBasis": "value",
+                        "TagPath": "value",
+                        "Type": "value",
+                        "useDefaultHeight": false,
+                        "useDefaultWidth": false
+                      },
+                      "path": "GlobalComponents/Cards/Card"
+                    },
+                    "scripts": {
+                      "customMethods": [],
+                      "extensionFunctions": null,
+                      "messageHandlers": [
+                        {
+                          "messageType": "productionChange",
+                          "pageScope": true,
+                          "script": "\ttagPath \u003d self.view.custom.EqPath\n\tmode \u003d mes.oee.mode.getMode(tagPath) \n\tsystem.perspective.print(mode)\n\t\n\tif mode \u003d\u003d 1: self.props.params.Params.ActivePane \u003d 0\n\telse: self.props.params.Params.ActivePane \u003d 1",
+                          "sessionScope": false,
+                          "viewScope": false
+                        }
+                      ]
+                    },
+                    "type": "ia.display.view"
+                  }
+                ],
+                "meta": {
+                  "name": "Carousel"
+                },
+                "position": {
+                  "basis": "295.5px"
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginBottom"
+                  }
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "AQPCard"
+                    },
+                    "position": {
+                      "grow": 1
+                    },
+                    "propConfig": {
+                      "props.params.Params.EqPath": {
+                        "binding": {
+                          "config": {
+                            "path": "view.custom.EqPath"
+                          },
+                          "type": "property"
+                        }
+                      }
+                    },
+                    "props": {
+                      "params": {
+                        "EqPath": "value",
+                        "HideTitle": true,
+                        "Icon": "",
+                        "IconDisplay": true,
+                        "Params": {
+                          "OEEValue": 0.972793,
+                          "State": "",
+                          "Thickness": 8
+                        },
+                        "Path": "GlobalComponents/Objects/Gauges/OEE/AQPCombined",
+                        "Provider": "value",
+                        "SizeBasis": "value",
+                        "TagPath": "value",
+                        "Title": "OEE, AQP Info",
+                        "Type": "",
+                        "useDefaultHeight": false,
+                        "useDefaultWidth": false
+                      },
+                      "path": "GlobalComponents/Cards/Card"
+                    },
+                    "type": "ia.display.view"
+                  }
+                ],
+                "meta": {
+                  "name": "Metrics"
+                },
+                "position": {
+                  "basis": "150px"
+                },
+                "type": "ia.container.flex"
+              }
+            ],
+            "meta": {
+              "name": "Col2"
+            },
+            "position": {
+              "basis": "40%",
+              "shrink": 0
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "events": {
+                  "system": {
+                    "onStartup": {
+                      "config": {
+                        "script": "\ttry:\n\t\twidgets \u003d self.props.params.SelectedWidgets\n\t\t\t\n\t\tfor widget in widgets: widget[\u0027viewParams\u0027][\u0027EqPath\u0027] \u003d self.view.custom.EqPath\t\n\texcept Exception as e:\n\t\tsystem.perspective.print(str(e))"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "Dashboard"
+                },
+                "position": {
+                  "basis": "320px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.EqPath"
+                      },
+                      "type": "property"
+                    }
+                  },
+                  "props.params.SelectedWidgets": {
+                    "binding": {
+                      "config": {
+                        "expression": "try(\r\n\trunScript(\"gpa.frontEnd.localUI.getDashboardArray\", 0, {view.custom.Dashboards}, 1),\r\n\t-1\r\n)"
+                      },
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "path": "GlobalComponents/Widgets/Config/OperatorDashboard",
+                  "style": {
+                    "classes": "Global/MarginAllRight"
+                  }
+                },
+                "scripts": {
+                  "customMethods": [],
+                  "extensionFunctions": null,
+                  "messageHandlers": [
+                    {
+                      "messageType": "resetDashboard",
+                      "pageScope": true,
+                      "script": "\t# implement your handler here\n\tself.props.params.SelectedWidgets \u003d []",
+                      "sessionScope": false,
+                      "viewScope": false
+                    },
+                    {
+                      "messageType": "refreshDashboardEqPath",
+                      "pageScope": true,
+                      "script": "\twidgets \u003d self.props.params.SelectedWidgets\n\t\t\n\tfor widget in widgets:\n\t\twidget[\"viewParams\"][\"EqPath\"] \u003d self.view.custom.EqPath",
+                      "sessionScope": false,
+                      "viewScope": false
+                    }
+                  ]
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "Col3"
+            },
+            "position": {
+              "basis": "30%",
+              "shrink": 0
+            },
+            "props": {
+              "direction": "column"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Row1"
+        },
+        "position": {
+          "grow": 1
+        },
+        "props": {
+          "style": {
+            "overflow": "visible"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "script": "\t\n\tsystem.perspective.navigate(\u0027/operations/fb_schedule\u0027)"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "ToSchedule"
+                    },
+                    "position": {
+                      "basis": "100px",
+                      "shrink": 0
+                    },
+                    "props": {
+                      "params": {
+                        "disabledPopup": {
+                          "message": "Please sign in as quarterback to proceed.",
+                          "messageType": "",
+                          "payload": {},
+                          "title": "Invalid Permissions"
+                        },
+                        "enabled": true,
+                        "hover": true,
+                        "iconPath": "material/save",
+                        "isSelectable": false,
+                        "label": "Go To Schedule",
+                        "selected": true
+                      },
+                      "path": "GlobalComponents/Buttons/ButtonNoIcon",
+                      "style": {
+                        "marginLeft": "0.5em",
+                        "marginRight": "0.5em"
+                      }
+                    },
+                    "type": "ia.display.view"
+                  },
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "draggable": true,
+                            "id": "jobSetup",
+                            "modal": false,
+                            "overlayDismiss": false,
+                            "resizable": true,
+                            "showCloseIcon": false,
+                            "title": "Job Setup",
+                            "type": "open",
+                            "viewParams": {
+                              "ModalName": "jobSetup"
+                            },
+                            "viewPath": "App/OEE/Operations/LineDashboard/Schedule/Embedded/Popups/JobSetup",
+                            "viewportBound": false
+                          },
+                          "preventDefault": true,
+                          "scope": "C",
+                          "type": "popup"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "RunSetup"
+                    },
+                    "position": {
+                      "basis": "100px",
+                      "shrink": 0
+                    },
+                    "propConfig": {
+                      "position.display": {
+                        "binding": {
+                          "config": {
+                            "path": "view.custom.nextJob"
+                          },
+                          "overlayOptOut": true,
+                          "transforms": [
+                            {
+                              "expression": "{value} !\u003d \u0027\u0027",
+                              "type": "expression"
+                            }
+                          ],
+                          "type": "property"
+                        }
+                      }
+                    },
+                    "props": {
+                      "params": {
+                        "disabledPopup": {
+                          "message": "Please sign in as quarterback to proceed.",
+                          "messageType": "",
+                          "payload": {},
+                          "title": "Invalid Permissions"
+                        },
+                        "enabled": true,
+                        "hover": false,
+                        "iconPath": "material/save",
+                        "isSelectable": false,
+                        "label": "Go To Run Setup",
+                        "selected": true
+                      },
+                      "path": "GlobalComponents/Buttons/ButtonNoIcon",
+                      "style": {
+                        "marginLeft": "0.5em",
+                        "marginRight": "0.5em"
+                      }
+                    },
+                    "type": "ia.display.view"
+                  }
+                ],
+                "meta": {
+                  "name": "Left"
+                },
+                "position": {
+                  "basis": "280px"
+                },
+                "props": {
+                  "style": {
+                    "overflow": "hidden"
+                  }
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "children": [
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": [
+                          {
+                            "config": {
+                              "draggable": true,
+                              "id": "scrapModal",
+                              "modal": true,
+                              "overlayDismiss": false,
+                              "resizable": false,
+                              "showCloseIcon": true,
+                              "title": "Scrap Selector",
+                              "type": "toggle",
+                              "viewParams": {
+                                "ModalName": "scrapModal"
+                              },
+                              "viewPath": "App/OEE/Operations/LineDashboard/Popups/RecordScrap/FullView",
+                              "viewportBound": false
+                            },
+                            "enabled": false,
+                            "scope": "C",
+                            "type": "popup"
+                          },
+                          {
+                            "config": {
+                              "script": "\tif self.props.params.enabled:\n\t\tviewPath \u003d \u0027App/OEE/Operations/LineDashboard/Popups/RecordScrap/FullView\u0027\n\t\tparams \u003d {}\n\t\t\n\n\t\tsystem.perspective.openPopup(\u0027scrapReason\u0027, viewPath, params\u003dparams, title\u003d\u0027Scrap Reason\u0027, overlayDismiss\u003dTrue, modal\u003dTrue)\t"
+                            },
+                            "scope": "G",
+                            "type": "script"
+                          }
+                        ]
+                      }
+                    },
+                    "meta": {
+                      "name": "RecordScrap"
+                    },
+                    "position": {
+                      "basis": "100px",
+                      "shrink": 0
+                    },
+                    "props": {
+                      "params": {
+                        "disabledPopup": {
+                          "message": "Please start a run before assigning scrap.",
+                          "messageType": "",
+                          "payload": {},
+                          "title": "No Current Run"
+                        },
+                        "enabled": true,
+                        "hover": false,
+                        "iconPath": "material/save",
+                        "isSelectable": false,
+                        "label": "Record Scrap",
+                        "selected": true
+                      },
+                      "path": "GlobalComponents/Buttons/ButtonNoIcon",
+                      "style": {
+                        "marginLeft": "0.5em",
+                        "marginRight": "0.5em"
+                      }
+                    },
+                    "type": "ia.display.view"
+                  },
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "draggable": false,
+                            "id": "troubleCall",
+                            "modal": true,
+                            "overlayDismiss": true,
+                            "resizable": false,
+                            "showCloseIcon": false,
+                            "type": "open",
+                            "viewPath": "app/operator/main/modals/troubleCall/mainView"
+                          },
+                          "scope": "C",
+                          "type": "popup"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "TroubleCall"
+                    },
+                    "position": {
+                      "basis": "100px",
+                      "display": false,
+                      "shrink": 0
+                    },
+                    "props": {
+                      "params": {
+                        "disabledPopup": {
+                          "message": "Please sign in as quarterback to proceed.",
+                          "messageType": "",
+                          "payload": {},
+                          "title": "Invalid Permissions"
+                        },
+                        "enabled": true,
+                        "hover": false,
+                        "iconPath": "material/save",
+                        "isSelectable": false,
+                        "label": "Trouble Call",
+                        "selected": true
+                      },
+                      "path": "GlobalComponents/Buttons/ButtonNoIcon",
+                      "style": {
+                        "marginLeft": "0.5em",
+                        "marginRight": "0.5em"
+                      }
+                    },
+                    "type": "ia.display.view"
+                  },
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "draggable": false,
+                            "id": "people",
+                            "modal": true,
+                            "overlayDismiss": true,
+                            "resizable": false,
+                            "showCloseIcon": false,
+                            "type": "toggle",
+                            "viewPath": "app/operator/main/modals/people"
+                          },
+                          "scope": "C",
+                          "type": "popup"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "People"
+                    },
+                    "position": {
+                      "basis": "100px",
+                      "display": false,
+                      "shrink": 0
+                    },
+                    "props": {
+                      "params": {
+                        "disabledPopup": {
+                          "message": "Please sign in as quarterback to proceed.",
+                          "messageType": "",
+                          "payload": {},
+                          "title": "Invalid Permissions"
+                        },
+                        "enabled": true,
+                        "hover": true,
+                        "iconPath": "material/save",
+                        "isSelectable": false,
+                        "label": "People",
+                        "selected": true
+                      },
+                      "path": "GlobalComponents/Buttons/ButtonNoIcon",
+                      "style": {
+                        "marginLeft": "0.5em",
+                        "marginRight": "0.5em"
+                      }
+                    },
+                    "type": "ia.display.view"
+                  },
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "draggable": false,
+                            "id": "cavitation",
+                            "modal": true,
+                            "overlayDismiss": true,
+                            "resizable": false,
+                            "showCloseIcon": false,
+                            "type": "toggle",
+                            "viewPath": "app/operator/main/modals/cavitation"
+                          },
+                          "scope": "C",
+                          "type": "popup"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "Cavitation"
+                    },
+                    "position": {
+                      "basis": "100px",
+                      "shrink": 0
+                    },
+                    "propConfig": {
+                      "position.display": {
+                        "binding": {
+                          "config": {
+                            "expression": "{view.custom.area} \u003d \u0027Molding\u0027"
+                          },
+                          "type": "expr"
+                        }
+                      }
+                    },
+                    "props": {
+                      "params": {
+                        "disabledPopup": {
+                          "message": "Please sign in as quarterback to proceed.",
+                          "messageType": "",
+                          "payload": {},
+                          "title": "Invalid Permissions"
+                        },
+                        "enabled": true,
+                        "hover": false,
+                        "iconPath": "material/save",
+                        "isSelectable": false,
+                        "label": "Caviation",
+                        "selected": true
+                      },
+                      "path": "GlobalComponents/Buttons/ButtonNoIcon",
+                      "style": {
+                        "marginLeft": "0.5em",
+                        "marginRight": "0.5em"
+                      }
+                    },
+                    "type": "ia.display.view"
+                  },
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "script": "\tif self.props.params.enabled:\n\t\tviewPath \u003d \u0027App/OEE/Operations/LineDashboard/Popups/WODetails/WorkOrderDetails\u0027\n\t\tparams \u003d {}\n\t\tparams[\u0027woNumber\u0027] \u003d 1\n\t\t\n\t\tid \u003d \u0027workOrderDetails\u0027\n\t\tsystem.perspective.openPopup(\u0027woDetailsPopup\u0027, viewPath, params\u003dparams, title\u003d\u0027Work Order Details\u0027, overlayDismiss\u003dTrue, modal\u003dTrue)\n#\t\tsystem.perspective.openPopup(id,viewPath,params,showCloseIcon\u003dFalse,draggable\u003dFalse,resizable\u003dFalse,modal\u003dTrue,overlayDismiss\u003dTrue)"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "OrderDetails"
+                    },
+                    "position": {
+                      "basis": "100px",
+                      "display": false,
+                      "shrink": 0
+                    },
+                    "props": {
+                      "params": {
+                        "disabledPopup": {
+                          "message": "Please start Planned Order to view details.",
+                          "messageType": "",
+                          "payload": {},
+                          "title": "No Planned Order"
+                        },
+                        "enabled": true,
+                        "hover": false,
+                        "iconPath": "material/save",
+                        "isSelectable": false,
+                        "label": "Order Details",
+                        "selected": true
+                      },
+                      "path": "GlobalComponents/Buttons/ButtonNoIcon",
+                      "style": {
+                        "marginLeft": "0.5em",
+                        "marginRight": "0.5em"
+                      }
+                    },
+                    "type": "ia.display.view"
+                  },
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "draggable": false,
+                            "id": "instructionsViewer",
+                            "modal": true,
+                            "overlayDismiss": true,
+                            "resizable": false,
+                            "showCloseIcon": true,
+                            "type": "toggle",
+                            "viewParams": {
+                              "imgFilePath": "{view.custom.imgPalletStacking}"
+                            },
+                            "viewPath": "app/operator/main/modals/instructionsViewer"
+                          },
+                          "scope": "C",
+                          "type": "popup"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "PalletStacking"
+                    },
+                    "position": {
+                      "basis": "100px",
+                      "shrink": 0
+                    },
+                    "propConfig": {
+                      "position.display": {
+                        "binding": {
+                          "config": {
+                            "expression": "{view.custom.area} \u003d \u0027Packaging\u0027"
+                          },
+                          "type": "expr"
+                        }
+                      }
+                    },
+                    "props": {
+                      "params": {
+                        "disabledPopup": {
+                          "message": "Please sign in as quarterback to proceed.",
+                          "messageType": "",
+                          "payload": {},
+                          "title": "Invalid Permissions"
+                        },
+                        "enabled": true,
+                        "hover": false,
+                        "iconPath": "material/save",
+                        "isSelectable": false,
+                        "label": "Pallet Stacking",
+                        "selected": true
+                      },
+                      "path": "GlobalComponents/Buttons/ButtonNoIcon",
+                      "style": {
+                        "marginLeft": "0.5em",
+                        "marginRight": "0.5em"
+                      }
+                    },
+                    "type": "ia.display.view"
+                  },
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "draggable": false,
+                            "id": "instructionsViewer",
+                            "modal": true,
+                            "overlayDismiss": true,
+                            "resizable": false,
+                            "showCloseIcon": true,
+                            "type": "open",
+                            "viewParams": {
+                              "imgFilePath": "{view.custom.imgPackaging}"
+                            },
+                            "viewPath": "app/operator/main/modals/instructionsViewer"
+                          },
+                          "scope": "C",
+                          "type": "popup"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "ProductPicture"
+                    },
+                    "position": {
+                      "basis": "100px",
+                      "shrink": 0
+                    },
+                    "propConfig": {
+                      "position.display": {
+                        "binding": {
+                          "config": {
+                            "expression": "{view.custom.area} \u003d \u0027Packaging\u0027"
+                          },
+                          "type": "expr"
+                        }
+                      }
+                    },
+                    "props": {
+                      "params": {
+                        "disabledPopup": {
+                          "message": "Please sign in as quarterback to proceed.",
+                          "messageType": "",
+                          "payload": {},
+                          "title": "Invalid Permissions"
+                        },
+                        "enabled": true,
+                        "hover": false,
+                        "iconPath": "material/save",
+                        "isSelectable": false,
+                        "label": "Product Picture",
+                        "selected": true
+                      },
+                      "path": "GlobalComponents/Buttons/ButtonNoIcon",
+                      "style": {
+                        "marginLeft": "0.5em",
+                        "marginRight": "0.5em"
+                      }
+                    },
+                    "type": "ia.display.view"
+                  },
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "script": "\tid \u003d \u0027downtimeTable\u0027\n\tview \u003d \u0027App/OEE/Operations/LineDashboard/Popups/Downtime/DowntimeTable\u0027\n\t\n\teqPath \u003d self.view.params.TagPath\n\tendDateTime \u003d system.date.now()\n\t#startDateTime \u003d system.date.addHours(endDateTime, -24)\n\tstartDateTime \u003d system.date.addHours(endDateTime, -1)\n\t\n\t#Added by EB 3/22/2022\n\tshowShortStops \u003d False\n\t\n\tparams \u003d {\u0027equipmentPath\u0027: eqPath,\n\t\t\t\u0027endDateTime\u0027: system.date.format(endDateTime),\n\t\t\t\u0027startDateTime\u0027: system.date.format(startDateTime)\n\t\t\t}\n\t\n\tmodal \t\t\t\u003d True\n\tshowCloseIcon \t\u003d False\n\toverlayDismiss \t\u003d False\n\tdraggable \t\t\u003d False\n\tresizable \t\t\u003d False\n\t\n\tsystem.perspective.openPopup(\n\t\tid\u003did, \n\t\tview\u003dview, \n\t\tparams\u003dparams, \n\t\tmodal\u003dmodal, \n\t\tshowCloseIcon\u003dshowCloseIcon, \n\t\toverlayDismiss\u003doverlayDismiss, \n\t\tdraggable\u003ddraggable,\n\t\tresizable\u003dresizable\n\t)\n\t\n\t"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "ViewDowntime"
+                    },
+                    "position": {
+                      "basis": "100px",
+                      "display": false,
+                      "shrink": 0
+                    },
+                    "props": {
+                      "params": {
+                        "disabledPopup": {
+                          "message": "Please sign in as quarterback to proceed.",
+                          "messageType": "",
+                          "payload": {},
+                          "title": "Invalid Permissions"
+                        },
+                        "enabled": true,
+                        "hover": false,
+                        "iconPath": "material/save",
+                        "isSelectable": false,
+                        "label": "View Downtime",
+                        "selected": true
+                      },
+                      "path": "GlobalComponents/Buttons/ButtonNoIcon",
+                      "style": {
+                        "marginLeft": "0.5em",
+                        "marginRight": "0.5em"
+                      }
+                    },
+                    "type": "ia.display.view"
+                  },
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": [
+                          {
+                            "config": {
+                              "script": "#\teqPath \u003d self.view.custom.EqPath\n#\tpath \u003d \u0027[default]\u0027 + str(eqPath) + \u0027/scadaControlled/mode\u0027\n#\tmaintCalledCode \u003d 10\n#\tproductionCode \u003d 1\n#\tcurrentMode \u003d system.tag.readBlocking([path])[0].value\n#\tif currentMode !\u003d maintCalledCode:\n#\t\tsystem.tag.writeBlocking([path], [maintCalledCode])\n#\t\tself.getSibling(\"MaintInProg\").custom.preMaintMode \u003d currentMode\n#\telif currentMode \u003d\u003d maintCalledCode:\n#\t\tsystem.tag.writeBlocking([path], [productionCode])\n\n\ttagPath \u003d self.view.custom.EqPath\n\tmodeTagPath \u003d tagPath + \u0027/scadaControlled/mode\u0027\n\tcurrentMode \u003d mes.oee.mode.getMode(tagPath)\n\tjson \u003d self.view.custom.Modes\n\tmaintCalledCode , maintInProgressCode, productionCode \u003d 0, 0, 0\n\t\n\tfor j in json:\n\t\tif j[\u0027Description\u0027] \u003d\u003d \u0027Maintenance Called\u0027: maintCalledCode \u003d j[\u0027ReasonCode\u0027]\n\t\telif j[\u0027Description\u0027] \u003d\u003d \u0027Production\u0027: productionCode \u003d j[\u0027ReasonCode\u0027]\n\t\telif j[\u0027Description\u0027] \u003d\u003d \u0027Maintenace In Progress\u0027: maintInProgressCode \u003d j[\u0027ReasonCode\u0027]\n\t\t\n\t\n\tif currentMode \u003d\u003d productionCode: mes.oee.mode.setModeMaintenanceCalled(tagPath)\n\telif currentMode \u003d\u003d maintCalledCode: mes.oee.mode.setModeMaintenanceInProgress(tagPath)\n\telif currentMode \u003d\u003d maintInProgressCode: mes.oee.mode.setModeProduction(tagPath) #gpa.tag.writeBlocking([modeTagPath], [productionCode])\n\t\n\tsystem.perspective.sendMessage(\u0027productionChange\u0027)\n\n"
+                            },
+                            "enabled": false,
+                            "scope": "G",
+                            "type": "script"
+                          },
+                          {
+                            "config": {
+                              "script": "\ttagPath \u003d self.view.custom.EqPath\n\t\n\ttry:\n\t\tmes.oee.mode.setModeMaintenanceCalled(tagPath)\n\t\tsystem.perspective.sendMessage(\u0027productionChange\u0027)\n\texcept:\n\t\tsystem.perspective.print(\u0027There was an error\u0027)\n\n\t\n\t"
+                            },
+                            "scope": "G",
+                            "type": "script"
+                          }
+                        ]
+                      }
+                    },
+                    "meta": {
+                      "name": "MaintCall"
+                    },
+                    "position": {
+                      "basis": "100px"
+                    },
+                    "propConfig": {
+                      "props.style.borderRadius": {
+                        "binding": {
+                          "config": {
+                            "expression": "if({view.custom.mode} \u003d 10, \u002714px\u0027, \u00270px\u0027)"
+                          },
+                          "enabled": false,
+                          "type": "expr"
+                        }
+                      },
+                      "props.style.borderStyle": {
+                        "binding": {
+                          "config": {
+                            "expression": "if({view.custom.mode} \u003d 10, \u0027solid\u0027, \u0027none\u0027)"
+                          },
+                          "enabled": false,
+                          "type": "expr"
+                        }
+                      },
+                      "props.style.classes": {
+                        "binding": {
+                          "config": {
+                            "expression": "if({view.custom.mode} \u003d 10, \u0027Color/Border/BorderAlmPulse\u0027, \u0027\u0027)"
+                          },
+                          "enabled": false,
+                          "type": "expr"
+                        }
+                      }
+                    },
+                    "props": {
+                      "params": {
+                        "disabledPopup": {
+                          "message": "Please sign in as quarterback to proceed.",
+                          "messageType": "",
+                          "payload": {},
+                          "title": "Invalid Permissions"
+                        },
+                        "enabled": true,
+                        "hover": false,
+                        "iconPath": "material/save",
+                        "isSelectable": false,
+                        "label": "Call Maint.",
+                        "selected": false
+                      },
+                      "path": "GlobalComponents/Buttons/ButtonNoIcon",
+                      "style": {
+                        "borderRadius": "0px",
+                        "borderStyle": "none",
+                        "marginLeft": "0.5em",
+                        "marginRight": "0.5em"
+                      }
+                    },
+                    "scripts": {
+                      "customMethods": [],
+                      "extensionFunctions": null,
+                      "messageHandlers": [
+                        {
+                          "messageType": "maintCall",
+                          "pageScope": true,
+                          "script": "\t# implement your handler here\n\teqPath \u003d str(self.view.custom.EqPath)\n\teqPath \u003d eqPath.replace(\u0027\\\\\u0027, \u0027/\u0027)\n\tpath \u003d \u0027[default]\u0027 + str(eqPath)\n\tmodePath \u003d \u0027[default]\u0027 + str(eqPath) + \u0027/scadaControlled/mode\u0027\n\tmode \u003d system.tag.readBlocking([modePath])[0].value\n\tif mode !\u003d 10: \n\t\tmes.oee.mode.setModeMaintenanceCalled(path)\n\telse:\n\t\tmes.oee.mode.setModeProduction(path)",
+                          "sessionScope": true,
+                          "viewScope": false
+                        },
+                        {
+                          "messageType": "maintCallFail",
+                          "pageScope": false,
+                          "script": "\t# implement your handler here\n\tid \u003d \u0027notification\u0027\n\tview \u003d \u0027modals/message/notification\u0027\n\t\n\tparams \u003d {\u0027displayHeader\u0027: \u0027Invalid Permissions\u0027,\n\t\t\t\u0027displayMessage\u0027: \u0027Please scan a badge with required permissions to call Maintenance\u0027,\n\t\t\t}\n\t\n\tmodal \t\t\t\u003d True\n\tshowCloseIcon \t\u003d False\n\toverlayDismiss \t\u003d False\n\tdraggable \t\t\u003d False\n\tresizable \t\t\u003d False\n\t\n\tsystem.perspective.openPopup(\n\t\tid\u003did, \n\t\tview\u003dview, \n\t\tparams\u003dparams, \n\t\tmodal\u003dmodal, \n\t\tshowCloseIcon\u003dshowCloseIcon, \n\t\toverlayDismiss\u003doverlayDismiss, \n\t\tdraggable\u003ddraggable,\n\t\tresizable\u003dresizable\n\t)\n\t\n\t",
+                          "sessionScope": false,
+                          "viewScope": false
+                        }
+                      ]
+                    },
+                    "type": "ia.display.view"
+                  },
+                  {
+                    "custom": {
+                      "preMaintMode": 1
+                    },
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "script": "\tif self.position.display:\n\t\teqPath \u003d self.view.custom.EqPath\n\t\tpath \u003d \u0027[default]\u0027 + str(eqPath) + \u0027/scadaControlled/mode\u0027\n\t\tmes.oee.mode.setModeMaintenanceInProgress(path)\n\t\tid \u003d \u0027maintenance\u0027\n\t\tview \u003d \u0027modals/message/maintenance\u0027\n\t\t\n\t\tparams \u003d {\u0027displayHeader\u0027: \u0027Maintenance Mode\u0027, \u0027eqPath\u0027:self.view.params.eqPath}\n\t\t\n\t\tmodal \t\t\t\u003d False\n\t\tshowCloseIcon \t\u003d False\n\t\toverlayDismiss \t\u003d False\n\t\tdraggable \t\t\u003d False\n\t\tresizable \t\t\u003d False\n\t\t\n\t\tsystem.perspective.openPopup(\n\t\t\tid\u003did, \n\t\t\tview\u003dview, \n\t\t\tparams\u003dparams, \n\t\t\tmodal\u003dmodal, \n\t\t\tshowCloseIcon\u003dshowCloseIcon, \n\t\t\toverlayDismiss\u003doverlayDismiss, \n\t\t\tdraggable\u003ddraggable,\n\t\t\tresizable\u003dresizable\n\t\t)"
+                          },
+                          "enabled": false,
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "MaintInProg"
+                    },
+                    "position": {
+                      "basis": "100px"
+                    },
+                    "propConfig": {
+                      "position.display": {
+                        "binding": {
+                          "config": {
+                            "expression": "{view.custom.mode} \u003d 10 || {view.custom.mode} \u003d 11"
+                          },
+                          "type": "expr"
+                        }
+                      }
+                    },
+                    "props": {
+                      "params": {
+                        "disabledPopup": {
+                          "message": "Please sign in as quarterback to proceed.",
+                          "messageType": "",
+                          "payload": {},
+                          "title": "Invalid Permissions"
+                        },
+                        "enabled": true,
+                        "hover": false,
+                        "iconPath": "material/save",
+                        "isSelectable": false,
+                        "label": "Maint. In Progress",
+                        "selected": true
+                      },
+                      "path": "GlobalComponents/Buttons/ButtonNoIcon",
+                      "style": {
+                        "marginLeft": "0.5em",
+                        "marginRight": "0.5em"
+                      }
+                    },
+                    "scripts": {
+                      "customMethods": [],
+                      "extensionFunctions": null,
+                      "messageHandlers": [
+                        {
+                          "messageType": "maintProg",
+                          "pageScope": true,
+                          "script": "\tif self.position.display:\n\t\teqPath \u003d str(self.view.params.eqPath)\n\t\teqPath \u003d eqPath.replace(\u0027\\\\\u0027, \u0027/\u0027)\n\t\tpath \u003d \u0027[default]\u0027 + str(eqPath)\n\t\tmes.oee.mode.setModeMaintenanceInProgress(path)\n\t\tid \u003d \u0027maintenance\u0027\n\t\tview \u003d \u0027modals/message/maintenance\u0027\n\t\t\n\t\tparams \u003d {\u0027displayHeader\u0027: \u0027Maintenance Mode\u0027, \u0027eqPath\u0027:self.view.params.eqPath}\n\t\tsystem.perspective.print(\u0027button params\u0027)\n\t\tsystem.perspective.print(params)\n\t\t\n\t\tmodal \t\t\t\u003d False\n\t\tshowCloseIcon \t\u003d False\n\t\toverlayDismiss \t\u003d False\n\t\tdraggable \t\t\u003d False\n\t\tresizable \t\t\u003d False\n\t\t\n\t\tsystem.perspective.openPopup(\n\t\t\tid\u003did, \n\t\t\tview\u003dview, \n\t\t\tparams\u003dparams, \n\t\t\tmodal\u003dmodal, \n\t\t\tshowCloseIcon\u003dshowCloseIcon, \n\t\t\toverlayDismiss\u003doverlayDismiss, \n\t\t\tdraggable\u003ddraggable,\n\t\t\tresizable\u003dresizable\n\t\t)",
+                          "sessionScope": false,
+                          "viewScope": false
+                        },
+                        {
+                          "messageType": "maintProgFail",
+                          "pageScope": true,
+                          "script": "\tif self.position.display:\n\t\tid \u003d \u0027notification\u0027\n\t\tview \u003d \u0027modals/message/notification\u0027\n\t\n\t\tparams \u003d {\u0027displayHeader\u0027: \u0027Invalid Permissions\u0027,\n\t\t\t\u0027displayMessage\u0027: \u0027Please scan a badge with required permissions for Maintenance\u0027,\n\t\t\t}\n\t\n\t\tmodal \t\t\t\u003d True\n\t\tshowCloseIcon \t\u003d False\n\t\toverlayDismiss \t\u003d False\n\t\tdraggable \t\t\u003d False\n\t\tresizable \t\t\u003d False\n\t\n\t\tsystem.perspective.openPopup(\n\t\t\tid\u003did, \n\t\t\tview\u003dview, \n\t\t\tparams\u003dparams, \n\t\t\tmodal\u003dmodal, \n\t\t\tshowCloseIcon\u003dshowCloseIcon, \n\t\t\toverlayDismiss\u003doverlayDismiss, \n\t\t\tdraggable\u003ddraggable,\n\t\t\tresizable\u003dresizable\n\t\t)",
+                          "sessionScope": false,
+                          "viewScope": false
+                        }
+                      ]
+                    },
+                    "type": "ia.display.view"
+                  },
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": [
+                          {
+                            "config": {
+                              "script": "#\teqPath \u003d self.view.custom.EqPath\n#\tpath \u003d \u0027[default]\u0027 + str(eqPath) + \u0027/scadaControlled/mode\u0027\n#\tmaintCalledCode \u003d 10\n#\tproductionCode \u003d 1\n#\tcurrentMode \u003d system.tag.readBlocking([path])[0].value\n#\tif currentMode !\u003d maintCalledCode:\n#\t\tsystem.tag.writeBlocking([path], [maintCalledCode])\n#\t\tself.getSibling(\"maintInProg\").custom.preMaintMode \u003d currentMode\n#\telif currentMode \u003d\u003d maintCalledCode:\n#\t\tsystem.tag.writeBlocking([path], [productionCode])\n\n\ttagPath \u003d self.view.custom.EqPath\n\tmodeTagPath \u003d tagPath + \u0027/scadaControlled/mode\u0027\n\tcurrentMode \u003d mes.oee.mode.getMode(tagPath)\n\tjson \u003d self.view.custom.Modes\n\tqualityCalledCode , qualityInProgressCode, productionCode \u003d 0, 0, 0\n\t\n\tfor j in json:\n\t\tif j[\u0027Description\u0027] \u003d\u003d \u0027Quality Called\u0027: qualityCalledCode \u003d j[\u0027ReasonCode\u0027]\n\t\telif j[\u0027Description\u0027] \u003d\u003d \u0027Production\u0027: productionCode \u003d j[\u0027ReasonCode\u0027]\n\t\telif j[\u0027Description\u0027] \u003d\u003d \u0027Quality In Progress\u0027: qualityInProgressCode \u003d j[\u0027ReasonCode\u0027]\n\t\t\n\t\n\tif currentMode \u003d\u003d productionCode: mes.oee.mode.setModeQualityCalled(tagPath)\n\telif currentMode \u003d\u003d qualityCalledCode: mes.oee.mode.setModeQualityInProgress(tagPath)\n\telif currentMode \u003d\u003d qualityInProgressCode: mes.oee.mode.setModeProduction(tagPath)\n\t\n\tsystem.perspective.sendMessage(\u0027productionChange\u0027)"
+                            },
+                            "enabled": false,
+                            "scope": "G",
+                            "type": "script"
+                          },
+                          {
+                            "config": {
+                              "script": "\ttagPath \u003d self.view.custom.EqPath\n\t\t\n\ttry:\n\t\tmes.oee.mode.setModeQualityCalled(tagPath)\n\t\tsystem.perspective.sendMessage(\u0027productionChange\u0027)\n\texcept:\n\t\tsystem.perspective.print(\u0027There was an error\u0027)\t"
+                            },
+                            "scope": "G",
+                            "type": "script"
+                          }
+                        ]
+                      }
+                    },
+                    "meta": {
+                      "name": "QualityCall"
+                    },
+                    "position": {
+                      "basis": "100px"
+                    },
+                    "propConfig": {
+                      "props.style.borderRadius": {
+                        "binding": {
+                          "config": {
+                            "expression": "if({view.custom.mode} \u003d 13, \u002714px\u0027, \u00270px\u0027)"
+                          },
+                          "enabled": false,
+                          "type": "expr"
+                        }
+                      },
+                      "props.style.borderStyle": {
+                        "binding": {
+                          "config": {
+                            "expression": "if({view.custom.mode} \u003d 13, \u0027solid\u0027, \u0027none\u0027)"
+                          },
+                          "enabled": false,
+                          "type": "expr"
+                        }
+                      },
+                      "props.style.classes": {
+                        "binding": {
+                          "config": {
+                            "expression": "if({view.custom.mode} \u003d 13, \u0027Color/Border/BorderAlmPulse\u0027, \u0027\u0027)"
+                          },
+                          "enabled": false,
+                          "type": "expr"
+                        }
+                      }
+                    },
+                    "props": {
+                      "params": {
+                        "disabledPopup": {
+                          "message": "Please sign in as quarterback to proceed.",
+                          "messageType": "",
+                          "payload": {},
+                          "title": "Invalid Permissions"
+                        },
+                        "enabled": true,
+                        "hover": false,
+                        "iconPath": "material/save",
+                        "isSelectable": false,
+                        "label": "Call Quality",
+                        "selected": false
+                      },
+                      "path": "GlobalComponents/Buttons/ButtonNoIcon",
+                      "style": {
+                        "borderRadius": "1px",
+                        "borderStyle": "none",
+                        "marginLeft": "0.5em",
+                        "marginRight": "0.5em"
+                      }
+                    },
+                    "scripts": {
+                      "customMethods": [],
+                      "extensionFunctions": null,
+                      "messageHandlers": [
+                        {
+                          "messageType": "qualityCall",
+                          "pageScope": false,
+                          "script": "\t# implement your handler here\n\teqPath \u003d str(self.view.params.eqPath)\n\teqPath \u003d eqPath.replace(\u0027\\\\\u0027, \u0027/\u0027)\n\tpath \u003d \u0027[default]\u0027 + str(eqPath)\n\tmodePath \u003d \u0027[default]\u0027 + str(eqPath) + \u0027/scadaControlled/mode\u0027\n\tmode \u003d system.tag.readBlocking([modePath])[0].value\n\tif mode !\u003d 13: \n\t\tmes.oee.mode.setModeQualityCalled(path)\n\telse:\n\t\tmes.oee.mode.setModeProduction(path)",
+                          "sessionScope": false,
+                          "viewScope": false
+                        },
+                        {
+                          "messageType": "qualityCallFail",
+                          "pageScope": false,
+                          "script": "\t# implement your handler here\n\tid \u003d \u0027notification\u0027\n\tview \u003d \u0027modals/message/notification\u0027\n\t\n\tparams \u003d {\u0027displayHeader\u0027: \u0027Invalid Permissions\u0027,\n\t\t\t\u0027displayMessage\u0027: \u0027Please scan a badge with required permissions to call Quality\u0027,\n\t\t\t}\n\t\n\tmodal \t\t\t\u003d True\n\tshowCloseIcon \t\u003d False\n\toverlayDismiss \t\u003d False\n\tdraggable \t\t\u003d False\n\tresizable \t\t\u003d False\n\t\n\tsystem.perspective.openPopup(\n\t\tid\u003did, \n\t\tview\u003dview, \n\t\tparams\u003dparams, \n\t\tmodal\u003dmodal, \n\t\tshowCloseIcon\u003dshowCloseIcon, \n\t\toverlayDismiss\u003doverlayDismiss, \n\t\tdraggable\u003ddraggable,\n\t\tresizable\u003dresizable\n\t)\n\t\n\t",
+                          "sessionScope": false,
+                          "viewScope": false
+                        }
+                      ]
+                    },
+                    "type": "ia.display.view"
+                  },
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "script": "\teqPath \u003d self.view.params.eqPath\n\tpath \u003d \u0027[default]\u0027 + str(eqPath) + \u0027/scadaControlled/mode\u0027\n\tmaintCalledCode \u003d 10\n\tproductionCode \u003d 1\n\tcurrentMode \u003d system.tag.readBlocking([path])[0].value\n\tif currentMode !\u003d maintCalledCode:\n\t\tsystem.tag.writeBlocking([path], [maintCalledCode])\n\t\tself.getSibling(\"maintInProg\").custom.preMaintMode \u003d currentMode\n\telif currentMode \u003d\u003d maintCalledCode:\n\t\tsystem.tag.writeBlocking([path], [productionCode])"
+                          },
+                          "enabled": false,
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "QualityInProg"
+                    },
+                    "position": {
+                      "basis": "100px"
+                    },
+                    "propConfig": {
+                      "position.display": {
+                        "binding": {
+                          "config": {
+                            "expression": "{view.custom.mode} \u003d 13 || {view.custom.mode} \u003d 23"
+                          },
+                          "type": "expr"
+                        }
+                      },
+                      "props.style.borderRadius": {
+                        "binding": {
+                          "config": {
+                            "expression": "if({view.custom.mode} \u003d 23, \u002714px\u0027, \u00270px\u0027)"
+                          },
+                          "type": "expr"
+                        }
+                      },
+                      "props.style.borderStyle": {
+                        "binding": {
+                          "config": {
+                            "expression": "if({view.custom.mode} \u003d 23, \u0027solid\u0027, \u0027none\u0027)"
+                          },
+                          "type": "expr"
+                        }
+                      },
+                      "props.style.classes": {
+                        "binding": {
+                          "config": {
+                            "expression": "if({view.custom.mode} \u003d 23, \u0027Color/Border/BorderAlmPulse\u0027, \u0027\u0027)"
+                          },
+                          "type": "expr"
+                        }
+                      }
+                    },
+                    "props": {
+                      "params": {
+                        "disabledPopup": {
+                          "message": "Please sign in as quarterback to proceed.",
+                          "messageType": "",
+                          "payload": {},
+                          "title": "Invalid Permissions"
+                        },
+                        "enabled": true,
+                        "hover": false,
+                        "iconPath": "material/save",
+                        "isSelectable": false,
+                        "label": "Quality In Progress",
+                        "selected": true
+                      },
+                      "path": "GlobalComponents/Buttons/ButtonNoIcon",
+                      "style": {
+                        "marginLeft": "0.5em",
+                        "marginRight": "0.5em"
+                      }
+                    },
+                    "scripts": {
+                      "customMethods": [],
+                      "extensionFunctions": null,
+                      "messageHandlers": [
+                        {
+                          "messageType": "qualityInProgress",
+                          "pageScope": true,
+                          "script": "\t# implement your handler here\n\teqPath \u003d str(self.view.params.eqPath)\n\teqPath \u003d eqPath.replace(\u0027\\\\\u0027, \u0027/\u0027)\n\tpath \u003d \u0027[default]\u0027 + str(eqPath)\n\tmodePath \u003d \u0027[default]\u0027 + str(eqPath) + \u0027/scadaControlled/mode\u0027\n\tmode \u003d system.tag.readBlocking([modePath])[0].value\n\tif mode !\u003d 23: \n\t\tmes.oee.mode.setModeQualityInProgress(path)\n\telse:\n\t\tmes.oee.mode.setModeProduction(path)",
+                          "sessionScope": false,
+                          "viewScope": false
+                        },
+                        {
+                          "messageType": "qualityInProgressFail",
+                          "pageScope": true,
+                          "script": "\t# implement your handler here\n\tid \u003d \u0027notification\u0027\n\tview \u003d \u0027modals/message/notification\u0027\n\t\n\tparams \u003d {\u0027displayHeader\u0027: \u0027Invalid Permissions\u0027,\n\t\t\t\u0027displayMessage\u0027: \u0027Please scan a badge with required permissions to call Quality\u0027,\n\t\t\t}\n\t\n\tmodal \t\t\t\u003d True\n\tshowCloseIcon \t\u003d False\n\toverlayDismiss \t\u003d False\n\tdraggable \t\t\u003d False\n\tresizable \t\t\u003d False\n\t\n\tsystem.perspective.openPopup(\n\t\tid\u003did, \n\t\tview\u003dview, \n\t\tparams\u003dparams, \n\t\tmodal\u003dmodal, \n\t\tshowCloseIcon\u003dshowCloseIcon, \n\t\toverlayDismiss\u003doverlayDismiss, \n\t\tdraggable\u003ddraggable,\n\t\tresizable\u003dresizable\n\t)\n\t\n\t",
+                          "sessionScope": false,
+                          "viewScope": false
+                        }
+                      ]
+                    },
+                    "type": "ia.display.view"
+                  },
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": [
+                          {
+                            "config": {
+                              "draggable": false,
+                              "id": "scrapCodeSelector",
+                              "modal": true,
+                              "overlayDismiss": false,
+                              "resizable": false,
+                              "showCloseIcon": false,
+                              "type": "toggle",
+                              "viewParams": {
+                                "eqPath": "{view.params.eqPath}",
+                                "isReject": "{view.custom.isReject}",
+                                "plannedOrder": "{view.custom.plannedOrder}",
+                                "productCode": "{view.custom.productCode}",
+                                "shift": "{view.custom.shift}"
+                              },
+                              "viewPath": "app/operator/main/modals/recordScrap/mainView"
+                            },
+                            "enabled": false,
+                            "scope": "C",
+                            "type": "popup"
+                          },
+                          {
+                            "config": {
+                              "script": "\tif self.props.params.enabled:\n\t\t\n\t\t\n\t\tpageId \t\t\t\t\u003d self.page.props.pageId\n\t\t\n\t\tparams \u003d {}\n\t\tparams[\u0027eqPath\u0027] \t\t\t\u003d self.view.params.eqPath\n\t\tparams[\u0027isReject\u0027] \t\t\u003d self.view.custom.isReject\n\t\tparams[\u0027plannedOrder\u0027] \t\t\u003d self.view.custom.plannedOrder\n\t\tparams[\u0027productCode\u0027] \t\t\u003d self.view.custom.productCode\n\t\tparams[\u0027shift\u0027] \t\t\t\t\u003d self.view.custom.shift\n\t\t\n\t\tview \t\t\t\u003d \u0027app/operator/main/modals/recordScrap/mainView\u0027\n\t\tid \t\t\t\t\u003d \u0027scrapCodeSelector\u0027\n\t\tmodal \t\t\t\u003d True\n\t\tshowCloseIcon \t\u003d False\n\t\toverlayDismiss \t\u003d False\n\t\tdraggable \t\t\u003d False\n\t\tresizable \t\t\u003d False\n\t\t\n\t\tsystem.perspective.openPopup(\n\t\t\tid\u003did, \n\t\t\tview\u003dview, \n\t\t\tparams\u003dparams, \n\t\t\tmodal\u003dmodal, \n\t\t\tshowCloseIcon\u003dshowCloseIcon, \n\t\t\toverlayDismiss\u003doverlayDismiss, \n\t\t\tdraggable\u003ddraggable,\n\t\t\tresizable\u003dresizable\n\t\t)"
+                            },
+                            "scope": "G",
+                            "type": "script"
+                          }
+                        ]
+                      }
+                    },
+                    "meta": {
+                      "name": "RecordScrap_0"
+                    },
+                    "position": {
+                      "basis": "100px",
+                      "display": false,
+                      "shrink": 0
+                    },
+                    "props": {
+                      "params": {
+                        "disabledPopup": {
+                          "message": "Please start a run before assigning scrap.",
+                          "messageType": "",
+                          "payload": {},
+                          "title": "No Current Run"
+                        },
+                        "enabled": true,
+                        "hover": false,
+                        "iconPath": "material/save",
+                        "isSelectable": false,
+                        "label": "Record Scrap",
+                        "selected": true
+                      },
+                      "path": "GlobalComponents/Buttons/ButtonNoIcon",
+                      "style": {
+                        "marginLeft": "0.5em",
+                        "marginRight": "0.5em"
+                      }
+                    },
+                    "type": "ia.display.view"
+                  },
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": [
+                          {
+                            "config": {
+                              "script": "#\teqPath \u003d self.view.custom.EqPath\n#\tpath \u003d \u0027[default]\u0027 + str(eqPath) + \u0027/scadaControlled/mode\u0027\n#\tTeamLeadCalledCode \u003d 14\n#\tproductionCode \u003d 1\n#\tcurrentMode \u003d system.tag.readBlocking([path])[0].value\n#\tif currentMode !\u003d TeamLeadCalledCode:\n#\t\tsystem.tag.writeBlocking([path], [TeamLeadCalledCode])\n#\telif currentMode \u003d\u003d TeamLeadCalledCode:\n#\t\tsystem.tag.writeBlocking([path], [productionCode])\n\n\ttagPath \u003d self.view.custom.EqPath\n\tmodeTagPath \u003d tagPath + \u0027/scadaControlled/mode\u0027\n\tcurrentMode \u003d mes.oee.mode.getMode(tagPath)\n\tjson \u003d self.view.custom.Modes\n\tteamLeadCalledCode , teamLeadInProgressCode, productionCode \u003d 0, 0, 0\n\t\n\tfor j in json:\n\t\tif j[\u0027Description\u0027] \u003d\u003d \u0027Team Lead Called\u0027: teamLeadCalledCode \u003d j[\u0027ReasonCode\u0027]\n\t\telif j[\u0027Description\u0027] \u003d\u003d \u0027Production\u0027: productionCode \u003d j[\u0027ReasonCode\u0027]\n\t\telif j[\u0027Description\u0027] \u003d\u003d \u0027Team Lead In Progress\u0027: teamLeadInProgressCode \u003d j[\u0027ReasonCode\u0027]\n\t\t\n\t\n\tif currentMode \u003d\u003d productionCode: mes.oee.mode.setModeTeamLeadCalled(tagPath)\n\telif currentMode \u003d\u003d teamLeadCalledCode: mes.oee.mode.setModeTeamLeadInProgress(tagPath)\n\telif currentMode \u003d\u003d teamLeadInProgressCode: mes.oee.mode.setModeProduction(tagPath)\n\t\n\tsystem.perspective.sendMessage(\u0027productionChange\u0027)"
+                            },
+                            "enabled": false,
+                            "scope": "G",
+                            "type": "script"
+                          },
+                          {
+                            "config": {
+                              "script": "\ttagPath \u003d self.view.custom.EqPath\n\t\t\n\ttry:\n\t\tmes.oee.mode.setModeTeamLeadCalled(tagPath)\n\t\tsystem.perspective.sendMessage(\u0027productionChange\u0027)\n\texcept:\n\t\tsystem.perspective.print(\u0027There was an error\u0027)\t\t"
+                            },
+                            "scope": "G",
+                            "type": "script"
+                          }
+                        ]
+                      }
+                    },
+                    "meta": {
+                      "name": "TeamLeadCall"
+                    },
+                    "position": {
+                      "basis": "100px"
+                    },
+                    "propConfig": {
+                      "props.style.borderRadius": {
+                        "binding": {
+                          "config": {
+                            "expression": "if({view.custom.mode} \u003d 14 || {view.custom.mode} \u003d 14, \u002714px\u0027, \u00270px\u0027)"
+                          },
+                          "enabled": false,
+                          "type": "expr"
+                        }
+                      },
+                      "props.style.borderStyle": {
+                        "binding": {
+                          "config": {
+                            "expression": "if({view.custom.mode} \u003d 14 || {view.custom.mode} \u003d 14, \u0027solid\u0027, \u0027none\u0027)"
+                          },
+                          "enabled": false,
+                          "type": "expr"
+                        }
+                      },
+                      "props.style.classes": {
+                        "binding": {
+                          "config": {
+                            "expression": "if({view.custom.mode} \u003d 14 || {view.custom.mode} \u003d 14, \u0027Color/Border/BorderAlmPulse\u0027, \u0027\u0027)"
+                          },
+                          "enabled": false,
+                          "type": "expr"
+                        }
+                      }
+                    },
+                    "props": {
+                      "params": {
+                        "disabledPopup": {
+                          "message": "Please sign in as quarterback to proceed.",
+                          "messageType": "",
+                          "payload": {},
+                          "title": "Invalid Permissions"
+                        },
+                        "enabled": true,
+                        "hover": false,
+                        "iconPath": "material/save",
+                        "isSelectable": false,
+                        "label": "Call Team Lead",
+                        "selected": false
+                      },
+                      "path": "GlobalComponents/Buttons/ButtonNoIcon",
+                      "style": {
+                        "borderRadius": "1px",
+                        "borderStyle": "none",
+                        "marginLeft": "0.5em",
+                        "marginRight": "0.5em"
+                      }
+                    },
+                    "type": "ia.display.view"
+                  }
+                ],
+                "meta": {
+                  "name": "Middle"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "props": {
+                  "justify": "center",
+                  "style": {
+                    "overflow": "hidden"
+                  }
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "children": [
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "script": "\t\n\tsystem.perspective.navigate(\u0027/operator/productionClose\u0027)"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "AMR "
+                    },
+                    "position": {
+                      "basis": "160px"
+                    },
+                    "props": {
+                      "params": {
+                        "disabledPopup": {
+                          "message": "Please sign in as quarterback to proceed.",
+                          "messageType": "",
+                          "payload": {},
+                          "title": "Invalid Permissions"
+                        },
+                        "enabled": true,
+                        "hover": false,
+                        "iconPath": "material/save",
+                        "isSelectable": false,
+                        "label": "In-Process (IP) Returns",
+                        "selected": true
+                      },
+                      "path": "GlobalComponents/Buttons/OverheadButton",
+                      "style": {
+                        "marginLeft": "0.5em",
+                        "marginRight": "0.5em"
+                      }
+                    },
+                    "type": "ia.display.view"
+                  },
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "script": "\t\n\tsystem.perspective.navigate(\u0027/operator/productionClose\u0027)"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "FinishedGoods"
+                    },
+                    "position": {
+                      "basis": "180px"
+                    },
+                    "props": {
+                      "params": {
+                        "disabledPopup": {
+                          "message": "Please sign in as quarterback to proceed.",
+                          "messageType": "",
+                          "payload": {},
+                          "title": "Invalid Permissions"
+                        },
+                        "enabled": true,
+                        "hover": false,
+                        "iconPath": "material/save",
+                        "isSelectable": false,
+                        "label": "Finished Goods Pickup",
+                        "selected": true
+                      },
+                      "path": "GlobalComponents/Buttons/OverheadButton",
+                      "style": {
+                        "marginLeft": "0.5em",
+                        "marginRight": "0.5em"
+                      }
+                    },
+                    "type": "ia.display.view"
+                  }
+                ],
+                "meta": {
+                  "name": "AMR"
+                },
+                "position": {
+                  "basis": "280px",
+                  "display": false
+                },
+                "props": {
+                  "justify": "flex-end",
+                  "style": {
+                    "overflow": "hidden"
+                  }
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "children": [
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "script": "\t\n\tsystem.perspective.navigate(\u0027/operations/production_close\u0027)"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "StartRun"
+                    },
+                    "position": {
+                      "basis": "100px",
+                      "display": false
+                    },
+                    "propConfig": {
+                      "position.display": {
+                        "binding": {
+                          "config": {
+                            "expression": "if({view.custom.CurrentRunningWorkOrder}\u003d\u0027\u0027,\r\ntrue,false)"
+                          },
+                          "enabled": false,
+                          "type": "expr"
+                        }
+                      }
+                    },
+                    "props": {
+                      "params": {
+                        "disabledPopup": {
+                          "message": "Please sign in as quarterback to proceed.",
+                          "messageType": "",
+                          "payload": {},
+                          "title": "Invalid Permissions"
+                        },
+                        "enabled": true,
+                        "hover": false,
+                        "iconPath": "material/save",
+                        "isSelectable": false,
+                        "label": "Start Run",
+                        "selected": false
+                      },
+                      "path": "GlobalComponents/Buttons/ButtonNoIcon",
+                      "style": {
+                        "marginLeft": "0.5em",
+                        "marginRight": "0.5em"
+                      }
+                    },
+                    "type": "ia.display.view"
+                  },
+                  {
+                    "events": {
+                      "dom": {
+                        "onClick": {
+                          "config": {
+                            "script": "\tqueryPath \u003d \u0027app/Schedule/runEnd\u0027\n\ttagPath \u003d self.view.custom.EqPath\n\tjobPath \u003d tagPath + \u0027/jobs/currentJob\u0027\n\trunID \u003d self.view.custom.RunID\n\tparams \u003d { \u0027runID\u0027: runID }\n\t\n\ttry:\n\t\tmes.schedule.jobs.copyJob(tagPath)\n\t\tres \u003d system.db.runNamedQuery(queryPath, params)\n\t\t#make sure to clear after namedquery\t\t\n\t\tmes.schedule.jobs.clearJob(jobPath)\n\texcept Exception as e:\n\t\terrorMessage \u003d \"Something went wrong with your request!\" + str(e)\n\t\terrorParams \u003d {\n\t\t\t\"ModalName\": \"ErrorModal\",\n\t\t\t\"ErrorMessage\": errorMessage\n\t\t}\n\t\tsystem.perspective.openPopup(\"ErrorModal\", \"GlobalComponents/Modals/ErrorModal\", errorParams)"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "EndRun"
+                    },
+                    "position": {
+                      "basis": "100px"
+                    },
+                    "propConfig": {
+                      "position.display": {
+                        "binding": {
+                          "config": {
+                            "expression": "if({view.custom.CurrentRunningWorkOrder}\u003d\u0027\u0027,\r\nfalse,true)"
+                          },
+                          "type": "expr"
+                        }
+                      }
+                    },
+                    "props": {
+                      "params": {
+                        "disabledPopup": {
+                          "message": "Please sign in as quarterback to proceed.",
+                          "messageType": "",
+                          "payload": {},
+                          "title": "Invalid Permissions"
+                        },
+                        "enabled": true,
+                        "hover": false,
+                        "iconPath": "material/save",
+                        "isSelectable": false,
+                        "label": "End Run",
+                        "selected": false
+                      },
+                      "path": "GlobalComponents/Buttons/ButtonNoIcon",
+                      "style": {
+                        "marginLeft": "0.5em",
+                        "marginRight": "0.5em"
+                      }
+                    },
+                    "type": "ia.display.view"
+                  }
+                ],
+                "meta": {
+                  "name": "Right"
+                },
+                "position": {
+                  "basis": "280px"
+                },
+                "props": {
+                  "justify": "flex-end",
+                  "style": {
+                    "overflow": "hidden"
+                  }
+                },
+                "type": "ia.container.flex"
+              }
+            ],
+            "meta": {
+              "name": "Buttons"
+            },
+            "position": {
+              "basis": "50px",
+              "grow": 1
+            },
+            "props": {
+              "justify": "space-between",
+              "style": {
+                "overflow": "visible",
+                "padding": "1px"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Row2"
+        },
+        "position": {
+          "basis": "42px"
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginTop"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Progress"
+                },
+                "position": {
+                  "basis": "25px",
+                  "shrink": 0
+                },
+                "props": {
+                  "indeterminate": true
+                },
+                "type": "ia.display.progress"
+              }
+            ],
+            "meta": {
+              "name": "FlexContainer"
+            },
+            "position": {
+              "basis": "300px"
+            },
+            "props": {
+              "direction": "column"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "loading"
+        },
+        "position": {
+          "basis": "200px",
+          "display": false
+        },
+        "propConfig": {
+          "position.display": {
+            "persistent": true
+          }
+        },
+        "props": {
+          "alignItems": "center",
+          "justify": "center",
+          "style": {
+            "backgroundColor": "#AAAAAA",
+            "overflow": "visible"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "classes": "Global/MarginAll",
+        "overflow": "visible"
+      }
+    },
+    "scripts": {
+      "customMethods": [],
+      "extensionFunctions": null,
+      "messageHandlers": [
+        {
+          "messageType": "runStartChangeover",
+          "pageScope": true,
+          "script": "\tself.view.custom.RunID \u003d payload[\u0027runID\u0027]",
+          "sessionScope": false,
+          "viewScope": false
+        }
+      ]
+    },
+    "type": "ia.container.flex"
+  }
+}

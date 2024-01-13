@@ -1,0 +1,101 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 100,
+      "width": 300
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "TextArea"
+        },
+        "position": {
+          "grow": 1,
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "marginBottom": "5px"
+          }
+        },
+        "type": "ia.input.text-area"
+      },
+      {
+        "children": [
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\t#Get selected local\n\tterm \u003d self.parent.parent.getChild(\"TextArea\").props.text\n\t\n\t#check if local is not null\n\tif term !\u003d \"\" and term is not None:\n\t\t#send command to add local \n\t\tmessageType \u003d \"addKey\"\n\t\tpayload \u003d {\u0027key\u0027:term}\n\t\tsystem.perspective.sendMessage(messageType, payload,scope\u003d\"page\")\n\telse:\n\t\t#close popup\n\t\tid \u003d \u0027AddKey\u0027\n\t\tsystem.perspective.closePopup(id)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Add"
+            },
+            "position": {
+              "basis": "80px"
+            },
+            "props": {
+              "text": "Ok"
+            },
+            "type": "ia.input.button"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\t#close popup\n\tid \u003d \u0027AddKey\u0027\n\tsystem.perspective.closePopup(id)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Cancel"
+            },
+            "position": {
+              "basis": "80px"
+            },
+            "props": {
+              "primary": false,
+              "text": "Cancel"
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "Controls"
+        },
+        "position": {
+          "basis": "200px"
+        },
+        "props": {
+          "justify": "space-around"
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "margin": "5px",
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

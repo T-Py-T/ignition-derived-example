@@ -1,0 +1,1 @@
+DELETE FROM dbo.modes WHERE ID = :modeID

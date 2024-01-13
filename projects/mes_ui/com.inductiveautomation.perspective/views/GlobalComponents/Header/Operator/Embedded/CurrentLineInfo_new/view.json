@@ -1,0 +1,519 @@
+{
+  "custom": {
+    "BackgroundColor": "#00AC00",
+    "CurrentMode": 2,
+    "Icon": "material/stop_circle",
+    "LineName": "LABSIM",
+    "LineStateDS": [
+      {
+        "Description": "Running",
+        "DisplayColor": "#00AC00",
+        "PlannedDowntime": false
+      }
+    ],
+    "ModeDescription": "Changeover",
+    "StateCode": 1,
+    "StateColor": "#00AC00",
+    "StateIcon": "material/directions_run",
+    "StateWidth": "180px"
+  },
+  "params": {
+    "EqPath": ""
+  },
+  "propConfig": {
+    "custom.BackgroundColor": {
+      "binding": {
+        "config": {
+          "path": "view.custom.LineStateDS[0].DisplayColor"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.CurrentMode": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/OEE_Events/mode"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.Icon": {
+      "binding": {
+        "config": {
+          "path": "view.custom.LineState"
+        },
+        "transforms": [
+          {
+            "expression": "if({value} \u003d \"RUNNING\", \"material/directions_run\", \"material/stop_circle\")",
+            "type": "expression"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.LineName": {
+      "binding": {
+        "config": {
+          "path": "view.params.EqPath"
+        },
+        "transforms": [
+          {
+            "expression": "substring({value},lastIndexOf({value},\u0027/\u0027)+1)",
+            "type": "expression"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.LineState": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/OEE_Events/stateDescription"
+        },
+        "type": "tag"
+      }
+    },
+    "custom.LineStateDS": {
+      "binding": {
+        "config": {
+          "parameters": {
+            "stateID": "{view.custom.StateCode}"
+          },
+          "queryPath": "app/DT/getDTCodeByStateID",
+          "returnFormat": "json"
+        },
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "custom.ModeDescription": {
+      "binding": {
+        "config": {
+          "parameters": {
+            "ModeID": "{view.custom.CurrentMode}"
+          },
+          "queryPath": "app/Operations/Dashboard/getMachineMode"
+        },
+        "transforms": [
+          {
+            "expression": "{value}[\"Description\"]",
+            "type": "expression"
+          }
+        ],
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "custom.StateCode": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/OEE_Events/state"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.StateColor": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/OEE_Events/stateColor"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.StateIcon": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/OEE_Events/stateIcon"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.StateWidth": {
+      "binding": {
+        "config": {
+          "path": "view.custom.LineStateDS[0].Description"
+        },
+        "transforms": [
+          {
+            "code": "\tsplit \u003d value.split(\u0027 \u0027)\n\t\n\tif len(split) \u003e 1: return \u0027365px\u0027\n\telse: return \u0027180px\u0027",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 78,
+      "width": 1141
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label",
+              "tooltip": {
+                "enabled": true,
+                "text": "Line Name"
+              }
+            },
+            "position": {
+              "basis": "50px",
+              "display": false,
+              "grow": 1
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.LineName"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "overflow": "hidden"
+              },
+              "textStyle": {
+                "classes": "Text/Heading",
+                "color": "white",
+                "textAlign": "center"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Production"
+        },
+        "position": {
+          "display": false,
+          "grow": 1
+        },
+        "props": {
+          "justify": "center"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "EmbeddedView"
+            },
+            "position": {
+              "basis": "239px",
+              "shrink": 0
+            },
+            "props": {
+              "path": "GlobalComponents/Header/Operator/Embedded/LineSelectionDropdown",
+              "style": {
+                "classes": "Global/MarginAllLeft"
+              }
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Icon"
+                },
+                "position": {
+                  "basis": "30px"
+                },
+                "propConfig": {
+                  "props.color": {
+                    "binding": {
+                      "config": {
+                        "expression": "if({parent.props.style.backgroundColor} \u003d \u0027#FAFD20\u0027, \r\n\t\u0027black\u0027, \r\n\t\u0027white\u0027\r\n)"
+                      },
+                      "type": "expr"
+                    }
+                  },
+                  "props.path": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.StateIcon"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "marginLeft": "5px"
+                  }
+                },
+                "type": "ia.display.icon"
+              },
+              {
+                "meta": {
+                  "name": "State"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.LineState"
+                      },
+                      "transforms": [
+                        {
+                          "expression": "upper({value})",
+                          "type": "expression"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  },
+                  "props.textStyle.color": {
+                    "binding": {
+                      "config": {
+                        "expression": "if({parent.props.style.backgroundColor} \u003d \u0027#FAFD20\u0027, \r\n\t\u0027black\u0027, \r\n\t\u0027white\u0027\r\n)"
+                      },
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "textStyle": {
+                    "fontSize": "1.2rem",
+                    "fontWeight": "bold",
+                    "textAlign": "center"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "State",
+              "tooltip": {
+                "enabled": true,
+                "text": "Line State"
+              }
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "position.basis": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.StateWidth"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.style.backgroundColor": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.StateColor"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "borderBottomLeftRadius": "10px",
+                "borderBottomRightRadius": "10px",
+                "borderTopLeftRadius": "10px",
+                "borderTopRightRadius": "10px",
+                "classes": "Global/MarginRight",
+                "marginBottom": 5,
+                "marginTop": 5,
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Icon"
+                },
+                "position": {
+                  "basis": "30px",
+                  "display": false
+                },
+                "propConfig": {
+                  "props.color": {
+                    "binding": {
+                      "config": {
+                        "expression": "if({parent.props.style.backgroundColor} \u003d \u0027#FAFD20\u0027, \r\n\t\u0027black\u0027, \r\n\t\u0027white\u0027\r\n)"
+                      },
+                      "type": "expr"
+                    }
+                  },
+                  "props.path": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.Icon"
+                      },
+                      "enabled": false,
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "path": "material/stop_circle",
+                  "style": {
+                    "marginLeft": "5px"
+                  }
+                },
+                "type": "ia.display.icon"
+              },
+              {
+                "meta": {
+                  "name": "Production"
+                },
+                "position": {
+                  "basis": "155px"
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.ModeDescription"
+                      },
+                      "type": "property"
+                    }
+                  },
+                  "props.textStyle.color": {
+                    "binding": {
+                      "config": {
+                        "expression": "if({parent.props.style.backgroundColor} \u003d \u0027#FAFD20\u0027, \r\n\t\u0027black\u0027, \r\n\t\u0027white\u0027\r\n)"
+                      },
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginRight"
+                  },
+                  "textStyle": {
+                    "fontSize": "1.2rem",
+                    "fontWeight": "bold",
+                    "textAlign": "center",
+                    "textTransform": "uppercase"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "Mode",
+              "tooltip": {
+                "enabled": true,
+                "text": "Line State"
+              }
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "position.basis": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.StateWidth"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.style.backgroundColor": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.BackgroundColor"
+                  },
+                  "enabled": false,
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "#00AC00",
+                "borderBottomLeftRadius": "10px",
+                "borderBottomRightRadius": "10px",
+                "borderTopLeftRadius": "10px",
+                "borderTopRightRadius": "10px",
+                "marginBottom": 5,
+                "marginTop": 5,
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Status"
+        },
+        "position": {
+          "basis": "200px",
+          "grow": 1
+        },
+        "props": {
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

@@ -1,0 +1,1 @@
+EXEC [sched].[stp_getProductCodes]

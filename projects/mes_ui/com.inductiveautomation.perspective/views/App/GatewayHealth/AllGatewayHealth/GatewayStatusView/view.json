@@ -1,0 +1,115 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "anchor": "fixed",
+          "autoBreakpoint": 480,
+          "content": "push",
+          "display": "visible",
+          "handle": "hide",
+          "handleIcon": "",
+          "id": "Header",
+          "modal": false,
+          "resizable": false,
+          "size": 50,
+          "view": "GlobalComponents/Navigation/Header",
+          "viewParams": {
+            "Title": "All Gateways",
+            "showEmbedded": false,
+            "viewPath": "App/GatewayHealth/Diagnostics/Embedded/SystemSelector"
+          }
+        },
+        "scope": "C",
+        "type": "alter-dock"
+      }
+    }
+  },
+  "params": {},
+  "permissions": {
+    "securityLevels": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [],
+                "name": "Administrator"
+              },
+              {
+                "children": [],
+                "name": "Manager"
+              }
+            ],
+            "name": "Roles"
+          }
+        ],
+        "name": "Authenticated"
+      }
+    ],
+    "type": "AllOf"
+  },
+  "props": {
+    "defaultSize": {
+      "width": 1341
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "GatewayStatus"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "params": {
+                "Icon": "",
+                "IconDisplay": true,
+                "Params": {
+                  "State": "",
+                  "TagPath": "",
+                  "TagProvider": ""
+                },
+                "Path": "App/GatewayHealth/AllGatewayHealth/Embedded/GatewayStatuses",
+                "Provider": "value",
+                "SizeBasis": "value",
+                "TagPath": "value",
+                "Title": "Overall Gateway Status",
+                "Type": "",
+                "useDefaultHeight": false,
+                "useDefaultWidth": false
+              },
+              "path": "GlobalComponents/Cards/Card"
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "Body"
+        },
+        "position": {
+          "basis": "320px",
+          "grow": 1
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginAll"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

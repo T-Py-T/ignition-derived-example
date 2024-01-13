@@ -1,0 +1,121 @@
+{
+  "custom": {},
+  "params": {
+    "IsOperator": true,
+    "SecondaryView": "GlobalComponents/Header/Operator/FullView",
+    "alarmBar": true,
+    "navBar": true
+  },
+  "propConfig": {
+    "params.IsOperator": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.SecondaryView": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.alarmBar": {
+      "paramDirection": "inout",
+      "persistent": true
+    },
+    "params.navBar": {
+      "paramDirection": "inout",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 50,
+      "width": 1438
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "MobileView"
+        },
+        "propConfig": {
+          "props.params.alarmBar": {
+            "binding": {
+              "config": {
+                "bidirectional": true,
+                "path": "view.params.alarmBar"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.navBar": {
+            "binding": {
+              "config": {
+                "bidirectional": true,
+                "path": "view.params.navBar"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "path": "GlobalComponents/Header/MobileView"
+        },
+        "type": "ia.display.view"
+      },
+      {
+        "meta": {
+          "name": "FullView"
+        },
+        "position": {
+          "size": "large"
+        },
+        "propConfig": {
+          "props.params.IsOperator": {
+            "binding": {
+              "config": {
+                "path": "view.params.IsOperator"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.RenderedView": {
+            "binding": {
+              "config": {
+                "path": "view.params.SecondaryView"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.alarmBar": {
+            "binding": {
+              "config": {
+                "bidirectional": true,
+                "path": "view.params.alarmBar"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.navBar": {
+            "binding": {
+              "config": {
+                "bidirectional": true,
+                "path": "view.params.navBar"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "path": "GlobalComponents/Header/FullView"
+        },
+        "type": "ia.display.view"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "breakpoint": 1100
+    },
+    "type": "ia.container.breakpt"
+  }
+}

@@ -1,0 +1,176 @@
+{
+  "custom": {},
+  "params": {
+    "Description": "value",
+    "Material": "",
+    "NumberOfPallets": "value",
+    "Quantity": "value",
+    "style": {
+      "borderBottomColor": "#808080",
+      "borderBottomStyle": "solid",
+      "borderBottomWidth": ".25ch",
+      "borderLeftStyle": "none",
+      "borderRightStyle": "none",
+      "borderTopStyle": "none",
+      "classes": "Text/LabelTextSmall Text/textColorBlack",
+      "overflow": "hidden"
+    }
+  },
+  "propConfig": {
+    "params.Description": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Material": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.NumberOfPallets": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Quantity": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.style": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 42
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Material"
+        },
+        "position": {
+          "basis": "13ch",
+          "shrink": 0
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.Material"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "textAlign": "left"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Description"
+        },
+        "position": {
+          "basis": "35ch",
+          "grow": 1
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.Description"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "overflowWrap": "break-word",
+            "paddingLeft": "1ch"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Quantity"
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.Quantity"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginRight",
+            "paddingLeft": "1ch",
+            "textAlign": "left"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Pallet"
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.NumberOfPallets"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "overflowWrap": "break-word",
+            "textAlign": "right"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "code"
+        },
+        "position": {
+          "basis": "17ch",
+          "display": false
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.code"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "paddingLeft": "1ch",
+            "textAlign": "left"
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.flex"
+  }
+}

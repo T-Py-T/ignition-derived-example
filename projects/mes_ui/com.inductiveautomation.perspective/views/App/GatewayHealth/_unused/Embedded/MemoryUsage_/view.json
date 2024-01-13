@@ -1,0 +1,119 @@
+{
+  "custom": {},
+  "params": {
+    "SelectedFolderPath": "value"
+  },
+  "propConfig": {
+    "params.SelectedFolderPath": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 278,
+      "width": 478
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "EmbeddedView"
+            },
+            "position": {
+              "basis": "320px"
+            },
+            "propConfig": {
+              "props.params.SelectedFolderPath": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.SelectedFolderPath"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "StartingPath": "value"
+              },
+              "path": "app/GatewayHealth/Diagnostics/Embedded/Charts/Memory/UsageGuage",
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "UsageGauge"
+        },
+        "position": {
+          "basis": "50%",
+          "grow": 1
+        },
+        "props": {
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "EmbeddedView"
+            },
+            "position": {
+              "basis": "320px"
+            },
+            "propConfig": {
+              "props.params.SelectedFolderPath": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.SelectedFolderPath"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "path": "app/GatewayHealth/Diagnostics/Embedded/Charts/Memory/TimeSeriesChart",
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "TimeChart"
+        },
+        "position": {
+          "basis": "50%",
+          "grow": 1
+        },
+        "props": {
+          "alignItems": "center",
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

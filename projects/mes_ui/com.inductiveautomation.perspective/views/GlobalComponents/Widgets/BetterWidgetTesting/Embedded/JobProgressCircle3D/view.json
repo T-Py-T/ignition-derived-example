@@ -1,0 +1,190 @@
+{
+  "custom": {
+    "AreaOEE": {
+      "$": [
+        "ds",
+        192,
+        1695754975018
+      ],
+      "$columns": [
+        {
+          "data": [
+            "Assembly",
+            "Molding",
+            "Packaging"
+          ],
+          "name": "AreaName",
+          "type": "String"
+        },
+        {
+          "data": [
+            0.959236,
+            0.643423,
+            0.482721
+          ],
+          "name": "OEE",
+          "type": "Double"
+        }
+      ]
+    },
+    "CountLeft": 300674,
+    "EqPath": "GPA/Wilmington/Baking/Oven1",
+    "RunCount": 659326,
+    "TargetQuantity": 960000
+  },
+  "params": {
+    "EqPath": "",
+    "TagPath": ""
+  },
+  "propConfig": {
+    "custom.AreaOEE": {
+      "binding": {
+        "config": {
+          "parameters": {
+            "endTime": "now()",
+            "site": "{session.custom.SelectedSite}",
+            "startTime": "tag({view.custom.EqPath}+\u0027/calculatedValues/time/runStartTime\u0027)"
+          },
+          "queryPath": "app/OEE/getReportAreaOEE_AQP"
+        },
+        "transforms": [
+          {
+            "code": "\tpyData \u003d system.dataset.toPyDataSet(value)\n\tNewData \u003d []\n\tfor row in pyData:\n\t\tdata \u003d [row[\u0027AreaName\u0027], row[\u0027OEE\u0027]]\n\t\tNewData.append(data)\n\tNewHeaders \u003d [\u0027AreaName\u0027,\u0027OEE\u0027]\n\tNewDataSet \u003d system.dataset.toDataSet(NewHeaders, NewData)\n\treturn NewDataSet\n\t\n\t\t",
+            "type": "script"
+          }
+        ],
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "custom.CountLeft": {
+      "binding": {
+        "config": {
+          "expression": "{view.custom.TargetQuantity}-{view.custom.RunCount}"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.EqPath": {
+      "binding": {
+        "config": {
+          "path": "session.custom.EqPath"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.RunCount": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.TagPath}",
+            "2": "{view.custom.EqPath}"
+          },
+          "tagPath": "{1}{2}/jobs/currentJob/RunCounts/runGoodParts"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.TargetQuantity": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.TagPath}",
+            "2": "{view.custom.EqPath}"
+          },
+          "tagPath": "{1}{2}/jobs/currentJob/scheduleQuantity"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.TagPath": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 414,
+      "width": 660
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "PieChart_0"
+        },
+        "position": {
+          "grow": 1
+        },
+        "propConfig": {
+          "props.data[0].Value": {
+            "binding": {
+              "config": {
+                "path": "view.custom.CountLeft"
+              },
+              "type": "property"
+            }
+          },
+          "props.data[1].Value": {
+            "binding": {
+              "config": {
+                "path": "view.custom.RunCount"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "colors": [
+            "#515151",
+            "#5197FF"
+          ],
+          "cutoutRadius": 60,
+          "data": [
+            {
+              "Name": "Remaining Parts"
+            },
+            {
+              "Name": "Current Parts"
+            }
+          ],
+          "labels": {
+            "color": "white",
+            "showValue": false
+          },
+          "legendLabelColor": "white",
+          "sectionOutline": {
+            "color": "white"
+          },
+          "threeDimensional": true,
+          "titleColor": "white",
+          "tooltipFormat": "{category} : {value}",
+          "valueFormat": {
+            "showValueAsPercent": false
+          }
+        },
+        "type": "ia.chart.pie"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

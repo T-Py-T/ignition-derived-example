@@ -1,0 +1,719 @@
+{
+  "custom": {},
+  "params": {
+    "EqPath": ""
+  },
+  "propConfig": {
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.LineID": {
+      "paramDirection": "input",
+      "persistent": false
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 143,
+      "width": 778
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "text": "State Timeline"
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Col1"
+        },
+        "position": {
+          "basis": "25px",
+          "display": false,
+          "grow": 1
+        },
+        "props": {
+          "alignContent": "flex-start",
+          "alignItems": "flex-start",
+          "direction": "column",
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tselectionData \u003d self.props.selection.data[0]\n\tmodalName \u003d \u0027splitDTEvent\u0027\t\n\t\n\teventID \u003d selectionData[\u0027EVENTID\u0027]\n\tduration \u003d selectionData[\u0027DURATION\u0027]\n\tstartTime \u003d selectionData[\u0027START\u0027]\n\tendTime \u003d selectionData[\u0027END\u0027]\n\tname \u003d selectionData[\u0027STATUS\u0027]\n\t\n\tif name !\u003d \u0027Running\u0027:\n\t\tparams \u003d {\n\t\t\t\u0027RowData\u0027: {\n\t\t\t\t\u0027Duration\u0027: duration,\n\t\t\t\t\u0027EndTime\u0027: endTime,\n\t\t\t\t\u0027StartTime\u0027: startTime,\n\t\t\t\t\u0027EventID\u0027: eventID,\n\t\t\t\t\u0027Name\u0027: name\n\t\t\t},\n\t\t\t\u0027ModalName\u0027: modalName\n\t\t}\t\t \n\t\t\t \n\t\tview \u003d \u0027GlobalComponents/Objects/Indicator/_Archive/AssignDowntimeReasons\u0027\n\t\tviewPath \u003d \u0027App/OEE/Operations/LineDashboard/Embedded/DowntimePopup\u0027\n\t\ttitle \u003d \u0027Downtime Reason Assignment\u0027\n\t\tsystem.perspective.openPopup(modalName, viewPath, params\u003dparams, title\u003dtitle, modal\u003dTrue)\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "OldProgressChart"
+        },
+        "position": {
+          "grow": 1
+        },
+        "propConfig": {
+          "custom.DS": {
+            "binding": {
+              "config": {
+                "expression": "{this.custom.OriginalDS}"
+              },
+              "transforms": [
+                {
+                  "code": "\tarray \u003d []\n\tline \u003d self.custom.LineName\n\tpyDS \u003d system.dataset.toPyDataSet(value)\n\tfor row in pyDS:\n\t\tnewDict \u003d {}\n\t\tnewDict[\u0027START\u0027] \u003d row[\u0027StartDateTime\u0027]\n\t\tnewDict[\u0027END\u0027] \u003d row[\u0027EndDateTime\u0027]\n\t\tnewDict[\u0027STATUS\u0027] \u003d row[\u0027Status\u0027]\n\t\tnewDict[\u0027DURATION\u0027] \u003d row[\u0027Duration\u0027]\n\t\tnewDict[\u0027COLOR\u0027] \u003d row[\u0027COLOR\u0027]\n\t\tnewDict[\u0027EVENTID\u0027] \u003d row[\u0027EventID\u0027]\n\t\tnewDict[\u0027LINE\u0027] \u003d line # write the last vin to this DS\n\t\tarray.append(newDict)\n\treturn array",
+                  "type": "script"
+                }
+              ],
+              "type": "expr"
+            }
+          },
+          "custom.LineName": {
+            "binding": {
+              "config": {
+                "path": "view.params.EqPath"
+              },
+              "transforms": [
+                {
+                  "expression": "substring({value},lastIndexOf({value},\u0027/\u0027)+1)",
+                  "type": "expression"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "custom.LineStateHistory": {
+            "binding": {
+              "config": {
+                "aggregate": "MinMax",
+                "avoidScanClassValidation": true,
+                "dateRange": {
+                  "endDate": "now(0)",
+                  "startDate": "{this.custom.ShiftStart}"
+                },
+                "enableValueCache": true,
+                "ignoreBadQuality": false,
+                "preventInterpolation": false,
+                "returnFormat": "Wide",
+                "returnSize": {
+                  "numRows": "100",
+                  "type": "FIXED"
+                },
+                "tags": [
+                  {
+                    "path": "[IgnitionHistorian/dev-script-gateway:default]GPA/Wilmington/Baking/Oven1/oee_events/state"
+                  }
+                ],
+                "valueFormat": "DATASET"
+              },
+              "type": "tag-history"
+            }
+          },
+          "custom.Now": {
+            "binding": {
+              "config": {
+                "expression": "now(1000)"
+              },
+              "type": "expr"
+            }
+          },
+          "custom.OriginalDS": {
+            "binding": {
+              "config": {
+                "fallbackDelay": 2.5,
+                "mode": "indirect",
+                "references": {
+                  "1": "{view.params.EqPath}"
+                },
+                "tagPath": "{1}/calculatedValues/shiftStateHistory"
+              },
+              "type": "tag"
+            }
+          },
+          "custom.ShiftStart": {
+            "binding": {
+              "config": {
+                "expression": "tag(\u0027[default]\u0027+{view.params.EqPath}+\u0027/calculatedValues/time/shiftStartTime\u0027)"
+              },
+              "type": "expr"
+            }
+          },
+          "props.dataSources.Level1Data": {
+            "binding": {
+              "config": {
+                "expression": "{this.custom.DS}"
+              },
+              "type": "expr"
+            }
+          },
+          "props.xAxes[0].date.break.startDate": {
+            "binding": {
+              "config": {
+                "expression": "now(1000)"
+              },
+              "transforms": [
+                {
+                  "formatType": "datetime",
+                  "formatValue": {
+                    "date": "medium",
+                    "time": "medium"
+                  },
+                  "type": "format"
+                }
+              ],
+              "type": "expr"
+            }
+          },
+          "props.xAxes[0].date.range.max": {
+            "binding": {
+              "config": {
+                "expression": "now(1000)"
+              },
+              "transforms": [
+                {
+                  "formatType": "datetime",
+                  "formatValue": {
+                    "date": "medium",
+                    "time": "medium"
+                  },
+                  "type": "format"
+                }
+              ],
+              "type": "expr"
+            }
+          },
+          "props.xAxes[0].date.range.min": {
+            "binding": {
+              "config": {
+                "expression": "{this.custom.ShiftStart}"
+              },
+              "transforms": [
+                {
+                  "formatType": "datetime",
+                  "formatValue": {
+                    "date": "medium",
+                    "time": "medium"
+                  },
+                  "type": "format"
+                }
+              ],
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "background": {
+            "render": "gradient"
+          },
+          "cursor": {
+            "enabled": false,
+            "lineX": {
+              "enabled": false
+            },
+            "lineY": {
+              "enabled": false
+            },
+            "series": "STATUS"
+          },
+          "dataSources": {},
+          "legend": {
+            "enabled": false,
+            "markers": {
+              "enabled": false,
+              "mirrorLookOfSeries": false
+            }
+          },
+          "scrollBars": {
+            "horizontal": {
+              "enabled": false,
+              "series": "STATUS"
+            },
+            "vertical": {
+              "enabled": false
+            }
+          },
+          "selection": {
+            "enabled": true
+          },
+          "series": [
+            {
+              "candlestick": {
+                "appearance": {
+                  "deriveFieldsFromData": {
+                    "fill": {
+                      "color": "COLOR",
+                      "opacity": ""
+                    },
+                    "stroke": {
+                      "color": "",
+                      "opacity": "",
+                      "width": ""
+                    }
+                  },
+                  "fill": {
+                    "color": "",
+                    "opacity": 1
+                  },
+                  "heatRules": {
+                    "dataField": "",
+                    "enabled": false,
+                    "max": "",
+                    "min": ""
+                  },
+                  "stacked": false,
+                  "stroke": {
+                    "color": "",
+                    "opacity": 1,
+                    "width": 1
+                  }
+                },
+                "high": {
+                  "x": "",
+                  "y": ""
+                },
+                "low": {
+                  "x": "",
+                  "y": ""
+                },
+                "open": {
+                  "x": "END",
+                  "y": ""
+                }
+              },
+              "column": {
+                "appearance": {
+                  "deriveFieldsFromData": {
+                    "fill": {
+                      "color": "COLOR",
+                      "opacity": ""
+                    },
+                    "stroke": {
+                      "color": "COLOR",
+                      "opacity": "",
+                      "width": ""
+                    }
+                  },
+                  "fill": {
+                    "color": "",
+                    "opacity": 1
+                  },
+                  "heatRules": {
+                    "dataField": "",
+                    "enabled": false,
+                    "max": "",
+                    "min": ""
+                  },
+                  "height": null,
+                  "stacked": false,
+                  "stroke": {
+                    "color": "",
+                    "opacity": 1,
+                    "width": 1
+                  },
+                  "width": null
+                },
+                "open": {
+                  "x": "START",
+                  "y": ""
+                }
+              },
+              "data": {
+                "source": "Level1Data",
+                "x": "END",
+                "y": "LINE"
+              },
+              "defaultState": {
+                "visible": true
+              },
+              "hiddenInLegend": false,
+              "label": {
+                "text": ""
+              },
+              "line": {
+                "appearance": {
+                  "bullets": [
+                    {
+                      "deriveFieldsFromData": {
+                        "fill": {
+                          "color": "",
+                          "opacity": ""
+                        },
+                        "rotation": "",
+                        "stroke": {
+                          "color": "",
+                          "opacity": "",
+                          "width": ""
+                        }
+                      },
+                      "enabled": false,
+                      "fill": {
+                        "color": "",
+                        "opacity": 1
+                      },
+                      "heatRules": {
+                        "dataField": "",
+                        "enabled": false,
+                        "max": 100,
+                        "min": 2
+                      },
+                      "height": 10,
+                      "label": {
+                        "position": {
+                          "dx": 0,
+                          "dy": 0
+                        },
+                        "text": "{value}"
+                      },
+                      "render": "circle",
+                      "rotation": 0,
+                      "stroke": {
+                        "color": "",
+                        "opacity": 1,
+                        "width": 1
+                      },
+                      "tooltip": {
+                        "background": {
+                          "color": "",
+                          "opacity": 1
+                        },
+                        "cornerRadius": 3,
+                        "enabled": true,
+                        "pointerLength": 4,
+                        "text": "{name}: [bold]{valueY}[/]"
+                      },
+                      "width": 10
+                    }
+                  ],
+                  "connect": true,
+                  "fill": {
+                    "color": "",
+                    "opacity": 0
+                  },
+                  "minDistance": 0.5,
+                  "stroke": {
+                    "color": "",
+                    "dashArray": "",
+                    "opacity": 1,
+                    "width": 3
+                  },
+                  "tensionX": 1,
+                  "tensionY": 1
+                },
+                "open": {
+                  "x": "",
+                  "y": ""
+                }
+              },
+              "name": "STATUS",
+              "render": "column",
+              "stepLine": {
+                "appearance": {
+                  "bullets": [
+                    {
+                      "deriveFieldsFromData": {
+                        "fill": {
+                          "color": "",
+                          "opacity": ""
+                        },
+                        "rotation": "",
+                        "stroke": {
+                          "color": "",
+                          "opacity": "",
+                          "width": ""
+                        }
+                      },
+                      "enabled": true,
+                      "fill": {
+                        "color": "",
+                        "opacity": 1
+                      },
+                      "heatRules": {
+                        "dataField": "",
+                        "enabled": false,
+                        "max": 100,
+                        "min": 2
+                      },
+                      "height": 10,
+                      "label": {
+                        "position": {
+                          "dx": 0,
+                          "dy": 0
+                        },
+                        "text": "{value}"
+                      },
+                      "render": "circle",
+                      "rotation": 0,
+                      "stroke": {
+                        "color": "",
+                        "opacity": 1,
+                        "width": 1
+                      },
+                      "tooltip": {
+                        "background": {
+                          "color": "",
+                          "opacity": 1
+                        },
+                        "cornerRadius": 3,
+                        "enabled": true,
+                        "pointerLength": 4,
+                        "text": "{name}: [bold]{valueY}[/]"
+                      },
+                      "width": 10
+                    }
+                  ],
+                  "connect": true,
+                  "fill": {
+                    "color": "",
+                    "opacity": 0
+                  },
+                  "minDistance": 0.5,
+                  "stroke": {
+                    "color": "",
+                    "dashArray": "",
+                    "opacity": 1,
+                    "width": 3
+                  },
+                  "tensionX": 1,
+                  "tensionY": 1
+                },
+                "open": {
+                  "x": "",
+                  "y": ""
+                }
+              },
+              "tooltip": {
+                "background": {
+                  "color": "",
+                  "opacity": 1
+                },
+                "cornerRadius": 3,
+                "enabled": true,
+                "pointerLength": 4,
+                "text": "[bold]{STATUS}: ({DURATION} sec.)[/]  [light]{START.formatDate(\u0027HH:mm:ss a\u0027)}[/] [bold]to[/] [light]{END.formatDate(\u0027HH:mm:ss a\u0027)}[/]"
+              },
+              "visible": true,
+              "xAxis": "time",
+              "yAxis": "STATUS",
+              "zIndex": 0
+            }
+          ],
+          "style": {
+            "classes": "Cards/Common/CardTitleBorder",
+            "color": "#FF6E75"
+          },
+          "xAxes": [
+            {
+              "appearance": {
+                "font": {
+                  "size": "",
+                  "weight": 500
+                },
+                "grid": {
+                  "color": "",
+                  "dashArray": "",
+                  "minDistance": null,
+                  "opacity": 1,
+                  "position": 0.5
+                },
+                "inside": true,
+                "labels": {
+                  "color": "",
+                  "horizontalCenter": "middle",
+                  "opacity": 1,
+                  "rotation": 0,
+                  "verticalCenter": "middle"
+                },
+                "opposite": false
+              },
+              "category": {
+                "break": {
+                  "enabled": false,
+                  "endCategory": "",
+                  "size": 0.05,
+                  "startCategory": ""
+                }
+              },
+              "date": {
+                "baseInterval": {
+                  "count": 1,
+                  "enabled": true,
+                  "skipEmptyPeriods": false,
+                  "timeUnit": "second"
+                },
+                "break": {
+                  "enabled": false,
+                  "endDate": "Sep 4, 2023, 4:46:56 PM",
+                  "size": 100
+                },
+                "format": "HH:mm:ss a",
+                "inputFormat": "M/d/yyyy HH:mm:ss",
+                "range": {
+                  "useStrict": true
+                }
+              },
+              "inversed": false,
+              "label": {
+                "color": "",
+                "enabled": false,
+                "text": "Time"
+              },
+              "name": "time",
+              "render": "date",
+              "tooltip": {
+                "background": {
+                  "color": "",
+                  "opacity": 1
+                },
+                "cornerRadius": 3,
+                "enabled": false,
+                "pointerLength": 4,
+                "text": ""
+              },
+              "value": {
+                "break": {
+                  "enabled": false,
+                  "endValue": 100,
+                  "size": 0.05,
+                  "startValue": 0
+                },
+                "format": "#,###.##",
+                "logarithmic": false,
+                "range": {
+                  "max": "Sep 4, 2023, 4:48:58 PM",
+                  "min": "Sep 4, 2023, 7:00:00 AM",
+                  "useStrict": true
+                }
+              },
+              "visible": false
+            }
+          ],
+          "yAxes": [
+            {
+              "appearance": {
+                "font": {
+                  "size": "",
+                  "weight": 500
+                },
+                "grid": {
+                  "color": "",
+                  "dashArray": "",
+                  "minDistance": null,
+                  "opacity": 1,
+                  "position": 0
+                },
+                "inside": true,
+                "labels": {
+                  "color": "",
+                  "horizontalCenter": "middle",
+                  "opacity": 1,
+                  "rotation": 0,
+                  "verticalCenter": "middle"
+                },
+                "opposite": false
+              },
+              "category": {
+                "break": {
+                  "enabled": false,
+                  "endCategory": "",
+                  "size": 0.05,
+                  "startCategory": ""
+                }
+              },
+              "date": {
+                "baseInterval": {
+                  "count": 1,
+                  "enabled": false,
+                  "skipEmptyPeriods": false,
+                  "timeUnit": "hour"
+                },
+                "break": {
+                  "enabled": false,
+                  "endDate": "",
+                  "size": 0.05,
+                  "startDate": ""
+                },
+                "format": "M/d/yyyy HH:mm:ss",
+                "inputFormat": "yyyy-MM-dd kk:mm:ss",
+                "range": {
+                  "max": "",
+                  "min": "",
+                  "useStrict": false
+                }
+              },
+              "inversed": false,
+              "label": {
+                "color": "",
+                "enabled": false,
+                "text": "Progress"
+              },
+              "name": "STATUS",
+              "render": "category",
+              "tooltip": {
+                "background": {
+                  "color": "",
+                  "opacity": 1
+                },
+                "cornerRadius": 3,
+                "enabled": false,
+                "pointerLength": 4,
+                "text": ""
+              },
+              "value": {
+                "break": {
+                  "enabled": false,
+                  "endValue": 100,
+                  "size": 0.05,
+                  "startValue": 0
+                },
+                "format": "#,###.##",
+                "logarithmic": false,
+                "range": {
+                  "max": "",
+                  "min": "",
+                  "useStrict": false
+                }
+              },
+              "visible": false
+            }
+          ]
+        },
+        "type": "ia.chart.xy"
+      }
+    ],
+    "custom": {
+      "ProgressData": null
+    },
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "alignContent": "center",
+      "alignItems": "center",
+      "direction": "column",
+      "justify": "center",
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

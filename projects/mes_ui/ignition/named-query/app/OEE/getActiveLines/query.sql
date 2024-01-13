@@ -1,0 +1,1 @@
+SELECT DISTINCT Area FROM config.assets WHERE EnterpriseID = :enterpriseID 

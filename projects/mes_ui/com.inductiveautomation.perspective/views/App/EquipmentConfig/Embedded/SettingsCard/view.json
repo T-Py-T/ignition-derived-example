@@ -1,0 +1,428 @@
+{
+  "custom": {
+    "EqType": "enterprise",
+    "Label": "value"
+  },
+  "params": {
+    "EqType": "value",
+    "ID": "value",
+    "ModalName": "eqConfigPopup",
+    "label": "value"
+  },
+  "propConfig": {
+    "custom.EqType": {
+      "onChange": {
+        "enabled": null,
+        "script": "\tsystem.perspective.sendMessage(\u0027refresh\u0027)"
+      },
+      "persistent": true
+    },
+    "custom.Label": {
+      "persistent": true
+    },
+    "params.EqType": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.ID": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.ModalName": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.label": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 87,
+      "width": 936
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\teqType \u003d self.view.custom.EqType\n\tif eqType \u003d\u003d \u0027enterprise\u0027 or eqType \u003d\u003d \u0027site\u0027:\n\t\tsystem.perspective.print(\u0027nope\u0027)\n\telse:\n\t\tsystem.perspective.sendMessage(\u0027configSettingsSelected\u0027, payload\u003d{ \u0027EqType\u0027: eqType, \u0027SettingsType\u0027: \u0027\u0027 })\n#\tsystem.perspective.closePopup(self.view.params.ModalName)"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Button"
+            },
+            "position": {
+              "basis": "40px",
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Buttons/ButtonStyle Global/MarginRight",
+                "marginTop": 10
+              },
+              "text": "Config Settings"
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "Row1"
+        },
+        "position": {
+          "basis": "180px"
+        },
+        "props": {
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Button"
+            },
+            "position": {
+              "basis": "80px",
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Buttons/ButtonStyle Global/MarginRight",
+                "marginTop": 10
+              },
+              "text": "Downtime Reason"
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "Row2"
+        },
+        "position": {
+          "basis": "180px",
+          "display": false
+        },
+        "props": {
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Button"
+            },
+            "position": {
+              "basis": "80px",
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Buttons/ButtonStyle Global/MarginRight",
+                "marginTop": 10
+              },
+              "text": "Counters"
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "Row3"
+        },
+        "position": {
+          "basis": "180px",
+          "display": false
+        },
+        "props": {
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\teqType \u003d self.view.custom.EqType\n\tsystem.perspective.sendMessage(\u0027configSettingsSelected\u0027, payload\u003d{ \u0027EqType\u0027: eqType, \u0027SettingsType\u0027: \u0027scrap\u0027 })"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Button",
+              "tooltip": {
+                "text": "Downtime Reason Categories need to be configured first"
+              }
+            },
+            "position": {
+              "basis": "80px",
+              "grow": 1
+            },
+            "propConfig": {
+              "custom.DTReasons": {
+                "binding": {
+                  "config": {
+                    "queryPath": "app/Equipment_Config/getDowntimeCategory",
+                    "returnFormat": "scalar"
+                  },
+                  "transforms": [
+                    {
+                      "expression": "if(isNull({value}),False,True)",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "query"
+                }
+              },
+              "meta.tooltip.enabled": {
+                "binding": {
+                  "config": {
+                    "path": "this.custom.DTReasons"
+                  },
+                  "transforms": [
+                    {
+                      "expression": "if({value},false,true)",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.enabled": {
+                "binding": {
+                  "config": {
+                    "path": "this.custom.DTReasons"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Buttons/ButtonStyle Global/MarginRight",
+                "marginTop": 10
+              },
+              "text": "Scrap Reason"
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "Row4"
+        },
+        "position": {
+          "basis": "180px"
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "expression": "if({view.custom.EqType} \u003d \u0027site\u0027 || {view.custom.EqType} \u003d \u0027enterprise\u0027, true, false)"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "scripts": {
+          "customMethods": [],
+          "extensionFunctions": null,
+          "messageHandlers": [
+            {
+              "messageType": "refresh",
+              "pageScope": true,
+              "script": "\t# implement your handler here\n\tself.refreshBinding(\u0027position.display\u0027)",
+              "sessionScope": false,
+              "viewScope": false
+            }
+          ]
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\teqType \u003d self.view.custom.EqType\n\tsettingsType \u003d \u0027states\u0027\n\tsystem.perspective.sendMessage(\u0027configSettingsSelected\u0027, \n\t\tpayload\u003d{ \u0027EqType\u0027: eqType, \u0027SettingsType\u0027: settingsType, \u0027ID\u0027: self.view.params.ID })"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Button"
+            },
+            "position": {
+              "basis": "80px",
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Buttons/ButtonStyle Global/MarginRight",
+                "marginTop": 10
+              },
+              "text": "States"
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "Row5"
+        },
+        "position": {
+          "basis": "180px"
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "expression": "if({view.custom.EqType} \u003d \u0027line\u0027, true, false)"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "scripts": {
+          "customMethods": [],
+          "extensionFunctions": null,
+          "messageHandlers": [
+            {
+              "messageType": "refresh",
+              "pageScope": true,
+              "script": "\t# implement your handler here\n\tself.refreshBinding(\u0027position.display\u0027)",
+              "sessionScope": false,
+              "viewScope": false
+            }
+          ]
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\teqType \u003d self.view.custom.EqType\n\tsettingsType \u003d \u0027modes\u0027\n\tsystem.perspective.sendMessage(\u0027configSettingsSelected\u0027, \n\t\tpayload\u003d{ \u0027EqType\u0027: eqType, \u0027SettingsType\u0027: settingsType })"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Button"
+            },
+            "position": {
+              "basis": "80px",
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Buttons/ButtonStyle",
+                "marginTop": 10
+              },
+              "text": "Modes"
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "Row6"
+        },
+        "position": {
+          "basis": "180px"
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "expression": "if({view.custom.EqType} \u003d \u0027enterprise\u0027 || {view.custom.EqType} \u003d \u0027site\u0027, true, false)\r\n//if({view.custom.EqType} \u003d \u0027cell\u0027, false, true)"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "events": {
+      "dom": {
+        "onClick": {
+          "config": {
+            "script": "\tsystem.perspective.print(self.view.custom)"
+          },
+          "scope": "G",
+          "type": "script"
+        }
+      }
+    },
+    "meta": {
+      "name": "root"
+    },
+    "propConfig": {
+      "custom.label": {
+        "access": "PUBLIC"
+      }
+    },
+    "props": {
+      "justify": "center"
+    },
+    "scripts": {
+      "customMethods": [],
+      "extensionFunctions": null,
+      "messageHandlers": [
+        {
+          "messageType": "configSettingsSelected",
+          "pageScope": true,
+          "script": "\t# implement your handler here\n\tself.view.custom.EqType \u003d payload[\u0027EqType\u0027]",
+          "sessionScope": false,
+          "viewScope": false
+        }
+      ]
+    },
+    "type": "ia.container.flex"
+  }
+}

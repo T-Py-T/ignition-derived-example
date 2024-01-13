@@ -1,0 +1,903 @@
+{
+  "custom": {
+    "EqPath": "Fiberon/1NL/PE Extrusion/Line 23"
+  },
+  "params": {},
+  "propConfig": {
+    "custom.EqPath": {
+      "binding": {
+        "config": {
+          "path": "session.custom.EqPath"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "width": 1323
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "EmbeddedView"
+                },
+                "position": {
+                  "basis": "40%"
+                },
+                "propConfig": {
+                  "props.params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.EqPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "path": "GlobalComponents/Widgets/BreakWidget",
+                  "style": {
+                    "classes": "Global/MarginBottom"
+                  }
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "meta": {
+                  "name": "CurrentSpeed"
+                },
+                "position": {
+                  "basis": "60%",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.EqPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "State": ""
+                  },
+                  "path": "GlobalComponents/Widgets/CurrentSpeedWidget"
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "Break"
+            },
+            "position": {
+              "basis": "200px"
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "EmbeddedView"
+                },
+                "position": {
+                  "basis": "200px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.EqPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "State": "fail"
+                  },
+                  "path": "GlobalComponents/Widgets/OrderInfoWidget"
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "OrderInfo"
+            },
+            "position": {
+              "basis": "200px",
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "EmbeddedView"
+                },
+                "position": {
+                  "basis": "200px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.EqPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "State": "fail"
+                  },
+                  "path": "GlobalComponents/Widgets/CurrentCallsWidget"
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "CurrentCalls"
+            },
+            "position": {
+              "basis": "200px",
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "EmbeddedView"
+                },
+                "position": {
+                  "basis": "200px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.EqPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "Title": "Downtime Table Planned",
+                    "Type": ""
+                  },
+                  "path": "GlobalComponents/Widgets/DownTimeTablePlannedWidget"
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "DowntimePlanned"
+            },
+            "position": {
+              "basis": "200px",
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "EmbeddedView"
+                },
+                "position": {
+                  "basis": "200px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.EqPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "Title": "Downtime Table Micro",
+                    "Type": "Micro"
+                  },
+                  "path": "GlobalComponents/Widgets/DownTimeTableWidget"
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "DowntimeMicro"
+            },
+            "position": {
+              "basis": "200px",
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "EmbeddedView"
+                },
+                "position": {
+                  "basis": "200px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.EqPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "Title": "Downtime Table Unplanned",
+                    "Type": ""
+                  },
+                  "path": "GlobalComponents/Widgets/DownTimeTableWidget"
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "DowntimeUnplanned"
+            },
+            "position": {
+              "basis": "200px",
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Row1"
+        },
+        "position": {
+          "basis": "300px"
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "EmbeddedView"
+                },
+                "position": {
+                  "basis": "40%"
+                },
+                "propConfig": {
+                  "props.params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.EqPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "State": "value",
+                    "Type": "value"
+                  },
+                  "path": "GlobalComponents/Widgets/DownTimeWidget",
+                  "style": {
+                    "classes": "Global/MarginBottom"
+                  }
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "meta": {
+                  "name": "EmbeddedView_0"
+                },
+                "position": {
+                  "basis": "40%"
+                },
+                "propConfig": {
+                  "props.params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.EqPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "State": "value",
+                    "Title": "Quantity Left",
+                    "UoM": "pcs"
+                  },
+                  "path": "GlobalComponents/Widgets/LeftQuantityWidget",
+                  "style": {
+                    "classes": "Global/MarginBottom"
+                  }
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "Downtime"
+            },
+            "position": {
+              "basis": "200px"
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "EmbeddedView"
+                },
+                "position": {
+                  "basis": "200px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.EqPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "State": "fail"
+                  },
+                  "path": "GlobalComponents/Widgets/HourlyProductionWidget"
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "HourlyProd"
+            },
+            "position": {
+              "basis": "200px",
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "EmbeddedView"
+                },
+                "position": {
+                  "basis": "200px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.EqPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "State": "fail"
+                  },
+                  "path": "GlobalComponents/Widgets/JobCountWidget",
+                  "style": {
+                    "classes": "Global/MarginBottom"
+                  }
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "meta": {
+                  "name": "EmbeddedView_0"
+                },
+                "position": {
+                  "basis": "200px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.EqPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "State": "fail"
+                  },
+                  "path": "GlobalComponents/Widgets/MetricsWidget"
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "Counts"
+            },
+            "position": {
+              "basis": "200px",
+              "grow": 1
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "EmbeddedView"
+                },
+                "position": {
+                  "basis": "200px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.EqPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "Title": "Down Time Table Planned",
+                    "Type": ""
+                  },
+                  "path": "GlobalComponents/Widgets/NewAttributeTest",
+                  "style": {
+                    "classes": "Global/MarginBottom"
+                  }
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "meta": {
+                  "name": "EmbeddedView_0"
+                },
+                "position": {
+                  "basis": "200px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.EqPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "State": "fail",
+                    "Title": "Down Time Table Planned",
+                    "Type": ""
+                  },
+                  "path": "GlobalComponents/Widgets/RequiredSpeedWidget"
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "DowntimePlanned"
+            },
+            "position": {
+              "basis": "200px",
+              "grow": 1
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "EmbeddedView"
+                },
+                "position": {
+                  "basis": "200px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.EqPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "Title": "Recent Downtime",
+                    "Type": ""
+                  },
+                  "path": "GlobalComponents/Widgets/RecentDowntimeWidget"
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "RecentDowntime"
+            },
+            "position": {
+              "basis": "200px",
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "EmbeddedView"
+                },
+                "position": {
+                  "basis": "200px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.EqPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "Title": "Downtime Table Composite",
+                    "Type": ""
+                  },
+                  "path": "GlobalComponents/Widgets/RecentDowntimeWidgetComposite"
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "DowntimeComposite"
+            },
+            "position": {
+              "basis": "200px",
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Row2"
+        },
+        "position": {
+          "basis": "300px"
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "EmbeddedView"
+                },
+                "position": {
+                  "basis": "72.2%"
+                },
+                "propConfig": {
+                  "props.params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.EqPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "State": "value"
+                  },
+                  "path": "GlobalComponents/Widgets/ScrapWidget",
+                  "style": {
+                    "classes": "Global/MarginBottom"
+                  }
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "Scrap"
+            },
+            "position": {
+              "basis": "200px"
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "EmbeddedView"
+                },
+                "position": {
+                  "basis": "200px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.EqPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "State": "fail"
+                  },
+                  "path": "GlobalComponents/Widgets/ShiftRateWidget"
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "ShiftRate"
+            },
+            "position": {
+              "basis": "200px",
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "EmbeddedView"
+                },
+                "position": {
+                  "basis": "200px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.EqPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "State": "fail"
+                  },
+                  "path": "GlobalComponents/Widgets/TimeRemainingWidget",
+                  "style": {
+                    "classes": "Global/MarginBottom"
+                  }
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "TimeRemaining"
+            },
+            "position": {
+              "basis": "200px",
+              "grow": 1
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "EmbeddedView"
+                },
+                "position": {
+                  "basis": "200px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.EqPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "Title": "Mode Table",
+                    "Type": ""
+                  },
+                  "path": "GlobalComponents/Widgets/ModeTableWidget"
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "ModesTable"
+            },
+            "position": {
+              "basis": "200px",
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Row3"
+        },
+        "position": {
+          "basis": "300px"
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "classes": "Global/MarginAll",
+        "overflow": "scroll",
+        "overflowX": "hidden",
+        "overflowY": "scroll"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

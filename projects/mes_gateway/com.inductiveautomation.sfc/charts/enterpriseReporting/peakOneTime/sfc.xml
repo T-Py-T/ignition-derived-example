@@ -1,0 +1,171 @@
+<?xml version="1.0" ?>
+<sfc zoom="1.0" canvas="20 20" execution-mode="Disabled" hot-editable="false" persist-state="true" redundant-sync="false">
+	<onstart>def onStart(chart):
+	"""
+	This will run once when the chart is started.
+
+	Arguments:
+		chart: A reference to the chart's scope.
+	"""
+</onstart>
+	<onabort>def onAbort(chart):
+	"""
+	This will run once if the chart is aborted.
+	The exception that caused the abort is
+	available via chart.abortCause
+
+	Arguments:
+		chart: A reference to the chart's scope.
+	"""
+	logger = system.util.getLogger('sfc/peakonetime')
+	logger.error('Peak insert was aborted: %s' % str(chart.abortCause)) 	</onabort>
+	<step id="d77b8ca8-b319-4c66-b4d1-2979db4fee4e" location="5 0" name="__begin" factory-id="begin-step">	</step>
+	<step id="9109132b-ec45-4fa7-a197-e69b1ed662c4" location="5 2" name="checkProductionModule" factory-id="action-step">
+		<start-script>def onStart(chart, step):
+	"""
+	This will run when the step starts, before any
+	other action.
+
+	Arguments:
+		chart: A reference to the chart's scope.
+		step: A reference to this step's scope.
+	"""
+	isProductionStarted = False
+	try:
+		isProductionStarted = system.mes.isProductionStarted()
+	except:
+		isProductionStarted = False
+		
+	if isProductionStarted:
+		chart.productionStarted = True
+	else:
+		chart.productionStarted = False</start-script>
+	</step>
+	<step id="38d7a359-5b92-4fd1-9452-85f77c67d59f" location="4 6" name="getEquipmentPaths" factory-id="action-step">
+		<start-script>def onStart(chart, step):
+	"""
+	This will run when the step starts, before any
+	other action.
+
+	Arguments:
+		chart: A reference to the chart's scope.
+		step: A reference to this step's scope.
+	"""
+	chart.equipmentPaths = []
+	chart.index = 0
+	
+	
+	filter = system.mes.object.filter.createFilter()
+	filter.setMESObjectTypeName('Line')
+	filter.setShowEquipmentPath(True)
+	mesObjectlist = system.mes.searchMESObjects(filter)
+	eqPaths = []
+	for item in mesObjectlist:
+		eqPaths.append(item.getName())
+	chart.equipmentPaths = eqPaths
+	chart.equipmentPathCount = len(eqPaths)</start-script>
+	</step>
+	<step id="4c6255c6-395e-4c4a-882a-c6a7414b051b" location="4 8" name="recheckProductionModule" factory-id="action-step">
+		<start-script>def onStart(chart, step):
+	"""
+	This will run when the step starts, before any
+	other action.
+
+	Arguments:
+		chart: A reference to the chart's scope.
+		step: A reference to this step's scope.
+	"""
+	isProductionStarted = False
+	try:
+		isProductionStarted = system.mes.isProductionStarted()
+	except:
+		isProductionStarted = False
+		
+	if isProductionStarted:
+		chart.productionStarted = True
+	else:
+		chart.productionStarted = False</start-script>
+	</step>
+	<step id="a9b5b088-f0aa-4000-8f03-b7904200e0e3" location="4 13" name="peakData" factory-id="action-step">
+		<start-script>def onStart(chart, step):
+	"""
+	This will run when the step starts, before any
+	other action.
+
+	Arguments:
+		chart: A reference to the chart's scope.
+		step: A reference to this step's scope.
+	"""
+	
+	index = chart.index
+	
+	chart.currentEquipmentPath = chart.equipmentPaths[index]
+	
+	
+	
+	tagstartDate = system.date.parse('2021-05-01 00:00:00')
+	tagendDate = system.date.parse('2021-05-06 10:00:00')
+#	eqPath = 'Newell\\Maryville\\Assembly\\SFN11'
+	
+	
+	
+	chart.counter = 0
+	
+	
+		
+	ds = system.mes.getTagCollectorValues(chart.currentEquipmentPath, 'Equipment Shift','',tagstartDate, tagendDate)
+	for row in range(ds.rowCount):
+		if row +1 != ds.rowCount:
+#			print row, ds.rowCount
+			startDate = ds.getValueAt(row, 0)
+			endDate = ds.getValueAt(row+1, 0)
+			
+			
+			data = mes.analysis.reporting.getTimeLineStreamData(chart.currentEquipmentPath, startDate, endDate)
+#			print data
+			if len(data) &gt; 0:
+#				print 'i'
+				mes.analysis.reporting.insertTimeLineStreamData(data)
+				chart.counter += 1
+				
+#			data = mes.analysis.reporting.getShiftData(chart.currentEquipmentPath, startDate, endDate)
+#			if len(data) &gt; 0:
+##				print 'i'
+#				insertValue = mes.analysis.reporting.insertIntervalStreamData(data)
+#				chart.counter += 1
+	
+	chart.index += 1
+#	if chart.index &gt;= len(chart.equipmentPaths):
+#		chart.index =0
+	
+	</start-script>
+	</step>
+	<step id="82f40dd3-4ef7-49fc-8a1e-d45c83d239e4" location="5 16" name="__end1" factory-id="end-step">	</step>
+	<transition id="4e823f6f-add6-42f5-ad2e-4e23fd59e098" location="5 3" timeout-enabled="true" timeout-delay="1" timeout-flag="watchdogIsStarted">{watchdogIsStarted} = true </transition>
+	<transition id="622ab46f-f836-4d15-90b4-eee57472f920" location="4 5">{productionStarted} = true</transition>
+	<transition id="d5aec6a7-df3c-4c93-8f2b-2b1e11642050" location="6 5">{productionStarted} = false</transition>
+	<transition id="d7a2a434-a7b9-442d-b135-9af24756c34f" location="4 9" timeout-enabled="true" timeout-delay="5000" timeout-flag="watchdog">{watchdog} = true</transition>
+	<transition id="2f9c398b-5135-4e78-b71c-ccd5b72d23a9" location="4 11">{productionStarted} = true</transition>
+	<transition id="e914399f-b4be-44c6-89c2-993d4f3b56e9" location="5 11">true</transition>
+	<transition id="97890ea9-39bf-4df5-b039-42c7967e87ff" location="3 15">{index} &lt; {equipmentPathCount}</transition>
+	<transition id="ae60251d-b69b-4499-a2cf-4581cf9442a1" location="5 15">{index} &gt;= {equipmentPathCount}</transition>
+	<jump id="e0566268-20ed-4cc1-a6e3-976a8e4f38ba" location="6 6">B</jump>
+	<jump id="feaa4841-a35a-410e-8a65-011fee425bb0" location="5 12">A</jump>
+	<jump id="05d7996a-a69e-40b5-bf50-5aed598ea6c2" location="3 16">A</jump>
+	<anchor id="60d38a9f-4fc4-4c07-98df-711b9968a0fa" location="6 0">B</anchor>
+	<anchor id="70676275-814c-4e77-903d-c7a5ada90124" location="3 6">A</anchor>
+	<link id="41a7bf28-e918-4e12-9300-0d7fe0f0dc7c" location="5 1"><up/><down/><right/></link>
+	<link id="161061fe-d6d0-41fd-8327-425b5f37669d" location="4 4"><left/><down/><right/></link>
+	<link id="2d4b4309-b801-4272-b488-a4964a5d3910" location="6 1"><up/><left/><down/></link>
+	<link id="8d2dfe44-0852-4d42-861f-51f4c1ab156e" location="5 4"><up/><left/><down/><right/></link>
+	<link id="b6cd4bb2-925b-4302-bed1-7ec4212fcf84" location="6 4"><left/><down/><right/></link>
+	<link id="ce697c3e-8777-4738-bb62-1eb89a93f315" location="3 7"><up/><down/><right/></link>
+	<link id="0ac576dd-6be4-4a01-a9b5-2ad19346c7ab" location="4 7"><up/><left/><down/></link>
+	<link id="26ce072e-de5f-44cf-901e-bbbc30d065c8" location="4 10"><up/><down/><right/></link>
+	<link id="79106d47-29fb-4198-8163-5e70e7f0db54" location="5 10"><up/><left/><down/></link>
+	<link id="e6d6c12f-ec6f-4123-be65-673db2334e3b" location="4 12"><up/><down/></link>
+	<link id="6d8ddf22-739f-45c1-a7db-e9dca0102fef" location="3 14"><left/><down/><right/></link>
+	<link id="ffc5ce6c-83ad-4d0b-9fcc-e4011b8dbecb" location="4 14"><up/><left/><down/><right/></link>
+	<link id="865233ec-9f48-4862-b1c6-5cb1be27b553" location="5 14"><left/><down/><right/></link>
+
+</sfc>

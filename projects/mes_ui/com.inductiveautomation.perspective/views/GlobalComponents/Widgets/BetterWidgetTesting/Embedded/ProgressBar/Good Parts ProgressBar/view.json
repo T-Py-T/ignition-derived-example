@@ -1,0 +1,88 @@
+{
+  "custom": {
+    "Target": 1500000,
+    "Value": 254621
+  },
+  "params": {},
+  "propConfig": {
+    "custom.Target": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "expression",
+          "tagPath": "{session.custom.EqPath}+\u0027/jobs/currentJob/scheduleQuantity\u0027"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.Value": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "expression",
+          "tagPath": "{session.custom.EqPath}+\u0027/jobs/currentJob/RunCounts/runGoodParts\u0027"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 99,
+      "width": 483
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Progress"
+        },
+        "position": {
+          "basis": "20px",
+          "grow": 1
+        },
+        "propConfig": {
+          "props.max": {
+            "binding": {
+              "config": {
+                "path": "view.custom.Target"
+              },
+              "type": "property"
+            }
+          },
+          "props.value": {
+            "binding": {
+              "config": {
+                "path": "view.custom.Value"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "bar": {
+            "style": {
+              "backgroundImage": "repeating-radial-gradient(ellipse farthest-corner at center center, #45C7FF 0%, #1D5A5E 100%)"
+            }
+          },
+          "track": {
+            "style": {
+              "backgroundImage": "repeating-radial-gradient(ellipse farthest-corner at center center, #21607A 0%, #000000 100%)\n"
+            }
+          }
+        },
+        "type": "ia.display.progress"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

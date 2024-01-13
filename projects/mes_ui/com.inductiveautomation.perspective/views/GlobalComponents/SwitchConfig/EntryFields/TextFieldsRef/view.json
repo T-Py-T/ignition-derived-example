@@ -1,0 +1,317 @@
+{
+  "custom": {},
+  "params": {
+    "options": "value",
+    "type": "value"
+  },
+  "propConfig": {
+    "params.options": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.type": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 179,
+      "width": 566
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "InventorySelection"
+            },
+            "position": {
+              "basis": "214.9px"
+            },
+            "propConfig": {
+              "custom.options": {
+                "binding": {
+                  "config": {
+                    "expression": "runScript(\"mes.trace.sp.getInventories\", 0, 1)"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\toptions \u003d []\n\tpydata \u003d system.dataset.toPyDataSet(value)\n\t\n\tfor row in pydata:\n\t\toptions.append({\n\t\t\t\"label\": row[\"Name\"],\n\t\t\t\"value\": row[\"ID\"]\n\t\t})\n\t\t\n\treturn options\n\t\t\t\n\t",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "expr"
+                }
+              },
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.type"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": true,
+                      "inputType": "scalar",
+                      "mappings": [
+                        {
+                          "input": "add",
+                          "output": true
+                        },
+                        {
+                          "input": "remove",
+                          "output": false
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.options": {
+                "binding": {
+                  "config": {
+                    "path": "this.custom.options"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.value": {
+                "onChange": {
+                  "enabled": null,
+                  "script": "\tpayload \u003d currentValue.getValue()\n\tif previousValue !\u003d currentValue:\n\t\tsystem.perspective.sendMessage(\"inventorySelected\", payload\u003dpayload)\n\t\t"
+                }
+              }
+            },
+            "props": {
+              "placeholder": {
+                "text": "Select a inventory..."
+              },
+              "style": {
+                "classes": "TextFields/Dropdown",
+                "marginLeft": "auto"
+              }
+            },
+            "type": "ia.input.dropdown"
+          },
+          {
+            "meta": {
+              "name": "PartLabel"
+            },
+            "position": {
+              "basis": "359px"
+            },
+            "propConfig": {
+              "props.style.marginLeft": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.type"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": "",
+                      "inputType": "scalar",
+                      "mappings": [
+                        {
+                          "input": "add",
+                          "output": ""
+                        },
+                        {
+                          "input": "remove",
+                          "output": "auto"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.text": {
+                "onChange": {
+                  "enabled": null,
+                  "script": "\tpayload \u003d currentValue.getValue()\n\tif previousValue !\u003d currentValue:\n\t\tsystem.perspective.sendMessage(\"partSelected\", payload\u003dpayload)\n\t\t"
+                }
+              }
+            },
+            "props": {
+              "placeholder": "Enter Part Label...",
+              "style": {
+                "classes": "TextFields/TextArea",
+                "marginRight": "auto"
+              }
+            },
+            "type": "ia.input.text-area"
+          }
+        ],
+        "custom": {
+          "addRemParams": "value"
+        },
+        "meta": {
+          "name": "Body"
+        },
+        "position": {
+          "basis": "49px",
+          "shrink": 0
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\tinventory \u003d self.parent.parent.getChild(\"Body/InventorySelection\").props.value\n\tpart \u003d self.parent.parent.getChild(\"Body/PartLabel\").props.text\n\t\n\tpayload \u003d {\n\t\t\"inventory\": inventory,\n\t\t\"part\": part\n\t}\n\t\n\tif inventory !\u003d \"\" and part !\u003d \"\":\n\t\tsystem.perspective.sendMessage(\"addInventory\", payload\u003dpayload)\n\telse:\n\t\tsystem.perspective.sendMessage(\"addInventory\", payload\u003d\"Failed\")"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "AddButton"
+            },
+            "position": {
+              "basis": "142px"
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.type"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": false,
+                      "inputType": "scalar",
+                      "mappings": [
+                        {
+                          "input": "add",
+                          "output": true
+                        },
+                        {
+                          "input": "remove",
+                          "output": false
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "Icon": "",
+                "Type": "",
+                "disabledPopup": {
+                  "message": "Please sign in as quarterback to proceed.",
+                  "messageType": "",
+                  "payload": {},
+                  "title": "Invalid Permissions"
+                },
+                "enabled": true,
+                "hover": true,
+                "iconPath": "material/add",
+                "isSelectable": false,
+                "label": "Add Part",
+                "selected": true,
+                "size": "value",
+                "type": "value"
+              },
+              "path": "Components/Buttons/Button",
+              "style": {
+                "marginLeft": "auto",
+                "marginRight": "auto"
+              }
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "RemoveButton"
+            },
+            "position": {
+              "basis": "142px"
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.type"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": false,
+                      "inputType": "scalar",
+                      "mappings": [
+                        {
+                          "input": "add",
+                          "output": false
+                        },
+                        {
+                          "input": "remove",
+                          "output": true
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "disabledPopup": {
+                  "message": "Please sign in as quarterback to proceed.",
+                  "messageType": "",
+                  "payload": {},
+                  "title": "Invalid Permissions"
+                },
+                "enabled": true,
+                "hover": true,
+                "iconPath": "material/delete",
+                "isSelectable": false,
+                "label": "Remove Part",
+                "selected": true,
+                "size": "value",
+                "type": "normalfail"
+              },
+              "path": "Components/Buttons/Button",
+              "style": {
+                "marginLeft": "auto",
+                "marginRight": "auto"
+              }
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "Footer"
+        },
+        "position": {
+          "basis": "125px"
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

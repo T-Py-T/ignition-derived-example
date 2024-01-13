@@ -1,0 +1,1 @@
+SELECT DISTINCT Area, AreaID, EqPath FROM config.assets

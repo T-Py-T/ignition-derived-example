@@ -1,0 +1,167 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 84,
+      "width": 517
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "StartDateLabel"
+            },
+            "position": {
+              "basis": "80px"
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+              },
+              "text": "Start Date:",
+              "textStyle": {
+                "classes": "TextFields/TextTitle",
+                "textAlign": "left"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "StartDate"
+            },
+            "position": {
+              "basis": "221px"
+            },
+            "propConfig": {
+              "props.value": {
+                "binding": {
+                  "config": {
+                    "expression": "addDays(now(100000), -30)"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "formattedValue": "Apr 10, 2023 10:46 AM",
+              "inputProps": {
+                "style": {
+                  "classes": "TextFields/DateSelector"
+                }
+              },
+              "modalStyle": {
+                "classes": "TextFields/TextArea"
+              },
+              "style": {
+                "classes": "Global/MarginBottom TextFields/TextArea"
+              }
+            },
+            "type": "ia.input.date-time-input"
+          }
+        ],
+        "meta": {
+          "name": "Row1"
+        },
+        "position": {
+          "basis": "42px"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "EndDateLabel"
+            },
+            "position": {
+              "basis": "80px"
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginBottom Global/MarginLeft TextFields/Root TextFields/TextTitle"
+              },
+              "text": "End Date:",
+              "textStyle": {
+                "classes": "TextFields/TextTitle",
+                "textAlign": "left"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "EndDate"
+            },
+            "position": {
+              "basis": "221px"
+            },
+            "propConfig": {
+              "props.value": {
+                "binding": {
+                  "config": {
+                    "expression": "addDays(now(100000), -1)"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "formattedValue": "May 9, 2023 10:46 AM",
+              "inputProps": {
+                "style": {
+                  "classes": "TextFields/DateSelector"
+                }
+              },
+              "modalStyle": {
+                "classes": "TextFields/TextArea"
+              },
+              "style": {
+                "classes": "Global/MarginBottom TextFields/TextArea Global/MarginRight"
+              }
+            },
+            "type": "ia.input.date-time-input"
+          },
+          {
+            "meta": {
+              "name": "Button"
+            },
+            "position": {
+              "basis": "150px"
+            },
+            "props": {
+              "image": {
+                "icon": {
+                  "path": "material/save"
+                }
+              },
+              "style": {
+                "classes": "Buttons/ButtonStyle"
+              },
+              "text": "Quick Range"
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "Row2"
+        },
+        "position": {
+          "basis": "42px"
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

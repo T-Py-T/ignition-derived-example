@@ -1,0 +1,254 @@
+{
+  "custom": {},
+  "params": {},
+  "permissions": {
+    "securityLevels": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [],
+                "name": "Administrator"
+              },
+              {
+                "children": [],
+                "name": "Manager"
+              }
+            ],
+            "name": "Roles"
+          }
+        ],
+        "name": "Authenticated"
+      }
+    ],
+    "type": "AnyOf"
+  },
+  "props": {
+    "defaultSize": {
+      "height": 772,
+      "width": 978
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "EmbeddedView"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "custom.options": {
+                "binding": {
+                  "config": {
+                    "expression": "runScript(\"mes.trace.sp.getInventories\", 0, 1)"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\toptions \u003d []\n\tpydata \u003d system.dataset.toPyDataSet(value)\n\n\tfor row in pydata:\n\t\toptions.append({\n\t\t\t\"label\": row[\"Name\"],\n\t\t\t\"value\": row[\"ID\"]\n\t\t})\n\t\t\n\treturn options",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "path": "app/_Ref/Clarios/MES_Common/Components/LineLossPareto",
+              "style": {
+                "marginBottom": "15px",
+                "marginLeft": "15px",
+                "marginRight": 15,
+                "marginTop": "15px"
+              }
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "InventoryView"
+        },
+        "position": {
+          "basis": "320px",
+          "display": false,
+          "grow": 1
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "EmbeddedView"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "custom.inventory": {
+                "persistent": false
+              },
+              "custom.part": {
+                "persistent": false
+              },
+              "props.params.icon": {
+                "binding": {
+                  "config": {
+                    "path": "this.props.params.type"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": "",
+                      "inputType": "scalar",
+                      "mappings": [
+                        {
+                          "input": "success",
+                          "output": "material/check"
+                        },
+                        {
+                          "input": "warning",
+                          "output": "material/warning"
+                        },
+                        {
+                          "input": "fail",
+                          "output": "material/error"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "params": {
+                  "type": "add"
+                },
+                "path": "app/TrackAndTrace/Embedded/AddRemovePart",
+                "sizeBasis": "200px",
+                "title": "Add Part",
+                "type": "",
+                "useDefaultHeight": false,
+                "useDefaultWidth": false
+              },
+              "path": "StyleGuide/Cards/Card",
+              "style": {
+                "marginBottom": "15px",
+                "marginLeft": "15px",
+                "marginRight": "15px",
+                "marginTop": "15px"
+              },
+              "useDefaultViewHeight": true
+            },
+            "scripts": {
+              "customMethods": [],
+              "extensionFunctions": null,
+              "messageHandlers": [
+                {
+                  "messageType": "inventorySelected",
+                  "pageScope": true,
+                  "script": "\tinventory \u003d payload\n\tself.custom.inventory \u003d payload\n\t\n\t",
+                  "sessionScope": false,
+                  "viewScope": false
+                },
+                {
+                  "messageType": "partSelected",
+                  "pageScope": true,
+                  "script": "\tpart \u003d payload\n\tself.custom.part \u003d payload",
+                  "sessionScope": false,
+                  "viewScope": false
+                },
+                {
+                  "messageType": "addInventory",
+                  "pageScope": true,
+                  "script": "\tlogger \u003d system.util.getLogger(\"addInventory\")\n\t\n\tif payload \u003d\u003d \"Failed\":\n\t\tself.props.params.type \u003d \"fail\"\n\telse:\n\t\tself.custom.inventory \u003d payload[\"inventory\"]\n\t\tself.custom.part \u003d payload[\"part\"]\n\t\t\n\t\ttry:\n\t\t\tresponse \u003d mes.trace.sp.addPartToInventory(payload[\"inventory\"], payload[\"part\"])\n\t\t\tself.props.params.type \u003d \"success\"\n\t\t\tlogger.log(\"Added inventory part\")\n\t\texcept:\n\t\t\tlogger.log(\"An error occurred\")",
+                  "sessionScope": false,
+                  "viewScope": false
+                }
+              ]
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "Add"
+        },
+        "position": {
+          "basis": "200px",
+          "grow": 1
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "EmbeddedView"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "custom.options": {
+                "binding": {
+                  "config": {
+                    "expression": "runScript(\"mes.trace.sp.getInventories\", 0, 1)"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\toptions \u003d []\n\tpydata \u003d system.dataset.toPyDataSet(value)\n\n\tfor row in pydata:\n\t\toptions.append({\n\t\t\t\"label\": row[\"Name\"],\n\t\t\t\"value\": row[\"ID\"]\n\t\t})\n\t\t\n\treturn options",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "icon": "",
+                "params": {
+                  "type": "remove"
+                },
+                "path": "app/TrackAndTrace/Embedded/AddRemovePart",
+                "sizeBasis": "value",
+                "title": "Remove Part",
+                "type": "",
+                "useDefaultHeight": false,
+                "useDefaultWidth": false
+              },
+              "path": "StyleGuide/Cards/Card",
+              "style": {
+                "marginBottom": "15px",
+                "marginLeft": "15px",
+                "marginRight": "15px",
+                "marginTop": "15px"
+              },
+              "useDefaultViewHeight": true
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "Remove"
+        },
+        "position": {
+          "basis": "200px",
+          "grow": 1
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.flex"
+  }
+}

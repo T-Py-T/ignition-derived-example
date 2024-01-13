@@ -1,0 +1,135 @@
+{
+  "custom": {},
+  "params": {
+    "TagPath": "",
+    "TagProvider": "[default]"
+  },
+  "propConfig": {
+    "params.TagPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.TagProvider": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 401
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "AlarmStatusTable"
+        },
+        "position": {
+          "basis": "100%"
+        },
+        "propConfig": {
+          "props.filters.active.conditions.displayPath": {
+            "binding": {
+              "config": {
+                "path": "view.params.TagPath"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "columns": {
+            "active": {
+              "activeTime": {
+                "strictWidth": true,
+                "width": 200
+              },
+              "displayPath": {
+                "enabled": false,
+                "order": 2
+              },
+              "label": {
+                "enabled": true,
+                "order": 2,
+                "strictWidth": true,
+                "width": 200
+              },
+              "name": {
+                "order": 1,
+                "strictWidth": true,
+                "width": 200
+              },
+              "priority": {
+                "enabled": false
+              },
+              "source": {
+                "enabled": false
+              },
+              "state": {
+                "enabled": false
+              }
+            }
+          },
+          "enableAcknowledge": false,
+          "enableDetails": false,
+          "enableShelve": false,
+          "enableUnshelve": false,
+          "filters": {
+            "active": {
+              "conditions": {},
+              "states": {
+                "clearUnacked": false
+              }
+            }
+          },
+          "pager": {
+            "enabled": false
+          },
+          "refreshRate": 1000,
+          "responsive": {
+            "enabled": true
+          },
+          "rowStyles": {
+            "activeUnacked": {
+              "base": {
+                "fontSize": "1.1rem"
+              },
+              "priorities": {
+                "low": {
+                  "backgroundColor": "#F5072C"
+                },
+                "medium": {
+                  "backgroundColor": "#F68309"
+                }
+              }
+            }
+          },
+          "selection": {
+            "active": {
+              "mode": "none"
+            }
+          },
+          "toolbar": {
+            "enableActiveTab": false,
+            "enableConfiguration": false,
+            "enableFilter": false,
+            "enableFilterResults": false,
+            "enablePreFilters": false,
+            "enableShelvedTab": false,
+            "enabled": false,
+            "toggleableFilter": false
+          }
+        },
+        "type": "ia.display.alarmstatustable"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

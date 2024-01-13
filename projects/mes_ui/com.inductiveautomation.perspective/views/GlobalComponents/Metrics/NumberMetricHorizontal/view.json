@@ -1,0 +1,262 @@
+{
+  "custom": {},
+  "params": {
+    "FontColor": "value",
+    "Header": "Current Run",
+    "LegendColor": "red",
+    "Metric": 245,
+    "ShowLegend": false,
+    "Units": "tubs"
+  },
+  "propConfig": {
+    "params.FontColor": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Header": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.LegendColor": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Metric": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.ShowLegend": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Units": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 20,
+      "width": 219
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "basis": "13px",
+              "shrink": 0
+            },
+            "propConfig": {
+              "meta.visible": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.ShowLegend"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.style.backgroundColor": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.LegendColor"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "borderBottomLeftRadius": 3,
+                "borderBottomRightRadius": 3,
+                "borderColor": "black",
+                "borderStyle": "solid",
+                "borderTopLeftRadius": 3,
+                "borderTopRightRadius": 3,
+                "borderWidth": 1,
+                "marginBottom": 5,
+                "marginRight": 2,
+                "marginTop": 5
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "headerLabel"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.Header"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.textStyle.color": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.FontColor"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Text/itemText\nText/LabelTextMedium",
+                "textAlign": "left"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Header"
+        },
+        "position": {
+          "basis": "50%",
+          "grow": 1
+        },
+        "props": {
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "ValueLabel"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.Metric"
+                      },
+                      "type": "property"
+                    }
+                  },
+                  "props.textStyle.color": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.FontColor"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "Cards/Text/itemText Text/LabelTextMedium",
+                    "paddingLeft": "5px",
+                    "paddingRight": "3px",
+                    "textAlign": "right"
+                  },
+                  "textStyle": {
+                    "classes": "value"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "Value"
+            },
+            "props": {
+              "justify": "flex-end",
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "unitsLabel"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.Units"
+                      },
+                      "type": "property"
+                    }
+                  },
+                  "props.textStyle.color": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.FontColor"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "Cards/Text/itemText\nText/LabelTextMedium"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "Units"
+            },
+            "props": {
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Value"
+        },
+        "position": {
+          "basis": "50%",
+          "grow": 1
+        },
+        "props": {
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

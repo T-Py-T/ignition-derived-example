@@ -1,0 +1,51 @@
+{
+  "scope": "DG",
+  "version": 2,
+  "restricted": false,
+  "overridable": true,
+  "files": [
+    "query.sql"
+  ],
+  "attributes": {
+    "useMaxReturnSize": false,
+    "autoBatchEnabled": false,
+    "fallbackValue": "",
+    "maxReturnSize": 100,
+    "cacheUnit": "SEC",
+    "type": "UpdateQuery",
+    "enabled": true,
+    "cacheAmount": 1,
+    "cacheEnabled": false,
+    "database": "MSSQL_Switch",
+    "fallbackEnabled": false,
+    "lastModificationSignature": "3252753c28673604bc240619ee3f2ce6593fd4c71a9a75272963fb7017e0702e",
+    "permissions": [
+      {
+        "zone": "",
+        "role": ""
+      }
+    ],
+    "lastModification": {
+      "actor": "bduran",
+      "timestamp": "2023-06-04T01:25:54Z"
+    },
+    "syntaxProvider": "class com.adbs.syntax.PostgreSQLSyntaxProvider",
+    "parameters": [
+      {
+        "type": "Parameter",
+        "identifier": "syslogID",
+        "sqlType": 3
+      },
+      {
+        "type": "Parameter",
+        "identifier": "notes",
+        "sqlType": 7
+      },
+      {
+        "type": "Parameter",
+        "identifier": "userName",
+        "sqlType": 7
+      }
+    ]
+  }
+}

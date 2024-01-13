@@ -1,0 +1,346 @@
+{
+  "custom": {
+    "rowDroppedData": {
+      "draggedId": -1,
+      "droppedId": -1
+    }
+  },
+  "params": {},
+  "propConfig": {
+    "custom.rowDroppedData": {
+      "onChange": {
+        "enabled": null,
+        "script": "\n\tif int(currentValue.value[\"droppedId\"].value) \u003e -1 and int(currentValue.value[\"draggedId\"].value) \u003e -1:\n\t\tl\u003dself.getChild(\"rowDroppedData\").getChild(\"Table\").props.data\n\t\tl.insert(int(currentValue.value[\"droppedId\"].value), l.pop(int(currentValue.value[\"draggedId\"].value)))\n\t\tself.custom.rowDroppedData.draggedId \u003d -1\n\t\tself.custom.rowDroppedData.droppedId \u003d -1"
+      }
+    }
+  },
+  "props": {},
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Markdown"
+        },
+        "position": {
+          "height": 200,
+          "width": 200,
+          "x": 114,
+          "y": 581
+        },
+        "propConfig": {
+          "props.source": {
+            "binding": {
+              "config": {
+                "expression": "{../Table.props.data}"
+              },
+              "transforms": [
+                {
+                  "code": "\t#make the propName the key to write too in the view.custom \n\tpropName \u003d \"rowDroppedData\"\n\tcode \u003d  \"\"\"\u003cimg style\u003d\u0027display:none\u0027 src\u003d\u0027/favicon.ico\u0027 onload\u003d\\\"\n\t\tconst view \u003d [...window.__client.page.views._data.values()].find(view \u003d\u003e view.value.mountPath \u003d\u003d this.parentNode.parentNode.parentNode.getAttributeNode(\u0027data-component-path\u0027).value.split(\u0027.\u0027)[0]).value; \n\t\tfunction ondrop(ev) {\n\t\t\tev.preventDefault(); \n\t\t\tconst draggedId \u003d ev.dataTransfer.getData(\u0027text\u0027);\n\t\t\tconst droppedId \u003d this.getAttribute(\u0027data-row-id\u0027); \n\t\t\tview.custom.write(\u0027\"\"\"+propName+\"\"\"\u0027,{\u0027draggedId\u0027:draggedId,\u0027droppedId\u0027:droppedId});\n\t\t};\n\t\tfunction ondragstart(ev){\n\t\t\t\n\t\t\tev.dataTransfer.setData(\u0027text\u0027, ev.target.getAttribute(\u0027data-row-id\u0027));\n\t\t};\n\t\tfunction ondragover(ev){\n\t\t\tev.preventDefault();\n\t\t};\n\t\tdocument.querySelectorAll(\u0027.tr-group.ia_table__rowGroup\u0027).forEach(e \u003d\u003e {\n\t\t\te.setAttribute(\u0027draggable\u0027,true);\n\t\t\te.ondragstart \u003d ondragstart;\n\t\t\te.ondragover \u003d ondragover;\n\t\t\te.ondrop \u003d ondrop;\n\t\t});\t\n\t\\\"\u003e\u003c/img\u003e\"\"\".replace(\"\\n\", \"\").replace(\"\\t\", \"\")\n\treturn code\n\t",
+                  "type": "script"
+                }
+              ],
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "markdown": {
+            "escapeHtml": false
+          }
+        },
+        "type": "ia.display.markdown"
+      },
+      {
+        "meta": {
+          "name": "Table"
+        },
+        "position": {
+          "height": 400,
+          "width": 547,
+          "x": 36,
+          "y": 42
+        },
+        "props": {
+          "data": [
+            {
+              "city": "Jeddah",
+              "country": "Saudi Arabia",
+              "population": 3456259
+            },
+            {
+              "city": "Chicago",
+              "country": "United States",
+              "population": 2695598
+            },
+            {
+              "city": "Rome",
+              "country": "Italy",
+              "population": 2877215
+            },
+            {
+              "city": "Paris",
+              "country": "France",
+              "population": 2229621
+            },
+            {
+              "city": "Kabul",
+              "country": "Afghanistan",
+              "population": 3414100
+            },
+            {
+              "city": {
+                "align": "center",
+                "editable": true,
+                "justify": "left",
+                "style": {
+                  "backgroundColor": "#F7901D",
+                  "classes": "some-class"
+                },
+                "value": "Folsom"
+              },
+              "country": "United States",
+              "population": 77271
+            },
+            {
+              "city": "Helsinki",
+              "country": "Finland",
+              "population": 635591
+            },
+            {
+              "city": "Mashhad",
+              "country": "Iran",
+              "population": 3001184
+            },
+            {
+              "city": "Osaka",
+              "country": "Japan",
+              "population": 2691742
+            },
+            {
+              "city": "Berlin",
+              "country": "Germany",
+              "population": 3517424
+            },
+            {
+              "city": "Kiev",
+              "country": "Ukraine",
+              "population": 2908703
+            },
+            {
+              "city": "Montreal",
+              "country": "Canada",
+              "population": 1649519
+            },
+            {
+              "city": "Milan",
+              "country": "Italy",
+              "population": 1359905
+            },
+            {
+              "city": "Shiraz",
+              "country": "Iran",
+              "population": 1869001
+            },
+            {
+              "city": "Bandung",
+              "country": "Indonesia",
+              "population": 2575478
+            },
+            {
+              "city": "Managua",
+              "country": "Nicaragua",
+              "population": 2560789
+            },
+            {
+              "city": "Prague",
+              "country": "Czech Republic",
+              "population": 1241664
+            },
+            {
+              "city": "Manila",
+              "country": "Philippines",
+              "population": 1780148
+            },
+            {
+              "city": "Guadalajara",
+              "country": "Mexico",
+              "population": 1495189
+            },
+            {
+              "city": "Dallas",
+              "country": "United States",
+              "population": 1317929
+            },
+            {
+              "city": "Jakarta",
+              "country": "Indonesia",
+              "population": 10187595
+            },
+            {
+              "city": "Tunis",
+              "country": "Tunisia",
+              "population": 1056247
+            },
+            {
+              "city": "Madrid",
+              "country": "Spain",
+              "population": 3233527
+            },
+            {
+              "city": "San Francisco",
+              "country": "United States",
+              "population": 884363
+            },
+            {
+              "city": "San Diego",
+              "country": "United States",
+              "population": 1406630
+            },
+            {
+              "city": "Shanghai",
+              "country": "China",
+              "population": 24153000
+            },
+            {
+              "city": "Tokyo",
+              "country": "Japan",
+              "population": 13617000
+            },
+            {
+              "city": "Washington, DC",
+              "country": "United States",
+              "population": 658893
+            },
+            {
+              "city": "Wellington",
+              "country": "New Zealand",
+              "population": 405000
+            },
+            {
+              "city": "Delhi",
+              "country": "India",
+              "population": 11034555
+            },
+            {
+              "city": "Dhaka",
+              "country": "Bangladesh",
+              "population": 14399000
+            },
+            {
+              "city": "Lagos",
+              "country": "Nigeria",
+              "population": 16060303
+            },
+            {
+              "city": "Karachi",
+              "country": "Pakistan",
+              "population": 14910352
+            },
+            {
+              "city": "Istanbul",
+              "country": "Turkey",
+              "population": 14025000
+            },
+            {
+              "city": "Cairo",
+              "country": "Egypt",
+              "population": 10230350
+            },
+            {
+              "city": "Mexico City",
+              "country": "Mexico",
+              "population": 8974724
+            },
+            {
+              "city": "London",
+              "country": "United Kingdom",
+              "population": 8825001
+            },
+            {
+              "city": "New York City",
+              "country": "United States",
+              "population": 8622698
+            },
+            {
+              "city": "Tehran",
+              "country": "Iran",
+              "population": 8154051
+            },
+            {
+              "city": "Bogota",
+              "country": "Colombia",
+              "population": 7878783
+            },
+            {
+              "city": "Rio de Janeiro",
+              "country": "Brazil",
+              "population": 6429923
+            },
+            {
+              "city": "Riyadh",
+              "country": "Saudi Arabia",
+              "population": 5676621
+            },
+            {
+              "city": "Singapore",
+              "country": "Singapore",
+              "population": 5535000
+            },
+            {
+              "city": "Saint Petersburg",
+              "country": "Russia",
+              "population": 5191690
+            },
+            {
+              "city": "Sydney",
+              "country": "Australia",
+              "population": 208374
+            },
+            {
+              "city": "Abidjan",
+              "country": "Ivory Coast",
+              "population": 4765000
+            },
+            {
+              "city": "Dar es Salaam",
+              "country": "Tanzania",
+              "population": 4364541
+            },
+            {
+              "city": "Wellington",
+              "country": "New Zealand",
+              "population": 405000
+            },
+            {
+              "city": "Yerevan",
+              "country": "Armenia",
+              "population": 1060138
+            },
+            {
+              "city": "Los Angeles",
+              "country": "United States",
+              "population": 3884307
+            }
+          ],
+          "selection": {
+            "data": [
+              {
+                "city": "Jeddah",
+                "country": "Saudi Arabia",
+                "population": 3456259
+              }
+            ],
+            "selectedColumn": "country",
+            "selectedRow": 0
+          },
+          "virtualized": false
+        },
+        "type": "ia.display.table"
+      }
+    ],
+    "meta": {
+      "name": "rowDroppedData"
+    },
+    "type": "ia.container.coord"
+  }
+}

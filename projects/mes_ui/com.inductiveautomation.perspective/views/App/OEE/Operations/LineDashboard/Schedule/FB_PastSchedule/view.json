@@ -1,0 +1,295 @@
+{
+  "custom": {
+    "LineDropdown": {
+      "$": [
+        "ds",
+        192,
+        1701978392709
+      ],
+      "$columns": [
+        {
+          "data": [
+            5,
+            9,
+            10,
+            11,
+            12,
+            16,
+            17,
+            18,
+            19,
+            20,
+            21,
+            22,
+            23,
+            1018,
+            1024
+          ],
+          "name": "value",
+          "type": "Integer"
+        },
+        {
+          "data": [
+            "Line 24",
+            "Line 23",
+            "Line 22",
+            "Line 21",
+            "Line 20",
+            "Line 19",
+            "Line 18",
+            "Line 17",
+            "Line 16",
+            "Line 15",
+            "Line 14",
+            "Line 12",
+            "Line 11",
+            "Line 1",
+            "Line 1"
+          ],
+          "name": "label",
+          "type": "String"
+        },
+        {
+          "data": [
+            "Fiberon/1NL/PE Extrusion/Line 24",
+            "Fiberon/1NL/PE Extrusion/Line 23",
+            "Fiberon/1NL/PE Extrusion/Line 22",
+            "Fiberon/1NL/PE Extrusion/Line 21",
+            "Fiberon/1NL/PE Extrusion/Line 20",
+            "Fiberon/1NL/PE Extrusion/Line 19",
+            "Fiberon/1NL/PE Extrusion/Line 18",
+            "Fiberon/1NL/PE Extrusion/Line 17",
+            "Fiberon/1NL/PE Extrusion/Line 16",
+            "Fiberon/1NL/PE Extrusion/Line 15",
+            "Fiberon/1NL/PE Extrusion/Line 14",
+            "Fiberon/1NL/PE Extrusion/Line 12",
+            "Fiberon/1NL/PE Extrusion/Line 11",
+            "Fiberon/1NL/Cast House/Line 1",
+            "Fiberon/GOOBS QA/Area 1/Line 1"
+          ],
+          "name": "EquipmentPath",
+          "type": "String"
+        }
+      ]
+    },
+    "LineID": 18
+  },
+  "params": {},
+  "propConfig": {
+    "custom.LineDropdown": {
+      "binding": {
+        "config": {
+          "queryPath": "app/Config/getLines"
+        },
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "custom.LineID": {
+      "binding": {
+        "config": {
+          "expression": "if(\r\n\t{/root/Row1/SelectFilter.props.value} \u003d \u0027all\u0027 || {/root/Row1/SelectFilter.props.value} \u003d \u0027\u0027,\r\n\t0,\r\n\t{/root/Row1/SelectFilter.props.value}\r\n)"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 921,
+      "width": 768
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "props": {
+              "text": "Line Filter:",
+              "textStyle": {
+                "classes": "Cards/Common/CardTitle"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "SelectFilter"
+            },
+            "position": {
+              "basis": "166px",
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.options": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.LineDropdown"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.value": {
+                "binding": {
+                  "config": {
+                    "path": "session.custom.LineID"
+                  },
+                  "type": "property"
+                },
+                "persistent": false
+              }
+            },
+            "props": {
+              "dropdownOptionStyle": {
+                "classes": "TextFields/Dropdown"
+              },
+              "placeholder": {
+                "text": "Select"
+              },
+              "style": {
+                "classes": "Global/MarginRight TextFields/Dropdown"
+              }
+            },
+            "type": "ia.input.dropdown"
+          }
+        ],
+        "meta": {
+          "name": "Row1"
+        },
+        "position": {
+          "basis": "42px",
+          "grow": 1
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "PastSchedule"
+            },
+            "position": {
+              "basis": "50%",
+              "grow": 1
+            },
+            "propConfig": {
+              "props.params.Params.LineID": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.LineID"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "EqPath": "value",
+                "EqType": "site",
+                "HideTitle": true,
+                "Icon": "",
+                "IconDisplay": true,
+                "IsNavigate": false,
+                "Params": {
+                  "EqPath": "",
+                  "State": "",
+                  "TagPath": "value",
+                  "TagProvider": "value"
+                },
+                "Path": "App/OEE/Operations/LineDashboard/Schedule/Embedded/FB_PastScheduleTable",
+                "Provider": "value",
+                "SizeBasis": "value",
+                "TagPath": "value",
+                "Title": "Past Schedule",
+                "Type": "",
+                "index": "value",
+                "useDefaultHeight": false,
+                "useDefaultWidth": false
+              },
+              "path": "GlobalComponents/Cards/Card",
+              "style": {
+                "classes": "Global/MarginBottom"
+              }
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "CurrentSchedule"
+            },
+            "position": {
+              "basis": "50%",
+              "grow": 1
+            },
+            "propConfig": {
+              "props.params.Params.LineID": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.LineID"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "EqPath": "value",
+                "EqType": "site",
+                "HideTitle": true,
+                "Icon": "",
+                "IconDisplay": true,
+                "IsNavigate": false,
+                "Params": {
+                  "EqPath": "",
+                  "State": "",
+                  "TagPath": "value",
+                  "TagProvider": "value"
+                },
+                "Path": "App/OEE/Operations/LineDashboard/Schedule/Embedded/FB_PastScheduleCurrent",
+                "Provider": "value",
+                "SizeBasis": "value",
+                "TagPath": "value",
+                "Title": "Schedule",
+                "Type": "",
+                "index": "value",
+                "useDefaultHeight": false,
+                "useDefaultWidth": false
+              },
+              "path": "GlobalComponents/Cards/Card",
+              "style": {
+                "classes": "Global/MarginBottom"
+              }
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "Row2"
+        },
+        "position": {
+          "basis": "100%",
+          "grow": 1
+        },
+        "props": {
+          "direction": "column"
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "classes": "Global/MarginAll"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

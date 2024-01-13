@@ -1,0 +1,81 @@
+{
+  "custom": {},
+  "params": {
+    "Icon": "material/check",
+    "Type": "success"
+  },
+  "propConfig": {
+    "params.Icon": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Type": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 33,
+      "width": 64
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "color": "value",
+          "name": "Icon"
+        },
+        "propConfig": {
+          "props.color": {
+            "binding": {
+              "config": {
+                "path": "view.params.Type"
+              },
+              "transforms": [
+                {
+                  "fallback": "",
+                  "inputType": "scalar",
+                  "mappings": [
+                    {
+                      "input": "success",
+                      "output": "var(--success)"
+                    },
+                    {
+                      "input": "fail",
+                      "output": "var(--error)"
+                    },
+                    {
+                      "input": "warning",
+                      "output": "var(--warning)"
+                    }
+                  ],
+                  "outputType": "scalar",
+                  "type": "map"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.path": {
+            "binding": {
+              "config": {
+                "path": "view.params.Icon"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "type": "ia.display.icon"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

@@ -1,0 +1,1 @@
+SELECT state.Description, state.Displaycolor FROM state WHERE state.ID = :id

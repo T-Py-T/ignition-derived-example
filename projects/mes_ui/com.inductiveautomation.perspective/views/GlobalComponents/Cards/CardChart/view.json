@@ -1,0 +1,377 @@
+{
+  "custom": {},
+  "params": {
+    "EqPath": "value",
+    "HideTitle": false,
+    "Icon": "",
+    "IconDisplay": true,
+    "Params": {
+      "EqPath": "value",
+      "State": "value",
+      "TagPath": "value",
+      "TagProvider": "value"
+    },
+    "Path": "",
+    "Provider": "value",
+    "SizeBasis": "value",
+    "TagPath": "value",
+    "Title": "Card Title",
+    "Type": "value",
+    "useDefaultHeight": false,
+    "useDefaultWidth": false
+  },
+  "propConfig": {
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.HideTitle": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Icon": {
+      "binding": {
+        "config": {
+          "path": "view.params.Params.State"
+        },
+        "transforms": [
+          {
+            "fallback": "",
+            "inputType": "scalar",
+            "mappings": [
+              {
+                "input": "warning",
+                "output": "material/warning"
+              },
+              {
+                "input": "fail",
+                "output": "material/error"
+              },
+              {
+                "input": "success",
+                "output": "material/check"
+              }
+            ],
+            "outputType": "scalar",
+            "type": "map"
+          }
+        ],
+        "type": "property"
+      },
+      "paramDirection": "inout",
+      "persistent": true
+    },
+    "params.IconDisplay": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Params": {
+      "paramDirection": "inout",
+      "persistent": true
+    },
+    "params.Path": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Provider": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.SizeBasis": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.TagPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Title": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Type": {
+      "binding": {
+        "config": {
+          "path": "view.params.Params.State"
+        },
+        "type": "property"
+      },
+      "paramDirection": "inout",
+      "persistent": true
+    },
+    "params.useDefaultHeight": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.useDefaultWidth": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 486,
+      "width": 570
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1,
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.style.classes": {
+                "binding": {
+                  "config": {
+                    "path": "page.props.dimensions"
+                  },
+                  "enabled": false,
+                  "transforms": [
+                    {
+                      "code": "\tLARGE_SCREEN \u003d 1900\n\twidth \u003d value.screen.width\n\tif width \u003e LARGE_SCREEN:\n\t\treturn \"OverheadScreens/Text\"\n\telse:\n\t\treturn \"Text/Heading\"",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.Title"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "alignVertical": "top",
+              "style": {
+                "overflow": "hidden"
+              },
+              "textStyle": {
+                "classes": "Cards/Common/CardTitle",
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "WarningIcon"
+            },
+            "position": {
+              "basis": "20px"
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.IconDisplay"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.params.Icon": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.Icon"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.params.Type": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.Type"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "path": "GlobalComponents/Icons/IconMain",
+              "style": {
+                "overflow": "hidden"
+              },
+              "useDefaultViewHeight": true
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "Title"
+        },
+        "position": {
+          "shrink": 0
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "path": "view.params.HideTitle"
+              },
+              "transforms": [
+                {
+                  "fallback": true,
+                  "inputType": "scalar",
+                  "mappings": [
+                    {
+                      "input": true,
+                      "output": false
+                    },
+                    {
+                      "input": false,
+                      "output": true
+                    }
+                  ],
+                  "outputType": "scalar",
+                  "type": "map"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "alignContent": "flex-start",
+          "alignItems": "flex-start",
+          "style": {
+            "classes": "Global/MarginAllLeft Global/MarginAllRight Global/MarginAllTop Global/MarginBottom",
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "View"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "props.params": {
+                "binding": {
+                  "config": {
+                    "bidirectional": true,
+                    "path": "view.params.Params"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.path": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.Path"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.useDefaultViewHeight": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.useDefaultHeight"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.useDefaultViewWidth": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.useDefaultWidth"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "Body"
+        },
+        "position": {
+          "grow": 1
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "propConfig": {
+      "props.style.boxShadow": {
+        "binding": {
+          "config": {
+            "path": "session.props.theme"
+          },
+          "transforms": [
+            {
+              "fallback": "inset 0 0 2px white",
+              "inputType": "scalar",
+              "mappings": [
+                {
+                  "input": "custom-light",
+                  "output": "inset 0 0 2px black"
+                },
+                {
+                  "input": "custom-dark",
+                  "output": "inset 0 0 2px white"
+                }
+              ],
+              "outputType": "scalar",
+              "type": "map"
+            }
+          ],
+          "type": "property"
+        }
+      },
+      "props.style.classes": {
+        "binding": {
+          "config": {
+            "path": "view.params.Type"
+          },
+          "transforms": [
+            {
+              "fallback": "Cards/Root",
+              "inputType": "scalar",
+              "mappings": [
+                {
+                  "input": "success",
+                  "output": "Cards/RootSuccess"
+                },
+                {
+                  "input": "fail",
+                  "output": "Cards/RootFailure"
+                },
+                {
+                  "input": "warning",
+                  "output": "Cards/RootWarning"
+                }
+              ],
+              "outputType": "scalar",
+              "type": "map"
+            }
+          ],
+          "type": "property"
+        }
+      }
+    },
+    "props": {
+      "direction": "column",
+      "style": {}
+    },
+    "type": "ia.container.flex"
+  }
+}

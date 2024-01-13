@@ -1,0 +1,1470 @@
+{
+  "custom": {},
+  "params": {
+    "endTime": {
+      "$": [
+        "ts",
+        192,
+        1673906516267
+      ],
+      "$ts": 1673906516267
+    },
+    "label": "",
+    "partId": "",
+    "startTime": {
+      "$": [
+        "ts",
+        192,
+        1673906516267
+      ],
+      "$ts": 1673647316266
+    }
+  },
+  "propConfig": {
+    "params.endTime": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.label": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.partId": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.startTime": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 1227,
+      "width": 431
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "StartDate"
+                    },
+                    "position": {
+                      "basis": 215
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "TextFields/Root"
+                      },
+                      "text": "Start Date:",
+                      "textStyle": {
+                        "textAlign": "center"
+                      }
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "meta": {
+                      "name": "EndDate"
+                    },
+                    "position": {
+                      "basis": 215
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "TextFields/Root"
+                      },
+                      "text": "End Date:",
+                      "textStyle": {
+                        "textAlign": "center"
+                      }
+                    },
+                    "type": "ia.display.label"
+                  }
+                ],
+                "meta": {
+                  "name": "FlexContainer"
+                },
+                "position": {
+                  "basis": "25px",
+                  "grow": 1
+                },
+                "props": {
+                  "style": {
+                    "classes": "MES/MainViews/Diagnostics/Card/Row"
+                  }
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "children": [
+                  {
+                    "events": {
+                      "component": {
+                        "onActionPerformed": {
+                          "config": {
+                            "script": "\tstartDate \u003d self.props.value\n\t\n\tself.view.params.startTime \u003d startDate"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "StartDate"
+                    },
+                    "position": {
+                      "basis": "250px"
+                    },
+                    "propConfig": {
+                      "props.maxDate": {
+                        "binding": {
+                          "config": {
+                            "expression": "now()"
+                          },
+                          "type": "expr"
+                        }
+                      },
+                      "props.value": {
+                        "binding": {
+                          "config": {
+                            "expression": "dateArithmetic(now(0), -3, \"day\")\r\n"
+                          },
+                          "transforms": [
+                            {
+                              "code": "\tself.view.params.startTime \u003d value\n\treturn value",
+                              "type": "script"
+                            }
+                          ],
+                          "type": "expr"
+                        }
+                      }
+                    },
+                    "props": {
+                      "formattedValue": "Jan 13, 2023 10:01 PM",
+                      "formattedValues": {
+                        "date": "Dec 18, 2022",
+                        "datetime": "Dec 18, 2022 3:11 PM",
+                        "time": "3:11 PM"
+                      },
+                      "inputProps": {
+                        "style": {
+                          "borderBottomLeftRadius": "10px",
+                          "borderBottomRightRadius": "10px",
+                          "borderTopLeftRadius": "10px",
+                          "borderTopRightRadius": "10px"
+                        }
+                      },
+                      "modalStyle": {
+                        "classes": "TextFields/TextArea"
+                      },
+                      "style": {
+                        "classes": "TextFields/TextArea",
+                        "marginRight": "5px"
+                      }
+                    },
+                    "type": "ia.input.date-time-input"
+                  },
+                  {
+                    "events": {
+                      "component": {
+                        "onActionPerformed": {
+                          "config": {
+                            "script": "\n\tendDate \u003d self.props.value\n\n\tself.view.params.endTime \u003d endDate\n\t\n"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "EndDate"
+                    },
+                    "position": {
+                      "basis": "250px"
+                    },
+                    "propConfig": {
+                      "props.maxDate": {
+                        "binding": {
+                          "config": {
+                            "expression": "now()"
+                          },
+                          "type": "expr"
+                        }
+                      },
+                      "props.value": {
+                        "binding": {
+                          "config": {
+                            "expression": "now(0)"
+                          },
+                          "transforms": [
+                            {
+                              "code": "\tself.view.params.endTime \u003d value\n\treturn value",
+                              "type": "script"
+                            }
+                          ],
+                          "type": "expr"
+                        }
+                      }
+                    },
+                    "props": {
+                      "formattedValue": "Jan 16, 2023 10:01 PM",
+                      "formattedValues": {
+                        "date": "Dec 21, 2022",
+                        "datetime": "Dec 21, 2022 3:11 PM",
+                        "time": "3:11 PM"
+                      },
+                      "inputProps": {
+                        "style": {
+                          "borderBottomLeftRadius": "10px",
+                          "borderBottomRightRadius": "10px",
+                          "borderTopLeftRadius": "10px",
+                          "borderTopRightRadius": "10px"
+                        }
+                      },
+                      "modalStyle": {
+                        "classes": "TextFields/TextArea"
+                      },
+                      "style": {
+                        "classes": "TextFields/TextArea"
+                      }
+                    },
+                    "type": "ia.input.date-time-input"
+                  },
+                  {
+                    "meta": {
+                      "name": "Message",
+                      "visible": false
+                    },
+                    "position": {
+                      "basis": "300px"
+                    },
+                    "propConfig": {
+                      "position.display": {
+                        "binding": {
+                          "config": {
+                            "expression": "if({..../Table/SelectedItems/LabelEntry.props.text} \u003d \"\" \u0026\u0026 {..../Table/SelectedItems/PartIDEntry.props.text} \u003d \"\", true, false)"
+                          },
+                          "type": "expr"
+                        }
+                      }
+                    },
+                    "props": {
+                      "style": {
+                        "color": "var(--error)",
+                        "fontSize": 11,
+                        "fontWeight": "normal",
+                        "textAlign": "center"
+                      },
+                      "text": "You must select a Part ID or Label to run report"
+                    },
+                    "type": "ia.display.label"
+                  }
+                ],
+                "meta": {
+                  "name": "Date"
+                },
+                "position": {
+                  "basis": "40px"
+                },
+                "type": "ia.container.flex"
+              }
+            ],
+            "meta": {
+              "name": "Header"
+            },
+            "props": {
+              "direction": "column",
+              "justify": "center",
+              "style": {
+                "classes": "MES/MainViews/Diagnostics/Card/Value"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "FlexContainer"
+                },
+                "position": {
+                  "basis": "5px",
+                  "grow": 1
+                },
+                "props": {
+                  "style": {
+                    "classes": "MES/MainViews/Diagnostics/Card/Row"
+                  }
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "Selected Case"
+                    },
+                    "position": {
+                      "basis": "40px"
+                    },
+                    "props": {
+                      "alignVertical": "top",
+                      "style": {
+                        "classes": "TextFields/Root TextFields/TextTitle"
+                      },
+                      "text": "Selected Case:",
+                      "textStyle": {
+                        "color": "var(--callToAction)",
+                        "fontSize": "25px",
+                        "textAlign": "center"
+                      }
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "meta": {
+                      "name": "PartID"
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "TextFields/Root TextFields/TextTitle",
+                        "marginLeft": "13px"
+                      },
+                      "text": "Part ID:",
+                      "textStyle": {
+                        "fontWeight": "bold",
+                        "textAlign": "left"
+                      }
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "meta": {
+                      "name": "PartIDEntry"
+                    },
+                    "position": {
+                      "basis": "30px"
+                    },
+                    "propConfig": {
+                      "props.enabled": {
+                        "binding": {
+                          "config": {
+                            "expression": "if({parent.custom.edit} \u003d 1, true, false)"
+                          },
+                          "type": "expr"
+                        }
+                      },
+                      "props.text": {
+                        "binding": {
+                          "config": {
+                            "expression": "If(isnull({..../Table/Table.props.selection.data[0].Customer}), \u0027Please Select Case\u0027, {..../Table/Table.props.selection.data[0].Customer})"
+                          },
+                          "enabled": false,
+                          "type": "expr"
+                        }
+                      }
+                    },
+                    "props": {
+                      "placeholder": "Please Select Case",
+                      "style": {
+                        "classes": "TextFields/TextField",
+                        "marginLeft": "13px",
+                        "maxWidth": "94%"
+                      }
+                    },
+                    "type": "ia.input.text-field"
+                  },
+                  {
+                    "meta": {
+                      "name": "Label_0"
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "TextFields/Root TextFields/TextTitle",
+                        "marginLeft": "13px"
+                      },
+                      "text": "Label:",
+                      "textStyle": {
+                        "classes": "TextFields/TextTitle",
+                        "textAlign": "left"
+                      }
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "meta": {
+                      "name": "LabelEntry"
+                    },
+                    "position": {
+                      "basis": "30px"
+                    },
+                    "propConfig": {
+                      "props.enabled": {
+                        "binding": {
+                          "config": {
+                            "expression": "if({parent.custom.edit} \u003d 1, true, false)"
+                          },
+                          "type": "expr"
+                        }
+                      },
+                      "props.text": {
+                        "binding": {
+                          "config": {
+                            "expression": "If(isnull({..../Table/Table.props.selection.data[0][\u0027Case Serial\u0027]}), \u0027Please Select Case\u0027, {..../Table/Table.props.selection.data[0][\u0027Case Serial\u0027]})"
+                          },
+                          "enabled": false,
+                          "type": "expr"
+                        }
+                      }
+                    },
+                    "props": {
+                      "placeholder": "Please Select Case",
+                      "style": {
+                        "classes": "TextFields/TextField",
+                        "marginLeft": "13px",
+                        "maxWidth": "94%"
+                      }
+                    },
+                    "type": "ia.input.text-field"
+                  },
+                  {
+                    "meta": {
+                      "name": "Label_1"
+                    },
+                    "position": {
+                      "display": false,
+                      "grow": 1
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "TextFields/Root"
+                      },
+                      "text": "CDU Serial",
+                      "textStyle": {
+                        "classes": "TextFields/TextTitle",
+                        "textAlign": "left"
+                      }
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "meta": {
+                      "name": "CDUSerialEntry"
+                    },
+                    "position": {
+                      "display": false,
+                      "grow": 1
+                    },
+                    "propConfig": {
+                      "props.enabled": {
+                        "binding": {
+                          "config": {
+                            "expression": "if({parent.custom.edit} \u003d 1, true, false)"
+                          },
+                          "type": "expr"
+                        }
+                      },
+                      "props.text": {
+                        "binding": {
+                          "config": {
+                            "expression": "If(isnull({..../Table/Table.props.selection.data[0][\u0027CDU Serial\u0027]}), \u0027Please Select Case\u0027, {..../Table/Table.props.selection.data[0][\u0027CDU Serial\u0027]})"
+                          },
+                          "type": "expr"
+                        }
+                      }
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "TextFields/TextField",
+                        "marginLeft": "13px",
+                        "maxWidth": "90%"
+                      }
+                    },
+                    "type": "ia.input.text-field"
+                  },
+                  {
+                    "meta": {
+                      "name": "Label_2"
+                    },
+                    "position": {
+                      "display": false,
+                      "grow": 1
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "TextFields/Root"
+                      },
+                      "text": "Work Order:",
+                      "textStyle": {
+                        "classes": "TextFields/TextTitle",
+                        "textAlign": "left"
+                      }
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "meta": {
+                      "name": "WorkOrderEntry"
+                    },
+                    "position": {
+                      "display": false,
+                      "grow": 1
+                    },
+                    "propConfig": {
+                      "props.enabled": {
+                        "binding": {
+                          "config": {
+                            "expression": "if({parent.custom.edit} \u003d 1, true, false)"
+                          },
+                          "type": "expr"
+                        }
+                      },
+                      "props.text": {
+                        "binding": {
+                          "config": {
+                            "expression": "If(isnull({..../Table/Table.props.selection.data[0].Workorder}), \u0027Please Select Case\u0027, {..../Table/Table.props.selection.data[0].Workorder})"
+                          },
+                          "type": "expr"
+                        }
+                      }
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "TextFields/TextField",
+                        "marginLeft": "13px",
+                        "maxWidth": "90%"
+                      }
+                    },
+                    "type": "ia.input.text-field"
+                  },
+                  {
+                    "meta": {
+                      "name": "Label_3"
+                    },
+                    "position": {
+                      "display": false,
+                      "grow": 1
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "TextFields/Root"
+                      },
+                      "text": "Ref Type:",
+                      "textStyle": {
+                        "classes": "TextFields/TextTitle",
+                        "textAlign": "left"
+                      }
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "meta": {
+                      "name": "RefTypeEntry"
+                    },
+                    "position": {
+                      "display": false,
+                      "grow": 1
+                    },
+                    "propConfig": {
+                      "props.enabled": {
+                        "binding": {
+                          "config": {
+                            "expression": "if({parent.custom.edit} \u003d 1, true, false)"
+                          },
+                          "type": "expr"
+                        }
+                      },
+                      "props.text": {
+                        "binding": {
+                          "config": {
+                            "expression": "If(isnull({..../Table/Table.props.selection.data[0].RefType}), \u0027Please Select Case\u0027, {..../Table/Table.props.selection.data[0].RefType})"
+                          },
+                          "type": "expr"
+                        }
+                      }
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "TextFields/TextField",
+                        "marginLeft": "13px",
+                        "maxWidth": "90%"
+                      }
+                    },
+                    "type": "ia.input.text-field"
+                  },
+                  {
+                    "meta": {
+                      "name": "Label_4"
+                    },
+                    "position": {
+                      "display": false,
+                      "grow": 1
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "TextFields/Root"
+                      },
+                      "text": "Case Type",
+                      "textStyle": {
+                        "classes": "TextFields/TextTitle",
+                        "textAlign": "left"
+                      }
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "meta": {
+                      "name": "CaseTypeEntry"
+                    },
+                    "position": {
+                      "display": false,
+                      "grow": 1
+                    },
+                    "propConfig": {
+                      "props.enabled": {
+                        "binding": {
+                          "config": {
+                            "expression": "if({parent.custom.edit} \u003d 1, true, false)"
+                          },
+                          "type": "expr"
+                        }
+                      },
+                      "props.text": {
+                        "binding": {
+                          "config": {
+                            "expression": "If(isnull({..../Table/Table.props.selection.data[0][\u0027Case Type\u0027]}), \u0027Please Select Case\u0027, {..../Table/Table.props.selection.data[0][\u0027Case Type\u0027]})"
+                          },
+                          "type": "expr"
+                        }
+                      }
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "TextFields/TextField",
+                        "marginLeft": "13px",
+                        "maxWidth": "90%"
+                      }
+                    },
+                    "type": "ia.input.text-field"
+                  },
+                  {
+                    "events": {
+                      "component": {
+                        "onActionPerformed": {
+                          "config": {
+                            "script": " \tstartDate \u003d self.parent.parent.parent.getChild(\"Header/Date/StartDate\").props.value\n\tendDate \u003d self.parent.parent.parent.getChild(\"Header/Date/EndDate\").props.value\n\tpartID \u003d self.getSibling(\"PartIDEntry\").props.text\n\tlabel \u003d self.getSibling(\"LabelEntry\").props.text\n\t\n\tif partID is \"\":\n\t\tpartID \u003d None\n\t\t\n\tif label is \"\":\n\t\tlabel \u003d None\n\t\n\tif partID !\u003d \"\" or label !\u003d \"\":\n\t\tself.view.params.startTime \u003d startDate\n\t\tself.view.params.endTime \u003d endDate\n\t\tself.view.params.partId \u003d partID\n\t\tself.view.params.label \u003d label\t\n\t\t"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "Button"
+                    },
+                    "position": {
+                      "basis": "42px"
+                    },
+                    "propConfig": {
+                      "props.enabled": {
+                        "binding": {
+                          "config": {
+                            "path": "parent.custom.edit"
+                          },
+                          "transforms": [
+                            {
+                              "fallback": false,
+                              "inputType": "scalar",
+                              "mappings": [
+                                {
+                                  "input": 0,
+                                  "output": false
+                                },
+                                {
+                                  "input": 1,
+                                  "output": null
+                                }
+                              ],
+                              "outputType": "scalar",
+                              "type": "map"
+                            }
+                          ],
+                          "type": "property"
+                        }
+                      }
+                    },
+                    "props": {
+                      "image": {
+                        "icon": {
+                          "path": "material/article"
+                        },
+                        "style": {
+                          "fill": "#ED1818"
+                        }
+                      },
+                      "style": {
+                        "classes": "Buttons/NormalButton",
+                        "marginLeft": "13px",
+                        "marginRight": "13px"
+                      },
+                      "text": "Run Report"
+                    },
+                    "type": "ia.input.button"
+                  },
+                  {
+                    "events": {
+                      "component": {
+                        "onActionPerformed": {
+                          "config": {
+                            "script": "\tdata \u003d self.parent.parent.getChild(\"Table\").props.data\n\tcsv \u003d system.dataset.toCSV(data, True)\n\t\n\tif data !\u003d \"\":\n\t\tsystem.perspective.download(\u0027track_trace_history.csv\u0027, csv)\n\telse:\n\t\tsystem.perspective.openPopup(\u0027errorModal\u0027, \u0027StyleGuide/Modals/ErrorModal\u0027, params\u003d{\u0027errorMessage\u0027: \u0027Please select data to generate file\u0027})\n\t"
+                          },
+                          "scope": "G",
+                          "type": "script"
+                        }
+                      }
+                    },
+                    "meta": {
+                      "name": "Button_0"
+                    },
+                    "position": {
+                      "basis": "42px"
+                    },
+                    "props": {
+                      "image": {
+                        "icon": {
+                          "path": "material/import_export"
+                        },
+                        "style": {
+                          "fill": "#ED1818"
+                        }
+                      },
+                      "style": {
+                        "classes": "Buttons/NormalSuccess",
+                        "marginLeft": "13px",
+                        "marginRight": "13px"
+                      },
+                      "text": "Export CSV"
+                    },
+                    "type": "ia.input.button"
+                  }
+                ],
+                "custom": {
+                  "edit": 1
+                },
+                "meta": {
+                  "name": "SelectedItems"
+                },
+                "position": {
+                  "basis": "250px"
+                },
+                "props": {
+                  "direction": "column"
+                },
+                "type": "ia.container.flex"
+              }
+            ],
+            "meta": {
+              "name": "TopSelections"
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "MES/MainViews/Diagnostics/Card/Value"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "custom": {
+                  "spCall": "value"
+                },
+                "meta": {
+                  "name": "Table"
+                },
+                "position": {
+                  "basis": "500px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.data": {
+                    "binding": {
+                      "config": {
+                        "expression": "runScript(\"mes.trace.sp.getFullPartHistory\", 0, \r\n\tif({view.params.partId} \u003d \"\" || {view.params.partId} \u003d \"None\", None, {view.params.partId}), \r\n\tif({view.params.label} \u003d \"\" || {view.params.label} \u003d \"None\", None, {view.params.label}), \r\n\tif({view.params.startTime} \u003d \"None\", None, {view.params.startTime}),\r\n\tif({view.params.endTime} \u003d \"None\", None, {view.params.endTime})\r\n)"
+                      },
+                      "transforms": [
+                        {
+                          "code": "#\tif self.view.params.label \u003d\u003d \"\" and self.view.params.partId \u003d\u003d \"\":\n#\t\treturn \"\"\n#\telse:\n#\t\treturn value\n\treturn value",
+                          "type": "script"
+                        }
+                      ],
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "cells": {
+                    "style": {
+                      "marginLeft": "8px",
+                      "marginRight": "8px"
+                    }
+                  },
+                  "columns": [
+                    {
+                      "align": "center",
+                      "boolean": "checkbox",
+                      "dateFormat": "MM/DD/YYYY",
+                      "editable": false,
+                      "field": "ID",
+                      "filter": {
+                        "boolean": {
+                          "condition": ""
+                        },
+                        "date": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "enabled": false,
+                        "number": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "string": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "visible": "on-hover"
+                      },
+                      "footer": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": ""
+                      },
+                      "header": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": "ID"
+                      },
+                      "justify": "auto",
+                      "number": "value",
+                      "numberFormat": "0,0.##",
+                      "progressBar": {
+                        "bar": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "max": 100,
+                        "min": 0,
+                        "track": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "value": {
+                          "enabled": true,
+                          "format": "0,0.##",
+                          "justify": "center",
+                          "style": {
+                            "classes": ""
+                          }
+                        }
+                      },
+                      "render": "auto",
+                      "resizable": true,
+                      "sort": "none",
+                      "sortable": true,
+                      "strictWidth": false,
+                      "style": {
+                        "classes": ""
+                      },
+                      "toggleSwitch": {
+                        "color": {
+                          "selected": "",
+                          "unselected": ""
+                        }
+                      },
+                      "viewParams": {},
+                      "viewPath": "",
+                      "visible": true,
+                      "width": ""
+                    },
+                    {
+                      "align": "center",
+                      "boolean": "checkbox",
+                      "dateFormat": "MM/DD/YYYY",
+                      "editable": false,
+                      "field": "ParentPartID",
+                      "filter": {
+                        "boolean": {
+                          "condition": ""
+                        },
+                        "date": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "enabled": false,
+                        "number": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "string": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "visible": "on-hover"
+                      },
+                      "footer": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": ""
+                      },
+                      "header": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": "Parent Part ID"
+                      },
+                      "justify": "auto",
+                      "number": "value",
+                      "numberFormat": "0,0.##",
+                      "progressBar": {
+                        "bar": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "max": 100,
+                        "min": 0,
+                        "track": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "value": {
+                          "enabled": true,
+                          "format": "0,0.##",
+                          "justify": "center",
+                          "style": {
+                            "classes": ""
+                          }
+                        }
+                      },
+                      "render": "auto",
+                      "resizable": true,
+                      "sort": "none",
+                      "sortable": true,
+                      "strictWidth": false,
+                      "style": {
+                        "classes": ""
+                      },
+                      "toggleSwitch": {
+                        "color": {
+                          "selected": "",
+                          "unselected": ""
+                        }
+                      },
+                      "viewParams": {},
+                      "viewPath": "",
+                      "visible": true,
+                      "width": ""
+                    },
+                    {
+                      "align": "center",
+                      "boolean": "checkbox",
+                      "dateFormat": "MM/DD/YYYY",
+                      "editable": false,
+                      "field": "Label",
+                      "filter": {
+                        "boolean": {
+                          "condition": ""
+                        },
+                        "date": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "enabled": false,
+                        "number": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "string": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "visible": "on-hover"
+                      },
+                      "footer": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": ""
+                      },
+                      "header": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": "Label"
+                      },
+                      "justify": "auto",
+                      "number": "value",
+                      "numberFormat": "0,0.##",
+                      "progressBar": {
+                        "bar": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "max": 100,
+                        "min": 0,
+                        "track": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "value": {
+                          "enabled": true,
+                          "format": "0,0.##",
+                          "justify": "center",
+                          "style": {
+                            "classes": ""
+                          }
+                        }
+                      },
+                      "render": "auto",
+                      "resizable": true,
+                      "sort": "none",
+                      "sortable": true,
+                      "strictWidth": false,
+                      "style": {
+                        "classes": ""
+                      },
+                      "toggleSwitch": {
+                        "color": {
+                          "selected": "",
+                          "unselected": ""
+                        }
+                      },
+                      "viewParams": {},
+                      "viewPath": "",
+                      "visible": true,
+                      "width": ""
+                    },
+                    {
+                      "align": "center",
+                      "boolean": "checkbox",
+                      "dateFormat": "MM/DD/YYYY",
+                      "editable": false,
+                      "field": "Level",
+                      "filter": {
+                        "boolean": {
+                          "condition": ""
+                        },
+                        "date": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "enabled": false,
+                        "number": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "string": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "visible": "on-hover"
+                      },
+                      "footer": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": ""
+                      },
+                      "header": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": "Level"
+                      },
+                      "justify": "auto",
+                      "number": "value",
+                      "numberFormat": "0,0.##",
+                      "progressBar": {
+                        "bar": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "max": 100,
+                        "min": 0,
+                        "track": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "value": {
+                          "enabled": true,
+                          "format": "0,0.##",
+                          "justify": "center",
+                          "style": {
+                            "classes": ""
+                          }
+                        }
+                      },
+                      "render": "auto",
+                      "resizable": true,
+                      "sort": "none",
+                      "sortable": true,
+                      "strictWidth": false,
+                      "style": {
+                        "classes": ""
+                      },
+                      "toggleSwitch": {
+                        "color": {
+                          "selected": "",
+                          "unselected": ""
+                        }
+                      },
+                      "viewParams": {},
+                      "viewPath": "",
+                      "visible": true,
+                      "width": ""
+                    },
+                    {
+                      "align": "center",
+                      "boolean": "checkbox",
+                      "dateFormat": "MM/DD/YYYY",
+                      "editable": false,
+                      "field": "Event",
+                      "filter": {
+                        "boolean": {
+                          "condition": ""
+                        },
+                        "date": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "enabled": false,
+                        "number": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "string": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "visible": "on-hover"
+                      },
+                      "footer": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": ""
+                      },
+                      "header": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": "Event"
+                      },
+                      "justify": "auto",
+                      "number": "value",
+                      "numberFormat": "0,0.##",
+                      "progressBar": {
+                        "bar": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "max": 100,
+                        "min": 0,
+                        "track": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "value": {
+                          "enabled": true,
+                          "format": "0,0.##",
+                          "justify": "center",
+                          "style": {
+                            "classes": ""
+                          }
+                        }
+                      },
+                      "render": "auto",
+                      "resizable": true,
+                      "sort": "none",
+                      "sortable": true,
+                      "strictWidth": false,
+                      "style": {
+                        "classes": ""
+                      },
+                      "toggleSwitch": {
+                        "color": {
+                          "selected": "",
+                          "unselected": ""
+                        }
+                      },
+                      "viewParams": {},
+                      "viewPath": "",
+                      "visible": true,
+                      "width": ""
+                    },
+                    {
+                      "align": "center",
+                      "boolean": "checkbox",
+                      "dateFormat": "MM/DD/YYYY HH:mm:ss",
+                      "editable": false,
+                      "field": "TimeScanned",
+                      "filter": {
+                        "boolean": {
+                          "condition": ""
+                        },
+                        "date": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "enabled": false,
+                        "number": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "string": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "visible": "on-hover"
+                      },
+                      "footer": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": ""
+                      },
+                      "header": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": "Time Scanned"
+                      },
+                      "justify": "auto",
+                      "number": "value",
+                      "numberFormat": "0,0.##",
+                      "progressBar": {
+                        "bar": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "max": 100,
+                        "min": 0,
+                        "track": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "value": {
+                          "enabled": true,
+                          "format": "0,0.##",
+                          "justify": "center",
+                          "style": {
+                            "classes": ""
+                          }
+                        }
+                      },
+                      "render": "date",
+                      "resizable": true,
+                      "sort": "none",
+                      "sortable": true,
+                      "strictWidth": false,
+                      "style": {
+                        "classes": ""
+                      },
+                      "toggleSwitch": {
+                        "color": {
+                          "selected": "",
+                          "unselected": ""
+                        }
+                      },
+                      "viewParams": {},
+                      "viewPath": "",
+                      "visible": true,
+                      "width": ""
+                    },
+                    {
+                      "align": "center",
+                      "boolean": "checkbox",
+                      "dateFormat": "MM/DD/YYYY",
+                      "editable": false,
+                      "field": "Notes",
+                      "filter": {
+                        "boolean": {
+                          "condition": ""
+                        },
+                        "date": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "enabled": false,
+                        "number": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "string": {
+                          "condition": "",
+                          "value": ""
+                        },
+                        "visible": "on-hover"
+                      },
+                      "footer": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": ""
+                      },
+                      "header": {
+                        "align": "center",
+                        "justify": "left",
+                        "style": {
+                          "classes": ""
+                        },
+                        "title": "Notes"
+                      },
+                      "justify": "auto",
+                      "number": "value",
+                      "numberFormat": "0,0.##",
+                      "progressBar": {
+                        "bar": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "max": 100,
+                        "min": 0,
+                        "track": {
+                          "color": "",
+                          "style": {
+                            "classes": ""
+                          }
+                        },
+                        "value": {
+                          "enabled": true,
+                          "format": "0,0.##",
+                          "justify": "center",
+                          "style": {
+                            "classes": ""
+                          }
+                        }
+                      },
+                      "render": "auto",
+                      "resizable": true,
+                      "sort": "none",
+                      "sortable": true,
+                      "strictWidth": false,
+                      "style": {
+                        "classes": ""
+                      },
+                      "toggleSwitch": {
+                        "color": {
+                          "selected": "",
+                          "unselected": ""
+                        }
+                      },
+                      "viewParams": {},
+                      "viewPath": "",
+                      "visible": true,
+                      "width": ""
+                    }
+                  ],
+                  "filter": {
+                    "enabled": true
+                  }
+                },
+                "type": "ia.display.table"
+              }
+            ],
+            "meta": {
+              "name": "Table"
+            },
+            "position": {
+              "grow": 1
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Main"
+        },
+        "position": {
+          "grow": 1
+        },
+        "props": {
+          "direction": "column"
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

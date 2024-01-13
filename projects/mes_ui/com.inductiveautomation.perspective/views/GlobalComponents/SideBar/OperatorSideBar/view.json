@@ -1,0 +1,317 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "width": 71
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tmodalPath \u003d \u0027GlobalComponents/Modals/Modal\u0027\n\tmodalName \u003d \u0027shiftStart\u0027\n\t\n\tparams \u003d {\n\t\t\u0027Message\u0027: \u0027Shift Started.\u0027,\n\t\t\u0027ModalName\u0027: modalName,\n\t\t\u0027Title\u0027: \u0027Shift Start\u0027\n\t}\n\t\n\tsystem.perspective.openPopup(modalName, modalPath, params\u003dparams, showCloseIcon \u003d False, modal \u003d True, draggable\u003dFalse)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "StartShift",
+          "tooltip": {
+            "enabled": true,
+            "text": "Start Shift"
+          }
+        },
+        "position": {
+          "basis": "39px",
+          "display": false
+        },
+        "props": {
+          "color": "white",
+          "path": "material/not_started",
+          "style": {
+            "classes": "Global/MarginAllTop Global/MarginBottom"
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tmodalPath \u003d \u0027GlobalComponents/Modals/Modal\u0027\n\tmodalName \u003d \u0027shiftEnd\u0027\n\t\n\tparams \u003d {\n\t\t\u0027Message\u0027: \u0027Shift Ended.\u0027,\n\t\t\u0027ModalName\u0027: modalName,\n\t\t\u0027Title\u0027: \u0027Shift End\u0027\n\t}\n\t\n\tsystem.perspective.openPopup(modalName, modalPath, params\u003dparams, showCloseIcon \u003d False, modal \u003d True, draggable\u003dFalse)\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "EndShift",
+          "tooltip": {
+            "enabled": true,
+            "text": "Stop Shift"
+          }
+        },
+        "position": {
+          "basis": "39px",
+          "display": false
+        },
+        "props": {
+          "color": "white",
+          "path": "material/stop_circle",
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tmodalPath \u003d \u0027GlobalComponents/Modals/Modal\u0027\n\tmodalName \u003d \u0027breakStart\u0027\n\t\n\tparams \u003d {\n\t\t\u0027Message\u0027: \u0027Break Started.\u0027,\n\t\t\u0027ModalName\u0027: modalName,\n\t\t\u0027Title\u0027: \u0027Break Start\u0027\n\t}\n\t\n\tsystem.perspective.openPopup(modalName, modalPath, params\u003dparams, showCloseIcon \u003d False, modal \u003d True, draggable\u003dFalse)\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Break",
+          "tooltip": {
+            "enabled": true,
+            "text": "Break"
+          }
+        },
+        "position": {
+          "basis": "39px",
+          "display": false
+        },
+        "props": {
+          "color": "white",
+          "path": "material/free_breakfast",
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "page": "/operations/line_config"
+              },
+              "scope": "C",
+              "type": "nav"
+            }
+          }
+        },
+        "meta": {
+          "name": "LineConfig",
+          "tooltip": {
+            "enabled": true,
+            "text": "Line Config"
+          }
+        },
+        "position": {
+          "basis": "39px",
+          "display": false
+        },
+        "props": {
+          "color": "white",
+          "path": "material/settings",
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.sendMessage(\u0027refreshDashboardEqPath\u0027)\n"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Refresh",
+          "tooltip": {
+            "enabled": true,
+            "text": "Refresh Dashboard"
+          }
+        },
+        "position": {
+          "basis": "39px"
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "path": "view.params.IsOperator"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "color": "white",
+          "path": "material/refresh",
+          "style": {
+            "classes": "Global/MarginRight"
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.sendMessage(\"saveDashboard\")\n\t\n\t\n\tmodalPath \u003d \u0027GlobalComponents/Modals/Modal\u0027\n\tparams \u003d {\n\t\t\u0027Message\u0027: \u0027Saved dashboard succesfully\u0027,\n\t\t\u0027ModalName\u0027: \u0027savedDashboard\u0027,\n\t\t\u0027Title\u0027: \u0027Saved Dashboard!\u0027\n\t}\n\t\n\tsystem.perspective.openPopup(\u0027savedDashboard\u0027, modalPath, params\u003dparams, showCloseIcon \u003d False, modal \u003d True, draggable\u003dFalse)\t"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "SaveConfig",
+          "tooltip": {
+            "enabled": true,
+            "text": "Save Dashboard"
+          }
+        },
+        "position": {
+          "basis": "39px"
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "path": "view.params.IsOperator"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "color": "white",
+          "path": "material/save",
+          "style": {
+            "classes": "Global/MarginRight"
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tsystem.perspective.sendMessage(\"resetDashboard\")"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "ResetDashboard",
+          "tooltip": {
+            "enabled": true,
+            "text": "Reset Dashboard"
+          }
+        },
+        "position": {
+          "basis": "39px",
+          "display": false
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "path": "view.params.IsOperator"
+              },
+              "enabled": false,
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "color": "white",
+          "path": "material/replay",
+          "style": {
+            "classes": "Global/MarginRight"
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\tviewPath \u003d \u0027GlobalComponents/Configuration/Configuration\u0027\n\ttitle \u003d \u0027Configuration\u0027\n\t\n\tsystem.perspective.openPopup(\u0027userConfig\u0027, viewPath, title\u003dtitle, overlayDismiss\u003dTrue, modal\u003dTrue)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Configuration",
+          "tooltip": {
+            "enabled": true,
+            "text": "Configuration"
+          }
+        },
+        "position": {
+          "basis": "39px"
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "path": "view.params.IsOperator"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "color": "white",
+          "path": "material/settings",
+          "style": {
+            "classes": "Global/MarginRight"
+          }
+        },
+        "type": "ia.display.icon"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "backgroundColor": "var(--menuBg)"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

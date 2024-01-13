@@ -1,0 +1,129 @@
+{
+  "custom": {},
+  "params": {
+    "TagPath": "[GatewayHealth]Gateways/Script"
+  },
+  "propConfig": {
+    "params.TagPath": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 181,
+      "width": 264
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Gauge"
+        },
+        "position": {
+          "basis": "250px",
+          "shrink": 4
+        },
+        "propConfig": {
+          "props.value": {
+            "binding": {
+              "config": {
+                "fallbackDelay": 2.5,
+                "mode": "indirect",
+                "references": {
+                  "1": "{view.params.TagPath}"
+                },
+                "tagPath": "{1}/Performance/CPU Usage"
+              },
+              "transforms": [
+                {
+                  "expression": "{value}*100",
+                  "type": "expression"
+                }
+              ],
+              "type": "tag"
+            }
+          }
+        },
+        "props": {
+          "backgroundColor": "",
+          "innerAxis": {
+            "data": "secondaryValue",
+            "needle": {
+              "origin": 115
+            },
+            "percentRadius": 70,
+            "ranges": [
+              {
+                "color": "green",
+                "end": 70,
+                "start": 0,
+                "width": 8
+              },
+              {
+                "color": "yellow",
+                "end": 85,
+                "start": 65,
+                "width": 12
+              },
+              {
+                "color": "red",
+                "end": 100,
+                "start": 85,
+                "width": 14
+              }
+            ],
+            "show": false,
+            "width": 1
+          },
+          "outerAxis": {
+            "data": "value",
+            "needle": {
+              "color": "#CABDBD",
+              "reach": 90
+            },
+            "percentRadius": 90,
+            "ranges": [
+              {
+                "color": "green",
+                "end": 70,
+                "start": 0,
+                "width": 8
+              },
+              {
+                "color": "yellow",
+                "end": 85,
+                "start": 65,
+                "width": 12
+              },
+              {
+                "color": "red",
+                "end": 100,
+                "start": 85,
+                "width": 14
+              }
+            ],
+            "show": true,
+            "width": 1
+          },
+          "secondaryValue": 23.054814339,
+          "style": {
+            "classes": [],
+            "fontSize": "12px",
+            "minWidth": "180px",
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.chart.gauge"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

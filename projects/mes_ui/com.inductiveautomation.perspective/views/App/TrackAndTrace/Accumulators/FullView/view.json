@@ -1,0 +1,85 @@
+{
+  "custom": {},
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "anchor": "fixed",
+          "autoBreakpoint": 480,
+          "content": "push",
+          "display": "visible",
+          "handle": "hide",
+          "handleIcon": "",
+          "id": "Header",
+          "modal": false,
+          "resizable": false,
+          "size": 50,
+          "view": "GlobalComponents/Navigation/Header",
+          "viewParams": {
+            "Title": "Inventory View",
+            "showEmbedded": false,
+            "viewPath": ""
+          }
+        },
+        "scope": "C",
+        "type": "alter-dock"
+      }
+    }
+  },
+  "params": {},
+  "permissions": {
+    "securityLevels": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [],
+                "name": "Administrator"
+              },
+              {
+                "children": [],
+                "name": "Manager"
+              }
+            ],
+            "name": "Roles"
+          }
+        ],
+        "name": "Authenticated"
+      }
+    ],
+    "type": "AnyOf"
+  },
+  "props": {
+    "defaultSize": {
+      "width": 1061
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "EmbeddedView"
+        },
+        "position": {
+          "basis": "320px",
+          "grow": 1
+        },
+        "props": {
+          "params": {
+            "SiteId": 6
+          },
+          "path": "App/TrackAndTrace/Accumulators/Embedded/AccumulatorsCard"
+        },
+        "type": "ia.display.view"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

@@ -1,0 +1,163 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 63,
+      "width": 297
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginRight OverheadScreens/Text"
+              },
+              "text": "Line Status: ",
+              "textStyle": {
+                "fontSize": "1.5rem",
+                "textAlign": "start"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Value"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.style.backgroundColor": {
+                    "binding": {
+                      "config": {
+                        "fallbackDelay": 2.5,
+                        "mode": "indirect",
+                        "references": {
+                          "database": "{view.params.Database}",
+                          "tagPath": "{view.params.TagPath}"
+                        },
+                        "tagPath": "{tagPath}/{database}/Available"
+                      },
+                      "enabled": false,
+                      "transforms": [
+                        {
+                          "fallback": "var(--newGrey)",
+                          "inputType": "scalar",
+                          "mappings": [
+                            {
+                              "input": false,
+                              "output": "var(--error)"
+                            },
+                            {
+                              "input": true,
+                              "output": "var(--success)"
+                            }
+                          ],
+                          "outputType": "scalar",
+                          "type": "map"
+                        }
+                      ],
+                      "type": "tag"
+                    }
+                  },
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "fallbackDelay": 2.5,
+                        "mode": "indirect",
+                        "references": {
+                          "1": "{view.params.TagProvider}",
+                          "2": "{view.params.TagPath}"
+                        },
+                        "tagPath": "{1}{2}/Analysis/Shift/OEE/Availability"
+                      },
+                      "enabled": false,
+                      "transforms": [
+                        {
+                          "fallback": "No",
+                          "inputType": "scalar",
+                          "mappings": [
+                            {
+                              "input": false,
+                              "output": "No"
+                            },
+                            {
+                              "input": true,
+                              "output": "Yes"
+                            }
+                          ],
+                          "outputType": "scalar",
+                          "type": "map"
+                        }
+                      ],
+                      "type": "tag"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "backgroundColor": "var(--success)",
+                    "classes": "OverheadScreens/Text"
+                  },
+                  "text": "Running",
+                  "textStyle": {
+                    "textAlign": "center"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "EmbeddedView"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "props": {
+                  "path": "GlobalComponents/Icons/IconMain"
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "Status"
+            },
+            "position": {
+              "grow": 1
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "LineStatus"
+        },
+        "position": {
+          "basis": "41px"
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginTop"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

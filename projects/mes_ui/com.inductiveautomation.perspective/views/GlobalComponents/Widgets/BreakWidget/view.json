@@ -1,0 +1,76 @@
+{
+  "custom": {},
+  "params": {
+    "EqPath": "Fiberon/1NL/PE Extrusion/Line 23"
+  },
+  "propConfig": {
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 101,
+      "width": 259
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "EmbeddedView"
+        },
+        "position": {
+          "basis": "101px",
+          "grow": 1
+        },
+        "propConfig": {
+          "props.params.Params.EqPath": {
+            "binding": {
+              "config": {
+                "path": "view.params.EqPath"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "params": {
+            "EqPath": "value",
+            "EqType": "site",
+            "HideTitle": true,
+            "Icon": "",
+            "IconDisplay": true,
+            "IsNavigate": false,
+            "Params": {
+              "BreakValue": false,
+              "LunchValue": false,
+              "State": "",
+              "TagPath": "value",
+              "TagProvider": "value"
+            },
+            "Path": "GlobalComponents/Widgets/Embedded/BreakButtons",
+            "Provider": "value",
+            "SizeBasis": "value",
+            "TagPath": "value",
+            "Title": "",
+            "Type": "",
+            "index": "value",
+            "useDefaultHeight": false,
+            "useDefaultWidth": false
+          },
+          "path": "GlobalComponents/Cards/Card"
+        },
+        "type": "ia.display.view"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

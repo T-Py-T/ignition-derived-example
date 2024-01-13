@@ -1,0 +1,66 @@
+{
+  "custom": {},
+  "params": {
+    "datePicked": ""
+  },
+  "propConfig": {
+    "params.datePicked": {
+      "binding": {
+        "config": {
+          "path": "/root/DateTimeInput.props.value"
+        },
+        "type": "property"
+      },
+      "paramDirection": "output",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 51,
+      "width": 192
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "custom": {
+          "selectedDate": "value"
+        },
+        "meta": {
+          "name": "DateTimeInput"
+        },
+        "position": {
+          "basis": "40px"
+        },
+        "props": {
+          "formattedValue": null,
+          "inputProps": {
+            "style": {
+              "borderBottomLeftRadius": "10px",
+              "borderBottomRightRadius": "10px",
+              "borderTopLeftRadius": "10px",
+              "borderTopRightRadius": "10px",
+              "classes": ""
+            }
+          },
+          "modalStyle": {
+            "classes": "TextFields/TextArea"
+          },
+          "style": {
+            "classes": "TextFields/TextArea"
+          },
+          "value": ""
+        },
+        "type": "ia.input.date-time-input"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

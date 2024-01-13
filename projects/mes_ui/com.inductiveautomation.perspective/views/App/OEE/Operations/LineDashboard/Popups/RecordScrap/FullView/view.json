@@ -1,0 +1,718 @@
+{
+  "custom": {
+    "EqPath": "",
+    "PlannedOrder": "WO-20230627-08535022",
+    "ProductCode": "HighPPM",
+    "ScrapCategory": [
+      {
+        "label": "Identifier",
+        "value": 5
+      },
+      {
+        "label": "Machine",
+        "value": 2
+      },
+      {
+        "label": "Machine Rejected",
+        "value": 8
+      },
+      {
+        "label": "Magic Smoke",
+        "value": 1
+      },
+      {
+        "label": "Process",
+        "value": 4
+      },
+      {
+        "label": "Safety/Regulatory",
+        "value": 7
+      },
+      {
+        "label": "SAT TEST",
+        "value": 9
+      },
+      {
+        "label": "Test",
+        "value": 6
+      },
+      {
+        "label": "test_sproc",
+        "value": 12
+      },
+      {
+        "label": "testing123",
+        "value": 13
+      },
+      {
+        "label": "Tool",
+        "value": 3
+      }
+    ],
+    "ScrapReason": [
+      {
+        "label": "Glue",
+        "reason_code": 3,
+        "value": 16
+      },
+      {
+        "label": "New/Changed",
+        "reason_code": 4,
+        "value": 17
+      },
+      {
+        "label": "Pulls Out/Falls Off",
+        "reason_code": 5,
+        "value": 18
+      },
+      {
+        "label": "Specific Gravity",
+        "reason_code": 6,
+        "value": 19
+      },
+      {
+        "label": "Unseated/Under Inserted",
+        "reason_code": 7,
+        "value": 20
+      },
+      {
+        "label": "Wrong/Incorrect",
+        "reason_code": 8,
+        "value": 21
+      },
+      {
+        "label": "Blister",
+        "reason_code": 57,
+        "value": 73
+      },
+      {
+        "label": "Card",
+        "reason_code": 58,
+        "value": 74
+      },
+      {
+        "label": "Corrugate",
+        "reason_code": 59,
+        "value": 75
+      },
+      {
+        "label": "HSC Toppers",
+        "reason_code": 61,
+        "value": 76
+      },
+      {
+        "label": "Trays",
+        "reason_code": 62,
+        "value": 77
+      },
+      {
+        "label": "Inserts (Plastic)",
+        "reason_code": 63,
+        "value": 78
+      },
+      {
+        "label": "Inserts (Cardboard)",
+        "reason_code": 64,
+        "value": 79
+      },
+      {
+        "label": "test from ignition",
+        "reason_code": 99,
+        "value": 83
+      }
+    ],
+    "ShiftDropdown": [
+      {
+        "ID": 1,
+        "label": "Shift 1",
+        "value": "Shift 1"
+      },
+      {
+        "ID": 2,
+        "label": "Shift 2",
+        "value": "Shift 2"
+      },
+      {
+        "ID": 3,
+        "label": "Shift 3",
+        "value": "Shift 3"
+      }
+    ]
+  },
+  "params": {
+    "ModalName": "value"
+  },
+  "propConfig": {
+    "custom.EqPath": {
+      "binding": {
+        "config": {
+          "path": "session.custom.EqPath"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.PlannedOrder": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{session.custom.EqPath}"
+          },
+          "tagPath": "{1}/jobs/currentJob/workOrder"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.ProductCode": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{session.custom.EqPath}"
+          },
+          "tagPath": "{1}/jobs/currentJob/productCode"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.ScrapCategory": {
+      "binding": {
+        "config": {
+          "queryPath": "scrap/getScrapReasonCategory",
+          "returnFormat": "json"
+        },
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "custom.ScrapReason": {
+      "binding": {
+        "config": {
+          "parameters": {
+            "reasonCategoryId": "{/root/Category/Dropdown.props.value}"
+          },
+          "queryPath": "scrap/getScrapReason",
+          "returnFormat": "json"
+        },
+        "transforms": [
+          {
+            "code": "\treturn value",
+            "type": "script"
+          }
+        ],
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "custom.ShiftDropdown": {
+      "binding": {
+        "config": {
+          "queryPath": "app/OEE/getShiftsForSite",
+          "returnFormat": "json"
+        },
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "params.ModalName": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 313,
+      "width": 557
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1,
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardText"
+              },
+              "text": "Date",
+              "textStyle": {
+                "fontSize": 16
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "StartDate"
+            },
+            "position": {
+              "basis": "200px",
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.value": {
+                "binding": {
+                  "config": {
+                    "expression": "now(100000)"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "formattedValue": "Jul 6, 2023 10:40 AM",
+              "inputProps": {
+                "style": {
+                  "classes": "TextFields/DateSelector"
+                }
+              },
+              "modalStyle": {
+                "classes": "TextFields/TextArea"
+              },
+              "style": {
+                "classes": "TextFields/TextArea"
+              }
+            },
+            "type": "ia.input.date-time-input"
+          }
+        ],
+        "meta": {
+          "name": "Date"
+        },
+        "position": {
+          "basis": "42px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1,
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardText"
+              },
+              "text": "Shift",
+              "textStyle": {
+                "fontSize": "16px"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Dropdown"
+            },
+            "position": {
+              "basis": "200px",
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.options": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.ShiftDropdown"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "dropdownOptionStyle": {
+                "classes": "TextFields/Dropdown TextFields/TextArea"
+              },
+              "placeholder": {
+                "text": "Select Shift..."
+              },
+              "style": {
+                "classes": "TextFields/TextArea TextFields/TextField",
+                "marginBottom": 3,
+                "marginTop": 3
+              },
+              "value": 1
+            },
+            "type": "ia.input.dropdown"
+          }
+        ],
+        "meta": {
+          "name": "Shift"
+        },
+        "position": {
+          "basis": "42px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "TextFields/TextFieldAlternate",
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1,
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardText"
+              },
+              "text": "Scrap Category",
+              "textStyle": {
+                "fontSize": "16px"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Dropdown"
+            },
+            "position": {
+              "basis": "200px",
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.options": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.ScrapCategory"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "dropdownOptionStyle": {
+                "classes": "TextFields/TextArea TextFields/TextField"
+              },
+              "style": {
+                "classes": "TextFields/TextArea TextFields/TextField"
+              },
+              "value": 1
+            },
+            "type": "ia.input.dropdown"
+          }
+        ],
+        "meta": {
+          "name": "Category"
+        },
+        "position": {
+          "basis": "42px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1,
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardText"
+              },
+              "text": "Scrap Reason",
+              "textStyle": {
+                "fontSize": "16px"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Dropdown"
+            },
+            "position": {
+              "basis": "200px",
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.options": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.ScrapReason"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "dropdownOptionStyle": {
+                "classes": "TextFields/Dropdown TextFields/TextArea"
+              },
+              "style": {
+                "classes": "TextFields/TextArea TextFields/TextField",
+                "marginBottom": 3,
+                "marginTop": 3
+              },
+              "value": 15
+            },
+            "type": "ia.input.dropdown"
+          }
+        ],
+        "meta": {
+          "name": "Reason"
+        },
+        "position": {
+          "basis": "42px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "TextFields/TextFieldAlternate",
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1,
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "classes": "Cards/Common/CardText"
+              },
+              "text": "Quantity",
+              "textStyle": {
+                "fontSize": "16px"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "TextField"
+            },
+            "position": {
+              "basis": "200px",
+              "shrink": 0
+            },
+            "props": {
+              "placeholder": "...",
+              "style": {
+                "classes": "TextFields/TextField"
+              }
+            },
+            "type": "ia.input.text-field"
+          }
+        ],
+        "meta": {
+          "name": "Quantity"
+        },
+        "position": {
+          "basis": "42px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "marginBottom": "30px",
+            "overflow": "hidden"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\tqueryPath \u003d \u0027scrap/addScrapLog\u0027\n\t\n\tuserId \u003d self.session.props.auth.user.id\n\treasonId \u003d self.parent.parent.parent.getChild(\"Reason/Dropdown\").props.value\n\teqPath \u003d str(self.session.custom.EqPath)\n\tlineID \u003d self.session.custom.LineID\n\tplannedOrder \u003d self.view.custom.PlannedOrder\n\tproductCode \u003d self.view.custom.ProductCode\n\tquantity \u003d self.parent.parent.parent.getChild(\"Quantity/TextField\").props.text\n\tisRejectBoolean \u003d 1\n\tisBadge \u003d 1\n\tshift \u003d self.parent.parent.parent.getChild(\"Shift/Dropdown\").props.value\n\ttimeStamp \u003d self.parent.parent.parent.getChild(\"Date/StartDate\").props.value\n#\tsqlTime \u003d gpa.sql.convertSQLTimeStamp(timeStamp)\n\t\n\tparams \u003d {\n\t\t\u0027reasonId\u0027: reasonId,\n\t\t\u0027userId\u0027: userId,\n\t\t\u0027lineID\u0027: lineID,\n\t\t\u0027eqPath\u0027: eqPath,\n\t\t\u0027productCode\u0027: productCode,\n\t\t\u0027plannedOrder\u0027: plannedOrder,\n\t\t\u0027quantity\u0027: quantity,\n\t\t\u0027shift\u0027: shift,\n\t\t\u0027isRejectBoolean\u0027: isRejectBoolean,\n\t\t\u0027time\u0027: timeStamp,\n\t\t\u0027isBadge\u0027: isBadge,\n\t}\n\t\n\tresponse \u003d system.db.runNamedQuery(queryPath, params)\n\tsystem.perspective.print(response)\n\tif response \u003d\u003d 1:\n\t\tsystem.perspective.closePopup(\u0027scrapReason\u0027)"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "SaveButton"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "props": {
+                  "params": {
+                    "BackgroundColor": "value",
+                    "DisabledPopup": {
+                      "message": "Please sign in as quarterback to proceed.",
+                      "messageType": "",
+                      "payload": {},
+                      "title": "Invalid Permissions"
+                    },
+                    "Enabled": true,
+                    "Hover": true,
+                    "IconPath": "material/save",
+                    "IsSelectable": false,
+                    "Label": "Save",
+                    "Selected": true,
+                    "Size": "value",
+                    "Type": "normalsuccess"
+                  },
+                  "path": "GlobalComponents/Buttons/Button",
+                  "style": {
+                    "marginRight": "8px"
+                  }
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "Save"
+            },
+            "position": {
+              "basis": "50%",
+              "grow": 1
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "draggable": true,
+                        "id": "scrapReason",
+                        "modal": false,
+                        "overlayDismiss": false,
+                        "resizable": true,
+                        "showCloseIcon": true,
+                        "type": "close",
+                        "viewParams": {
+                          "ModalName": "scrapReason"
+                        },
+                        "viewPath": "GlobalComponents/Modals/Modal",
+                        "viewportBound": false
+                      },
+                      "scope": "C",
+                      "type": "popup"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "CancelButton"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "props": {
+                  "params": {
+                    "BackgroundColor": "value",
+                    "DisabledPopup": {
+                      "message": "Please sign in as quarterback to proceed.",
+                      "messageType": "",
+                      "payload": {},
+                      "title": "Invalid Permissions"
+                    },
+                    "Enabled": true,
+                    "Hover": true,
+                    "IconPath": "material/cancel",
+                    "IsSelectable": false,
+                    "Label": "Cancel",
+                    "Selected": true,
+                    "Size": "value",
+                    "Type": "normalfail"
+                  },
+                  "path": "GlobalComponents/Buttons/Button"
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "Cancel"
+            },
+            "position": {
+              "basis": "50%",
+              "grow": 1
+            },
+            "props": {
+              "direction": "column"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Footer"
+        },
+        "position": {
+          "basis": "42px",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "marginLeft": "auto",
+            "marginRight": "auto"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "classes": "Global/MarginAllEmbedded"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

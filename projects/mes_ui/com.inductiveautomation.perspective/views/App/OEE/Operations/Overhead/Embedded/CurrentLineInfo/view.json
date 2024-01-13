@@ -1,0 +1,178 @@
+{
+  "custom": {
+    "LineName": "SFN2",
+    "Operator": "value"
+  },
+  "params": {
+    "EqPath": "",
+    "TagProvider": "[MES]"
+  },
+  "propConfig": {
+    "custom.LineName": {
+      "binding": {
+        "config": {
+          "path": "view.params.EqPath"
+        },
+        "transforms": [
+          {
+            "expression": "substring({value},lastIndexOf({value},\u0027/\u0027)+1)",
+            "type": "expression"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.Operator": {
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.TagProvider": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 106,
+      "width": 521
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "OverheadScreens/Text"
+              },
+              "text": "Current Line:",
+              "textStyle": {
+                "textAlign": "start"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.LineName"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "OverheadScreens/Values"
+              },
+              "textStyle": {
+                "fontFamily": "FiraSans",
+                "textAlign": "end"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "CurrentLine"
+        },
+        "position": {
+          "basis": "41px"
+        },
+        "props": {
+          "style": {
+            "classes": "Cards/Common/CardTitleBorder Global/MarginTop"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "classes": "OverheadScreens/Text"
+              },
+              "text": "Operator:",
+              "textStyle": {
+                "textAlign": "start"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "expression": "{session.props.auth.user.firstName} + \" \" + {session.props.auth.user.lastName}"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "OverheadScreens/Values"
+              },
+              "textStyle": {
+                "textAlign": "end"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Operator"
+        },
+        "position": {
+          "basis": "41px"
+        },
+        "props": {
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

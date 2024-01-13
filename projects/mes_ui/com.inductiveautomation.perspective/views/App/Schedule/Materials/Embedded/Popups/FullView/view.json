@@ -1,0 +1,57 @@
+{
+  "custom": {},
+  "params": {
+    "ModalName": "Add",
+    "ViewPath": "App/Schedule/Operations/Materials/Embedded/Popups/Add/AddManualMaterials"
+  },
+  "propConfig": {
+    "params.ModalName": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.ViewPath": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 518,
+      "width": 419
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "ModalView"
+        },
+        "position": {
+          "basis": "320px",
+          "grow": 1
+        },
+        "propConfig": {
+          "props.path": {
+            "binding": {
+              "config": {
+                "path": "view.params.ViewPath"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "type": "ia.display.view"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "classes": "Global/MarginAllEmbedded"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

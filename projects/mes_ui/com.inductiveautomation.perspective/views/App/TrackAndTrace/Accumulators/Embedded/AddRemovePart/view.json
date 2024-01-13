@@ -1,0 +1,467 @@
+{
+  "custom": {
+    "Accumulator": null,
+    "AccumulatorID": null,
+    "PartID": null
+  },
+  "params": {
+    "label": "test",
+    "options": "value",
+    "selectedInventory": 1,
+    "type": "remove"
+  },
+  "propConfig": {
+    "custom.Accumulator": {
+      "binding": {
+        "config": {
+          "path": "/root/Body/Dropdown.props.value"
+        },
+        "transforms": [
+          {
+            "code": "\tdata \u003d mes.trace.sp.getParts(Label \u003d value)\n\tPartID \u003d data.getValueAt(0,8)\n\treturn PartID",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.AccumulatorID": {
+      "binding": {
+        "config": {
+          "path": "/root/Body/Dropdown.props.value"
+        },
+        "transforms": [
+          {
+            "code": "\tdata \u003d mes.trace.sp.getParts(Label \u003d value)\n\tAccumulatorID \u003d data.getValueAt(0,8)\n\treturn AccumulatorID",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.PartID": {
+      "binding": {
+        "config": {
+          "path": "/root/Body/Dropdown.props.value"
+        },
+        "transforms": [
+          {
+            "code": "\tdata \u003d mes.trace.sp.getPartExactLabelMatch(value)\n\tPartID \u003d data.getValueAt(0,0)\n\treturn PartID",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "params.label": {
+      "paramDirection": "inout",
+      "persistent": true
+    },
+    "params.options": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.selectedInventory": {
+      "paramDirection": "inout",
+      "persistent": true
+    },
+    "params.type": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 154,
+      "width": 392
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label_1"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "marginRight": "8px"
+              },
+              "text": "Label:",
+              "textStyle": {
+                "fontWeight": "bold",
+                "textAlign": "center"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "display": false,
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "marginRight": "8px"
+              },
+              "text": "Part ID:",
+              "textStyle": {
+                "fontWeight": "bold",
+                "textAlign": "center"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Label_0"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "style": {
+                "marginRight": "8px"
+              },
+              "text": "Accumulator:",
+              "textStyle": {
+                "fontWeight": "bold",
+                "textAlign": "center"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "FlexContainer"
+        },
+        "props": {
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Dropdown"
+            },
+            "position": {
+              "basis": "33%",
+              "grow": 1
+            },
+            "propConfig": {
+              "props.options": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.selectedInventory"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tres \u003d []\n\t\n\tif value \u003d\u003d \"value\" or value \u003d\u003d \"\" or value \u003d\u003d \"All\":\n\t    res \u003d mes.trace.sp.getParts()\n\telse:\n\t    res \u003d mes.trace.sp.getParts(AccumulatorID\u003dvalue)\n\t\n\tdata \u003d system.dataset.toPyDataSet(res)\n\tlabels \u003d [row[\"Label\"] for row in data]  # Extract all labels from the dataset\n\t\n\theader \u003d [\"Label\"]  # Specify the header for the resulting dataset\n\tdataset \u003d [[label] for label in labels]  # Create a list of lists with each label as a single-item list\n\t\n\treturn system.dataset.toDataSet(header, dataset)",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.value": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.label"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginRight TextFields/TextField"
+              }
+            },
+            "type": "ia.input.dropdown"
+          },
+          {
+            "meta": {
+              "name": "IDLabel"
+            },
+            "position": {
+              "basis": "33%",
+              "display": false,
+              "grow": 1
+            },
+            "propConfig": {
+              "props.style.marginLeft": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.type"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": "",
+                      "inputType": "scalar",
+                      "mappings": [
+                        {
+                          "input": "add",
+                          "output": ""
+                        },
+                        {
+                          "input": "remove",
+                          "output": "auto"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.PartID"
+                  },
+                  "type": "property"
+                },
+                "onChange": {
+                  "enabled": null,
+                  "script": "\tpayload \u003d currentValue.getValue()\n\tif previousValue !\u003d currentValue:\n\t\tsystem.perspective.sendMessage(\"partSelected\", payload\u003dpayload)\n\t\t"
+                }
+              }
+            },
+            "props": {
+              "enabled": false,
+              "placeholder": "Enter ID Label....",
+              "style": {
+                "backgroundColor": "#FF000000",
+                "classes": "TextFields/TextField",
+                "marginRight": "auto"
+              }
+            },
+            "type": "ia.input.text-area"
+          },
+          {
+            "meta": {
+              "name": "PartLabel_0"
+            },
+            "position": {
+              "basis": "33%",
+              "grow": 1
+            },
+            "propConfig": {
+              "props.style.marginLeft": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.type"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": "",
+                      "inputType": "scalar",
+                      "mappings": [
+                        {
+                          "input": "add",
+                          "output": ""
+                        },
+                        {
+                          "input": "remove",
+                          "output": "auto"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.Accumulator"
+                  },
+                  "type": "property"
+                },
+                "onChange": {
+                  "enabled": null,
+                  "script": "\tpayload \u003d currentValue.getValue()\n\tif previousValue !\u003d currentValue:\n\t\tsystem.perspective.sendMessage(\"partSelected\", payload\u003dpayload)\n\t\t"
+                }
+              }
+            },
+            "props": {
+              "enabled": false,
+              "placeholder": "Enter Part Label...",
+              "style": {
+                "backgroundColor": "#FF000000",
+                "classes": "TextFields/TextField",
+                "marginRight": "auto"
+              }
+            },
+            "type": "ia.input.text-area"
+          }
+        ],
+        "custom": {
+          "addRemParams": "value"
+        },
+        "meta": {
+          "name": "Body"
+        },
+        "position": {
+          "basis": "48px"
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\tlogger \u003d system.util.getLogger(\u0027tnt_accumulator\u0027)\n\t\n\ttry:\n\t    AccumulatorID \u003d self.view.custom.AccumulatorID\n\t    PartID \u003d self.view.custom.PartID\n\t    res \u003d mes.trace.sp.removePartFromAccumulator(AccumulatorID, PartID)\n\t    system.perspective.print(\u0027Success\u0027)\n\t\n\t    if not res: raise Exception(\u0027removePartFromAccumulator returned False\u0027)\n\t\n\t    messageType \u003d \u0027refreshTable\u0027\n\t    payload \u003d {}\n\t    system.perspective.sendMessage(messageType, payload, scope \u003d \u0027session\u0027 )\n\t\n\t    messageType \u003d \u0027changedInventory\u0027\n\t    payload \u003d {}\n\t    system.perspective.sendMessage(messageType, payload, scope \u003d \u0027session\u0027)\n\t\n\t    system.perspective.closePopup(\"RemovePart\")\n\t\n\texcept Exception as e:\n\t\tmsg \u003d \u0027There was an error: \u0027 + str(e)\n\t\tlogger.warn(msg)"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "SaveButton"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "props": {
+                  "params": {
+                    "Label": "Remove from Accumulator",
+                    "backgroundColor": "value",
+                    "disabledPopup": {
+                      "message": "Please sign in as quarterback to proceed.",
+                      "messageType": "",
+                      "payload": {},
+                      "title": "Invalid Permissions"
+                    },
+                    "enabled": true,
+                    "hover": true,
+                    "iconPath": "material/add",
+                    "isSelectable": false,
+                    "label": "Add",
+                    "selected": true,
+                    "size": "142px",
+                    "type": "normalsuccess"
+                  },
+                  "path": "GlobalComponents/Buttons/Button",
+                  "style": {
+                    "marginRight": "8px"
+                  }
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "Save"
+            },
+            "position": {
+              "basis": "50%",
+              "grow": 1
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\tsystem.perspective.closePopup(\"RemovePart\")"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "CancelButton"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "props": {
+                  "params": {
+                    "IconPath": "material/cancel",
+                    "Label": "Cancel",
+                    "backgroundColor": "value",
+                    "disabledPopup": {
+                      "message": "Please sign in as quarterback to proceed.",
+                      "messageType": "",
+                      "payload": {},
+                      "title": "Invalid Permissions"
+                    },
+                    "enabled": true,
+                    "hover": true,
+                    "isSelectable": false,
+                    "label": "Cancel",
+                    "selected": true,
+                    "size": "value",
+                    "type": "normalfail"
+                  },
+                  "path": "GlobalComponents/Buttons/Button"
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "Cancel"
+            },
+            "position": {
+              "basis": "50%",
+              "grow": 1
+            },
+            "props": {
+              "direction": "column"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Footer"
+        },
+        "position": {
+          "basis": "42px"
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "classes": "Global/MarginAll"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

@@ -1,0 +1,143 @@
+{
+  "custom": {},
+  "params": {
+    "displayPath": "",
+    "eventId": 21203,
+    "eventTime": {
+      "$": [
+        "ts",
+        192,
+        1629306435158
+      ],
+      "$ts": 1629305337410
+    },
+    "priority": 1,
+    "source": "prov:default:/tag:/Assembly",
+    "state": 1
+  },
+  "propConfig": {
+    "params.displayPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.eventId": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.eventTime": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.priority": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.source": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.state": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 200,
+      "width": 300
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "CardComponent"
+        },
+        "position": {
+          "basis": "320px"
+        },
+        "propConfig": {
+          "props.params.Params.displayPath": {
+            "binding": {
+              "config": {
+                "path": "view.params.displayPath"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.Params.eventId": {
+            "binding": {
+              "config": {
+                "path": "view.params.eventId"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.Params.eventTime": {
+            "binding": {
+              "config": {
+                "path": "view.params.eventTime"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.Params.priority": {
+            "binding": {
+              "config": {
+                "path": "view.params.priority"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.Params.source": {
+            "binding": {
+              "config": {
+                "path": "view.params.source"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.Params.state": {
+            "binding": {
+              "config": {
+                "path": "view.params.state"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "params": {
+            "EqPath": "value",
+            "HideTitle": true,
+            "Icon": "",
+            "IconDisplay": false,
+            "Params": {
+              "State": ""
+            },
+            "Path": "GlobalComponents/Alarms/Embedded/Card",
+            "Provider": "value",
+            "SizeBasis": "value",
+            "TagPath": "value",
+            "Title": "Card Title",
+            "Type": "",
+            "useDefaultHeight": false,
+            "useDefaultWidth": false
+          },
+          "path": "GlobalComponents/Cards/Card"
+        },
+        "type": "ia.display.view"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "classes": "MES/DockedViews/Alarms/CardBody"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

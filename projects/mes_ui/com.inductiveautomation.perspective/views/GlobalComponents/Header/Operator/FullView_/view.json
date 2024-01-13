@@ -1,0 +1,586 @@
+{
+  "custom": {
+    "ActiveAlarms": 1,
+    "FirstName": "Taylor",
+    "Instances": [],
+    "LastName": "Turner",
+    "OptionsArray": []
+  },
+  "params": {},
+  "propConfig": {
+    "custom.ActiveAlarms": {
+      "binding": {
+        "config": {
+          "expression": "now(6000)"
+        },
+        "transforms": [
+          {
+            "code": "\talarms \u003d system.alarm.  queryStatus(state \u003d [\"ActiveUnacked\",\"ActiveAcked\"])\n\treturn alarms.getDataset().getRowCount()",
+            "type": "script"
+          }
+        ],
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.FirstName": {
+      "binding": {
+        "config": {
+          "path": "session.props.auth.user.firstName"
+        },
+        "transforms": [
+          {
+            "expression": "upper(substring({value},0, 1))  + substring({value}, 1, lastIndexOf({value}, \"\"))",
+            "type": "expression"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.Instances": {
+      "binding": {
+        "config": {
+          "path": "session.custom.SelectedLines"
+        },
+        "transforms": [
+          {
+            "code": "\tif value is not None:\n\t\teqPaths \u003d [{\u0027EqPath\u0027:eqPath} for eqPath in value]\n\telse:\n\t\teqPaths \u003d []\n\treturn eqPaths",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.LastName": {
+      "binding": {
+        "config": {
+          "path": "session.props.auth.user.lastName"
+        },
+        "transforms": [
+          {
+            "expression": "upper(substring({value},0, 1))  + substring({value}, 1, lastIndexOf({value}, \"\"))",
+            "type": "expression"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.OptionsArray": {
+      "binding": {
+        "config": {
+          "path": "session.custom.SelectedLines"
+        },
+        "transforms": [
+          {
+            "code": "\toptionsArr \u003d []\n\t\n\tfor line in value:\n\t\toptionsArr.append({\"value\": line, \"label\": gpa.frontEnd.localUI.splitPath(line)})\n\t\t\n\treturn optionsArr",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 65,
+      "width": 1900
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "page": "/area_overview"
+                  },
+                  "scope": "C",
+                  "type": "nav"
+                }
+              }
+            },
+            "meta": {
+              "name": "Logo"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "props.source": {
+                "binding": {
+                  "config": {
+                    "path": "session.custom.BrandIcon"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "altText": "Logo",
+              "fit": {
+                "mode": "contain"
+              },
+              "style": {
+                "marginBottom": 5
+              },
+              "tint": {
+                "color": ""
+              }
+            },
+            "type": "ia.display.image"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": [
+                  {
+                    "config": {
+                      "script": "\tself.view.params.navBar \u003d not self.view.params.navBar"
+                    },
+                    "enabled": false,
+                    "scope": "G",
+                    "type": "script"
+                  },
+                  {
+                    "config": {
+                      "id": "navBar",
+                      "type": "close"
+                    },
+                    "scope": "C",
+                    "type": "dock"
+                  },
+                  {
+                    "config": {
+                      "draggable": false,
+                      "id": "operatorMenu",
+                      "modal": true,
+                      "overlayDismiss": true,
+                      "position": {
+                        "height": 150,
+                        "left": 8,
+                        "top": 50
+                      },
+                      "positionType": "exact",
+                      "resizable": false,
+                      "showCloseIcon": false,
+                      "type": "toggle",
+                      "viewPath": "GlobalComponents/Header/Operator/SubMenu",
+                      "viewportBound": false
+                    },
+                    "scope": "C",
+                    "type": "popup"
+                  }
+                ]
+              }
+            },
+            "meta": {
+              "name": "Icon"
+            },
+            "position": {
+              "basis": "30px",
+              "shrink": 0
+            },
+            "props": {
+              "color": "white",
+              "path": "material/menu",
+              "style": {
+                "classes": "MES/DockedViews/Header/Icons"
+              }
+            },
+            "type": "ia.display.icon"
+          }
+        ],
+        "meta": {
+          "name": "Col1"
+        },
+        "position": {
+          "basis": "196px",
+          "shrink": 0
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "LineInfo"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "path": "GlobalComponents/Header/Operator/Embedded/CurrentLineInfo"
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "Col2"
+        },
+        "position": {
+          "basis": "250px",
+          "shrink": 0
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "path": "view.params.IsOperator"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "direction": "column",
+          "style": {
+            "classes": "Global/MarginRight",
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "LineSelection"
+            },
+            "position": {
+              "basis": "320px",
+              "display": false
+            },
+            "propConfig": {
+              "props.instances": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.Instances"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "elementPosition": {
+                "grow": 0
+              },
+              "elementStyle": {
+                "classes": "Global/MarginRight"
+              },
+              "path": "GlobalComponents/Header/Operator/Embedded/LineSelection",
+              "useDefaultViewHeight": false
+            },
+            "type": "ia.display.flex-repeater"
+          },
+          {
+            "meta": {
+              "name": "EmbeddedView"
+            },
+            "position": {
+              "basis": "100px",
+              "display": false
+            },
+            "propConfig": {
+              "props.params.OptionsArray": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.OptionsArray"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "EqPath": "",
+                "isSelected": false
+              },
+              "path": "GlobalComponents/Header/Operator/Embedded/LineSelectionDropdown"
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "Col3"
+        },
+        "position": {
+          "basis": "155px",
+          "shrink": 0
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "path": "view.params.IsOperator"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "direction": "column"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "meta": {
+          "name": "Col4"
+        },
+        "position": {
+          "basis": "200px",
+          "grow": 1,
+          "shrink": 0
+        },
+        "props": {
+          "justify": "flex-end"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "SaveConfig",
+              "tooltip": {
+                "enabled": true,
+                "text": "Save Dashboard"
+              }
+            },
+            "position": {
+              "basis": "30px"
+            },
+            "props": {
+              "color": "white",
+              "path": "material/save",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.display.icon"
+          },
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "\tsystem.perspective.sendMessage(\"resetDashboard\")"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "ResetDashboard",
+              "tooltip": {
+                "enabled": true,
+                "text": "Reset Dashboard"
+              }
+            },
+            "position": {
+              "basis": "30px"
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.IsOperator"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "color": "white",
+              "path": "material/replay",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.display.icon"
+          },
+          {
+            "custom": {
+              "key": "value"
+            },
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "#\tself.view.params.alarmBar \u003d not self.view.params.alarmBar\n\tsystem.perspective.toggleDock(\"alarmBar\")"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Alarms"
+            },
+            "position": {
+              "basis": "30px"
+            },
+            "propConfig": {
+              "props.color": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.ActiveAlarms"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": "--neutral-100",
+                      "inputType": "range",
+                      "mappings": [
+                        {
+                          "input": {
+                            "min": 0
+                          },
+                          "output": "--error"
+                        },
+                        {
+                          "input": {
+                            "max": 0
+                          },
+                          "output": "--neutral-100"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.path": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.ActiveAlarms"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": "material/notifications",
+                      "inputType": "range",
+                      "mappings": [
+                        {
+                          "input": {
+                            "min": 0
+                          },
+                          "output": "material/notifications_active"
+                        },
+                        {
+                          "input": {
+                            "max": 0
+                          },
+                          "output": "material/notifications"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              },
+              "props.style.classes": {
+                "binding": {
+                  "config": {
+                    "path": "this.props.path"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": "MES/DockedViews/Header/Icons, MES/DockedViews/Header/Alarms_Active",
+                      "inputType": "scalar",
+                      "mappings": [
+                        {
+                          "input": "material/notifications",
+                          "output": "MES/DockedViews/Header/Icons"
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "type": "ia.display.icon"
+          },
+          {
+            "meta": {
+              "name": "User",
+              "tooltip": {
+                "enabled": true,
+                "text": "Logout"
+              }
+            },
+            "position": {
+              "basis": "30px"
+            },
+            "props": {
+              "color": "white",
+              "path": "material/person",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.display.icon"
+          },
+          {
+            "meta": {
+              "name": "OperatorName"
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "expression": "{view.custom.FirstName} + \" \" + {view.custom.LastName}"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Global/MarginAllRight"
+              },
+              "textStyle": {
+                "color": "white"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Col5"
+        },
+        "position": {
+          "basis": "277px",
+          "grow": 1,
+          "shrink": 0
+        },
+        "props": {
+          "alignItems": "center",
+          "justify": "flex-end"
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "style": {
+        "backgroundColor": "var(--menuBg)"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

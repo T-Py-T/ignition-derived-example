@@ -1,0 +1,726 @@
+{
+  "custom": {
+    "LineColor": "#009900",
+    "LineIcon": "",
+    "LineState": "RUNNING",
+    "MetricsInstances": [
+      {
+        "Header": "OEE",
+        "LegendColor": "yellow",
+        "Metric": "23.61%",
+        "ShowLegend": false,
+        "Units": "",
+        "instancePosition": {},
+        "instanceStyle": {
+          "classes": ""
+        }
+      },
+      {
+        "Header": "Availability",
+        "LegendColor": "#EBB800",
+        "Metric": "24.27%",
+        "ShowLegend": true,
+        "Units": "",
+        "instancePosition": {},
+        "instanceStyle": {
+          "classes": ""
+        }
+      },
+      {
+        "Header": "Quality",
+        "LegendColor": "#00EB5F",
+        "Metric": "97.28%",
+        "ShowLegend": true,
+        "Units": "",
+        "instancePosition": {},
+        "instanceStyle": {
+          "classes": ""
+        }
+      },
+      {
+        "Header": "Performance",
+        "LegendColor": "#00D2EB",
+        "Metric": "100.0%",
+        "ShowLegend": true,
+        "Units": "",
+        "instancePosition": {},
+        "instanceStyle": {
+          "classes": ""
+        }
+      }
+    ],
+    "OEEValues": {
+      "Availability": 0.24266204,
+      "OEE": 0.236069,
+      "Performance": 1,
+      "Quality": 0.97279567
+    },
+    "ProductCode": "",
+    "ProductCodeDescription": null,
+    "ProductCodeID": 0,
+    "ShiftEnd": {
+      "$": [
+        "ts",
+        192,
+        1701864124814
+      ],
+      "$ts": 1701907200000
+    },
+    "ShiftStart": {
+      "$": [
+        "ts",
+        192,
+        1701864124818
+      ],
+      "$ts": 1701864000000
+    },
+    "ShiftTarget": 11591,
+    "StateDuration": "00:07:53",
+    "StatesObject": {},
+    "TotalCounts": 110669,
+    "Workorder": "",
+    "testnull": null
+  },
+  "params": {
+    "EqPath": "Fiberon/1NL/PE Extrusion/Line 24",
+    "State": "fail"
+  },
+  "propConfig": {
+    "custom.LineColor": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/OEE_Events/stateColor"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.LineIcon": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/OEE_Events/stateIcon"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.LineState": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/OEE_Events/stateDescription"
+        },
+        "transforms": [
+          {
+            "expression": "upper({value})",
+            "type": "expression"
+          }
+        ],
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.MetricsInstances": {
+      "binding": {
+        "config": {
+          "path": "view.custom.OEEValues"
+        },
+        "transforms": [
+          {
+            "code": "\tlogger \u003d system.util.getLogger(\u0027oeeInstancesMetrics\u0027)\n\tmetrics \u003d value\n\torder \u003d [\"OEE\", \"Availability\", \"Quality\", \"Performance\"]\n\t\n\tarr \u003d []\n\t\n\ttry:\n\t    for header in order:\n\t        value \u003d metrics.get(header, None)  # This will get the value or None if the header is not a key in metrics\n\t        if header \u003d\u003d \u0027Availability\u0027:\n\t        \tcolor \u003d \u0027#EBB800\u0027\n\t        \tlegend \u003d True\n\t        elif header \u003d\u003d \u0027Quality\u0027:\n\t        \tcolor \u003d \u0027#00EB5F\u0027\n\t        \tlegend \u003d True\n\t        elif header \u003d\u003d \u0027Performance\u0027:\n\t        \tcolor \u003d \u0027#00D2EB\u0027\n\t        \tlegend \u003d True\n\t        else:\n\t        \tcolor \u003d \u0027yellow\u0027\n\t        \tlegend \u003d False\n\t        if value is not None:\n\t            instance \u003d {\n\t                \"instanceStyle\": {\n\t                    \"classes\": \"\"\n\t                },\n\t                \"instancePosition\": {},\n\t                \"Header\": header,\n\t                \"Units\": \"\",\n\t                \"Metric\": str(round(value * 100, 2)) + \u0027%\u0027,  # or use some formatting if needed\n\t                \"ShowLegend\": legend,\n\t                \"LegendColor\": color\n\t            }\n\t            arr.append(instance)\n\t\n\t    return arr\n\t\n\texcept Exception as e:\n\t    logger.warn(str(e))",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.OEEValues": {
+      "binding": {
+        "config": {
+          "path": "/root/Cirlces/OEECircles.props.params.OEEValues"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.ProductCode": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/jobs/currentJob/productCode"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.ProductCodeDescription": {
+      "binding": {
+        "config": {
+          "parameters": {
+            "pcID": "{view.custom.ProductCodeID}"
+          },
+          "queryPath": "app/OEE/getProductCodeDescription"
+        },
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "custom.ProductCodeID": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/jobs/currentJob/productCodeID"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.ShiftEnd": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{session.custom.SelectedSitePath}"
+          },
+          "tagPath": "{1}/calculatedValues/time/shiftEndTime"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.ShiftStart": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{session.custom.SelectedSitePath}"
+          },
+          "tagPath": "{1}/calculatedValues/time/shiftStartTime"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.ShiftTarget": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/calculatedValues/shiftGoodPartsTarget"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.StateDuration": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/OEE_Events/state"
+        },
+        "transforms": [
+          {
+            "expression": "numberFormat(hoursBetween(timestampOf({value}), now()), \u002700\u0027) + \u0027:\u0027 +\r\nnumberFormat(minutesBetween(timestampOf({value}), now()) % 60, \u002700\u0027) + \u0027:\u0027 +\r\nnumberFormat(secondsBetween(timestampOf({value}), now()) % 60, \u002700\u0027)\r\n\r\n//{value}",
+            "type": "expression"
+          }
+        ],
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.StatesObject": {
+      "persistent": true
+    },
+    "custom.StatesObject.AvailabilityState": {
+      "binding": {
+        "config": {
+          "path": "view.custom.OEEValues.Availability"
+        },
+        "transforms": [
+          {
+            "expression": "{value} * 100",
+            "type": "expression"
+          },
+          {
+            "code": "\tif value \u003c self.session.custom.AvailabilityThresholds.Bad:\n\t\treturn gpa.frontEnd.localUI.Constants.ERROR\n\telif value \u003c self.session.custom.AvailabilityThresholds.Warning:\n\t\treturn gpa.frontEnd.localUI.Constants.WARNING\n\telse:\n\t\treturn \"\"",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.StatesObject.OEEState": {
+      "binding": {
+        "config": {
+          "path": "view.custom.OEEValues.OEE"
+        },
+        "transforms": [
+          {
+            "expression": "{value} * 100",
+            "type": "expression"
+          },
+          {
+            "code": "\tif value \u003c self.session.custom.OEEThresholds.Bad:\n\t\treturn gpa.frontEnd.localUI.Constants.ERROR\n\telif value \u003c self.session.custom.OEEThresholds.Warning:\n\t\treturn gpa.frontEnd.localUI.Constants.WARNING\n\telse:\n\t\treturn \"\"",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.StatesObject.PerformanceState": {
+      "binding": {
+        "config": {
+          "path": "view.custom.OEEValues.Performance"
+        },
+        "transforms": [
+          {
+            "expression": "{value} * 100",
+            "type": "expression"
+          },
+          {
+            "code": "\tif value \u003c self.session.custom.PerformanceThresholds.Bad:\n\t\treturn gpa.frontEnd.localUI.Constants.ERROR\n\telif value \u003c self.session.custom.PerformanceThresholds.Warning:\n\t\treturn gpa.frontEnd.localUI.Constants.WARNING\n\telse:\n\t\treturn \"\"",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.StatesObject.QualityState": {
+      "binding": {
+        "config": {
+          "path": "view.custom.OEEValues.Quality"
+        },
+        "transforms": [
+          {
+            "expression": "{value} * 100",
+            "type": "expression"
+          },
+          {
+            "code": "\tif value \u003c self.session.custom.QualityThresholds.Bad:\n\t\treturn gpa.frontEnd.localUI.Constants.ERROR\n\telif value \u003c self.session.custom.QualityThresholds.Warning:\n\t\treturn gpa.frontEnd.localUI.Constants.WARNING\n\telse:\n\t\treturn \"\"",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.TotalCounts": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/calculatedValues/shiftGoodParts"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.Workorder": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/jobs/currentJob/workOrder"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.testnull": {
+      "binding": {
+        "config": {
+          "expression": "none"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.State": {
+      "binding": {
+        "config": {
+          "path": "view.custom.StatesObject"
+        },
+        "transforms": [
+          {
+            "code": "\treturn gpa.frontEnd.localUI.getFinalState(value)",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "paramDirection": "output",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 194,
+      "width": 414
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Icon"
+            },
+            "position": {
+              "basis": "30px"
+            },
+            "propConfig": {
+              "props.path": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.LineIcon"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.style.color": {
+                "binding": {
+                  "config": {
+                    "expression": "if({parent.props.style.backgroundColor} \u003d \u0027#FAFD20\u0027, \r\n\t\u0027black\u0027, \r\n\t\u0027white\u0027\r\n)"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "type": "ia.display.icon"
+          },
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "props.style.color": {
+                "binding": {
+                  "config": {
+                    "expression": "if({parent.props.style.backgroundColor} \u003d \u0027#FAFD20\u0027, \r\n\t\u0027black\u0027, \r\n\t\u0027white\u0027\r\n)"
+                  },
+                  "type": "expr"
+                }
+              },
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "expression": "if({view.custom.LineState} \u003d None ||{view.custom.LineState} \u003d \u0027\u0027, \u0027Error Getting State\u0027, ({view.custom.LineState} + \u0027 | \u0027 + {view.custom.StateDuration}))"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Text/Heading",
+                "fontSize": "1em",
+                "white-space": "pre"
+              },
+              "textStyle": {
+                "fontSize": "1em",
+                "textAlign": "center"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Status"
+        },
+        "propConfig": {
+          "props.style.backgroundColor": {
+            "binding": {
+              "config": {
+                "expression": "if({view.custom.LineColor} \u003d None, \u0027#5E5E5E\u0027, {view.custom.LineColor})"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "OEECircles"
+            },
+            "propConfig": {
+              "props.params.EQPath": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.EqPath"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "FontSize": "1.25em",
+                "OEEValues": {
+                  "Availability": 0.24266204,
+                  "OEE": 0.236069,
+                  "Performance": 1,
+                  "Quality": 0.97279567
+                }
+              },
+              "path": "App/OEE/Management/Overviews/Embedded/OEECircles",
+              "style": {
+                "overflow": "hidden"
+              },
+              "useDefaultViewHeight": true,
+              "useDefaultViewWidth": true
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "Metrics"
+            },
+            "position": {
+              "basis": "173px",
+              "grow": 1
+            },
+            "propConfig": {
+              "props.instances": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.MetricsInstances"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "direction": "column",
+              "elementPosition": {
+                "grow": 0
+              },
+              "path": "GlobalComponents/Metrics/NumberMetricHorizontal",
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.display.flex-repeater"
+          },
+          {
+            "meta": {
+              "name": "GoodParts"
+            },
+            "propConfig": {
+              "props.params.EqPath": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.EqPath"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "path": "GlobalComponents/Objects/Gauges/GoodParts/FullView",
+              "style": {
+                "overflow": "hidden",
+                "overflowX": "hidden",
+                "overflowY": "hidden"
+              },
+              "useDefaultViewHeight": true,
+              "useDefaultViewWidth": true
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "Cirlces"
+        },
+        "position": {
+          "grow": 1
+        },
+        "props": {
+          "alignItems": "center",
+          "justify": "center",
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "StartTime"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.ShiftStart"
+                      },
+                      "transforms": [
+                        {
+                          "code": "\treturn system.date.format(value, \u0027hh:mm a\u0027)",
+                          "type": "script"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "alignVertical": "bottom"
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "Description"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "expression": "{view.custom.Workorder} //+ \u0027: \u0027 + {view.custom.ProductCodeDescription}"
+                      },
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "alignVertical": "bottom",
+                  "textStyle": {
+                    "textAlign": ""
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "EndTime"
+                },
+                "position": {
+                  "basis": "10%",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.ShiftEnd"
+                      },
+                      "transforms": [
+                        {
+                          "code": "\treturn system.date.format(value, \u0027hh:mm a\u0027)",
+                          "type": "script"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "alignVertical": "bottom",
+                  "textStyle": {
+                    "textAlign": "right"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "FlexContainer"
+            },
+            "position": {
+              "basis": "15%",
+              "grow": 1
+            },
+            "props": {
+              "justify": "flex-end",
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Pareto"
+        },
+        "position": {
+          "grow": 1
+        },
+        "props": {
+          "direction": "column",
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

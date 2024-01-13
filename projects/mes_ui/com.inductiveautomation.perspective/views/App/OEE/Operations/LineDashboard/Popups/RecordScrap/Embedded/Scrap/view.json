@@ -1,0 +1,409 @@
+{
+  "custom": {
+    "isReject": 1,
+    "plannedOrder": null,
+    "productCode": null,
+    "scrapInfo": {
+      "title": "Scrap Info"
+    },
+    "shift": null
+  },
+  "params": {
+    "eqPath": null
+  },
+  "propConfig": {
+    "custom.isReject": {
+      "persistent": true
+    },
+    "custom.plannedOrder": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "0": "{view.params.eqPath}"
+          },
+          "tagPath": "{0}/jobs/currentJob/workOrder"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.productCode": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "0": "{view.params.eqPath}"
+          },
+          "tagPath": "{0}/jobs/currentJob/productCode"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.scrapInfo": {
+      "persistent": true
+    },
+    "custom.scrapInfo.machine": {
+      "binding": {
+        "config": {
+          "expression": "{view.custom.scrapInfo.oeeReject} - {view.custom.scrapInfo.scrapReject}"
+        },
+        "type": "expr"
+      }
+    },
+    "custom.scrapInfo.machinePercent": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "0": "{view.params.eqPath}"
+          },
+          "tagPath": "{0}/calculatedValues/oeeInfeedCount"
+        },
+        "transforms": [
+          {
+            "expression": "//({view.custom.scrapInfo.machine})/ {value}\r\nif(isnull({value}) || {value} \u003d 0.0, 0,({view.custom.scrapInfo.machine} / {value}))",
+            "type": "expression"
+          }
+        ],
+        "type": "tag"
+      }
+    },
+    "custom.scrapInfo.machineRate": {
+      "binding": {
+        "config": {
+          "path": "view.custom.scrapInfo.machine"
+        },
+        "transforms": [
+          {
+            "code": "\t\n\teqPath \u003d self.params.eqPath\n#\t\n\ttagPath \u003d app.util.eqPathToTagPath(eqPath, \u0027MES\u0027)\n\tshiftStart \u003d system.tag.read(tagPath + \u0027/Live Analysis/Shift/From Time Stamp\u0027).value\n\tendDate \u003d app.util.getCurrentDateTime()\n\thoursBetween \u003d system.date.hoursBetween(shiftStart, endDate)\n\tif hoursBetween \u003d\u003d 0:\n\t\thoursBetween \u003d 1\n\tscrap \u003d value\n\tif scrap is None:\n\t\tscrap \u003d 0\n\treturn \"{:.2f}\".format(scrap/hoursBetween)\n",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.scrapInfo.oeeOutfeed": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "0": "{view.params.eqPath}"
+          },
+          "tagPath": "{0}/calculatedValues/oeeOutfeedCount"
+        },
+        "type": "tag"
+      }
+    },
+    "custom.scrapInfo.oeeReject": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "0": "{view.params.eqPath}"
+          },
+          "tagPath": "{0}/calculatedValues/oeeRejectCount"
+        },
+        "type": "tag"
+      }
+    },
+    "custom.scrapInfo.quality": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "0": "{view.params.eqPath}"
+          },
+          "tagPath": "{0}/calculatedValues/scrapPareto_shift"
+        },
+        "transforms": [
+          {
+            "code": "\tqualityScrap \u003d 0\n\tfor row in range(value.rowCount):\n\t\tif value.getValueAt(row, 0) !\u003d \u0027Machine Rejected\u0027:\n\t\t\tqualityScrap +\u003d value.getValueAt(row, 1)\n\t\n\treturn qualityScrap",
+            "type": "script"
+          }
+        ],
+        "type": "tag"
+      }
+    },
+    "custom.scrapInfo.qualityPercent": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "0": "{view.params.eqPath}"
+          },
+          "tagPath": "{0}/calculatedValues/oeeInfeedCount"
+        },
+        "transforms": [
+          {
+            "expression": "if(isnull({value}) || {value} \u003d 0.0, 0,({view.custom.scrapInfo.quality} / {value}))",
+            "type": "expression"
+          }
+        ],
+        "type": "tag"
+      }
+    },
+    "custom.scrapInfo.qualityRate": {
+      "binding": {
+        "config": {
+          "path": "view.custom.scrapInfo.quality"
+        },
+        "transforms": [
+          {
+            "code": "\t\n\teqPath \u003d self.params.eqPath\n#\t\n\ttagPath \u003d app.util.eqPathToTagPath(eqPath, \u0027MES\u0027)\n\tshiftStart \u003d system.tag.read(tagPath + \u0027/Live Analysis/Shift/From Time Stamp\u0027).value\n\tendDate \u003d app.util.getCurrentDateTime()\n\thoursBetween \u003d system.date.hoursBetween(shiftStart, endDate)\n\tif hoursBetween \u003d\u003d 0:\n\t\thoursBetween \u003d 1\n\tscrap \u003d value\n\tif scrap is None:\n\t\tscrap \u003d 0\n\treturn \"{:.2f}\".format(scrap/hoursBetween)\n",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.scrapInfo.rejectRate": {
+      "binding": {
+        "config": {
+          "expression": "//numberFormat(\r\n//tag(\"[MES]\"+replace({view.params.eqPath},\u0027\\\\\u0027,\u0027/\u0027)+\"/Live Analysis/Shift/Outfeed-Outfeed\")\r\n///\r\n//(tag(\"[MES]\"+replace({view.params.eqPath},\u0027\\\\\u0027,\u0027/\u0027)+\"/Live Analysis/Shift/Infeed-Infeed\")\r\n//* tag(\"\"+replace({view.params.eqPath},\u0027\\\\\u0027,\u0027/\u0027)+\"/jobs/currentJob/partCountMultiplier\"))\r\n// * 100, \u0027###\u0027)\r\n(tag(replace({view.params.eqPath},\u0027\\\\\u0027,\u0027/\u0027)+\"/calculatedValues/oeeRejectCount\")\r\n/\r\ntag(replace({view.params.eqPath},\u0027\\\\\u0027,\u0027/\u0027)+\"/calculatedValues/oeeInfeedCount\")\r\n)\r\n*100"
+        },
+        "transforms": [
+          {
+            "code": "\tif str(value) \u003d\u003d \u0027nan\u0027:\n\t\treturn 0\n\telse:\n\t\treturn value",
+            "type": "script"
+          },
+          {
+            "formatType": "numeric",
+            "formatValue": "integer",
+            "type": "format"
+          }
+        ],
+        "type": "expr"
+      }
+    },
+    "custom.scrapInfo.scrap": {
+      "binding": {
+        "config": {
+          "expression": "{view.custom.scrapInfo.machine} + {view.custom.scrapInfo.quality}"
+        },
+        "type": "expr"
+      }
+    },
+    "custom.scrapInfo.scrapPercent": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "0": "{view.params.eqPath}"
+          },
+          "tagPath": "{0}/calculatedValues/oeeInfeedCount"
+        },
+        "transforms": [
+          {
+            "expression": "//{view.custom.scrapInfo.scrap}/{value}\r\nif(isnull({value}) || {value} \u003d 0.0, 0,({view.custom.scrapInfo.scrap} / {value}))\r\n",
+            "type": "expression"
+          }
+        ],
+        "type": "tag"
+      }
+    },
+    "custom.scrapInfo.scrapRate": {
+      "binding": {
+        "config": {
+          "path": "view.custom.scrapInfo.scrap"
+        },
+        "transforms": [
+          {
+            "code": "\t\n\teqPath \u003d self.params.eqPath\n#\t\n\ttagPath \u003d app.util.eqPathToTagPath(eqPath, \u0027MES\u0027)\n\tshiftStart \u003d system.tag.read(tagPath + \u0027/Live Analysis/Shift/From Time Stamp\u0027).value\n\tendDate \u003d app.util.getCurrentDateTime()\n\thoursBetween \u003d system.date.hoursBetween(shiftStart, endDate)\n\tif hoursBetween \u003d\u003d 0:\n\t\thoursBetween \u003d 1\n\t\n\tscrap \u003d value\n\tif scrap is None:\n\t\tscrap \u003d 0\n\treturn \"{:.2f}\".format(scrap/hoursBetween)\n",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.scrapInfo.scrapReject": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "0": "{view.params.eqPath}"
+          },
+          "tagPath": "{0}/calculatedValues/scrapReject"
+        },
+        "type": "tag"
+      }
+    },
+    "custom.shift": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "0": "{view.params.eqPath}"
+          },
+          "tagPath": "{0}/scadaControlled/shift"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "params.eqPath": {
+      "binding": {
+        "config": {
+          "path": "session.custom.eqPath"
+        },
+        "type": "property"
+      },
+      "paramDirection": "inout",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 367,
+      "width": 435
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "label"
+            },
+            "position": {
+              "display": false,
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "classes": "Text/CardHeaders"
+              },
+              "text": "Scrap Information"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "scrapInfo"
+            },
+            "position": {
+              "basis": "40%",
+              "grow": 1
+            },
+            "propConfig": {
+              "props.params": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.scrapInfo"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "path": "App/OEE/Operations/LineDashboard/Popups/RecordScrap/Embedded/ScrapInfo",
+              "style": {
+                "marginBottom": "1ch",
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "children": [
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "draggable": false,
+                        "id": "scrapCodeSelector",
+                        "modal": true,
+                        "overlayDismiss": false,
+                        "resizable": false,
+                        "showCloseIcon": false,
+                        "type": "open",
+                        "viewParams": {
+                          "eqPath": "{session.custom.eqPath}",
+                          "isReject": "{view.custom.isReject}",
+                          "plannedOrder": "{view.custom.plannedOrder}",
+                          "productCode": "{view.custom.productCode}",
+                          "shift": "{view.custom.shift}"
+                        },
+                        "viewPath": "app/operator/main/modals/recordScrap/mainView"
+                      },
+                      "scope": "C",
+                      "type": "popup"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "recordScrap"
+                },
+                "position": {
+                  "shrink": 0
+                },
+                "props": {
+                  "params": {
+                    "Borders": {
+                      "borderBottomLeftRadius": "10px",
+                      "borderBottomRightRadius": "10px",
+                      "borderTopLeftRadius": "10px",
+                      "borderTopRightRadius": "10px"
+                    },
+                    "Label": "Record Scrap",
+                    "State": true
+                  },
+                  "path": "components/buttons/processButton"
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "buttons"
+            },
+            "position": {
+              "basis": "4ch",
+              "shrink": 0
+            },
+            "props": {
+              "justify": "center"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "scrapInfo"
+        },
+        "position": {
+          "basis": "30%",
+          "grow": 1
+        },
+        "props": {
+          "direction": "column",
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

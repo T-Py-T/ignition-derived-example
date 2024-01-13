@@ -1,0 +1,726 @@
+{
+  "custom": {
+    "AreaDropdown": [
+      {
+        "label": "All",
+        "value": "all"
+      },
+      {
+        "label": "PE Extrusion",
+        "value": 18
+      }
+    ],
+    "EndTime": {
+      "$": [
+        "ts",
+        192,
+        1697650823881
+      ],
+      "$ts": 1697650823881
+    },
+    "GroupBy": "",
+    "LineDropdown": [
+      {
+        "label": "All",
+        "value": "all"
+      },
+      {
+        "label": "Line 24",
+        "value": 5
+      },
+      {
+        "label": "Line 23",
+        "value": 9
+      },
+      {
+        "label": "Line 22",
+        "value": 10
+      },
+      {
+        "label": "Line 21",
+        "value": 11
+      },
+      {
+        "label": "Line 20",
+        "value": 12
+      },
+      {
+        "label": "Line 19",
+        "value": 16
+      },
+      {
+        "label": "Line 18",
+        "value": 17
+      },
+      {
+        "label": "Line 17",
+        "value": 18
+      },
+      {
+        "label": "Line 16",
+        "value": 19
+      },
+      {
+        "label": "Line 15",
+        "value": 20
+      },
+      {
+        "label": "Line 14",
+        "value": 21
+      },
+      {
+        "label": "Line 12",
+        "value": 22
+      },
+      {
+        "label": "Line 11",
+        "value": 23
+      }
+    ],
+    "StartTime": {
+      "$": [
+        "ts",
+        192,
+        1697650823881
+      ],
+      "$ts": 1697391623881
+    }
+  },
+  "params": {},
+  "permissions": {
+    "securityLevels": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [],
+                "name": "Administrator"
+              },
+              {
+                "children": [],
+                "name": "Manager"
+              }
+            ],
+            "name": "Roles"
+          }
+        ],
+        "name": "Authenticated"
+      }
+    ],
+    "type": "AnyOf"
+  },
+  "propConfig": {
+    "custom.AreaDropdown": {
+      "binding": {
+        "config": {
+          "path": "session.custom.AreaDropdown"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.EndTime": {
+      "binding": {
+        "config": {
+          "expression": "now(0)"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.GroupBy": {
+      "binding": {
+        "config": {
+          "path": "/root/Header/GroupContainer/FilterSelection.props.value"
+        },
+        "transforms": [
+          {
+            "expression": "if({value} \u003d \u0027all\u0027, \u0027\u0027, {value})",
+            "type": "expression"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.LineDropdown": {
+      "binding": {
+        "config": {
+          "path": "session.custom.LineDropdown"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.StartTime": {
+      "binding": {
+        "config": {
+          "expression": "addDays(now(0), -3)"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 871,
+      "width": 1321
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "script": "#\tself.getSibling(\"analysisObject\").props.params.run \u003d False\n#\tself.getSibling(\"analysisObject\").props.params.run \u003d True\n#\tlogger \u003d system.util.getLogger(\u0027LossReport\u0027)\n#\tnow    \u003d app.util.getCurrentDateTime()\n#\tlogger.info(system.date.format(now, \u0027HH:mm:ss.SSS\u0027) + \u0027: Loss Report set to run\u0027)\n#\tstartDate \u003d system.date.format(self.getSibling(\"timeSelector\").props.params.timeStart, \u0027MM/dd/yyyy HH:mm:ss\u0027)\n#\tendDate \u003d system.date.format(self.getSibling(\"timeSelector\").props.params.timeEnd, \u0027MM/dd/yyyy HH:mm:ss\u0027)\n#\tlogger.info(\u0027Loss Report start and end date params: Start (\u0027 + startDate + \u0027), End (\u0027 + endDate + \u0027)\u0027)\n\n\tlogger \u003d system.util.getLogger(\u0027lossReport\u0027)\n\tstartTime \u003d self.getSibling(\"timeSelector\").props.params.timeStart\n\tendTime \u003d self.getSibling(\"timeSelector\").props.params.timeEnd\n\tfilteredSelection \u003d self.parent.getChild(\"GroupContainer/FilterSelection\").props.value\n\tselectFilter \u003d self.parent.getChild(\"LineContainer/SelectFilter\").props.value\n\tselectedLossType \u003d self.getSibling(\"LossDropdown\").props.value\n\t\n\ttry:\n\t\tif filteredSelection \u003d\u003d \u0027area\u0027:\n\t\t\tif selectFilter !\u003d \u0027all\u0027: self.view.custom.SelectedAreaID \u003d selectFilter\n\t\t\telse: self.view.custom.SelectedAreaID \u003d 0\n\t\tif filteredSelection \u003d\u003d \u0027line\u0027:\n\t\t\tif selectFilter !\u003d \u0027all\u0027: self.view.custom.SelectedLineID \u003d selectFilter\n\t\t\telse: self.view.custom.SelectedLineID \u003d 0\n\t\t\t\n\t\tif selectedLossType \u003d\u003d \u0027all\u0027: self.view.custom.SelectedLossType \u003d \u0027\u0027\n\t\telse: self.view.custom.SelectedLossType \u003d selectedLossType\n\t\t\n\t\tself.view.custom.StartTime \u003d startTime\n\t\tself.view.custom.EndTime \u003d endTime\n\texcept Exception as Argument:\n\t\tlogger.warn(str(Argument))"
+                  },
+                  "scope": "G",
+                  "type": "script"
+                }
+              }
+            },
+            "meta": {
+              "name": "Run"
+            },
+            "position": {
+              "basis": "100px"
+            },
+            "props": {
+              "params": {
+                "BackgroundColor": "value",
+                "DisabledPopup": {
+                  "message": "Please sign in as quarterback to proceed.",
+                  "messageType": "",
+                  "payload": {},
+                  "title": "Invalid Permissions"
+                },
+                "Enabled": true,
+                "Hover": true,
+                "IconPath": "material/save",
+                "IsSelectable": false,
+                "Label": "Run",
+                "Selected": true,
+                "Size": "value",
+                "Type": "value"
+              },
+              "path": "GlobalComponents/Buttons/Button",
+              "style": {
+                "marginBottom": "30px",
+                "marginTop": "30px"
+              }
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "timeSelector"
+            },
+            "position": {
+              "basis": "258px",
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.params.timeEnd": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.EndTime"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.params.timeStart": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.StartTime"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "enabledQuickRange": true
+              },
+              "path": "GlobalComponents/Selections/ReportDateRangeSelector"
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "children": [
+              {
+                "events": {
+                  "component": {
+                    "onActionPerformed": {
+                      "config": {
+                        "script": "\n\tself.parent.parent.getChild(\"LineContainer/SelectFilter\").refreshBinding(\u0027props.options\u0027)"
+                      },
+                      "enabled": false,
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "FilterSelection"
+                },
+                "position": {
+                  "basis": "42px",
+                  "grow": 1,
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "props.value": {
+                    "binding": {
+                      "config": {
+                        "bidirectional": true,
+                        "path": "view.custom.groupBy"
+                      },
+                      "enabled": false,
+                      "overlayOptOut": true,
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "dropdownOptionStyle": {
+                    "classes": "TextFields/Dropdown"
+                  },
+                  "options": [
+                    {
+                      "label": "All",
+                      "value": "all"
+                    },
+                    {
+                      "label": "Line",
+                      "value": "line"
+                    },
+                    {
+                      "label": "Area",
+                      "value": "area"
+                    }
+                  ],
+                  "placeholder": {
+                    "text": "Group by..."
+                  },
+                  "style": {
+                    "classes": "TextFields/Dropdown",
+                    "marginBottom": 35,
+                    "marginTop": 20
+                  },
+                  "value": "all"
+                },
+                "type": "ia.input.dropdown"
+              },
+              {
+                "meta": {
+                  "name": "Shift"
+                },
+                "position": {
+                  "basis": "42px",
+                  "display": false
+                },
+                "props": {
+                  "dropdownOptionStyle": {
+                    "classes": "TextFields/Dropdown"
+                  },
+                  "options": [
+                    {
+                      "label": "Line",
+                      "value": "equipmentName"
+                    },
+                    {
+                      "label": "Area",
+                      "value": "area"
+                    },
+                    {
+                      "label": "Operator",
+                      "value": "operator"
+                    },
+                    {
+                      "label": "Shift",
+                      "value": "shift"
+                    }
+                  ],
+                  "placeholder": {
+                    "text": "Shift"
+                  },
+                  "style": {
+                    "classes": "TextFields/Dropdown"
+                  },
+                  "value": "Shift"
+                },
+                "type": "ia.input.dropdown"
+              }
+            ],
+            "meta": {
+              "name": "GroupContainer"
+            },
+            "position": {
+              "basis": "250px"
+            },
+            "props": {
+              "direction": "column",
+              "justify": "space-around",
+              "style": {
+                "overflow": "hidden",
+                "paddingTop": 1
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "SelectFilter"
+                },
+                "position": {
+                  "basis": "42px",
+                  "grow": 1,
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "props.options": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.GroupBy"
+                      },
+                      "transforms": [
+                        {
+                          "expression": "if({value} \u003d \u0027line\u0027, {view.custom.LineDropdown}, {view.custom.AreaDropdown})",
+                          "type": "expression"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  },
+                  "props.value": {
+                    "persistent": false
+                  }
+                },
+                "props": {
+                  "dropdownOptionStyle": {
+                    "classes": "TextFields/Dropdown"
+                  },
+                  "placeholder": {
+                    "text": "Select"
+                  },
+                  "style": {
+                    "classes": "Global/MarginRight TextFields/Dropdown"
+                  }
+                },
+                "type": "ia.input.dropdown"
+              },
+              {
+                "meta": {
+                  "name": "SelectArea"
+                },
+                "position": {
+                  "basis": "42px",
+                  "display": false
+                },
+                "propConfig": {
+                  "props.value": {
+                    "binding": {
+                      "config": {
+                        "bidirectional": true,
+                        "path": "view.custom.GroupBy"
+                      },
+                      "overlayOptOut": true,
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "dropdownOptionStyle": {
+                    "classes": "TextFields/Dropdown"
+                  },
+                  "options": [
+                    {
+                      "label": "Line",
+                      "value": "equipmentName"
+                    },
+                    {
+                      "label": "Area",
+                      "value": "area"
+                    },
+                    {
+                      "label": "Operator",
+                      "value": "operator"
+                    },
+                    {
+                      "label": "Shift",
+                      "value": "shift"
+                    }
+                  ],
+                  "placeholder": {
+                    "text": "Group by..."
+                  },
+                  "style": {
+                    "classes": "TextFields/Dropdown"
+                  }
+                },
+                "type": "ia.input.dropdown"
+              }
+            ],
+            "meta": {
+              "name": "LineContainer"
+            },
+            "position": {
+              "basis": "250px"
+            },
+            "props": {
+              "direction": "column",
+              "justify": "space-around",
+              "style": {
+                "marginBottom": 30,
+                "overflow": "hidden",
+                "paddingTop": 15
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "meta": {
+              "name": "Dropdown_1"
+            },
+            "position": {
+              "basis": "200px"
+            },
+            "propConfig": {
+              "props.options": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.filterData.shiftOptions"
+                  },
+                  "enabled": false,
+                  "type": "property"
+                }
+              },
+              "props.value": {
+                "binding": {
+                  "config": {
+                    "bidirectional": true,
+                    "path": "view.custom.filters.shiftFilters"
+                  },
+                  "enabled": false,
+                  "overlayOptOut": true,
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "dropdownOptionStyle": {
+                "classes": "TextFields/TextArea"
+              },
+              "multiSelect": true,
+              "options": "",
+              "placeholder": {
+                "text": "Select Shift..."
+              },
+              "style": {
+                "classes": "Global/MarginRight TextFields/TextArea",
+                "marginBottom": 35,
+                "marginTop": 20
+              },
+              "value": null
+            },
+            "type": "ia.input.dropdown"
+          },
+          {
+            "meta": {
+              "name": "Dropdown_0"
+            },
+            "position": {
+              "basis": "250px"
+            },
+            "propConfig": {
+              "props.options": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.filterData.productCodeOptions"
+                  },
+                  "enabled": false,
+                  "type": "property"
+                }
+              },
+              "props.value": {
+                "binding": {
+                  "config": {
+                    "bidirectional": true,
+                    "path": "view.custom.filters.productCodeFilters"
+                  },
+                  "enabled": false,
+                  "overlayOptOut": true,
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "dropdownOptionStyle": {
+                "classes": "TextFields/TextArea"
+              },
+              "multiSelect": true,
+              "options": "",
+              "placeholder": {
+                "text": "Select Product Code..."
+              },
+              "style": {
+                "classes": "TextFields/TextArea",
+                "marginBottom": "35px",
+                "marginTop": "20px"
+              }
+            },
+            "type": "ia.input.dropdown"
+          }
+        ],
+        "meta": {
+          "name": "Header"
+        },
+        "position": {
+          "display": false,
+          "grow": 1,
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginBottom",
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "page": "/schedule/work_orders"
+                  },
+                  "scope": "C",
+                  "type": "nav"
+                }
+              }
+            },
+            "meta": {
+              "name": "Button_1"
+            },
+            "position": {
+              "basis": "146px"
+            },
+            "props": {
+              "style": {
+                "classes": "Buttons/OperatorButtons",
+                "marginLeft": 5
+              },
+              "text": "Go To Work Orders"
+            },
+            "type": "ia.input.button"
+          },
+          {
+            "events": {
+              "component": {
+                "onActionPerformed": {
+                  "config": {
+                    "page": "/schedule/schedulemanager"
+                  },
+                  "scope": "C",
+                  "type": "nav"
+                }
+              }
+            },
+            "meta": {
+              "name": "Button"
+            },
+            "position": {
+              "basis": "127px"
+            },
+            "props": {
+              "style": {
+                "classes": "Buttons/OperatorButtons",
+                "marginLeft": 5
+              },
+              "text": "Go To Schedule"
+            },
+            "type": "ia.input.button"
+          }
+        ],
+        "meta": {
+          "name": "Row1"
+        },
+        "position": {
+          "basis": "42px"
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Tables"
+            },
+            "position": {
+              "basis": "320px",
+              "grow": 1
+            },
+            "props": {
+              "params": {
+                "EqPath": "value",
+                "HideTitle": false,
+                "Icon": "",
+                "IconDisplay": true,
+                "Params": {
+                  "EqPath": "value",
+                  "State": "value",
+                  "TagPath": "value",
+                  "TagProvider": "value"
+                },
+                "Path": "App/Schedule/ScheduleManagement/Embedded/TablesView",
+                "Provider": "value",
+                "SizeBasis": "value",
+                "TagPath": "value",
+                "Title": "Card Title",
+                "Type": "value",
+                "useDefaultHeight": false,
+                "useDefaultWidth": false
+              },
+              "path": "App/Schedule/ScheduleManagement/Embedded/TablesView"
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "ScheduleTable"
+        },
+        "position": {
+          "basis": "200px",
+          "grow": 1
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "classes": "Global/MarginAll"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

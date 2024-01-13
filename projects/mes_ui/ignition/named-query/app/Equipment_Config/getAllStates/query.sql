@@ -1,0 +1,1 @@
+SELECT ID AS 'value', Description as 'label' FROM dbo.states WHERE LineID = :lineID

@@ -1,0 +1,814 @@
+{
+  "custom": {
+    "EqPath": "[default]GPA/Wilmington/Mixing/Mixer1",
+    "OEEPath": "[default][default]GPA/Wilmington/Mixing/Mixer1/calculatedValues/oee",
+    "TagPath": "[default]",
+    "historyTag": [
+      {
+        "aggregate": "Max/Min",
+        "alias": "Good Parts"
+      }
+    ]
+  },
+  "params": {},
+  "propConfig": {
+    "custom.EqPath": {
+      "binding": {
+        "config": {
+          "path": "session.custom.EqPath"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.OEEPath": {
+      "binding": {
+        "config": {
+          "expression": "{view.custom.TagPath}+{view.custom.EqPath}+\u0027/calculatedValues/oee\u0027"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.TagPath": {
+      "persistent": true
+    },
+    "custom.historyTag": {
+      "persistent": true
+    },
+    "custom.historyTag[0].path": {
+      "binding": {
+        "config": {
+          "path": "view.custom.OEEPath"
+        },
+        "type": "property"
+      }
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 474,
+      "width": 776
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "SimpleGauge_0"
+            },
+            "position": {
+              "basis": "200px"
+            },
+            "propConfig": {
+              "props.value": {
+                "binding": {
+                  "config": {
+                    "expression": "tag(\"[default]GPA/Wilmington/Baking/Oven1/calculatedValues/oee\")*100"
+                  },
+                  "transforms": [
+                    {
+                      "formatType": "numeric",
+                      "formatValue": "#.##",
+                      "type": "format"
+                    }
+                  ],
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "arc": {
+                "color": "#00D8FF"
+              },
+              "style": {
+                "classes": []
+              }
+            },
+            "type": "ia.chart.simple-gauge"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "props": {
+                  "text": "OEE:",
+                  "textStyle": {
+                    "fontSize": "18px",
+                    "paddingRight": 8,
+                    "textAlign": "right"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "FlexContainer"
+            },
+            "position": {
+              "basis": "100px"
+            },
+            "props": {
+              "alignItems": "center",
+              "direction": "column",
+              "justify": "center"
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "meta": {
+              "name": "Sparkline"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "props.desired.high": {
+                "binding": {
+                  "config": {
+                    "expression": "({this.props.range.high}+{this.props.range.low})/2"
+                  },
+                  "type": "expr"
+                }
+              },
+              "props.desired.low": {
+                "binding": {
+                  "config": {
+                    "expression": "({this.props.range.high}+{this.props.range.low})/2"
+                  },
+                  "type": "expr"
+                }
+              },
+              "props.points": {
+                "binding": {
+                  "config": {
+                    "aggregate": "MinMax",
+                    "avoidScanClassValidation": true,
+                    "dateRange": {
+                      "mostRecent": "24",
+                      "mostRecentUnits": "HOUR"
+                    },
+                    "enableValueCache": true,
+                    "ignoreBadQuality": false,
+                    "polling": {
+                      "enabled": false,
+                      "rate": "30"
+                    },
+                    "preventInterpolation": false,
+                    "returnFormat": "Wide",
+                    "returnSize": {
+                      "numRows": "100",
+                      "type": "FIXED"
+                    },
+                    "tags": [
+                      {
+                        "alias": "GoodParts",
+                        "path": "[default]GPA/Wilmington/Baking/Oven1/calculatedValues/oee"
+                      }
+                    ],
+                    "valueFormat": "DATASET"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tpyData \u003d system.dataset.toPyDataSet(value)\n\tNewData \u003d []\n\tfor row in pyData:\n\t\tdata \u003d [row[\u0027t_stamp\u0027], row[\u0027GoodParts\u0027]]\n\t\tNewData.append(data)\n\tNewHeaders \u003d [\u0027t_stamp\u0027,\u0027GoodParts\u0027]\n\tNewDataSet \u003d system.dataset.toDataSet(NewHeaders, NewData)\n\treturn NewDataSet\n\t\t\n\t\t\t",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "tag-history"
+                }
+              },
+              "props.range.high": {
+                "binding": {
+                  "config": {
+                    "expression": "max({this.props.points}, \u0027GoodParts\u0027)"
+                  },
+                  "type": "expr"
+                }
+              },
+              "props.range.low": {
+                "binding": {
+                  "config": {
+                    "expression": "min({this.props.points}, \u0027GoodParts\u0027)"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "color": "#00D8FF",
+              "desired": {
+                "fill": {
+                  "color": "lightgreen"
+                },
+                "stroke": {
+                  "color": "lightgreen",
+                  "dashArray": 15,
+                  "width": 3
+                }
+              },
+              "marker": {
+                "first": {
+                  "size": 1
+                },
+                "high": {
+                  "size": 1
+                },
+                "last": {
+                  "size": 1
+                },
+                "low": {
+                  "size": 1
+                }
+              },
+              "range": {},
+              "style": {
+                "backgroundImage": "",
+                "paddingBottom": 5,
+                "paddingLeft": 5,
+                "paddingRight": 5,
+                "paddingTop": 5
+              },
+              "width": 2
+            },
+            "type": "ia.display.sparkline"
+          }
+        ],
+        "meta": {
+          "name": "OEE"
+        },
+        "position": {
+          "grow": 1
+        },
+        "props": {
+          "style": {
+            "borderBottomStyle": "outset",
+            "borderLeftStyle": "none",
+            "borderRightStyle": "none",
+            "borderTopStyle": "none"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "SimpleGauge_0"
+            },
+            "position": {
+              "basis": "200px"
+            },
+            "propConfig": {
+              "props.value": {
+                "binding": {
+                  "config": {
+                    "expression": "tag(\"[default]GPA/Wilmington/Baking/Oven1/calculatedValues/oeeAvailability\")*100"
+                  },
+                  "transforms": [
+                    {
+                      "formatType": "numeric",
+                      "formatValue": "#.##",
+                      "type": "format"
+                    }
+                  ],
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "arc": {
+                "color": "#F000FF"
+              },
+              "style": {
+                "classes": []
+              }
+            },
+            "type": "ia.chart.simple-gauge"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "props": {
+                  "text": "Availability:",
+                  "textStyle": {
+                    "fontSize": "12px",
+                    "paddingRight": 8,
+                    "textAlign": "right"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "FlexContainer"
+            },
+            "position": {
+              "basis": "100px"
+            },
+            "props": {
+              "alignItems": "center",
+              "direction": "column",
+              "justify": "center"
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "meta": {
+              "name": "Sparkline"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "props.desired.high": {
+                "binding": {
+                  "config": {
+                    "expression": "({this.props.range.high}+{this.props.range.low})/2"
+                  },
+                  "type": "expr"
+                }
+              },
+              "props.desired.low": {
+                "binding": {
+                  "config": {
+                    "expression": "({this.props.range.high}+{this.props.range.low})/3"
+                  },
+                  "type": "expr"
+                }
+              },
+              "props.points": {
+                "binding": {
+                  "config": {
+                    "aggregate": "MinMax",
+                    "avoidScanClassValidation": true,
+                    "dateRange": {
+                      "mostRecent": "24",
+                      "mostRecentUnits": "HOUR"
+                    },
+                    "enableValueCache": true,
+                    "ignoreBadQuality": false,
+                    "polling": {
+                      "enabled": false,
+                      "rate": "30"
+                    },
+                    "preventInterpolation": false,
+                    "returnFormat": "Wide",
+                    "returnSize": {
+                      "numRows": "100",
+                      "type": "FIXED"
+                    },
+                    "tags": [
+                      {
+                        "alias": "GoodParts",
+                        "path": "[default]GPA/Wilmington/Baking/Oven1/calculatedValues/oeeAvailability"
+                      }
+                    ],
+                    "valueFormat": "DATASET"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tpyData \u003d system.dataset.toPyDataSet(value)\n\tNewData \u003d []\n\tfor row in pyData:\n\t\tdata \u003d [row[\u0027t_stamp\u0027], row[\u0027GoodParts\u0027]]\n\t\tNewData.append(data)\n\tNewHeaders \u003d [\u0027t_stamp\u0027,\u0027GoodParts\u0027]\n\tNewDataSet \u003d system.dataset.toDataSet(NewHeaders, NewData)\n\treturn NewDataSet\n\t\t\n\t\t\t",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "tag-history"
+                }
+              },
+              "props.range.high": {
+                "binding": {
+                  "config": {
+                    "expression": "max({this.props.points}, \u0027GoodParts\u0027)"
+                  },
+                  "type": "expr"
+                }
+              },
+              "props.range.low": {
+                "binding": {
+                  "config": {
+                    "expression": "min({this.props.points}, \u0027GoodParts\u0027)"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "color": "#F000FF",
+              "desired": {
+                "fill": {
+                  "color": "lightgreen"
+                },
+                "stroke": {
+                  "color": "lightgreen",
+                  "dashArray": 15,
+                  "width": 3
+                }
+              },
+              "marker": {
+                "first": {
+                  "size": 1
+                },
+                "high": {
+                  "size": 1
+                },
+                "last": {
+                  "size": 1
+                },
+                "low": {
+                  "size": 1
+                }
+              },
+              "range": {},
+              "style": {
+                "paddingBottom": 5,
+                "paddingLeft": 5,
+                "paddingRight": 5,
+                "paddingTop": 5
+              },
+              "width": 2
+            },
+            "type": "ia.display.sparkline"
+          }
+        ],
+        "meta": {
+          "name": "OEE_0"
+        },
+        "position": {
+          "grow": 1
+        },
+        "props": {
+          "style": {
+            "borderBottomStyle": "outset",
+            "borderLeftStyle": "none",
+            "borderRightStyle": "none",
+            "borderTopStyle": "none"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "SimpleGauge_0"
+            },
+            "position": {
+              "basis": "200px"
+            },
+            "propConfig": {
+              "props.value": {
+                "binding": {
+                  "config": {
+                    "expression": "tag(\"[default]GPA/Wilmington/Baking/Oven1/calculatedValues/oeePerformance\")*100"
+                  },
+                  "transforms": [
+                    {
+                      "formatType": "numeric",
+                      "formatValue": "#.##",
+                      "type": "format"
+                    }
+                  ],
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "arc": {
+                "color": "#00FF81"
+              },
+              "style": {
+                "classes": []
+              }
+            },
+            "type": "ia.chart.simple-gauge"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "props": {
+                  "text": "Performance:",
+                  "textStyle": {
+                    "fontSize": "12px",
+                    "paddingRight": 8,
+                    "textAlign": "right"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "FlexContainer"
+            },
+            "position": {
+              "basis": "100px"
+            },
+            "props": {
+              "alignItems": "center",
+              "direction": "column",
+              "justify": "center"
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "meta": {
+              "name": "Sparkline"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "props.points": {
+                "binding": {
+                  "config": {
+                    "aggregate": "MinMax",
+                    "avoidScanClassValidation": true,
+                    "dateRange": {
+                      "mostRecent": "24",
+                      "mostRecentUnits": "HOUR"
+                    },
+                    "enableValueCache": true,
+                    "ignoreBadQuality": false,
+                    "polling": {
+                      "enabled": false,
+                      "rate": "30"
+                    },
+                    "preventInterpolation": false,
+                    "returnFormat": "Wide",
+                    "returnSize": {
+                      "numRows": "100",
+                      "type": "FIXED"
+                    },
+                    "tags": [
+                      {
+                        "alias": "GoodParts",
+                        "path": "[default]GPA/Wilmington/Baking/Oven1/calculatedValues/oeePerformance"
+                      }
+                    ],
+                    "valueFormat": "DATASET"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tpyData \u003d system.dataset.toPyDataSet(value)\n\tNewData \u003d []\n\tfor row in pyData:\n\t\tdata \u003d [row[\u0027t_stamp\u0027], row[\u0027GoodParts\u0027]]\n\t\tNewData.append(data)\n\tNewHeaders \u003d [\u0027t_stamp\u0027,\u0027GoodParts\u0027]\n\tNewDataSet \u003d system.dataset.toDataSet(NewHeaders, NewData)\n\treturn NewDataSet\n\t\t\n\t\t\t",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "tag-history"
+                }
+              },
+              "props.range.high": {
+                "binding": {
+                  "config": {
+                    "expression": "max({this.props.points}, \u0027GoodParts\u0027)"
+                  },
+                  "type": "expr"
+                }
+              },
+              "props.range.low": {
+                "binding": {
+                  "config": {
+                    "expression": "min({this.props.points}, \u0027GoodParts\u0027)"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "color": "#00FF81",
+              "marker": {
+                "first": {
+                  "size": 1
+                },
+                "high": {
+                  "size": 1
+                },
+                "last": {
+                  "size": 1
+                },
+                "low": {
+                  "size": 1
+                }
+              },
+              "range": {},
+              "style": {
+                "paddingBottom": 5,
+                "paddingLeft": 5,
+                "paddingRight": 5,
+                "paddingTop": 5
+              },
+              "width": 2
+            },
+            "type": "ia.display.sparkline"
+          }
+        ],
+        "meta": {
+          "name": "OEE_1"
+        },
+        "position": {
+          "grow": 1
+        },
+        "props": {
+          "style": {
+            "borderBottomStyle": "outset",
+            "borderLeftStyle": "none",
+            "borderRightStyle": "none",
+            "borderTopStyle": "none"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "SimpleGauge_0"
+            },
+            "position": {
+              "basis": "200px"
+            },
+            "propConfig": {
+              "props.value": {
+                "binding": {
+                  "config": {
+                    "expression": "tag(\"[default]GPA/Wilmington/Baking/Oven1/calculatedValues/oeeQuality\")*100"
+                  },
+                  "transforms": [
+                    {
+                      "formatType": "numeric",
+                      "formatValue": "#.##",
+                      "type": "format"
+                    }
+                  ],
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "arc": {
+                "color": "#CA8B36"
+              },
+              "style": {
+                "classes": []
+              }
+            },
+            "type": "ia.chart.simple-gauge"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "props": {
+                  "text": "Quality:",
+                  "textStyle": {
+                    "fontSize": "12px",
+                    "paddingRight": 8,
+                    "textAlign": "right"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "FlexContainer"
+            },
+            "position": {
+              "basis": "100px"
+            },
+            "props": {
+              "alignItems": "center",
+              "direction": "column",
+              "justify": "center"
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "meta": {
+              "name": "Sparkline"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "props.points": {
+                "binding": {
+                  "config": {
+                    "aggregate": "MinMax",
+                    "avoidScanClassValidation": true,
+                    "dateRange": {
+                      "mostRecent": "24",
+                      "mostRecentUnits": "HOUR"
+                    },
+                    "enableValueCache": true,
+                    "ignoreBadQuality": false,
+                    "polling": {
+                      "enabled": false,
+                      "rate": "30"
+                    },
+                    "preventInterpolation": false,
+                    "returnFormat": "Wide",
+                    "returnSize": {
+                      "numRows": "100",
+                      "type": "FIXED"
+                    },
+                    "tags": [
+                      {
+                        "alias": "GoodParts",
+                        "path": "[default]GPA/Wilmington/Baking/Oven1/calculatedValues/oeeQuality"
+                      }
+                    ],
+                    "valueFormat": "DATASET"
+                  },
+                  "transforms": [
+                    {
+                      "code": "\tpyData \u003d system.dataset.toPyDataSet(value)\n\tNewData \u003d []\n\tfor row in pyData:\n\t\tdata \u003d [row[\u0027t_stamp\u0027], row[\u0027GoodParts\u0027]]\n\t\tNewData.append(data)\n\tNewHeaders \u003d [\u0027t_stamp\u0027,\u0027GoodParts\u0027]\n\tNewDataSet \u003d system.dataset.toDataSet(NewHeaders, NewData)\n\treturn NewDataSet\n\t\t\n\t\t\t",
+                      "type": "script"
+                    }
+                  ],
+                  "type": "tag-history"
+                }
+              },
+              "props.range.high": {
+                "binding": {
+                  "config": {
+                    "expression": "max({this.props.points}, \u0027GoodParts\u0027)"
+                  },
+                  "type": "expr"
+                }
+              },
+              "props.range.low": {
+                "binding": {
+                  "config": {
+                    "expression": "min({this.props.points}, \u0027GoodParts\u0027)"
+                  },
+                  "type": "expr"
+                }
+              }
+            },
+            "props": {
+              "color": "#CA8B36",
+              "marker": {
+                "first": {
+                  "size": 1
+                },
+                "high": {
+                  "size": 1
+                },
+                "last": {
+                  "size": 1
+                },
+                "low": {
+                  "size": 1
+                }
+              },
+              "range": {},
+              "style": {
+                "paddingBottom": 5,
+                "paddingLeft": 5,
+                "paddingRight": 5,
+                "paddingTop": 5
+              },
+              "width": 2
+            },
+            "type": "ia.display.sparkline"
+          }
+        ],
+        "meta": {
+          "name": "OEE_2"
+        },
+        "position": {
+          "grow": 1
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

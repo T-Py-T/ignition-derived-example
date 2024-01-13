@@ -1,0 +1,92 @@
+{
+  "custom": {
+    "Instances": []
+  },
+  "params": {
+    "EqPath": "",
+    "State": "Empty"
+  },
+  "propConfig": {
+    "custom.Instances": {
+      "binding": {
+        "config": {
+          "path": "view.params.EqPath"
+        },
+        "transforms": [
+          {
+            "code": "\tinstances \u003d []\n\tstartPath \u003d value + \"/Database\"\n\tres \u003d system.tag.browse(path\u003dstartPath)\n\tfor result in res.getResults():\n\t\tinstances.append({\"Database\": result[\"name\"], \"EqPath\": value})\n\treturn instances",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.State": {
+      "binding": {
+        "config": {
+          "path": "/root/FlexRepeater.props.instances"
+        },
+        "transforms": [
+          {
+            "code": "\tif len(value) \u003d\u003d 0:\n\t\treturn \"Empty\"\n\telse:\n\t\treturn \"\"",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "paramDirection": "output",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "width": 327
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "FlexRepeater"
+        },
+        "position": {
+          "shrink": 0
+        },
+        "propConfig": {
+          "props.instances": {
+            "binding": {
+              "config": {
+                "path": "view.custom.Instances"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "direction": "column",
+          "elementPosition": {
+            "basis": "auto",
+            "grow": 0,
+            "shrink": 0
+          },
+          "path": "App/GatewayHealth/Diagnostics/Embedded/Database",
+          "useDefaultViewHeight": false,
+          "useDefaultViewWidth": false
+        },
+        "type": "ia.display.flex-repeater"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

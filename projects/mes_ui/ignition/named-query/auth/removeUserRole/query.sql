@@ -1,0 +1,1 @@
+CALL auth.remove_user_role(:username, :rolename)

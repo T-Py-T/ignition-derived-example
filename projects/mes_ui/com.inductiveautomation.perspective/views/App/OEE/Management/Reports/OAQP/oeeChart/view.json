@@ -1,0 +1,1061 @@
+{
+  "custom": {
+    "len": 1
+  },
+  "params": {
+    "dataAvailability": [],
+    "dataOEE": [
+      {
+        "Line": "EXFP01",
+        "OEE": 75
+      }
+    ],
+    "dataPerformance": [],
+    "dataQuality": [],
+    "header": "Production Totals",
+    "limit": 10,
+    "selectedCategory": "OEE"
+  },
+  "propConfig": {
+    "custom.len": {
+      "binding": {
+        "config": {
+          "path": "view.params.dataOEE"
+        },
+        "transforms": [
+          {
+            "code": "\tif value is None:\n\t\treturn 0\n\t\n\ttry:\n\t\tvalue \u003d len(value)\n\texcept:\n\t\tvalue \u003d 0\n\treturn value",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "params.dataAvailability": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.dataOEE": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.dataOEE[0]": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.dataOEE[0].Line": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.dataOEE[0].OEE": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.dataPerformance": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.dataQuality": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.header": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.limit": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.selectedCategory": {
+      "binding": {
+        "config": {
+          "bidirectional": true,
+          "path": "/root/categorySelector.props.params.selectedCategory"
+        },
+        "overlayOptOut": true,
+        "type": "property"
+      },
+      "paramDirection": "inout",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 250,
+      "width": 500
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "title"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.header"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Text/CardHeaders",
+                "textAlign": "left"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label"
+                },
+                "position": {
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "expression": "\"Top \" + {view.params.limit} + \", \" + {view.custom.len} + \" items total\""
+                      },
+                      "type": "expr"
+                    }
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "FlexContainer"
+            },
+            "position": {
+              "basis": "200px",
+              "grow": 1
+            },
+            "props": {
+              "justify": "flex-end"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "title"
+        },
+        "position": {
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "Cards/header",
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "meta": {
+          "name": "TimeSeriesChart"
+        },
+        "position": {
+          "basis": "200px",
+          "display": false,
+          "grow": 1,
+          "shrink": 0
+        },
+        "props": {
+          "defaultStyles": {
+            "colorScheme": "Blues"
+          },
+          "plots": [
+            {
+              "axes": [
+                {
+                  "alignment": "left",
+                  "label": {
+                    "font": {
+                      "color": "",
+                      "size": 10
+                    },
+                    "offset": 0,
+                    "style": {
+                      "classes": ""
+                    },
+                    "text": "",
+                    "visible": false
+                  },
+                  "max": 100,
+                  "min": 0,
+                  "name": "Pieces Produced",
+                  "style": {
+                    "classes": ""
+                  },
+                  "tick": {
+                    "color": "",
+                    "label": {
+                      "font": {
+                        "color": "",
+                        "size": 10
+                      },
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "style": {
+                      "classes": ""
+                    }
+                  },
+                  "width": 60
+                }
+              ],
+              "markers": [],
+              "relativeWeight": 1,
+              "trends": [
+                {
+                  "axis": "Pieces Produced",
+                  "baselines": [
+                    {
+                      "axis": "Pieces Produced",
+                      "color": "#808080",
+                      "column": "",
+                      "dashArray": 0,
+                      "function": "avg",
+                      "label": {
+                        "font": {
+                          "color": "",
+                          "size": 10
+                        },
+                        "position": "right",
+                        "style": {
+                          "classes": ""
+                        },
+                        "text": "Target"
+                      },
+                      "opacity": 0.5,
+                      "style": {
+                        "classes": ""
+                      },
+                      "visible": true,
+                      "width": 2
+                    }
+                  ],
+                  "breakLine": true,
+                  "columns": [
+                    {
+                      "color": "#298fc2",
+                      "key": "Pieces",
+                      "styles": {
+                        "highlighted": {
+                          "fill": {
+                            "color": "",
+                            "opacity": null
+                          },
+                          "stroke": {
+                            "color": "",
+                            "dashArray": null,
+                            "opacity": null,
+                            "width": null
+                          }
+                        },
+                        "muted": {
+                          "fill": {
+                            "color": "",
+                            "opacity": null
+                          },
+                          "stroke": {
+                            "color": "",
+                            "dashArray": null,
+                            "opacity": null,
+                            "width": null
+                          }
+                        },
+                        "normal": {
+                          "fill": {
+                            "color": "",
+                            "opacity": null
+                          },
+                          "stroke": {
+                            "color": "",
+                            "dashArray": null,
+                            "opacity": null,
+                            "width": null
+                          }
+                        },
+                        "selected": {
+                          "fill": {
+                            "color": "",
+                            "opacity": null
+                          },
+                          "stroke": {
+                            "color": "",
+                            "dashArray": null,
+                            "opacity": null,
+                            "width": null
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "interpolation": "curveBasis",
+                  "radius": 2,
+                  "series": "Pieces",
+                  "stack": true,
+                  "type": "bar",
+                  "visible": true
+                },
+                {
+                  "axis": "Pieces Produced",
+                  "baselines": [
+                    {
+                      "axis": "Pieces Produced",
+                      "color": "",
+                      "column": "",
+                      "dashArray": 0,
+                      "function": "avg",
+                      "label": {
+                        "font": {
+                          "color": "",
+                          "size": 10
+                        },
+                        "position": "right",
+                        "style": {
+                          "classes": ""
+                        },
+                        "text": "Ideal"
+                      },
+                      "opacity": 0.5,
+                      "style": {
+                        "classes": ""
+                      },
+                      "visible": true,
+                      "width": 1
+                    }
+                  ],
+                  "breakLine": true,
+                  "columns": [
+                    {
+                      "color": "#2B2B2B",
+                      "key": "PiecesGoal",
+                      "styles": {
+                        "highlighted": {
+                          "fill": {
+                            "color": "",
+                            "opacity": null
+                          },
+                          "stroke": {
+                            "color": "",
+                            "dashArray": null,
+                            "opacity": null,
+                            "width": null
+                          }
+                        },
+                        "muted": {
+                          "fill": {
+                            "color": "",
+                            "opacity": null
+                          },
+                          "stroke": {
+                            "color": "",
+                            "dashArray": null,
+                            "opacity": null,
+                            "width": null
+                          }
+                        },
+                        "normal": {
+                          "fill": {
+                            "color": "",
+                            "opacity": null
+                          },
+                          "stroke": {
+                            "color": "",
+                            "dashArray": null,
+                            "opacity": null,
+                            "width": null
+                          }
+                        },
+                        "selected": {
+                          "fill": {
+                            "color": "",
+                            "opacity": null
+                          },
+                          "stroke": {
+                            "color": "",
+                            "dashArray": null,
+                            "opacity": null,
+                            "width": null
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "interpolation": "curveLinear",
+                  "radius": 2,
+                  "series": "Pieces Goal",
+                  "stack": true,
+                  "type": "line",
+                  "visible": true
+                }
+              ]
+            }
+          ],
+          "series": [
+            {
+              "data": [
+                {
+                  "Pieces": 52,
+                  "time": 1560469431423
+                },
+                {
+                  "Pieces": 18,
+                  "time": 1560469432423
+                },
+                {
+                  "Pieces": 26,
+                  "time": 1560469433423
+                },
+                {
+                  "Pieces": 63,
+                  "time": 1560469434423
+                },
+                {
+                  "Pieces": 65,
+                  "time": 1560469435423
+                },
+                {
+                  "Pieces": 12,
+                  "time": 1560469436423
+                },
+                {
+                  "Pieces": 61,
+                  "time": 1560469437423
+                },
+                {
+                  "Pieces": 60,
+                  "time": 1560469438423
+                },
+                {
+                  "Pieces": 58,
+                  "time": 1560469439423
+                },
+                {
+                  "Pieces": 1,
+                  "time": 1560469440423
+                }
+              ],
+              "name": "Pieces"
+            },
+            {
+              "data": [
+                {
+                  "PiecesGoal": 65,
+                  "time": 1560469431423
+                },
+                {
+                  "PiecesGoal": 65,
+                  "time": 1560469432423
+                },
+                {
+                  "PiecesGoal": 65,
+                  "time": 1560469433423
+                },
+                {
+                  "PiecesGoal": 65,
+                  "time": 1560469434423
+                },
+                {
+                  "PiecesGoal": 65,
+                  "time": 1560469435423
+                },
+                {
+                  "PiecesGoal": 65,
+                  "time": 1560469436423
+                },
+                {
+                  "PiecesGoal": 65,
+                  "time": 1560469437423
+                },
+                {
+                  "PiecesGoal": 65,
+                  "time": 1560469438423
+                },
+                {
+                  "PiecesGoal": 65,
+                  "time": 1560469439423
+                },
+                {
+                  "PiecesGoal": 65,
+                  "time": 1560469440423
+                }
+              ],
+              "name": "Pieces Goal"
+            }
+          ],
+          "timeAxis": {
+            "visible": false
+          },
+          "timeRange": {
+            "visible": false
+          }
+        },
+        "type": "ia.chart.timeseries"
+      },
+      {
+        "meta": {
+          "name": "XYChart"
+        },
+        "position": {
+          "basis": "150px",
+          "grow": 1,
+          "shrink": 0
+        },
+        "propConfig": {
+          "props.dataSources.example": {
+            "binding": {
+              "config": {
+                "path": "../categorySelector.props.params.selectedCategory"
+              },
+              "overlayOptOut": true,
+              "transforms": [
+                {
+                  "fallback": "{view.params.dataOEE}",
+                  "inputType": "scalar",
+                  "mappings": [
+                    {
+                      "input": "OEE",
+                      "output": "{view.params.dataOEE}"
+                    },
+                    {
+                      "input": "Availability",
+                      "output": "{view.params.dataAvailability}"
+                    },
+                    {
+                      "input": "Performance",
+                      "output": "{view.params.dataPerformance}"
+                    },
+                    {
+                      "input": "Quality",
+                      "output": "{view.params.dataQuality}"
+                    }
+                  ],
+                  "outputType": "expression",
+                  "type": "map"
+                },
+                {
+                  "code": "\texample \u003d []\n\tvalue \u003d value\n\tlimit \u003d self.view.params.limit\n\tagg \u003d {}\n\t\t\n\tret \u003d sorted(value, key\u003dlambda x: x[\u0027OEE\u0027],reverse\u003dTrue)\n\tret \u003d ret[:limit]\n\treturn ret",
+                  "type": "script"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "dataSources": {},
+          "series": [
+            {
+              "candlestick": {
+                "appearance": {
+                  "deriveFieldsFromData": {
+                    "fill": {
+                      "color": "",
+                      "opacity": ""
+                    },
+                    "stroke": {
+                      "color": "",
+                      "opacity": "",
+                      "width": ""
+                    }
+                  },
+                  "fill": {
+                    "color": "",
+                    "opacity": 1
+                  },
+                  "heatRules": {
+                    "dataField": "",
+                    "enabled": false,
+                    "max": "",
+                    "min": ""
+                  },
+                  "stacked": false,
+                  "stroke": {
+                    "color": "",
+                    "opacity": 1,
+                    "width": 1
+                  }
+                },
+                "high": {
+                  "x": "",
+                  "y": ""
+                },
+                "low": {
+                  "x": "",
+                  "y": ""
+                },
+                "open": {
+                  "x": "",
+                  "y": ""
+                }
+              },
+              "column": {
+                "appearance": {
+                  "deriveFieldsFromData": {
+                    "fill": {
+                      "color": "",
+                      "opacity": ""
+                    },
+                    "stroke": {
+                      "color": "",
+                      "opacity": "",
+                      "width": ""
+                    }
+                  },
+                  "fill": {
+                    "color": "",
+                    "opacity": 1
+                  },
+                  "heatRules": {
+                    "dataField": "",
+                    "enabled": false,
+                    "max": "",
+                    "min": ""
+                  },
+                  "height": null,
+                  "stacked": false,
+                  "stroke": {
+                    "color": "",
+                    "opacity": 1,
+                    "width": 1
+                  },
+                  "width": null
+                },
+                "open": {
+                  "x": "",
+                  "y": ""
+                }
+              },
+              "data": {
+                "source": "example",
+                "x": "Line",
+                "y": "OEE"
+              },
+              "defaultState": {
+                "visible": true
+              },
+              "hiddenInLegend": true,
+              "label": {
+                "text": "OEE"
+              },
+              "line": {
+                "appearance": {
+                  "bullets": [
+                    {
+                      "deriveFieldsFromData": {
+                        "fill": {
+                          "color": "",
+                          "opacity": ""
+                        },
+                        "rotation": "",
+                        "stroke": {
+                          "color": "",
+                          "opacity": "",
+                          "width": ""
+                        }
+                      },
+                      "enabled": false,
+                      "fill": {
+                        "color": "",
+                        "opacity": 1
+                      },
+                      "heatRules": {
+                        "dataField": "",
+                        "enabled": false,
+                        "max": 100,
+                        "min": 2
+                      },
+                      "height": 10,
+                      "label": {
+                        "position": {
+                          "dx": 0,
+                          "dy": 0
+                        },
+                        "text": "{value}"
+                      },
+                      "render": "circle",
+                      "rotation": 0,
+                      "stroke": {
+                        "color": "",
+                        "opacity": 1,
+                        "width": 1
+                      },
+                      "tooltip": {
+                        "background": {
+                          "color": "",
+                          "opacity": 1
+                        },
+                        "cornerRadius": 3,
+                        "enabled": true,
+                        "pointerLength": 4,
+                        "text": "{name}: [bold]{valueY}[/]"
+                      },
+                      "width": 10
+                    }
+                  ],
+                  "connect": true,
+                  "fill": {
+                    "color": "",
+                    "opacity": 0
+                  },
+                  "minDistance": 0.5,
+                  "stroke": {
+                    "color": "",
+                    "dashArray": "",
+                    "opacity": 1,
+                    "width": 3
+                  },
+                  "tensionX": 1,
+                  "tensionY": 1
+                },
+                "open": {
+                  "x": "",
+                  "y": ""
+                }
+              },
+              "name": "OEE",
+              "render": "column",
+              "stepLine": {
+                "appearance": {
+                  "bullets": [
+                    {
+                      "deriveFieldsFromData": {
+                        "fill": {
+                          "color": "",
+                          "opacity": ""
+                        },
+                        "rotation": "",
+                        "stroke": {
+                          "color": "",
+                          "opacity": "",
+                          "width": ""
+                        }
+                      },
+                      "enabled": true,
+                      "fill": {
+                        "color": "",
+                        "opacity": 1
+                      },
+                      "heatRules": {
+                        "dataField": "",
+                        "enabled": false,
+                        "max": 100,
+                        "min": 2
+                      },
+                      "height": 10,
+                      "label": {
+                        "position": {
+                          "dx": 0,
+                          "dy": 0
+                        },
+                        "text": "{value}"
+                      },
+                      "render": "circle",
+                      "rotation": 0,
+                      "stroke": {
+                        "color": "",
+                        "opacity": 1,
+                        "width": 1
+                      },
+                      "tooltip": {
+                        "background": {
+                          "color": "",
+                          "opacity": 1
+                        },
+                        "cornerRadius": 3,
+                        "enabled": true,
+                        "pointerLength": 4,
+                        "text": "{name}: [bold]{valueY}[/]"
+                      },
+                      "width": 10
+                    }
+                  ],
+                  "connect": true,
+                  "fill": {
+                    "color": "",
+                    "opacity": 0
+                  },
+                  "minDistance": 0.5,
+                  "stroke": {
+                    "color": "",
+                    "dashArray": "",
+                    "opacity": 1,
+                    "width": 3
+                  },
+                  "tensionX": 1,
+                  "tensionY": 1
+                },
+                "open": {
+                  "x": "",
+                  "y": ""
+                }
+              },
+              "tooltip": {
+                "background": {
+                  "color": "",
+                  "opacity": 1
+                },
+                "cornerRadius": 3,
+                "enabled": true,
+                "pointerLength": 4,
+                "text": "{Line}: [bold]{valueY}[/]"
+              },
+              "visible": true,
+              "xAxis": "Line",
+              "yAxis": "OEE",
+              "zIndex": 0
+            }
+          ],
+          "xAxes": [
+            {
+              "appearance": {
+                "font": {
+                  "size": "",
+                  "weight": 500
+                },
+                "grid": {
+                  "color": "",
+                  "dashArray": "",
+                  "minDistance": 60,
+                  "opacity": 0,
+                  "position": 0.5
+                },
+                "inside": false,
+                "labels": {
+                  "color": "",
+                  "horizontalCenter": "middle",
+                  "opacity": 1,
+                  "rotation": 0,
+                  "verticalCenter": "middle",
+                  "wrap": true
+                },
+                "opposite": false
+              },
+              "category": {
+                "break": {
+                  "enabled": false,
+                  "endCategory": "",
+                  "size": 0.05,
+                  "startCategory": ""
+                }
+              },
+              "date": {
+                "baseInterval": {
+                  "count": 1,
+                  "enabled": false,
+                  "skipEmptyPeriods": false,
+                  "timeUnit": "hour"
+                },
+                "break": {
+                  "enabled": false,
+                  "endDate": "",
+                  "size": 0.05,
+                  "startDate": ""
+                },
+                "format": "M/d",
+                "inputFormat": "yyyy-MM-dd kk:mm:ss",
+                "range": {
+                  "max": "",
+                  "min": "",
+                  "useStrict": false
+                }
+              },
+              "inversed": false,
+              "label": {
+                "color": "",
+                "enabled": false,
+                "text": "Line"
+              },
+              "name": "Line",
+              "render": "category",
+              "tooltip": {
+                "background": {
+                  "color": "",
+                  "opacity": 1
+                },
+                "cornerRadius": 3,
+                "enabled": true,
+                "pointerLength": 4,
+                "text": ""
+              },
+              "value": {
+                "break": {
+                  "enabled": false,
+                  "endValue": 100,
+                  "size": 0.05,
+                  "startValue": 0
+                },
+                "format": "#,###.##",
+                "logarithmic": false,
+                "range": {
+                  "max": "",
+                  "min": "",
+                  "useStrict": false
+                }
+              },
+              "visible": true
+            }
+          ],
+          "yAxes": [
+            {
+              "appearance": {
+                "font": {
+                  "size": "",
+                  "weight": 500
+                },
+                "grid": {
+                  "color": "",
+                  "dashArray": "",
+                  "minDistance": null,
+                  "opacity": 0,
+                  "position": 0.5
+                },
+                "inside": false,
+                "labels": {
+                  "color": "",
+                  "horizontalCenter": "middle",
+                  "opacity": 1,
+                  "rotation": 0,
+                  "verticalCenter": "middle",
+                  "wrap": false
+                },
+                "opposite": false
+              },
+              "category": {
+                "break": {
+                  "enabled": false,
+                  "endCategory": "",
+                  "size": 0.05,
+                  "startCategory": ""
+                }
+              },
+              "date": {
+                "baseInterval": {
+                  "count": 1,
+                  "enabled": false,
+                  "skipEmptyPeriods": false,
+                  "timeUnit": "hour"
+                },
+                "break": {
+                  "enabled": false,
+                  "endDate": "",
+                  "size": 0.05,
+                  "startDate": ""
+                },
+                "format": "M/d/yyyy HH:mm:ss",
+                "inputFormat": "yyyy-MM-dd kk:mm:ss",
+                "range": {
+                  "max": "",
+                  "min": "",
+                  "useStrict": false
+                }
+              },
+              "inversed": false,
+              "label": {
+                "color": "",
+                "enabled": false,
+                "text": "OEE"
+              },
+              "name": "OEE",
+              "render": "value",
+              "tooltip": {
+                "background": {
+                  "color": "",
+                  "opacity": 1
+                },
+                "cornerRadius": 3,
+                "enabled": true,
+                "pointerLength": 4,
+                "text": ""
+              },
+              "value": {
+                "break": {
+                  "enabled": false,
+                  "endValue": 100,
+                  "size": 0.05,
+                  "startValue": 0
+                },
+                "format": "#,###.##",
+                "logarithmic": false,
+                "range": {
+                  "max": 100,
+                  "min": 0,
+                  "useStrict": false
+                }
+              },
+              "visible": true
+            }
+          ]
+        },
+        "type": "ia.chart.xy"
+      },
+      {
+        "meta": {
+          "name": "categorySelector"
+        },
+        "position": {
+          "basis": "58px",
+          "shrink": 0
+        },
+        "props": {
+          "params": {
+            "componentName": "categorySelector",
+            "instances": [
+              {
+                "category": "OEE",
+                "componentName": "categorySelector"
+              },
+              {
+                "category": "Availability",
+                "componentName": "categorySelector"
+              },
+              {
+                "category": "Performance",
+                "componentName": "categorySelector"
+              },
+              {
+                "category": "Quality",
+                "componentName": "categorySelector"
+              }
+            ],
+            "selectedCategory": "OEE"
+          },
+          "path": "components/objects/categorySelector/categorySelector",
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.display.view"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

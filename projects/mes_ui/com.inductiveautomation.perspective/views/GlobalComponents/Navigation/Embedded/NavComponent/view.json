@@ -1,0 +1,4058 @@
+{
+  "custom": {},
+  "params": {
+    "pageUrl": "",
+    "section": "Site",
+    "site": "Wilmington",
+    "treePath": null
+  },
+  "permissions": {
+    "securityLevels": [],
+    "type": "AnyOf"
+  },
+  "propConfig": {
+    "params.pageUrl": {
+      "onChange": {
+        "enabled": null,
+        "script": "\t#\tif currentValue.value !\u003d \u0027\u0027:\n\tlog \u003d system.util.getLogger(\u0027managementNavigation/pageUrl\u0027)\n\tsystem.perspective.sendMessage(\u0027closeAll\u0027, {})\n\timport time\n#\ttime.sleep(0.5)\n#\tlog.info(str(currentValue.value))\n\tsystem.perspective.sendMessage(\u0027openNavElement\u0027, {\u0027pageUrl\u0027: currentValue.value})"
+      },
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.section": {
+      "binding": {
+        "config": {
+          "path": "session.custom.section"
+        },
+        "type": "property"
+      },
+      "paramDirection": "inout",
+      "persistent": true
+    },
+    "params.site": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.treePath": {
+      "binding": {
+        "config": {
+          "path": "session.custom.treePath"
+        },
+        "type": "property"
+      },
+      "onChange": {
+        "enabled": false,
+        "script": "\tlog \u003d system.util.getLogger(\u0027managementNavigation\u0027)\n\tlog.info(str(currentValue.value))\n\tsystem.perspective.sendMessage(\u0027openNavElement\u0027, {\u0027treePath\u0027: currentValue.value})\n\t"
+      },
+      "paramDirection": "inout",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 766,
+      "width": 250
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "page": "/management/plantOverview/"
+                      },
+                      "scope": "C",
+                      "type": "nav"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "Elev8Image"
+                },
+                "position": {
+                  "basis": "100px",
+                  "grow": 1,
+                  "shrink": 0
+                },
+                "props": {
+                  "fit": {
+                    "mode": "contain"
+                  },
+                  "source": "/system/images/GPA/new_logo.png",
+                  "style": {
+                    "marginBottom": "0ch",
+                    "marginLeft": "3ch",
+                    "marginRight": "3ch",
+                    "marginTop": "3ch"
+                  }
+                },
+                "type": "ia.display.image"
+              },
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "site"
+                    },
+                    "position": {
+                      "basis": "30px",
+                      "grow": 1,
+                      "shrink": 0
+                    },
+                    "propConfig": {
+                      "props.text": {
+                        "binding": {
+                          "config": {
+                            "path": "view.params.site"
+                          },
+                          "type": "property"
+                        }
+                      }
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "Cards/header",
+                        "color": "white",
+                        "fontFamily": "sans-serif",
+                        "fontSize": "20pt",
+                        "fontWeight": "bold",
+                        "textAlign": "center"
+                      }
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "meta": {
+                      "name": "section"
+                    },
+                    "position": {
+                      "basis": "20px",
+                      "grow": 1,
+                      "shrink": 0
+                    },
+                    "propConfig": {
+                      "props.text": {
+                        "binding": {
+                          "config": {
+                            "path": "view.params.section"
+                          },
+                          "type": "property"
+                        }
+                      }
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "Cards/header",
+                        "color": "white",
+                        "text-align": "center"
+                      }
+                    },
+                    "type": "ia.display.label"
+                  }
+                ],
+                "meta": {
+                  "name": "applicationInfo"
+                },
+                "position": {
+                  "basis": "60px",
+                  "grow": 1,
+                  "shrink": 0
+                },
+                "props": {
+                  "direction": "column",
+                  "style": {
+                    "marginBottom": "2ch",
+                    "overflow": "hidden"
+                  }
+                },
+                "type": "ia.container.flex"
+              }
+            ],
+            "meta": {
+              "name": "header"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "custom": {
+              "old_instances": [
+                {
+                  "instancePosition": {},
+                  "instanceStyle": {
+                    "classes": ""
+                  },
+                  "rootElement": {
+                    "id": 1,
+                    "isOpened": 0,
+                    "labelText": "Gateway Health",
+                    "materialIcon": "material/dashboard",
+                    "pageUrl": "/gateway",
+                    "selected": 0,
+                    "treePath": "app/GatewayHealth/Diagnostics/View",
+                    "viewPath": "app/GatewayHealth/Diagnostics/View"
+                  },
+                  "subElements": [
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 1 1"
+                      },
+                      "id": -1,
+                      "labelText": "All Gateways",
+                      "materialIcon": "material/show_chart",
+                      "pageUrl": "/allgateways",
+                      "parentId": 1,
+                      "selected": 0,
+                      "treePath": "app/GatewayHealth/Diagnostics/View",
+                      "viewParams": {
+                        "area": "Track And Trace",
+                        "materialIcon": "material/success"
+                      },
+                      "viewPath": "app/GatewayHealth/AllGatewayHealth/GatewayStatusView"
+                    }
+                  ],
+                  "subSubElements": []
+                },
+                {
+                  "rootElement": {
+                    "icon": {
+                      "elements": [
+                        {
+                          "d": "M4,11.25H1.25a.63.63,0,0,1-.62-.73C1,8.12,2.93.63,11.13.63s10.09,7.49,10.48,9.89a.62.62,0,0,1-.62.73H18.17",
+                          "fill": {
+                            "paint": "none"
+                          },
+                          "name": "path",
+                          "stroke": {
+                            "linecap": "round",
+                            "miterlimit": "10",
+                            "paint": "#B0B0B0",
+                            "width": "1.25px"
+                          },
+                          "style": {},
+                          "type": "path"
+                        },
+                        {
+                          "fill": {
+                            "paint": "none"
+                          },
+                          "name": "line",
+                          "stroke": {
+                            "linecap": "round",
+                            "miterlimit": "10",
+                            "paint": "#B0B0B0",
+                            "width": "1.25px"
+                          },
+                          "style": {},
+                          "type": "line",
+                          "x1": "4.04",
+                          "x2": "6.39",
+                          "y1": "3.39",
+                          "y2": "5.75"
+                        },
+                        {
+                          "fill": {
+                            "paint": "none"
+                          },
+                          "name": "line",
+                          "stroke": {
+                            "linecap": "round",
+                            "miterlimit": "10",
+                            "paint": "#B0B0B0",
+                            "width": "1.25px"
+                          },
+                          "style": {},
+                          "type": "line",
+                          "x1": "11.13",
+                          "x2": "11.13",
+                          "y1": "0.63",
+                          "y2": "3.82"
+                        },
+                        {
+                          "fill": {
+                            "paint": "none"
+                          },
+                          "name": "line",
+                          "stroke": {
+                            "linecap": "round",
+                            "miterlimit": "10",
+                            "paint": "#B0B0B0",
+                            "width": "1.25px"
+                          },
+                          "style": {},
+                          "type": "line",
+                          "x1": "18.22",
+                          "x2": "15.87",
+                          "y1": "3.39",
+                          "y2": "5.74"
+                        },
+                        {
+                          "fill": {
+                            "paint": "none"
+                          },
+                          "name": "line",
+                          "stroke": {
+                            "linecap": "round",
+                            "miterlimit": "10",
+                            "paint": "#B0B0B0",
+                            "width": "1.25px"
+                          },
+                          "style": {},
+                          "type": "line",
+                          "x1": "7.78",
+                          "x2": "9.86",
+                          "y1": "8.7",
+                          "y2": "9.87"
+                        },
+                        {
+                          "cx": "11.06",
+                          "cy": "10.84",
+                          "fill": {
+                            "paint": "none"
+                          },
+                          "name": "circle",
+                          "r": "1.28",
+                          "stroke": {
+                            "linecap": "round",
+                            "miterlimit": "10",
+                            "paint": "#B0B0B0",
+                            "width": "1.25px"
+                          },
+                          "style": {},
+                          "type": "circle"
+                        }
+                      ],
+                      "viewBox": "0 0 22 11.5"
+                    },
+                    "id": 2,
+                    "isOpened": 0,
+                    "labelText": "Track \u0026 Trace",
+                    "materialIcon": "material/location_searching",
+                    "navId": 1,
+                    "pageUrl": "",
+                    "parentId": 2,
+                    "selected": 0
+                  },
+                  "subElements": [
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 1 1"
+                      },
+                      "id": -1,
+                      "labelText": "Stations",
+                      "materialIcon": "material/devices",
+                      "pageUrl": "/stations",
+                      "parentId": 2,
+                      "selected": 0,
+                      "treePath": "App/TrackAndTrace/Stations/StationsView",
+                      "viewParams": {
+                        "area": "Track And Trace",
+                        "materialIcon": "material/success"
+                      },
+                      "viewPath": "app/TrackAndTrace/Stations/StationsView"
+                    },
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 1 1"
+                      },
+                      "id": -1,
+                      "labelText": "Inventory",
+                      "materialIcon": "material/store",
+                      "pageUrl": "/inventory",
+                      "parentId": 2,
+                      "selected": 0,
+                      "treePath": "App/TrackAndTrace/Inventory/FullView",
+                      "viewParams": {
+                        "area": "Assembly"
+                      },
+                      "viewPath": "app/TrackAndTrace/Inventory/InventoryView"
+                    },
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 1 1"
+                      },
+                      "id": -1,
+                      "labelText": "History",
+                      "materialIcon": "material/history",
+                      "pageUrl": "/historytt",
+                      "parentId": 2,
+                      "selected": 0,
+                      "treePath": "App/TrackAndTrace/History/View",
+                      "viewParams": {
+                        "area": "Track And Trace"
+                      },
+                      "viewPath": "app/TrackAndTrace/History/View"
+                    },
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 1 1"
+                      },
+                      "id": -1,
+                      "labelText": "Add/Remove Part",
+                      "materialIcon": "material/add",
+                      "pageUrl": "/add",
+                      "parentId": 2,
+                      "selected": 0,
+                      "treePath": "App/TrackAndTrace/Inventory/AddRemove",
+                      "viewParams": {
+                        "area": "Track And Trace"
+                      },
+                      "viewPath": "app/TrackAndTrace/Inventory/AddRemoveView"
+                    }
+                  ],
+                  "subSubElements": []
+                },
+                {
+                  "instancePosition": {},
+                  "instanceStyle": {
+                    "classes": ""
+                  },
+                  "rootElement": {
+                    "id": 3,
+                    "isOpened": 0,
+                    "labelText": "OEE Overviews",
+                    "materialIcon": "material/assignment",
+                    "pagUrl": "/site",
+                    "parentId": 3,
+                    "selected": 0
+                  },
+                  "subElements": [
+                    {
+                      "icon": {
+                        "elements": [
+                          {
+                            "d": "M4,11.25H1.25a.63.63,0,0,1-.62-.73C1,8.12,2.93.63,11.13.63s10.09,7.49,10.48,9.89a.62.62,0,0,1-.62.73H18.17",
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "path",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "path"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "4.04",
+                            "x2": "6.39",
+                            "y1": "3.39",
+                            "y2": "5.75"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "11.13",
+                            "x2": "11.13",
+                            "y1": "0.63",
+                            "y2": "3.82"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "18.22",
+                            "x2": "15.87",
+                            "y1": "3.39",
+                            "y2": "5.74"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "7.78",
+                            "x2": "9.86",
+                            "y1": "8.7",
+                            "y2": "9.87"
+                          },
+                          {
+                            "cx": "11.06",
+                            "cy": "10.84",
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "circle",
+                            "r": "1.28",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "circle"
+                          }
+                        ],
+                        "viewBox": "0 0 22 11.5"
+                      },
+                      "id": -1,
+                      "isOpened": false,
+                      "labelText": "Site",
+                      "materialIcon": "material/home",
+                      "pageUrl": "/site"
+                    },
+                    {
+                      "icon": {
+                        "elements": [
+                          {
+                            "d": "M4,11.25H1.25a.63.63,0,0,1-.62-.73C1,8.12,2.93.63,11.13.63s10.09,7.49,10.48,9.89a.62.62,0,0,1-.62.73H18.17",
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "path",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "path"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "4.04",
+                            "x2": "6.39",
+                            "y1": "3.39",
+                            "y2": "5.75"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "11.13",
+                            "x2": "11.13",
+                            "y1": "0.63",
+                            "y2": "3.82"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "18.22",
+                            "x2": "15.87",
+                            "y1": "3.39",
+                            "y2": "5.74"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "7.78",
+                            "x2": "9.86",
+                            "y1": "8.7",
+                            "y2": "9.87"
+                          },
+                          {
+                            "cx": "11.06",
+                            "cy": "10.84",
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "circle",
+                            "r": "1.28",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "circle"
+                          }
+                        ],
+                        "viewBox": "0 0 22 11.5"
+                      },
+                      "id": -1,
+                      "isOpened": false,
+                      "labelText": "Area",
+                      "materialIcon": "material/settings_applications",
+                      "pageUrl": "/area_overview"
+                    },
+                    {
+                      "icon": {
+                        "elements": [
+                          {
+                            "d": "M4,11.25H1.25a.63.63,0,0,1-.62-.73C1,8.12,2.93.63,11.13.63s10.09,7.49,10.48,9.89a.62.62,0,0,1-.62.73H18.17",
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "path",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "path"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "4.04",
+                            "x2": "6.39",
+                            "y1": "3.39",
+                            "y2": "5.75"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "11.13",
+                            "x2": "11.13",
+                            "y1": "0.63",
+                            "y2": "3.82"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "18.22",
+                            "x2": "15.87",
+                            "y1": "3.39",
+                            "y2": "5.74"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "7.78",
+                            "x2": "9.86",
+                            "y1": "8.7",
+                            "y2": "9.87"
+                          },
+                          {
+                            "cx": "11.06",
+                            "cy": "10.84",
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "circle",
+                            "r": "1.28",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "circle"
+                          }
+                        ],
+                        "viewBox": "0 0 22 11.5"
+                      },
+                      "id": -1,
+                      "isOpened": false,
+                      "labelText": "Molding",
+                      "materialIcon": "material/edit",
+                      "pageUrl": "/areaoverview/Maryville/Molding"
+                    },
+                    {
+                      "icon": {
+                        "elements": [
+                          {
+                            "d": "M4,11.25H1.25a.63.63,0,0,1-.62-.73C1,8.12,2.93.63,11.13.63s10.09,7.49,10.48,9.89a.62.62,0,0,1-.62.73H18.17",
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "path",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "path"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "4.04",
+                            "x2": "6.39",
+                            "y1": "3.39",
+                            "y2": "5.75"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "11.13",
+                            "x2": "11.13",
+                            "y1": "0.63",
+                            "y2": "3.82"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "18.22",
+                            "x2": "15.87",
+                            "y1": "3.39",
+                            "y2": "5.74"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "7.78",
+                            "x2": "9.86",
+                            "y1": "8.7",
+                            "y2": "9.87"
+                          },
+                          {
+                            "cx": "11.06",
+                            "cy": "10.84",
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "circle",
+                            "r": "1.28",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "circle"
+                          }
+                        ],
+                        "viewBox": "0 0 22 11.5"
+                      },
+                      "id": -1,
+                      "isOpened": false,
+                      "labelText": "Packaging",
+                      "materialIcon": "material/local_shipping",
+                      "pageUrl": "/areaoverview/Maryville/Packaging"
+                    }
+                  ],
+                  "subSubElements": []
+                },
+                {
+                  "instancePosition": {},
+                  "instanceStyle": {
+                    "classes": ""
+                  },
+                  "rootElement": {
+                    "id": 4,
+                    "isOpened": 0,
+                    "labelText": "Production Analysis",
+                    "materialIcon": "material/bar_chart",
+                    "parentId": 4,
+                    "selected": 0
+                  },
+                  "subElements": [
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 22 11.5"
+                      },
+                      "id": -1,
+                      "isOpened": false,
+                      "labelText": "OAPQ",
+                      "pageUrl": "/management/reports/oapq",
+                      "parentId": 4,
+                      "selected": 0,
+                      "treePath": "reports/oapq/oapqReport",
+                      "viewPath": "reports/oapq/oapqReport"
+                    },
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 22 11.5"
+                      },
+                      "id": -1,
+                      "isOpened": false,
+                      "labelText": "Production History",
+                      "pageUrl": "/management/reports/productionHistory",
+                      "parentId": 4,
+                      "selected": 0,
+                      "treePath": "reports/productionHistory/productionHistoryReport",
+                      "viewPath": "reports/productionHistory/productionHistoryReport"
+                    },
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 22 11.5"
+                      },
+                      "id": -1,
+                      "isOpened": false,
+                      "labelText": "Downtime History",
+                      "pageUrl": "/management/reports/downtimeHistory",
+                      "parentId": 4,
+                      "selected": 0,
+                      "treePath": "reports/downtimeHistory/downtimeHistoryReport",
+                      "viewPath": "reports/downtimeHistory/downtimeHistoryReport"
+                    },
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 22 11.5"
+                      },
+                      "id": -1,
+                      "isOpened": false,
+                      "labelText": "Loss Details",
+                      "pageUrl": "/management/reports/lossDetails",
+                      "parentId": 4,
+                      "selected": 0,
+                      "treePath": "reports/loss/lossReport",
+                      "viewPath": "reports/loss/lossReport"
+                    },
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 22 11.5"
+                      },
+                      "id": -1,
+                      "isOpened": false,
+                      "labelText": "Impromptu Analysis",
+                      "pageUrl": "/management/reports/impromptuAnalysis",
+                      "parentId": 4,
+                      "selected": 0,
+                      "treePath": "reports/impromptuAnalysis/impromptuReport",
+                      "viewPath": "reports/impromptuAnalysis/impromptuReport"
+                    },
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 22 11.5"
+                      },
+                      "id": -1,
+                      "isOpened": false,
+                      "labelText": "Scrap History",
+                      "pageUrl": "/management/reports/scrapHistory",
+                      "parentId": 4,
+                      "selected": 0,
+                      "treePath": "reports/scrapHistory/scrapHistoryReport",
+                      "viewPath": "reports/scrapHistory/scrapHistoryReport"
+                    },
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 22 11.5"
+                      },
+                      "id": -1,
+                      "isOpened": false,
+                      "labelText": "Changeover/Setup",
+                      "pageUrl": "/management/reports/changeover",
+                      "parentId": 4,
+                      "selected": 0,
+                      "treePath": "reports/changeover/changeoverReport",
+                      "viewPath": "reports/changeover/changeoverReport"
+                    }
+                  ],
+                  "subSubElements": []
+                },
+                {
+                  "instancePosition": {},
+                  "instanceStyle": {
+                    "classes": ""
+                  },
+                  "rootElement": {
+                    "id": 4,
+                    "isOpened": 0,
+                    "labelText": "Operations",
+                    "materialIcon": "material/engineering",
+                    "parentId": 4,
+                    "selected": 0
+                  },
+                  "subElements": [
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 22 11.5"
+                      },
+                      "id": -1,
+                      "isOpened": false,
+                      "labelText": "Line Dashboard",
+                      "materialIcon": "material/dynamic_feed",
+                      "pageUrl": "/linedashboard",
+                      "parentId": 4,
+                      "selected": 0,
+                      "treePath": "reports/oapq/oapqReport",
+                      "viewPath": "reports/oapq/oapqReport"
+                    },
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 22 11.5"
+                      },
+                      "id": -1,
+                      "isOpened": false,
+                      "labelText": "Overhead View",
+                      "materialIcon": "material/track_changes",
+                      "pageUrl": "/overhead",
+                      "parentId": 4,
+                      "selected": 0,
+                      "treePath": "reports/productionHistory/productionHistoryReport",
+                      "viewPath": "reports/productionHistory/productionHistoryReport"
+                    }
+                  ],
+                  "subSubElements": []
+                }
+              ]
+            },
+            "meta": {
+              "name": "menu"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "props": {
+              "direction": "column",
+              "elementPosition": {
+                "basis": "auto",
+                "grow": 0,
+                "shrink": 0
+              },
+              "instances": [
+                {
+                  "instancePosition": {},
+                  "instanceStyle": {
+                    "classes": ""
+                  },
+                  "rootElement": {
+                    "id": 1,
+                    "isOpened": 0,
+                    "labelText": "Gateway Health",
+                    "materialIcon": "material/dashboard",
+                    "pageUrl": "/gateway",
+                    "selected": 0,
+                    "treePath": "app/GatewayHealth/Diagnostics/View",
+                    "viewPath": "app/GatewayHealth/Diagnostics/View"
+                  },
+                  "subElements": [
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 1 1"
+                      },
+                      "id": -1,
+                      "labelText": "All Gateways",
+                      "materialIcon": "material/show_chart",
+                      "pageUrl": "/allgateways",
+                      "parentId": 1,
+                      "selected": 0,
+                      "treePath": "app/GatewayHealth/Diagnostics/View",
+                      "viewParams": {
+                        "area": "Track And Trace",
+                        "materialIcon": "material/success"
+                      },
+                      "viewPath": "app/GatewayHealth/AllGatewayHealth/GatewayStatusView"
+                    }
+                  ],
+                  "subSubElements": []
+                },
+                {
+                  "rootElement": {
+                    "icon": {
+                      "elements": [
+                        {
+                          "d": "M4,11.25H1.25a.63.63,0,0,1-.62-.73C1,8.12,2.93.63,11.13.63s10.09,7.49,10.48,9.89a.62.62,0,0,1-.62.73H18.17",
+                          "fill": {
+                            "paint": "none"
+                          },
+                          "name": "path",
+                          "stroke": {
+                            "linecap": "round",
+                            "miterlimit": "10",
+                            "paint": "#B0B0B0",
+                            "width": "1.25px"
+                          },
+                          "style": {},
+                          "type": "path"
+                        },
+                        {
+                          "fill": {
+                            "paint": "none"
+                          },
+                          "name": "line",
+                          "stroke": {
+                            "linecap": "round",
+                            "miterlimit": "10",
+                            "paint": "#B0B0B0",
+                            "width": "1.25px"
+                          },
+                          "style": {},
+                          "type": "line",
+                          "x1": "4.04",
+                          "x2": "6.39",
+                          "y1": "3.39",
+                          "y2": "5.75"
+                        },
+                        {
+                          "fill": {
+                            "paint": "none"
+                          },
+                          "name": "line",
+                          "stroke": {
+                            "linecap": "round",
+                            "miterlimit": "10",
+                            "paint": "#B0B0B0",
+                            "width": "1.25px"
+                          },
+                          "style": {},
+                          "type": "line",
+                          "x1": "11.13",
+                          "x2": "11.13",
+                          "y1": "0.63",
+                          "y2": "3.82"
+                        },
+                        {
+                          "fill": {
+                            "paint": "none"
+                          },
+                          "name": "line",
+                          "stroke": {
+                            "linecap": "round",
+                            "miterlimit": "10",
+                            "paint": "#B0B0B0",
+                            "width": "1.25px"
+                          },
+                          "style": {},
+                          "type": "line",
+                          "x1": "18.22",
+                          "x2": "15.87",
+                          "y1": "3.39",
+                          "y2": "5.74"
+                        },
+                        {
+                          "fill": {
+                            "paint": "none"
+                          },
+                          "name": "line",
+                          "stroke": {
+                            "linecap": "round",
+                            "miterlimit": "10",
+                            "paint": "#B0B0B0",
+                            "width": "1.25px"
+                          },
+                          "style": {},
+                          "type": "line",
+                          "x1": "7.78",
+                          "x2": "9.86",
+                          "y1": "8.7",
+                          "y2": "9.87"
+                        },
+                        {
+                          "cx": "11.06",
+                          "cy": "10.84",
+                          "fill": {
+                            "paint": "none"
+                          },
+                          "name": "circle",
+                          "r": "1.28",
+                          "stroke": {
+                            "linecap": "round",
+                            "miterlimit": "10",
+                            "paint": "#B0B0B0",
+                            "width": "1.25px"
+                          },
+                          "style": {},
+                          "type": "circle"
+                        }
+                      ],
+                      "viewBox": "0 0 22 11.5"
+                    },
+                    "id": 2,
+                    "isOpened": 0,
+                    "labelText": "Track \u0026 Trace",
+                    "materialIcon": "material/location_searching",
+                    "navId": 1,
+                    "pageUrl": "",
+                    "parentId": 2,
+                    "selected": 0
+                  },
+                  "subElements": [
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 1 1"
+                      },
+                      "id": -1,
+                      "labelText": "Stations",
+                      "materialIcon": "material/devices",
+                      "pageUrl": "/stations",
+                      "parentId": 2,
+                      "selected": 0,
+                      "treePath": "App/TrackAndTrace/Stations/StationsView",
+                      "viewParams": {
+                        "area": "Track And Trace",
+                        "materialIcon": "material/success"
+                      },
+                      "viewPath": "app/TrackAndTrace/Stations/StationsView"
+                    },
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 1 1"
+                      },
+                      "id": -1,
+                      "labelText": "Inventory",
+                      "materialIcon": "material/store",
+                      "pageUrl": "/inventory",
+                      "parentId": 2,
+                      "selected": 0,
+                      "treePath": "App/TrackAndTrace/Inventory/FullView",
+                      "viewParams": {
+                        "area": "Assembly"
+                      },
+                      "viewPath": "app/TrackAndTrace/Inventory/InventoryView"
+                    },
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 1 1"
+                      },
+                      "id": -1,
+                      "labelText": "History",
+                      "materialIcon": "material/history",
+                      "pageUrl": "/historytt",
+                      "parentId": 2,
+                      "selected": 0,
+                      "treePath": "App/TrackAndTrace/History/View",
+                      "viewParams": {
+                        "area": "Track And Trace"
+                      },
+                      "viewPath": "app/TrackAndTrace/History/View"
+                    },
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 1 1"
+                      },
+                      "id": -1,
+                      "labelText": "Add/Remove Part",
+                      "materialIcon": "material/add",
+                      "pageUrl": "/add",
+                      "parentId": 2,
+                      "selected": 0,
+                      "treePath": "App/TrackAndTrace/Inventory/AddRemove",
+                      "viewParams": {
+                        "area": "Track And Trace"
+                      },
+                      "viewPath": "app/TrackAndTrace/Inventory/AddRemoveView"
+                    }
+                  ],
+                  "subSubElements": []
+                },
+                {
+                  "instancePosition": {},
+                  "instanceStyle": {
+                    "classes": ""
+                  },
+                  "rootElement": {
+                    "id": 3,
+                    "isOpened": 0,
+                    "labelText": "OEE Overviews",
+                    "materialIcon": "material/assignment",
+                    "pagUrl": "/site",
+                    "parentId": 3,
+                    "selected": 0
+                  },
+                  "subElements": [
+                    {
+                      "icon": {
+                        "elements": [
+                          {
+                            "d": "M4,11.25H1.25a.63.63,0,0,1-.62-.73C1,8.12,2.93.63,11.13.63s10.09,7.49,10.48,9.89a.62.62,0,0,1-.62.73H18.17",
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "path",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "path"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "4.04",
+                            "x2": "6.39",
+                            "y1": "3.39",
+                            "y2": "5.75"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "11.13",
+                            "x2": "11.13",
+                            "y1": "0.63",
+                            "y2": "3.82"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "18.22",
+                            "x2": "15.87",
+                            "y1": "3.39",
+                            "y2": "5.74"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "7.78",
+                            "x2": "9.86",
+                            "y1": "8.7",
+                            "y2": "9.87"
+                          },
+                          {
+                            "cx": "11.06",
+                            "cy": "10.84",
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "circle",
+                            "r": "1.28",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "circle"
+                          }
+                        ],
+                        "viewBox": "0 0 22 11.5"
+                      },
+                      "id": -1,
+                      "isOpened": false,
+                      "labelText": "Site",
+                      "materialIcon": "material/home",
+                      "pageUrl": "/site"
+                    },
+                    {
+                      "icon": {
+                        "elements": [
+                          {
+                            "d": "M4,11.25H1.25a.63.63,0,0,1-.62-.73C1,8.12,2.93.63,11.13.63s10.09,7.49,10.48,9.89a.62.62,0,0,1-.62.73H18.17",
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "path",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "path"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "4.04",
+                            "x2": "6.39",
+                            "y1": "3.39",
+                            "y2": "5.75"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "11.13",
+                            "x2": "11.13",
+                            "y1": "0.63",
+                            "y2": "3.82"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "18.22",
+                            "x2": "15.87",
+                            "y1": "3.39",
+                            "y2": "5.74"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "7.78",
+                            "x2": "9.86",
+                            "y1": "8.7",
+                            "y2": "9.87"
+                          },
+                          {
+                            "cx": "11.06",
+                            "cy": "10.84",
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "circle",
+                            "r": "1.28",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "circle"
+                          }
+                        ],
+                        "viewBox": "0 0 22 11.5"
+                      },
+                      "id": -1,
+                      "isOpened": false,
+                      "labelText": "Area",
+                      "materialIcon": "material/settings_applications",
+                      "pageUrl": "/area_overview"
+                    },
+                    {
+                      "icon": {
+                        "elements": [
+                          {
+                            "d": "M4,11.25H1.25a.63.63,0,0,1-.62-.73C1,8.12,2.93.63,11.13.63s10.09,7.49,10.48,9.89a.62.62,0,0,1-.62.73H18.17",
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "path",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "path"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "4.04",
+                            "x2": "6.39",
+                            "y1": "3.39",
+                            "y2": "5.75"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "11.13",
+                            "x2": "11.13",
+                            "y1": "0.63",
+                            "y2": "3.82"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "18.22",
+                            "x2": "15.87",
+                            "y1": "3.39",
+                            "y2": "5.74"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "7.78",
+                            "x2": "9.86",
+                            "y1": "8.7",
+                            "y2": "9.87"
+                          },
+                          {
+                            "cx": "11.06",
+                            "cy": "10.84",
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "circle",
+                            "r": "1.28",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "circle"
+                          }
+                        ],
+                        "viewBox": "0 0 22 11.5"
+                      },
+                      "id": -1,
+                      "isOpened": false,
+                      "labelText": "Molding",
+                      "materialIcon": "material/edit",
+                      "pageUrl": "/areaoverview/Maryville/Molding"
+                    },
+                    {
+                      "icon": {
+                        "elements": [
+                          {
+                            "d": "M4,11.25H1.25a.63.63,0,0,1-.62-.73C1,8.12,2.93.63,11.13.63s10.09,7.49,10.48,9.89a.62.62,0,0,1-.62.73H18.17",
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "path",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "path"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "4.04",
+                            "x2": "6.39",
+                            "y1": "3.39",
+                            "y2": "5.75"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "11.13",
+                            "x2": "11.13",
+                            "y1": "0.63",
+                            "y2": "3.82"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "18.22",
+                            "x2": "15.87",
+                            "y1": "3.39",
+                            "y2": "5.74"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "7.78",
+                            "x2": "9.86",
+                            "y1": "8.7",
+                            "y2": "9.87"
+                          },
+                          {
+                            "cx": "11.06",
+                            "cy": "10.84",
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "circle",
+                            "r": "1.28",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "circle"
+                          }
+                        ],
+                        "viewBox": "0 0 22 11.5"
+                      },
+                      "id": -1,
+                      "isOpened": false,
+                      "labelText": "Packaging",
+                      "materialIcon": "material/local_shipping",
+                      "pageUrl": "/areaoverview/Maryville/Packaging"
+                    }
+                  ],
+                  "subSubElements": []
+                },
+                {
+                  "instancePosition": {},
+                  "instanceStyle": {
+                    "classes": ""
+                  },
+                  "rootElement": {
+                    "id": 4,
+                    "isOpened": 0,
+                    "labelText": "Operations",
+                    "materialIcon": "material/engineering",
+                    "parentId": 4,
+                    "selected": 0
+                  },
+                  "subElements": [
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 22 11.5"
+                      },
+                      "id": -1,
+                      "isOpened": false,
+                      "labelText": "Line Dashboard",
+                      "materialIcon": "material/dynamic_feed",
+                      "pageUrl": "/linedashboard",
+                      "parentId": 4,
+                      "selected": 0,
+                      "treePath": "reports/oapq/oapqReport",
+                      "viewPath": "reports/oapq/oapqReport"
+                    },
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 22 11.5"
+                      },
+                      "id": -1,
+                      "isOpened": false,
+                      "labelText": "Overhead View",
+                      "materialIcon": "material/track_changes",
+                      "pageUrl": "/overhead",
+                      "parentId": 4,
+                      "selected": 0,
+                      "treePath": "reports/productionHistory/productionHistoryReport",
+                      "viewPath": "reports/productionHistory/productionHistoryReport"
+                    }
+                  ],
+                  "subSubElements": []
+                },
+                {
+                  "instancePosition": {},
+                  "instanceStyle": {
+                    "classes": ""
+                  }
+                }
+              ],
+              "path": "StyleGuide/Navigation/Embedded/SideElementHolder",
+              "style": {
+                "marginBottom": 10,
+                "marginTop": 1
+              },
+              "useDefaultViewHeight": false,
+              "useDefaultViewWidth": false
+            },
+            "type": "ia.display.flex-repeater"
+          },
+          {
+            "custom": {
+              "old_instances": [
+                {
+                  "instancePosition": {},
+                  "instanceStyle": {
+                    "classes": ""
+                  },
+                  "rootElement": {
+                    "id": 1,
+                    "isOpened": 0,
+                    "labelText": "Gateway Health",
+                    "materialIcon": "material/dashboard",
+                    "pageUrl": "/gateway",
+                    "selected": 0,
+                    "treePath": "app/GatewayHealth/Diagnostics/View",
+                    "viewPath": "app/GatewayHealth/Diagnostics/View"
+                  },
+                  "subElements": [
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 1 1"
+                      },
+                      "id": -1,
+                      "labelText": "All Gateways",
+                      "materialIcon": "material/show_chart",
+                      "pageUrl": "/allgateways",
+                      "parentId": 1,
+                      "selected": 0,
+                      "treePath": "app/GatewayHealth/Diagnostics/View",
+                      "viewParams": {
+                        "area": "Track And Trace",
+                        "materialIcon": "material/success"
+                      },
+                      "viewPath": "app/GatewayHealth/AllGatewayHealth/GatewayStatusView"
+                    }
+                  ],
+                  "subSubElements": []
+                },
+                {
+                  "rootElement": {
+                    "icon": {
+                      "elements": [
+                        {
+                          "d": "M4,11.25H1.25a.63.63,0,0,1-.62-.73C1,8.12,2.93.63,11.13.63s10.09,7.49,10.48,9.89a.62.62,0,0,1-.62.73H18.17",
+                          "fill": {
+                            "paint": "none"
+                          },
+                          "name": "path",
+                          "stroke": {
+                            "linecap": "round",
+                            "miterlimit": "10",
+                            "paint": "#B0B0B0",
+                            "width": "1.25px"
+                          },
+                          "style": {},
+                          "type": "path"
+                        },
+                        {
+                          "fill": {
+                            "paint": "none"
+                          },
+                          "name": "line",
+                          "stroke": {
+                            "linecap": "round",
+                            "miterlimit": "10",
+                            "paint": "#B0B0B0",
+                            "width": "1.25px"
+                          },
+                          "style": {},
+                          "type": "line",
+                          "x1": "4.04",
+                          "x2": "6.39",
+                          "y1": "3.39",
+                          "y2": "5.75"
+                        },
+                        {
+                          "fill": {
+                            "paint": "none"
+                          },
+                          "name": "line",
+                          "stroke": {
+                            "linecap": "round",
+                            "miterlimit": "10",
+                            "paint": "#B0B0B0",
+                            "width": "1.25px"
+                          },
+                          "style": {},
+                          "type": "line",
+                          "x1": "11.13",
+                          "x2": "11.13",
+                          "y1": "0.63",
+                          "y2": "3.82"
+                        },
+                        {
+                          "fill": {
+                            "paint": "none"
+                          },
+                          "name": "line",
+                          "stroke": {
+                            "linecap": "round",
+                            "miterlimit": "10",
+                            "paint": "#B0B0B0",
+                            "width": "1.25px"
+                          },
+                          "style": {},
+                          "type": "line",
+                          "x1": "18.22",
+                          "x2": "15.87",
+                          "y1": "3.39",
+                          "y2": "5.74"
+                        },
+                        {
+                          "fill": {
+                            "paint": "none"
+                          },
+                          "name": "line",
+                          "stroke": {
+                            "linecap": "round",
+                            "miterlimit": "10",
+                            "paint": "#B0B0B0",
+                            "width": "1.25px"
+                          },
+                          "style": {},
+                          "type": "line",
+                          "x1": "7.78",
+                          "x2": "9.86",
+                          "y1": "8.7",
+                          "y2": "9.87"
+                        },
+                        {
+                          "cx": "11.06",
+                          "cy": "10.84",
+                          "fill": {
+                            "paint": "none"
+                          },
+                          "name": "circle",
+                          "r": "1.28",
+                          "stroke": {
+                            "linecap": "round",
+                            "miterlimit": "10",
+                            "paint": "#B0B0B0",
+                            "width": "1.25px"
+                          },
+                          "style": {},
+                          "type": "circle"
+                        }
+                      ],
+                      "viewBox": "0 0 22 11.5"
+                    },
+                    "id": 2,
+                    "isOpened": 0,
+                    "labelText": "Track \u0026 Trace",
+                    "materialIcon": "material/location_searching",
+                    "navId": 1,
+                    "pageUrl": "",
+                    "parentId": 2,
+                    "selected": 0
+                  },
+                  "subElements": [
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 1 1"
+                      },
+                      "id": -1,
+                      "labelText": "Stations",
+                      "materialIcon": "material/devices",
+                      "pageUrl": "/stations",
+                      "parentId": 2,
+                      "selected": 0,
+                      "treePath": "App/TrackAndTrace/Stations/StationsView",
+                      "viewParams": {
+                        "area": "Track And Trace",
+                        "materialIcon": "material/success"
+                      },
+                      "viewPath": "app/TrackAndTrace/Stations/StationsView"
+                    },
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 1 1"
+                      },
+                      "id": -1,
+                      "labelText": "Inventory",
+                      "materialIcon": "material/store",
+                      "pageUrl": "/inventory",
+                      "parentId": 2,
+                      "selected": 0,
+                      "treePath": "App/TrackAndTrace/Inventory/FullView",
+                      "viewParams": {
+                        "area": "Assembly"
+                      },
+                      "viewPath": "app/TrackAndTrace/Inventory/InventoryView"
+                    },
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 1 1"
+                      },
+                      "id": -1,
+                      "labelText": "History",
+                      "materialIcon": "material/history",
+                      "pageUrl": "/historytt",
+                      "parentId": 2,
+                      "selected": 0,
+                      "treePath": "App/TrackAndTrace/History/View",
+                      "viewParams": {
+                        "area": "Track And Trace"
+                      },
+                      "viewPath": "app/TrackAndTrace/History/View"
+                    },
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 1 1"
+                      },
+                      "id": -1,
+                      "labelText": "Add/Remove Part",
+                      "materialIcon": "material/add",
+                      "pageUrl": "/add",
+                      "parentId": 2,
+                      "selected": 0,
+                      "treePath": "App/TrackAndTrace/Inventory/AddRemove",
+                      "viewParams": {
+                        "area": "Track And Trace"
+                      },
+                      "viewPath": "app/TrackAndTrace/Inventory/AddRemoveView"
+                    }
+                  ],
+                  "subSubElements": []
+                },
+                {
+                  "instancePosition": {},
+                  "instanceStyle": {
+                    "classes": ""
+                  },
+                  "rootElement": {
+                    "id": 3,
+                    "isOpened": 0,
+                    "labelText": "OEE Overviews",
+                    "materialIcon": "material/assignment",
+                    "pagUrl": "/site",
+                    "parentId": 3,
+                    "selected": 0
+                  },
+                  "subElements": [
+                    {
+                      "icon": {
+                        "elements": [
+                          {
+                            "d": "M4,11.25H1.25a.63.63,0,0,1-.62-.73C1,8.12,2.93.63,11.13.63s10.09,7.49,10.48,9.89a.62.62,0,0,1-.62.73H18.17",
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "path",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "path"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "4.04",
+                            "x2": "6.39",
+                            "y1": "3.39",
+                            "y2": "5.75"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "11.13",
+                            "x2": "11.13",
+                            "y1": "0.63",
+                            "y2": "3.82"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "18.22",
+                            "x2": "15.87",
+                            "y1": "3.39",
+                            "y2": "5.74"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "7.78",
+                            "x2": "9.86",
+                            "y1": "8.7",
+                            "y2": "9.87"
+                          },
+                          {
+                            "cx": "11.06",
+                            "cy": "10.84",
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "circle",
+                            "r": "1.28",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "circle"
+                          }
+                        ],
+                        "viewBox": "0 0 22 11.5"
+                      },
+                      "id": -1,
+                      "isOpened": false,
+                      "labelText": "Site",
+                      "materialIcon": "material/home",
+                      "pageUrl": "/site"
+                    },
+                    {
+                      "icon": {
+                        "elements": [
+                          {
+                            "d": "M4,11.25H1.25a.63.63,0,0,1-.62-.73C1,8.12,2.93.63,11.13.63s10.09,7.49,10.48,9.89a.62.62,0,0,1-.62.73H18.17",
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "path",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "path"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "4.04",
+                            "x2": "6.39",
+                            "y1": "3.39",
+                            "y2": "5.75"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "11.13",
+                            "x2": "11.13",
+                            "y1": "0.63",
+                            "y2": "3.82"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "18.22",
+                            "x2": "15.87",
+                            "y1": "3.39",
+                            "y2": "5.74"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "7.78",
+                            "x2": "9.86",
+                            "y1": "8.7",
+                            "y2": "9.87"
+                          },
+                          {
+                            "cx": "11.06",
+                            "cy": "10.84",
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "circle",
+                            "r": "1.28",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "circle"
+                          }
+                        ],
+                        "viewBox": "0 0 22 11.5"
+                      },
+                      "id": -1,
+                      "isOpened": false,
+                      "labelText": "Area",
+                      "materialIcon": "material/settings_applications",
+                      "pageUrl": "/area_overview"
+                    },
+                    {
+                      "icon": {
+                        "elements": [
+                          {
+                            "d": "M4,11.25H1.25a.63.63,0,0,1-.62-.73C1,8.12,2.93.63,11.13.63s10.09,7.49,10.48,9.89a.62.62,0,0,1-.62.73H18.17",
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "path",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "path"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "4.04",
+                            "x2": "6.39",
+                            "y1": "3.39",
+                            "y2": "5.75"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "11.13",
+                            "x2": "11.13",
+                            "y1": "0.63",
+                            "y2": "3.82"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "18.22",
+                            "x2": "15.87",
+                            "y1": "3.39",
+                            "y2": "5.74"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "7.78",
+                            "x2": "9.86",
+                            "y1": "8.7",
+                            "y2": "9.87"
+                          },
+                          {
+                            "cx": "11.06",
+                            "cy": "10.84",
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "circle",
+                            "r": "1.28",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "circle"
+                          }
+                        ],
+                        "viewBox": "0 0 22 11.5"
+                      },
+                      "id": -1,
+                      "isOpened": false,
+                      "labelText": "Molding",
+                      "materialIcon": "material/edit",
+                      "pageUrl": "/areaoverview/Maryville/Molding"
+                    },
+                    {
+                      "icon": {
+                        "elements": [
+                          {
+                            "d": "M4,11.25H1.25a.63.63,0,0,1-.62-.73C1,8.12,2.93.63,11.13.63s10.09,7.49,10.48,9.89a.62.62,0,0,1-.62.73H18.17",
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "path",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "path"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "4.04",
+                            "x2": "6.39",
+                            "y1": "3.39",
+                            "y2": "5.75"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "11.13",
+                            "x2": "11.13",
+                            "y1": "0.63",
+                            "y2": "3.82"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "18.22",
+                            "x2": "15.87",
+                            "y1": "3.39",
+                            "y2": "5.74"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "7.78",
+                            "x2": "9.86",
+                            "y1": "8.7",
+                            "y2": "9.87"
+                          },
+                          {
+                            "cx": "11.06",
+                            "cy": "10.84",
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "circle",
+                            "r": "1.28",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "circle"
+                          }
+                        ],
+                        "viewBox": "0 0 22 11.5"
+                      },
+                      "id": -1,
+                      "isOpened": false,
+                      "labelText": "Packaging",
+                      "materialIcon": "material/local_shipping",
+                      "pageUrl": "/areaoverview/Maryville/Packaging"
+                    }
+                  ],
+                  "subSubElements": []
+                },
+                {
+                  "instancePosition": {},
+                  "instanceStyle": {
+                    "classes": ""
+                  },
+                  "rootElement": {
+                    "id": 4,
+                    "isOpened": 0,
+                    "labelText": "Production Analysis",
+                    "materialIcon": "material/bar_chart",
+                    "parentId": 4,
+                    "selected": 0
+                  },
+                  "subElements": [
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 22 11.5"
+                      },
+                      "id": -1,
+                      "isOpened": false,
+                      "labelText": "OAPQ",
+                      "pageUrl": "/management/reports/oapq",
+                      "parentId": 4,
+                      "selected": 0,
+                      "treePath": "reports/oapq/oapqReport",
+                      "viewPath": "reports/oapq/oapqReport"
+                    },
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 22 11.5"
+                      },
+                      "id": -1,
+                      "isOpened": false,
+                      "labelText": "Production History",
+                      "pageUrl": "/management/reports/productionHistory",
+                      "parentId": 4,
+                      "selected": 0,
+                      "treePath": "reports/productionHistory/productionHistoryReport",
+                      "viewPath": "reports/productionHistory/productionHistoryReport"
+                    },
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 22 11.5"
+                      },
+                      "id": -1,
+                      "isOpened": false,
+                      "labelText": "Downtime History",
+                      "pageUrl": "/management/reports/downtimeHistory",
+                      "parentId": 4,
+                      "selected": 0,
+                      "treePath": "reports/downtimeHistory/downtimeHistoryReport",
+                      "viewPath": "reports/downtimeHistory/downtimeHistoryReport"
+                    },
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 22 11.5"
+                      },
+                      "id": -1,
+                      "isOpened": false,
+                      "labelText": "Loss Details",
+                      "pageUrl": "/management/reports/lossDetails",
+                      "parentId": 4,
+                      "selected": 0,
+                      "treePath": "reports/loss/lossReport",
+                      "viewPath": "reports/loss/lossReport"
+                    },
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 22 11.5"
+                      },
+                      "id": -1,
+                      "isOpened": false,
+                      "labelText": "Impromptu Analysis",
+                      "pageUrl": "/management/reports/impromptuAnalysis",
+                      "parentId": 4,
+                      "selected": 0,
+                      "treePath": "reports/impromptuAnalysis/impromptuReport",
+                      "viewPath": "reports/impromptuAnalysis/impromptuReport"
+                    },
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 22 11.5"
+                      },
+                      "id": -1,
+                      "isOpened": false,
+                      "labelText": "Scrap History",
+                      "pageUrl": "/management/reports/scrapHistory",
+                      "parentId": 4,
+                      "selected": 0,
+                      "treePath": "reports/scrapHistory/scrapHistoryReport",
+                      "viewPath": "reports/scrapHistory/scrapHistoryReport"
+                    },
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 22 11.5"
+                      },
+                      "id": -1,
+                      "isOpened": false,
+                      "labelText": "Changeover/Setup",
+                      "pageUrl": "/management/reports/changeover",
+                      "parentId": 4,
+                      "selected": 0,
+                      "treePath": "reports/changeover/changeoverReport",
+                      "viewPath": "reports/changeover/changeoverReport"
+                    }
+                  ],
+                  "subSubElements": []
+                },
+                {
+                  "instancePosition": {},
+                  "instanceStyle": {
+                    "classes": ""
+                  },
+                  "rootElement": {
+                    "id": 4,
+                    "isOpened": 0,
+                    "labelText": "Operations",
+                    "materialIcon": "material/engineering",
+                    "parentId": 4,
+                    "selected": 0
+                  },
+                  "subElements": [
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 22 11.5"
+                      },
+                      "id": -1,
+                      "isOpened": false,
+                      "labelText": "Line Dashboard",
+                      "materialIcon": "material/dynamic_feed",
+                      "pageUrl": "/linedashboard",
+                      "parentId": 4,
+                      "selected": 0,
+                      "treePath": "reports/oapq/oapqReport",
+                      "viewPath": "reports/oapq/oapqReport"
+                    },
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 22 11.5"
+                      },
+                      "id": -1,
+                      "isOpened": false,
+                      "labelText": "Overhead View",
+                      "materialIcon": "material/track_changes",
+                      "pageUrl": "/overhead",
+                      "parentId": 4,
+                      "selected": 0,
+                      "treePath": "reports/productionHistory/productionHistoryReport",
+                      "viewPath": "reports/productionHistory/productionHistoryReport"
+                    }
+                  ],
+                  "subSubElements": []
+                }
+              ]
+            },
+            "meta": {
+              "name": "menu_0"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "props": {
+              "direction": "column",
+              "elementPosition": {
+                "basis": "auto",
+                "grow": 0,
+                "shrink": 0
+              },
+              "instances": [
+                {
+                  "instancePosition": {},
+                  "instanceStyle": {
+                    "classes": ""
+                  },
+                  "rootElement": {
+                    "id": 1,
+                    "isOpened": 0,
+                    "labelText": "Gateway Health",
+                    "materialIcon": "material/dashboard",
+                    "pageUrl": "/gateway",
+                    "selected": 0,
+                    "treePath": "app/GatewayHealth/Diagnostics/View",
+                    "viewPath": "app/GatewayHealth/Diagnostics/View"
+                  },
+                  "subElements": [
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 1 1"
+                      },
+                      "id": -1,
+                      "labelText": "All Gateways",
+                      "materialIcon": "material/show_chart",
+                      "pageUrl": "/allgateways",
+                      "parentId": 1,
+                      "selected": 0,
+                      "treePath": "app/GatewayHealth/Diagnostics/View",
+                      "viewParams": {
+                        "area": "Track And Trace",
+                        "materialIcon": "material/success"
+                      },
+                      "viewPath": "app/GatewayHealth/AllGatewayHealth/GatewayStatusView"
+                    }
+                  ],
+                  "subSubElements": []
+                },
+                {
+                  "instancePosition": {},
+                  "instanceStyle": {
+                    "classes": ""
+                  },
+                  "rootElement": {
+                    "id": 3,
+                    "isOpened": 0,
+                    "labelText": "OEE Overviews",
+                    "materialIcon": "material/assignment",
+                    "pagUrl": "/site",
+                    "parentId": 3,
+                    "selected": 0
+                  },
+                  "subElements": [
+                    {
+                      "icon": {
+                        "elements": [
+                          {
+                            "d": "M4,11.25H1.25a.63.63,0,0,1-.62-.73C1,8.12,2.93.63,11.13.63s10.09,7.49,10.48,9.89a.62.62,0,0,1-.62.73H18.17",
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "path",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "path"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "4.04",
+                            "x2": "6.39",
+                            "y1": "3.39",
+                            "y2": "5.75"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "11.13",
+                            "x2": "11.13",
+                            "y1": "0.63",
+                            "y2": "3.82"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "18.22",
+                            "x2": "15.87",
+                            "y1": "3.39",
+                            "y2": "5.74"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "7.78",
+                            "x2": "9.86",
+                            "y1": "8.7",
+                            "y2": "9.87"
+                          },
+                          {
+                            "cx": "11.06",
+                            "cy": "10.84",
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "circle",
+                            "r": "1.28",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "circle"
+                          }
+                        ],
+                        "viewBox": "0 0 22 11.5"
+                      },
+                      "id": -1,
+                      "isOpened": false,
+                      "labelText": "Site",
+                      "materialIcon": "material/home",
+                      "pageUrl": "/site"
+                    },
+                    {
+                      "icon": {
+                        "elements": [
+                          {
+                            "d": "M4,11.25H1.25a.63.63,0,0,1-.62-.73C1,8.12,2.93.63,11.13.63s10.09,7.49,10.48,9.89a.62.62,0,0,1-.62.73H18.17",
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "path",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "path"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "4.04",
+                            "x2": "6.39",
+                            "y1": "3.39",
+                            "y2": "5.75"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "11.13",
+                            "x2": "11.13",
+                            "y1": "0.63",
+                            "y2": "3.82"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "18.22",
+                            "x2": "15.87",
+                            "y1": "3.39",
+                            "y2": "5.74"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "7.78",
+                            "x2": "9.86",
+                            "y1": "8.7",
+                            "y2": "9.87"
+                          },
+                          {
+                            "cx": "11.06",
+                            "cy": "10.84",
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "circle",
+                            "r": "1.28",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "circle"
+                          }
+                        ],
+                        "viewBox": "0 0 22 11.5"
+                      },
+                      "id": -1,
+                      "isOpened": false,
+                      "labelText": "Area",
+                      "materialIcon": "material/settings_applications",
+                      "pageUrl": "/area_overview"
+                    },
+                    {
+                      "icon": {
+                        "elements": [
+                          {
+                            "d": "M4,11.25H1.25a.63.63,0,0,1-.62-.73C1,8.12,2.93.63,11.13.63s10.09,7.49,10.48,9.89a.62.62,0,0,1-.62.73H18.17",
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "path",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "path"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "4.04",
+                            "x2": "6.39",
+                            "y1": "3.39",
+                            "y2": "5.75"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "11.13",
+                            "x2": "11.13",
+                            "y1": "0.63",
+                            "y2": "3.82"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "18.22",
+                            "x2": "15.87",
+                            "y1": "3.39",
+                            "y2": "5.74"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "7.78",
+                            "x2": "9.86",
+                            "y1": "8.7",
+                            "y2": "9.87"
+                          },
+                          {
+                            "cx": "11.06",
+                            "cy": "10.84",
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "circle",
+                            "r": "1.28",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "circle"
+                          }
+                        ],
+                        "viewBox": "0 0 22 11.5"
+                      },
+                      "id": -1,
+                      "isOpened": false,
+                      "labelText": "Molding",
+                      "materialIcon": "material/edit",
+                      "pageUrl": "/areaoverview/Maryville/Molding"
+                    },
+                    {
+                      "icon": {
+                        "elements": [
+                          {
+                            "d": "M4,11.25H1.25a.63.63,0,0,1-.62-.73C1,8.12,2.93.63,11.13.63s10.09,7.49,10.48,9.89a.62.62,0,0,1-.62.73H18.17",
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "path",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "path"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "4.04",
+                            "x2": "6.39",
+                            "y1": "3.39",
+                            "y2": "5.75"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "11.13",
+                            "x2": "11.13",
+                            "y1": "0.63",
+                            "y2": "3.82"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "18.22",
+                            "x2": "15.87",
+                            "y1": "3.39",
+                            "y2": "5.74"
+                          },
+                          {
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "line",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "line",
+                            "x1": "7.78",
+                            "x2": "9.86",
+                            "y1": "8.7",
+                            "y2": "9.87"
+                          },
+                          {
+                            "cx": "11.06",
+                            "cy": "10.84",
+                            "fill": {
+                              "paint": "none"
+                            },
+                            "name": "circle",
+                            "r": "1.28",
+                            "stroke": {
+                              "linecap": "round",
+                              "miterlimit": "10",
+                              "paint": "#B0B0B0",
+                              "width": "1.25px"
+                            },
+                            "style": {},
+                            "type": "circle"
+                          }
+                        ],
+                        "viewBox": "0 0 22 11.5"
+                      },
+                      "id": -1,
+                      "isOpened": false,
+                      "labelText": "Packaging",
+                      "materialIcon": "material/local_shipping",
+                      "pageUrl": "/areaoverview/Maryville/Packaging"
+                    }
+                  ],
+                  "subSubElements": []
+                },
+                {
+                  "instancePosition": {},
+                  "instanceStyle": {
+                    "classes": ""
+                  },
+                  "rootElement": {
+                    "id": 4,
+                    "isOpened": 0,
+                    "labelText": "Operations",
+                    "materialIcon": "material/engineering",
+                    "parentId": 4,
+                    "selected": 0
+                  },
+                  "subElements": [
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 22 11.5"
+                      },
+                      "id": -1,
+                      "isOpened": false,
+                      "labelText": "Line Dashboard",
+                      "materialIcon": "material/dynamic_feed",
+                      "pageUrl": "/linedashboard",
+                      "parentId": 4,
+                      "selected": 0,
+                      "treePath": "reports/oapq/oapqReport",
+                      "viewPath": "reports/oapq/oapqReport"
+                    },
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 22 11.5"
+                      },
+                      "id": -1,
+                      "isOpened": false,
+                      "labelText": "Overhead View",
+                      "materialIcon": "material/track_changes",
+                      "pageUrl": "/overhead",
+                      "parentId": 4,
+                      "selected": 0,
+                      "treePath": "reports/productionHistory/productionHistoryReport",
+                      "viewPath": "reports/productionHistory/productionHistoryReport"
+                    }
+                  ],
+                  "subSubElements": []
+                },
+                {
+                  "instancePosition": {},
+                  "instanceStyle": {
+                    "classes": ""
+                  },
+                  "rootElement": {
+                    "icon": {
+                      "elements": [
+                        {
+                          "d": "M4,11.25H1.25a.63.63,0,0,1-.62-.73C1,8.12,2.93.63,11.13.63s10.09,7.49,10.48,9.89a.62.62,0,0,1-.62.73H18.17",
+                          "fill": {
+                            "paint": "none"
+                          },
+                          "name": "path",
+                          "stroke": {
+                            "linecap": "round",
+                            "miterlimit": "10",
+                            "paint": "#B0B0B0",
+                            "width": "1.25px"
+                          },
+                          "style": {},
+                          "type": "path"
+                        },
+                        {
+                          "fill": {
+                            "paint": "none"
+                          },
+                          "name": "line",
+                          "stroke": {
+                            "linecap": "round",
+                            "miterlimit": "10",
+                            "paint": "#B0B0B0",
+                            "width": "1.25px"
+                          },
+                          "style": {},
+                          "type": "line",
+                          "x1": "4.04",
+                          "x2": "6.39",
+                          "y1": "3.39",
+                          "y2": "5.75"
+                        },
+                        {
+                          "fill": {
+                            "paint": "none"
+                          },
+                          "name": "line",
+                          "stroke": {
+                            "linecap": "round",
+                            "miterlimit": "10",
+                            "paint": "#B0B0B0",
+                            "width": "1.25px"
+                          },
+                          "style": {},
+                          "type": "line",
+                          "x1": "11.13",
+                          "x2": "11.13",
+                          "y1": "0.63",
+                          "y2": "3.82"
+                        },
+                        {
+                          "fill": {
+                            "paint": "none"
+                          },
+                          "name": "line",
+                          "stroke": {
+                            "linecap": "round",
+                            "miterlimit": "10",
+                            "paint": "#B0B0B0",
+                            "width": "1.25px"
+                          },
+                          "style": {},
+                          "type": "line",
+                          "x1": "18.22",
+                          "x2": "15.87",
+                          "y1": "3.39",
+                          "y2": "5.74"
+                        },
+                        {
+                          "fill": {
+                            "paint": "none"
+                          },
+                          "name": "line",
+                          "stroke": {
+                            "linecap": "round",
+                            "miterlimit": "10",
+                            "paint": "#B0B0B0",
+                            "width": "1.25px"
+                          },
+                          "style": {},
+                          "type": "line",
+                          "x1": "7.78",
+                          "x2": "9.86",
+                          "y1": "8.7",
+                          "y2": "9.87"
+                        },
+                        {
+                          "cx": "11.06",
+                          "cy": "10.84",
+                          "fill": {
+                            "paint": "none"
+                          },
+                          "name": "circle",
+                          "r": "1.28",
+                          "stroke": {
+                            "linecap": "round",
+                            "miterlimit": "10",
+                            "paint": "#B0B0B0",
+                            "width": "1.25px"
+                          },
+                          "style": {},
+                          "type": "circle"
+                        }
+                      ],
+                      "viewBox": "0 0 22 11.5"
+                    },
+                    "id": 2,
+                    "isOpened": 0,
+                    "labelText": "Track \u0026 Trace",
+                    "materialIcon": "material/location_searching",
+                    "navId": 1,
+                    "pageUrl": "",
+                    "parentId": 2,
+                    "selected": 0
+                  },
+                  "subElements": [
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 1 1"
+                      },
+                      "id": -1,
+                      "labelText": "Stations",
+                      "materialIcon": "material/devices",
+                      "pageUrl": "/stations",
+                      "parentId": 2,
+                      "selected": 0,
+                      "treePath": "App/TrackAndTrace/Stations/StationsView",
+                      "viewParams": {
+                        "area": "Track And Trace",
+                        "materialIcon": "material/success"
+                      },
+                      "viewPath": "app/TrackAndTrace/Stations/StationsView"
+                    },
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 1 1"
+                      },
+                      "id": -1,
+                      "labelText": "Inventory",
+                      "materialIcon": "material/store",
+                      "pageUrl": "/inventory",
+                      "parentId": 2,
+                      "selected": 0,
+                      "treePath": "App/TrackAndTrace/Inventory/FullView",
+                      "viewParams": {
+                        "area": "Assembly"
+                      },
+                      "viewPath": "app/TrackAndTrace/Inventory/InventoryView"
+                    },
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 1 1"
+                      },
+                      "id": -1,
+                      "labelText": "History",
+                      "materialIcon": "material/history",
+                      "pageUrl": "/historytt",
+                      "parentId": 2,
+                      "selected": 0,
+                      "treePath": "App/TrackAndTrace/History/View",
+                      "viewParams": {
+                        "area": "Track And Trace"
+                      },
+                      "viewPath": "app/TrackAndTrace/History/View"
+                    },
+                    {
+                      "icon": {
+                        "elements": [],
+                        "viewBox": "0 0 1 1"
+                      },
+                      "id": -1,
+                      "labelText": "Add/Remove Part",
+                      "materialIcon": "material/add",
+                      "pageUrl": "/add",
+                      "parentId": 2,
+                      "selected": 0,
+                      "treePath": "App/TrackAndTrace/Inventory/AddRemove",
+                      "viewParams": {
+                        "area": "Track And Trace"
+                      },
+                      "viewPath": "app/TrackAndTrace/Inventory/AddRemoveView"
+                    }
+                  ],
+                  "subSubElements": []
+                }
+              ],
+              "path": "StyleGuide/Navigation/Embedded/SideElementHolder",
+              "style": {
+                "marginBottom": 10,
+                "marginTop": 1
+              },
+              "useDefaultViewHeight": false,
+              "useDefaultViewWidth": false
+            },
+            "type": "ia.display.flex-repeater"
+          }
+        ],
+        "meta": {
+          "name": "Main"
+        },
+        "position": {
+          "shrink": 0
+        },
+        "props": {
+          "direction": "column"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "name"
+                },
+                "position": {
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "expression": "if(len({session.props.auth.user.lastName})\u003e0,  {session.props.auth.user.lastName} + \r\nif(len({session.props.auth.user.firstName}) \u003e 0,\r\n\u0027, \u0027 + {session.props.auth.user.firstName}, \u0027\u0027),\r\nif(isnull({session.props.auth.user.userName}), \u0027\u0027, {session.props.auth.user.userName}))"
+                      },
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "color": "white",
+                    "marginLeft": "1ch",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "date"
+                },
+                "position": {
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "expression": "dateFormat(now(), \u0027MM/dd h:mm:ss a\u0027)"
+                      },
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "Text/textColorGray",
+                    "color": "white",
+                    "marginLeft": "1ch",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "#\tisAuth \u003d system.perspective.isAuthorized(False, [\u0027Public/Authenticated\u0027])\n#\tauth \u003d self.session.props.auth.authenticated\n\n#\tlogger \u003d system.util.getLogger(\u0027auth\u0027)\n#\tlogger.info(str(isAuth))\n\tif self.session.props.auth.user.userName is not None:\n\t\tsystem.perspective.logout()\n\telse:\n\t\tsystem.perspective.login()"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "Label"
+                },
+                "position": {
+                  "basis": "30px",
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "session.props.auth.user.userName"
+                      },
+                      "transforms": [
+                        {
+                          "expression": "if(isnull({value}) || {value} \u003d \u0027\u0027,\u0027Login\u0027,\u0027Logout\u0027)",
+                          "type": "expression"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "borderBottomLeftRadius": 0,
+                    "borderBottomRightRadius": 0,
+                    "borderTopLeftRadius": 0,
+                    "borderTopRightRadius": 0,
+                    "borderWidth": 0,
+                    "classes": "Desktop/Navigation/SideNavElement",
+                    "fontSize": "11pt",
+                    "fontWeight": "bold",
+                    "paddingLeft": "1ch",
+                    "textDecoration": "underline"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "Icon"
+                    },
+                    "position": {
+                      "basis": "30px",
+                      "display": false,
+                      "shrink": 0
+                    },
+                    "props": {
+                      "color": "#AAAAAA",
+                      "path": "material/settings",
+                      "style": {
+                        "textAlign": "left"
+                      }
+                    },
+                    "type": "ia.display.icon"
+                  },
+                  {
+                    "meta": {
+                      "name": "menu"
+                    },
+                    "position": {
+                      "grow": 1
+                    },
+                    "propConfig": {
+                      "position.display": {
+                        "binding": {
+                          "config": {
+                            "expression": "//{session.props.auth.securityLevels}\r\nisAuthorized(false, \u0027Authenticated/SuperUser\u0027, \u0027Authenticated/Administrator\u0027)\r\n|| {session.props.device.type} \u003d \u0027designer\u0027"
+                          },
+                          "enabled": false,
+                          "type": "expr"
+                        }
+                      }
+                    },
+                    "props": {
+                      "direction": "column",
+                      "elementPosition": {
+                        "basis": "auto",
+                        "grow": 0,
+                        "shrink": 0
+                      },
+                      "instances": [
+                        {
+                          "instancePosition": {},
+                          "instanceStyle": {
+                            "classes": ""
+                          },
+                          "rootElement": {
+                            "id": 1,
+                            "isOpened": 0,
+                            "labelText": "Settings",
+                            "materialIcon": "material/settings",
+                            "selected": 0
+                          },
+                          "subElements": [
+                            {
+                              "icon": {
+                                "elements": [],
+                                "viewBox": "0 0 22 11.5"
+                              },
+                              "id": -1,
+                              "isOpened": false,
+                              "labelText": "Application Settings",
+                              "pageUrl": "/management/settingsApplication",
+                              "selected": 0,
+                              "treePath": "Screens/Management/settings/settingsApplication",
+                              "viewPath": "Screens/Management/settings/settingsApplication"
+                            },
+                            {
+                              "icon": {
+                                "elements": [],
+                                "viewBox": "0 0 22 11.5"
+                              },
+                              "id": -1,
+                              "isOpened": false,
+                              "labelText": "Scrap Code Config",
+                              "pageUrl": "/management/scrapCodeConfiguration",
+                              "selected": 0,
+                              "treePath": "Screens/Management/scrap/scrapCodeConfiguration",
+                              "viewPath": "Screens/Management/scrap/scrapCodeConfiguration"
+                            },
+                            {
+                              "icon": {
+                                "elements": [],
+                                "viewBox": "0 0 22 11.5"
+                              },
+                              "id": -1,
+                              "isOpened": false,
+                              "labelText": "Rate/Cycle Time Config",
+                              "pageUrl": "/management/settingsRates",
+                              "selected": 0,
+                              "treePath": "Screens/Management/settings/settingsRates",
+                              "viewPath": "Screens/Management/settings/settingsRates"
+                            },
+                            {
+                              "icon": {
+                                "elements": [],
+                                "viewBox": "0 0 22 11.5"
+                              },
+                              "id": -1,
+                              "isOpened": false,
+                              "labelText": "Mold Config",
+                              "pageUrl": "/management/settingsMolds",
+                              "selected": 0,
+                              "treePath": "Screens/Management/settings/settingsMolds",
+                              "viewPath": "Screens/Management/settings/settingsMolds"
+                            },
+                            {
+                              "icon": {
+                                "elements": [],
+                                "viewBox": "0 0 22 11.5"
+                              },
+                              "id": -1,
+                              "isOpened": false,
+                              "labelText": "Tool Config",
+                              "pageUrl": "/management/settingsTools",
+                              "selected": 0,
+                              "treePath": "Screens/Management/settings/settingsTools",
+                              "viewPath": "Screens/Management/settings/settingsTools"
+                            },
+                            {
+                              "icon": {
+                                "elements": [],
+                                "viewBox": "0 0 22 11.5"
+                              },
+                              "id": -1,
+                              "isOpened": false,
+                              "labelText": "User Management",
+                              "pageUrl": "/management/userManagement",
+                              "selected": 0,
+                              "treePath": "/management/userManagement",
+                              "viewPath": "/management/userManagement"
+                            }
+                          ],
+                          "subSubElements": [
+                            {
+                              "rootElement": {
+                                "icon": {
+                                  "elements": [
+                                    {
+                                      "d": "M4,11.25H1.25a.63.63,0,0,1-.62-.73C1,8.12,2.93.63,11.13.63s10.09,7.49,10.48,9.89a.62.62,0,0,1-.62.73H18.17",
+                                      "fill": {
+                                        "paint": "none"
+                                      },
+                                      "name": "path",
+                                      "stroke": {
+                                        "linecap": "round",
+                                        "miterlimit": "10",
+                                        "paint": "#B0B0B0",
+                                        "width": "1.25px"
+                                      },
+                                      "style": {},
+                                      "type": "path"
+                                    },
+                                    {
+                                      "fill": {
+                                        "paint": "none"
+                                      },
+                                      "name": "line",
+                                      "stroke": {
+                                        "linecap": "round",
+                                        "miterlimit": "10",
+                                        "paint": "#B0B0B0",
+                                        "width": "1.25px"
+                                      },
+                                      "style": {},
+                                      "type": "line",
+                                      "x1": "4.04",
+                                      "x2": "6.39",
+                                      "y1": "3.39",
+                                      "y2": "5.75"
+                                    },
+                                    {
+                                      "fill": {
+                                        "paint": "none"
+                                      },
+                                      "name": "line",
+                                      "stroke": {
+                                        "linecap": "round",
+                                        "miterlimit": "10",
+                                        "paint": "#B0B0B0",
+                                        "width": "1.25px"
+                                      },
+                                      "style": {},
+                                      "type": "line",
+                                      "x1": "11.13",
+                                      "x2": "11.13",
+                                      "y1": "0.63",
+                                      "y2": "3.82"
+                                    },
+                                    {
+                                      "fill": {
+                                        "paint": "none"
+                                      },
+                                      "name": "line",
+                                      "stroke": {
+                                        "linecap": "round",
+                                        "miterlimit": "10",
+                                        "paint": "#B0B0B0",
+                                        "width": "1.25px"
+                                      },
+                                      "style": {},
+                                      "type": "line",
+                                      "x1": "18.22",
+                                      "x2": "15.87",
+                                      "y1": "3.39",
+                                      "y2": "5.74"
+                                    },
+                                    {
+                                      "fill": {
+                                        "paint": "none"
+                                      },
+                                      "name": "line",
+                                      "stroke": {
+                                        "linecap": "round",
+                                        "miterlimit": "10",
+                                        "paint": "#B0B0B0",
+                                        "width": "1.25px"
+                                      },
+                                      "style": {},
+                                      "type": "line",
+                                      "x1": "7.78",
+                                      "x2": "9.86",
+                                      "y1": "8.7",
+                                      "y2": "9.87"
+                                    },
+                                    {
+                                      "cx": "11.06",
+                                      "cy": "10.84",
+                                      "fill": {
+                                        "paint": "none"
+                                      },
+                                      "name": "circle",
+                                      "r": "1.28",
+                                      "stroke": {
+                                        "linecap": "round",
+                                        "miterlimit": "10",
+                                        "paint": "#B0B0B0",
+                                        "width": "1.25px"
+                                      },
+                                      "style": {},
+                                      "type": "circle"
+                                    }
+                                  ],
+                                  "viewBox": "0 0 22 11.5"
+                                },
+                                "id": -1,
+                                "isOpened": false,
+                                "labelText": "SAP Utilities",
+                                "materialIcon": "material/build",
+                                "parentId": 10,
+                                "selected": 0
+                              },
+                              "subElements": [
+                                {
+                                  "icon": {
+                                    "elements": [],
+                                    "viewBox": "0 0 22 11.5"
+                                  },
+                                  "isOpened": 0,
+                                  "labelText": "SAP Outage",
+                                  "materialIcon": "",
+                                  "pageUrl": "/management/sapOutage",
+                                  "parentId": 10
+                                },
+                                {
+                                  "icon": {
+                                    "elements": [],
+                                    "viewBox": "0 0 22 11.5"
+                                  },
+                                  "isOpened": 0,
+                                  "labelText": "SAP Planned Order",
+                                  "materialIcon": "",
+                                  "pageUrl": "/management/sapPlannedOrder",
+                                  "parentId": 10
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ],
+                      "path": "navigation/sideElementHolder",
+                      "useDefaultViewHeight": false,
+                      "useDefaultViewWidth": false
+                    },
+                    "type": "ia.display.flex-repeater"
+                  }
+                ],
+                "meta": {
+                  "name": "Icon"
+                },
+                "position": {
+                  "shrink": 0
+                },
+                "type": "ia.container.flex"
+              }
+            ],
+            "meta": {
+              "name": "footer"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "props": {
+              "alignContent": "flex-start",
+              "direction": "column",
+              "style": {
+                "cursor": "pointer"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "meta": {
+              "name": "Theme"
+            },
+            "position": {
+              "basis": "36px"
+            },
+            "props": {
+              "path": "StyleGuide/Components/Icons/DarkMode"
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "Dropdown"
+            },
+            "position": {
+              "basis": "32px",
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.value": {
+                "binding": {
+                  "config": {
+                    "bidirectional": true,
+                    "path": "session.props.locale"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "options": [
+                {
+                  "label": "Español",
+                  "value": "es-US"
+                },
+                {
+                  "label": "English",
+                  "value": "en-US"
+                }
+              ],
+              "style": {
+                "classes": "TextFields/TextArea",
+                "margin": "10px",
+                "marginBottom": "10px",
+                "marginRight": "10px",
+                "marginTop": "10px"
+              },
+              "textAlign": "center"
+            },
+            "type": "ia.input.dropdown"
+          }
+        ],
+        "meta": {
+          "name": "Footer"
+        },
+        "position": {
+          "shrink": 0
+        },
+        "props": {
+          "direction": "column",
+          "justify": "flex-end",
+          "style": {
+            "backgroundColor": "--menuBg",
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "events": {
+      "system": {
+        "onStartup": {
+          "config": {
+            "script": "\t\n\tisAuth \u003d system.perspective.isAuthorized(False, [\u0027Authenticated\u0027])\n\n\tif not isAuth:\n\t\tsystem.perspective.login()"
+          },
+          "scope": "G",
+          "type": "script"
+        }
+      }
+    },
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "justify": "space-between",
+      "style": {
+        "backgroundColor": "var(--menuBg)",
+        "overflow": "visible"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

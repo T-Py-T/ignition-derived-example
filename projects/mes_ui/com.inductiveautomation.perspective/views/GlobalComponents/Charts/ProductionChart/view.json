@@ -1,0 +1,989 @@
+{
+  "custom": {
+    "EqPathSession": "GPA/Wilmington/Mixing/Mixer1",
+    "chartdata": {
+      "$": [
+        "ds",
+        192,
+        1698683389997
+      ],
+      "$columns": [
+        {
+          "data": [
+            1698660000000,
+            1698660730921,
+            1698661461842,
+            1698662192763,
+            1698662923684,
+            1698663654605,
+            1698664385526,
+            1698665116447,
+            1698665847368,
+            1698666578289,
+            1698667309210,
+            1698668040131,
+            1698668771052,
+            1698669501973,
+            1698670232894,
+            1698670963815,
+            1698671694736,
+            1698672425657,
+            1698673156578,
+            1698673887499,
+            1698674618420,
+            1698675349341,
+            1698676080262,
+            1698676811183,
+            1698677542104,
+            1698678273025,
+            1698679003946,
+            1698679734867,
+            1698680465788,
+            1698681196709,
+            1698681927630,
+            1698682658551,
+            1698683389472
+          ],
+          "name": "time",
+          "type": "Long"
+        },
+        {
+          "data": [
+            0,
+            1375.9375,
+            2751.875,
+            4127.8125,
+            5503.75,
+            6879.6875,
+            8255.625,
+            9631.5625,
+            11007.5,
+            12383.4375,
+            13759.375,
+            15135.3125,
+            16511.25,
+            17887.1875,
+            19263.125,
+            20639.0625,
+            22015,
+            23390.9375,
+            24766.875,
+            26142.8125,
+            27518.75,
+            28894.6875,
+            30270.625,
+            31646.5625,
+            33022.5,
+            34398.4375,
+            35774.375,
+            37150.3125,
+            38526.25,
+            39902.1875,
+            41278.125,
+            42654.0625,
+            44030
+          ],
+          "name": "Target",
+          "type": "Double"
+        },
+        {
+          "data": [
+            0,
+            2418.75,
+            4837.5,
+            7256.25,
+            9675,
+            12093.75,
+            14512.5,
+            16931.25,
+            19350,
+            21768.75,
+            24187.5,
+            26606.25,
+            29025,
+            31443.75,
+            33862.5,
+            36281.25,
+            38700,
+            41118.75,
+            43537.5,
+            45956.25,
+            48375,
+            50793.75,
+            53212.5,
+            55631.25,
+            58050,
+            60468.75,
+            62887.5,
+            65306.25,
+            67725,
+            70143.75,
+            72562.5,
+            74981.25,
+            77400
+          ],
+          "name": "Ideal Rate",
+          "type": "Double"
+        },
+        {
+          "data": [
+            34484,
+            34484,
+            34484,
+            34484,
+            34484,
+            34484,
+            34484,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            48678
+          ],
+          "name": "Current Rate",
+          "type": "Long"
+        }
+      ]
+    },
+    "chartdata_old": null,
+    "prodmetrics": [
+      {
+        "goodwhen": "above",
+        "label": "Production",
+        "target": null,
+        "value": null
+      },
+      {
+        "goodwhen": "below",
+        "label": "Cycle Time",
+        "target": null,
+        "value": null
+      }
+    ],
+    "shiftend": null,
+    "shiftendepoch": null,
+    "shiftlength": null,
+    "shiftstart": null,
+    "shiftstartepoch": null,
+    "shiftstarthr": null
+  },
+  "params": {
+    "EqPath": "",
+    "EqPathOld": "",
+    "TagPath": "",
+    "TagProvider": ""
+  },
+  "propConfig": {
+    "custom.EqPathSession": {
+      "binding": {
+        "config": {
+          "path": "session.custom.EqPath"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.chartdata": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.custom.EqPathSession}"
+          },
+          "tagPath": "{1}/calculatedValues/shiftProductionChart"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.chartdata_old": {
+      "binding": {
+        "config": {
+          "expression": "now(60000)"
+        },
+        "enabled": false,
+        "transforms": [
+          {
+            "code": "\t_ret \u003d []\n\timport random\n\t\n\t_rows \u003d 8*4\n\t\n\t_tm_start \u003d self.custom.shiftstartepoch\n\t_tm_end \u003d self.custom.shiftendepoch\n\t_tm_step \u003d (_tm_end-_tm_start)/_rows\n\t\n\thistorizedData \u003d system.dataset.toPyDataSet(system.tag.queryTagHistory(paths \u003d [\u0027[HPX-RIC-SCADA]PLC/Intellitrack/MES/Global/gOEE_ProductionCountGood\u0027], startDate \u003d self.custom.shiftstart, endDate \u003d self.custom.shiftend, returnSize \u003d _rows+1, aggregationMode \u003d \u0027LastValue\u0027))#, intervalMinutes \u003d _tm_step))\n\t\n\t_low_start \u003d 0.0\n\t_low_end \u003d system.tag.read(\u0027[HPX-RIC-SCADA]PLC/Intellitrack/MES/Global/gSySts_EndOfShiftProductionEstimate\u0027).value\n\t_low_step \u003d (_low_end-_low_start)/_rows\n\t_high_start \u003d 0.0\n\t_high_end \u003d system.tag.read(\u0027[HPX-RIC-SCADA]PLC/Intellitrack/MES/Global/gSySts_ShiftProductionGoal\u0027).value\n\t_high_step \u003d (_high_end-_high_start)/_rows\n\t\n\tlastval \u003d 0\n\tlasthigh \u003d 0\n\t\n\tfor idx in range(_rows+1):\n\t\tctm \u003d _tm_start+_tm_step*idx\n\t\tclow \u003d _low_start+_low_step*idx\n\t\tchigh \u003d _high_start+_high_step*idx\n\t\tcval \u003d historizedData[idx][\u0027PLC/Intellitrack/MES/Global/gOEE_ProductionCountGood\u0027]\n\t\t\t\n\t\tif cval \u003c lastval:\n\t\t\t_ret.append(\n\t\t\t\t{\n\t\t\t\t\t\"time\": ctm,\n\t\t\t\t\t\"low\": clow,\n\t\t\t\t\t\"high\": chigh,\n\t\t\t\t\t\"val\": \"\"\n\t\t\t\t}\n\t\t\t)\n\t\telse:\n\t\t\t_ret.append(\n\t\t\t\t{\n\t\t\t\t\t\"time\": ctm,\n\t\t\t\t\t\"low\": clow,\n\t\t\t\t\t\"high\": chigh,\n\t\t\t\t\t\"val\": cval\n\t\t\t\t}\n\t\t\t)\n\t\t\tlastval \u003d cval\n\t\t\tlasthigh \u003d int(chigh)\n\t\n\t#return len(historizedData)\n\t#return historizedData[0][\u0027t_stamp\u0027]\n\t#return historizedData[0][\u0027PLC/Intellitrack/MES/Global/gOEE_ProductionCountGood\u0027]\n\treturn _ret",
+            "type": "script"
+          }
+        ],
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.prodmetrics": {
+      "persistent": true
+    },
+    "custom.prodmetrics[0].target": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "direct",
+          "tagPath": "[HPX-RIC-SCADA]PLC/Intellitrack/MES/Global/gSySts_CurrentShift_ProductionTarget"
+        },
+        "enabled": false,
+        "type": "tag"
+      }
+    },
+    "custom.prodmetrics[0].value": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "direct",
+          "tagPath": "[HPX-RIC-SCADA]PLC/Intellitrack/MES/Global/gOEE_ProductionCountGood"
+        },
+        "enabled": false,
+        "type": "tag"
+      }
+    },
+    "custom.prodmetrics[1].target": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "direct",
+          "tagPath": "[HPX-RIC-SCADA]PLC/Intellitrack/MES/Global/gOEE_IdealCycleTime"
+        },
+        "enabled": false,
+        "type": "tag"
+      }
+    },
+    "custom.prodmetrics[1].value": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "direct",
+          "tagPath": "[HPX-RIC-SCADA]PLC/Intellitrack/MES/Global/gOEE_CurrentCycleTimeLineAverage"
+        },
+        "enabled": false,
+        "transforms": [
+          {
+            "formatType": "numeric",
+            "formatValue": "##.0",
+            "type": "format"
+          }
+        ],
+        "type": "tag"
+      }
+    },
+    "custom.shiftend": {
+      "binding": {
+        "config": {
+          "expression": "addMinutes({view.custom.shiftstart}, {view.custom.shiftlength})"
+        },
+        "enabled": false,
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.shiftendepoch": {
+      "binding": {
+        "config": {
+          "expression": "{view.custom.shiftend}"
+        },
+        "enabled": false,
+        "transforms": [
+          {
+            "code": "\tfrom java.util import TimeZone\n\tfrom java.util import Calendar\n\ttimezone \u003d system.tag.readBlocking([\u0027[System]Gateway/Timezone\u0027])[0].value\n\ttimezoneCode \u003d TimeZone.getTimeZone(timezone)\n\toffset \u003d timezoneCode.getOffset(Calendar.ZONE_OFFSET)/60.0/60.0/1000.0\n\t\n\tc \u003d Calendar.getInstance()\n\tc.setTime(value)\n\t#c.add(Calendar.HOUR, int(offset))\n\t\n\treturn c.getTimeInMillis()",
+            "type": "script"
+          }
+        ],
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.shiftlength": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "direct",
+          "tagPath": "[HPX-RIC-SCADA]PLC/Intellitrack/MES/Global/gSySts_Current_Shift"
+        },
+        "enabled": false,
+        "transforms": [
+          {
+            "code": "\tshiftLength \u003d system.tag.read(\u0027[HPX-RIC-SCADA]PLC/Intellitrack/MES/Global/gSySts_Shift\u0027 + str(value) + \u0027_MinutesInShift\u0027).value\n\t\n\treturn shiftLength",
+            "type": "script"
+          }
+        ],
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.shiftstart": {
+      "binding": {
+        "config": {
+          "expression": "setTime({[System]Gateway/CurrentDateTime}, {view.custom.shiftstarthr}, 30, 0)"
+        },
+        "enabled": false,
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.shiftstartepoch": {
+      "binding": {
+        "config": {
+          "expression": "{view.custom.shiftstart}"
+        },
+        "enabled": false,
+        "transforms": [
+          {
+            "code": "\tfrom java.util import TimeZone\n\tfrom java.util import Calendar\n\ttimezone \u003d system.tag.readBlocking([\u0027[System]Gateway/Timezone\u0027])[0].value\n\ttimezoneCode \u003d TimeZone.getTimeZone(timezone)\n\toffset \u003d timezoneCode.getOffset(Calendar.ZONE_OFFSET)/60.0/60.0/1000.0\n\t\n\tc \u003d Calendar.getInstance()\n\tc.setTime(value)\n\t#c.add(Calendar.HOUR, int(offset))\n\t\n\treturn c.getTimeInMillis()",
+            "type": "script"
+          }
+        ],
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.shiftstarthr": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "direct",
+          "tagPath": "[HPX-RIC-SCADA]PLC/Intellitrack/MES/Global/gSySts_Current_Shift"
+        },
+        "enabled": false,
+        "transforms": [
+          {
+            "code": "\tshiftStartHr \u003d system.tag.read(\u0027[HPX-RIC-SCADA]PLC/Intellitrack/MES/Global/gSySts_Shift\u0027 + str(value) + \u0027_start_hour\u0027).value\n\t\n\treturn shiftStartHr",
+            "type": "script"
+          }
+        ],
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.EqPathOld": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.TagPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.TagProvider": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 700,
+      "width": 1200
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "lbl_area"
+        },
+        "position": {
+          "basis": "40px",
+          "display": false
+        },
+        "propConfig": {
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.area.label"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "alignVertical": "top",
+          "style": {
+            "classes": "Framework/Main/defaultHeader"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "flexr_metrics"
+            },
+            "position": {
+              "basis": "300px",
+              "grow": 1
+            },
+            "propConfig": {
+              "props.instances": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.prodmetrics"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "alignContent": "center",
+              "alignItems": "center",
+              "elementPosition": {
+                "basis": "450px",
+                "shrink": 0
+              },
+              "elementStyle": {
+                "marginLeft": "15px",
+                "marginRight": "15px"
+              },
+              "justify": "center",
+              "path": "Framework/Dashboards/MetricLarge",
+              "style": {
+                "overflow": "visible"
+              },
+              "useDefaultViewWidth": false,
+              "wrap": "wrap"
+            },
+            "type": "ia.display.flex-repeater"
+          }
+        ],
+        "custom": {
+          "items": [
+            {
+              "label": "Production",
+              "target": 40,
+              "value": 31
+            },
+            {
+              "label": "Parts/Hr",
+              "target": 10,
+              "value": 8
+            }
+          ]
+        },
+        "meta": {
+          "name": "metrics"
+        },
+        "position": {
+          "basis": "400px",
+          "display": false
+        },
+        "props": {
+          "alignContent": "center",
+          "alignItems": "center",
+          "justify": "center",
+          "style": {
+            "marginTop": "15px",
+            "overflow": "visible",
+            "padding": "10px"
+          },
+          "wrap": "wrap"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "CColor"
+            },
+            "position": {
+              "basis": "20px",
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "#feff01",
+                "marginLeft": "0.5rem",
+                "marginRight": "0.1rem"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Current"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "marginLeft": "0.1rem",
+                "marginRight": "0.5rem"
+              },
+              "text": "Current"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "TColor"
+            },
+            "position": {
+              "basis": "20px",
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "#298fc2",
+                "marginLeft": "0.5rem",
+                "marginRight": "0.1rem"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Target"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "marginLeft": "0.1rem",
+                "marginRight": "0.5rem"
+              },
+              "text": "Target"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "IColor"
+            },
+            "position": {
+              "basis": "20px",
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "#03eb02",
+                "marginLeft": "0.5rem",
+                "marginRight": "0.1rem"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "IdealRunRate"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "marginLeft": "0.1rem",
+                "marginRight": "0.5rem"
+              },
+              "text": "Ideal Run Rate"
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "legend"
+        },
+        "position": {
+          "basis": "20px",
+          "shrink": 0
+        },
+        "props": {
+          "justify": "flex-end",
+          "style": {
+            "overflow": "visible"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "custom": {
+          "key": "value"
+        },
+        "meta": {
+          "name": "productionchart"
+        },
+        "position": {
+          "basis": "350px",
+          "grow": 1
+        },
+        "propConfig": {
+          "props.plots[0].axes[0].max": {
+            "binding": {
+              "config": {
+                "expression": "{[HPX-RIC-SCADA]PLC/Intellitrack/MES/Global/gSySts_ShiftProductionGoal} + 5"
+              },
+              "enabled": false,
+              "type": "expr"
+            }
+          },
+          "props.series[0].data": {
+            "binding": {
+              "config": {
+                "path": "view.custom.chartdata"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "defaultStyles": {
+            "colorScheme": "Blues",
+            "colors": [
+              "#298FC2",
+              "#00FF00",
+              "#FFFF00"
+            ],
+            "normal": {
+              "stroke": {
+                "dashArray": 20,
+                "opacity": 1,
+                "width": 10
+              }
+            }
+          },
+          "enablePanZoom": false,
+          "legend": {
+            "style": {
+              "fontSize": "1rem"
+            }
+          },
+          "plots": [
+            {
+              "axes": [
+                {
+                  "alignment": "right",
+                  "label": {
+                    "font": {
+                      "color": "",
+                      "size": 10
+                    },
+                    "offset": 0,
+                    "style": {
+                      "classes": ""
+                    },
+                    "text": "OEE",
+                    "visible": false
+                  },
+                  "max": null,
+                  "min": 0,
+                  "name": "Prod",
+                  "style": {
+                    "classes": ""
+                  },
+                  "tick": {
+                    "color": "",
+                    "label": {
+                      "font": {
+                        "color": "--neutral-10",
+                        "size": 15
+                      },
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "style": {
+                      "classes": ""
+                    }
+                  },
+                  "width": 60
+                }
+              ],
+              "markers": [],
+              "relativeWeight": 1,
+              "trends": [
+                {
+                  "axis": "Prod",
+                  "baselines": [],
+                  "breakLine": true,
+                  "columns": [
+                    {
+                      "color": "",
+                      "key": "high",
+                      "styles": {
+                        "highlighted": {
+                          "fill": {
+                            "color": "",
+                            "opacity": null
+                          },
+                          "stroke": {
+                            "color": "",
+                            "dashArray": null,
+                            "opacity": null,
+                            "width": null
+                          }
+                        },
+                        "muted": {
+                          "fill": {
+                            "color": "",
+                            "opacity": null
+                          },
+                          "stroke": {
+                            "color": "",
+                            "dashArray": null,
+                            "opacity": null,
+                            "width": null
+                          }
+                        },
+                        "normal": {
+                          "fill": {
+                            "color": "",
+                            "opacity": null
+                          },
+                          "stroke": {
+                            "color": "",
+                            "dashArray": null,
+                            "opacity": null,
+                            "width": null
+                          }
+                        },
+                        "selected": {
+                          "fill": {
+                            "color": "",
+                            "opacity": null
+                          },
+                          "stroke": {
+                            "color": "",
+                            "dashArray": null,
+                            "opacity": null,
+                            "width": null
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "color": "",
+                      "key": "low",
+                      "styles": {
+                        "highlighted": {
+                          "fill": {
+                            "color": "",
+                            "opacity": null
+                          },
+                          "stroke": {
+                            "color": "",
+                            "dashArray": null,
+                            "opacity": null,
+                            "width": null
+                          }
+                        },
+                        "muted": {
+                          "fill": {
+                            "color": "",
+                            "opacity": null
+                          },
+                          "stroke": {
+                            "color": "",
+                            "dashArray": null,
+                            "opacity": null,
+                            "width": null
+                          }
+                        },
+                        "normal": {
+                          "fill": {
+                            "color": "",
+                            "opacity": null
+                          },
+                          "stroke": {
+                            "color": "",
+                            "dashArray": null,
+                            "opacity": null,
+                            "width": null
+                          }
+                        },
+                        "selected": {
+                          "fill": {
+                            "color": "",
+                            "opacity": null
+                          },
+                          "stroke": {
+                            "color": "",
+                            "dashArray": null,
+                            "opacity": null,
+                            "width": null
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "interpolation": "curveBasis",
+                  "radius": 2,
+                  "series": "Plant OEE",
+                  "stack": false,
+                  "type": "line",
+                  "visible": false
+                },
+                {
+                  "axis": "Prod",
+                  "baselines": [
+                    {
+                      "axis": "Prod",
+                      "color": "#EEE",
+                      "column": "",
+                      "dashArray": 0,
+                      "function": "max",
+                      "label": {
+                        "font": {
+                          "color": "#80D9FF",
+                          "size": 25
+                        },
+                        "position": "right",
+                        "style": {
+                          "classes": ""
+                        },
+                        "text": "Current"
+                      },
+                      "opacity": 0.9,
+                      "style": {
+                        "classes": ""
+                      },
+                      "visible": true,
+                      "width": 5
+                    }
+                  ],
+                  "breakLine": true,
+                  "columns": [
+                    {
+                      "color": "",
+                      "key": "val",
+                      "styles": {
+                        "highlighted": {
+                          "fill": {
+                            "color": "",
+                            "opacity": null
+                          },
+                          "stroke": {
+                            "color": "",
+                            "dashArray": 0,
+                            "opacity": null,
+                            "width": 7
+                          }
+                        },
+                        "muted": {
+                          "fill": {
+                            "color": "",
+                            "opacity": null
+                          },
+                          "stroke": {
+                            "color": "",
+                            "dashArray": null,
+                            "opacity": null,
+                            "width": null
+                          }
+                        },
+                        "normal": {
+                          "fill": {
+                            "color": "#0074B3",
+                            "opacity": 1
+                          },
+                          "stroke": {
+                            "color": "",
+                            "dashArray": 0,
+                            "opacity": 1,
+                            "width": 5
+                          }
+                        },
+                        "selected": {
+                          "fill": {
+                            "color": "",
+                            "opacity": null
+                          },
+                          "stroke": {
+                            "color": "",
+                            "dashArray": null,
+                            "opacity": null,
+                            "width": null
+                          }
+                        }
+                      }
+                    }
+                  ],
+                  "interpolation": "curveLinear",
+                  "radius": 2,
+                  "series": "Plant OEE",
+                  "stack": false,
+                  "type": "line",
+                  "visible": true
+                }
+              ]
+            }
+          ],
+          "series": [
+            {
+              "name": "Plant OEE"
+            }
+          ],
+          "style": {
+            "width": "auto"
+          },
+          "timeAxis": {
+            "style": {
+              "fontSize": "1.5rem"
+            },
+            "tick": {
+              "label": {
+                "font": {
+                  "size": 15
+                }
+              }
+            },
+            "tickCount": 8
+          },
+          "timeRange": {
+            "dateFormat": "M/D",
+            "timeFormat": "h:mm a",
+            "visible": false
+          },
+          "title": {
+            "font": {
+              "size": 50
+            },
+            "height": 10,
+            "style": {
+              "fontWeight": "bold"
+            },
+            "text": "Shift Production"
+          },
+          "xTrace": {
+            "line": {
+              "color": "#EAAA00"
+            }
+          }
+        },
+        "type": "ia.chart.timeseries"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "alignContent": "flex-start",
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

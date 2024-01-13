@@ -1,0 +1,194 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 65,
+      "width": 1344
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "page": "/"
+                      },
+                      "scope": "C",
+                      "type": "nav"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "Image"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "props": {
+                  "altText": " Logo",
+                  "fit": {
+                    "mode": "contain"
+                  },
+                  "source": "/system/images/logo-light.png",
+                  "style": {
+                    "cursor": "pointer",
+                    "marginLeft": 5,
+                    "marginRight": 15,
+                    "paddingBottom": 5,
+                    "paddingTop": 5
+                  }
+                },
+                "type": "ia.display.image"
+              }
+            ],
+            "meta": {
+              "name": "Col1"
+            },
+            "position": {
+              "basis": "230px"
+            },
+            "props": {
+              "direction": "column"
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "HorizontalMenu"
+                },
+                "position": {
+                  "basis": "600px"
+                },
+                "props": {
+                  "itemStyle": {
+                    "backgroundColor": "#444444"
+                  },
+                  "items": [
+                    {
+                      "enabled": true,
+                      "icon": {
+                        "path": "material/settings"
+                      },
+                      "items": [],
+                      "label": "Configuration",
+                      "style": {
+                        "classes": ""
+                      },
+                      "target": "/"
+                    },
+                    {
+                      "enabled": true,
+                      "icon": {
+                        "color": "",
+                        "path": "material/healing"
+                      },
+                      "items": [],
+                      "label": "Health",
+                      "style": {
+                        "classes": ""
+                      },
+                      "target": "/health"
+                    },
+                    {
+                      "enabled": true,
+                      "icon": {
+                        "path": "material/article"
+                      },
+                      "items": [],
+                      "label": "All Logs",
+                      "style": {
+                        "classes": ""
+                      },
+                      "target": "/logs"
+                    }
+                  ],
+                  "style": {
+                    "backgroundColor": "#444444",
+                    "borderStyle": "none"
+                  }
+                },
+                "type": "ia.navigation.horizontalmenu"
+              }
+            ],
+            "meta": {
+              "name": "Col2"
+            },
+            "position": {
+              "basis": "230px",
+              "grow": 1
+            },
+            "props": {
+              "direction": "column"
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "EmbeddedView"
+                },
+                "position": {
+                  "basis": "320px"
+                },
+                "props": {
+                  "path": "Components/Icons/DarkMode"
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "Col3"
+            },
+            "position": {
+              "basis": "230px"
+            },
+            "props": {
+              "direction": "column"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Row1"
+        },
+        "position": {
+          "basis": "64px",
+          "grow": 1
+        },
+        "props": {
+          "style": {
+            "background": "",
+            "backgroundColor": "#444444",
+            "borderBottom": "solid 1px",
+            "textTransform": "uppercase"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "basis": "64px",
+      "grow": 0
+    },
+    "props": {
+      "style": {
+        "borderStyle": "solid",
+        "borderWidth": "1px"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

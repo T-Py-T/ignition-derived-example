@@ -1,0 +1,258 @@
+{
+  "custom": {
+    "Percent": 22.53839285714286,
+    "Target": 112000,
+    "Value": "25,243"
+  },
+  "params": {
+    "EqPath": "",
+    "State": "fail",
+    "Type": "GoodParts",
+    "UoM": "pcs"
+  },
+  "propConfig": {
+    "custom.Percent": {
+      "binding": {
+        "config": {
+          "path": "view.custom.Value"
+        },
+        "transforms": [
+          {
+            "expression": "{value} / {view.custom.Target} * 100",
+            "type": "expression"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.Target": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}",
+            "2": "{view.params.Type}"
+          },
+          "tagPath": "{1}/calculatedValues/shift{2}Target"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.Value": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}",
+            "2": "{view.params.Type}"
+          },
+          "tagPath": "{1}/calculatedValues/shift{2}"
+        },
+        "transforms": [
+          {
+            "formatType": "numeric",
+            "formatValue": "number",
+            "type": "format"
+          }
+        ],
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.State": {
+      "binding": {
+        "config": {
+          "path": "view.custom.Percent"
+        },
+        "transforms": [
+          {
+            "code": "\tmetricType \u003d self.params.Type\n\t\n\tif metricType !\u003d \"ScrapPartsPercent\":\n\t\treturn gpa.frontEnd.localUI.getRateStatus(value)\n\telse:\n\t\treturn gpa.frontEnd.localUI.getComponentStatus(value)",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "paramDirection": "output",
+      "persistent": true
+    },
+    "params.Type": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.UoM": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 172,
+      "width": 318
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.Value"
+                  },
+                  "transforms": [
+                    {
+                      "expression": "{value}",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "OverheadScreens/Values"
+              },
+              "textStyle": {
+                "fontSize": "3rem",
+                "textAlign": "center"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "UoM"
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.UoM"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "OverheadScreens/Values"
+              },
+              "textStyle": {
+                "fontSize": "1.5rem",
+                "textAlign": "center"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "ValueRow"
+        },
+        "position": {
+          "basis": "104px"
+        },
+        "props": {
+          "justify": "center",
+          "style": {
+            "classes": "Cards/Common/CardTitleBorder"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Target"
+            },
+            "position": {
+              "basis": "105px"
+            },
+            "props": {
+              "style": {
+                "classes": "OverheadScreens/Text"
+              },
+              "text": "Target:",
+              "textStyle": {
+                "textAlign": "center"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Label_0"
+            },
+            "position": {
+              "basis": "166px"
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.Target"
+                  },
+                  "transforms": [
+                    {
+                      "formatType": "numeric",
+                      "formatValue": "number",
+                      "type": "format"
+                    },
+                    {
+                      "expression": "{value} + \" \" + {view.params.UoM}",
+                      "type": "expression"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "OverheadScreens/Values",
+                "overflow": "hidden"
+              },
+              "textStyle": {
+                "fontSize": "2em"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "TargetRow"
+        },
+        "position": {
+          "basis": "39.5%"
+        },
+        "props": {
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

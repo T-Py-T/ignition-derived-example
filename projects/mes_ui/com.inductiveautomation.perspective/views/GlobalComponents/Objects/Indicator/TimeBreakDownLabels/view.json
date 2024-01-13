@@ -1,0 +1,446 @@
+{
+  "custom": {
+    "Changeover": null,
+    "Downtime": null,
+    "Production": null
+  },
+  "params": {
+    "EqPath": "",
+    "Indicator": {
+      "BarHeight": 0.5,
+      "First": {
+        "style": {
+          "backgroundColor": "--callToAction"
+        },
+        "value": 3,
+        "visible": true
+      },
+      "Second": {
+        "style": {
+          "backgroundColor": "--warning"
+        },
+        "value": 2,
+        "visible": 10
+      },
+      "Third": {
+        "style": {
+          "backgroundColor": "--warningSecondary"
+        },
+        "value": 1.7,
+        "visible": true
+      }
+    },
+    "Label1": {
+      "Name": "Production"
+    },
+    "Label2": {
+      "Name": "Downtime"
+    },
+    "Label3": {
+      "Name": "Changeover"
+    }
+  },
+  "propConfig": {
+    "custom.Changeover": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/calculatedValues/shiftTimeChangeover"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.Downtime": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/calculatedValues/shiftTimeDowntime"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.Production": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/calculatedValues/shiftTimeProduction"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Indicator": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Label1": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Label2": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Label3": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 113,
+      "width": 655
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Time"
+        },
+        "position": {
+          "basis": "320px"
+        },
+        "propConfig": {
+          "props.params": {
+            "binding": {
+              "config": {
+                "path": "view.params.Indicator"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "path": "GlobalComponents/Objects/Indicator/TimeBreakDown"
+        },
+        "type": "ia.display.view"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Legend"
+                },
+                "propConfig": {
+                  "props.style.backgroundColor": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.Indicator.First.style.backgroundColor"
+                      },
+                      "type": "property"
+                    }
+                  },
+                  "props.style.color": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.Indicator.First.style.backgroundColor"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "marginBottom": 10,
+                    "marginLeft": 5,
+                    "marginRight": 5,
+                    "marginTop": 10
+                  },
+                  "text": "XXX"
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "Production"
+                },
+                "position": {
+                  "basis": "21px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.Production"
+                      },
+                      "transforms": [
+                        {
+                          "expression": "toStr(round({value}/3600.0, 2)) + \u0027h\u0027 ",
+                          "type": "expression"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "textStyle": {
+                    "fontWeight": "bold"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "Title"
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.Label1.Name"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "textStyle": {
+                    "textAlign": "right"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "Label1"
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label"
+                },
+                "propConfig": {
+                  "props.style.backgroundColor": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.Indicator.Second.style.backgroundColor"
+                      },
+                      "type": "property"
+                    }
+                  },
+                  "props.style.color": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.Indicator.Second.style.backgroundColor"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "marginBottom": 10,
+                    "marginLeft": 5,
+                    "marginRight": 5,
+                    "marginTop": 10
+                  },
+                  "text": "XXX"
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "Label_0"
+                },
+                "position": {
+                  "basis": "23px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.Downtime"
+                      },
+                      "transforms": [
+                        {
+                          "expression": "toStr(round({value}/3600.0, 2)) + \u0027h\u0027 ",
+                          "type": "expression"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "textStyle": {
+                    "fontWeight": "bold"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "Label_1"
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.Label2.Name"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "textStyle": {
+                    "textAlign": "right"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "Label2"
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label"
+                },
+                "propConfig": {
+                  "props.style.backgroundColor": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.Indicator.Third.style.backgroundColor"
+                      },
+                      "type": "property"
+                    }
+                  },
+                  "props.style.color": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.Indicator.Third.style.backgroundColor"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "marginBottom": 10,
+                    "marginLeft": 5,
+                    "marginRight": 5,
+                    "marginTop": 10
+                  },
+                  "text": "XXX"
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "Label_0"
+                },
+                "position": {
+                  "basis": "23px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.Changeover"
+                      },
+                      "transforms": [
+                        {
+                          "expression": "toStr(round({value}/3600.0, 2)) + \u0027h\u0027 ",
+                          "type": "expression"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "textStyle": {
+                    "fontWeight": "bold"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "Label_1"
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.params.Label3.Name"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "textStyle": {
+                    "textAlign": "right"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "Label3"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Values"
+        },
+        "position": {
+          "basis": "200px",
+          "grow": 1
+        },
+        "props": {
+          "alignContent": "flex-end",
+          "alignItems": "flex-start",
+          "justify": "space-evenly",
+          "style": {
+            "key": "value"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "justify": "center"
+    },
+    "type": "ia.container.flex"
+  }
+}

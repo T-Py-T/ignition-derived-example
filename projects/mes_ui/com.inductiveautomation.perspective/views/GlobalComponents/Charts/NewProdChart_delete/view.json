@@ -1,0 +1,1128 @@
+{
+  "custom": {
+    "Dataset": null,
+    "DatasetMax": null,
+    "DatasetMin": null,
+    "EndTime": {
+      "$": [
+        "ts",
+        192,
+        1696446432531
+      ],
+      "$ts": 1696446432531
+    },
+    "Output": 26219,
+    "SparklineData": {
+      "$": [
+        "ds",
+        192,
+        1696446433524
+      ],
+      "$columns": [
+        {
+          "data": [
+            1696413600000,
+            1696413928326,
+            1696414256652,
+            1696414584978,
+            1696414913304,
+            1696415241630,
+            1696415569956,
+            1696415898282,
+            1696416226608,
+            1696416554934,
+            1696416883260,
+            1696417211586,
+            1696417539912,
+            1696417868238,
+            1696418196564,
+            1696418524890,
+            1696418853216,
+            1696419181542,
+            1696419509868,
+            1696419838194,
+            1696420166520,
+            1696420494846,
+            1696420823172,
+            1696421151498,
+            1696421479824,
+            1696421808150,
+            1696422136476,
+            1696422464802,
+            1696422793128,
+            1696423121454,
+            1696423449780,
+            1696423778106,
+            1696424106432,
+            1696424434758,
+            1696424763084,
+            1696425091410,
+            1696425419736,
+            1696425748062,
+            1696426076388,
+            1696426404714,
+            1696426733040,
+            1696427061366,
+            1696427389692,
+            1696427718018,
+            1696428046344,
+            1696428374670,
+            1696428702996,
+            1696429031322,
+            1696429359648,
+            1696429687974,
+            1696430016300,
+            1696430344626,
+            1696430672952,
+            1696431001278,
+            1696431329604,
+            1696431657930,
+            1696431986256,
+            1696432314582,
+            1696432642908,
+            1696432971234,
+            1696433299560,
+            1696433627886,
+            1696433956212,
+            1696434284538,
+            1696434612864,
+            1696434941190,
+            1696435269516,
+            1696435597842,
+            1696435926168,
+            1696436254494,
+            1696436582820,
+            1696436911146,
+            1696437239472,
+            1696437567798,
+            1696437896124,
+            1696438224450,
+            1696438552776,
+            1696438881102,
+            1696439209428,
+            1696439537754,
+            1696439866080,
+            1696440194406,
+            1696440522732,
+            1696440851058,
+            1696441179384,
+            1696441507710,
+            1696441836036,
+            1696442164362,
+            1696442492688,
+            1696442821014,
+            1696443149340,
+            1696443477666,
+            1696443805992,
+            1696444134318,
+            1696444462644,
+            1696444790970,
+            1696445119296,
+            1696445447622,
+            1696445775948,
+            1696446104274
+          ],
+          "name": "t_stamp",
+          "type": "Date"
+        },
+        {
+          "data": [
+            30992,
+            30992,
+            30992,
+            30992,
+            30992,
+            30992,
+            30992,
+            30992,
+            30992,
+            30992,
+            30992,
+            30992,
+            30992,
+            30992,
+            30992,
+            30992,
+            30992,
+            30992,
+            30992,
+            30992,
+            30992,
+            30992,
+            30992,
+            30992,
+            30992,
+            30992,
+            30992,
+            30992,
+            30992,
+            30992,
+            30992,
+            30992,
+            16597,
+            17062,
+            17619,
+            18084,
+            18639,
+            19104,
+            19567,
+            20125,
+            20589,
+            21147,
+            21611,
+            22169,
+            22631,
+            23189,
+            23653,
+            24210,
+            24674,
+            25231,
+            25696,
+            26253,
+            26718,
+            27273,
+            27738,
+            28202,
+            28759,
+            29223,
+            29781,
+            30246,
+            30803,
+            31267,
+            31825,
+            32288,
+            32845,
+            33308,
+            33865,
+            34330,
+            34887,
+            35352,
+            35909,
+            36373,
+            36930,
+            37395,
+            37858,
+            38415,
+            38508,
+            38508,
+            39901,
+            40459,
+            40922,
+            41480,
+            41942,
+            42500,
+            42964,
+            43521,
+            43986,
+            1,
+            447,
+            1004,
+            1469,
+            1933,
+            2490,
+            2955,
+            3512,
+            3975,
+            4532,
+            4997,
+            5555,
+            6019
+          ],
+          "name": "shiftgoodparts",
+          "type": "Long"
+        }
+      ]
+    },
+    "StartTime": "2023-10-04 06:00:00",
+    "TargetPerMinute": 200,
+    "TargetRatePerHour": 5400
+  },
+  "params": {
+    "EqPath": "GPA/Wilmington/Baking/Oven1"
+  },
+  "propConfig": {
+    "custom.Dataset": {
+      "binding": {
+        "config": {
+          "parameters": {
+            "endDate": "{view.custom.EndTime}",
+            "startDate": "{view.custom.StartTime}"
+          },
+          "polling": {
+            "enabled": true,
+            "rate": "3600"
+          },
+          "queryPath": "app/Operations/LabSim/getProductionDS"
+        },
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "custom.DatasetMax": {
+      "binding": {
+        "config": {
+          "expression": "if(max({view.custom.Dataset}, \"Cumulative\") \u003e max({view.custom.SparklineData}, \"shiftgoodparts\"), \r\n\t max({view.custom.Dataset}, \"Cumulative\"), \r\n\t max({view.custom.SparklineData}, \"shiftgoodparts\") \r\n) + 5"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.DatasetMin": {
+      "binding": {
+        "config": {
+          "expression": "if(min({view.custom.Dataset}, \"Cumulative\") \u003e min({view.custom.SparklineData}, \"shiftgoodparts\"), \r\n\t min({view.custom.SparklineData}, \"shiftgoodparts\"), \r\n\t min({view.custom.Dataset}, \"Cumulative\")\r\n\t \r\n) - 5"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.EndTime": {
+      "binding": {
+        "config": {
+          "expression": "now(0)"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.Output": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/jobs/currentJob/productionCounts/output"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.SparklineData": {
+      "binding": {
+        "config": {
+          "aggregate": "LastValue",
+          "avoidScanClassValidation": true,
+          "dateRange": {
+            "endDate": "now(0)",
+            "startDate": "{view.custom.StartTime}"
+          },
+          "enableValueCache": true,
+          "ignoreBadQuality": false,
+          "preventInterpolation": false,
+          "returnFormat": "Wide",
+          "returnSize": {
+            "numRows": "100",
+            "type": "FIXED"
+          },
+          "tags": [
+            {
+              "aggregate": "LastValue",
+              "path": "[IgnitionHistorian/dev-script-gateway:default]gpa/wilmington/baking/oven1/calculatedvalues/shiftgoodparts"
+            }
+          ],
+          "valueFormat": "DATASET"
+        },
+        "type": "tag-history"
+      },
+      "persistent": true
+    },
+    "custom.StartTime": {
+      "binding": {
+        "config": {
+          "expression": "now(0)"
+        },
+        "transforms": [
+          {
+            "code": "\timport time\n\timport datetime\n\t\n\t\n\t# get current time\n\tcurrent_time \u003d time.time()\n\t\n\t# get current date as tuple (year, month, day, hour, minute, second, weekday, Julian day, daylight saving time)\n\tcurrent_date \u003d time.localtime(current_time)\n\t\n\t# set time to 6 am\n\ttarget_time \u003d time.struct_time((current_date.tm_year, current_date.tm_mon, current_date.tm_mday, 6, 0, 0, current_date.tm_wday, current_date.tm_yday, current_date.tm_isdst))\n\t\n\t# get timestamp of target time\n\ttarget_timestamp \u003d time.mktime(target_time)\n\t\n\tseconds \u003d target_timestamp\n\t\n\t# convert seconds to datetime object\n\tdatetime_obj \u003d datetime.datetime.fromtimestamp(seconds)\n\t\n\t# convert datetime object to string\n\tdatetime_string \u003d datetime_obj.strftime(\"%Y-%m-%d %H:%M:%S\")\n\t\n\treturn datetime_string",
+            "type": "script"
+          }
+        ],
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.TargetPerMinute": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/jobs/currentJob/standardRate"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.TargetRatePerHour": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/config/targetRate"
+        },
+        "transforms": [
+          {
+            "expression": "round({value} * 60) ",
+            "type": "expression"
+          }
+        ],
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 282,
+      "width": 505
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "contextMenu": {
+            "enabled": true
+          },
+          "name": "ParetoChart"
+        },
+        "position": {
+          "height": 0.9823,
+          "width": 1,
+          "x": 0.0013,
+          "y": 0.0031
+        },
+        "propConfig": {
+          "props.dataSources.example": {
+            "binding": {
+              "config": {
+                "path": "view.custom.Dataset"
+              },
+              "type": "property"
+            }
+          },
+          "props.yAxes[0].value.range.max": {
+            "binding": {
+              "config": {
+                "expression": "{view.custom.DatasetMax}"
+              },
+              "type": "expr"
+            }
+          },
+          "props.yAxes[0].value.range.min": {
+            "binding": {
+              "config": {
+                "path": "view.custom.DatasetMin"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "background": {
+            "gradient": {
+              "colors": [
+                "#dadada",
+                "#F6F5F4"
+              ],
+              "rotation": 90
+            },
+            "opacity": 0,
+            "render": "color"
+          },
+          "dataSources": {},
+          "enableTransitions": true,
+          "legend": {
+            "enabled": false,
+            "labels": {
+              "font": {
+                "size": 12,
+                "weight": 200
+              }
+            },
+            "position": "top"
+          },
+          "series": [
+            {
+              "candlestick": {
+                "appearance": {
+                  "deriveFieldsFromData": {
+                    "fill": {
+                      "color": "",
+                      "opacity": ""
+                    },
+                    "stroke": {
+                      "color": "",
+                      "opacity": "",
+                      "width": ""
+                    }
+                  },
+                  "fill": {
+                    "color": "",
+                    "opacity": 1
+                  },
+                  "heatRules": {
+                    "dataField": "",
+                    "enabled": false,
+                    "max": "",
+                    "min": ""
+                  },
+                  "stacked": false,
+                  "stroke": {
+                    "color": "",
+                    "opacity": 1,
+                    "width": 1
+                  }
+                },
+                "high": {
+                  "x": "",
+                  "y": ""
+                },
+                "low": {
+                  "x": "",
+                  "y": ""
+                },
+                "open": {
+                  "x": "",
+                  "y": ""
+                }
+              },
+              "column": {
+                "appearance": {
+                  "deriveFieldsFromData": {
+                    "fill": {
+                      "color": "",
+                      "opacity": ""
+                    },
+                    "stroke": {
+                      "color": "",
+                      "opacity": "",
+                      "width": ""
+                    }
+                  },
+                  "fill": {
+                    "color": "",
+                    "opacity": 1
+                  },
+                  "heatRules": {
+                    "dataField": "",
+                    "enabled": false,
+                    "max": "",
+                    "min": ""
+                  },
+                  "height": null,
+                  "stacked": false,
+                  "stroke": {
+                    "color": "",
+                    "opacity": 1,
+                    "width": 1
+                  },
+                  "width": 50
+                },
+                "open": {
+                  "x": "",
+                  "y": ""
+                }
+              },
+              "data": {
+                "source": "example",
+                "x": "Label",
+                "y": "Cumulative"
+              },
+              "defaultState": {
+                "visible": true
+              },
+              "hiddenInLegend": true,
+              "label": {
+                "text": "Quantity"
+              },
+              "line": {
+                "appearance": {
+                  "bullets": [
+                    {
+                      "deriveFieldsFromData": {
+                        "fill": {
+                          "color": "",
+                          "opacity": ""
+                        },
+                        "rotation": "",
+                        "stroke": {
+                          "color": "",
+                          "opacity": "",
+                          "width": ""
+                        }
+                      },
+                      "enabled": false,
+                      "fill": {
+                        "color": "",
+                        "opacity": 1
+                      },
+                      "heatRules": {
+                        "dataField": "",
+                        "enabled": false,
+                        "max": 100,
+                        "min": 2
+                      },
+                      "height": 10,
+                      "label": {
+                        "position": {
+                          "dx": 0,
+                          "dy": 0
+                        },
+                        "text": "{value}"
+                      },
+                      "render": "circle",
+                      "rotation": 0,
+                      "stroke": {
+                        "color": "",
+                        "opacity": 1,
+                        "width": 1
+                      },
+                      "tooltip": {
+                        "background": {
+                          "color": "",
+                          "opacity": 1
+                        },
+                        "cornerRadius": 3,
+                        "enabled": true,
+                        "pointerLength": 4,
+                        "text": "{name}: [bold]{valueY}[/]"
+                      },
+                      "width": 10
+                    }
+                  ],
+                  "connect": true,
+                  "fill": {
+                    "color": "",
+                    "opacity": 0
+                  },
+                  "minDistance": 0.5,
+                  "stroke": {
+                    "color": "",
+                    "dashArray": "",
+                    "opacity": 1,
+                    "width": 3
+                  },
+                  "tensionX": 1,
+                  "tensionY": 1
+                },
+                "open": {
+                  "x": "",
+                  "y": ""
+                }
+              },
+              "name": "Quantity",
+              "render": "column",
+              "stepLine": {
+                "appearance": {
+                  "bullets": [
+                    {
+                      "deriveFieldsFromData": {
+                        "fill": {
+                          "color": "",
+                          "opacity": ""
+                        },
+                        "rotation": "",
+                        "stroke": {
+                          "color": "",
+                          "opacity": "",
+                          "width": ""
+                        }
+                      },
+                      "enabled": true,
+                      "fill": {
+                        "color": "",
+                        "opacity": 1
+                      },
+                      "heatRules": {
+                        "dataField": "",
+                        "enabled": false,
+                        "max": 100,
+                        "min": 2
+                      },
+                      "height": 10,
+                      "label": {
+                        "position": {
+                          "dx": 0,
+                          "dy": 0
+                        },
+                        "text": "{value}"
+                      },
+                      "render": "circle",
+                      "rotation": 0,
+                      "stroke": {
+                        "color": "",
+                        "opacity": 1,
+                        "width": 1
+                      },
+                      "tooltip": {
+                        "background": {
+                          "color": "",
+                          "opacity": 1
+                        },
+                        "cornerRadius": 3,
+                        "enabled": true,
+                        "pointerLength": 4,
+                        "text": "{name}: [bold]{valueY}[/]"
+                      },
+                      "width": 10
+                    }
+                  ],
+                  "connect": true,
+                  "fill": {
+                    "color": "",
+                    "opacity": 0
+                  },
+                  "minDistance": 0.5,
+                  "stroke": {
+                    "color": "",
+                    "dashArray": "",
+                    "opacity": 1,
+                    "width": 3
+                  },
+                  "tensionX": 1,
+                  "tensionY": 1
+                },
+                "open": {
+                  "x": "",
+                  "y": ""
+                }
+              },
+              "tooltip": {
+                "background": {
+                  "color": "",
+                  "opacity": 1
+                },
+                "cornerRadius": 3,
+                "enabled": true,
+                "pointerLength": 4,
+                "text": "{name}: [bold]{valueY}[/]"
+              },
+              "visible": true,
+              "xAxis": "Label",
+              "yAxis": "Cumulative",
+              "zIndex": 998
+            }
+          ],
+          "title": {
+            "appearance": {
+              "font": {
+                "weight": 300
+              }
+            }
+          },
+          "xAxes": [
+            {
+              "appearance": {
+                "font": {
+                  "size": "",
+                  "weight": 400
+                },
+                "grid": {
+                  "color": "",
+                  "dashArray": "",
+                  "minDistance": 1,
+                  "opacity": ".6",
+                  "position": 0.5
+                },
+                "inside": false,
+                "labels": {
+                  "color": "",
+                  "horizontalCenter": "left",
+                  "opacity": 1,
+                  "rotation": 20,
+                  "verticalCenter": "top"
+                },
+                "opposite": false
+              },
+              "category": {
+                "break": {
+                  "enabled": false,
+                  "endCategory": "",
+                  "size": 0.05,
+                  "startCategory": ""
+                }
+              },
+              "date": {
+                "baseInterval": {
+                  "count": 1,
+                  "enabled": false,
+                  "skipEmptyPeriods": true,
+                  "timeUnit": "hour"
+                },
+                "break": {
+                  "enabled": false,
+                  "endDate": "",
+                  "size": 0.05,
+                  "startDate": ""
+                },
+                "format": "HH:mm:ss",
+                "inputFormat": "yyyy-MM-dd kk:mm:ss",
+                "range": {
+                  "max": "",
+                  "min": "",
+                  "useStrict": false
+                }
+              },
+              "inversed": false,
+              "label": {
+                "color": "",
+                "enabled": false,
+                "text": "Label"
+              },
+              "name": "Label",
+              "render": "date",
+              "tooltip": {
+                "background": {
+                  "color": "",
+                  "opacity": 1
+                },
+                "cornerRadius": 3,
+                "enabled": true,
+                "pointerLength": 4,
+                "text": ""
+              },
+              "value": {
+                "break": {
+                  "enabled": false,
+                  "endValue": 100,
+                  "size": 0.05,
+                  "startValue": 0
+                },
+                "format": "",
+                "logarithmic": false,
+                "range": {
+                  "max": "",
+                  "min": "",
+                  "useStrict": false
+                }
+              },
+              "visible": true
+            }
+          ],
+          "yAxes": [
+            {
+              "appearance": {
+                "font": {
+                  "size": "",
+                  "weight": 500
+                },
+                "grid": {
+                  "color": "",
+                  "dashArray": "",
+                  "minDistance": null,
+                  "opacity": ".6",
+                  "position": 0
+                },
+                "inside": false,
+                "labels": {
+                  "color": "",
+                  "horizontalCenter": "middle",
+                  "opacity": 1,
+                  "rotation": 0,
+                  "verticalCenter": "middle"
+                },
+                "opposite": true
+              },
+              "category": {
+                "break": {
+                  "enabled": false,
+                  "endCategory": "",
+                  "size": 0.05,
+                  "startCategory": ""
+                }
+              },
+              "date": {
+                "baseInterval": {
+                  "count": 1,
+                  "enabled": false,
+                  "skipEmptyPeriods": true,
+                  "timeUnit": "hour"
+                },
+                "break": {
+                  "enabled": false,
+                  "endDate": "",
+                  "size": 0.05,
+                  "startDate": ""
+                },
+                "format": "M/d/yyyy",
+                "inputFormat": "M/d/yyyy",
+                "range": {
+                  "max": "",
+                  "min": "",
+                  "useStrict": false
+                }
+              },
+              "inversed": false,
+              "label": {
+                "color": "",
+                "enabled": false,
+                "text": "Hour"
+              },
+              "name": "Cumulative",
+              "render": "value",
+              "tooltip": {
+                "background": {
+                  "color": "",
+                  "opacity": 1
+                },
+                "cornerRadius": 3,
+                "enabled": true,
+                "pointerLength": 4,
+                "text": ""
+              },
+              "value": {
+                "break": {
+                  "enabled": false,
+                  "endValue": 100,
+                  "size": 0.05,
+                  "startValue": 0
+                },
+                "format": "#,###",
+                "logarithmic": false,
+                "range": {
+                  "useStrict": false
+                }
+              },
+              "visible": true
+            }
+          ]
+        },
+        "type": "ia.chart.xy"
+      },
+      {
+        "meta": {
+          "name": "Sparkline"
+        },
+        "position": {
+          "height": 0.6454,
+          "width": 0.7842,
+          "x": 0.0673,
+          "y": 0.0664
+        },
+        "propConfig": {
+          "props.points": {
+            "binding": {
+              "config": {
+                "path": "view.custom.SparklineData"
+              },
+              "type": "property"
+            }
+          },
+          "props.range.high": {
+            "binding": {
+              "config": {
+                "path": "view.custom.DatasetMax"
+              },
+              "type": "property"
+            }
+          },
+          "props.range.low": {
+            "binding": {
+              "config": {
+                "path": "view.custom.DatasetMin"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "color": "#fc07fc",
+          "range": {},
+          "width": 3
+        },
+        "type": "ia.display.sparkline"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "aColor"
+            },
+            "position": {
+              "basis": "20px",
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "#6ab7db",
+                "marginLeft": "0.5rem",
+                "marginRight": "0.1rem"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Quantity"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "marginLeft": "0.1rem",
+                "marginRight": "0.5rem"
+              },
+              "text": "Quantity"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "sColor"
+            },
+            "position": {
+              "basis": "20px",
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "magenta",
+                "marginLeft": "0.5rem",
+                "marginRight": "0.1rem"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "ShiftGoodParts"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "marginLeft": "0.1rem",
+                "marginRight": "0.5rem"
+              },
+              "text": "Good Parts"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "qColor"
+            },
+            "position": {
+              "basis": "20px",
+              "display": false,
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "backgroundColor": "teal",
+                "marginLeft": "0.5rem",
+                "marginRight": "0.1rem"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "quality"
+            },
+            "position": {
+              "display": false,
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "marginLeft": "0.1rem",
+                "marginRight": "0.5rem"
+              },
+              "text": "Quality"
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "legend"
+        },
+        "position": {
+          "height": 0.0393,
+          "width": 0.5519,
+          "x": 0.0088,
+          "y": 0.0207
+        },
+        "props": {
+          "justify": "flex-end",
+          "style": {
+            "overflow": "visible"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "StateTimeLine"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "props.params.EqPath": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.EqPath"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "LineID": ""
+              },
+              "path": "GlobalComponents/Objects/Indicator/StateTimeline"
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "FlexContainer"
+        },
+        "position": {
+          "height": 0.1925,
+          "width": 0.9692,
+          "x": 0.0083,
+          "y": 0.8367
+        },
+        "props": {
+          "style": {
+            "overflow": "hidden"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "position": {
+      "x": 0.0042,
+      "y": -0.0193
+    },
+    "props": {
+      "mode": "percent",
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

@@ -1,0 +1,651 @@
+{
+  "custom": {},
+  "params": {
+    "Analog": {
+      "Visible": true,
+      "baseFrame": {
+        "isVisible": false,
+        "style": {
+          "classes": "Color/Frame/Surface1"
+        }
+      },
+      "desired": {
+        "isVisible": false,
+        "rangeHi": 500,
+        "rangeLo": 0,
+        "style": {
+          "classes": "Color/Frame/Surface3"
+        }
+      },
+      "label": {
+        "formatPattern": "##00.0",
+        "isBottom": true,
+        "isVisible": false,
+        "style": {
+          "classes": "Color/Type/LowEmphasis \nType/Body2",
+          "textAlign": "center"
+        }
+      },
+      "maxValue": 1000,
+      "minValue": 0
+    },
+    "Icon": {
+      "Visible": false,
+      "controls": {
+        "circle": {
+          "Visible": true
+        },
+        "color": "#2f676f",
+        "icon": {
+          "IconPath": "material/play_arrow",
+          "Visible": false
+        },
+        "square": {
+          "Visible": false
+        }
+      }
+    },
+    "Label": {
+      "Title": " Value overhall",
+      "Visible": true
+    },
+    "avg": {
+      "value": 20
+    },
+    "max": {
+      "value": "0h 0m"
+    },
+    "min": {
+      "value": 0
+    },
+    "value": {
+      "units": "mins Total",
+      "unitsVisible": false,
+      "value": 75,
+      "valueVisible": true
+    }
+  },
+  "propConfig": {
+    "params.Analog": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Analog.Visible": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Icon": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Icon.Visible": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Icon.controls": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Label": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.avg": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.avg.value": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.max": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.max.value": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.min": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.min.value": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.value": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.value.units": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.value.unitsVisible": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.value.value": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.value.valueVisible": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 40,
+      "width": 330
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "EmbeddedView"
+        },
+        "position": {
+          "basis": "5%",
+          "shrink": 0
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "path": "view.params.Icon.Visible"
+              },
+              "type": "property"
+            }
+          },
+          "props.params": {
+            "binding": {
+              "config": {
+                "path": "view.params.Icon"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.Circle.Visable": {
+            "binding": {
+              "config": {
+                "path": "view.params.Icon.controls.circle.Visible"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.Color": {
+            "binding": {
+              "config": {
+                "path": "view.params.Icon.controls.color"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.Icon.IconPath": {
+            "binding": {
+              "config": {
+                "path": "view.params.Icon.controls.icon.IconPath"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.Icon.Visable": {
+            "binding": {
+              "config": {
+                "path": "view.params.Icon.controls.icon.Visible"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "path": "components/icons/icon"
+        },
+        "type": "ia.display.view"
+      },
+      {
+        "meta": {
+          "name": "Label"
+        },
+        "position": {
+          "basis": "12ch",
+          "grow": 1,
+          "shrink": 0
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "path": "view.params.Label.Visible"
+              },
+              "type": "property"
+            }
+          },
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.Label.Title"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "Text/LabelTextSmall Text/textColorGray",
+            "fontSize": 20,
+            "marginRight": "1ch",
+            "overflowWrap": "normal",
+            "textAlign": "left"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "EmbeddedView_0"
+        },
+        "position": {
+          "basis": "8ch",
+          "grow": 1,
+          "shrink": 2
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "path": "view.params.Analog.Visible"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.maxValue": {
+            "binding": {
+              "config": {
+                "path": "view.params.Analog.maxValue"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.minValue": {
+            "binding": {
+              "config": {
+                "path": "view.params.Analog.minValue"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.units": {
+            "binding": {
+              "config": {
+                "path": "view.params.value.units"
+              },
+              "overlayOptOut": true,
+              "type": "property"
+            }
+          },
+          "props.params.value": {
+            "binding": {
+              "config": {
+                "path": "view.params.value.value"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "params": {
+            "baseFrame": {
+              "isVisible": false,
+              "style": {
+                "classes": "Color/Frame/Surface1"
+              }
+            },
+            "desired": {
+              "isVisble": false,
+              "rangeHi": 500,
+              "rangeLo": 0,
+              "style": {
+                "classes": "Color/Frame/Surface3"
+              }
+            },
+            "label": {
+              "formatPattern": "##00.0",
+              "isBottom": true,
+              "isVisible": false,
+              "style": {
+                "classes": "Color/Type/LowEmphasis \nType/Body2",
+                "textAlign": "center"
+              }
+            }
+          },
+          "path": "components/bars/progressIndicator"
+        },
+        "type": "ia.display.view"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "value"
+                    },
+                    "position": {
+                      "grow": 1
+                    },
+                    "propConfig": {
+                      "props.text": {
+                        "binding": {
+                          "config": {
+                            "path": "view.params.max.value"
+                          },
+                          "type": "property"
+                        }
+                      }
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "Text/LabelTextSmall Text/textColorGray",
+                        "fontSize": 20,
+                        "textAlign": "right",
+                        "textIndent": "0.5ch"
+                      }
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "meta": {
+                      "name": "untis"
+                    },
+                    "position": {
+                      "shrink": 0
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "Text/LabelTextSmall Text/textColorGray",
+                        "fontSize": 20,
+                        "textAlign": "right",
+                        "textIndent": "0.5ch"
+                      },
+                      "text": "max"
+                    },
+                    "type": "ia.display.label"
+                  }
+                ],
+                "meta": {
+                  "name": "max"
+                },
+                "position": {
+                  "basis": "15px"
+                },
+                "props": {
+                  "justify": "flex-end",
+                  "style": {
+                    "overflow": "hidden"
+                  }
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "value"
+                    },
+                    "position": {
+                      "grow": 1
+                    },
+                    "propConfig": {
+                      "props.text": {
+                        "binding": {
+                          "config": {
+                            "path": "view.params.min.value"
+                          },
+                          "type": "property"
+                        }
+                      }
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "Text/LabelTextSmall Text/textColorGray",
+                        "fontSize": 20,
+                        "textAlign": "right",
+                        "textIndent": "0.5ch"
+                      }
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "meta": {
+                      "name": "untis"
+                    },
+                    "position": {
+                      "shrink": 0
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "Text/LabelTextSmall Text/textColorGray",
+                        "fontSize": 20,
+                        "textAlign": "right",
+                        "textIndent": "0.5ch"
+                      },
+                      "text": "min"
+                    },
+                    "type": "ia.display.label"
+                  }
+                ],
+                "meta": {
+                  "name": "min",
+                  "visible": false
+                },
+                "position": {
+                  "basis": "15px"
+                },
+                "props": {
+                  "justify": "flex-end",
+                  "style": {
+                    "overflow": "hidden"
+                  }
+                },
+                "type": "ia.container.flex"
+              }
+            ],
+            "meta": {
+              "name": "FlexContainer"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "props": {
+              "alignItems": "flex-end",
+              "direction": "column",
+              "justify": "center",
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "meta": {
+              "name": "separator_0"
+            },
+            "position": {
+              "basis": "1px",
+              "grow": 1,
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "classes": "Text/LabelTextSmall Text/textColorGray",
+                "fontSize": 25
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "untis_0"
+            },
+            "position": {
+              "grow": 1,
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "classes": "Text/LabelTextSmall Text/textColorGray",
+                "fontSize": 20
+              },
+              "text": "avg"
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "value_0"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.avg.value"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Text/LabelTextSmall Text/textColorGray",
+                "fontSize": 20
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "separator"
+            },
+            "position": {
+              "basis": "1px",
+              "grow": 1,
+              "shrink": 0
+            },
+            "props": {
+              "style": {
+                "classes": "Text/LabelTextSmall Text/textColorGray",
+                "fontSize": 25
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "untis"
+            },
+            "position": {
+              "grow": 1,
+              "shrink": 0
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.value.unitsVisible"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.value.units"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Text/LabelTextSmall Text/textColorGray",
+                "fontSize": 20
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "value"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.value.valueVisible"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.text": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.value.value"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "style": {
+                "classes": "Text/LabelTextSmall Text/textColorGray",
+                "fontSize": 20
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "values"
+        },
+        "position": {
+          "basis": "30ch",
+          "grow": 1,
+          "shrink": 0
+        },
+        "props": {
+          "direction": "row-reverse",
+          "style": {
+            "overflow": "visible"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "style": {
+        "borderBottomColor": "#808080",
+        "borderBottomStyle": "solid",
+        "borderBottomWidth": ".25ch",
+        "overflow": "hidden",
+        "paddingRight": ".5vw",
+        "paddingTop": "0vw"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

@@ -1,0 +1,111 @@
+{
+  "custom": {
+    "target": null,
+    "value": null
+  },
+  "params": {
+    "EqPath": "",
+    "TagProvider": ""
+  },
+  "propConfig": {
+    "custom.target": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/Analysis/Shift/Utilization/UtilizedTarget"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "custom.value": {
+      "binding": {
+        "config": {
+          "fallbackDelay": 2.5,
+          "mode": "indirect",
+          "references": {
+            "1": "{view.params.EqPath}"
+          },
+          "tagPath": "{1}/Analysis/Shift/Utilization/UtilizedPercent"
+        },
+        "type": "tag"
+      },
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.TagProvider": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 226,
+      "width": 75
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "MovingAnalogIndicator"
+        },
+        "position": {
+          "basis": "75px"
+        },
+        "propConfig": {
+          "props.processValue": {
+            "binding": {
+              "config": {
+                "expression": "{view.custom.value}*100"
+              },
+              "type": "expr"
+            }
+          },
+          "props.setpointValue": {
+            "binding": {
+              "config": {
+                "expression": "{view.custom.target}*100"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "desiredHigh": 99,
+          "desiredLow": 1,
+          "highAlarm": 99,
+          "highHighAlarm": null,
+          "highInterlock": null,
+          "inactiveAlarmColor": "#0F0202",
+          "label": {
+            "format": "#,##0%",
+            "style": {
+              "fontSize": "1em",
+              "fontWeight": "bolder"
+            },
+            "visible": true
+          },
+          "level1AlarmColor": "#D26060",
+          "level2AlarmColor": "#EBAA41",
+          "lowAlarm": 1,
+          "lowInterlock": null,
+          "lowLowAlarm": null,
+          "setpointColor": "#FE1D1D"
+        },
+        "type": "ia.display.moving-analog-indicator"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "type": "ia.container.flex"
+  }
+}

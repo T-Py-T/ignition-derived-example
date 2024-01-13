@@ -1,0 +1,521 @@
+{
+  "custom": {
+    "AllAreas": {
+      "$": [
+        "ds",
+        192,
+        1704302230788
+      ],
+      "$columns": [
+        {
+          "data": [],
+          "name": "ID",
+          "type": "Integer"
+        },
+        {
+          "data": [],
+          "name": "Title",
+          "type": "String"
+        },
+        {
+          "data": [],
+          "name": "TagPath",
+          "type": "String"
+        },
+        {
+          "data": [],
+          "name": "IsEnabled",
+          "type": "Boolean"
+        }
+      ]
+    },
+    "AllSites": {
+      "$": [
+        "ds",
+        192,
+        1704301385455
+      ],
+      "$columns": [
+        {
+          "data": [
+            9,
+            1014
+          ],
+          "name": "ID",
+          "type": "Integer"
+        },
+        {
+          "data": [
+            "1NL",
+            "GOOBS QA"
+          ],
+          "name": "Name",
+          "type": "String"
+        },
+        {
+          "data": [
+            "Fiberon/1NL",
+            "Fiberon/GOOBS QA"
+          ],
+          "name": "TagPath",
+          "type": "String"
+        },
+        {
+          "data": [
+            true,
+            true
+          ],
+          "name": "IsEnabled",
+          "type": "Boolean"
+        }
+      ]
+    },
+    "AreaInstances": [],
+    "EnterpriseID": 1,
+    "InstanceVisibility": true,
+    "LoadingVisibility": false,
+    "SelectedSite": "all",
+    "SelectedSitePath": "Fiberon/",
+    "SiteInstances": [
+      {
+        "EqPath": "value",
+        "EqType": "site",
+        "HideTitle": false,
+        "Icon": "",
+        "IconDisplay": true,
+        "IsNavigate": true,
+        "Params": {
+          "EqPath": "Fiberon/1NL",
+          "IsSite": true,
+          "SiteID": 9,
+          "State": "value",
+          "TagPath": "value",
+          "TagProvider": "value"
+        },
+        "Path": "App/OEE/Management/Overviews/Embedded/OEEContentSiteArea",
+        "Provider": "value",
+        "SizeBasis": "value",
+        "TagPath": "value",
+        "Title": "1NL",
+        "Type": "value",
+        "index": "",
+        "instancePosition": {},
+        "instanceStyle": {
+          "classes": ""
+        },
+        "useDefaultHeight": false,
+        "useDefaultWidth": false
+      },
+      {
+        "EqPath": "value",
+        "EqType": "site",
+        "HideTitle": false,
+        "Icon": "",
+        "IconDisplay": true,
+        "IsNavigate": true,
+        "Params": {
+          "EqPath": "Fiberon/GOOBS QA",
+          "IsSite": true,
+          "SiteID": 1014,
+          "State": "value",
+          "TagPath": "value",
+          "TagProvider": "value"
+        },
+        "Path": "App/OEE/Management/Overviews/Embedded/OEEContentSiteArea",
+        "Provider": "value",
+        "SizeBasis": "value",
+        "TagPath": "value",
+        "Title": "GOOBS QA",
+        "Type": "value",
+        "index": "",
+        "instancePosition": {},
+        "instanceStyle": {
+          "classes": ""
+        },
+        "useDefaultHeight": false,
+        "useDefaultWidth": false
+      }
+    ]
+  },
+  "events": {
+    "system": {
+      "onStartup": {
+        "config": {
+          "script": "\ttry:\n\t\tself.getChild(\"root\").getChild(\"Cards\").position.display \u003d False\n\t\tself.getChild(\"root\").getChild(\"loading\").position.display \u003d True\n\t\tscreenDimensions \u003d self.page.props.dimensions.screen\n\t\tscreenWidth \u003d int(screenDimensions[\u0027width\u0027])\n\t\t\n\t\tconfig \u003d { \u0027display\u0027: \u0027onDemand\u0027, \u0027content\u0027: \u0027cover\u0027 }\n\t\t\n\t\tif screenWidth \u003c 700:\n#\t\t\tsystem.perspective.alterDock(\u0027sideBar\u0027, config)\n\t\t\tsystem.perspective.closeDock(\u0027sideBar\u0027)\n\texcept Exception as e:\n\t\traise str(e)"
+        },
+        "scope": "G",
+        "type": "script"
+      }
+    }
+  },
+  "params": {
+    "IsNavigate": false,
+    "SelectedSiteID": "value",
+    "Selection": 1
+  },
+  "propConfig": {
+    "custom.AllAreas": {
+      "binding": {
+        "config": {
+          "parameters": {
+            "siteID": "try(\r \tif(\r \t\t{view.custom.SelectedSite} \u003d \u0027all\u0027,\r \t\t\u0027\u0027,\r \t\t{view.custom.SelectedSite}),\r \t-1\r )"
+          },
+          "queryPath": "app/Config/getAreas"
+        },
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "custom.AllSites": {
+      "binding": {
+        "config": {
+          "parameters": {
+            "enterpriseID": "{view.custom.EnterpriseID}"
+          },
+          "queryPath": "app/Equipment_Config/getAllSites"
+        },
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "custom.AreaInstances": {
+      "binding": {
+        "config": {
+          "path": "view.custom.AllAreas"
+        },
+        "transforms": [
+          {
+            "code": "\tlogger \u003d system.util.getLogger(\u0027areasInstances\u0027)\n\tareas \u003d gpa.data.datasetToJson(value)\n\t\n\ttry:\n\t\tarr \u003d []\n\t\tfor area in areas:\n\t\t\tarr.append({\n\t\t\t  \"instanceStyle\": {\n\t\t\t    \"classes\": \"\"\n\t\t\t  },\n\t\t\t  \"instancePosition\": {},\n\t\t\t  \"Icon\": \"\",\n\t\t\t  \"Type\": \"value\",\n\t\t\t  \"EqPath\": \"value\",\n\t\t\t  \"HideTitle\": False,\n\t\t\t  \"IconDisplay\": True,\n\t\t\t  \"Params\": {\n\t\t\t    \"EqPath\": area.get(\u0027TagPath\u0027),\n\t\t\t    \"State\": \"value\",\n\t\t\t    \"TagPath\": \"value\",\n\t\t\t    \"TagProvider\": \"value\",\n\t\t\t    \"IsSite\": False,\n\t\t\t  },\n\t\t\t  \"Path\": \"App/OEE/Management/Overviews/Embedded/OEEContentSiteArea\",\n\t\t\t  \"Provider\": \"value\",\n\t\t\t  \"SizeBasis\": \"value\",\n\t\t\t  \"TagPath\": \"value\",\n\t\t\t  \"Title\": gpa.frontEnd.localUI.splitPath(area.get(\u0027TagPath\u0027)),\n\t\t\t  \"useDefaultHeight\": False,\n\t\t\t  \"useDefaultWidth\": False,\n\t\t\t  \"index\": \u0027\u0027,\n\t\t\t  \"IsNavigate\": True,\n\t\t\t  \"EqType\": \u0027area\u0027,\n\t\t\t  \"AreaID\": area.get(\u0027ID\u0027)\n\t\t\t})\n\t\t\t\n\t\treturn arr\n\texcept Exception as e:\n\t\tlogger.warn(str(e))",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.EnterpriseID": {
+      "persistent": true
+    },
+    "custom.SelectedSite": {
+      "binding": {
+        "config": {
+          "expression": "//try(\r\n//\tif({view.params.IsNavigate} \u003d true,\r\n//\t\t{view.params.SelectedSiteID},\r\n//\t\t{/root/Selector/EmbeddedView.props.params.SiteID}),\r\n//\t-1\r\n//)\r\n{/root/Selector/EmbeddedView.props.params.SiteID}"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.SelectedSitePath": {
+      "binding": {
+        "config": {
+          "expression": "if({view.params.Selection} \u003d 2, {session.custom.SelectedSitePath}, \u0027Fiberon/\u0027)\r\n"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.SiteInstances": {
+      "binding": {
+        "config": {
+          "path": "view.custom.AllSites"
+        },
+        "transforms": [
+          {
+            "code": "\tlogger \u003d system.util.getLogger(\u0027areasInstances\u0027)\n#\tif value \u003d\u003d \u0027all\u0027:\n#\t\tareas \u003d gpa.data.datasetToJson(self.custom.AllSites)\n#\t\teqType \u003d \u0027site\u0027\n#\t\tisSite \u003d True\n#\telse:\n#\t\tsiteID \u003d value\n#\t\tareas \u003d gpa.data.datasetToJson(self.custom.AllAreas)\n#\t\teqType \u003d \u0027area\u0027 \n#\t\tisSite \u003d False\n#\t\t\n#\teqType \u003d \u0027\u0027\n#\tisSite \u003d False\n\tsites \u003d gpa.data.datasetToJson(value)\n\t\n\ttry:\n\t\tarr \u003d []\n\t\tfor site in sites:\n\t\t\tarr.append({\n\t\t\t  \"instanceStyle\": {\n\t\t\t    \"classes\": \"\"\n\t\t\t  },\n\t\t\t  \"instancePosition\": {},\n\t\t\t  \"Icon\": \"\",\n\t\t\t  \"Type\": \"value\",\n\t\t\t  \"EqPath\": \"value\",\n\t\t\t  \"HideTitle\": False,\n\t\t\t  \"IconDisplay\": True,\n\t\t\t  \"Params\": {\n\t\t\t    \"EqPath\": site.get(\u0027TagPath\u0027),\n\t\t\t    \"State\": \"value\",\n\t\t\t    \"TagPath\": \"value\",\n\t\t\t    \"TagProvider\": \"value\",\n\t\t\t    \"IsSite\": True,\n\t\t\t    \"SiteID\": site.get(\u0027ID\u0027)\n\t\t\t  },\n\t\t\t  \"Path\": \"App/OEE/Management/Overviews/Embedded/OEEContentSiteArea\",\n\t\t\t  \"Provider\": \"value\",\n\t\t\t  \"SizeBasis\": \"value\",\n\t\t\t  \"TagPath\": \"value\",\n\t\t\t  \"Title\": gpa.frontEnd.localUI.splitPath(site.get(\u0027TagPath\u0027)),\n\t\t\t  \"useDefaultHeight\": False,\n\t\t\t  \"useDefaultWidth\": False,\n\t\t\t  \"index\": \u0027\u0027,\n\t\t\t  \"IsNavigate\": True,\n\t\t\t  \"EqType\": \u0027site\u0027\n\t\t\t})\n\t\t\t\n\t\treturn arr\n\texcept Exception as e:\n\t\tlogger.warn(str(e))",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": false
+    },
+    "params.IsNavigate": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.SelectedSiteID": {
+      "onChange": {
+        "enabled": null,
+        "script": "\tif previousValue !\u003d currentValue:\n\t\tself.custom.SelectedSite \u003d currentValue"
+      },
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Selection": {
+      "binding": {
+        "config": {
+          "bidirectional": true,
+          "path": "/root/Selector/EmbeddedView.props.params.SelectedArea"
+        },
+        "enabled": false,
+        "type": "property"
+      },
+      "paramDirection": "inout",
+      "persistent": true
+    }
+  },
+  "props": {},
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "EmbeddedView"
+            },
+            "position": {
+              "basis": "320px",
+              "grow": 1
+            },
+            "propConfig": {
+              "props.params.SiteID": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.SelectedSite"
+                  },
+                  "enabled": false,
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "SelectedArea": 1,
+                "SiteID": "all"
+              },
+              "path": "App/OEE/Management/Overviews/Embedded/GlobalSelector"
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "Selector"
+        },
+        "position": {
+          "basis": "42px"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "FlexRepeater"
+            },
+            "position": {
+              "basis": "320px",
+              "grow": 1
+            },
+            "propConfig": {
+              "custom.selected": {
+                "onChange": {
+                  "enabled": null,
+                  "script": "#\tif previousValue !\u003d currentValue:\n#\t\tif currentValue !\u003d \u0027\u0027:\n#\t\t\tsystem.perspective.navigate(view\u003d\u0027App/OEE/Management/Overviews/FullView\u0027, params\u003d{\u0027EqPath\u0027: currentValue})\n#\t\t\tself.custom.selected \u003d \u0027\u0027\n#\t\telse:\n#\t\t\tpass"
+                },
+                "persistent": false
+              },
+              "props.instances": {
+                "binding": {
+                  "config": {
+                    "expression": "try(\r\n\tif(\r\n\t\t{view.custom.SelectedSite} \u003d \u0027all\u0027,\r\n\t\t{view.custom.SiteInstances},\r\n\t\t{view.custom.AreaInstances}),\r\n\t-1\r\n)"
+                  },
+                  "type": "expr"
+                }
+              },
+              "props.instances[0].Params.EqPath": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.AllAreas[0].fullPath"
+                  },
+                  "enabled": false,
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "alignContent": "flex-start",
+              "alignItems": "flex-start",
+              "elementPosition": {
+                "basis": "auto",
+                "grow": 0
+              },
+              "elementStyle": {
+                "classes": "Global/MarginAllRight Global/MarginBottom"
+              },
+              "justify": "center",
+              "path": "GlobalComponents/Cards/Card",
+              "useDefaultViewHeight": false,
+              "useDefaultViewWidth": false,
+              "wrap": "wrap"
+            },
+            "scripts": {
+              "customMethods": [],
+              "extensionFunctions": null,
+              "messageHandlers": [
+                {
+                  "messageType": "ROOTCLICK",
+                  "pageScope": false,
+                  "script": "\tself.custom.selected \u003d payload[\u0027index\u0027]\n\tsystem.perspective.print(payload[\u0027index\u0027])",
+                  "sessionScope": false,
+                  "viewScope": false
+                }
+              ]
+            },
+            "type": "ia.display.flex-repeater"
+          }
+        ],
+        "meta": {
+          "name": "Cards"
+        },
+        "position": {
+          "basis": "42px",
+          "grow": 1
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Label"
+                },
+                "position": {
+                  "basis": "32px"
+                },
+                "props": {
+                  "style": {
+                    "classes": "Text/Heading TextFields/TextTitle",
+                    "marginBottom": 5,
+                    "textAlign": "center"
+                  },
+                  "text": "Loading"
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "Progress"
+                },
+                "position": {
+                  "basis": "25px",
+                  "shrink": 0
+                },
+                "props": {
+                  "indeterminate": true
+                },
+                "type": "ia.display.progress"
+              }
+            ],
+            "meta": {
+              "name": "FlexContainer"
+            },
+            "position": {
+              "basis": "300px"
+            },
+            "props": {
+              "direction": "column"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "loading"
+        },
+        "position": {
+          "basis": "200px",
+          "display": false,
+          "grow": 1
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "expression": "1\u003d1"
+              },
+              "enabled": false,
+              "transforms": [
+                {
+                  "code": "\timport time\n\t\n\tsleepTimer \u003d self.view.custom.InstantCount * 2.1\n\t\n\ttime.sleep(sleepTimer)\n\t\n\treturn False",
+                  "type": "script"
+                }
+              ],
+              "type": "expr"
+            },
+            "persistent": true
+          }
+        },
+        "props": {
+          "alignItems": "center",
+          "justify": "center",
+          "style": {
+            "overflow": "visible"
+          }
+        },
+        "scripts": {
+          "customMethods": [],
+          "extensionFunctions": null,
+          "messageHandlers": [
+            {
+              "messageType": "setLoading",
+              "pageScope": true,
+              "script": "\t# implement your handler here\n\tx \u003d int(self.view.custom.testIAX)\n\tx +\u003d 1\n\tsystem.perspective.print(\u0027 This is x \u0027 + str(x))\n\t#self.view.custom.InstanceVisibility \u003d False\n\t#self.view.custom.LoadingVisibility \u003d True",
+              "sessionScope": true,
+              "viewScope": false
+            },
+            {
+              "messageType": "doneLoading",
+              "pageScope": true,
+              "script": "\t# implement your handler here\n\tself.view.custom.InstanceVisibility \u003d True\n\tself.view.custom.LoadingVisibility \u003d False",
+              "sessionScope": true,
+              "viewScope": false
+            }
+          ]
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "classes": "Global/MarginAll",
+        "overflow": "visible"
+      }
+    },
+    "scripts": {
+      "customMethods": [
+        {
+          "name": "clearIsNavigate",
+          "params": [],
+          "script": "\timport time\n\t\n\ttime.sleep(0.25)\n\tself.view.params.IsNavigate \u003d False"
+        }
+      ],
+      "extensionFunctions": null,
+      "messageHandlers": [
+        {
+          "messageType": "doneLoading",
+          "pageScope": true,
+          "script": "\t# implement your handler here\n\tself.getChild(\"loading\").position.display \u003d False\n\tself.getChild(\"Cards\").position.display \u003d True",
+          "sessionScope": false,
+          "viewScope": false
+        },
+        {
+          "messageType": "refreshSiteCharts",
+          "pageScope": true,
+          "script": "\t# implement your handler here\n\tself.getChild(\"Cards\").position.display \u003d False\n\tself.getChild(\"loading\").position.display \u003d True",
+          "sessionScope": false,
+          "viewScope": false
+        }
+      ]
+    },
+    "type": "ia.container.flex"
+  }
+}

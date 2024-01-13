@@ -1,0 +1,183 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 56,
+      "width": 356
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "events": {
+              "dom": {
+                "onClick": {
+                  "config": {
+                    "params": {},
+                    "view": "app/GatewayHealth/AllGatewayHealth/GatewayStatusView"
+                  },
+                  "scope": "C",
+                  "type": "nav"
+                }
+              }
+            },
+            "meta": {
+              "name": "AllGatewaysBtn"
+            },
+            "position": {
+              "basis": "142px",
+              "display": false
+            },
+            "props": {
+              "params": {
+                "disabledPopup": {
+                  "message": "Please sign in as quarterback to proceed.",
+                  "messageType": "",
+                  "payload": {},
+                  "title": "Invalid Permissions"
+                },
+                "enabled": true,
+                "hover": true,
+                "iconPath": "material/dashboard",
+                "isSelectable": false,
+                "label": "All Gateways",
+                "selected": true,
+                "size": "value",
+                "type": "value"
+              },
+              "path": "StyleGuide/Components/Buttons/Button",
+              "style": {
+                "marginBottom": "5px",
+                "marginLeft": "5px",
+                "marginRight": "5px",
+                "marginTop": "5px"
+              }
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "SystemName"
+            },
+            "position": {
+              "basis": "205.1px"
+            },
+            "props": {
+              "style": {
+                "classes": "Text/Heading TextFields/TextTitle",
+                "overflow": "hidden"
+              },
+              "text": "Select a system:",
+              "textStyle": {
+                "color": "--white",
+                "textAlign": "right"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "children": [
+              {
+                "events": {
+                  "system": {
+                    "onStartup": {
+                      "config": {
+                        "script": "\tgateways \u003d system.tag.browse(\"[GatewayHealth]Gateways\")\n\t\n\toptionsArr \u003d []\n\t\n\tfor gateway in gateways:\n\t\tlabel \u003d gateway[\"name\"]\n\t\tvalue \u003d gateway[\"fullPath\"]\n\t\toptionsArr.append({\"label\": label, \"value\": value})\n\t\n\tself.props.options \u003d optionsArr\n\t"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "Dropdown"
+                },
+                "position": {
+                  "basis": "40px",
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.value": {
+                    "binding": {
+                      "config": {
+                        "path": "this.props.options[0].value"
+                      },
+                      "type": "property"
+                    },
+                    "onChange": {
+                      "enabled": null,
+                      "script": "\tmessage \u003d {\u0027value\u0027:currentValue}\n\tsystem.perspective.sendMessage(\"changedGateway\", payload\u003dmessage)"
+                    }
+                  }
+                },
+                "props": {
+                  "options": [
+                    {
+                      "label": "Script",
+                      "value": "[GatewayHealth]Gateways/Script"
+                    },
+                    {
+                      "label": "Tag1",
+                      "value": "[GatewayHealth]Gateways/Tag1"
+                    }
+                  ],
+                  "placeholder": {
+                    "text": "Select A System.."
+                  },
+                  "style": {
+                    "classes": "TextFields/Dropdown",
+                    "overflow": "hidden"
+                  }
+                },
+                "type": "ia.input.dropdown"
+              }
+            ],
+            "meta": {
+              "name": "FlexContainer"
+            },
+            "position": {
+              "basis": "162px"
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "marginRight": "16px",
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Title"
+        },
+        "position": {
+          "basis": "50px",
+          "grow": 1,
+          "shrink": 0
+        },
+        "props": {
+          "alignContent": "flex-end",
+          "justify": "flex-end",
+          "style": {
+            "backgroundColor": "--menuBg"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

@@ -1,0 +1,1 @@
+SELECT id as "value", reason_category_name as "label" FROM scrap.reason_category;

@@ -1,0 +1,57 @@
+{
+  "custom": {},
+  "params": {
+    "EqPath": "[SwitchStructure]RecentEvents"
+  },
+  "propConfig": {
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {},
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "AlarmStatusTable"
+        },
+        "position": {
+          "basis": "400px",
+          "grow": 1
+        },
+        "props": {
+          "filters": {
+            "active": {
+              "conditions": {
+                "source": "prov:SwitchStructure:/tag:RecentEvents:/alm:changeEvent"
+              },
+              "priorities": {
+                "critical": false,
+                "high": false,
+                "low": false,
+                "medium": false
+              },
+              "results": {
+                "enabled": true
+              },
+              "states": {
+                "activeAcked": false,
+                "activeUnacked": false,
+                "clearUnacked": false
+              }
+            }
+          }
+        },
+        "type": "ia.display.alarmstatustable"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

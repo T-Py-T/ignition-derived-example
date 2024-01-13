@@ -1,0 +1,1 @@
+exec dt.stp_getDTReasonsForEvent  @stateEventID = :stateEventID

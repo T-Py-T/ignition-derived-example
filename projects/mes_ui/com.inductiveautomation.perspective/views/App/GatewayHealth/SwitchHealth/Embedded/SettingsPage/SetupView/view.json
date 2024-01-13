@@ -1,0 +1,828 @@
+{
+  "custom": {
+    "ExistingAssetID": "",
+    "ExistingNCC": "",
+    "ExistingPlc": "",
+    "ExistingSwitch": "",
+    "ID": "",
+    "PlcAddress": "",
+    "RowData": [
+      {
+        "AssetID": "",
+        "ID": "",
+        "IsDeleted": "",
+        "Ncc": "",
+        "PlcAddress": "",
+        "Switch": ""
+      }
+    ],
+    "SwitchDropdown": [
+      {
+        "label": "",
+        "value": ""
+      },
+      {
+        "label": "A",
+        "value": "A"
+      },
+      {
+        "label": "B",
+        "value": "B"
+      },
+      {
+        "label": "C",
+        "value": "C"
+      },
+      {
+        "label": "D",
+        "value": "D"
+      },
+      {
+        "label": "E",
+        "value": "E"
+      },
+      {
+        "label": "F",
+        "value": "F"
+      },
+      {
+        "label": "G",
+        "value": "G"
+      },
+      {
+        "label": "H",
+        "value": "H"
+      }
+    ],
+    "Type": "value"
+  },
+  "params": {},
+  "propConfig": {
+    "custom.AssetID": {
+      "binding": {
+        "config": {
+          "path": "/root/Row1/Col2/IPAddressEntry.props.text"
+        },
+        "type": "property"
+      }
+    },
+    "custom.ExistingAssetID": {
+      "binding": {
+        "config": {
+          "path": "view.custom.RowData[0].AssetID"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.ExistingNCC": {
+      "binding": {
+        "config": {
+          "path": "view.custom.RowData[0].Ncc"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.ExistingPlc": {
+      "binding": {
+        "config": {
+          "path": "view.custom.RowData[0].PlcAddress"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.ExistingSwitch": {
+      "binding": {
+        "config": {
+          "path": "view.custom.RowData[0].Switch"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.ID": {
+      "binding": {
+        "config": {
+          "path": "view.custom.RowData[0].ID"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.NCC": {
+      "binding": {
+        "config": {
+          "path": "/root/Row2/Col2/NCCEntry.props.text"
+        },
+        "type": "property"
+      }
+    },
+    "custom.PlcAddress": {
+      "binding": {
+        "config": {
+          "path": "/root/Row5/Col2/PlcAddress.props.text"
+        },
+        "enabled": false,
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.RowData": {
+      "persistent": true
+    },
+    "custom.Switch": {
+      "binding": {
+        "config": {
+          "path": "/root/Row3/Col2/SwitchEntry.props.value"
+        },
+        "type": "property"
+      }
+    },
+    "custom.SwitchDropdown": {
+      "binding": {
+        "config": {
+          "queryPath": "app/SwitchHealth/getDistinctSwitches",
+          "returnFormat": "json"
+        },
+        "enabled": false,
+        "transforms": [
+          {
+            "code": "\tfor row in value:\n\t\trow[\u0027value\u0027] \u003d row[\u0027label\u0027]\n\t\t\n\treturn value",
+            "type": "script"
+          }
+        ],
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "custom.Type": {
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 191,
+      "width": 631
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "NCC"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginRight"
+                  },
+                  "text": "NCC Number:"
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "Col1"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "NCCEntry"
+                },
+                "position": {
+                  "basis": "361px"
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.Type"
+                      },
+                      "transforms": [
+                        {
+                          "fallback": "\"\"",
+                          "inputType": "scalar",
+                          "mappings": [
+                            {
+                              "input": "edit",
+                              "output": "{view.custom.ExistingNCC}"
+                            },
+                            {
+                              "input": "",
+                              "output": "\"\""
+                            }
+                          ],
+                          "outputType": "expression",
+                          "type": "map"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "TextFields/TextArea"
+                  }
+                },
+                "type": "ia.input.text-field"
+              }
+            ],
+            "meta": {
+              "name": "Col2"
+            },
+            "position": {
+              "basis": "98px"
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Mode"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "expression": "\"Mode: \" + if({view.custom.Type} \u003d \"edit\", \"Edit\", \"Add\")"
+                      },
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginRight"
+                  },
+                  "textStyle": {
+                    "textAlign": "end"
+                  }
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "Col3"
+            },
+            "position": {
+              "basis": "400px",
+              "grow": 1,
+              "shrink": 0
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Row2"
+        },
+        "position": {
+          "basis": "42px"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "IPAddress"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "props": {
+                  "text": "Enter IP Address:"
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "Col1"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "IPAddressEntry"
+                },
+                "position": {
+                  "basis": "361px"
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.ExistingAssetID"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "TextFields/TextArea"
+                  }
+                },
+                "type": "ia.input.text-field"
+              }
+            ],
+            "meta": {
+              "name": "Col2"
+            },
+            "position": {
+              "basis": "326px"
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Row1"
+        },
+        "position": {
+          "basis": "42px"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Switch"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "props": {
+                  "text": "Switch Number:"
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "Col1"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "SwitchEntry"
+                },
+                "position": {
+                  "basis": "42px"
+                },
+                "propConfig": {
+                  "props.options": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.SwitchDropdown"
+                      },
+                      "type": "property"
+                    }
+                  },
+                  "props.value": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.Type"
+                      },
+                      "transforms": [
+                        {
+                          "fallback": "\"\"",
+                          "inputType": "scalar",
+                          "mappings": [
+                            {
+                              "input": "edit",
+                              "output": "{view.custom.ExistingSwitch}"
+                            },
+                            {
+                              "input": "",
+                              "output": "\"\""
+                            }
+                          ],
+                          "outputType": "expression",
+                          "type": "map"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "dropdownOptionStyle": {
+                    "classes": "TextFields/TextArea"
+                  },
+                  "placeholder": {
+                    "text": ""
+                  },
+                  "style": {
+                    "classes": "TextFields/TextArea"
+                  }
+                },
+                "type": "ia.input.dropdown"
+              }
+            ],
+            "meta": {
+              "name": "Col2"
+            },
+            "position": {
+              "basis": "100px"
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Row3"
+        },
+        "position": {
+          "basis": "42px"
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "PLCAddress"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "props": {
+                  "text": "PLC IP Address:"
+                },
+                "type": "ia.display.label"
+              }
+            ],
+            "meta": {
+              "name": "Col1"
+            },
+            "position": {
+              "shrink": 0
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "PlcAddress"
+                },
+                "position": {
+                  "basis": "361px"
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.RowData[0].PlcAddress"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "TextFields/TextArea"
+                  }
+                },
+                "type": "ia.input.text-field"
+              }
+            ],
+            "meta": {
+              "name": "Col2"
+            },
+            "position": {
+              "basis": "326px"
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Row5"
+        },
+        "position": {
+          "basis": "42px",
+          "display": false
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\t# Grabbing variables from views\n\tassetID \u003d self.parent.parent.parent.getChild(\"Row1/Col2/IPAddressEntry\").props.text\n\tncc \u003d self.parent.parent.parent.getChild(\"Row2/Col2/NCCEntry\").props.text\n\tswitch \u003d self.parent.parent.parent.getChild(\"Row3/Col2/SwitchEntry\").props.value\n\tuid \u003d self.view.custom.Uid\n\tqueryPath \u003d \"App/updateSwitch\"\n\t\n\t# Adding variables to params object\n\tparams \u003d {\n\t\t\"Uid\": uid,\n\t\t\"assetID\": assetID,\n\t\t\"switch\": switch,\n\t\t\"ncc\": ncc\n\t}\n\t\n\tif self.view.custom.Type \u003d\u003d \"edit\":\n\t\tsystem.db.runNamedQuery(queryPath, params)\t\n\t\tself.view.custom.Type \u003d \"\"\n\telse:\n\t\t# Calling Script with params object\n\t\tScripts.addSwitch(params)\t\n\t\n\t# Refreshes table to show new ncc\n\tsystem.perspective.sendMessage(\"refreshSwitchTable\")\n\t\t\t\n\t# Clears all text entries\n\tself.parent.parent.parent.getChild(\"Row1/Col2/IPAddressEntry\").props.text \u003d \"\"\n\tself.parent.parent.parent.getChild(\"Row2/Col2/NCCEntry\").props.text \u003d \"\"\n\tself.parent.parent.parent.getChild(\"Row3/Col2/SwitchEntry\").props.value \u003d \"\"\t\t\t\n\t\n\t"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "SaveButton"
+                },
+                "position": {
+                  "basis": "350px",
+                  "display": false
+                },
+                "props": {
+                  "params": {
+                    "BackgroundColor": "--success",
+                    "DisabledPopup": {
+                      "message": "Please sign in as quarterback to proceed.",
+                      "messageType": "",
+                      "payload": {},
+                      "title": "Invalid Permissions"
+                    },
+                    "Enabled": true,
+                    "Hover": true,
+                    "IconPath": "material/save",
+                    "IsSelectable": false,
+                    "Label": "Save",
+                    "Selected": true,
+                    "Size": "",
+                    "Type": ""
+                  },
+                  "path": "Components/Buttons/Button"
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "events": {
+                  "component": {
+                    "onActionPerformed": {
+                      "config": {
+                        "script": "\ttry:\n\t    # Grabbing variables from views\n\t    assetID \u003d self.view.custom.AssetID\n\t    ncc \u003d self.view.custom.NCC\n\t    switch \u003d self.view.custom.Switch\n\t    plcAddress \u003d self.view.custom.PlcAddress\n\t    switchID \u003d self.view.custom.ID\n\t    updateQueryPath \u003d \"app/SwitchHealth/updateSwitch\"\n\t    addQueryPath \u003d \"app/SwitchHealth/addSwitch\"\n\t    errorModalTitle \u003d \"Error!\"\n\t    errorModalName \u003d \"errorModal\"\n\t    agreeModalName \u003d \"agreeModal\"\n\t    \n\t    # Adding variables to params object\n\t    params \u003d {\n\t        \"switchID\": switchID,\n\t        \"assetID\": assetID,\n\t        \"switch\": switch,\n\t        \"ncc\": ncc,\n\t        \"plc\": plcAddress\n\t    }\n\t    \n\t    system.perspective.print(params)\n\t    \n\t    if self.view.custom.Type \u003d\u003d \"edit\":\n\t        system.db.runNamedQuery(updateQueryPath, params)    \n\t        self.view.custom.Type \u003d \"\"\n\t    else:\n\t        # Calling Script with params object\n\t        res \u003d mes.switchHealth.calcs.addSwitch(params)\n\t        if res \u003d\u003d 1: \n\t            system.db.runNamedQuery(addQueryPath, params)\n\t        else:\n\t            # Using the error message returned from the function to display in the error modal\n\t            modalParams \u003d {\"ModalName\": errorModalName, \"Message\": res}\n\t            system.perspective.openPopup(errorModalName, \"GlobalComponents/SwitchConfig/Modals/Modal\", params\u003dmodalParams, title\u003derrorModalTitle)\n\t    \n\t    # Refreshes table to show new ncc\n\t    system.perspective.sendMessage(\"refreshSwitchTable\")\n\t    \n\t    # Gets parent view to clear text entries\n\t    parent_view \u003d self.parent.parent.parent\n\t    text_entries_to_clear \u003d [\"Row1/Col2/IPAddressEntry\", \"Row2/Col2/NCCEntry\", \"Row5/Col2/PlcAddress\"]\n\t    dropdowns_to_clear \u003d [\"Row3/Col2/SwitchEntry\"]\n\t    \n\t    # Clears all text entries\n\t    for entry in text_entries_to_clear:\n\t        parent_view.getChild(entry).props.text \u003d \"\"\n\t    \n\t    # Clears dropdowns\n\t    for dropdown in dropdowns_to_clear:\n\t        parent_view.getChild(dropdown).props.value \u003d \"\"\n\t\n\texcept Exception as e:\n\t    logger \u003d system.util.getLogger(\u0027ignitionScript\u0027)\n\t    logger.error(\u0027Error occurred: \u0027 + str(e))\n\t    modalParams \u003d {\"ModalName\": errorModalName, \"Message\": str(e)}\n\t    system.perspective.openPopup(errorModalName, \"GlobalComponents/SwitchConfig/Modals/Modal\", params\u003dmodalParams, title\u003derrorModalTitle)"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "Save"
+                },
+                "position": {
+                  "basis": "34px",
+                  "grow": 1
+                },
+                "props": {
+                  "image": {
+                    "icon": {
+                      "path": "material/save"
+                    }
+                  },
+                  "style": {
+                    "classes": "Buttons/ButtonStyle"
+                  },
+                  "text": "Save"
+                },
+                "type": "ia.input.button"
+              }
+            ],
+            "meta": {
+              "name": "Col1"
+            },
+            "position": {
+              "basis": "85px",
+              "shrink": 0
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginRight",
+                "marginLeft": "auto"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "events": {
+                  "dom": {
+                    "onClick": {
+                      "config": {
+                        "script": "\tself.parent.parent.parent.getChild(\"Row2/Col2/NCCEntry\").props.text \u003d \"\"\n\tself.parent.parent.parent.getChild(\"Row1/Col2/IPAddressEntry\").props.text \u003d \"\"\n\tself.parent.parent.parent.getChild(\"Row3/Col2/SwitchEntry\").props.value \u003d \"\"\n\tself.view.custom.Type \u003d \"\""
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "CancelButton"
+                },
+                "position": {
+                  "basis": "350px",
+                  "display": false,
+                  "grow": 1
+                },
+                "props": {
+                  "params": {
+                    "BackgroundColor": "--error",
+                    "DisabledPopup": {
+                      "message": "Please sign in as quarterback to proceed.",
+                      "messageType": "",
+                      "payload": {},
+                      "title": "Invalid Permissions"
+                    },
+                    "Enabled": true,
+                    "Hover": true,
+                    "IconPath": "material/cancel",
+                    "IsSelectable": false,
+                    "Label": "Cancel",
+                    "Selected": true,
+                    "Size": "value",
+                    "Type": "value"
+                  },
+                  "path": "Components/Buttons/Button"
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "events": {
+                  "component": {
+                    "onActionPerformed": {
+                      "config": {
+                        "script": "\tself.parent.parent.parent.getChild(\"Row2/Col2/NCCEntry\").props.text \u003d \"\"\n\tself.parent.parent.parent.getChild(\"Row1/Col2/IPAddressEntry\").props.text \u003d \"\"\n\tself.parent.parent.parent.getChild(\"Row3/Col2/SwitchEntry\").props.value \u003d \"\"\n\tself.view.custom.Type \u003d \"\"\t"
+                      },
+                      "scope": "G",
+                      "type": "script"
+                    }
+                  }
+                },
+                "meta": {
+                  "name": "Cancel"
+                },
+                "position": {
+                  "basis": "34px",
+                  "grow": 1
+                },
+                "props": {
+                  "image": {
+                    "icon": {
+                      "path": "material/cancel"
+                    }
+                  },
+                  "style": {
+                    "classes": "Buttons/ButtonStyle"
+                  },
+                  "text": "Cancel"
+                },
+                "type": "ia.input.button"
+              }
+            ],
+            "meta": {
+              "name": "Col2"
+            },
+            "position": {
+              "basis": "85px"
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginRight",
+                "marginRight": "auto"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Row4"
+        },
+        "position": {
+          "basis": "42px"
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "scripts": {
+      "customMethods": [],
+      "extensionFunctions": null,
+      "messageHandlers": [
+        {
+          "messageType": "editSwitch",
+          "pageScope": true,
+          "script": "\tself.view.custom.RowData \u003d payload[\"RowData\"]\n\tself.view.custom.Type \u003d payload[\"Type\"]\n\t",
+          "sessionScope": false,
+          "viewScope": false
+        }
+      ]
+    },
+    "type": "ia.container.flex"
+  }
+}

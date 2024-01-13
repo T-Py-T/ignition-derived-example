@@ -1,0 +1,1 @@
+SELECT StartTime, EndTime FROM GetTimeRange('current shift', NULL)

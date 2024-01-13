@@ -1,0 +1,100 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 181,
+      "width": 264
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Gauge"
+        },
+        "position": {
+          "basis": "250px",
+          "grow": 1
+        },
+        "props": {
+          "backgroundColor": "",
+          "innerAxis": {
+            "data": "secondaryValue",
+            "needle": {
+              "origin": 115
+            },
+            "percentRadius": 70,
+            "ranges": [
+              {
+                "color": "green",
+                "end": 70,
+                "start": 0,
+                "width": 8
+              },
+              {
+                "color": "yellow",
+                "end": 85,
+                "start": 65,
+                "width": 12
+              },
+              {
+                "color": "red",
+                "end": 100,
+                "start": 85,
+                "width": 14
+              }
+            ],
+            "show": false
+          },
+          "outerAxis": {
+            "data": "value",
+            "needle": {
+              "color": "#CABDBD",
+              "reach": 90
+            },
+            "percentRadius": 90,
+            "ranges": [
+              {
+                "color": "green",
+                "end": 70,
+                "start": 0,
+                "width": 8
+              },
+              {
+                "color": "yellow",
+                "end": 85,
+                "start": 65,
+                "width": 12
+              },
+              {
+                "color": "red",
+                "end": 100,
+                "start": 85,
+                "width": 14
+              }
+            ],
+            "show": true,
+            "width": 3
+          },
+          "secondaryValue": 23.054814339,
+          "style": {
+            "classes": [],
+            "fontSize": "15px",
+            "minWidth": "180px",
+            "overflow": "hidden"
+          },
+          "value": 25
+        },
+        "type": "ia.chart.gauge"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

@@ -1,0 +1,267 @@
+<?xml version="1.0" ?>
+<sfc zoom="0.79999995" canvas="20 25" execution-mode="Disabled" hot-editable="false" persist-state="true" redundant-sync="false">
+	<onabort>def onAbort(chart):
+	"""
+	This will run once if the chart is aborted.
+	The exception that caused the abort is
+	available via chart.abortCause
+
+	Arguments:
+		chart: A reference to the chart's scope.
+	"""
+	logger = system.util.getLogger('SFC/plannedOrders/OnAbort')
+	logger.error('chart aborted, error: %s' % (str(chart.abortCause)))
+	#EVENTUALLY SEND EMAIL</onabort>
+	<step id="ee915d4a-91fe-4b9f-896a-c3c415d59a53" location="4 1" name="__begin" factory-id="begin-step">
+<parameters>
+	<parameter><name>count</name><expression>0</expression></parameter>
+	<parameter><name>plannedOrders</name><expression>''</expression></parameter>
+	<parameter><name>id</name><expression>0</expression></parameter>
+	<parameter><name>responseCode</name><expression>0</expression></parameter>
+	<parameter><name>attempts</name><expression>0</expression></parameter>
+	<parameter><name>success</name><expression>False</expression></parameter>
+</parameters>
+	</step>
+	<step id="4fc5e8c9-f6ce-4502-8bff-50f004f9a8ac" location="5 5" name="pruneCache" factory-id="action-step">
+		<start-script>def onStart(chart, step):
+	"""
+	This will run when the step starts, before any
+	other action.
+
+	Arguments:
+		chart: A reference to the chart's scope.
+		step: A reference to this step's scope.
+	"""
+	query = """DELETE FROM sap.planned_orders_cache
+				WHERE time_created &lt;  NOW() - (30 * interval '1 day')
+			"""
+	system.db.runPrepUpdate(query, [], 'application')</start-script>
+	</step>
+	<step id="b7e298a8-2e36-4eb5-87c9-e783c4f5bc05" location="5 6" name="checkHeijunka" factory-id="action-step">
+		<start-script>def onStart(chart, step):
+	"""
+	This will run when the step starts, before any
+	other action.
+
+	Arguments:
+		chart: A reference to the chart's scope.
+		step: A reference to this step's scope.
+	"""
+	plannedOrders = []
+	tagPath = '[default]Heijunka/MaterialControl/LastUpdateDate'
+	lastUpdated = system.tag.read(tagPath).value
+	id = 0
+	query = """SELECT TOP 1 AssignMachine
+				FROM vwDailyScheduleMRV
+				where LastUpdate &gt; ?
+				order by AssignMachine, Priority asc 
+				"""
+	res = system.db.runScalarPrepQuery(query, [lastUpdated],'heijunka')
+	if res is not None:
+		chart.lastUpdateTime = system.date.now() 
+		query = """SELECT *
+					FROM vwDailyScheduleMRV
+					where "LastUpdate" &gt; ? 
+					"""
+		res = system.db.runPrepQuery(query, [lastUpdated],'heijunka')
+		plannedOrders = []
+		for row in range(res.rowCount):
+			plannedOrders.append(str(res.getValueAt(row, 'PlndOrder')))
+		chart.heijunkaData = res
+	chart.plannedOrders = ','.join(plannedOrders)
+	
+</start-script>
+	</step>
+	<step id="fe351bd2-bf3c-4aa9-b461-a2d038e529b8" location="6 10" name="httpGet" factory-id="action-step">
+		<start-script>def onStart(chart, step):
+	"""
+	This will run when the step starts, before any
+	other action.
+
+	Arguments:
+		chart: A reference to the chart's scope.
+		step: A reference to this step's scope.
+	"""
+	
+	plannedOrders = chart.plannedOrders.split(',')
+	
+	response = mes.schedule.sap.updatePlannedOrders(plannedOrders)
+	chart.responseCode = response['statusCode']
+	chart.id = response['id']
+	
+	</start-script>
+	</step>
+	<step id="4224fe5d-add0-499d-a6ab-a819d8f2c3e5" location="4 13" name="saveOrders" factory-id="action-step">
+		<start-script>def onStart(chart, step):
+	"""
+	This will run when the step starts, before any
+	other action.
+
+	Arguments:
+		chart: A reference to the chart's scope.
+		step: A reference to this step's scope.
+	"""
+	logger = system.util.getLogger('SFC/mes/plannedOrders')
+	plannedOrders = chart.plannedOrders
+	
+	#TODO - return success and error counts
+	heijunkaData = chart.heijunkaData
+	response = mes.schedule.sap.saveOperationsSchedules(heijunkaData)
+	# {'errors':errors, 'scheduleErrors':schedulingErrors, 'successes':successes}
+	success = response['success']
+	chart.success = success
+	
+	logger.info('Successes ' + str(response['successes']))
+	logger.info('Errors ' + str(response['errors']))
+	logger.info('SchedulingErrors ' + str(response['scheduleErrors']))
+#	chart.responseCode = statusCode
+	
+	machineErrors = response['errors']
+	rows = []
+	headers = ['machineName','plannedOrder','errorMessage']
+	logger = system.util.getLogger('sfcTEST')
+	for machine in machineErrors:
+		
+		if len(machineErrors[machine]) &gt; 0:
+			for error in machineErrors[machine]:
+#				logger.info(str(error))
+				if 'errorMessage' in error:
+					row = [machine,error['plannedOrderNumber'], error['errorMessage']]
+				else:
+					row = [machine,error['plannedOrderNumber'], '']
+				rows.append(row)
+	retData = system.dataset.toDataSet(headers,rows)
+	system.tag.writeBlocking(['[default]Pipeline/SAP/plannedOrders'],[retData])</start-script>
+	</step>
+	<step id="de68d7a7-7e7d-40f8-bfe7-1bb0e3c44d9e" location="4 15" name="updateSuccess" factory-id="action-step">
+		<start-script>def onStart(chart, step):
+	"""
+	This will run when the step starts, before any
+	other action.
+
+	Arguments:
+		chart: A reference to the chart's scope.
+		step: A reference to this step's scope.
+	"""
+	#when should this happen?
+	#modify transition
+	
+	query = """UPDATE sap.planned_orders_cache
+				SET time_processed = NOW()
+				WHERE id = ?
+				"""
+	id = chart.id
+	args = [id]
+	
+	system.db.runPrepUpdate(query, args, 'application')
+	
+	
+	#update tag
+	tagPath = '[default]Heijunka/MaterialControl/LastUpdateDate'
+#	now = system.date.now()
+	now = chart.lastUpdateTime
+	system.tag.write(tagPath, now)</start-script>
+	</step>
+	<step id="503457f0-04f4-4eeb-bd10-aac4551372f1" location="7 16" name="incrementAttempts" factory-id="action-step">
+		<start-script>def onStart(chart, step):
+	"""
+	This will run when the step starts, before any
+	other action.
+
+	Arguments:
+		chart: A reference to the chart's scope.
+		step: A reference to this step's scope.
+	"""
+	chart.attempts += 1</start-script>
+	</step>
+	<step id="f5af5807-3ce8-47b4-9e0d-74bc59e0fdd9" location="9 16" name="notifyPipeline" factory-id="action-step">
+		<start-script>def onStart(chart, step):
+	"""
+	This will run when the step starts, before any
+	other action.
+
+	Arguments:
+		chart: A reference to the chart's scope.
+		step: A reference to this step's scope.
+	"""
+	logger = system.util.getLogger('SFC/mes/plannedOrders')
+	logger.error('Could not retrieve planned orders after acceptable number of retries')
+	system.tag.writeBlocking(['[default]Pipeline/SAP/plannedOrdersAlarmed'],[-1])
+	
+	chart.attempts = 0
+	
+	chart.plannedOrders = ''
+	chart.statusCode = 0</start-script>
+	</step>
+	<step id="89315295-9070-4a3e-836f-3e92888683af" location="5 18" name="updateError" factory-id="action-step">
+		<start-script>def onStart(chart, step):
+	"""
+	This will run when the step starts, before any
+	other action.
+
+	Arguments:
+		chart: A reference to the chart's scope.
+		step: A reference to this step's scope.
+	"""
+	logger = system.util.getLogger('SFC/MES/plannedOrders')
+	id = chart.id
+	logger.error("There was an error processing plannedOrderData with id: %d" % (id))
+	
+	system.tag.writeBlocking(['[default]Pipeline/SAP/plannedOrdersAlarmed'],[id])</start-script>
+	</step>
+	<step id="5b0083fe-0a55-4f06-afca-e561f99dce60" location="4 20" name="resetChart" factory-id="action-step">
+		<start-script>def onStart(chart, step):
+	"""
+	This will run when the step starts, before any
+	other action.
+
+	Arguments:
+		chart: A reference to the chart's scope.
+		step: A reference to this step's scope.
+	"""
+	chart.id = 0
+	chart.errorCount = 0
+</start-script>
+	</step>
+	<transition id="69a7e331-496d-4e3f-acef-e6906b13e976" location="5 3" timeout-enabled="true" timeout-delay="300000" timeout-flag="watchdog">{watchdog} = true</transition>
+	<transition id="104d1cea-3685-4116-8ee3-79887dba685e" location="4 8">{plannedOrders} = ''</transition>
+	<transition id="27f9dbf1-d7a9-4abe-a855-da769c69d2bc" location="6 8">{plannedOrders} != ''</transition>
+	<transition id="4e7e88b9-8399-4683-bac7-44283dd8c93f" location="4 12">{responseCode} = 200</transition>
+	<transition id="948a1fa9-f929-4b30-ba12-6cbe9cd32793" location="8 12">{responseCode} != 200</transition>
+	<transition id="463eee34-7325-4145-a98d-bf499320a09a" location="7 15">{attempts} &lt;{[default]systemConfig/applicationSettings/General/sapRetries}</transition>
+	<transition id="936c6062-4b9f-4788-883d-47ef0686f1ae" location="3 17">{success}</transition>
+	<transition id="94a0b80d-14cc-4362-a8df-1620b2a3608f" location="9 15">{attempts} &gt;= {[default]systemConfig/applicationSettings/General/sapRetries}</transition>
+	<transition id="f1ad4635-4769-4046-8d32-5ab07326dd5d" location="5 17">!{success}</transition>
+	<jump id="d054f905-9b94-4f20-a54f-9ef32a18dab8" location="4 9">A</jump>
+	<jump id="8f195da7-2307-45b4-bdff-340b3a449376" location="7 17">C</jump>
+	<jump id="3cdf94d9-e9be-422b-b635-1efd14547645" location="9 17">A</jump>
+	<jump id="0d958e5d-674b-41bc-8d73-eb62f377ab0d" location="4 21">A</jump>
+	<anchor id="8838d004-2fd8-4ec8-9373-3f65f942bab5" location="5 1">A</anchor>
+	<anchor id="6bfb926f-bfb9-4d10-a78d-493154ccd558" location="7 8">C</anchor>
+	<link id="be812693-b37a-4601-b77f-6fff5ceacc52" location="4 2"><up/><left/><right/></link>
+	<link id="baf0a0be-cbcb-4d83-bfeb-73d021ca442b" location="5 2"><up/><left/><down/><right/></link>
+	<link id="15baa500-2384-482a-bc62-f0be60806ce4" location="5 4"><up/><down/></link>
+	<link id="1f628580-ede2-4860-8861-2f88a1f8265c" location="4 7"><up/><down/><right/></link>
+	<link id="defa6a42-7fc8-4bbb-87c0-50e75df97869" location="5 7"><up/><left/><right/></link>
+	<link id="475a9404-9131-4b98-bbd2-eaf81695e5cf" location="6 7"><left/><down/><right/></link>
+	<link id="bdbcbdc7-7ad5-44b9-82b9-0dfc2e98efd3" location="6 9"><up/><down/><right/></link>
+	<link id="3d5311e0-f6f0-456f-ac89-2205ff896f48" location="7 9"><up/><left/><right/></link>
+	<link id="1730a68d-3982-4f25-981f-f2414a202bd0" location="4 11"><left/><down/><right/></link>
+	<link id="d1b73562-3ce4-4734-86ef-0000844aa1b2" location="5 11"><up/><left/><down/><right/></link>
+	<link id="8d173a6f-c289-4307-af13-a73f120dcdad" location="6 11"><up/><left/><down/><right/></link>
+	<link id="b2476ff2-9c8f-4793-aa88-f8bb0d3ea8df" location="7 11"><left/><right/></link>
+	<link id="b6acb492-f232-43fe-aa97-7c7c2437175e" location="8 11"><left/><down/><right/></link>
+	<link id="70ad8e4a-47b1-4b9a-bb5c-789649829d4c" location="4 14"><up/><down/></link>
+	<link id="c75d6b1c-8cb9-4fb4-be17-e56f7434e37a" location="8 13"><up/><down/></link>
+	<link id="606bea6e-298f-4c95-860f-526562b0759e" location="7 14"><left/><down/><right/></link>
+	<link id="597b42a9-639f-41cd-8d92-884c759c0149" location="8 14"><up/><left/><down/><right/></link>
+	<link id="8e9f6e90-a4bc-491f-bd64-f3a76458c640" location="3 16"><up/><down/><right/></link>
+	<link id="95c1793d-0795-4f89-81ba-4430f6f38601" location="4 16"><up/><left/><right/></link>
+	<link id="675e1c7b-eaa0-4234-9ead-00e6fb6cf714" location="9 14"><up/><left/><down/><right/></link>
+	<link id="43af150b-cffd-4229-8ec2-9f8f57e12fa4" location="5 16"><left/><down/><right/></link>
+	<link id="f8fa0f34-5498-4271-8da1-c942cbf6d0f3" location="3 18"><up/><down/></link>
+	<link id="258b1e30-c049-483f-97e0-1fd1bbce7b23" location="3 19"><up/><down/><right/></link>
+	<link id="74a6d988-847c-4fe2-a1d8-a754b06c5c2f" location="4 19"><left/><down/><right/></link>
+	<link id="d6fddaec-5c4e-48a8-854c-4aebc06cd76a" location="5 19"><up/><left/><down/></link>
+
+</sfc>

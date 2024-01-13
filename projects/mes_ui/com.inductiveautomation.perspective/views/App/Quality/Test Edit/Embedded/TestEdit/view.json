@@ -1,0 +1,3564 @@
+{
+  "custom": {
+    "Attributes": {},
+    "ConformanceReport": false,
+    "MaterialReferences": {},
+    "PartReferences": {},
+    "PreviousTests": {
+      "$": [
+        "ds",
+        192,
+        1702394484137
+      ],
+      "$columns": [
+        {
+          "data": [],
+          "name": "AttributeName",
+          "type": "String"
+        },
+        {
+          "data": [],
+          "name": "TestValues1",
+          "type": "String"
+        },
+        {
+          "data": [],
+          "name": "TestValues2",
+          "type": "String"
+        },
+        {
+          "data": [],
+          "name": "TestValues3",
+          "type": "String"
+        },
+        {
+          "data": [],
+          "name": "TestValues4",
+          "type": "String"
+        },
+        {
+          "data": [],
+          "name": "TestValues5",
+          "type": "String"
+        },
+        {
+          "data": [],
+          "name": "TestValues6",
+          "type": "String"
+        },
+        {
+          "data": [],
+          "name": "TestValues7",
+          "type": "String"
+        },
+        {
+          "data": [],
+          "name": "TestValues8",
+          "type": "String"
+        },
+        {
+          "data": [],
+          "name": "HiHiLimit",
+          "type": "Double"
+        },
+        {
+          "data": [],
+          "name": "HiLimit",
+          "type": "Double"
+        },
+        {
+          "data": [],
+          "name": "TargetValue",
+          "type": "Double"
+        },
+        {
+          "data": [],
+          "name": "LoLimit",
+          "type": "Double"
+        },
+        {
+          "data": [],
+          "name": "LoLoLimit",
+          "type": "Double"
+        },
+        {
+          "data": [],
+          "name": "TestAttributeDataType",
+          "type": "String"
+        }
+      ]
+    },
+    "Styles": {
+      "Value": "Global/MarginLeft TextFields/Root TextFields/TextTitle",
+      "ValueLabel": "Global/MarginLeft TextFields/Root TextFields/TextTitle"
+    },
+    "TestDetails": {}
+  },
+  "params": {
+    "TestID": 180,
+    "fromDashboard": false
+  },
+  "propConfig": {
+    "custom.Attributes": {
+      "persistent": true
+    },
+    "custom.Attributes.ChangesMade": {
+      "binding": {
+        "config": {
+          "expression": "if({view.custom.Attributes.OutputValues} \u003d {view.custom.Attributes.InputValues}, false, true)"
+        },
+        "type": "expr"
+      }
+    },
+    "custom.Attributes.Dataset": {
+      "binding": {
+        "config": {
+          "expression": "runscript(\u0027mes.quality.sp.getTestAttributeValues\u0027, 0, {view.custom.TestDetails.TestID})"
+        },
+        "type": "expr"
+      }
+    },
+    "custom.Attributes.DidTestFail": {
+      "binding": {
+        "config": {
+          "path": "/root/Table/TestDetails/AttributeValues.props.params.OutputValues"
+        },
+        "transforms": [
+          {
+            "code": "\tdataset \u003d system.dataset.toPyDataSet(value)\n\tfailed \u003d False\n\t\n\tfor row in dataset:\n\t\tdataType \u003d row[3]\n\t\tsavedValue \u003d row[4]\n\t\thiLimit \u003d row[10]\n\t\tloLimit \u003d row[12]\n\t\tboolean \u003d row[7]\n\t\n\t\tif dataType in [\"Integer\", \"Float\"] and savedValue is not None and len(savedValue) \u003e 0: #and not True:\n\t\t\tsavedValue \u003d float(savedValue)\n\t\t\thiLimit \u003d float(hiLimit)\n\t\t\tloLimit \u003d float(loLimit)\n\t\t\tif savedValue \u003e hiLimit or savedValue \u003c loLimit:\n\t\t\t\tfailed \u003d True\n\t\t\t\t#break\n\t\tif dataType in [\u0027Boolean\u0027]:\n\t\t\tif savedValue \u003d\u003d \u0027false\u0027:\n\t\t\t\tfailed \u003d True\n\t\tif dataType in [\u0027String\u0027]:\n\t\t\t\t\tif savedValue \u003d\u003d \u0027\u0027:\n\t\t\t\t\t\tfailed \u003d True\n\t\tif savedValue \u003d\u003d \u0027\u0027:\n\t\t\tfailed \u003d True\n\n\treturn(failed)",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.Attributes.InputValues": {
+      "binding": {
+        "config": {
+          "path": "/root/Table/TestDetails/AttributeValues.props.params.Dataset"
+        },
+        "transforms": [
+          {
+            "code": "\timport json\n\tdataset \u003d system.dataset.toPyDataSet(value)\n\tresult \u003d []\n\tfor row in dataset:\n\t    attribute_id \u003d row[\"TestAttributeID\"]\n\t    int_value \u003d row[\"IntValue\"]\n\t    float_value \u003d row[\"FloatValue\"]\n\t    bool_value \u003d row[\"BoolValue\"]\n\t    string_value \u003d row[\"StringValue\"]\n\t\n\t    values \u003d {}\n\t    if int_value is not None and int_value !\u003d \"\":\n\t        values[\"int\"] \u003d str(int_value)\n\t    if float_value is not None and float_value !\u003d \"\":\n\t        values[\"float\"] \u003d str(float_value)\n\t    if bool_value is not None and bool_value !\u003d \"\":\n\t        values[\"bool\"] \u003d bool_value\n\t    if string_value is not None and string_value !\u003d \"\":\n\t        values[\"string\"] \u003d str(string_value)\n\t\n\t    formatted_row \u003d {\n\t        \"AttributeID\": str(attribute_id),\n\t        \"Values\": values\n\t    }\n\t\n\t    result.append(formatted_row)\n\t    result_json \u003d json.dumps(result)\n\t\n\treturn result_json",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.Attributes.OutputValues": {
+      "binding": {
+        "config": {
+          "path": "/root/Table/TestDetails/AttributeValues.props.params.OutputValues"
+        },
+        "transforms": [
+          {
+            "code": "\timport json\n\tdataset \u003d system.dataset.toPyDataSet(value)\n\tresult \u003d []\n\tfor row in dataset:\n\t    attribute_id \u003d row[\"TestAttributeID\"]\n\t    int_value \u003d row[\"IntValue\"]\n\t    float_value \u003d row[\"FloatValue\"]\n\t    bool_value \u003d row[\"BoolValue\"]\n\t    string_value \u003d row[\"StringValue\"]\n\t\n\t    values \u003d {}\n\t    if int_value is not None and int_value !\u003d \"\":\n\t        values[\"int\"] \u003d int_value\n\t    if float_value is not None and float_value !\u003d \"\":\n\t        values[\"float\"] \u003d float_value\n\t    if bool_value is not None and bool_value !\u003d \"\":\n\t        values[\"bool\"] \u003d bool_value\n\t    if string_value is not None and string_value !\u003d \"\":\n\t        values[\"string\"] \u003d string_value\n\t\n\t    formatted_row \u003d {\n\t        \"AttributeID\": attribute_id,\n\t        \"Values\": values\n\t    }\n\t\n\t    result.append(formatted_row)\n\t    result_json \u003d json.dumps(result)\n\t\n\treturn result_json",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.ConformanceReport": {
+      "persistent": true
+    },
+    "custom.MaterialReferences": {
+      "persistent": true
+    },
+    "custom.MaterialReferences.DS": {
+      "binding": {
+        "config": {
+          "expression": "if({view.custom.MaterialReferences.MaterialLotNumber} !\u003d None, runscript(\u0027mes.schedule.sp.getMaterialLots\u0027, 0, {session.custom.SelectedSite}, None, {view.custom.MaterialReferences.MaterialLotNumber}, False, False), None)\r\n//getMaterialLots(SiteID, MaterialID \u003d None, MaterialLotNumber \u003d None, GetZeroQty \u003d False, GetDisabled \u003d False):\r\n"
+        },
+        "type": "expr"
+      }
+    },
+    "custom.MaterialReferences.DateModified": {
+      "binding": {
+        "config": {
+          "path": "view.custom.MaterialReferences.DS"
+        },
+        "transforms": [
+          {
+            "code": "\treturn value.getValueAt(0,\u0027DateModified\u0027)",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.MaterialReferences.Description": {
+      "binding": {
+        "config": {
+          "path": "view.custom.MaterialReferences.DS"
+        },
+        "transforms": [
+          {
+            "code": "\treturn value.getValueAt(0,\u0027Description\u0027)",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.MaterialReferences.MaterialLotID": {
+      "binding": {
+        "config": {
+          "path": "view.custom.MaterialReferences.DS"
+        },
+        "transforms": [
+          {
+            "code": "\treturn value.getValueAt(0,\u0027ID\u0027)",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.MaterialReferences.MaterialLotNumber": {
+      "binding": {
+        "config": {
+          "path": "view.custom.TestDetails.DS"
+        },
+        "transforms": [
+          {
+            "code": "\treturn value.getValueAt(0,\u0027MaterialLotNumber\u0027)",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.MaterialReferences.MaterialName": {
+      "binding": {
+        "config": {
+          "path": "view.custom.TestDetails.DS"
+        },
+        "transforms": [
+          {
+            "code": "\treturn value.getValueAt(0,\u0027MaterialName\u0027)",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.MaterialReferences.RemainingQty": {
+      "binding": {
+        "config": {
+          "path": "view.custom.MaterialReferences.DS"
+        },
+        "transforms": [
+          {
+            "code": "\treturn value.getValueAt(0,\u0027RemainingQty\u0027)",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.PartReferences": {
+      "persistent": true
+    },
+    "custom.PartReferences.Accumulator": {
+      "binding": {
+        "config": {
+          "path": "view.custom.PartReferences.DS"
+        },
+        "transforms": [
+          {
+            "code": "\treturn value.getValueAt(0,\u0027Accumulator\u0027)",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.PartReferences.AccumulatorID": {
+      "binding": {
+        "config": {
+          "path": "view.custom.PartReferences.DS"
+        },
+        "transforms": [
+          {
+            "code": "\treturn value.getValueAt(0,\u0027AccumulatorID\u0027)",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.PartReferences.DS": {
+      "binding": {
+        "config": {
+          "expression": "if({view.custom.PartReferences.Label} !\u003d None, runscript(\u0027mes.trace.sp.getParts\u0027, 0, Null, Null, {view.custom.PartReferences.Label}, True, Null,Null,Null,Null,False, False), None)\r\n\r\n//getParts(StartTime \u003d None, EndTime \u003d None, Label \u003d None, LabelExactMatch \u003d False, ProductCodeID \u003d None, Workorder \u003d None, InventoryID \u003d None, AccumulatorID \u003d None, GetCompletedOnly \u003d False, GetWIPOnly \u003d False):\r\n"
+        },
+        "type": "expr"
+      }
+    },
+    "custom.PartReferences.DateCreated": {
+      "binding": {
+        "config": {
+          "path": "view.custom.PartReferences.DS"
+        },
+        "transforms": [
+          {
+            "code": "\treturn value.getValueAt(0,\u0027CreationTime\u0027)",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.PartReferences.Inventory": {
+      "binding": {
+        "config": {
+          "path": "view.custom.PartReferences.DS"
+        },
+        "transforms": [
+          {
+            "code": "\treturn value.getValueAt(0,\u0027Inventory\u0027)",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.PartReferences.InventoryID": {
+      "binding": {
+        "config": {
+          "path": "view.custom.PartReferences.DS"
+        },
+        "transforms": [
+          {
+            "code": "\treturn value.getValueAt(0,\u0027InventoryID\u0027)",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.PartReferences.InventoryLocation": {
+      "binding": {
+        "config": {
+          "path": "view.custom.PartReferences.DS"
+        },
+        "transforms": [
+          {
+            "code": "\treturn value.getValueAt(0,\u0027InventoryLocation\u0027)",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.PartReferences.Label": {
+      "binding": {
+        "config": {
+          "path": "view.custom.TestDetails.DS"
+        },
+        "transforms": [
+          {
+            "code": "\treturn value.getValueAt(0,\u0027Label\u0027)",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.PartReferences.PartID": {
+      "binding": {
+        "config": {
+          "path": "view.custom.PartReferences.DS"
+        },
+        "transforms": [
+          {
+            "code": "\treturn value.getValueAt(0,\u0027ID\u0027)",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.PartReferences.ProductCode": {
+      "binding": {
+        "config": {
+          "path": "view.custom.TestDetails.DS"
+        },
+        "transforms": [
+          {
+            "code": "\treturn value.getValueAt(0,\u0027ProductCode\u0027)",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.PartReferences.WorkOrder": {
+      "binding": {
+        "config": {
+          "path": "view.custom.TestDetails.DS"
+        },
+        "transforms": [
+          {
+            "code": "\treturn value.getValueAt(0,\u0027WorkOrder\u0027)",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.PreviousTests": {
+      "binding": {
+        "config": {
+          "expression": "runscript(\u0027mes.quality.sp.getPreviousTestTable\u0027, 0, {view.custom.TestDetails.TestID})"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.Styles": {
+      "persistent": true
+    },
+    "custom.TestDetails": {
+      "persistent": true
+    },
+    "custom.TestDetails.DS": {
+      "binding": {
+        "config": {
+          "expression": "runscript(\u0027mes.quality.sp.getTests\u0027, 0, {session.custom.SelectedSite}, {view.custom.TestDetails.TestID})"
+        },
+        "type": "expr"
+      }
+    },
+    "custom.TestDetails.DateCreated": {
+      "binding": {
+        "config": {
+          "path": "view.custom.TestDetails.DS"
+        },
+        "transforms": [
+          {
+            "code": "\treturn value.getValueAt(0,\u0027DateCreated\u0027)",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.TestDetails.Notes": {
+      "binding": {
+        "config": {
+          "path": "view.custom.TestDetails.DS"
+        },
+        "transforms": [
+          {
+            "code": "\treturn value.getValueAt(0,\u0027Notes\u0027)",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.TestDetails.TestID": {
+      "binding": {
+        "config": {
+          "path": "view.params.TestID"
+        },
+        "type": "property"
+      }
+    },
+    "custom.TestDetails.TestStatus": {
+      "binding": {
+        "config": {
+          "path": "view.custom.TestDetails.DS"
+        },
+        "transforms": [
+          {
+            "code": "\treturn value.getValueAt(0,\u0027TestStatus\u0027)",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "custom.TestDetails.TestType": {
+      "binding": {
+        "config": {
+          "path": "view.custom.TestDetails.DS"
+        },
+        "transforms": [
+          {
+            "code": "\treturn value.getValueAt(0,\u0027TestType\u0027)",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      }
+    },
+    "params.TestID": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.fromDashboard": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 1015,
+      "width": 1397
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Test Details Label"
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "expression": "if({view.custom.TestDetails.TestType} \u003d \u0027Part Test\u0027, \u0027Part Test\u0027, \u0027Material Test\u0027)"
+                      },
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "alignVertical": "top",
+                  "style": {
+                    "classes": "Global/MarginBottom Text/Heading"
+                  },
+                  "textStyle": {
+                    "color": "--callToAction",
+                    "font-size": "0.8em",
+                    "textAlign": "center"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "meta": {
+                          "name": "Detail1"
+                        },
+                        "propConfig": {
+                          "props.style.classes": {
+                            "binding": {
+                              "config": {
+                                "path": "view.custom.Styles.ValueLabel"
+                              },
+                              "type": "property"
+                            }
+                          }
+                        },
+                        "props": {
+                          "style": {},
+                          "text": "Test ID",
+                          "textStyle": {
+                            "color": "--neutral-70",
+                            "font-size": "0.8em",
+                            "fontWeight": "bold",
+                            "textAlign": "left"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      },
+                      {
+                        "meta": {
+                          "name": "DetailValue1"
+                        },
+                        "propConfig": {
+                          "props.style.classes": {
+                            "binding": {
+                              "config": {
+                                "path": "view.custom.Styles.Value"
+                              },
+                              "type": "property"
+                            }
+                          },
+                          "props.text": {
+                            "binding": {
+                              "config": {
+                                "path": "view.custom.TestDetails.TestID"
+                              },
+                              "type": "property"
+                            }
+                          }
+                        },
+                        "props": {
+                          "style": {},
+                          "textStyle": {
+                            "classes": "TextFields/TextTitle",
+                            "textAlign": "left"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      }
+                    ],
+                    "meta": {
+                      "name": "Left"
+                    },
+                    "position": {
+                      "basis": "50%",
+                      "grow": 1
+                    },
+                    "props": {
+                      "direction": "column",
+                      "style": {
+                        "overflow": "hidden"
+                      }
+                    },
+                    "type": "ia.container.flex"
+                  },
+                  {
+                    "children": [
+                      {
+                        "meta": {
+                          "name": "Detail2"
+                        },
+                        "propConfig": {
+                          "props.style.classes": {
+                            "binding": {
+                              "config": {
+                                "path": "view.custom.Styles.ValueLabel"
+                              },
+                              "type": "property"
+                            }
+                          }
+                        },
+                        "props": {
+                          "style": {},
+                          "text": "Date Created",
+                          "textStyle": {
+                            "color": "--neutral-70",
+                            "font-size": "0.8em",
+                            "fontWeight": "bold",
+                            "textAlign": "left"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      },
+                      {
+                        "meta": {
+                          "name": "DetailValue2"
+                        },
+                        "propConfig": {
+                          "props.style.classes": {
+                            "binding": {
+                              "config": {
+                                "path": "view.custom.Styles.Value"
+                              },
+                              "type": "property"
+                            }
+                          },
+                          "props.text": {
+                            "binding": {
+                              "config": {
+                                "path": "view.custom.TestDetails.DateCreated"
+                              },
+                              "transforms": [
+                                {
+                                  "formatType": "datetime",
+                                  "formatValue": {
+                                    "date": "short",
+                                    "time": "short"
+                                  },
+                                  "type": "format"
+                                }
+                              ],
+                              "type": "property"
+                            }
+                          }
+                        },
+                        "props": {
+                          "style": {},
+                          "textStyle": {
+                            "classes": "TextFields/TextTitle",
+                            "textAlign": "left"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      }
+                    ],
+                    "meta": {
+                      "name": "Right"
+                    },
+                    "position": {
+                      "basis": "50%",
+                      "grow": 1
+                    },
+                    "props": {
+                      "direction": "column",
+                      "style": {
+                        "overflow": "hidden"
+                      }
+                    },
+                    "type": "ia.container.flex"
+                  }
+                ],
+                "meta": {
+                  "name": "Test Details"
+                },
+                "props": {
+                  "style": {
+                    "overflow": "hidden"
+                  }
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "meta": {
+                  "name": "Part References Label"
+                },
+                "propConfig": {
+                  "position.display": {
+                    "binding": {
+                      "config": {
+                        "expression": "if({view.custom.PartReferences.Label} \u003d Null, false, true)"
+                      },
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "alignVertical": "top",
+                  "style": {
+                    "classes": "Global/MarginBottom Global/MarginTop Text/Heading"
+                  },
+                  "text": "Part References",
+                  "textStyle": {
+                    "color": "--callToAction",
+                    "font-size": "0.8em",
+                    "textAlign": "center"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "meta": {
+                          "name": "PartReference7"
+                        },
+                        "propConfig": {
+                          "props.style.classes": {
+                            "binding": {
+                              "config": {
+                                "path": "view.custom.Styles.ValueLabel"
+                              },
+                              "type": "property"
+                            }
+                          }
+                        },
+                        "props": {
+                          "style": {},
+                          "text": "Part Label",
+                          "textStyle": {
+                            "color": "--neutral-70",
+                            "font-size": "0.8em",
+                            "fontWeight": "bold",
+                            "textAlign": "left"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      },
+                      {
+                        "meta": {
+                          "name": "PartReferenceValue7"
+                        },
+                        "propConfig": {
+                          "props.style.classes": {
+                            "binding": {
+                              "config": {
+                                "path": "view.custom.Styles.Value"
+                              },
+                              "type": "property"
+                            }
+                          },
+                          "props.text": {
+                            "binding": {
+                              "config": {
+                                "path": "view.custom.PartReferences.Label"
+                              },
+                              "type": "property"
+                            }
+                          }
+                        },
+                        "props": {
+                          "style": {},
+                          "textStyle": {
+                            "classes": "TextFields/TextTitle",
+                            "textAlign": "left"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      },
+                      {
+                        "meta": {
+                          "name": "PartReference6"
+                        },
+                        "propConfig": {
+                          "props.style.classes": {
+                            "binding": {
+                              "config": {
+                                "path": "view.custom.Styles.ValueLabel"
+                              },
+                              "type": "property"
+                            }
+                          }
+                        },
+                        "props": {
+                          "style": {},
+                          "text": "Work Order",
+                          "textStyle": {
+                            "color": "--neutral-70",
+                            "font-size": "0.8em",
+                            "fontWeight": "bold",
+                            "textAlign": "left"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      },
+                      {
+                        "meta": {
+                          "name": "PartReferenceValue6"
+                        },
+                        "propConfig": {
+                          "props.style.classes": {
+                            "binding": {
+                              "config": {
+                                "path": "view.custom.Styles.Value"
+                              },
+                              "type": "property"
+                            }
+                          },
+                          "props.text": {
+                            "binding": {
+                              "config": {
+                                "path": "view.custom.PartReferences.WorkOrder"
+                              },
+                              "type": "property"
+                            }
+                          }
+                        },
+                        "props": {
+                          "style": {},
+                          "textStyle": {
+                            "classes": "TextFields/TextTitle",
+                            "textAlign": "left"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      }
+                    ],
+                    "meta": {
+                      "name": "Left"
+                    },
+                    "position": {
+                      "basis": "50%",
+                      "grow": 1
+                    },
+                    "props": {
+                      "direction": "column",
+                      "style": {
+                        "overflow": "hidden"
+                      }
+                    },
+                    "type": "ia.container.flex"
+                  },
+                  {
+                    "children": [
+                      {
+                        "meta": {
+                          "name": "PartReference4"
+                        },
+                        "propConfig": {
+                          "props.style.classes": {
+                            "binding": {
+                              "config": {
+                                "path": "view.custom.Styles.ValueLabel"
+                              },
+                              "type": "property"
+                            }
+                          }
+                        },
+                        "props": {
+                          "style": {},
+                          "text": "Product Code",
+                          "textStyle": {
+                            "color": "--neutral-70",
+                            "font-size": "0.8em",
+                            "fontWeight": "bold",
+                            "textAlign": "left"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      },
+                      {
+                        "meta": {
+                          "name": "PartReferenceValue4"
+                        },
+                        "propConfig": {
+                          "props.style.classes": {
+                            "binding": {
+                              "config": {
+                                "path": "view.custom.Styles.Value"
+                              },
+                              "type": "property"
+                            }
+                          },
+                          "props.text": {
+                            "binding": {
+                              "config": {
+                                "path": "view.custom.PartReferences.ProductCode"
+                              },
+                              "type": "property"
+                            }
+                          }
+                        },
+                        "props": {
+                          "style": {},
+                          "textStyle": {
+                            "classes": "TextFields/TextTitle",
+                            "textAlign": "left"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      },
+                      {
+                        "meta": {
+                          "name": "PartReference5"
+                        },
+                        "propConfig": {
+                          "props.style.classes": {
+                            "binding": {
+                              "config": {
+                                "path": "view.custom.Styles.ValueLabel"
+                              },
+                              "type": "property"
+                            }
+                          }
+                        },
+                        "props": {
+                          "style": {},
+                          "text": "Creation Date",
+                          "textStyle": {
+                            "color": "--neutral-70",
+                            "font-size": "0.8em",
+                            "fontWeight": "bold",
+                            "textAlign": "left"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      },
+                      {
+                        "meta": {
+                          "name": "PartReferenceValue5"
+                        },
+                        "propConfig": {
+                          "props.style.classes": {
+                            "binding": {
+                              "config": {
+                                "path": "view.custom.Styles.Value"
+                              },
+                              "type": "property"
+                            }
+                          },
+                          "props.text": {
+                            "binding": {
+                              "config": {
+                                "path": "view.custom.PartReferences.DateCreated"
+                              },
+                              "transforms": [
+                                {
+                                  "formatType": "datetime",
+                                  "formatValue": {
+                                    "date": "short",
+                                    "time": "short"
+                                  },
+                                  "type": "format"
+                                }
+                              ],
+                              "type": "property"
+                            }
+                          }
+                        },
+                        "props": {
+                          "style": {},
+                          "textStyle": {
+                            "classes": "TextFields/TextTitle",
+                            "textAlign": "left"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      }
+                    ],
+                    "meta": {
+                      "name": "Right"
+                    },
+                    "position": {
+                      "basis": "50%",
+                      "grow": 1
+                    },
+                    "props": {
+                      "direction": "column",
+                      "style": {
+                        "overflow": "hidden"
+                      }
+                    },
+                    "type": "ia.container.flex"
+                  }
+                ],
+                "meta": {
+                  "name": "Part References"
+                },
+                "propConfig": {
+                  "position.display": {
+                    "binding": {
+                      "config": {
+                        "expression": "if({view.custom.PartReferences.Label} \u003d Null, false, true)"
+                      },
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "overflow": "hidden"
+                  }
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "meta": {
+                  "name": "Material References Label"
+                },
+                "propConfig": {
+                  "position.display": {
+                    "binding": {
+                      "config": {
+                        "expression": "if({view.custom.MaterialReferences.MaterialLotNumber} \u003d Null, false, true)"
+                      },
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "alignVertical": "top",
+                  "style": {
+                    "classes": "Global/MarginBottom Global/MarginTop Text/Heading"
+                  },
+                  "text": "Material References",
+                  "textStyle": {
+                    "color": "--callToAction",
+                    "font-size": "0.8em",
+                    "textAlign": "center"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "meta": {
+                          "name": "MatReference1"
+                        },
+                        "propConfig": {
+                          "props.style.classes": {
+                            "binding": {
+                              "config": {
+                                "path": "view.custom.Styles.ValueLabel"
+                              },
+                              "type": "property"
+                            }
+                          }
+                        },
+                        "props": {
+                          "style": {},
+                          "text": "Material Name",
+                          "textStyle": {
+                            "color": "--neutral-70",
+                            "font-size": "0.8em",
+                            "fontWeight": "bold",
+                            "textAlign": "left"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      },
+                      {
+                        "meta": {
+                          "name": "MatReferenceValue1"
+                        },
+                        "propConfig": {
+                          "props.style.classes": {
+                            "binding": {
+                              "config": {
+                                "path": "view.custom.Styles.Value"
+                              },
+                              "type": "property"
+                            }
+                          },
+                          "props.text": {
+                            "binding": {
+                              "config": {
+                                "path": "view.custom.MaterialReferences.MaterialName"
+                              },
+                              "type": "property"
+                            }
+                          }
+                        },
+                        "props": {
+                          "style": {},
+                          "textStyle": {
+                            "classes": "TextFields/TextTitle",
+                            "textAlign": "left"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      }
+                    ],
+                    "meta": {
+                      "name": "Left"
+                    },
+                    "position": {
+                      "basis": "50%",
+                      "grow": 1
+                    },
+                    "props": {
+                      "direction": "column"
+                    },
+                    "type": "ia.container.flex"
+                  },
+                  {
+                    "children": [
+                      {
+                        "meta": {
+                          "name": "MatReference2"
+                        },
+                        "propConfig": {
+                          "props.style.classes": {
+                            "binding": {
+                              "config": {
+                                "path": "view.custom.Styles.ValueLabel"
+                              },
+                              "type": "property"
+                            }
+                          }
+                        },
+                        "props": {
+                          "style": {},
+                          "text": "Material Lot #",
+                          "textStyle": {
+                            "color": "--neutral-70",
+                            "font-size": "0.8em",
+                            "fontWeight": "bold",
+                            "textAlign": "left"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      },
+                      {
+                        "meta": {
+                          "name": "MatReferenceValue2"
+                        },
+                        "propConfig": {
+                          "props.style.classes": {
+                            "binding": {
+                              "config": {
+                                "path": "view.custom.Styles.Value"
+                              },
+                              "type": "property"
+                            }
+                          },
+                          "props.text": {
+                            "binding": {
+                              "config": {
+                                "path": "view.custom.MaterialReferences.MaterialLotNumber"
+                              },
+                              "type": "property"
+                            }
+                          }
+                        },
+                        "props": {
+                          "style": {},
+                          "textStyle": {
+                            "classes": "TextFields/TextTitle",
+                            "textAlign": "left"
+                          }
+                        },
+                        "type": "ia.display.label"
+                      }
+                    ],
+                    "meta": {
+                      "name": "Right"
+                    },
+                    "position": {
+                      "basis": "50%",
+                      "grow": 1
+                    },
+                    "props": {
+                      "direction": "column"
+                    },
+                    "type": "ia.container.flex"
+                  }
+                ],
+                "meta": {
+                  "name": "Material References"
+                },
+                "propConfig": {
+                  "position.display": {
+                    "binding": {
+                      "config": {
+                        "expression": "if({view.custom.MaterialReferences.MaterialLotNumber} \u003d Null, false, true)"
+                      },
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "overflow": "hidden"
+                  }
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "meta": {
+                  "name": "Material References_0"
+                },
+                "props": {
+                  "alignVertical": "top",
+                  "style": {
+                    "classes": "Global/MarginTop Text/Heading"
+                  },
+                  "text": "Test Input Values",
+                  "textStyle": {
+                    "color": "--callToAction",
+                    "font-size": "0.8em",
+                    "textAlign": "center"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "AttributeValues"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "propConfig": {
+                  "meta.visible": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.Attributes.Dataset"
+                      },
+                      "transforms": [
+                        {
+                          "code": "\n\tif value.getValueAt(0,0) is None or \u0027\u0027:\n\t\treturn False\n\telse:\n\t\treturn True",
+                          "type": "script"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  },
+                  "position.display": {
+                    "binding": {
+                      "config": {
+                        "expression": "if({view.custom.ConformanceReport} \u003d true, false, true)"
+                      },
+                      "type": "expr"
+                    }
+                  },
+                  "props.params.Dataset": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.Attributes.Dataset"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "OutputValues": {
+                      "$": [
+                        "ds",
+                        192,
+                        1702394485209
+                      ],
+                      "$columns": [
+                        {
+                          "data": [],
+                          "name": "TestAttributeID",
+                          "type": "String"
+                        },
+                        {
+                          "data": [],
+                          "name": "AttributeName",
+                          "type": "String"
+                        },
+                        {
+                          "data": [],
+                          "name": "TestAttributeDataTypeID",
+                          "type": "String"
+                        },
+                        {
+                          "data": [],
+                          "name": "TestAttributeDataType",
+                          "type": "String"
+                        },
+                        {
+                          "data": [],
+                          "name": "Saved Value",
+                          "type": "String"
+                        },
+                        {
+                          "data": [],
+                          "name": "IntValue",
+                          "type": "String"
+                        },
+                        {
+                          "data": [],
+                          "name": "FloatValue",
+                          "type": "String"
+                        },
+                        {
+                          "data": [],
+                          "name": "BoolValue",
+                          "type": "String"
+                        },
+                        {
+                          "data": [],
+                          "name": "StringValue",
+                          "type": "String"
+                        },
+                        {
+                          "data": [],
+                          "name": "HiHiLimit",
+                          "type": "String"
+                        },
+                        {
+                          "data": [],
+                          "name": "HiLimit",
+                          "type": "String"
+                        },
+                        {
+                          "data": [],
+                          "name": "TargetValue",
+                          "type": "String"
+                        },
+                        {
+                          "data": [],
+                          "name": "LoLimit",
+                          "type": "String"
+                        },
+                        {
+                          "data": [],
+                          "name": "LoLoLimit",
+                          "type": "String"
+                        },
+                        {
+                          "data": [],
+                          "name": "DateCreated",
+                          "type": "String"
+                        },
+                        {
+                          "data": [],
+                          "name": "ValidStartDate",
+                          "type": "String"
+                        },
+                        {
+                          "data": [],
+                          "name": "ValidEndDate",
+                          "type": "String"
+                        }
+                      ]
+                    }
+                  },
+                  "path": "App/Quality/Test Edit/Embedded/AttributeFlexTesting"
+                },
+                "scripts": {
+                  "customMethods": [],
+                  "extensionFunctions": null,
+                  "messageHandlers": [
+                    {
+                      "messageType": "refreshAttributes",
+                      "pageScope": false,
+                      "script": "\t#self.view.refreshBinding(\"custom.Attributes.Dataset\")\n\t#self.refreshBinding(\"props.params.Dataset\")\n\tself.props.params.Dataset \u003d self.view.custom.Attributes.Dataset",
+                      "sessionScope": false,
+                      "viewScope": true
+                    }
+                  ]
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "meta": {
+                  "name": "NotesLabel"
+                },
+                "propConfig": {
+                  "props.style.classes": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.Styles.ValueLabel"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {},
+                  "text": "Notes:",
+                  "textStyle": {
+                    "fontWeight": "bold",
+                    "textAlign": "left"
+                  }
+                },
+                "type": "ia.display.label"
+              },
+              {
+                "meta": {
+                  "name": "Notes"
+                },
+                "position": {
+                  "basis": "50px"
+                },
+                "propConfig": {
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.TestDetails.Notes"
+                      },
+                      "transforms": [
+                        {
+                          "expression": "if({value} \u003d None, \u0027\u0027, {value})",
+                          "type": "expression"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "placeholder": "Enter notes.....",
+                  "style": {
+                    "classes": "Global/MarginBottom Global/MarginLeft Global/MarginRight Global/MarginTop TextFields/TextField"
+                  }
+                },
+                "type": "ia.input.text-area"
+              },
+              {
+                "meta": {
+                  "name": "TestStatusValue"
+                },
+                "propConfig": {
+                  "props.selected": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.Attributes.DidTestFail"
+                      },
+                      "transforms": [
+                        {
+                          "expression": "!{value}",
+                          "type": "expression"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  },
+                  "props.text": {
+                    "binding": {
+                      "config": {
+                        "expression": "if({this.props.selected} \u003d true, \u0027Test Passed!\u0027, \u0027Test Failed....\u0027)"
+                      },
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "enabled": false,
+                  "style": {
+                    "classes": "Global/MarginLeft"
+                  }
+                },
+                "type": "ia.input.checkbox"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "events": {
+                          "dom": {
+                            "onClick": {
+                              "config": {
+                                "script": "\tlogger \u003d system.util.getLogger(\u0027Save Test Changes \u0026 Values\u0027)\n\tTestID \u003d self.view.custom.TestDetails.TestID\n\tPartID \u003d self.view.custom.PartReferences.PartID\n\tTestedBy \u003d self.session.props.auth.user.userName\n\tIsPass \u003d self.parent.parent.parent.getChild(\"TestStatusValue\").props.selected\n\tNotes \u003d self.parent.parent.parent.getChild(\"Notes\").props.text\n\tMaterialLotID \u003d self.view.custom.MaterialReferences.MaterialLotID\n\tAttributeValues \u003d self.view.custom.Attributes.OutputValues\n\t\n\ttry:\n\t\tmes.quality.sp.updateTest(TestID \u003d TestID, IsPass \u003d IsPass, AttributeValues \u003d AttributeValues, PartID \u003d PartID, MaterialLotID \u003d MaterialLotID, Notes \u003d Notes)\n\t\tMessageParams \u003d {\n\t\t\t\t\t\t\t\t\t    \"ModalName\": \"Sucess\",\n\t\t\t\t\t\t\t\t\t    \"ErrorMessage\": \u0027Changes saved successfully to Test: \u0027+str(TestID),\n\t\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\t\t\n\t\tsystem.perspective.openPopup(\"ErrorModal\", \"GlobalComponents/Modals/ErrorModal\", MessageParams, modal \u003d True)\n\texcept:\n\t\tlogger.warn(\u0027There was an error: \u0027 + \u0027mes.quality.sp.updateTest did not save changes successfully\u0027)\n\t\tMessageParams \u003d {\n\t\t\t\t\t\t\t\t\t\t\t    \"ModalName\": \"Sucess\",\n\t\t\t\t\t\t\t\t\t\t\t    \"ErrorMessage\": \u0027Changes were not saved please try again.\u0027,\n\t\t\t\t\t\t\t\t\t\t\t}\n\t\t\t\t\t\t\t\t\t\t\t\n\t\tsystem.perspective.openPopup(\"ErrorModal\", \"GlobalComponents/Modals/ErrorModal\", MessageParams, modal \u003d True)\n\t\n\tif self.view.params.fromDashboard \u003d\u003d True:\n\t\tsystem.perspective.navigate(page \u003d \u0027/operations/operator_dashboard\u0027)\n\telse:\n\t\tsystem.perspective.navigate(page \u003d \u0027/testsoverview\u0027)"
+                              },
+                              "scope": "G",
+                              "type": "script"
+                            }
+                          }
+                        },
+                        "meta": {
+                          "name": "SaveButton"
+                        },
+                        "position": {
+                          "grow": 1
+                        },
+                        "propConfig": {
+                          "meta.visible": {
+                            "binding": {
+                              "config": {
+                                "expression": "{view.custom.Attributes.ChangesMade}"
+                              },
+                              "type": "expr"
+                            }
+                          }
+                        },
+                        "props": {
+                          "params": {
+                            "Label": "Save",
+                            "backgroundColor": "value",
+                            "disabledPopup": {
+                              "message": "Please sign in as quarterback to proceed.",
+                              "messageType": "",
+                              "payload": {},
+                              "title": "Invalid Permissions"
+                            },
+                            "enabled": true,
+                            "hover": true,
+                            "iconPath": "material/add",
+                            "isSelectable": false,
+                            "label": "Add",
+                            "selected": true,
+                            "size": "142px",
+                            "type": "normalsuccess"
+                          },
+                          "path": "GlobalComponents/Buttons/Button",
+                          "style": {
+                            "marginRight": "8px"
+                          }
+                        },
+                        "scripts": {
+                          "customMethods": [],
+                          "extensionFunctions": null,
+                          "messageHandlers": [
+                            {
+                              "messageType": "saveFocus",
+                              "pageScope": true,
+                              "script": "\tself.focus()",
+                              "sessionScope": true,
+                              "viewScope": true
+                            }
+                          ]
+                        },
+                        "type": "ia.display.view"
+                      }
+                    ],
+                    "meta": {
+                      "name": "Save"
+                    },
+                    "position": {
+                      "basis": "50%",
+                      "grow": 1
+                    },
+                    "type": "ia.container.flex"
+                  },
+                  {
+                    "children": [
+                      {
+                        "events": {
+                          "dom": {
+                            "onClick": {
+                              "config": {
+                                "script": "\tif self.view.params.fromDashboard \u003d\u003d True:\n\t\tsystem.perspective.navigate(page \u003d \u0027/operations/operator_dashboard\u0027)\n\telse:\n\t\tsystem.perspective.navigate(page \u003d \u0027/testsoverview\u0027)"
+                              },
+                              "scope": "G",
+                              "type": "script"
+                            }
+                          }
+                        },
+                        "meta": {
+                          "name": "CancelButton"
+                        },
+                        "position": {
+                          "grow": 1
+                        },
+                        "props": {
+                          "params": {
+                            "IconPath": "material/cancel",
+                            "Label": "Cancel",
+                            "backgroundColor": "value",
+                            "disabledPopup": {
+                              "message": "Please sign in as quarterback to proceed.",
+                              "messageType": "",
+                              "payload": {},
+                              "title": "Invalid Permissions"
+                            },
+                            "enabled": true,
+                            "hover": true,
+                            "isSelectable": false,
+                            "label": "Cancel",
+                            "selected": true,
+                            "size": "value",
+                            "type": "normalfail"
+                          },
+                          "path": "GlobalComponents/Buttons/Button",
+                          "style": {
+                            "marginRight": "8px"
+                          }
+                        },
+                        "type": "ia.display.view"
+                      }
+                    ],
+                    "meta": {
+                      "name": "Cancel"
+                    },
+                    "position": {
+                      "basis": "50%",
+                      "grow": 1
+                    },
+                    "props": {
+                      "direction": "column"
+                    },
+                    "type": "ia.container.flex"
+                  },
+                  {
+                    "children": [
+                      {
+                        "events": {
+                          "dom": {
+                            "onClick": {
+                              "config": {
+                                "script": "\tself.view.custom.ConformanceReport \u003d True\n\t"
+                              },
+                              "scope": "G",
+                              "type": "script"
+                            }
+                          }
+                        },
+                        "meta": {
+                          "name": "Nonconformance"
+                        },
+                        "position": {
+                          "grow": 1
+                        },
+                        "props": {
+                          "params": {
+                            "IconPath": "material/assignment",
+                            "Label": "Non-conformance Report",
+                            "backgroundColor": "value",
+                            "disabledPopup": {
+                              "message": "Please sign in as quarterback to proceed.",
+                              "messageType": "",
+                              "payload": {},
+                              "title": "Invalid Permissions"
+                            },
+                            "enabled": true,
+                            "hover": true,
+                            "isSelectable": false,
+                            "label": "Cancel",
+                            "selected": true,
+                            "size": "value",
+                            "type": "normalfail"
+                          },
+                          "path": "GlobalComponents/Buttons/Button",
+                          "style": {
+                            "marginRight": "8px"
+                          }
+                        },
+                        "type": "ia.display.view"
+                      }
+                    ],
+                    "meta": {
+                      "name": "Nonconformance"
+                    },
+                    "position": {
+                      "basis": "50%",
+                      "grow": 1
+                    },
+                    "props": {
+                      "direction": "column"
+                    },
+                    "type": "ia.container.flex"
+                  }
+                ],
+                "meta": {
+                  "name": "Footer"
+                },
+                "position": {
+                  "basis": "42px"
+                },
+                "propConfig": {
+                  "position.display": {
+                    "binding": {
+                      "config": {
+                        "expression": "if({view.custom.ConformanceReport} \u003d true, false, true)"
+                      },
+                      "type": "expr"
+                    }
+                  }
+                },
+                "props": {
+                  "style": {
+                    "classes": "Global/MarginAll"
+                  }
+                },
+                "type": "ia.container.flex"
+              }
+            ],
+            "custom": {
+              "edit": 1
+            },
+            "meta": {
+              "name": "TestDetails"
+            },
+            "position": {
+              "basis": "400px"
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginAll"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "Selected Case_0"
+                    },
+                    "props": {
+                      "alignVertical": "top",
+                      "style": {
+                        "classes": "Global/MarginBottom Text/Heading"
+                      },
+                      "text": "Change Test Status",
+                      "textStyle": {
+                        "color": "--callToAction",
+                        "font-size": "0.8em",
+                        "textAlign": "center"
+                      }
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "children": [
+                      {
+                        "events": {
+                          "component": {
+                            "onActionPerformed": {
+                              "config": {
+                                "script": "\tTestID \u003d self.view.custom.TestDetails.TestID\n\tStatusName \u003d \u0027Approved\u0027\n\tChangedBy \u003d self.session.props.auth.user.userName\n\tMessage \u003d \u0027Successfully approved the test!\u0027\n\tif TestID \u003e 0:\n\t\tmes.quality.sp.updateTestStatus(TestID, StatusName, ChangedBy)\n\t\tsystem.perspective.openPopup(\u0027Message\u0027, \u0027GlobalComponents/Modals/ErrorModal\u0027, params \u003d {\u0027ErrorMessage\u0027:Message, \u0027ModalName\u0027:\u0027Test\u0027})\n\telse:\n\t\tpass\n\t\n\tmessageType \u003d \u0027refreshQualityTable\u0027\n\tpayload \u003d {}\n\tsystem.perspective.sendMessage(messageType, payload, view \u003d \u0027session\u0027)\n\t\n"
+                              },
+                              "scope": "G",
+                              "type": "script"
+                            }
+                          }
+                        },
+                        "meta": {
+                          "name": "Approve"
+                        },
+                        "props": {
+                          "style": {
+                            "classes": "Buttons/ButtonStyle Global/MarginAllLeft Global/MarginAllRight"
+                          },
+                          "text": "Approve"
+                        },
+                        "type": "ia.input.button"
+                      },
+                      {
+                        "events": {
+                          "component": {
+                            "onActionPerformed": {
+                              "config": {
+                                "script": "\tTestID \u003d self.view.custom.TestDetails.TestID\n\tStatusName \u003d \u0027Unapproved\u0027\n\tChangedBy \u003d self.session.props.auth.user.userName\n\tMessage \u003d \u0027Test status set to Unapproved successfully.\u0027\n\tModalName \u003d \u0027Test Status\u0027\n\tif TestID \u003e 0:\n\t\tmes.quality.sp.updateTestStatus(TestID, StatusName, ChangedBy)\n\t\tsystem.perspective.openPopup(\u0027Message\u0027, \u0027GlobalComponents/Modals/ErrorModal\u0027, params \u003d {\u0027ErrorMessage\u0027:Message, \u0027ModalName\u0027:ModalName})\n\telse:\n\t\tpass\n\t\n\tmessageType \u003d \u0027refreshQualityTable\u0027\n\tpayload \u003d {}\n\tsystem.perspective.sendMessage(messageType, payload, view \u003d \u0027session\u0027)"
+                              },
+                              "scope": "G",
+                              "type": "script"
+                            }
+                          }
+                        },
+                        "meta": {
+                          "name": "Unapprove"
+                        },
+                        "props": {
+                          "style": {
+                            "classes": "Buttons/ButtonStyle Global/MarginAllLeft Global/MarginAllRight"
+                          },
+                          "text": "Unapprove"
+                        },
+                        "type": "ia.input.button"
+                      },
+                      {
+                        "events": {
+                          "component": {
+                            "onActionPerformed": {
+                              "config": {
+                                "script": "\tTestID \u003d self.view.custom.TestDetails.TestID\n\tStatusName \u003d \u0027On Hold\u0027\n\tChangedBy \u003d self.session.props.auth.user.userName\n\tMessage \u003d \u0027Test status set to On Hold  successfully.\u0027\n\tModalName \u003d \u0027Test Status\u0027\n\tif TestID \u003e 0:\n\t\tmes.quality.sp.updateTestStatus(TestID, StatusName, ChangedBy)\n\t\tsystem.perspective.openPopup(\u0027Message\u0027, \u0027GlobalComponents/Modals/ErrorModal\u0027, params \u003d {\u0027ErrorMessage\u0027:Message, \u0027ModalName\u0027:ModalName})\n\telse:\n\t\tpass\n\n\tmessageType \u003d \u0027refreshQualityTable\u0027\n\tpayload \u003d {}\n\tsystem.perspective.sendMessage(messageType, payload, view \u003d \u0027session\u0027)"
+                              },
+                              "scope": "G",
+                              "type": "script"
+                            }
+                          }
+                        },
+                        "meta": {
+                          "name": "OnHold"
+                        },
+                        "props": {
+                          "style": {
+                            "classes": "Buttons/ButtonStyle Global/MarginAllLeft Global/MarginAllRight"
+                          },
+                          "text": "On Hold"
+                        },
+                        "type": "ia.input.button"
+                      }
+                    ],
+                    "meta": {
+                      "name": "StatusButtons"
+                    },
+                    "position": {
+                      "basis": "42px",
+                      "grow": 1
+                    },
+                    "props": {
+                      "justify": "center"
+                    },
+                    "type": "ia.container.flex"
+                  },
+                  {
+                    "custom": {
+                      "StaticData": {
+                        "$": [
+                          "ds",
+                          192,
+                          1686317116021
+                        ],
+                        "$columns": [
+                          {
+                            "data": [
+                              "",
+                              "",
+                              "",
+                              "",
+                              "4",
+                              "7",
+                              "9"
+                            ],
+                            "name": "TestAttributeID",
+                            "type": "String"
+                          },
+                          {
+                            "data": [
+                              "Identifier",
+                              "Date",
+                              "Product Code",
+                              "Workorder",
+                              "TestingNameChange",
+                              "TestingEditPopupName",
+                              "AnotherOne"
+                            ],
+                            "name": "AttributeName",
+                            "type": "String"
+                          },
+                          {
+                            "data": [
+                              "",
+                              "",
+                              "",
+                              "",
+                              "3",
+                              "2",
+                              "StringTwo"
+                            ],
+                            "name": "TestAttributeDataTypeID",
+                            "type": "String"
+                          },
+                          {
+                            "data": [
+                              "",
+                              "",
+                              "",
+                              "",
+                              "Boolean",
+                              "Float",
+                              "String"
+                            ],
+                            "name": "TestAttributeDataType",
+                            "type": "String"
+                          },
+                          {
+                            "data": [
+                              "PR2-20230302003",
+                              "6/7/23 11:19",
+                              "HighPPM",
+                              "WO-20230207-18201354",
+                              "1",
+                              "650",
+                              "Null"
+                            ],
+                            "name": "Test1",
+                            "type": "String"
+                          },
+                          {
+                            "data": [
+                              "PR2-20230602005",
+                              "6/7/23 10:07",
+                              "HighPPM",
+                              "WO-20230518-18203541",
+                              "1",
+                              "643",
+                              "Stuff"
+                            ],
+                            "name": "Test2",
+                            "type": "String"
+                          },
+                          {
+                            "data": [
+                              "HighPPM-20230606134011479000",
+                              "6/6/23 19:03",
+                              "HighPPM",
+                              "",
+                              "1",
+                              "7000",
+                              "8555"
+                            ],
+                            "name": "Test3",
+                            "type": "String"
+                          },
+                          {
+                            "data": [
+                              "PR2-20230602002",
+                              "6/2/23 13:23",
+                              "HighPPM",
+                              "WO-20230207-18201354",
+                              "1",
+                              "80",
+                              "Testing"
+                            ],
+                            "name": "Test4",
+                            "type": "String"
+                          },
+                          {
+                            "data": [
+                              "",
+                              "",
+                              "",
+                              "",
+                              "800",
+                              "800",
+                              "51"
+                            ],
+                            "name": "HiHiLimit",
+                            "type": "String"
+                          },
+                          {
+                            "data": [
+                              "",
+                              "",
+                              "",
+                              "",
+                              "650",
+                              "700",
+                              "51"
+                            ],
+                            "name": "HiLimit",
+                            "type": "String"
+                          },
+                          {
+                            "data": [
+                              "",
+                              "",
+                              "",
+                              "",
+                              "220",
+                              "650",
+                              "41"
+                            ],
+                            "name": "TargetValue",
+                            "type": "String"
+                          },
+                          {
+                            "data": [
+                              "",
+                              "",
+                              "",
+                              "",
+                              "324",
+                              "600",
+                              "31"
+                            ],
+                            "name": "LoLimit",
+                            "type": "String"
+                          },
+                          {
+                            "data": [
+                              "",
+                              "",
+                              "",
+                              "",
+                              "324",
+                              "500",
+                              "21"
+                            ],
+                            "name": "LoLoLimit",
+                            "type": "String"
+                          }
+                        ]
+                      }
+                    },
+                    "meta": {
+                      "name": "Table"
+                    },
+                    "position": {
+                      "grow": 60
+                    },
+                    "propConfig": {
+                      "props.data": {
+                        "binding": {
+                          "config": {
+                            "path": "view.custom.PreviousTests"
+                          },
+                          "transforms": [
+                            {
+                              "code": "\toutput_json \u003d []\n\t\n\tfor row in range(value.getRowCount()):\n\t\trow_object \u003d {}\n\t\n\t\trow_value \u003d {}\n\t\tcell_style \u003d {}\n\t\t\n\t\tfor col in range(value.getColumnCount()):    \n\t\t\trow_value[value.getColumnName(col)] \u003d {\u0027value\u0027: value.getValueAt(row, col), \u0027style\u0027: {}}\n\t\t\tcell_style \u003d {}\n\t\t\t\n\t\t\tHiHiLimit \u003d None\n\t\t\tHiLimit   \u003d None\n\t\t\tLoLimit   \u003d None\n\t\t\tLoLoLimit \u003d None\n\t\t\tCurrValue \u003d None\n\t\t\t\n\t\t\ttry:\n\t\t\t\tif \u0027TestValues\u0027 in value.getColumnName(col):\n\t\t\t\t\tif value.getValueAt(row, \u0027TestAttributeDataType\u0027) \u003d\u003d \u0027Integer\u0027:\n\t\t\t\t\t\tHiHiLimit \u003d int(value.getValueAt(row, \u0027HiHiLimit\u0027))\n\t\t\t\t\t\tHiLimit   \u003d int(value.getValueAt(row, \u0027HiLimit\u0027))\n\t\t\t\t\t\tLoLimit   \u003d int(value.getValueAt(row, \u0027LoLimit\u0027))\n\t\t\t\t\t\tLoLoLimit \u003d int(value.getValueAt(row, \u0027LoLoLimit\u0027))\n\t\t\t\t\t\tCurrValue \u003d int(value.getValueAt(row, col))\n\t\t\t\t\telif value.getValueAt(row, \u0027TestAttributeDataType\u0027) \u003d\u003d \u0027Float\u0027:\n\t\t\t\t\t\tHiHiLimit \u003d float(value.getValueAt(row, \u0027HiHiLimit\u0027))\n\t\t\t\t\t\tHiLimit   \u003d float(value.getValueAt(row, \u0027HiLimit\u0027))\n\t\t\t\t\t\tLoLimit   \u003d float(value.getValueAt(row, \u0027LoLimit\u0027))\n\t\t\t\t\t\tLoLoLimit \u003d float(value.getValueAt(row, \u0027LoLoLimit\u0027))\n\t\t\t\t\t\tCurrValue \u003d float(value.getValueAt(row, col))\n\t\t\t\t\n\t\t\t\t\tif CurrValue \u003c\u003e None and (CurrValue \u003e\u003d HiHiLimit or CurrValue \u003c\u003d LoLoLimit):\n\t\t\t\t\t\tcell_style \u003d {\n\t\t\t\t\t\t\t\u0027background-color\u0027: \u0027#f00\u0027,\n\t\t\t\t\t\t\t\u0027color\u0027: \u0027--neutral-10\u0027\n\t\t\t\t\t\t}\n\t\t\t\t\telif CurrValue \u003c\u003e None and ((CurrValue \u003c HiHiLimit and CurrValue \u003e\u003d HiLimit) or (CurrValue \u003c\u003d LoLimit and CurrValue \u003e LoLoLimit)):\n\t\t\t\t\t\tcell_style \u003d {\n\t\t\t\t\t\t\t\u0027background-color\u0027: \u0027#ff0\u0027,\n\t\t\t\t\t\t\t\u0027color\u0027: \u0027--neutral-10\u0027\n\t\t\t\t\t\t}\n\t\t\texcept:\n\t\t\t\tpass\n\t\t\t\n\t\t\trow_value[value.getColumnName(col)][\u0027style\u0027] \u003d cell_style\n\t\t\trow_object[\u0027value\u0027] \u003d row_value\n\t\t\n\t\toutput_json.append(row_object)\n\t\n\treturn output_json",
+                              "type": "script"
+                            }
+                          ],
+                          "type": "property"
+                        }
+                      }
+                    },
+                    "props": {
+                      "cells": {
+                        "style": {
+                          "border": "1px solid #666",
+                          "font-size": "0.9em",
+                          "padding": "0 8px"
+                        }
+                      },
+                      "columns": [
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "AttributeName",
+                          "filter": {
+                            "boolean": {
+                              "condition": ""
+                            },
+                            "date": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "enabled": false,
+                            "number": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "string": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "visible": "on-hover"
+                          },
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": "Attribute"
+                          },
+                          "justify": "auto",
+                          "nullFormat": {
+                            "includeNullStrings": true,
+                            "nullFormatValue": "",
+                            "strict": false
+                          },
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "auto",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": false,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": "",
+                            "font-weight": "bold"
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {},
+                          "viewPath": "",
+                          "visible": true,
+                          "width": ""
+                        },
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "TestValues1",
+                          "filter": {
+                            "boolean": {
+                              "condition": ""
+                            },
+                            "date": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "enabled": false,
+                            "number": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "string": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "visible": "on-hover"
+                          },
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "justify": "auto",
+                          "nullFormat": {
+                            "includeNullStrings": true,
+                            "nullFormatValue": "",
+                            "strict": false
+                          },
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "auto",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": false,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {},
+                          "viewPath": "",
+                          "visible": true,
+                          "width": ""
+                        },
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "TestValues2",
+                          "filter": {
+                            "boolean": {
+                              "condition": ""
+                            },
+                            "date": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "enabled": false,
+                            "number": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "string": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "visible": "on-hover"
+                          },
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "justify": "auto",
+                          "nullFormat": {
+                            "includeNullStrings": true,
+                            "nullFormatValue": "",
+                            "strict": false
+                          },
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "auto",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": false,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {},
+                          "viewPath": "",
+                          "visible": true,
+                          "width": ""
+                        },
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "TestValues3",
+                          "filter": {
+                            "boolean": {
+                              "condition": ""
+                            },
+                            "date": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "enabled": false,
+                            "number": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "string": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "visible": "on-hover"
+                          },
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "justify": "auto",
+                          "nullFormat": {
+                            "includeNullStrings": true,
+                            "nullFormatValue": "",
+                            "strict": false
+                          },
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "auto",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": false,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {},
+                          "viewPath": "",
+                          "visible": true,
+                          "width": ""
+                        },
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "TestValues4",
+                          "filter": {
+                            "boolean": {
+                              "condition": ""
+                            },
+                            "date": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "enabled": false,
+                            "number": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "string": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "visible": "on-hover"
+                          },
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "justify": "auto",
+                          "nullFormat": {
+                            "includeNullStrings": true,
+                            "nullFormatValue": "",
+                            "strict": false
+                          },
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "auto",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": false,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {},
+                          "viewPath": "",
+                          "visible": true,
+                          "width": ""
+                        },
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "TestValues5",
+                          "filter": {
+                            "boolean": {
+                              "condition": ""
+                            },
+                            "date": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "enabled": false,
+                            "number": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "string": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "visible": "on-hover"
+                          },
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "justify": "auto",
+                          "nullFormat": {
+                            "includeNullStrings": true,
+                            "nullFormatValue": "",
+                            "strict": false
+                          },
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "auto",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": false,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {},
+                          "viewPath": "",
+                          "visible": true,
+                          "width": ""
+                        },
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "TestValues6",
+                          "filter": {
+                            "boolean": {
+                              "condition": ""
+                            },
+                            "date": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "enabled": false,
+                            "number": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "string": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "visible": "on-hover"
+                          },
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "justify": "auto",
+                          "nullFormat": {
+                            "includeNullStrings": true,
+                            "nullFormatValue": "",
+                            "strict": false
+                          },
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "auto",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": false,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {},
+                          "viewPath": "",
+                          "visible": true,
+                          "width": ""
+                        },
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "TestValues7",
+                          "filter": {
+                            "boolean": {
+                              "condition": ""
+                            },
+                            "date": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "enabled": false,
+                            "number": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "string": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "visible": "on-hover"
+                          },
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "justify": "auto",
+                          "nullFormat": {
+                            "includeNullStrings": true,
+                            "nullFormatValue": "",
+                            "strict": false
+                          },
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "auto",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": false,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {},
+                          "viewPath": "",
+                          "visible": true,
+                          "width": ""
+                        },
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "TestValues8",
+                          "filter": {
+                            "boolean": {
+                              "condition": ""
+                            },
+                            "date": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "enabled": false,
+                            "number": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "string": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "visible": "on-hover"
+                          },
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "justify": "auto",
+                          "nullFormat": {
+                            "includeNullStrings": true,
+                            "nullFormatValue": "",
+                            "strict": false
+                          },
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "auto",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": false,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {},
+                          "viewPath": "",
+                          "visible": true,
+                          "width": ""
+                        },
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "HiHiLimit",
+                          "filter": {
+                            "boolean": {
+                              "condition": ""
+                            },
+                            "date": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "enabled": false,
+                            "number": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "string": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "visible": "on-hover"
+                          },
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "justify": "auto",
+                          "nullFormat": {
+                            "includeNullStrings": false,
+                            "nullFormatValue": "",
+                            "strict": false
+                          },
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "auto",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": true,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {},
+                          "viewPath": "",
+                          "visible": false,
+                          "width": ""
+                        },
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "HiLimit",
+                          "filter": {
+                            "boolean": {
+                              "condition": ""
+                            },
+                            "date": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "enabled": false,
+                            "number": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "string": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "visible": "on-hover"
+                          },
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "justify": "auto",
+                          "nullFormat": {
+                            "includeNullStrings": false,
+                            "nullFormatValue": "",
+                            "strict": false
+                          },
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "auto",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": true,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {},
+                          "viewPath": "",
+                          "visible": false,
+                          "width": ""
+                        },
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "TargetValue",
+                          "filter": {
+                            "boolean": {
+                              "condition": ""
+                            },
+                            "date": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "enabled": false,
+                            "number": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "string": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "visible": "on-hover"
+                          },
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "justify": "auto",
+                          "nullFormat": {
+                            "includeNullStrings": false,
+                            "nullFormatValue": "",
+                            "strict": false
+                          },
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "auto",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": true,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {},
+                          "viewPath": "",
+                          "visible": false,
+                          "width": ""
+                        },
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "LoLimit",
+                          "filter": {
+                            "boolean": {
+                              "condition": ""
+                            },
+                            "date": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "enabled": false,
+                            "number": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "string": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "visible": "on-hover"
+                          },
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "justify": "auto",
+                          "nullFormat": {
+                            "includeNullStrings": false,
+                            "nullFormatValue": "",
+                            "strict": false
+                          },
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "auto",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": true,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {},
+                          "viewPath": "",
+                          "visible": false,
+                          "width": ""
+                        },
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "LoLoLimit",
+                          "filter": {
+                            "boolean": {
+                              "condition": ""
+                            },
+                            "date": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "enabled": false,
+                            "number": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "string": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "visible": "on-hover"
+                          },
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "justify": "auto",
+                          "nullFormat": {
+                            "includeNullStrings": false,
+                            "nullFormatValue": "",
+                            "strict": false
+                          },
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "auto",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": true,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {},
+                          "viewPath": "",
+                          "visible": false,
+                          "width": ""
+                        },
+                        {
+                          "align": "center",
+                          "boolean": "checkbox",
+                          "dateFormat": "MM/DD/YYYY",
+                          "editable": false,
+                          "field": "TestAttributeDataType",
+                          "filter": {
+                            "boolean": {
+                              "condition": ""
+                            },
+                            "date": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "enabled": false,
+                            "number": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "string": {
+                              "condition": "",
+                              "value": ""
+                            },
+                            "visible": "on-hover"
+                          },
+                          "footer": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "header": {
+                            "align": "center",
+                            "justify": "left",
+                            "style": {
+                              "classes": ""
+                            },
+                            "title": ""
+                          },
+                          "justify": "auto",
+                          "nullFormat": {
+                            "includeNullStrings": false,
+                            "nullFormatValue": "",
+                            "strict": false
+                          },
+                          "number": "value",
+                          "numberFormat": "0,0.##",
+                          "progressBar": {
+                            "bar": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "max": 100,
+                            "min": 0,
+                            "track": {
+                              "color": "",
+                              "style": {
+                                "classes": ""
+                              }
+                            },
+                            "value": {
+                              "enabled": true,
+                              "format": "0,0.##",
+                              "justify": "center",
+                              "style": {
+                                "classes": ""
+                              }
+                            }
+                          },
+                          "render": "auto",
+                          "resizable": true,
+                          "sort": "none",
+                          "sortable": true,
+                          "strictWidth": false,
+                          "style": {
+                            "classes": ""
+                          },
+                          "toggleSwitch": {
+                            "color": {
+                              "selected": "",
+                              "unselected": ""
+                            }
+                          },
+                          "viewParams": {},
+                          "viewPath": "",
+                          "visible": false,
+                          "width": ""
+                        }
+                      ],
+                      "emptyMessage": {
+                        "noData": {
+                          "text": "No test found in selected filters."
+                        }
+                      },
+                      "enableHeader": false,
+                      "nullFormat": {
+                        "includeNullStrings": true
+                      },
+                      "rows": {
+                        "highlight": {
+                          "color": "--neutral-10"
+                        }
+                      },
+                      "style": {
+                        "classes": "Global/MarginAll"
+                      }
+                    },
+                    "type": "ia.display.table"
+                  }
+                ],
+                "meta": {
+                  "name": "Table"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "props": {
+                  "direction": "column"
+                },
+                "type": "ia.container.flex"
+              }
+            ],
+            "meta": {
+              "name": "Main"
+            },
+            "position": {
+              "grow": 1
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Table"
+        },
+        "position": {
+          "grow": 1
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "path": "view.custom.ConformanceReport"
+              },
+              "transforms": [
+                {
+                  "expression": "!{value}",
+                  "type": "expression"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "meta": {
+          "name": "NonformanceReport"
+        },
+        "position": {
+          "grow": 1
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "path": "view.custom.ConformanceReport"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.TestID": {
+            "binding": {
+              "config": {
+                "path": "view.custom.TestDetails.TestID"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "path": "App/Quality/Test Edit/Embedded/NonConformance"
+        },
+        "type": "ia.display.view"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "scripts": {
+      "customMethods": [],
+      "extensionFunctions": null,
+      "messageHandlers": [
+        {
+          "messageType": "conformanceReport",
+          "pageScope": true,
+          "script": "\tself.view.custom.ConformanceReport \u003d False",
+          "sessionScope": true,
+          "viewScope": true
+        }
+      ]
+    },
+    "type": "ia.container.flex"
+  }
+}

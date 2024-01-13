@@ -1,0 +1,93 @@
+{
+  "custom": {},
+  "params": {
+    "EqPath": "",
+    "Title": "Downtime Table",
+    "Type": ""
+  },
+  "propConfig": {
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Title": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.Type": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 257,
+      "width": 357
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "DownTimeTable"
+        },
+        "position": {
+          "basis": "320px"
+        },
+        "propConfig": {
+          "props.params.Params.EqPath": {
+            "binding": {
+              "config": {
+                "path": "view.params.EqPath"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.Params.Type": {
+            "binding": {
+              "config": {
+                "path": "view.params.Type"
+              },
+              "type": "property"
+            }
+          },
+          "props.params.Title": {
+            "binding": {
+              "config": {
+                "path": "view.params.Title"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "params": {
+            "EqPath": "value",
+            "HideTitle": false,
+            "Icon": "",
+            "IconDisplay": true,
+            "Params": {
+              "State": "value"
+            },
+            "Path": "GlobalComponents/Widgets/Embedded/RecentDowntimeEvents",
+            "Provider": "value",
+            "SizeBasis": "value",
+            "TagPath": "value",
+            "Type": "value",
+            "useDefaultHeight": false,
+            "useDefaultWidth": false
+          },
+          "path": "GlobalComponents/Cards/Card"
+        },
+        "type": "ia.display.view"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

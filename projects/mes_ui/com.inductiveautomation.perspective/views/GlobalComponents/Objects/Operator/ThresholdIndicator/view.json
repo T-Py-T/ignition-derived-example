@@ -1,0 +1,337 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "height": 231,
+      "width": 379
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "MovingAnalogIndicator"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "desiredHigh": 95,
+              "desiredLow": 0,
+              "highAlarm": 100,
+              "highHighAlarm": null,
+              "highInterlock": null,
+              "lowAlarm": 0,
+              "lowInterlock": null,
+              "lowLowAlarm": null,
+              "processValue": 78,
+              "setpointValue": 9
+            },
+            "type": "ia.display.moving-analog-indicator"
+          }
+        ],
+        "meta": {
+          "name": "FlexContainer"
+        },
+        "position": {
+          "height": 0.7989,
+          "width": 0.293,
+          "x": 0.537,
+          "y": 0.1561
+        },
+        "props": {
+          "direction": "column"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Label"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "text": "OEE",
+              "textStyle": {
+                "classes": "Text/Heading Text/NormalText",
+                "fontWeight": "bold",
+                "textAlign": "center"
+              }
+            },
+            "type": "ia.display.label"
+          },
+          {
+            "meta": {
+              "name": "Value"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "text": "63%",
+              "textStyle": {
+                "classes": "Text/NormalText",
+                "fontWeight": "bold",
+                "textAlign": "center"
+              }
+            },
+            "type": "ia.display.label"
+          }
+        ],
+        "meta": {
+          "name": "Heading"
+        },
+        "position": {
+          "height": 0.3721,
+          "width": 1.0045,
+          "x": 0.0035,
+          "y": -0.0954
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "meta": {
+          "name": "UpArrow"
+        },
+        "position": {
+          "height": 0.2957,
+          "width": 0.1803,
+          "x": 0.7336,
+          "y": 0.2884
+        },
+        "props": {
+          "path": "material/keyboard_arrow_up"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "DownArrow"
+        },
+        "position": {
+          "height": 0.2957,
+          "width": 0.1803,
+          "x": 0.7336,
+          "y": 0.4197
+        },
+        "props": {
+          "path": "material/keyboard_arrow_down"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "TimeSeriesChart"
+        },
+        "position": {
+          "height": 1.0053,
+          "width": 0.6367,
+          "x": 0.0165,
+          "y": 0.0029
+        },
+        "props": {
+          "defaultStyles": {
+            "colorScheme": "Spectral",
+            "normal": {
+              "stroke": {
+                "width": 1.5
+              }
+            }
+          },
+          "plots": [
+            {
+              "axes": [
+                {
+                  "alignment": "left",
+                  "label": {
+                    "font": {
+                      "color": "",
+                      "size": 10
+                    },
+                    "offset": 0,
+                    "style": {
+                      "classes": "",
+                      "opacity": "0"
+                    },
+                    "text": "",
+                    "visible": true
+                  },
+                  "max": 100,
+                  "min": 0,
+                  "name": "Axis",
+                  "style": {
+                    "classes": "",
+                    "opacity": "0"
+                  },
+                  "tick": {
+                    "color": "",
+                    "label": {
+                      "font": {
+                        "color": "",
+                        "size": 10
+                      },
+                      "style": {
+                        "classes": ""
+                      }
+                    },
+                    "style": {
+                      "classes": "",
+                      "opacity": "0"
+                    }
+                  },
+                  "width": 0.1
+                }
+              ],
+              "markers": [],
+              "relativeWeight": 1,
+              "trends": [
+                {
+                  "axis": "Axis",
+                  "baselines": [],
+                  "breakLine": true,
+                  "columns": [],
+                  "interpolation": "curveLinear",
+                  "radius": 2,
+                  "series": "Boiler",
+                  "stack": true,
+                  "type": "line",
+                  "visible": true
+                }
+              ]
+            }
+          ],
+          "series": [
+            {
+              "data": [
+                {
+                  "Pressure": 12,
+                  "time": 1560469431423
+                },
+                {
+                  "Pressure": 42,
+                  "Temperature": 18,
+                  "time": 1560469432423
+                },
+                {
+                  "Pressure": 81,
+                  "Temperature": 26,
+                  "time": 1560469433423
+                },
+                {
+                  "Pressure": 11,
+                  "Temperature": 63,
+                  "time": 1560469434423
+                },
+                {
+                  "Pressure": 23,
+                  "Temperature": 65,
+                  "time": 1560469435423
+                },
+                {
+                  "Pressure": 43,
+                  "Temperature": 12,
+                  "time": 1560469436423
+                },
+                {
+                  "Pressure": 71,
+                  "Temperature": 61,
+                  "time": 1560469437423
+                },
+                {
+                  "Pressure": 89,
+                  "Temperature": 60,
+                  "time": 1560469438423
+                },
+                {
+                  "Pressure": 66,
+                  "Temperature": 58,
+                  "time": 1560469439423
+                },
+                {
+                  "Pressure": 85,
+                  "Temperature": 1,
+                  "time": 1560469440423
+                }
+              ],
+              "name": "Boiler"
+            }
+          ],
+          "timeAxis": {
+            "visible": false
+          },
+          "timeRange": {
+            "visible": false
+          }
+        },
+        "type": "ia.chart.timeseries"
+      },
+      {
+        "meta": {
+          "name": "Icon"
+        },
+        "position": {
+          "height": 0.0952,
+          "width": 0.082,
+          "x": 0.6986,
+          "y": 0.275
+        },
+        "props": {
+          "path": "material/keyboard_arrow_left"
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "meta": {
+          "name": "Label"
+        },
+        "position": {
+          "height": 0.1217,
+          "width": 0.1406,
+          "x": 0.8046,
+          "y": 0.2592
+        },
+        "props": {
+          "text": "Target",
+          "textStyle": {
+            "classes": "Text/SmallText"
+          }
+        },
+        "type": "ia.display.label"
+      },
+      {
+        "meta": {
+          "name": "Label_0"
+        },
+        "position": {
+          "height": 0.1693,
+          "width": 0.4023,
+          "x": 0.1602,
+          "y": 0.2434
+        },
+        "props": {
+          "text": "Last 24 hours",
+          "textStyle": {
+            "classes": "Text/SmallText"
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "mode": "percent",
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.coord"
+  }
+}

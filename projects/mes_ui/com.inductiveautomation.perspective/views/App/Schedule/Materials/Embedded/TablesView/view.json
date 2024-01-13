@@ -1,0 +1,109 @@
+{
+  "custom": {
+    "MaterialsData": [
+      {
+        "DateModified": 1678748059527,
+        "ID": 14,
+        "IsDeleted": false,
+        "MaterialQuantity": 117,
+        "Name": "MT-18839452",
+        "SiteID": 1,
+        "column_7": ""
+      }
+    ]
+  },
+  "params": {},
+  "propConfig": {
+    "custom.MaterialsData": {
+      "persistent": true
+    }
+  },
+  "props": {},
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "MaterialsTable"
+            },
+            "position": {
+              "basis": "320px",
+              "grow": 1
+            },
+            "props": {
+              "path": "App/Schedule/Materials/Embedded/MaterialsTable"
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "Col1"
+        },
+        "position": {
+          "basis": "50%",
+          "grow": 1
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginRight"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "MaterialLotsTable"
+            },
+            "position": {
+              "basis": "320px",
+              "grow": 1
+            },
+            "propConfig": {
+              "props.params.MaterialID": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.MaterialsData[0].ID"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "path": "App/Schedule/Materials/Embedded/MaterialLotsTable"
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "Col2"
+        },
+        "position": {
+          "basis": "50%",
+          "display": "",
+          "grow": 1
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "scripts": {
+      "customMethods": [],
+      "extensionFunctions": null,
+      "messageHandlers": [
+        {
+          "messageType": "materialsRowSelected",
+          "pageScope": true,
+          "script": "\t# implement your handler here\n\tself.view.custom.MaterialsData \u003d payload\n\tself.getChild(\"Col2\").position.display \u003d True",
+          "sessionScope": false,
+          "viewScope": false
+        }
+      ]
+    },
+    "type": "ia.container.flex"
+  }
+}

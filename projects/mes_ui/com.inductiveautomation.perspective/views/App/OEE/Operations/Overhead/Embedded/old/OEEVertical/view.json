@@ -1,0 +1,263 @@
+{
+  "custom": {
+    "StatesObject": {}
+  },
+  "params": {
+    "State": "fail",
+    "TagPath": "",
+    "TagProvider": "[MES]"
+  },
+  "propConfig": {
+    "custom.StatesObject": {
+      "persistent": true
+    },
+    "custom.StatesObject.AvailabilityState": {
+      "binding": {
+        "config": {
+          "path": "/root/OEEMetrics/Metrics.props.instances[0].State"
+        },
+        "type": "property"
+      }
+    },
+    "custom.StatesObject.OEEState": {
+      "binding": {
+        "config": {
+          "path": "/root/OEEGauge/Gauge.props.params.State"
+        },
+        "type": "property"
+      }
+    },
+    "custom.StatesObject.PerformanceState": {
+      "binding": {
+        "config": {
+          "path": "/root/OEEMetrics/Metrics.props.instances[1].State"
+        },
+        "type": "property"
+      }
+    },
+    "custom.StatesObject.QualityState": {
+      "binding": {
+        "config": {
+          "path": "/root/OEEMetrics/Metrics.props.instances[2].State"
+        },
+        "type": "property"
+      }
+    },
+    "params.State": {
+      "binding": {
+        "config": {
+          "path": "view.custom.StatesObject"
+        },
+        "transforms": [
+          {
+            "code": "\treturn gpa.frontEnd.localUI.getFinalState(value)\n\t\t",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "paramDirection": "output",
+      "persistent": true
+    },
+    "params.TagPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.TagProvider": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 398,
+      "width": 352
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Gauge"
+            },
+            "position": {
+              "basis": "360.6px"
+            },
+            "propConfig": {
+              "props.params.TagPath": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.TagPath"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.params.TagProvider": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.TagProvider"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "State": "fail"
+              },
+              "path": "GlobalComponents/Objects/Gauges/OEE/GaugeOnly"
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "OEEGauge"
+        },
+        "position": {
+          "grow": 1
+        },
+        "props": {
+          "direction": "column"
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "Metrics"
+            },
+            "position": {
+              "basis": "744px"
+            },
+            "propConfig": {
+              "props.instances[0].TagPath": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.TagPath"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.instances[0].TagProvider": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.TagProvider"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.instances[1].TagPath": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.TagPath"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.instances[1].TagProvider": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.TagProvider"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.instances[2].TagPath": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.TagPath"
+                  },
+                  "type": "property"
+                }
+              },
+              "props.instances[2].TagProvider": {
+                "binding": {
+                  "config": {
+                    "path": "view.params.TagProvider"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "alignContent": "flex-start",
+              "alignItems": "flex-start",
+              "elementPosition": {
+                "grow": 0
+              },
+              "elementStyle": {
+                "overflow": "hidden"
+              },
+              "instances": [
+                {
+                  "Label": "Availability",
+                  "State": "fail",
+                  "instancePosition": {},
+                  "instanceStyle": {
+                    "classes": ""
+                  }
+                },
+                {
+                  "Label": "Performance",
+                  "State": "",
+                  "instancePosition": {},
+                  "instanceStyle": {
+                    "classes": ""
+                  }
+                },
+                {
+                  "Label": "Quality",
+                  "State": "",
+                  "instancePosition": {},
+                  "instanceStyle": {
+                    "classes": ""
+                  }
+                }
+              ],
+              "justify": "center",
+              "path": "GlobalComponents/Metrics/ProdInfoMetricSlider",
+              "wrap": "wrap"
+            },
+            "type": "ia.display.flex-repeater"
+          }
+        ],
+        "meta": {
+          "name": "OEEMetrics"
+        },
+        "position": {
+          "basis": "40%",
+          "shrink": 0
+        },
+        "props": {
+          "alignContent": "center",
+          "style": {
+            "marginLeft": "auto",
+            "marginRight": "auto"
+          }
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "events": {
+      "dom": {
+        "onClick": {
+          "config": {
+            "script": "\tsystem.perspective.print(self.view.custom)"
+          },
+          "scope": "G",
+          "type": "script"
+        }
+      }
+    },
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}

@@ -1,0 +1,646 @@
+{
+  "custom": {
+    "EqPath": "[GatewayHealth]Gateways/Script",
+    "GWPath": "[System]Gateway"
+  },
+  "params": {},
+  "permissions": {
+    "securityLevels": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "children": [],
+                "name": "Administrator"
+              },
+              {
+                "children": [],
+                "name": "Manager"
+              }
+            ],
+            "name": "Roles"
+          }
+        ],
+        "name": "Authenticated"
+      }
+    ],
+    "type": "AnyOf"
+  },
+  "propConfig": {
+    "custom.EqPath": {
+      "binding": {
+        "config": {
+          "path": "/root/Row1/SystemSelector.props.params.SelectedPath"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.GWPath": {
+      "binding": {
+        "config": {
+          "path": "/root/Row1/SystemSelector.props.params.selectedGWPath"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 768,
+      "width": 1353
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "SystemSelector"
+            },
+            "position": {
+              "basis": "193px"
+            },
+            "props": {
+              "params": {
+                "SelectedPath": "[GatewayHealth]Gateways/Script",
+                "selectedGWPath": "[System]Gateway"
+              },
+              "path": "App/GatewayHealth/Diagnostics/Embedded/SystemSelector"
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "Row1"
+        },
+        "position": {
+          "shrink": 0
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "meta": {
+              "name": "CPU"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "props.params.Params.EqPath": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.EqPath"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "EqPath": "value",
+                "HideTitle": false,
+                "Icon": "",
+                "IconDisplay": true,
+                "Params": {
+                  "State": "",
+                  "TagPath": "\n",
+                  "TagProvider": ""
+                },
+                "Path": "App/GatewayHealth/Diagnostics/Embedded/CPUUsage",
+                "Provider": "value",
+                "SizeBasis": "value",
+                "TagPath": "value",
+                "Title": "CPU Utilization",
+                "Type": "",
+                "useDefaultHeight": false,
+                "useDefaultWidth": false
+              },
+              "path": "GlobalComponents/Cards/Card",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "Memory"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "props.params.Params.EqPath": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.EqPath"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "EqPath": "value",
+                "HideTitle": false,
+                "Icon": "",
+                "IconDisplay": true,
+                "Params": {
+                  "State": "",
+                  "TagPath": "",
+                  "TagProvider": ""
+                },
+                "Path": "App/GatewayHealth/Diagnostics/Embedded/MemoryUsage",
+                "Provider": "value",
+                "SizeBasis": "value",
+                "TagPath": "value",
+                "Title": "Memory Utilization",
+                "Type": "",
+                "useDefaultHeight": false,
+                "useDefaultWidth": false
+              },
+              "path": "GlobalComponents/Cards/Card",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.display.view"
+          },
+          {
+            "meta": {
+              "name": "Disk"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "props.params.Params.EqPath": {
+                "binding": {
+                  "config": {
+                    "path": "view.custom.EqPath"
+                  },
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "params": {
+                "EqPath": "value",
+                "HideTitle": false,
+                "Icon": "",
+                "IconDisplay": true,
+                "Params": {
+                  "State": "",
+                  "TagPath": "",
+                  "TagProvider": ""
+                },
+                "Path": "App/GatewayHealth/Diagnostics/Embedded/DiskUsage",
+                "Provider": "value",
+                "SizeBasis": "value",
+                "TagPath": "value",
+                "Title": "Disk Utilization",
+                "Type": "",
+                "useDefaultHeight": false,
+                "useDefaultWidth": false
+              },
+              "path": "GlobalComponents/Cards/Card"
+            },
+            "type": "ia.display.view"
+          }
+        ],
+        "meta": {
+          "name": "Row2"
+        },
+        "position": {
+          "basis": "30%",
+          "shrink": 0
+        },
+        "props": {
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Gateway"
+                },
+                "propConfig": {
+                  "props.params.Params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.GWPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "EqPath": "value",
+                    "HideTitle": false,
+                    "Icon": "",
+                    "IconDisplay": true,
+                    "Params": {
+                      "State": "",
+                      "TagPath": "",
+                      "TagProvider": ""
+                    },
+                    "Path": "App/GatewayHealth/Diagnostics/Embedded/GatewayNetworkConnections",
+                    "Provider": "value",
+                    "SizeBasis": "value",
+                    "TagPath": "value",
+                    "Title": "Gateway Network",
+                    "Type": "",
+                    "useDefaultHeight": false,
+                    "useDefaultWidth": false
+                  },
+                  "path": "GlobalComponents/Cards/Card"
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "GatewayNetwork"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "SystemInfo"
+                },
+                "propConfig": {
+                  "props.params.Params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.GWPath"
+                      },
+                      "type": "property"
+                    }
+                  },
+                  "props.params.Params.URLProvider": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.EqPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "Icon": "",
+                    "IconDisplay": true,
+                    "Params": {
+                      "State": "",
+                      "TagPath": "",
+                      "TagProvider": ""
+                    },
+                    "Path": "App/GatewayHealth/Diagnostics/Embedded/System",
+                    "Provider": "value",
+                    "SizeBasis": "value",
+                    "TagPath": "value",
+                    "Title": "System",
+                    "Type": "",
+                    "useDefaultHeight": false,
+                    "useDefaultWidth": false
+                  },
+                  "path": "GlobalComponents/Cards/Card",
+                  "style": {
+                    "classes": "Global/MarginBottom"
+                  }
+                },
+                "scripts": {
+                  "customMethods": [],
+                  "extensionFunctions": null,
+                  "messageHandlers": [
+                    {
+                      "messageType": "changedGateway",
+                      "pageScope": true,
+                      "script": "\t# implement your handler here\n\tnewVal \u003d payload[\u0027value\u0027]\n\tself.custom.TagPath \u003d newVal",
+                      "sessionScope": false,
+                      "viewScope": false
+                    }
+                  ]
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "meta": {
+                  "name": "SystemPerformance"
+                },
+                "propConfig": {
+                  "props.params.Params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.EqPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "Icon": "",
+                    "IconDisplay": true,
+                    "Params": {
+                      "State": "",
+                      "TagPath": "",
+                      "TagProvider": ""
+                    },
+                    "Path": "App/GatewayHealth/Diagnostics/Embedded/SystemPerformance",
+                    "Provider": "value",
+                    "SizeBasis": "value",
+                    "TagPath": "value",
+                    "Title": "System Performance",
+                    "Type": "",
+                    "useDefaultHeight": false,
+                    "useDefaultWidth": false
+                  },
+                  "path": "GlobalComponents/Cards/Card"
+                },
+                "scripts": {
+                  "customMethods": [],
+                  "extensionFunctions": null,
+                  "messageHandlers": [
+                    {
+                      "messageType": "changedGateway",
+                      "pageScope": true,
+                      "script": "\t# implement your handler here\n\tnewVal \u003d payload[\u0027value\u0027]\n\tself.custom.TagPath \u003d newVal",
+                      "sessionScope": false,
+                      "viewScope": false
+                    }
+                  ]
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "System"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "Database"
+                },
+                "propConfig": {
+                  "props.params.Params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.GWPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "Icon": "",
+                    "IconDisplay": true,
+                    "Params": {
+                      "State": "",
+                      "TagPath": "",
+                      "TagProvider": ""
+                    },
+                    "Path": "App/GatewayHealth/Diagnostics/Embedded/Databases",
+                    "Provider": "value",
+                    "SizeBasis": "value",
+                    "TagPath": "value",
+                    "Title": "Databases",
+                    "Type": "",
+                    "useDefaultHeight": false,
+                    "useDefaultWidth": false
+                  },
+                  "path": "GlobalComponents/Cards/Card"
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "Databases"
+            },
+            "position": {
+              "grow": 1
+            },
+            "propConfig": {
+              "position.display": {
+                "binding": {
+                  "config": {
+                    "path": "./Database.props.params.Params.State"
+                  },
+                  "transforms": [
+                    {
+                      "fallback": true,
+                      "inputType": "scalar",
+                      "mappings": [
+                        {
+                          "input": "Empty",
+                          "output": false
+                        },
+                        {
+                          "input": "",
+                          "output": true
+                        }
+                      ],
+                      "outputType": "scalar",
+                      "type": "map"
+                    }
+                  ],
+                  "type": "property"
+                }
+              }
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginRight"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "OPCServers"
+                },
+                "position": {
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "props.params.Params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.GWPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "Icon": "",
+                    "IconDisplay": true,
+                    "Params": {
+                      "State": "",
+                      "TagPath": "",
+                      "TagProvider": ""
+                    },
+                    "Path": "App/GatewayHealth/Diagnostics/Embedded/OPCServers",
+                    "Provider": "value",
+                    "SizeBasis": "value",
+                    "TagPath": "value",
+                    "Title": "OPC Servers",
+                    "Type": "",
+                    "useDefaultHeight": false,
+                    "useDefaultWidth": false
+                  },
+                  "path": "GlobalComponents/Cards/Card",
+                  "style": {
+                    "classes": "Global/MarginBottom"
+                  }
+                },
+                "type": "ia.display.view"
+              },
+              {
+                "meta": {
+                  "name": "OPCDevices"
+                },
+                "position": {
+                  "shrink": 0
+                },
+                "propConfig": {
+                  "position.display": {
+                    "binding": {
+                      "config": {
+                        "path": "this.props.params.Params.State"
+                      },
+                      "enabled": false,
+                      "transforms": [
+                        {
+                          "fallback": true,
+                          "inputType": "scalar",
+                          "mappings": [
+                            {
+                              "input": "Empty",
+                              "output": false
+                            },
+                            {
+                              "input": "",
+                              "output": true
+                            }
+                          ],
+                          "outputType": "scalar",
+                          "type": "map"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  },
+                  "props.params.Params.EqPath": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.GWPath"
+                      },
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "params": {
+                    "HideTitle": false,
+                    "Icon": "",
+                    "IconDisplay": true,
+                    "Params": {
+                      "State": "",
+                      "TagPath": "",
+                      "TagProvider": ""
+                    },
+                    "Path": "App/GatewayHealth/Diagnostics/Embedded/OPCDevices",
+                    "Provider": "value",
+                    "SizeBasis": "value",
+                    "TagPath": "value",
+                    "Title": "OPC Devices",
+                    "Type": "",
+                    "useDefaultHeight": false,
+                    "useDefaultWidth": false
+                  },
+                  "path": "GlobalComponents/Cards/Card"
+                },
+                "type": "ia.display.view"
+              }
+            ],
+            "meta": {
+              "name": "OPC"
+            },
+            "position": {
+              "grow": 1,
+              "shrink": 0
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "classes": "Global/MarginRight",
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Row3"
+        },
+        "position": {
+          "grow": 1,
+          "shrink": 0
+        },
+        "type": "ia.container.flex"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "classes": "Global/MarginAll",
+        "overflow": "visible"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "custom": {},
+  "params": {
+    "category": "OEE",
+    "componentName": "categorySelector",
+    "selected": false
+  },
+  "propConfig": {
+    "params.category": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.componentName": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.selected": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 47,
+      "width": 107
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "custom": {
+          "overTab": "24 Hours"
+        },
+        "meta": {
+          "name": "TrendTab"
+        },
+        "position": {
+          "basis": "20px",
+          "display": false,
+          "shrink": 0
+        },
+        "propConfig": {
+          "props.elements[0].style.classes": {
+            "binding": {
+              "config": {
+                "expression": "try(if({view.params.selected},\r\n\u0027Components/dateSelector/dateIndicatorSelected\u0027,\r\n\u0027Components/dateSelector/dateIndicator\u0027)\r\n,\u0027Components/dateSelector/dateIndicator\u0027)"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "elements": [
+            {
+              "d": "M74,19.17v-.08h.89a14.17,14.17,0,0,1-8.54-2.87l-15-11.37a23.9,23.9,0,0,0-29.54.53L8.92,15.91A14.09,14.09,0,0,1,0,19.09H.38v.08",
+              "fill": {},
+              "name": "path",
+              "style": {},
+              "type": "path"
+            }
+          ],
+          "preserveAspectRatio": "xMidYMax",
+          "viewBox": "0 0 74.9 19.17"
+        },
+        "type": "ia.shapes.svg"
+      },
+      {
+        "meta": {
+          "name": "Label"
+        },
+        "position": {
+          "grow": 1,
+          "shrink": 0
+        },
+        "propConfig": {
+          "props.style.classes": {
+            "binding": {
+              "config": {
+                "expression": "if({view.params.selected},\r\n\u0027Components/dateSelector/dateComponentSelected\u0027,\r\n\u0027Components/dateSelector/dateComponent\u0027)\r\n"
+              },
+              "type": "expr"
+            }
+          },
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.category"
+              },
+              "type": "property"
+            }
+          },
+          "props.textStyle.fontWeight": {
+            "binding": {
+              "config": {
+                "expression": "if({view.params.selected}, \u0027bold\u0027, \u0027\u0027)"
+              },
+              "type": "expr"
+            }
+          },
+          "props.textStyle.textDecoration": {
+            "binding": {
+              "config": {
+                "expression": "if({view.params.selected}, \u0027underline\u0027, \u0027\u0027)"
+              },
+              "type": "expr"
+            }
+          }
+        },
+        "props": {
+          "style": {},
+          "textStyle": {
+            "textAlign": "center"
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "events": {
+      "dom": {
+        "onClick": {
+          "config": {
+            "script": "\t\n\tif not self.view.params.selected:\n\t\tpayload \u003d {}\n\t\tself.view.params.selected \u003d not self.view.params.selected\n\t\tpayload[\u0027componentName\u0027] \u003d self.view.params.componentName\n\t\tpayload[\u0027category\u0027] \u003d self.view.params.category\n\t\tsystem.perspective.sendMessage(\u0027updateCategorySelector\u0027, payload)\t "
+          },
+          "scope": "G",
+          "type": "script"
+        }
+      }
+    },
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "scripts": {
+      "customMethods": [],
+      "extensionFunctions": null,
+      "messageHandlers": [
+        {
+          "messageType": "updateCategorySelector",
+          "pageScope": true,
+          "script": "\t# implement your handler here\n\tif payload[\u0027componentName\u0027] \u003d\u003d self.view.params.componentName:\n\t\tcategory \u003d payload[\u0027category\u0027]\n\t\t\n\t\tif self.view.params.category !\u003d category:\n\t\t\tself.view.params.selected \u003d 0",
+          "sessionScope": false,
+          "viewScope": false
+        }
+      ]
+    },
+    "type": "ia.container.flex"
+  }
+}

@@ -1,0 +1,449 @@
+{
+  "custom": {
+    "Data": {
+      "$": [
+        "ds",
+        192,
+        1689012941445
+      ],
+      "$columns": [
+        {
+          "data": [],
+          "name": "label",
+          "type": "String"
+        },
+        {
+          "data": [],
+          "name": "value",
+          "type": "Integer"
+        },
+        {
+          "data": [],
+          "name": "Ncc",
+          "type": "String"
+        }
+      ]
+    },
+    "DistinctNCCs": [
+      {
+        "label": "All",
+        "value": ""
+      },
+      {
+        "label": "555",
+        "value": "555"
+      },
+      {
+        "label": "JLC",
+        "value": "JLC"
+      },
+      {
+        "label": "NCC1",
+        "value": "NCC1"
+      },
+      {
+        "label": "NCC2",
+        "value": "NCC2"
+      }
+    ],
+    "EndTime": {
+      "$": [
+        "ts",
+        192,
+        1689018641386
+      ],
+      "$ts": 1689018641386
+    },
+    "HoursBack": "",
+    "SelectedNCC": "",
+    "StartTime": {
+      "$": [
+        "ts",
+        192,
+        1689018641391
+      ],
+      "$ts": 1688975441391
+    }
+  },
+  "params": {},
+  "propConfig": {
+    "custom.Data": {
+      "binding": {
+        "config": {
+          "parameters": {
+            "hoursBack": "{view.custom.HoursBack}",
+            "ncc": "{view.custom.SelectedNCC}"
+          },
+          "queryPath": "app/SwitchHealth/getRecentEvents"
+        },
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "custom.DistinctNCCs": {
+      "binding": {
+        "config": {
+          "queryPath": "app/SwitchHealth/getDistinctNcc",
+          "returnFormat": "json"
+        },
+        "transforms": [
+          {
+            "code": "\tnewArr \u003d []\n\tnewArr.append({\n\t\t\t\t\t\u0027label\u0027: \u0027All\u0027,\n\t\t\t\t\t\u0027value\u0027: \u0027\u0027\n\t\t\t\t})\n\tfor v in value:\n\t\tnewArr.append(v)\n\t\t\n\treturn newArr",
+            "type": "script"
+          }
+        ],
+        "type": "query"
+      },
+      "persistent": true
+    },
+    "custom.EndTime": {
+      "binding": {
+        "config": {
+          "expression": "now(100000)"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    },
+    "custom.HoursBack": {
+      "binding": {
+        "config": {
+          "bidirectional": true,
+          "path": "/root/Row1/Col2/EditHours/TextField.props.text"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.SelectedNCC": {
+      "binding": {
+        "config": {
+          "path": "/root/Row1/Col2/NCC/Dropdown.props.value"
+        },
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.StartTime": {
+      "binding": {
+        "config": {
+          "expression": "addHours(now(100000), -12)"
+        },
+        "type": "expr"
+      },
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 393,
+      "width": 937
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "meta": {
+                  "name": "PieChart"
+                },
+                "position": {
+                  "grow": 1
+                },
+                "propConfig": {
+                  "props.data": {
+                    "binding": {
+                      "config": {
+                        "path": "view.custom.Data"
+                      },
+                      "transforms": [
+                        {
+                          "expression": "columnRearrange({value}, \u0027label\u0027, \u0027value\u0027)",
+                          "type": "expression"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  },
+                  "props.legendLabelColor": {
+                    "binding": {
+                      "config": {
+                        "path": "session.props.theme"
+                      },
+                      "transforms": [
+                        {
+                          "fallback": "black",
+                          "inputType": "scalar",
+                          "mappings": [
+                            {
+                              "input": "custom-dark",
+                              "output": "white"
+                            },
+                            {
+                              "input": "custom-light",
+                              "output": "black"
+                            }
+                          ],
+                          "outputType": "scalar",
+                          "type": "map"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  },
+                  "props.title": {
+                    "binding": {
+                      "config": {
+                        "expression": "\u0027Events in the last \u0027 + {view.custom.HoursBack} + \u0027 hour(s)\u0027"
+                      },
+                      "type": "expr"
+                    }
+                  },
+                  "props.titleColor": {
+                    "binding": {
+                      "config": {
+                        "path": "session.props.theme"
+                      },
+                      "transforms": [
+                        {
+                          "fallback": "black",
+                          "inputType": "scalar",
+                          "mappings": [
+                            {
+                              "input": "custom-dark",
+                              "output": "white"
+                            },
+                            {
+                              "input": "custom-light",
+                              "output": "black"
+                            }
+                          ],
+                          "outputType": "scalar",
+                          "type": "map"
+                        }
+                      ],
+                      "type": "property"
+                    }
+                  }
+                },
+                "props": {
+                  "colors": [
+                    "#3366CC",
+                    "#EC4B3D",
+                    "#4FC86C",
+                    "#00A9C6",
+                    "#E69300"
+                  ]
+                },
+                "type": "ia.chart.pie"
+              }
+            ],
+            "meta": {
+              "name": "Col1"
+            },
+            "position": {
+              "basis": "90%",
+              "grow": 1
+            },
+            "props": {
+              "direction": "column",
+              "style": {
+                "overflow": "hidden"
+              }
+            },
+            "type": "ia.container.flex"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "Label"
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "Global/MarginRight"
+                      },
+                      "text": "Hours:",
+                      "textStyle": {
+                        "classes": "Cards/Common/CardTitle"
+                      }
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "meta": {
+                      "name": "TextField"
+                    },
+                    "position": {
+                      "basis": "32px",
+                      "grow": 1
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "TextFields/TextArea"
+                      }
+                    },
+                    "type": "ia.input.text-field"
+                  }
+                ],
+                "meta": {
+                  "name": "EditHours"
+                },
+                "position": {
+                  "basis": "42px"
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "children": [
+                  {
+                    "meta": {
+                      "name": "Label"
+                    },
+                    "position": {
+                      "basis": "48px",
+                      "shrink": 0
+                    },
+                    "props": {
+                      "style": {
+                        "classes": "Global/MarginRight"
+                      },
+                      "text": "NCC:",
+                      "textStyle": {
+                        "classes": "Cards/Common/CardTitle"
+                      }
+                    },
+                    "type": "ia.display.label"
+                  },
+                  {
+                    "meta": {
+                      "name": "Dropdown"
+                    },
+                    "position": {
+                      "basis": "256px"
+                    },
+                    "propConfig": {
+                      "props.options": {
+                        "binding": {
+                          "config": {
+                            "path": "view.custom.DistinctNCCs"
+                          },
+                          "type": "property"
+                        }
+                      }
+                    },
+                    "props": {
+                      "dropdownOptionStyle": {
+                        "classes": "TextFields/TextArea"
+                      },
+                      "style": {
+                        "classes": "TextFields/TextArea"
+                      }
+                    },
+                    "type": "ia.input.dropdown"
+                  }
+                ],
+                "meta": {
+                  "name": "NCC"
+                },
+                "position": {
+                  "basis": "42px"
+                },
+                "type": "ia.container.flex"
+              },
+              {
+                "meta": {
+                  "name": "FlexContainer"
+                },
+                "position": {
+                  "basis": "200px",
+                  "grow": 1
+                },
+                "type": "ia.container.flex"
+              }
+            ],
+            "meta": {
+              "name": "Col2"
+            },
+            "position": {
+              "grow": 1
+            },
+            "props": {
+              "direction": "column"
+            },
+            "type": "ia.container.flex"
+          }
+        ],
+        "meta": {
+          "name": "Row1"
+        },
+        "position": {
+          "grow": 1
+        },
+        "type": "ia.container.flex"
+      },
+      {
+        "meta": {
+          "name": "Label"
+        },
+        "position": {
+          "basis": "32px",
+          "grow": 1
+        },
+        "propConfig": {
+          "position.display": {
+            "binding": {
+              "config": {
+                "path": "../PieChart.position.display"
+              },
+              "transforms": [
+                {
+                  "fallback": false,
+                  "inputType": "scalar",
+                  "mappings": [
+                    {
+                      "input": false,
+                      "output": true
+                    },
+                    {
+                      "input": true,
+                      "output": false
+                    }
+                  ],
+                  "outputType": "scalar",
+                  "type": "map"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "text": "No data to display!",
+          "textStyle": {
+            "color": "",
+            "fontSize": "1.5rem",
+            "fontWeight": "bold",
+            "textAlign": "center"
+          }
+        },
+        "type": "ia.display.label"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "overflow": "hidden"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

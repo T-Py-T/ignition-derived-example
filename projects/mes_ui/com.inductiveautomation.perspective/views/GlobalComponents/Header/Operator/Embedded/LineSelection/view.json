@@ -1,0 +1,137 @@
+{
+  "custom": {},
+  "params": {
+    "EqPath": "",
+    "OptionsArray": "value",
+    "isSelected": true
+  },
+  "propConfig": {
+    "params.EqPath": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.OptionsArray": {
+      "paramDirection": "input",
+      "persistent": true
+    },
+    "params.isSelected": {
+      "access": "PUBLIC",
+      "binding": {
+        "config": {
+          "expression": "{view.params.EqPath} \u003d \r\n{session.custom.EqPath}"
+        },
+        "type": "expr"
+      },
+      "paramDirection": "inout",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 46,
+      "width": 80
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "script": "\t#\tself.view.params.isSelected \u003d not self.view.params.isSelected \n\tif self.session.custom.EqPath !\u003d self.view.params.EqPath:\n\t\t#check production status\n\t\t#if running, go to ProductionView. Else show Schedule\n\t\tself.session.custom.EqPath \u003d self.view.params.EqPath\n\t\tEqPath \u003d self.view.params.EqPath\n\t\t\n\t\tcurrentWo \u003d system.tag.read(EqPath +\u0027/jobs/currentJob/workOrder\u0027).value\n\t\n\t\tif currentWo is not None and currentWo !\u003d \u0027\u0027:\n\t\t\t#running a wo\n\t\t\tsystem.perspective.navigate(\u0027/operations/operator_dashboard\u0027)\n\t\t\tsystem.perspective.closeDock(\"navBar\")\n\t\t\t\n\t\telse:\n\t\t\tsystem.perspective.navigate(\u0027/operations/schedule\u0027)"
+              },
+              "scope": "G",
+              "type": "script"
+            }
+          }
+        },
+        "meta": {
+          "name": "Button"
+        },
+        "position": {
+          "grow": 1,
+          "shrink": 0
+        },
+        "propConfig": {
+          "props.style.backgroundColor": {
+            "binding": {
+              "config": {
+                "path": "view.params.isSelected"
+              },
+              "transforms": [
+                {
+                  "fallback": "#FFFFFF",
+                  "inputType": "scalar",
+                  "mappings": [
+                    {
+                      "input": true,
+                      "output": "#808080"
+                    }
+                  ],
+                  "outputType": "color",
+                  "type": "map"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.style.color": {
+            "binding": {
+              "config": {
+                "path": "view.params.isSelected"
+              },
+              "transforms": [
+                {
+                  "fallback": "#FFFFFF",
+                  "inputType": "scalar",
+                  "mappings": [
+                    {
+                      "input": false,
+                      "output": "#808080"
+                    }
+                  ],
+                  "outputType": "color",
+                  "type": "map"
+                }
+              ],
+              "type": "property"
+            }
+          },
+          "props.text": {
+            "binding": {
+              "config": {
+                "path": "view.params.EqPath"
+              },
+              "transforms": [
+                {
+                  "expression": "substring({value},lastIndexOf({value},\u0027/\u0027)+1)",
+                  "type": "expression"
+                }
+              ],
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "style": {
+            "classes": "Buttons/OperatorButtons",
+            "marginBottom": 5,
+            "marginTop": 5,
+            "overflow": "visible"
+          }
+        },
+        "type": "ia.input.button"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "style": {
+        "overflow": "visible"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

@@ -1,0 +1,322 @@
+{
+  "custom": {},
+  "params": {},
+  "props": {
+    "defaultSize": {
+      "width": 71
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "page": "/"
+              },
+              "scope": "C",
+              "type": "nav"
+            }
+          }
+        },
+        "meta": {
+          "name": "Home",
+          "tooltip": {
+            "enabled": true,
+            "text": "Home"
+          }
+        },
+        "position": {
+          "basis": "39px"
+        },
+        "props": {
+          "color": "white",
+          "path": "material/home",
+          "style": {
+            "classes": "Global/MarginAllTop Global/MarginBottom"
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "page": "/trackandtrace/history"
+              },
+              "scope": "C",
+              "type": "nav"
+            }
+          }
+        },
+        "meta": {
+          "name": "TrackAndTrace",
+          "tooltip": {
+            "enabled": true,
+            "text": "Track and Trace"
+          }
+        },
+        "position": {
+          "basis": "39px"
+        },
+        "props": {
+          "color": "white",
+          "path": "material/location_searching",
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "page": "/area_overview"
+              },
+              "scope": "C",
+              "type": "nav"
+            }
+          }
+        },
+        "meta": {
+          "name": "OEEOverview",
+          "tooltip": {
+            "enabled": true,
+            "text": "Area Overview"
+          }
+        },
+        "position": {
+          "basis": "30px"
+        },
+        "props": {
+          "color": "white",
+          "path": "fontawesomeicons/warehouse",
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "page": "/site_overview"
+              },
+              "scope": "C",
+              "type": "nav"
+            }
+          }
+        },
+        "meta": {
+          "name": "OEEOverview_0",
+          "tooltip": {
+            "enabled": true,
+            "text": "Site Overview"
+          }
+        },
+        "position": {
+          "basis": "30px"
+        },
+        "props": {
+          "color": "white",
+          "path": "fontawesomeicons/sitemap",
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "page": "/report/oaqp_report"
+              },
+              "scope": "C",
+              "type": "nav"
+            }
+          }
+        },
+        "meta": {
+          "name": "ProductionAnalysis",
+          "tooltip": {
+            "enabled": true,
+            "text": "Analysis"
+          }
+        },
+        "position": {
+          "basis": "35px"
+        },
+        "props": {
+          "color": "white",
+          "path": "fontawesomeicons/magnifying-glass-chart",
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "page": "/operations/operator_dashboard"
+              },
+              "scope": "C",
+              "type": "nav"
+            }
+          }
+        },
+        "meta": {
+          "name": "Operations",
+          "tooltip": {
+            "enabled": true,
+            "text": "Operator Dashboard"
+          }
+        },
+        "position": {
+          "basis": "39px"
+        },
+        "props": {
+          "color": "white",
+          "path": "material/engineering",
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "page": "/schedule/schedulemanager"
+              },
+              "scope": "C",
+              "type": "nav"
+            }
+          }
+        },
+        "meta": {
+          "name": "Schedule",
+          "tooltip": {
+            "enabled": true,
+            "text": "Schedule"
+          }
+        },
+        "position": {
+          "basis": "35px"
+        },
+        "props": {
+          "color": "white",
+          "path": "fontawesomeicons/calendar-days",
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": {
+              "config": {
+                "page": "/gateway"
+              },
+              "scope": "C",
+              "type": "nav"
+            }
+          }
+        },
+        "meta": {
+          "name": "GatewayHealth",
+          "tooltip": {
+            "enabled": true,
+            "text": "Gateway Performance"
+          }
+        },
+        "position": {
+          "basis": "35px",
+          "display": false
+        },
+        "props": {
+          "color": "white",
+          "path": "fontawesomeicons/laptop-health",
+          "style": {
+            "classes": "Global/MarginBottom"
+          }
+        },
+        "type": "ia.display.icon"
+      },
+      {
+        "events": {
+          "dom": {
+            "onClick": [
+              {
+                "config": {
+                  "script": "\tviewPath \u003d \u0027GlobalComponents/Configuration/Configuration\u0027\n\ttitle \u003d \u0027Configuration\u0027\n\t\n\tsystem.perspective.openPopup(\u0027userConfig\u0027, viewPath, title\u003dtitle, overlayDismiss\u003dTrue, modal\u003dTrue)"
+                },
+                "enabled": false,
+                "scope": "G",
+                "type": "script"
+              },
+              {
+                "config": {
+                  "draggable": true,
+                  "id": "userConfig",
+                  "modal": true,
+                  "overlayDismiss": true,
+                  "resizable": false,
+                  "showCloseIcon": true,
+                  "title": "Configuration",
+                  "type": "open",
+                  "viewParams": {
+                    "ModalName": "userConfig"
+                  },
+                  "viewPath": "GlobalComponents/Configuration/Configuration",
+                  "viewportBound": false
+                },
+                "scope": "C",
+                "type": "popup"
+              }
+            ]
+          }
+        },
+        "meta": {
+          "name": "Configuration",
+          "tooltip": {
+            "enabled": true,
+            "text": "Configuration"
+          }
+        },
+        "position": {
+          "basis": "39px"
+        },
+        "props": {
+          "color": "white",
+          "path": "material/settings"
+        },
+        "type": "ia.display.icon"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column",
+      "style": {
+        "backgroundColor": "var(--menuBg)"
+      }
+    },
+    "type": "ia.container.flex"
+  }
+}

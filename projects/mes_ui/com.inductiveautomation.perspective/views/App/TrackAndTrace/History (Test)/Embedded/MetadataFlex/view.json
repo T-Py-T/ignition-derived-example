@@ -1,0 +1,121 @@
+{
+  "custom": {
+    "Instances": [
+      {
+        "Key": "key1",
+        "Value": "test",
+        "instancePosition": {},
+        "instanceStyle": {
+          "classes": ""
+        }
+      },
+      {
+        "Key": "key2",
+        "Value": 56.2,
+        "instancePosition": {},
+        "instanceStyle": {
+          "classes": ""
+        }
+      },
+      {
+        "Key": "key3",
+        "Value": false,
+        "instancePosition": {},
+        "instanceStyle": {
+          "classes": ""
+        }
+      },
+      {
+        "Key": "key4",
+        "Value": 1080,
+        "instancePosition": {},
+        "instanceStyle": {
+          "classes": ""
+        }
+      }
+    ],
+    "MetadataObject": "{\"key1\": \"test\", \"key2\": 56.2, \"key3\": false, \"key4\": 1080}"
+  },
+  "params": {
+    "value": {
+      "Metadata": "{\"key1\": \"test\", \"key2\": 56.2, \"key3\": false, \"key4\": 1080}"
+    }
+  },
+  "propConfig": {
+    "custom.Instances": {
+      "binding": {
+        "config": {
+          "path": "view.custom.MetadataObject"
+        },
+        "transforms": [
+          {
+            "code": "\timport json\n\tif value is None:\n\t\tsystem.perspective.print(\"fail\")\n\telse:\n\n\t\n\t\tinstances \u003d []\n\t\tJSON \u003d json.loads(value)\n\t\t\n\t\t\n\t\tfor key in JSON:\n\t\t\tinstances.append({\n\t\t\t\t\"instanceStyle\": {\"classes\": \"\"},\n\t\t\t\t\"instancePosition\": {},\n\t\t\t\t\"Key\": key,\n\t\t\t\t\"Value\": JSON[key]\n\t\t\t})\n\t\t\n\t\treturn instances",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "custom.MetadataObject": {
+      "binding": {
+        "config": {
+          "path": "view.params.value"
+        },
+        "transforms": [
+          {
+            "code": "\treturn value.Metadata",
+            "type": "script"
+          }
+        ],
+        "type": "property"
+      },
+      "persistent": true
+    },
+    "params.value": {
+      "paramDirection": "input",
+      "persistent": true
+    }
+  },
+  "props": {
+    "defaultSize": {
+      "height": 67,
+      "width": 364
+    }
+  },
+  "root": {
+    "children": [
+      {
+        "meta": {
+          "name": "Instances"
+        },
+        "position": {
+          "basis": "320px",
+          "grow": 1
+        },
+        "propConfig": {
+          "props.instances": {
+            "binding": {
+              "config": {
+                "path": "view.custom.Instances"
+              },
+              "type": "property"
+            }
+          }
+        },
+        "props": {
+          "path": "App/TrackAndTrace/History (Test)/Embedded/MetadataView",
+          "wrap": "wrap"
+        },
+        "type": "ia.display.flex-repeater"
+      }
+    ],
+    "meta": {
+      "name": "root"
+    },
+    "props": {
+      "direction": "column"
+    },
+    "type": "ia.container.flex"
+  }
+}
