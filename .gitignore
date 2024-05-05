@@ -1,6 +1,4 @@
-**/.DS_Store
 
-.gitignore
 *.txt
 
 # Blacklist everything
@@ -12,13 +10,6 @@
 # Whitelist Ignition's 'projects' directory and our directories
 !projects
 
-# Blacklist directories that I dont want saved (secrets, etc)
-#\secrets*
-#\backups*
-#\db-backups*
-#\tags*
-#gateway_backup.gwbk/*
-
 # Always blacklist the projects/.resources directory because IA says so
 \.resources*
 #projects/site1/.resources/*
@@ -26,3 +17,13 @@
 #projects/site1/conversion-report.txt
 #projects/site2/conversion-report.txt
 projects\conversion-report.txt
+
+// Blacklist the .vscode directory
+\.vscode*
+
+# Blacklist directories that I dont want saved (secrets, etc)
+#\secrets*
+#\backups*
+#\db-backups*
+#\tags*
+#gateway_backup.gwbk/*
